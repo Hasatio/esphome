@@ -1,4 +1,4 @@
-#include "pca9685_output.h"
+#include "pca9685custom_output.h"
 #include "esphome/core/log.h"
 #include "esphome/core/helpers.h"
 #include "esphome/core/hal.h"
