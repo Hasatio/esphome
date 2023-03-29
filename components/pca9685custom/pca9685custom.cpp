@@ -1,7 +1,7 @@
 #include "esphome/core/log.h"
 #include "esphome/core/helpers.h"
 #include "esphome/core/hal.h"
-#include "pca9685custom_output.h"
+#include "pca9685custom.h"
 
 namespace esphome {
 namespace pca9685custom {
