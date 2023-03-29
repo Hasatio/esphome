@@ -18,6 +18,9 @@ extern const uint8_t PCA9685custom_MODE_OUTNE_HIGHZ;
 /// Similarly, sets channel output to high if in totem-pole mode, otherwise
 extern const uint8_t PCA9685custom_MODE_OUTNE_LOW;
 
+float a = 2;
+float b = 1;
+
 class PCA9685customOutput;
 
 class PCA9685customChannel : public output::FloatOutput {
@@ -54,7 +57,7 @@ class PCA9685customOutput : public Component, public i2c::I2CDevice {
   void set_channel_value_(uint8_t channel, uint16_t value) {
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
-    this->pwm_amounts_[channel] = value;
+    this->pwm_amounts_[channel] = value*a+b;
   }
 
   float frequency_;
