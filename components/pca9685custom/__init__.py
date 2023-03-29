@@ -7,7 +7,7 @@ DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
 
 pca9685custom_ns = cg.esphome_ns.namespace("pca9685custom")
-PCA9685Output = pca9685custom_ns.class_("PCA9685Output", cg.Component, i2c.I2CDevice)
+PCA9685customOutput = pca9685custom_ns.class_("PCA9685customOutput", cg.Component, i2c.I2CDevice)
 
 
 def validate_frequency(config):
@@ -25,7 +25,7 @@ def validate_frequency(config):
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(PCA9685Output),
+            cv.GenerateID(): cv.declare_id(PCA9685customOutput),
             cv.Optional(CONF_FREQUENCY): cv.All(
                 cv.frequency, cv.Range(min=23.84, max=1525.88)
             ),

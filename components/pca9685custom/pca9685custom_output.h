@@ -8,38 +8,38 @@ namespace esphome {
 namespace pca9685custom {
 
 /// Inverts polarity of channel output signal
-extern const uint8_t PCA9685_MODE_INVERTED;
+extern const uint8_t PCA9685custom_MODE_INVERTED;
 /// Channel update happens upon ACK (post-set) rather than on STOP (endTransmission)
-extern const uint8_t PCA9685_MODE_OUTPUT_ONACK;
+extern const uint8_t PCA9685custom_MODE_OUTPUT_ONACK;
 /// Use a totem-pole (push-pull) style output rather than an open-drain structure.
-extern const uint8_t PCA9685_MODE_OUTPUT_TOTEM_POLE;
+extern const uint8_t PCA9685custom_MODE_OUTPUT_TOTEM_POLE;
 /// For active low output enable, sets channel output to high-impedance state
-extern const uint8_t PCA9685_MODE_OUTNE_HIGHZ;
+extern const uint8_t PCA9685custom_MODE_OUTNE_HIGHZ;
 /// Similarly, sets channel output to high if in totem-pole mode, otherwise
-extern const uint8_t PCA9685_MODE_OUTNE_LOW;
+extern const uint8_t PCA9685custom_MODE_OUTNE_LOW;
 
-class PCA9685Output;
+class PCA9685customOutput;
 
-class PCA9685Channel : public output::FloatOutput {
+class PCA9685customChannel : public output::FloatOutput {
  public:
   void set_channel(uint8_t channel) { channel_ = channel; }
-  void set_parent(PCA9685Output *parent) { parent_ = parent; }
+  void set_parent(PCA9685customOutput *parent) { parent_ = parent; }
 
  protected:
-  friend class PCA9685Output;
+  friend class PCA9685customOutput;
 
   void write_state(float state) override;
 
   uint8_t channel_;
-  PCA9685Output *parent_;
+  PCA9685customOutput *parent_;
 };
 
 /// PCA9685 float output component.
-class PCA9685Output : public Component, public i2c::I2CDevice {
+class PCA9685customOutput : public Component, public i2c::I2CDevice {
  public:
-  PCA9685Output(uint8_t mode = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE) : mode_(mode) {}
+  PCA9685customOutput(uint8_t mode = PCA9685custom_MODE_OUTPUT_ONACK | PCA9685custom_MODE_OUTPUT_TOTEM_POLE) : mode_(mode) {}
 
-  void register_channel(PCA9685Channel *channel);
+  void register_channel(PCA9685customChannel *channel);
 
   void setup() override;
   void dump_config() override;
@@ -49,7 +49,7 @@ class PCA9685Output : public Component, public i2c::I2CDevice {
   void set_frequency(float frequency) { this->frequency_ = frequency; }
 
  protected:
-  friend PCA9685Channel;
+  friend PCA9685customChannel;
 
   void set_channel_value_(uint8_t channel, uint16_t value) {
     if (this->pwm_amounts_[channel] != value)
