@@ -68,6 +68,8 @@ double offset = 0.0;
   void set_current_volume_dosed(sensor::Sensor *current_volume_dosed) { current_volume_dosed_ = current_volume_dosed; }
 #endif
 
+  void dose_volume(double volume);
+
  protected:
 
 #ifdef USE_SENSOR
@@ -75,12 +77,23 @@ double offset = 0.0;
 #endif
 
   friend PCA9685customChannel;
+/*
+template<typename... Ts> class EzoPMPDoseVolumeAction : public Action<Ts...> {
+ public:
+  EzoPMPDoseVolumeAction(EzoPMP *ezopmp) : ezopmp_(ezopmp) {}
 
+  void play(Ts... x) override { this->ezopmp_->dose_volume(this->volume_.value(x...)); }
+  TEMPLATABLE_VALUE(double, volume)
+
+ protected:
+  EzoPMP *ezopmp_;
+};
+*/
   void set_channel_value_(uint8_t channel, double value) {
     if (this->pwm_amounts_[channel] != (int)value)
       this->update_ = true;
     this->pwm_amounts_[channel] = value*gain+offset;
-// TEMPLATABLE_VALUE(double, value)
+
   }
 
   float frequency_;
