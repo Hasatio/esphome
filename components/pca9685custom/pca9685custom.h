@@ -4,6 +4,18 @@
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/i2c/i2c.h"
 
+#ifdef USE_BINARY_SENSOR
+#include "esphome/components/binary_sensor/binary_sensor.h"
+#endif
+
+#ifdef USE_SENSOR
+#include "esphome/components/sensor/sensor.h"
+#endif
+
+#ifdef USE_TEXT_SENSOR
+#include "esphome/components/text_sensor/text_sensor.h"
+#endif
+
 namespace esphome {
 namespace pca9685custom {
 
@@ -38,8 +50,8 @@ class PCA9685customChannel : public output::FloatOutput {
 class PCA9685customOutput : public Component, public i2c::I2CDevice {
  public:
 
-float a = 2.0;
-float b = 1.0;
+float gain = 1.0;
+float offset = 0.0;
 
   PCA9685customOutput(uint8_t mode = PCA9685custom_MODE_OUTPUT_ONACK | PCA9685custom_MODE_OUTPUT_TOTEM_POLE) : mode_(mode) {}
 
@@ -52,13 +64,18 @@ float b = 1.0;
   void set_extclk(bool extclk) { this->extclk_ = extclk; }
   void set_frequency(float frequency) { this->frequency_ = frequency; }
 
+#ifdef USE_SENSOR
+  void set_current_volume_dosed(sensor::Sensor *current_volume_dosed) { current_volume_dosed_ = current_volume_dosed; }
+#endif
+
  protected:
   friend PCA9685customChannel;
 
   void set_channel_value_(uint8_t channel, uint16_t value) {
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
-    this->pwm_amounts_[channel] = value*a+b;
+    this->pwm_amounts_[channel] = value*gain+offset;
+TEMPLATABLE_VALUE(double, value)
   }
 
   float frequency_;
