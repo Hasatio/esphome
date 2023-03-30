@@ -69,6 +69,11 @@ float offset = 0.0;
 #endif
 
  protected:
+
+#ifdef USE_SENSOR
+  sensor::Sensor *current_volume_dosed_{nullptr};
+#endif
+
   friend PCA9685customChannel;
 
   void set_channel_value_(uint8_t channel, uint16_t value) {
