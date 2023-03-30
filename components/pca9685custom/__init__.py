@@ -11,7 +11,7 @@ MULTI_CONF = True
 
 CONF_VOLUME = "volume"
 
-pca9685custom _ns = cg.esphome_ns.namespace("pca9685custom")
+pca9685custom_ns = cg.esphome_ns.namespace("pca9685custom")
 PCA9685customOutput = pca9685custom_ns.class_("PCA9685customOutput", cg.Component, i2c.I2CDevice)
 
 
