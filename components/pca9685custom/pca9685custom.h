@@ -50,8 +50,8 @@ class PCA9685customChannel : public output::FloatOutput {
 class PCA9685customOutput : public Component, public i2c::I2CDevice {
  public:
 
-float gain = 1.0;
-float offset = 0.0;
+double gain = 1.0;
+double offset = 0.0;
 
   PCA9685customOutput(uint8_t mode = PCA9685custom_MODE_OUTPUT_ONACK | PCA9685custom_MODE_OUTPUT_TOTEM_POLE) : mode_(mode) {}
 
@@ -76,8 +76,8 @@ float offset = 0.0;
 
   friend PCA9685customChannel;
 
-  void set_channel_value_(uint8_t channel, uint16_t value) {
-    if (this->pwm_amounts_[channel] != value)
+  void set_channel_value_(uint8_t channel, double value) {
+    if (this->pwm_amounts_[channel] != (int)value)
       this->update_ = true;
     this->pwm_amounts_[channel] = value*gain+offset;
 // TEMPLATABLE_VALUE(double, value)
