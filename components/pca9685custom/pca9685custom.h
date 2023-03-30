@@ -77,22 +77,22 @@ double offset = 0.0;
 #endif
 
   friend PCA9685customChannel;
-/*
-template<typename... Ts> class EzoPMPDoseVolumeAction : public Action<Ts...> {
- public:
-  EzoPMPDoseVolumeAction(EzoPMP *ezopmp) : ezopmp_(ezopmp) {}
 
-  void play(Ts... x) override { this->ezopmp_->dose_volume(this->volume_.value(x...)); }
+template<typename... Ts> class PCA9685customOutputDoseVolumeAction : public Action<Ts...> {
+ public:
+  PCA9685customOutputDoseVolumeAction(PCA9685customOutput *PCA9685custom) : PCA9685custom_(PCA9685custom) {}
+
+  void play(Ts... x) override { this->PCA9685custom_->dose_volume(this->volume_.value(x...)); }
   TEMPLATABLE_VALUE(double, volume)
 
  protected:
-  EzoPMP *ezopmp_;
+  PCA9685customOutput *PCA9685custom_;
 };
-*/
-  void set_channel_value_(uint8_t channel, double value) {
-    if (this->pwm_amounts_[channel] != (int)value)
+
+  void set_channel_value_(uint8_t channel, double value2) {
+    if (this->pwm_amounts_[channel] != (int)value2)
       this->update_ = true;
-    this->pwm_amounts_[channel] = value*gain+offset;
+    this->pwm_amounts_[channel] = value2*gain+offset;
 
   }
 

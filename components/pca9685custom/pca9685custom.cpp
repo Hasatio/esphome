@@ -8,6 +8,14 @@ namespace pca9685custom {
 
 static const char *const TAG = "pca9685custom";
 
+static const uint16_t PCA9685custom_COMMAND_NONE = 0;
+static const uint16_t PCA9685custom_COMMAND_TYPE_READ = 1;
+static const uint16_t PCA9685custom_COMMAND_DOSE_VOLUME = 8;
+static const uint16_t PCA9685custom_COMMAND_READ_DOSING = 3;
+static const uint16_t PCA9685custom_COMMAND_READ_SINGLE_REPORT = 5;
+static const std::string DOSING_MODE_NONE = "None";
+static const std::string DOSING_MODE_VOLUME = "Volume";
+
 const uint8_t PCA9685custom_MODE_INVERTED = 0x10;
 const uint8_t PCA9685custom_MODE_OUTPUT_ONACK = 0x08;
 const uint8_t PCA9685custom_MODE_OUTPUT_TOTEM_POLE = 0x04;
@@ -151,6 +159,158 @@ void PCA9685customChannel::write_state(float state) {
   const float duty_rounded = roundf(state * max_duty);
   auto duty = static_cast<uint16_t>(duty_rounded);
   this->parent_->set_channel_value_(this->channel_, duty);
+}
+
+void PCA9685customOutput::queue_command_(uint16_t command, double volume, int duration, bool should_schedule) {
+  if (!should_schedule) {
+    return;
+  }
+
+  if (this->next_command_queue_length_ >= 10) {
+    ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
+    return;
+  }
+
+  this->next_command_queue_[this->next_command_queue_last_] = command;
+  this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
+  this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
+
+  ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
+
+  // Move positions
+  next_command_queue_last_++;
+  if (next_command_queue_last_ >= 10) {
+    next_command_queue_last_ = 0;
+  }
+
+  next_command_queue_length_++;
+}
+
+void PCA9685customOutput::read_command_result_() {
+  uint8_t response_buffer[21] = {'\0'};
+
+  response_buffer[0] = 0;
+  if (!this->read_bytes_raw(response_buffer, 20)) {
+    ESP_LOGE(TAG, "read error");
+    this->clear_current_command_();
+    return;
+  }
+
+  switch (response_buffer[0]) {
+    case 254:
+      return;  // keep waiting
+    case 1:
+      break;
+    case 2:
+      ESP_LOGE(TAG, "device returned a syntax error");
+      this->clear_current_command_();
+      return;
+    case 255:
+      ESP_LOGE(TAG, "device returned no data");
+      this->clear_current_command_();
+      return;
+    default:
+      ESP_LOGE(TAG, "device returned an unknown response: %d", response_buffer[0]);
+      this->clear_current_command_();
+      return;
+  }
+
+  char first_parameter_buffer[10] = {'\0'};
+  char second_parameter_buffer[10] = {'\0'};
+  char third_parameter_buffer[10] = {'\0'};
+
+  first_parameter_buffer[0] = '\0';
+  second_parameter_buffer[0] = '\0';
+  third_parameter_buffer[0] = '\0';
+
+  int current_parameter = 1;
+
+  size_t position_in_parameter_buffer = 0;
+  // some sensors return multiple comma-separated values, terminate string after first one
+  for (size_t i = 1; i < sizeof(response_buffer) - 1; i++) {
+    char current_char = response_buffer[i];
+
+    if (current_char == '\0') {
+      ESP_LOGV(TAG, "Read Response from device: %s", (char *) response_buffer);
+      ESP_LOGV(TAG, "First Component: %s", (char *) first_parameter_buffer);
+      ESP_LOGV(TAG, "Second Component: %s", (char *) second_parameter_buffer);
+      ESP_LOGV(TAG, "Third Component: %s", (char *) third_parameter_buffer);
+
+      break;
+    }
+
+    if (current_char == ',') {
+      current_parameter++;
+      position_in_parameter_buffer = 0;
+      continue;
+    }
+
+    switch (current_parameter) {
+      case 1:
+        first_parameter_buffer[position_in_parameter_buffer] = current_char;
+        first_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+        break;
+      case 2:
+        second_parameter_buffer[position_in_parameter_buffer] = current_char;
+        second_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+        break;
+      case 3:
+        third_parameter_buffer[position_in_parameter_buffer] = current_char;
+        third_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+        break;
+    }
+
+    position_in_parameter_buffer++;
+  }
+
+  auto parsed_first_parameter = parse_number<float>(first_parameter_buffer);
+  auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
+  auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
+
+  switch (this->current_command_) {
+    // Read Commands
+    case PCA9685custom_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
+      if (this->dosing_mode_ && this->dosing_mode_->state != DOSING_MODE_VOLUME)
+        this->dosing_mode_->publish_state(DOSING_MODE_VOLUME);
+      break;
+    default:
+      ESP_LOGE(TAG, "Unsupported command received: %d", this->current_command_);
+      return;
+  }
+
+  this->clear_current_command_();
+}
+
+void PCA9685customOutput::send_next_command_() {
+  int wait_time_for_command = 500;  // milliseconds
+  uint8_t command_buffer[21];
+  int command_buffer_length = 0;
+
+  this->pop_next_command_();  // this->next_command will be updated.
+  switch (this->next_command_) {
+    // Read Commands
+    case PCA9685custom_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
+      command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f", this->next_command_volume_);
+      break;
+    default:
+      ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
+      return;
+  }
+  // Send command
+  ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
+  this->write(command_buffer, command_buffer_length);
+
+  this->current_command_ = this->next_command_;
+  this->next_command_ = PCA9685custom_COMMAND_NONE;
+  this->is_waiting_ = true;
+  this->start_time_ = millis();
+  this->wait_time_ = wait_time_for_command;
+}
+	
+void PCA9685customOutput::dose_volume(double volume) {
+  this->queue_command_(PCA9685custom_COMMAND_DOSE_VOLUME, volume, 0, true);
+  this->queue_command_(PCA9685custom_COMMAND_READ_DOSING, 0, 0, true);
+  this->queue_command_(PCA9685custom_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
 }
 
 }  // namespace pca9685custom
