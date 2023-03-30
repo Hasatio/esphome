@@ -11,7 +11,7 @@ MULTI_CONF = True
 
 CONF_VOLUME = "volume"
 
-pca9685custom_ns = cg.esphome_ns.namespace("pca9685custom")
+pca9685custom _ns = cg.esphome_ns.namespace("pca9685custom")
 PCA9685customOutput = pca9685custom_ns.class_("PCA9685customOutput", cg.Component, i2c.I2CDevice)
 
 
@@ -51,7 +51,7 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
 
-PCA9685customDoseVolumeAction = pca9685_ns.class_("PCA9685customDoseVolumeAction", automation.Action)
+PCA9685customDoseVolumeAction = pca9685custom_ns.class_("PCA9685customDoseVolumeAction", automation.Action)
 
 PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     {
@@ -64,9 +64,9 @@ PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
 
 
 @automation.register_action(
-    "pca9685.dose_volume", PCA9685customDoseVolumeAction, PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA
+    "pca9685custom.dose_volume", PCA9685customDoseVolumeAction, PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA
 )
-async def pca9685_dose_volume_to_code(config, action_id, template_arg, args):
+async def pca9685custom_dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
