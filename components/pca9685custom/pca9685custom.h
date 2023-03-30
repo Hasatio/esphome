@@ -1,5 +1,7 @@
 #pragma once
 
+#include "esphome/core/defines.h"
+#include "esphome/core/automation.h"
 #include "esphome/core/component.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/i2c/i2c.h"
@@ -86,7 +88,7 @@ template<typename... Ts> class PCA9685customOutputDoseVolumeAction : public Acti
   TEMPLATABLE_VALUE(double, volume)
 
  protected:
-  PCA9685customOutput *PCA9685custom_;
+  PCA9685customOutput *pca9685custom_;
 };
 
   void set_channel_value_(uint8_t channel, double value2) {
