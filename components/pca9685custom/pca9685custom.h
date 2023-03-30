@@ -80,7 +80,7 @@ float offset = 0.0;
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
     this->pwm_amounts_[channel] = value*gain+offset;
-# TEMPLATABLE_VALUE(double, value)
+// TEMPLATABLE_VALUE(double, value)
   }
 
   float frequency_;
