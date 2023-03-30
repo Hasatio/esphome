@@ -51,11 +51,11 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
 
-PCA9685customDoseVolumeAction = pca9685custom_ns.class_("PCA9685customDoseVolumeAction", automation.Action)
+PCA9685customOutputDoseVolumeAction = pca9685custom_ns.class_("PCA9685customOutputDoseVolumeAction", automation.Action)
 
 PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     {
-        cv.Required(CONF_ID): cv.use_id(PCA9685custom),
+        cv.Required(CONF_ID): cv.use_id(PCA9685customOutput),
         cv.Required(CONF_VOLUME): cv.templatable(
             cv.float_range()
         ),  # Any way to represent as proper volume (vs. raw int)
@@ -64,7 +64,7 @@ PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
 
 
 @automation.register_action(
-    "pca9685custom.dose_volume", PCA9685customDoseVolumeAction, PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA
+    "pca9685custom.dose_volume", PCA9685customOutputDoseVolumeAction, PCA9685custom_DOSE_VOLUME_ACTION_SCHEMA
 )
 async def pca9685custom_dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
