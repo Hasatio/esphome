@@ -80,9 +80,9 @@ double offset = 0.0;
 
 template<typename... Ts> class PCA9685customOutputDoseVolumeAction : public Action<Ts...> {
  public:
-  PCA9685customOutputDoseVolumeAction(PCA9685customOutput *PCA9685custom) : PCA9685custom_(PCA9685custom) {}
+  PCA9685customOutputDoseVolumeAction(PCA9685customOutput *pca9685custom) : pca9685custom_(pca9685custom) {}
 
-  void play(Ts... x) override { this->PCA9685custom_->dose_volume(this->volume_.value(x...)); }
+  void play(Ts... x) override { this->pca9685custom_->dose_volume(this->volume_.value(x...)); }
   TEMPLATABLE_VALUE(double, volume)
 
  protected:
