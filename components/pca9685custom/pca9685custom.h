@@ -71,8 +71,14 @@ double offset = 0.0;
 #endif
 
   void dose_volume(double volume);
+  void pause_dosing();
+  void stop_dosing();
 
  protected:
+
+  void send_next_command_();
+  void read_command_result_();
+  void queue_command_(uint16_t command, double volume, int duration, bool should_schedule);
 
 #ifdef USE_SENSOR
   sensor::Sensor *current_volume_dosed_{nullptr};
