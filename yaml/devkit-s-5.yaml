@@ -1,0 +1,376 @@
+substitutions:
+  devicename: "devkit-s-5"
+
+esphome:
+  name: $devicename
+  friendly_name: $devicename
+
+  includes:
+    - adxl345.h
+    - max17048.h
+    # - bluetooth.h
+
+  libraries:
+    # - "Grove 3-Axis Digital Gyro"
+    - "Wire"
+    - "SPI"
+    - "Adafruit BusIO"
+    - "Adafruit Unified Sensor"
+    - "Adafruit ADXL345"
+    - "BluetoothSerial"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  # level: VERY_VERBOSE
+
+# Enable Home Assistant API
+api:
+  # encryption:
+  #   key: "w+G+whi1sZBrH0e85fiiZ7hJVVAqck5ktppVC1BW56E="
+  # password: '1234'
+  reboot_timeout: 0s
+
+ota:
+
+
+wifi:
+  ssid: !secret wifi_ssid2
+  password: !secret wifi_password2
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: ${devicename}
+    password: ${devicename}
+
+  fast_connect: true
+  # power_save_mode: none
+  
+captive_portal:
+
+web_server:
+  port: 80
+  css_url: v3
+  include_internal: True
+  local: True
+  version: 2
+
+
+i2c:
+  id: i2c0
+  sda: GPIO21
+  scl: GPIO22
+  scan: True
+  frequency: 800kHz
+
+
+ads1115:
+  - address: 0x48
+    i2c_id: i2c0
+    id: ads1115_hub0
+    continuous_mode: True
+
+  - address: 0x49
+    i2c_id: i2c0
+    id: ads1115_hub1
+    continuous_mode: True
+
+  - address: 0x4a
+    i2c_id: i2c0
+    id: ads1115_hub2
+    continuous_mode: True
+
+  - address: 0x4b
+    i2c_id: i2c0
+    id: ads1115_hub3
+    continuous_mode: True
+
+sensor:
+  - platform: internal_temperature
+    name: "Internal Temperature"
+    update_interval: 1s
+
+  - platform: template
+    name: "Template Sensor"
+    lambda: |-
+      SerialBT.println(String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33)+","+
+      String(3.33));
+      SerialBT.flush();
+      return (3.33);
+    update_interval: 0ms
+
+  - platform: ads1115
+    multiplexer: A0_GND
+    ads1115_id : ads1115_hub0
+    gain: 4.096
+    name: "ADS1115 1"
+    id: "ADS1115_1"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A1_GND
+    ads1115_id : ads1115_hub0
+    gain: 4.096
+    name: "ADS1115 2"
+    id: "ADS1115_2"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A2_GND
+    ads1115_id : ads1115_hub0
+    gain: 4.096
+    name: "ADS1115 3"
+    id: "ADS1115_3"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A3_GND
+    ads1115_id : ads1115_hub0
+    gain: 4.096
+    name: "ADS1115 4"
+    id: "ADS1115_4"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A0_GND
+    ads1115_id : ads1115_hub1
+    gain: 4.096
+    name: "ADS1115 5"
+    id: "ADS1115_5"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A1_GND
+    ads1115_id : ads1115_hub1
+    gain: 4.096
+    name: "ADS1115 6"
+    id: "ADS1115_6"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A2_GND
+    ads1115_id : ads1115_hub1
+    gain: 4.096
+    name: "ADS1115 7"
+    id: "ADS1115_7"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A3_GND
+    ads1115_id : ads1115_hub1
+    gain: 4.096
+    name: "ADS1115 8"
+    id: "ADS1115_8"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A0_GND
+    ads1115_id : ads1115_hub2
+    gain: 4.096
+    name: "ADS1115 9"
+    id: "ADS1115_9"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A1_GND
+    ads1115_id : ads1115_hub2
+    gain: 4.096
+    name: "ADS1115 10"
+    id: "ADS1115_10"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A2_GND
+    ads1115_id : ads1115_hub2
+    gain: 4.096
+    name: "ADS1115 11"
+    id: "ADS1115_11"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A3_GND
+    ads1115_id : ads1115_hub2
+    gain: 4.096
+    name: "ADS1115 12"
+    id: "ADS1115_12"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A0_GND
+    ads1115_id : ads1115_hub3
+    gain: 4.096
+    name: "ADS1115 13"
+    id: "ADS1115_13"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A1_GND
+    ads1115_id : ads1115_hub3
+    gain: 4.096
+    name: "ADS1115 14"
+    id: "ADS1115_14"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A2_GND
+    ads1115_id : ads1115_hub3
+    gain: 4.096
+    name: "ADS1115 15"
+    id: "ADS1115_15"
+    update_interval: 0ms
+    internal: true
+    disabled_by_default: true
+
+  - platform: ads1115
+    multiplexer: A3_GND
+    ads1115_id : ads1115_hub3
+    gain: 4.096
+    name: "ADS1115 16"
+    id: "ADS1115_16"
+    update_interval: 0ms  
+    internal: true
+    disabled_by_default: true
+  
+  - platform: custom
+    lambda: |-
+      auto max17048_sensor = new MAX17048Sensor();
+      App.register_component(max17048_sensor);
+      return {max17048_sensor->voltage_sensor, max17048_sensor->percentage_sensor};
+    sensors:
+      - name: "Voltage"
+        id: max17048_v
+        unit_of_measurement: V
+        accuracy_decimals: 2
+      - name: "Percentage"
+        id: max17048_p
+        unit_of_measurement: '%'
+
+  - platform: custom
+    id: adxl345
+    lambda: |-
+        auto adxl345 = new ADXL345Sensor();
+        App.register_component(adxl345);
+        return { adxl345->accel_x_sensor, adxl345->accel_y_sensor, adxl345->accel_z_sensor };
+    sensors:
+    - name: "Acceleration X"
+      id: adxl345_x
+      accuracy_decimals: 2
+    - name: "Acceleration Y"
+      id: adxl345_y
+      accuracy_decimals: 2
+    - name: "Acceleration Z"
+      id: adxl345_z
+      accuracy_decimals: 2
+
+
+custom_component:
+- lambda: |-
+    auto mybluetooth = new MyBluetoothComponent();
+    return {mybluetooth};
+
+# - lambda: |-
+#     auto my_custom = new MyCustomComponent();
+#     return {my_custom};
+
+
+button:
+  - platform: restart
+    name: "Restart"
+
+
+light:
+  - platform: status_led
+    name: "status led"
+    id: status
+    pin: 
+      number: GPIO13
+      mode:
+        output: True
+      inverted: False
+    on_state:
+      if:
+        condition:
+          wifi.connected:
+        then:
+        - light.turn_on: 
+            id: led
+            effect: strobe
+
+  - platform: binary
+    name: "led"
+    id: led
+    output: o13
+    effects:
+      - strobe:
+          name: strobe
+          colors:
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              duration: 50ms
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              duration: 200ms
+
+
+output:    
+  - platform: gpio
+    id: o13
+    pin: 
+      number: GPIO13
+      mode:
+        output: True
+      inverted: False
