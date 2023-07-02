@@ -134,7 +134,7 @@ void BME680BSECComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "BME680 via BSEC:");
 
   bsec_version_t version;
-  bsec_get_version_m(&version);
+  bsec_get_version_m(,&version);
   ESP_LOGCONFIG(TAG, "  BSEC Version: %d.%d.%d.%d", version.major, version.minor, version.major_bugfix,
                 version.minor_bugfix);
 
