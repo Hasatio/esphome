@@ -20,7 +20,7 @@ void BME680BSECComponent::setup() {
   ESP_LOGCONFIG(TAG, "Setting up BME680 via BSEC...");
   BME680BSECComponent::instance = this;
 
-  this->bsec_status_ = bsec_init();
+  this->bsec_status_ = bsec_init_m();
   if (this->bsec_status_ != BSEC_OK) {
     this->mark_failed();
     return;
@@ -38,7 +38,7 @@ void BME680BSECComponent::setup() {
     return;
   }
   #ifdef BME680_BSEC_CONFIGURATION
-  this->set_config_(bsec_configuration, sizeof(bsec_configuration));
+  this->set_config_(bsec_configuration_m, sizeof(bsec_configuration_m));
   if (this->bsec_status_ != BSEC_OK) {
     this->mark_failed();
     return;
@@ -62,7 +62,7 @@ void BME680BSECComponent::set_config_(const uint8_t *config, uint32_t len) {
     return;
   }
   uint8_t work_buffer[BSEC_MAX_PROPERTY_BLOB_SIZE];
-  this->bsec_status_ = bsec_set_configuration(config, len, work_buffer, sizeof(work_buffer));
+  this->bsec_status_ = bsec_set_configuration_m(config, len, work_buffer, sizeof(work_buffer));
 }
 
 float BME680BSECComponent::calc_sensor_sample_rate_(SampleRate sample_rate) {
@@ -127,14 +127,14 @@ void BME680BSECComponent::update_subscription_() {
   bsec_sensor_configuration_t sensor_settings[BSEC_MAX_PHYSICAL_SENSOR];
   uint8_t num_sensor_settings = BSEC_MAX_PHYSICAL_SENSOR;
   this->bsec_status_ =
-      bsec_update_subscription(virtual_sensors, num_virtual_sensors, sensor_settings, &num_sensor_settings);
+      bsec_update_subscription_m(virtual_sensors, num_virtual_sensors, sensor_settings, &num_sensor_settings);
 }
 
 void BME680BSECComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "BME680 via BSEC:");
 
   bsec_version_t version;
-  bsec_get_version(&version);
+  bsec_get_version_m(&version);
   ESP_LOGCONFIG(TAG, "  BSEC Version: %d.%d.%d.%d", version.major, version.minor, version.major_bugfix,
                 version.minor_bugfix);
 
@@ -191,7 +191,7 @@ void BME680BSECComponent::run_() {
   ESP_LOGV(TAG, "Performing sensor run");
 
   struct bme68x_conf bme680_conf;
-  this->bsec_status_ = bsec_sensor_control(curr_time_ns, &bsec_settings);
+  this->bsec_status_ = bsec_sensor_control_m(curr_time_ns, &bsec_settings);
   if (this->bsec_status_ < BSEC_OK) {
     ESP_LOGW(TAG, "Failed to fetch sensor control settings (BSEC Error Code %d)", this->bsec_status_);
     return;
@@ -358,7 +358,7 @@ void BME680BSECComponent::read_(int64_t trigger_time_ns) {
 
     bsec_output_t outputs[BSEC_NUMBER_OUTPUTS];
     uint8_t num_outputs = BSEC_NUMBER_OUTPUTS;
-    this->bsec_status_ = bsec_do_steps(inputs, num_inputs, outputs, &num_outputs);
+    this->bsec_status_ = bsec_do_steps_m(inputs, num_inputs, outputs, &num_outputs);
     if (this->bsec_status_ != BSEC_OK) {
       ESP_LOGW(TAG, "BSEC failed to process signals (BSEC Error Code %d)", this->bsec_status_);
       return;
