@@ -459,7 +459,7 @@ void BME680BSECComponent::load_state_() {
   if (this->bsec_state_.load(&state)) {
     ESP_LOGV(TAG, "Loading state");
     uint8_t work_buffer[BSEC_MAX_WORKBUFFER_SIZE];
-    this->bsec_status_ = bsec_set_state(state, BSEC_MAX_STATE_BLOB_SIZE, work_buffer, sizeof(work_buffer));
+    this->bsec_status_ = bsec_set_state_m(state, BSEC_MAX_STATE_BLOB_SIZE, work_buffer, sizeof(work_buffer));
     if (this->bsec_status_ != BSEC_OK) {
       ESP_LOGW(TAG, "Failed to load state (BSEC Error Code %d)", this->bsec_status_);
     }
@@ -479,7 +479,7 @@ void BME680BSECComponent::save_state_(uint8_t accuracy) {
   uint32_t num_serialized_state = BSEC_MAX_STATE_BLOB_SIZE;
 
   this->bsec_status_ =
-      bsec_get_state(0, state, BSEC_MAX_STATE_BLOB_SIZE, work_buffer, BSEC_MAX_STATE_BLOB_SIZE, &num_serialized_state);
+      bsec_get_state_m(0, state, BSEC_MAX_STATE_BLOB_SIZE, work_buffer, BSEC_MAX_STATE_BLOB_SIZE, &num_serialized_state);
   if (this->bsec_status_ != BSEC_OK) {
     ESP_LOGW(TAG, "Failed fetch state for save (BSEC Error Code %d)", this->bsec_status_);
     return;
