@@ -8,8 +8,9 @@
 #include "esphome/core/defines.h"
 #include <map>
 
-
-#include <bsec2.h>
+#ifdef USE_BSEC
+#include <bsec.h>
+#endif
 
 namespace esphome {
 namespace bme680_bsec {
