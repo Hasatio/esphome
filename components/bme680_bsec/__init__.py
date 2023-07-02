@@ -72,5 +72,3 @@ async def to_code(config):
         "1.1.40406",
         "https://github.com/BoschSensortec/Bosch-BME68x-Library.git",
     )
-    cg.add_library("BoschSensortec/Bosch-BSEC2-Library")
-    cg.add_library("BoschSensortec/BME680_driver")
