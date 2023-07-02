@@ -62,7 +62,7 @@ void BME680BSECComponent::set_config_(const uint8_t *config, uint32_t len) {
     return;
   }
   uint8_t work_buffer[BSEC_MAX_PROPERTY_BLOB_SIZE];
-  this->bsec_status_ = bsec_set_configuration_m(config, len, work_buffer, sizeof(work_buffer));
+  this->bsec_status_ = bsec_set_configuration_m("",config, len, work_buffer, sizeof(work_buffer));
 }
 
 float BME680BSECComponent::calc_sensor_sample_rate_(SampleRate sample_rate) {
