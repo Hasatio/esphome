@@ -1,5 +1,5 @@
 #include "esphome.h"
-#include <Wire.h>
+//#include <Wire.h>
 
 #define MAX17048_ADDRESS        0x36
 #define MAX17048_VCELL          0x02 // voltage
@@ -14,7 +14,7 @@ class MAX17048Sensor : public PollingComponent, public Sensor {
   Sensor *voltage_sensor = new Sensor();
   Sensor *percentage_sensor = new Sensor();
 
-  MAX17048Sensor() : PollingComponent(10000) {}
+  MAX17048Sensor() : PollingComponent(1000) {}
 
   void setup() override {
     // Initialize the device here. Usually Wire.begin() will be called in here,
