@@ -9,7 +9,7 @@
 #include <map>
 
 #ifdef USE_BSEC
-#include <bsec2.h>
+#include <bsec.h>
 #endif
 
 namespace esphome {
