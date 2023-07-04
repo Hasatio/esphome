@@ -4,7 +4,8 @@ from esphome.components import output
 from esphome.const import CONF_ID
 from . import custom, custom_ns
 
-CONFIG_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend(
+CONFIG_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend
+(
 {
     cv.Required(CONF_ID): cv.declare_id(Custom),
 }
