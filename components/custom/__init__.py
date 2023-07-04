@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import i2c, sensor, output
 from esphome.const import CONF_ID
 
-DEPENDENCIES = ['i2c']
+#DEPENDENCIES = ['i2c']
 
 custom_ns = cg.esphome_ns.namespace('custom')
 Custom = custom_ns.class_('Custom', output.FloatOutput, cg.Component)
