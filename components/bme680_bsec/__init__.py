@@ -49,7 +49,6 @@ CONFIG_SCHEMA = cv.All(
         }
     ).extend(i2c.i2c_device_schema(0x76)),
     cv.only_with_arduino,
-    esp32.only_on_variant(supported=[esp32.const.VARIANT_ESP32]),
 )
 
 
