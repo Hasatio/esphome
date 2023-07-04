@@ -16,7 +16,7 @@ void Custom::loop(){
 
 void Custom::write_state(float state){
 
-    ESP_LOGD(TAG, "Empty custom float output",state));
+    ESP_LOGD(TAG, "Empty custom float output",state);
 }
 
 void Custom::dump_config() {
