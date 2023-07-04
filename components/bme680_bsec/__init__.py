@@ -5,7 +5,7 @@ from esphome.const import CONF_ID
 
 CODEOWNERS = ["@trvrnrth"]
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["sensor", "text_sensor"]
+AUTO_LOAD = ["sensor", "text_sensor", "spi"]
 MULTI_CONF = True
 
 CONF_BME680_BSEC_ID = "bme680_bsec_id"
@@ -49,13 +49,7 @@ CONFIG_SCHEMA = cv.All(
         }
     ).extend(i2c.i2c_device_schema(0x76)),
     cv.only_with_arduino,
-    cv.Any(
-        cv.only_on_esp8266,
-        cv.All(
-            cv.only_on_esp32,
-            esp32.only_on_variant(supported=[esp32.const.VARIANT_ESP32]),
-        ),
-    ),
+    esp32.only_on_variant(supported=[esp32.const.VARIANT_ESP32]),
 )
 
 
