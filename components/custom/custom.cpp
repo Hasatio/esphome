@@ -10,6 +10,10 @@ void Custom::setup(){
 
 }
 
+void Custom::loop(){
+
+}
+
 void Custom::write_state(float state){
 
 }

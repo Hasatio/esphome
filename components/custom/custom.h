@@ -11,6 +11,7 @@ class Custom : public output::FloatOutput, public Component, public i2c::I2CDevi
  public:
   void setup() override;
   void write_state(float state) override;
+  void loop() override;
   void dump_config() override;
 };
 
