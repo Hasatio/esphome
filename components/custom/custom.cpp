@@ -4,7 +4,7 @@
 namespace esphome {
 namespace custom {
 
-static const char *TAG = "custom.output";
+static const char *TAG = "custom";
 
 void Custom::setup(){
 
@@ -15,8 +15,8 @@ void Custom::write_state(float state){
 }
 
 void Custom::dump_config() {
-    ESP_LOGCONFIG(TAG, "Empty custom float output");
+    ESP_LOGCONFIG(TAG, "custom float output");
 }
 
-} //namespace empty_float_output
+} //namespace custom
 } //namespace esphome
