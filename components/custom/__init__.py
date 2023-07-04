@@ -16,5 +16,5 @@ cv.Schema(
 )
 .extend(cv.COMPONENT_SCHEMA)
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
