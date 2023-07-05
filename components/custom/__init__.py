@@ -20,7 +20,13 @@ def final_validate_device_schema(
     name: str,
     *,
     baud_rate: Optional[int] = None
-)
+):
+def validate_baud_rate(value):
+        if value != baud_rate:
+            raise cv.Invalid(
+                f"Component {name} required baud rate {baud_rate} for the uart bus"
+            )
+        return value
 
 def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
