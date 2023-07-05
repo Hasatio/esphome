@@ -4,6 +4,9 @@
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/i2c/i2c.h"
 
+#include "uart.h"
+#include "uart_component.h"
+
 namespace esphome {
 namespace custom {
 
