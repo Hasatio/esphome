@@ -18,13 +18,19 @@ void Custom::loop(){
 void Custom::write_state(float state){
 
     ESP_LOGD(TAG, "Empty custom float output",state);
+    int value = state * 1024;
+    analogWrite(13, value);
+    this->set_level(state != this->inverted_ ? 1.0f : 0.0f);
 }
 
 void Custom::dump_config() {
-    int value = state * 1024;
-    analogWrite(13, value)
-    ESP_LOGCONFIG(TAG, "custom float output");
+
 }
+
+void UARTDevice::check_uart_settings(uint32_t baud_rate){
+  {
+    ESP_LOGE(TAG, "  Invalid baud_rate: Integration requested baud_rate %u but you have %u!", baud_rate,
+  }
 
 } //namespace custom
 } //namespace esphome

@@ -13,6 +13,16 @@ class Custom : public output::FloatOutput, public Component, public i2c::I2CDevi
   void write_state(float state) override;
   void loop() override;
   void dump_config() override;
+
+
+  void set_baud_rate(uint32_t baud_rate) { baud_rate_ = baud_rate; }
+  uint32_t get_baud_rate() const { return baud_rate_; }
+
+  void check_uart_settings(uint32_t baud_rate);
+
+protected:
+  uint32_t baud_rate_;
+
 };
 
 
