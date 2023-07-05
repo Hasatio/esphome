@@ -21,7 +21,7 @@ def final_validate_device_schema(
     *,
     baud_rate: Optional[int] = None
 ):
-def validate_baud_rate(value):
+  def validate_baud_rate(value):
         if value != baud_rate:
             raise cv.Invalid(
                 f"Component {name} required baud rate {baud_rate} for the uart bus"
