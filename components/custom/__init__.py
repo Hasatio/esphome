@@ -21,7 +21,7 @@ CONFIG_SCHEMA = cv.Schema({
 def final_validate_device_schema(
     name: str,
     *,
-    baud_rate: Optional[int] = None
+    baud_rate: Optional[int] = None,
 ):
   def validate_baud_rate(value):
         if value != baud_rate:
