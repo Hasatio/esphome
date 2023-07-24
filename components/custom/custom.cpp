@@ -5,6 +5,7 @@ namespace custom {
 
 static const char *TAG = "custom";
 
+float vr=0.0;
 void Custom::setup(){
 
     pinMode(13, OUTPUT);
@@ -14,6 +15,7 @@ void Custom::setup(){
 
 void Custom::loop(){
 
+    ESP_LOGD(TAG, "setup %f",vr);
 }
 
 void Custom::write_state(float state){
