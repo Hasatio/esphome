@@ -17,7 +17,7 @@ Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(Custom),
     cv.Optional(CONF_BAUD_RATE): cv.int_range(min=1),
-    cv.Optional(CONF_VARIABLES): cv.int_range(min=0.0)
+    cv.Optional(CONF_VARIABLES): cv.float_
 }).extend(cv.COMPONENT_SCHEMA)
 
 
