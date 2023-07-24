@@ -16,7 +16,7 @@ void Custom::loop(){
 
 void Custom::write_state(float state){
 
-    ESP_LOGD(TAG, "Empty custom float output",state);
+    ESP_LOGD(TAG, "Empty custom float output %f",state);
     int value = state * 1024;
     analogWrite(13, value);
     this->set_level(state != this->inverted_ ? 1.0f : 0.0f);
