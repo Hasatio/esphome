@@ -1,8 +1,10 @@
 #pragma once
 
+#include "esphome.h"
 #include "esphome/core/component.h"
 #include "esphome/components/output/float_output.h"
 #include "esphome/components/i2c/i2c.h"
+#include "esphome/core/log.h"
 
 //#include "esphome\components\uart\uart.h"
 //#include "esphome\components\uart\uart_component.h"
