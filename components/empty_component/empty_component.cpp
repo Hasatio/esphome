@@ -14,7 +14,7 @@ void EmptyComponent::loop() {
 
 }
 
-void EmptyFloatOutput::write_state(float state){
+void EmptyComponent::write_state(float state){
 
 }
 
