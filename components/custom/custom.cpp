@@ -8,10 +8,13 @@ static const char *TAG = "custom";
 void Custom::setup(){
 
     pinMode(13, OUTPUT);
+    
+    ESP_LOGD(TAG, "setup");
 }
 
 void Custom::loop(){
 
+    ESP_LOGD(TAG, "loop");
 }
 
 void Custom::write_state(float state){
