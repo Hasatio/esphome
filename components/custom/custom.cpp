@@ -1,4 +1,5 @@
 #include "custom.h"
+#include "esphome/core/log.h"
 
 namespace esphome {
 namespace custom {
