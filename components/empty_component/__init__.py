@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import output
 from esphome.const import CONF_ID
 
-empty_component_ns = cg.esphome_ns.namespace('empty_component')
+empty_component_ns = cg.esphome_ns.namespace('empty_component') # esphome component adı "empty_component"
 EmptyComponent = empty_component_ns.class_('EmptyComponent', output.FloatOutput, cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({cv.GenerateID(): cv.declare_id(EmptyComponent)}).extend(cv.COMPONENT_SCHEMA)
