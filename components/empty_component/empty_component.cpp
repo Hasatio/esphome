@@ -14,6 +14,10 @@ void EmptyComponent::loop() {
 
 }
 
+void EmptyFloatOutput::write_state(float state){
+
+}
+
 void EmptyComponent::dump_config(){
     ESP_LOGCONFIG(TAG, "Empty component");
 }
