@@ -15,7 +15,7 @@ void Custom::setup(){
 
 void Custom::loop(){
 
-    ESP_LOGD(TAG, "setup %f",vr);
+    ESP_LOGD(TAG, "loop %f",vr);
 }
 
 void Custom::write_state(float state){
