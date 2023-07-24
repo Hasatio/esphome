@@ -28,7 +28,7 @@ void Custom::dump_config() {
 
 void Custom::check_uart_settings(uint32_t baud_rate){
 
-    ESP_LOGE(TAG, "  Invalid baud_rate: Integration requested baud_rate %u but you have %u!", baud_rate,
+    ESP_LOGE(TAG, "  Invalid baud_rate: you have %u!", baud_rate,
   }
 
 } //namespace custom
