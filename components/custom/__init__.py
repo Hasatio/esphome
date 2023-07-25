@@ -40,3 +40,11 @@ def to_code(config):
     yield output.register_output(var, config)
     cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
     
+async def custom_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    template_ = await cg.templatable(config[CONF_ON_CUSTOM], args, cg.double)
+    cg.add(var.set_volume(template_))
+
+    return var
