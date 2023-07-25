@@ -15,6 +15,7 @@ CONF_ON_CUSTOM = "on_custom"
 
 custom_ns = cg.esphome_ns.namespace("custom")
 Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
+Custom_automation = custom_ns.class_("Custom_automation", automation.Action)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(Custom),
@@ -28,12 +29,13 @@ CUSTOM_SCHEMA = maybe_simple_id(
 )
 
 @automation.register_action(
-    "custom.set_variables", 
-    CUSTOM_SCHEMA)
+    "custom.set_variables",
+    Custom_automation,
+    CUSTOM_SCHEMA,)
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    yield cg.register_component(var, config)
-    yield output.register_output(var, config)
+    await cg.register_component(var, config)
+    await output.register_output(var, config)
     cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
     
