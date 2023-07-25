@@ -7,6 +7,8 @@ from esphome.const import (
 CONF_ID,
 CONF_VARIABLES
 )
+from esphome import automation
+from esphome.automation import maybe_simple_id
 
 #DEPENDENCIES = ["i2c"]
 CONF_ON_CUSTOM = "on_custom"
