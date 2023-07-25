@@ -11,7 +11,7 @@ from esphome import automation
 from esphome.automation import maybe_simple_id
 
 #DEPENDENCIES = ["i2c"]
-CONF_ON_CUSTOM = "var"
+CONF_ON_CUSTOM = "on_custom"
 
 custom_ns = cg.esphome_ns.namespace("custom")
 Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
@@ -19,14 +19,13 @@ Custom_action = custom_ns.class_("Custom_action", automation.Action)
 
 CONFIG_SCHEMA = (cv.Schema({
     cv.GenerateID(): cv.declare_id(Custom),
-    cv.Optional(CONF_ON_CUSTOM): cv.templatable(cv.float_range())
 }).extend(cv.COMPONENT_SCHEMA)
 )
 
 CUSTOM_ACTION_SCHEMA = maybe_simple_id(
     {
         cv.Required(CONF_ID): cv.use_id(Custom),
-        cv.Optional(CONF_ON_CUSTOM): cv.templatable(cv.float_range())
+        cv.Optional(CONF_ON_CUSTOM): cv.templatable(cv.float_range()),
     }
 )
 
@@ -35,9 +34,9 @@ CUSTOM_ACTION_SCHEMA = maybe_simple_id(
     Custom_action,
     CUSTOM_ACTION_SCHEMA,)
 
-async def to_code(config):
+def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
-    await output.register_output(var, config)
+    yield cg.register_component(var, config)
+    yield output.register_output(var, config)
     cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
     
