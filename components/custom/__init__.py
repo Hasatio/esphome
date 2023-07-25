@@ -19,12 +19,13 @@ Custom_automation = custom_ns.class_("Custom_automation", automation.Action)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(Custom),
-    cv.Optional(CONF_ON_CUSTOM): cv.float_
+    cv.Optional(CONF_ON_CUSTOM): cv.float_,
 }).extend(cv.COMPONENT_SCHEMA)
 
 CUSTOM_SCHEMA = maybe_simple_id(
     {
-        cv.Required(CONF_ID): cv.use_id(Custom),
+        cv.Required(CONF_ID): cv.use_id(Custom),,
+        cv.Optional(CONF_ON_CUSTOM): cv.float_,
     }
 )
 
