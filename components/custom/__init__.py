@@ -17,10 +17,11 @@ custom_ns = cg.esphome_ns.namespace("custom")
 Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
 Custom_automation = custom_ns.class_("Custom_automation", automation.Action)
 
-CONFIG_SCHEMA = cv.Schema({
+CONFIG_SCHEMA = (cv.Schema({
     cv.GenerateID(): cv.declare_id(Custom),
     cv.Optional(CONF_ON_CUSTOM): cv.float_,
 }).extend(cv.COMPONENT_SCHEMA)
+)
 
 CUSTOM_SCHEMA = maybe_simple_id(
     {
