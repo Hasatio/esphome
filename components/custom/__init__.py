@@ -11,7 +11,7 @@ from esphome import automation
 from esphome.automation import maybe_simple_id
 
 #DEPENDENCIES = ["i2c"]
-CONF_ON_CUSTOM = "on_custom"
+CONF_ON_CUSTOM = "var"
 
 custom_ns = cg.esphome_ns.namespace("custom")
 Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
