@@ -21,9 +21,15 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Optional(CONF_ON_CUSTOM): cv.float_
 }).extend(cv.COMPONENT_SCHEMA)
 
+CUSTOM_SCHEMA = maybe_simple_id(
+    {
+        cv.Required(CONF_ID): cv.use_id(Custom),
+    }
+)
+
 @automation.register_action(
     "custom.set_variables", 
-    CONFIG_SCHEMA)
+    CUSTOM_SCHEMA)
 
 def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
