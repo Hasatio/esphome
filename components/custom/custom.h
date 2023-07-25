@@ -31,6 +31,18 @@ protected:
 
 };
 
+template<typename... Ts> class Custom_action : public Action<Ts...> {
+ public:
+  Custom_action(Custom *cus) : custom_(cus) {}
+
+  void play(Ts... x) override {
+    this->custom_->set_variables(this->var.value(x...));
+  }
+  TEMPLATABLE_VALUE(double, volume)
+
+ protected:
+  EzoPMP *custom_;
+};
 
 } //namespace custom
 } //namespace esphome
