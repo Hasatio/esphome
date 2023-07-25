@@ -24,7 +24,7 @@ CONFIG_SCHEMA = cv.Schema({
 
 CUSTOM_SCHEMA = maybe_simple_id(
     {
-        cv.Required(CONF_ID): cv.use_id(Custom),,
+        cv.Required(CONF_ID): cv.use_id(Custom),
         cv.Optional(CONF_ON_CUSTOM): cv.float_,
     }
 )
