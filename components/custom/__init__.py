@@ -40,7 +40,8 @@ CUSTOM_ACTION_SCHEMA = maybe_simple_id(
 @automation.register_action(
     "custom.set_variables",
     Custom_action,
-    CUSTOM_ACTION_SCHEMA)
+    CUSTOM_ACTION_SCHEMA,
+)
     
 async def custom_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
