@@ -19,18 +19,18 @@ CONFIG_SCHEMA = (cv.Schema({
 }).extend(cv.COMPONENT_SCHEMA)
 )
 
+async def to_code(config):
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+    await output.register_output(var, config)
+    cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
+    
 CUSTOM_ACTION_SCHEMA = maybe_simple_id(
     {
         cv.Required(CONF_ID): cv.use_id(Custom),
         cv.Optional(CONF_ON_CUSTOM): cv.templatable(cv.float_range()),
     }
 )
-
-async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
-    await output.register_output(var, config)
-    cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
     
 @automation.register_action(
     "custom.set_variables",
