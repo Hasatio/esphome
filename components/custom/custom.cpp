@@ -34,7 +34,7 @@ void Custom::check_uart_settings(uint32_t baud_rate){
 
     ESP_LOGD(TAG, "  Invalid baud_rate: you have %d!", baud_rate);
   }
-void Custom::set_variables(double *var){
+void Custom::set_variables(double *var,double x){
 vr=var;
     ESP_LOGD(TAG, "var");
 }
