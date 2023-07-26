@@ -33,7 +33,7 @@ template<typename... Ts> class Custom_action : public Action<Ts...> {
   void play(Ts... x) override {
     this->custom_->set_variables(this->var_.value(x...));
   }
-  TEMPLATABLE_VALUE(double, var)
+  TEMPLATABLE_VALUE(double, *var)
 
  protected:
   Custom *custom_;
