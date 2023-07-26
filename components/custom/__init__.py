@@ -26,16 +26,16 @@ CUSTOM_ACTION_SCHEMA = maybe_simple_id(
     }
 )
 
-@automation.register_action(
-    "custom.set_variables",
-    Custom_action,
-    CUSTOM_ACTION_SCHEMA)
-
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     # await output.register_output(var, config)
     cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
+    
+@automation.register_action(
+    "custom.set_variables",
+    Custom_action,
+    CUSTOM_ACTION_SCHEMA)
     
 # async def custom_to_code(config, action_id, template_arg, args):
 #     paren = await cg.get_variable(config[CONF_ID])
