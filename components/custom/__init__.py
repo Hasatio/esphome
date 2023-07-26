@@ -26,10 +26,10 @@ CUSTOM_ACTION_SCHEMA = maybe_simple_id(
     }
 )
 
-@automation.register_action(
-    "custom.set_variables",
-    Custom_action,
-    CUSTOM_ACTION_SCHEMA,)
+# @automation.register_action(
+#     "custom.set_variables",
+#     Custom_action,
+#     CUSTOM_ACTION_SCHEMA,)
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
