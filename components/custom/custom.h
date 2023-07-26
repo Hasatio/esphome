@@ -38,7 +38,7 @@ template<typename... Ts> class Custom_action : public Action<Ts...> {
   void play(Ts... x) override {
     this->custom_->set_variables(this->var.value(x...));
   }
-  TEMPLATABLE_VALUE(double, volume)
+  TEMPLATABLE_VALUE(double *volume)
 
  protected:
   EzoPMP *custom_;
