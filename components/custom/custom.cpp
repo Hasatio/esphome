@@ -30,7 +30,7 @@ void Custom::dump_config() {
 
 }
 
-void Custom::set_variables(double *var){
+void Custom::set_variables(double var){
 vr=var;
     ESP_LOGD(TAG, "var");
 }
