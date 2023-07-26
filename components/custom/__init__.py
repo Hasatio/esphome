@@ -42,6 +42,6 @@ async def custom_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     template_ = await cg.templatable(config[CONF_ON_CUSTOM], args, cg.double)
-    cg.add(var.set_volume(template_))
+    cg.add(var.set_variables(template_))
 
     return var
