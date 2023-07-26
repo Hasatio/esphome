@@ -31,7 +31,7 @@ template<typename... Ts> class Custom_action : public Action<Ts...> {
   Custom_action(Custom *cus) : custom_(cus) {}
 
   void play(Ts... x) override {
-    this->custom_->set_variables(this->var_.value(x...));
+    this->custom->set_variables(this->var_.value(x...));
   }
   TEMPLATABLE_VALUE(double, var)
 
