@@ -5,7 +5,7 @@ namespace custom {
 
 static const char *TAG = "custom";
 
-double *vr;
+double vr;
 void Custom::setup(){
 
     pinMode(13, OUTPUT);
