@@ -24,7 +24,7 @@ class Custom : public output::FloatOutput, public Component, public i2c::I2CDevi
   // uint32_t get_baud_rate() const { return baud_rate_; }
 
   void check_uart_settings(uint32_t baud_rate);
-  void set_variables(double var);
+  void set_variables(double *var);
 
 protected:
   uint32_t baud_rate_;
@@ -38,10 +38,10 @@ template<typename... Ts> class Custom_action : public Action<Ts...> {
   void play(Ts... x) override {
     this->custom_->set_variables(this->var.value(x...));
   }
-  TEMPLATABLE_VALUE(double *volume)
+  TEMPLATABLE_VALUE(double, volume)
 
  protected:
-  EzoPMP *custom_;
+  Custom *custom_;
 };
 
 } //namespace custom
