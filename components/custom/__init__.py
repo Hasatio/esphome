@@ -3,10 +3,7 @@ from typing import Optional
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import i2c, sensor, output
-from esphome.const import (
-CONF_ID,
-CONF_VARIABLES
-)
+from esphome.const import (CONF_ID)
 from esphome import automation
 from esphome.automation import maybe_simple_id
 
