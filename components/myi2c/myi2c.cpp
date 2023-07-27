@@ -11,7 +11,7 @@ namespace myi2c {
     // sensor *sayi = new sensor();
     
     int sayac = 0;
-    float x = 0.0;
+    float mygain = 0.0;
     char *btname = "ESP32";
 
     int16_t adc[16];
@@ -27,7 +27,7 @@ void Myi2c::device(char *name = "ESP32s")
 
 void Myi2c::gain(float g)
 {
-    x = g;
+    mygain = g;
 }
 
 void Myi2c::setup()
@@ -208,22 +208,22 @@ void Myi2c::loop()
     adc14 = ads4.readADC_SingleEnded(2);
     adc15 = ads4.readADC_SingleEnded(3);
  
-    volts0 = ads1.computeVolts(adc0) * x;
-    volts1 = ads1.computeVolts(adc1) * x;
-    volts2 = ads1.computeVolts(adc2) * x;
-    volts3 = ads1.computeVolts(adc3) * x;
-    volts4 = ads2.computeVolts(adc4) * x;
-    volts5 = ads2.computeVolts(adc5) * x;
-    volts6 = ads2.computeVolts(adc6) * x;
-    volts7 = ads2.computeVolts(adc7) * x;
-    volts8 = ads3.computeVolts(adc8) * x;
-    volts9 = ads3.computeVolts(adc9) * x;
-    volts10 = ads3.computeVolts(adc10) * x;
-    volts11 = ads3.computeVolts(adc11) * x;
-    volts12 = ads4.computeVolts(adc12) * x;
-    volts13 = ads4.computeVolts(adc13) * x;
-    volts14 = ads4.computeVolts(adc14) * x;
-    volts15 = ads4.computeVolts(adc15) * x;
+    volts0 = ads1.computeVolts(adc0) * mygain;
+    volts1 = ads1.computeVolts(adc1) * mygain;
+    volts2 = ads1.computeVolts(adc2) * mygain;
+    volts3 = ads1.computeVolts(adc3) * mygain;
+    volts4 = ads2.computeVolts(adc4) * mygain;
+    volts5 = ads2.computeVolts(adc5) * mygain;
+    volts6 = ads2.computeVolts(adc6) * mygain;
+    volts7 = ads2.computeVolts(adc7) * mygain;
+    volts8 = ads3.computeVolts(adc8) * mygain;
+    volts9 = ads3.computeVolts(adc9) * mygain;
+    volts10 = ads3.computeVolts(adc10) * mygain;
+    volts11 = ads3.computeVolts(adc11) * mygain;
+    volts12 = ads4.computeVolts(adc12) * mygain;
+    volts13 = ads4.computeVolts(adc13) * mygain;
+    volts14 = ads4.computeVolts(adc14) * mygain;
+    volts15 = ads4.computeVolts(adc15) * mygain;
 
       SerialBT.println(String(volts0)+","+
                        String(volts1)+","+
