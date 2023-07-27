@@ -1,7 +1,7 @@
 #include "myi2c.h"
 
 namespace esphome {
-namespace myi2c{
+namespace myi2c {
 
     // Sensor *accel_x_sensor = new Sensor();
     // Sensor *accel_y_sensor = new Sensor();
