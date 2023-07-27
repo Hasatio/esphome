@@ -15,9 +15,9 @@ void Custom::loop(){
     ESP_LOGD(TAG, "loop %f",vr);
 }
 
-void Custom::set_variables(double var){
-vr=var;
-    ESP_LOGD(TAG, "var: %f", var);
+void Custom::set_variables(double a){
+    vr=a;
+    ESP_LOGD(TAG, "var: %f", a);
 }
 
 } //namespace custom
