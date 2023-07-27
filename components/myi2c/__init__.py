@@ -7,7 +7,7 @@ from esphome.const import (CONF_ID)
 
 #DEPENDENCIES = ["i2c"]
 CONF_MY_GAIN = "gain"
-CONF_MY_GSIN = "bt_name"
+CONF_MY_GSIN = "hebele"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı
 Myi2c = i2c_ns.class_("Myi2c", cg.Component)
