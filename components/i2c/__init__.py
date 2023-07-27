@@ -16,7 +16,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
         cv.GenerateID(): cv.declare_id(Custom),
-        cv.Optional(CONF_MY_OUTPUT): cv.float_
+        cv.Optional(CONF_MY_OUTPUT): cv.float_,
         cv.Optional(CONF_MY_BLUETOOTH): cv.std_string
         }
     )
