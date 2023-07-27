@@ -201,6 +201,12 @@ void Myi2c::setup()
 
 void Myi2c::loop()
 {
+    if(SerialBT.available())
+      {
+        mygain = SerialBT.read();
+        ESP_LOGD("data", "data: %f",mygain);
+      }
+    
     // for(int i=0;i<4;i++)
     // {
     //   adc[i] = ads1.readADC_SingleEnded(i);
@@ -269,7 +275,7 @@ void Myi2c::loop()
     volts13 = ads4.computeVolts(adc13) * mygain;
     volts14 = ads4.computeVolts(adc14) * mygain;
     volts15 = ads4.computeVolts(adc15) * mygain;
-
+    
       SerialBT.println(String(volts0)+","+
                        String(volts1)+","+
                        String(volts2)+","+
