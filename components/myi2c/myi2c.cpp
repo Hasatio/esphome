@@ -3,8 +3,6 @@
 namespace esphome {
 namespace myi2c{
 
-   float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
-
     Sensor *accel_x_sensor = new Sensor();
     Sensor *accel_y_sensor = new Sensor();
     Sensor *accel_z_sensor = new Sensor();
