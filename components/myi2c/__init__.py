@@ -17,7 +17,7 @@ CONFIG_SCHEMA = (
         {
         cv.GenerateID(): cv.declare_id(Myi2c),
         # cv.Optional(CONF_MY_OUTPUT): cv.float_range(),
-        cv.Optional(CONF_MY_BLUETOOTH): cv.string,
+        # cv.Optional(CONF_MY_BLUETOOTH): cv.string,
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
@@ -27,4 +27,4 @@ def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     yield cg.register_component(var, config)
     # cg.add(var.gain(config[CONF_MY_OUTPUT]))
-    cg.add(var.device(config[CONF_MY_BLUETOOTH]))
+    # cg.add(var.device(config[CONF_MY_BLUETOOTH]))
