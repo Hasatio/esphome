@@ -56,7 +56,7 @@ TwoWire I2C_1 = TwoWire(0);
 namespace esphome {
 namespace myi2c {
 
-class Myi2cComponent : public Component, public i2c::I2CDevice, public Sensor {
+class Myi2cComponent : public Component, /*public i2c::I2CDevice,*/ public Sensor {
 public:
     float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
