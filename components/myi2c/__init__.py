@@ -6,7 +6,7 @@ from esphome.components import i2c, sensor, output
 from esphome.const import (CONF_ID)
 
 #DEPENDENCIES = ["i2c"]
-CONF_MY_GAIN = "gain",
+CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı
