@@ -10,7 +10,7 @@ CONF_MY_OUTPUT = "output"
 CONF_MY_BLUETOOTH = "bluetooth"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c")
-Myi2c = i2c_ns.class_("Myi2c", cg.Component)
+Myi2c = i2c_ns.class_("Myi2c", output.FloatOutput, cg.Component)
 
 CONFIG_SCHEMA = (
     cv.Schema(
