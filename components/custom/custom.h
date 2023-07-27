@@ -12,7 +12,7 @@
 namespace esphome {
 namespace custom {
 
-class Custom : public output::FloatOutput, public Component, public i2c::I2CDevice {
+class Custom : public Component, public i2c::I2CDevice {
  public:
   void setup() override;
   void loop() override;
@@ -20,7 +20,6 @@ class Custom : public output::FloatOutput, public Component, public i2c::I2CDevi
   void set_variables(double a);
 
 protected:
-  uint32_t baud_rate_;
 
 };
 
