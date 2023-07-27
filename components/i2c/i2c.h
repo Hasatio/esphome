@@ -1,8 +1,21 @@
+#pragma once
+
 #include "esphome.h"
+#include "esphome/core/log.h"
+#include "esphome/core/time.h"
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
-#include "Adafruit_MAX1704X.h"
-#include "bluetooth.h"
+#include <Adafruit_MAX1704X.h>
+#include <BluetoothSerial.h>
+using namespace std;
+
+BluetoothSerial SerialBT;
+
+int BT;
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth off--Run `make menuconfig` to enable it
+#endif
 
 //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
 Adafruit_ADS1115 ads1;
@@ -18,7 +31,7 @@ Adafruit_MAX17048 maxlipo;
 #define SDA 21
 #define SCL 22
 #define freq 800000
-
+/*
 #define SDA_1 32
 #define SCL_1 33
 #define freq_1 800000
@@ -34,28 +47,45 @@ Adafruit_MAX17048 maxlipo;
 #define SDA_4 9
 #define SCL_4 10
 #define freq_4 800000
-
+*/
 #define address1 0x48
 #define address2 0x49
-#define address3 0x48
-#define address4 0x49
+#define address3 0x4a
+#define address4 0x4b
 
 TwoWire I2C_1 = TwoWire(0);
-TwoWire I2C_2 = TwoWire(1);
+//TwoWire I2C_2 = TwoWire(1);
 
-namespace esphome {
-namespace myi2c {
 
-class Myi2cComponent : public Component {
+class Myi2cComponent : public Component, public i2c::I2CDevice, public Sensor {
 public:
     float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
+    Sensor *accel_x_sensor = new Sensor();
+    Sensor *accel_y_sensor = new Sensor();
+    Sensor *accel_z_sensor = new Sensor();
+    Sensor *voltage_sensor = new Sensor();
+    Sensor *percentage_sensor = new Sensor();
+    Sensor *sayi = new Sensor();
+    
+    int sayac = 0;
+
+    char *btname = "ESP32";
+
+void device(char *name){
+    btname = name;
+    }
+    
 void setup() override {
+
+    SerialBT.begin(btname);
+    ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
     Wire.begin();
-    Wire1.begin(SDA_1, SCL_1, freq_1);
+    //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
 
@@ -72,22 +102,22 @@ void setup() override {
     bool status4 = ads4.begin(address4,&Wire);
     if (!status1)
     {
-      Serial.println("Failed to initialize ADS1115_1.");
+      SerialBT.println("Failed to initialize ADS1115_1.");
       while (1);
     }
     if (!status2)
     {
-      Serial.println("Failed to initialize ADS1115_2.");
+      SerialBT.println("Failed to initialize ADS1115_2.");
       while (1);
     }
     if (!status3)
     {
-      Serial.println("Failed to initialize ADS1115_3.");
+      SerialBT.println("Failed to initialize ADS1115_3.");
       while (1);
     }
     if (!status4)
     {
-      Serial.println("Failed to initialize ADS1115_4.");
+      SerialBT.println("Failed to initialize ADS1115_4.");
       while (1);
     }
 
@@ -164,12 +194,51 @@ void setup() override {
       Serial.println("Failed to initialize MAX17048.");
       while (1);
     }
+
+    int16_t adc[16];
+    float volts[16], x, y, z, voltage, percentage;
+    char *data = {};
+    int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7, adc8, adc9, adc10, adc11, adc12, adc13, adc14, adc15;
+    float volts0, volts1, volts2, volts3, volts4, volts5, volts6, volts7, volts8, volts9, volts10, volts11, volts12, volts13, volts14, volts15;
 }
 
 void loop() override{
 
-    int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7, adc8, adc9, adc10, adc11, adc12, adc13, adc14, adc15;
-    float volts0, volts1, volts2, volts3, volts4, volts5, volts6, volts7, volts8, volts9, volts10, volts11, volts12, volts13, volts14, volts15;
+
+    // for(int i=0;i<4;i++)
+    // {
+    //   adc[i] = ads1.readADC_SingleEnded(i);
+    //   volts[i] = ads1.computeVolts(adc[i]);
+    //   data = data + String(volts[i]) + ",";
+    // }
+    // for(int i=4;i<8;i++)
+    // {
+    //   adc[i] = ads2.readADC_SingleEnded(i);
+    //   volts[i] = ads2.computeVolts(adc[i]);
+    //   data = data + String(volts[i]) + ",";
+    // }
+    // for(int i=8;i<12;i++)
+    // {
+    //   adc[i] = ads3.readADC_SingleEnded(i);
+    //   volts[i] = ads3.computeVolts(adc[i]);
+    //   data = data + String(volts[i]) + ",";
+    // }
+    // for(int i=12;i<16;i++)
+    // {
+    //   adc[i] = ads4.readADC_SingleEnded(i);
+    //   volts[i] = ads4.computeVolts(adc[i]);
+    //   data = data + String(volts[i]) + ",";
+    // }
+
+    // x = accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    // y = accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    // z = accel.getZ() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    // voltage = maxlipo.cellVoltage();
+    // percentage = maxlipo.cellPercent();
+    
+    // data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage);
+
+    // SerialBT.println(data);
  
     adc0 = ads1.readADC_SingleEnded(0);
     adc1 = ads1.readADC_SingleEnded(1);
@@ -205,8 +274,6 @@ void loop() override{
     volts14 = ads4.computeVolts(adc14);
     volts15 = ads4.computeVolts(adc15);
 
-    if(SerialBT.available())
-    {
       SerialBT.println(String(volts0)+","+
                        String(volts1)+","+
                        String(volts2)+","+
@@ -223,29 +290,20 @@ void loop() override{
                        String(volts13)+","+
                        String(volts14)+","+
                        String(volts15)+","+
-		       String(accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD)+","+
-		       String(accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD)+","+
-		       String(accel.getZ() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD)+","+
-		       String(maxlipo.cellPercent()));
-    }
-    /*
-    ESP_LOGD("data","-----------------------------------------------------------");
-    ESP_LOGD("data", "AIN0: %f",volts0);
-    ESP_LOGD("data", "AIN1: %f",volts1);
-    ESP_LOGD("data", "AIN2: %f",volts2);
-    ESP_LOGD("data", "AIN3: %f",volts3);
-    ESP_LOGD("data", "AIN4: %f",volts4);
-    ESP_LOGD("data", "AIN5: %f",volts5);
-    ESP_LOGD("data", "AIN6: %f",volts6);
-    ESP_LOGD("data", "AIN7: %f",volts7);
-    ESP_LOGD("data", "AIN8: %f",volts8);
-    ESP_LOGD("data", "AIN9: %f",volts9);
-    ESP_LOGD("data", "AIN10: %f",volts10);
-    ESP_LOGD("data", "AIN11: %f",volts11);
-    ESP_LOGD("data", "AIN12: %f",volts12);
-    ESP_LOGD("data", "AIN13: %f",volts13);
-    ESP_LOGD("data", "AIN14: %f",volts14);
-    ESP_LOGD("data", "AIN15: %f",volts15);*/
+                       String(x)+","+
+                       String(y)+","+
+                       String(z)+","+
+                       String(percentage));
+    sayac += 1;
+
+    // accel_x_sensor->publish_state(x);
+    // accel_y_sensor->publish_state(y);
+    // accel_z_sensor->publish_state(z);
+    
+    // voltage_sensor->publish_state(voltage);
+    // percentage_sensor->publish_state(percentage);
+    sayi->publish_state(sayac);
+
   }
 };
 } //namespace myi2c
