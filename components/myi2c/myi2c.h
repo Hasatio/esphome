@@ -60,6 +60,8 @@ class Myi2c : public Component, public Sensor
 {
 public:
 
+   float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+
 void device(char *name);
 
 void gain(float g);
