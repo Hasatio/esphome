@@ -8,7 +8,7 @@ namespace myi2c {
     // Sensor *accel_z_sensor = new Sensor();
     // Sensor *voltage_sensor = new Sensor();
     // Sensor *percentage_sensor = new Sensor();
-    sensor *sayi = new sensor();
+    // sensor *sayi = new sensor();
     
     int sayac = 0;
     float x = 0.0;
@@ -253,7 +253,7 @@ void Myi2c::loop()
     
     // voltage_sensor->publish_state(voltage);
     // percentage_sensor->publish_state(percentage);
-    sayi->publish_state(sayac);
+    // sayi->publish_state(sayac);
 }
 
 } //namespace myi2c
