@@ -25,7 +25,7 @@ CONFIG_SCHEMA = (
 
 def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    # yield output.register_output(var, config)
+    yield output.register_output(var, config)
     yield cg.register_component(var, config)
     cg.add(var.gain(config[CONF_MY_OUTPUT]))
     cg.add(var.device(config[CONF_MY_BLUETOOTH]))
