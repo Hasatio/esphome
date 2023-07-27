@@ -3,7 +3,7 @@
 namespace esphome {
 namespace custom {
 
-void Myi2cComponent::device(char *name)
+void Myi2cComponent::device(char *name = "ESP32s")
 {
     btname = name;
 }
@@ -15,12 +15,16 @@ void Myi2cComponent::gain(float g)
 
 void Myi2cComponent::setup()
 {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  bt
+    
     SerialBT.begin(btname);
     ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
+    
     Wire.begin();
     //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
