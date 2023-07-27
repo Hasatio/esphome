@@ -3,11 +3,11 @@
 namespace esphome {
 namespace myi2c{
 
-    Sensor *accel_x_sensor = new Sensor();
-    Sensor *accel_y_sensor = new Sensor();
-    Sensor *accel_z_sensor = new Sensor();
-    Sensor *voltage_sensor = new Sensor();
-    Sensor *percentage_sensor = new Sensor();
+    // Sensor *accel_x_sensor = new Sensor();
+    // Sensor *accel_y_sensor = new Sensor();
+    // Sensor *accel_z_sensor = new Sensor();
+    // Sensor *voltage_sensor = new Sensor();
+    // Sensor *percentage_sensor = new Sensor();
     Sensor *sayi = new Sensor();
     
     int sayac = 0;
