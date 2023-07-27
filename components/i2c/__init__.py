@@ -15,7 +15,7 @@ Myi2cComponent = i2c_ns.class_("Myi2cComponent", cg.Component)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-        cv.GenerateID(): cv.declare_id(Custom),
+        cv.GenerateID(): cv.declare_id(Myi2cComponent),
         cv.Optional(CONF_MY_OUTPUT): cv.float_,
         cv.Optional(CONF_MY_BLUETOOTH): cv.std_string
         }
