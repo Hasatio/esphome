@@ -6,8 +6,8 @@ from esphome.components import i2c, sensor, output
 from esphome.const import (CONF_ID)
 
 #DEPENDENCIES = ["i2c"]
-CONF_MY_OUTPUT = "myjkljkoutput"
 CONF_MY_BLUETOOTH = "mybluetooth"
+CONF_MY_OUTPUT = "myoutput"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c")
 Myi2c = i2c_ns.class_("Myi2c", output.FloatOutput, cg.Component)
