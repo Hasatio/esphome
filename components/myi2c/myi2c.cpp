@@ -226,11 +226,11 @@ void Myi2c::loop()
     //   data = data + String(volts[i]) + ",";
     // }
 
-    // x = accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-    // y = accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-    // z = accel.getZ() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-    // voltage = maxlipo.cellVoltage();
-    // percentage = maxlipo.cellPercent();
+    x = accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    y = accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    z = accel.getZ() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    voltage = maxlipo.cellVoltage();
+    percentage = maxlipo.cellPercent();
     
     // data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage);
 
