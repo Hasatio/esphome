@@ -1,19 +1,19 @@
 #include "i2c.h"
 
 namespace esphome {
-namespace custom {
+namespace myi2c{
 
-void Myi2cComponent::device(char *name = "ESP32s")
+void Myi2c::device(char *name = "ESP32s")
 {
     btname = name;
 }
 
-void Myi2cComponent::gain(float g)
+void Myi2c::gain(float g)
 {
     x = g;
 }
 
-void Myi2cComponent::setup()
+void Myi2c::setup()
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  bt
@@ -137,7 +137,7 @@ void Myi2cComponent::setup()
     }
 }
 
-void Myi2cComponent::loop()
+void Myi2c::loop()
 {
     // for(int i=0;i<4;i++)
     // {
