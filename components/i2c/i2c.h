@@ -68,12 +68,18 @@ public:
     Sensor *sayi = new Sensor();
     
     int sayac = 0;
-
+    float x = 0.0;
     char *btname = "ESP32";
 
-void device(char *name){
+void device(char *name)
+{
     btname = name;
-    }
+}
+
+void gain(float g)
+{
+    x = g;
+}
     
 void setup() override {
 
@@ -256,22 +262,22 @@ void loop() override{
     adc14 = ads4.readADC_SingleEnded(2);
     adc15 = ads4.readADC_SingleEnded(3);
  
-    volts0 = ads1.computeVolts(adc0);
-    volts1 = ads1.computeVolts(adc1);
-    volts2 = ads1.computeVolts(adc2);
-    volts3 = ads1.computeVolts(adc3);
-    volts4 = ads2.computeVolts(adc4);
-    volts5 = ads2.computeVolts(adc5);
-    volts6 = ads2.computeVolts(adc6);
-    volts7 = ads2.computeVolts(adc7);
-    volts8 = ads3.computeVolts(adc8);
-    volts9 = ads3.computeVolts(adc9);
-    volts10 = ads3.computeVolts(adc10);
-    volts11 = ads3.computeVolts(adc11);
-    volts12 = ads4.computeVolts(adc12);
-    volts13 = ads4.computeVolts(adc13);
-    volts14 = ads4.computeVolts(adc14);
-    volts15 = ads4.computeVolts(adc15);
+    volts0 = ads1.computeVolts(adc0) * x;
+    volts1 = ads1.computeVolts(adc1) * x;
+    volts2 = ads1.computeVolts(adc2) * x;
+    volts3 = ads1.computeVolts(adc3) * x;
+    volts4 = ads2.computeVolts(adc4) * x;
+    volts5 = ads2.computeVolts(adc5) * x;
+    volts6 = ads2.computeVolts(adc6) * x;
+    volts7 = ads2.computeVolts(adc7) * x;
+    volts8 = ads3.computeVolts(adc8) * x;
+    volts9 = ads3.computeVolts(adc9) * x;
+    volts10 = ads3.computeVolts(adc10) * x;
+    volts11 = ads3.computeVolts(adc11) * x;
+    volts12 = ads4.computeVolts(adc12) * x;
+    volts13 = ads4.computeVolts(adc13) * x;
+    volts14 = ads4.computeVolts(adc14) * x;
+    volts15 = ads4.computeVolts(adc15) * x;
 
       SerialBT.println(String(volts0)+","+
                        String(volts1)+","+
