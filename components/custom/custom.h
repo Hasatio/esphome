@@ -17,7 +17,7 @@ class Custom : public output::FloatOutput, public Component, public i2c::I2CDevi
   void setup() override;
   void loop() override;
 
-  void set_variables(double var);
+  void set_variables(double a);
 
 protected:
   uint32_t baud_rate_;
@@ -26,12 +26,12 @@ protected:
 
 template<typename... Ts> class Custom_action : public Action<Ts...> {
  public:
-  Custom_action(Custom *custom) : custom_(custom) {}
+  Custom_action(Custom *cus) : custom_(cus) {}
 
   void play(Ts... x) override {
-    this->custom_->set_variables(this->var_.value(x...));
+    this->custom_->set_variables(this->a_.value(x...));
   }
-  TEMPLATABLE_VALUE(double, var)
+  TEMPLATABLE_VALUE(double, a)
 
  protected:
   Custom *custom_;
