@@ -65,7 +65,7 @@ namespace myi2c {
     int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7, adc8, adc9, adc10, adc11, adc12, adc13, adc14, adc15;
     float volts0, volts1, volts2, volts3, volts4, volts5, volts6, volts7, volts8, volts9, volts10, volts11, volts12, volts13, volts14, volts15;
 
-void Myi2c::device(char *name)
+void Myi2c::bluetooth(char *name)
 {
     btname = name;
 }
