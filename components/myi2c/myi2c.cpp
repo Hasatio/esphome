@@ -8,7 +8,7 @@ namespace myi2c{
     // Sensor *accel_z_sensor = new Sensor();
     // Sensor *voltage_sensor = new Sensor();
     // Sensor *percentage_sensor = new Sensor();
-    Sensor *sayi = new Sensor();
+    sensor *sayi = new sensor();
     
     int sayac = 0;
     float x = 0.0;
