@@ -1,4 +1,4 @@
-#include "i2c.h"
+#include "myi2c.h"
 
 namespace esphome {
 namespace myi2c{
