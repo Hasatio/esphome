@@ -16,7 +16,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
         cv.GenerateID(): cv.declare_id(Myi2c),
-        cv.Optional(CONF_MY_GAIN): cg.float_,
+        cv.Optional(CONF_MY_GAIN): cv.float_,
         # cv.Optional(CONF_MY_BT): cv.string,
         }
     )
