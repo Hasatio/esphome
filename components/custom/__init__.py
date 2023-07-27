@@ -11,7 +11,7 @@ from esphome.automation import maybe_simple_id
 CONF_ON_CUSTOM = "on_custom"
 
 custom_ns = cg.esphome_ns.namespace("custom")
-Custom = custom_ns.class_("Custom", output.FloatOutput, cg.Component)
+Custom = custom_ns.class_("Custom", cg.Component)
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -25,7 +25,6 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-    await output.register_output(var, config)
     # cg.add(var.set_variables(config[CONF_ON_CUSTOM]))
     
 Custom_action = custom_ns.class_("Custom_action", automation.Action)
