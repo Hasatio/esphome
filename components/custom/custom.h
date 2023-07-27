@@ -15,9 +15,7 @@ namespace custom {
 class Custom : public output::FloatOutput, public Component, public i2c::I2CDevice {
  public:
   void setup() override;
-  void write_state(float state) override;
   void loop() override;
-  void dump_config() override;
 
   void set_variables(double var);
 
