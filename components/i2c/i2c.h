@@ -56,7 +56,7 @@ Adafruit_MAX17048 maxlipo;
 TwoWire I2C_1 = TwoWire(0);
 //TwoWire I2C_2 = TwoWire(1);
 
-class Myi2cComponent : public Component, public Sensor 
+class Myi2c : public Component, public Sensor 
 {
 public:
     float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
