@@ -16,8 +16,8 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
         cv.GenerateID(): cv.declare_id(Myi2c),
-        cv.Optional(CONF_MY_OUTPUT): cv.float_,
-        cv.Optional(CONF_MY_BLUETOOTH): cv.string
+        cv.Optional(CONF_MY_OUTPUT): cv.float_range(),
+        cv.Optional(CONF_MY_BLUETOOTH): cv.string()
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
