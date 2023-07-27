@@ -43,6 +43,9 @@ Adafruit_MAX17048 maxlipo;
 TwoWire I2C_1 = TwoWire(0);
 TwoWire I2C_2 = TwoWire(1);
 
+namespace esphome {
+namespace myi2c {
+
 class Myi2cComponent : public Component {
 public:
     float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
@@ -245,3 +248,5 @@ void loop() override{
     ESP_LOGD("data", "AIN15: %f",volts15);*/
   }
 };
+} //namespace myi2c
+} //namespace esphome
