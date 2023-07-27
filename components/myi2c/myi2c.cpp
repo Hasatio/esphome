@@ -56,7 +56,7 @@ namespace myi2c {
     // sensor *sayi = new sensor();
     
     int sayac = 0;
-    float mygain = 0.0;
+    float mygain = 1.0;
     char *btname = "ESP32";
 
     int16_t adc[16];
