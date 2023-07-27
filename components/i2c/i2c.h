@@ -7,11 +7,8 @@
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
-using namespace std;
 
 BluetoothSerial SerialBT;
-
-int BT;
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth off--Run `make menuconfig` to enable it
@@ -56,6 +53,8 @@ Adafruit_MAX17048 maxlipo;
 TwoWire I2C_1 = TwoWire(0);
 //TwoWire I2C_2 = TwoWire(1);
 
+namespace esphome {
+namespace myi2c {
 
 class Myi2cComponent : public Component, public i2c::I2CDevice, public Sensor {
 public:
