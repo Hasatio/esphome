@@ -56,7 +56,7 @@ namespace myi2c {
     // sensor *sayi = new sensor();
     
     int sayac = 0;
-    float mygain = 1.0;
+    float mygain = 1.0, bt;
     char *btname = "ESP32";
 
     int16_t adc[16];
@@ -82,7 +82,7 @@ void Myi2c::setup()
     
     SerialBT.begin(btname);
     ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
-
+    bt = mygain;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
@@ -203,9 +203,10 @@ void Myi2c::loop()
 {
     if(SerialBT.available())
       {
-        mygain = SerialBT.read();
-        ESP_LOGD("data", "data: %f",mygain);
+        bt = SerialBT.read();
+        ESP_LOGD("data", "data: %f",bt);
       }
+    mygain = bt;
     
     // for(int i=0;i<4;i++)
     // {
