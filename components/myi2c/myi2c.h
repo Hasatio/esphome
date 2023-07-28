@@ -17,10 +17,12 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-void bluetooth(String name);
+void bluetooth(String b);
 
 void gain(float g);
-    
+
+void sample(sensor::Sensor *s);
+
 void setup() override;
 
 void loop() override;
