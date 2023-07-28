@@ -62,9 +62,9 @@ namespace myi2c {
     double adxlmultiplier;
     String data = "";
 
-void Myi2c::bluetooth(String name)
+void Myi2c::bluetooth(String b)
 {
-    btname = name;
+    btname = b;
 }
 
 void Myi2c::gain(float g)
@@ -72,9 +72,9 @@ void Myi2c::gain(float g)
     mygain = g;
 }
 
-void Myi2c::sample(sensor::Sensor *temperature_sensor) 
+void Myi2c::sample(sensor::Sensor *s) 
 { 
-    temperature_sensor_ = temperature_sensor; 
+    s_ = s; 
 }
 
 void Myi2c::setup()
