@@ -257,7 +257,7 @@ void Myi2c::loop()
     
     // voltage_sensor->publish_state(voltage);
     // percentage_sensor->publish_state(percentage);
-    this->sample_->publish_state(sayac);
+    this->sample->publish_state(sayac);
 }
 
 } //namespace myi2c
