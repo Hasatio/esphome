@@ -75,7 +75,7 @@ void Myi2c::gain(float g)
 void Myi2c::sample(sensor::Sensor *s) 
 { 
     s_ = s; 
-    LOG_SENSOR("  ", "sample", this->s_);
+    // LOG_SENSOR("  ", "sample", this->s_);
 }
 
 void Myi2c::setup()
