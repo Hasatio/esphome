@@ -61,7 +61,7 @@ namespace myi2c {
 
     int16_t adc[16];
     float volts[16], x, y, z, voltage, percentage;
-    String data = {};
+    String data = "";
     int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7, adc8, adc9, adc10, adc11, adc12, adc13, adc14, adc15;
     float volts0, volts1, volts2, volts3, volts4, volts5, volts6, volts7, volts8, volts9, volts10, volts11, volts12, volts13, volts14, volts15;
 
@@ -240,7 +240,7 @@ void Myi2c::loop()
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage);
 
     SerialBT.println(data);
-    data = {};
+    data = "";
  
     // adc0 = ads1.readADC_SingleEnded(0);
     // adc1 = ads1.readADC_SingleEnded(1);
