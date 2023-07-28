@@ -25,7 +25,7 @@ CONFIG_SCHEMA = (
         cv.Optional(CONF_MY_GAIN): cv.float_,
         cv.Optional(CONF_MY_BLUETOOTH): cv.string,
         cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
-                # unit_of_measurement=UNIT_SAMPLE,
+                unit_of_measurement=UNIT_SAMPLE,
                 accuracy_decimals=0,
                 state_class=STATE_CLASS_MEASUREMENT,
             )
