@@ -3,7 +3,10 @@ from typing import Optional
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import i2c, sensor, output
-from esphome.const import (CONF_ID)
+from esphome.const import (
+    CONF_ID,
+    STATE_CLASS_MEASUREMENT,
+)
 
 #DEPENDENCIES = ["i2c"]
 CONF_MY_GAIN = "gain"
