@@ -72,14 +72,6 @@ void Myi2c::gain(float g)
     mygain = g;
 }
 
-void Myi2c::sample(sensor::Sensor *s) 
-{ 
-    s_ = s;
-    ESP_LOGCONFIG(TAG, "sample:");
-    LOG_UPDATE_INTERVAL(this);
-    LOG_SENSOR("  ", "sample/sec", this->s_);
-}
-
 void Myi2c::setup()
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
