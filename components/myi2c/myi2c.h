@@ -27,6 +27,10 @@ void setup() override;
 
 void loop() override;
 
+protected:
+
+sensor::Sensor *s_{nullptr};
+
 };
 } //namespace myi2c
 } //namespace esphome
