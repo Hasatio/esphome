@@ -248,7 +248,7 @@ void Myi2c::loop()
  
     sayac += 1;
     
-    LOG_SENSOR("  ", "sample", this->_);
+    LOG_SENSOR("  ", "sample", this->s_);
 
     // accel_x_sensor->publish_state(x);
     // accel_y_sensor->publish_state(y);
