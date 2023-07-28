@@ -17,7 +17,7 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-void bluetooth(char *name);
+void bluetooth(String name);
 
 void gain(float g);
     
