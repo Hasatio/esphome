@@ -3,6 +3,8 @@
 namespace esphome {
 namespace myi2c {
     
+    static const char *const TAG = "myi2c.sensor";
+
     BluetoothSerial SerialBT;
     
     #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
@@ -249,6 +251,12 @@ void Myi2c::loop()
     
     // voltage_sensor->publish_state(voltage);
     // percentage_sensor->publish_state(percentage);
+    
+    ESP_LOGCONFIG(TAG, "sample:");
+    LOG_I2C_DEVICE(this);
+    LOG_UPDATE_INTERVAL(this);
+    LOG_SENSOR("  ", "sample", this->temperature_sensor_);
+    ESP_LOGD(TAG, "Sample=%d",sample);
     this->temperature_sensor_->publish_state(sayac);
 }
 
