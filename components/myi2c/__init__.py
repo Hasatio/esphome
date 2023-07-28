@@ -8,6 +8,7 @@ from esphome.const import (CONF_ID)
 #DEPENDENCIES = ["i2c"]
 CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
+CONF_MY_SAMPLE = "sample"
 
 UNIT_SAMPLE = "data/sec"
 
