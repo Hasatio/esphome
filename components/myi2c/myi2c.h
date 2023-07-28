@@ -24,9 +24,6 @@ void gain(float g);
 void sample(sensor::Sensor *temperature_sensor) 
 { 
     temperature_sensor_ = temperature_sensor;
-    ESP_LOGCONFIG(TAG, "sample:");
-    LOG_UPDATE_INTERVAL(this);
-    LOG_SENSOR("  ", "sample/sec", this->temperature_sensor_);
 }
 
 void setup() override;
