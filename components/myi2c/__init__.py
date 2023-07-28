@@ -9,6 +9,8 @@ from esphome.const import (CONF_ID)
 CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 
+UNIT_SAMPLE = "data/sec"
+
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı
 Myi2c = i2c_ns.class_("Myi2c", cg.Component)
 
@@ -18,6 +20,10 @@ CONFIG_SCHEMA = (
         cv.GenerateID(): cv.declare_id(Myi2c),
         cv.Optional(CONF_MY_GAIN): cv.float_,
         cv.Optional(CONF_MY_BLUETOOTH): cv.string,
+        cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_SAMPLE,
+                accuracy_decimals=0,
+            )
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
@@ -32,3 +38,8 @@ async def to_code(config):
     
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH]))
+
+    if CONF_MY_SAMPLE in config:
+        conf = config[CONF_MY_SAMPLE]
+        sens = await sensor.new_sensor(conf)
+        cg.add(var.sample(sens))
