@@ -240,6 +240,7 @@ void Myi2c::loop()
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage);
 
     SerialBT.println(data);
+    data = {};
  
     // adc0 = ads1.readADC_SingleEnded(0);
     // adc1 = ads1.readADC_SingleEnded(1);
