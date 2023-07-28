@@ -206,30 +206,30 @@ void Myi2c::loop()
         ESP_LOGD("data", "data: %f",mygain);
       }
     
-    // for(int i=0;i<4;i++)
-    // {
-    //   adc[i] = ads1.readADC_SingleEnded(i);
-    //   volts[i] = ads1.computeVolts(adc[i]);
-    //   data = data + String(volts[i]) + ",";
-    // }
-    // for(int i=4;i<8;i++)
-    // {
-    //   adc[i] = ads2.readADC_SingleEnded(i);
-    //   volts[i] = ads2.computeVolts(adc[i]);
-    //   data = data + String(volts[i]) + ",";
-    // }
-    // for(int i=8;i<12;i++)
-    // {
-    //   adc[i] = ads3.readADC_SingleEnded(i);
-    //   volts[i] = ads3.computeVolts(adc[i]);
-    //   data = data + String(volts[i]) + ",";
-    // }
-    // for(int i=12;i<16;i++)
-    // {
-    //   adc[i] = ads4.readADC_SingleEnded(i);
-    //   volts[i] = ads4.computeVolts(adc[i]);
-    //   data = data + String(volts[i]) + ",";
-    // }
+    for(int i=0;i<4;i++)
+    {
+      adc[i] = ads1.readADC_SingleEnded(i);
+      volts[i] = ads1.computeVolts(adc[i]);
+      data = data + String(volts[i]) + ",";
+    }
+    for(int i=4;i<8;i++)
+    {
+      adc[i] = ads2.readADC_SingleEnded(i);
+      volts[i] = ads2.computeVolts(adc[i]);
+      data = data + String(volts[i]) + ",";
+    }
+    for(int i=8;i<12;i++)
+    {
+      adc[i] = ads3.readADC_SingleEnded(i);
+      volts[i] = ads3.computeVolts(adc[i]);
+      data = data + String(volts[i]) + ",";
+    }
+    for(int i=12;i<16;i++)
+    {
+      adc[i] = ads4.readADC_SingleEnded(i);
+      volts[i] = ads4.computeVolts(adc[i]);
+      data = data + String(volts[i]) + ",";
+    }
 
     x = accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
     y = accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
