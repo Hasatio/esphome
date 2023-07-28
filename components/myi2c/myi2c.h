@@ -21,12 +21,12 @@ void bluetooth(String b);
 
 void gain(float g);
 
-void sample(sensor::Sensor *s) 
+void sample(sensor::Sensor *temperature_sensor) 
 { 
-    s_ = s;
+    temperature_sensor_ = temperature_sensor;
     ESP_LOGCONFIG(TAG, "sample:");
     LOG_UPDATE_INTERVAL(this);
-    LOG_SENSOR("  ", "sample/sec", this->s_);
+    LOG_SENSOR("  ", "sample/sec", this->temperature_sensor_);
 }
 
 void setup() override;
@@ -35,7 +35,7 @@ void loop() override;
 
 protected:
 
-sensor::Sensor *s_{nullptr};
+sensor::Sensor *temperature_sensor_{nullptr};
 
 };
 } //namespace myi2c
