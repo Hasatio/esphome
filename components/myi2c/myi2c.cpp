@@ -210,7 +210,7 @@ void Myi2c::loop()
     {
       adc[i] = ads1.readADC_SingleEnded(i);
       volts[i] = ads1.computeVolts(adc[i]);
-      data = data + String(volts[i]) + ",";
+      data = data + String(volts[i]) + String(",");
     }
     for(int i=4;i<8;i++)
     {
