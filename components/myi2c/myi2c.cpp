@@ -74,8 +74,10 @@ void Myi2c::gain(float g)
 
 void Myi2c::sample(sensor::Sensor *s) 
 { 
-    s_ = s; 
-    // LOG_SENSOR("  ", "sample", this->s_);
+    s_ = s;
+    ESP_LOGCONFIG(TAG, "sample:");
+    LOG_UPDATE_INTERVAL(this);
+    LOG_SENSOR("  ", "sample/sec", this->s_);
 }
 
 void Myi2c::setup()
@@ -84,7 +86,7 @@ void Myi2c::setup()
 //  bt
     
     SerialBT.begin(btname);
-    ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
+    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
@@ -255,7 +257,7 @@ void Myi2c::loop()
     
     // voltage_sensor->publish_state(voltage);
     // percentage_sensor->publish_state(percentage);
-    // this->sample->publish_state(sayac);
+    this->sample_->publish_state(sayac);
 }
 
 } //namespace myi2c
