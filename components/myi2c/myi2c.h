@@ -21,7 +21,13 @@ void bluetooth(String b);
 
 void gain(float g);
 
-void sample(sensor::Sensor *s);
+void sample(sensor::Sensor *s) 
+{ 
+    s_ = s;
+    ESP_LOGCONFIG(TAG, "sample:");
+    LOG_UPDATE_INTERVAL(this);
+    LOG_SENSOR("  ", "sample/sec", this->s_);
+}
 
 void setup() override;
 
