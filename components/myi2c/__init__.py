@@ -28,7 +28,7 @@ async def to_code(config):
     await cg.register_component(var, config)
     
     if CONF_MY_GAIN in config:
-    cg.add(var.gain(config[CONF_MY_GAIN]))
+        cg.add(var.gain(config[CONF_MY_GAIN]))
     
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH]))
