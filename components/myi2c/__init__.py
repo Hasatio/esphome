@@ -26,6 +26,8 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
+    
+    if CONF_MY_GAIN in config:
     cg.add(var.gain(config[CONF_MY_GAIN]))
     
     if CONF_MY_BLUETOOTH in config:
