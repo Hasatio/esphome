@@ -55,15 +55,12 @@ namespace myi2c {
     // Sensor *percentage_sensor = new Sensor();
     // sensor *sayi = new sensor();
     
-    int sayac = 0;
-    float mygain = 1.0;
     String btname = "ESP32";
 
-    int16_t adc[16];
-    float volts[16], x, y, z, voltage, percentage;
+    int adc[16], sayac = 0;
+    float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
+    double adxlmultiplier;
     String data = "";
-    int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7, adc8, adc9, adc10, adc11, adc12, adc13, adc14, adc15;
-    float volts0, volts1, volts2, volts3, volts4, volts5, volts6, volts7, volts8, volts9, volts10, volts11, volts12, volts13, volts14, volts15;
 
 void Myi2c::bluetooth(String name)
 {
@@ -231,9 +228,11 @@ void Myi2c::loop()
       data = data + String(volts[i]) + ",";
     }
 
-    x = accel.getX() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-    y = accel.getY() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
-    z = accel.getZ() * ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    adxlmultiplier = ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
+    x = accel.getX() * adxlmultiplier;
+    y = accel.getY() * adxlmultiplier;
+    z = accel.getZ() * adxlmultiplier;
+    
     voltage = maxlipo.cellVoltage();
     percentage = maxlipo.cellPercent();
     
@@ -242,60 +241,6 @@ void Myi2c::loop()
     SerialBT.println(data);
     data = "";
  
-    // adc0 = ads1.readADC_SingleEnded(0);
-    // adc1 = ads1.readADC_SingleEnded(1);
-    // adc2 = ads1.readADC_SingleEnded(2);
-    // adc3 = ads1.readADC_SingleEnded(3);
-    // adc4 = ads2.readADC_SingleEnded(0);
-    // adc5 = ads2.readADC_SingleEnded(1);
-    // adc6 = ads2.readADC_SingleEnded(2);
-    // adc7 = ads2.readADC_SingleEnded(3);
-    // adc8 = ads3.readADC_SingleEnded(0);
-    // adc9 = ads3.readADC_SingleEnded(1);
-    // adc10 = ads3.readADC_SingleEnded(2);
-    // adc11 = ads3.readADC_SingleEnded(3);
-    // adc12 = ads4.readADC_SingleEnded(0);
-    // adc13 = ads4.readADC_SingleEnded(1);
-    // adc14 = ads4.readADC_SingleEnded(2);
-    // adc15 = ads4.readADC_SingleEnded(3);
- 
-    // volts0 = ads1.computeVolts(adc0) * mygain;
-    // volts1 = ads1.computeVolts(adc1) * mygain;
-    // volts2 = ads1.computeVolts(adc2) * mygain;
-    // volts3 = ads1.computeVolts(adc3) * mygain;
-    // volts4 = ads2.computeVolts(adc4) * mygain;
-    // volts5 = ads2.computeVolts(adc5) * mygain;
-    // volts6 = ads2.computeVolts(adc6) * mygain;
-    // volts7 = ads2.computeVolts(adc7) * mygain;
-    // volts8 = ads3.computeVolts(adc8) * mygain;
-    // volts9 = ads3.computeVolts(adc9) * mygain;
-    // volts10 = ads3.computeVolts(adc10) * mygain;
-    // volts11 = ads3.computeVolts(adc11) * mygain;
-    // volts12 = ads4.computeVolts(adc12) * mygain;
-    // volts13 = ads4.computeVolts(adc13) * mygain;
-    // volts14 = ads4.computeVolts(adc14) * mygain;
-    // volts15 = ads4.computeVolts(adc15) * mygain;
-    
-    //   SerialBT.println(String(volts0)+","+
-    //                    String(volts1)+","+
-    //                    String(volts2)+","+
-    //                    String(volts3)+","+
-    //                    String(volts4)+","+
-    //                    String(volts5)+","+
-    //                    String(volts6)+","+
-    //                    String(volts7)+","+
-    //                    String(volts8)+","+
-    //                    String(volts9)+","+
-    //                    String(volts10)+","+
-    //                    String(volts11)+","+
-    //                    String(volts12)+","+
-    //                    String(volts13)+","+
-    //                    String(volts14)+","+
-    //                    String(volts15)+","+
-    //                    String(x)+","+
-    //                    String(y)+","+
-    //                    String(z)+","+
-    //                    String(percentage));
     sayac += 1;
 
     // accel_x_sensor->publish_state(x);
