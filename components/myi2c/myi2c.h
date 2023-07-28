@@ -11,7 +11,7 @@
 namespace esphome {
 namespace myi2c {
 
-class Myi2c : public Component
+class Myi2c : public Component, publis sensor::Sensor
 {
 public:
 
