@@ -47,7 +47,7 @@ async def to_code(config):
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH]))
 
-    # if CONF_MY_SAMPLE in config:
+    if CONF_MY_SAMPLE in config:
         conf = config[CONF_MY_SAMPLE]
         sens = await sensor.new_sensor(conf)
         cg.add(var.sample(sens))
