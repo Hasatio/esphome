@@ -5,24 +5,25 @@ namespace myi2c {
     
     static const char *const TAG = "myi2c.sensor";
 
-    BluetoothSerial SerialBT;
+    BluetoothSerial SerialBT; // bluetooth yeni adlandırması
     
     #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-    #error Bluetooth off--Run `make menuconfig` to enable it
+    #error Bluetooth off--Run `make menuconfig` to enable it 
     #endif
     
     //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    Adafruit_ADS1115 ads1;
+    Adafruit_ADS1115 ads1; // ads1115 yeni adlandırması
     Adafruit_ADS1115 ads2;
     Adafruit_ADS1115 ads3;
     Adafruit_ADS1115 ads4;
     //Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
     
-    Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
+    Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345); // adx345 ayarı
     
-    Adafruit_MAX17048 maxlipo;
-    
-    #define SDA 21
+    Adafruit_MAX17048 maxlipo; // max17048 yeni adlandırması
+
+    // i2c ayarları
+    #define SDA 21 
     #define SCL 22
     #define freq 800000
     /*
@@ -42,6 +43,7 @@ namespace myi2c {
     #define SCL_4 10
     #define freq_4 800000
     */
+    // ads1115 i2c adres ayarları
     #define address1 0x48
     #define address2 0x49
     #define address3 0x4a
@@ -57,35 +59,36 @@ namespace myi2c {
     // Sensor *percentage_sensor = new Sensor();
     // sensor *sayi = new sensor();
     
-    String btname = "ESP32";
+    String btname = "ESP32"; // bt standart adı
 
     int adc[16], sayac = 0;
     float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
     double adxlmultiplier;
     String data = "";
 
-void Myi2c::bluetooth(String b)
+void Myi2c::bluetooth(String b) // bluetooth fonksiyonu
 {
     btname = b;
 }
 
-void Myi2c::gain(float g)
+void Myi2c::gain(float g) // kazanç fonksiyonu
 {
     mygain = g;
 }
 
-void Myi2c::setup()
+void Myi2c::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  bt
     
     SerialBT.begin(btname);
     ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
+    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
     
-    Wire.begin();
+    Wire.begin(SDA,SCL,freq);
     //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
@@ -197,7 +200,7 @@ void Myi2c::setup()
     }
 }
 
-void Myi2c::loop()
+void Myi2c::loop() // döngü fonksiyonu
 {
     if(SerialBT.available())
       {
