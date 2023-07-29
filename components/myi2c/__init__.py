@@ -61,4 +61,4 @@ async def to_code(config): # fonksiyon tanımlaması
     #     cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
     
     cg.add(var.sample(await sensor.new_sensor(config[CONF_MY_SAMPLE]))) # sayaç sensörün fonksiyonu tanımlaması
-    cg.add(var.sample(await sensor.new_sensor(config[CONF_MY_SAMPLE2]))) # sayaç sensörün fonksiyonu tanımlaması
+    cg.add(var.sample(await binary_sensor.new_binary_sensor(config[CONF_MY_SAMPLE2]))) # sayaç sensörün fonksiyonu tanımlaması
