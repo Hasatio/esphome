@@ -33,8 +33,8 @@ CONFIG_SCHEMA = ( # komponent içindekiler
                     state_class=STATE_CLASS_MEASUREMENT,
             ),
             cv.Optional(CONF_MY_SAMPLE2): binary_sensor.binary_sensor_schema( # sayaç sensör tanımlaması
-                    device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-                    state_class=STATE_CLASS_MEASUREMENT,
+                    # device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                    # state_class=STATE_CLASS_MEASUREMENT,
             ),
         }
     )
