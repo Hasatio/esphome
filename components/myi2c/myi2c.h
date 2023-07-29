@@ -15,7 +15,7 @@
 namespace esphome {
 namespace myi2c {
 
-class Myi2c : public sensor::Sensor, public binary_sensor::BinarySensor, public Component //ana sınıf
+class Myi2c : public sensor::Sensor, public binary_sensor::BinarySensor, public Component // ana sınıf
 {
 public:
 
@@ -40,6 +40,6 @@ protected:
 
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
 
-};
+}; // class Myi2c
 } //namespace myi2c
 } //namespace esphome
