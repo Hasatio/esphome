@@ -5,14 +5,11 @@
 #include "esphome/core/time.h"
 #include "esphome/core/defines.h"
 #include "esphome/core/component.h"
+#include "esphome/components/sensor/sensor.h" 
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
-
-#ifdef USE_SENSOR
-#include "esphome/components/sensor/sensor.h"
-#endif
 
 namespace esphome {
 namespace myi2c {
@@ -31,7 +28,6 @@ void bluetooth(String b); // bluetooth fonksiyonu
 
 void gain(float g); // kazanç fonksiyonu
 
-#ifdef USE_SENSOR
 void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 { 
     sample_ = sample;
@@ -40,9 +36,8 @@ void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 
 protected:
 
-#ifdef USE_SENSOR
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
-#endif
+
 };
 } //namespace myi2c
 } //namespace esphome
