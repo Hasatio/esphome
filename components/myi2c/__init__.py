@@ -17,7 +17,7 @@ UNIT_SAMPLE = "data/sec"
 DEVICE_CLASS_PRESSURE = "sample"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
-Myi2c = i2c_ns.class_("Myi2c", output.FloatOutput, cg.Component) # sınıf tanımlaması
+Myi2c = i2c_ns.class_("Myi2c", output.FloatOutput, binary_sensor.BinarySensor, sensor.Sensor, cg.Component) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
     cv.Schema(
