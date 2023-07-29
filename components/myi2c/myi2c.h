@@ -23,23 +23,26 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-void bluetooth(String b);
-
-void gain(float g);
-
-void sample(sensor::Sensor *temperature_sensor) 
-{ 
-    temperature_sensor_ = temperature_sensor;
-}
-
 void setup() override;
 
 void loop() override;
 
+void bluetooth(String b);
+
+void gain(float g);
+
+#ifdef USE_SENSOR
+void sample(sensor::Sensor *sample) 
+{ 
+    sample_ = sample;
+}
+#endif
+
 protected:
 
-sensor::Sensor *temperature_sensor_{nullptr};
-
+#ifdef USE_SENSOR
+sensor::Sensor *sample_{nullptr};
+#endif
 };
 } //namespace myi2c
 } //namespace esphome
