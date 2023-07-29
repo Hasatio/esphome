@@ -253,9 +253,9 @@ void Myi2c::loop()
     // percentage_sensor->publish_state(percentage);
     
     ESP_LOGCONFIG(TAG, "sample:");
-    LOG_SENSOR("  ", "sample", this->temperature_sensor_);
+    LOG_SENSOR("  ", "sample", this->sample_);
     // ESP_LOGD(TAG, "Sample=%d",sample);
-    this->temperature_sensor_->publish_state(sayac);
+    this->sample_->publish_state(sayac);
 }
 
 } //namespace myi2c
