@@ -58,5 +58,5 @@ def to_code(config): # fonksiyon tanımlaması
     #     sens = await sensor.new_sensor(conf)
     #     cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
     
-    # cg.add(var.sample(yield sensor.new_sensor(config[CONF_MY_SAMPLE])))
+    cg.add(var.sample(yield sensor.new_sensor(config[CONF_MY_SAMPLE])))
     cg.add(var.sample(yield binary_sensor.new_binary_sensor(config[CONF_MY_SAMPLE2])))
