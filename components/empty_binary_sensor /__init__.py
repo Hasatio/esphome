@@ -7,7 +7,8 @@ empty_binary_sensor_ns = cg.esphome_ns.namespace("empty_binary_sensor")
 
 EmptyBinarySensor = empty_binary_sensor_ns.class_("EmptyBinarySensor", binary_sensor.BinarySensor, cg.Component)
 
-CONFIG_SCHEMA = binary_sensor.BINARY_SENSOR_SCHEMA.extend({
+CONFIG_SCHEMA = cv.Schema({
+    cv.GenerateID(): cv.declare_id(EmptyComponent),
     cv.GenerateID(): cv.declare_id(EmptyBinarySensor),
 }).extend(cv.COMPONENT_SCHEMA)
 
