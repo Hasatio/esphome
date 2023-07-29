@@ -48,6 +48,7 @@ async def to_code(config): # fonksiyon tanımlaması
     await cg.register_component(var, config) # komponent tanımlaması
     await output.register_output(var, config)
     await sensor.register_sensor(var, config)
+    await sensor.register_binary_sensor(var, config)
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
