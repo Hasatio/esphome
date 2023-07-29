@@ -3,10 +3,16 @@
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/time.h"
+#include "esphome/core/defines.h"
+#include "esphome/core/component.h"
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
+
+#ifdef USE_SENSOR
+#include "esphome/components/sensor/sensor.h"
+#endif
 
 namespace esphome {
 namespace myi2c {
