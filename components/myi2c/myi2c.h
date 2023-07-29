@@ -32,7 +32,6 @@ void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 { 
     sample_ = sample;
 }
-#endif
 
 void dump_config() override;
 
