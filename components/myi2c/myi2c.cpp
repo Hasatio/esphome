@@ -76,6 +76,12 @@ void Myi2c::gain(float g) // kazanç fonksiyonu
     mygain = g;
 }
 
+void Myi2c::dump_config()
+{
+    ESP_LOGCONFIG(TAG, "sample:");
+    LOG_SENSOR("  ", "sample", this->sample_);
+}
+
 void Myi2c::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,9 +261,7 @@ void Myi2c::loop() // döngü fonksiyonu
     // voltage_sensor->publish_state(voltage);
     // percentage_sensor->publish_state(percentage);
     
-    ESP_LOGCONFIG(TAG, "sample:");
-    LOG_SENSOR("  ", "sample", this->sample_);
-    // ESP_LOGD(TAG, "Sample=%d",sample);
+    ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
 }
 
