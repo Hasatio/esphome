@@ -41,11 +41,11 @@ CONFIG_SCHEMA = ( # komponent içindekiler
     .extend(cv.COMPONENT_SCHEMA)
 )
 
-async def to_code(config): # fonksiyon tanımlaması
+def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config) # komponent tanımlaması
-    await sensor.register_sensor(var, config)
-    await binary_sensor.register_binary_sensor(var, config)
+    yield cg.register_component(var, config) # komponent tanımlaması
+    yield sensor.register_sensor(var, config)
+    yield binary_sensor.register_binary_sensor(var, config)
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
@@ -58,5 +58,5 @@ async def to_code(config): # fonksiyon tanımlaması
     #     sens = await sensor.new_sensor(conf)
     #     cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
     
-    cg.add(var.sample(await sensor.new_sensor(config[CONF_MY_SAMPLE]))) # sayaç sensörün fonksiyonu tanımlaması
-    cg.add(var.sample(await binary_sensor.new_binary_sensor(config[CONF_MY_SAMPLE2]))) # sayaç sensörün fonksiyonu tanımlaması
+    cg.add(var.sample(yield sensor.new_sensor(config[CONF_MY_SAMPLE]))) # sayaç sensörün fonksiyonu tanımlaması
+    cg.add(var.sample(yield binary_sensor.new_binary_sensor(config[CONF_MY_SAMPLE2]))) # sayaç sensörün fonksiyonu tanımlaması
