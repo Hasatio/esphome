@@ -20,7 +20,7 @@ DEVICE_CLASS_PRESSURE = "sample"
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
 Myi2c = i2c_ns.class_("Myi2c", binary_sensor.BinarySensor, sensor.Sensor, cg.Component) # sınıf tanımlaması
 
-CONFIG_SCHEMA = ( # komponent içindekiler
+CONFIG_SCHEMA = cv.All( # komponent içindekiler
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(Myi2c), # id tanımlaması
