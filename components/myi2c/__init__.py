@@ -17,7 +17,7 @@ UNIT_SAMPLE = "data/sec"
 DEVICE_CLASS_PRESSURE = "sample"
 
 i2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
-Myi2c = i2c_ns.class_("Myi2c", cg.Component) # sınıf tanımlaması
+Myi2c = i2c_ns.class_("Myi2c", output.FloatOutput, cg.Component) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
     cv.Schema(
@@ -39,7 +39,8 @@ CONFIG_SCHEMA = ( # komponent içindekiler
 async def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config) # komponent tanımlaması
-    # await sensor.register_sensor(var, config)
+    await output.register_output(var, config)
+    await sensor.register_sensor(var, config)
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
@@ -47,7 +48,7 @@ async def to_code(config): # fonksiyon tanımlaması
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
 
-    # if CONF_MY_SAMPLE in config:
+    if CONF_MY_SAMPLE in config:
         conf = config[CONF_MY_SAMPLE]
         sens = await sensor.new_sensor(conf)
         cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
