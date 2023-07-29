@@ -20,23 +20,26 @@ DEVICE_CLASS_PRESSURE = "sample"
 myi2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
 Myi2c = myi2c_ns.class_("Myi2c", binary_sensor.BinarySensor, sensor.Sensor, cg.Component) # sınıf tanımlaması
 
-CONFIG_SCHEMA = cv.All( # komponent içindekiler
-    cv.Schema(
-        {
-            cv.GenerateID(): cv.declare_id(Myi2c), # id tanımlaması
-            cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
-            cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
-            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
-                    unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
-                    accuracy_decimals=0, # sensörün sayısal gösterim şekli
-                    device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-                    state_class=STATE_CLASS_MEASUREMENT,
-            ),
-            cv.Optional(CONF_MY_SAMPLE2): binary_sensor.binary_sensor_schema(),
-        }
-    )
-    .extend(cv.COMPONENT_SCHEMA)
-)
+# CONFIG_SCHEMA = cv.All( # komponent içindekiler
+#     cv.Schema(
+#         {
+#             cv.GenerateID(): cv.declare_id(Myi2c), # id tanımlaması
+#             cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
+#             cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
+#             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
+#                     unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
+#                     accuracy_decimals=0, # sensörün sayısal gösterim şekli
+#                     device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+#                     state_class=STATE_CLASS_MEASUREMENT,
+#             ),
+#             cv.Optional(CONF_MY_SAMPLE2): binary_sensor.binary_sensor_schema(),
+#         }
+#     )
+#     .extend(cv.COMPONENT_SCHEMA)
+# )
+CONFIG_SCHEMA = binary_sensor.BINARY_SENSOR_SCHEMA.extend({
+    cv.GenerateID(): cv.declare_id(Myi2c),
+}).extend(cv.COMPONENT_SCHEMA)
 
 def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
