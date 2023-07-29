@@ -23,15 +23,15 @@ Myi2c = i2c_ns.class_("Myi2c", cg.Component)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-        cv.GenerateID(): cv.declare_id(Myi2c),
-        cv.Optional(CONF_MY_GAIN): cv.float_,
-        cv.Optional(CONF_MY_BLUETOOTH): cv.string,
-        cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
-                unit_of_measurement=UNIT_SAMPLE,
-                accuracy_decimals=0,
-                device_class=DEVICE_CLASS_PRESSURE,
-                state_class=STATE_CLASS_MEASUREMENT,
-            )
+            cv.GenerateID(): cv.declare_id(Myi2c),
+            cv.Optional(CONF_MY_GAIN): cv.float_,
+            cv.Optional(CONF_MY_BLUETOOTH): cv.string,
+            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
+                    unit_of_measurement=UNIT_SAMPLE,
+                    accuracy_decimals=0,
+                    device_class=DEVICE_CLASS_PRESSURE,
+                    state_class=STATE_CLASS_MEASUREMENT,
+            ),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
