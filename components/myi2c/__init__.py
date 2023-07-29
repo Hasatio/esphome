@@ -13,6 +13,7 @@ from esphome.const import ( # esphome içindeki sabit değişkenler
 CONF_MY_GAIN = "gain" # kişisel değişkenler
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
+CONF_MY_SAMPLE2 = "sample2"
 UNIT_SAMPLE = "data/sec"
 DEVICE_CLASS_PRESSURE = "sample"
 
@@ -26,6 +27,12 @@ CONFIG_SCHEMA = ( # komponent içindekiler
             cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
             cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
+                    unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
+                    accuracy_decimals=0, # sensörün sayısal gösterim şekli
+                    device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                    state_class=STATE_CLASS_MEASUREMENT,
+            ),
+            cv.Optional(CONF_MY_SAMPLE2): binary_sensor.binary_sensor_schema( # sayaç sensör tanımlaması
                     unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                     accuracy_decimals=0, # sensörün sayısal gösterim şekli
                     device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
@@ -48,7 +55,10 @@ async def to_code(config): # fonksiyon tanımlaması
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
 
-    if CONF_MY_SAMPLE in config:
-        conf = config[CONF_MY_SAMPLE]
-        sens = await sensor.new_sensor(conf)
-        cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
+    # if CONF_MY_SAMPLE in config:
+    #     conf = config[CONF_MY_SAMPLE]
+    #     sens = await sensor.new_sensor(conf)
+    #     cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
+    
+    cg.add(var.sample(await sensor.new_sensor(config[CONF_MY_SAMPLE]))) # sayaç sensörün fonksiyonu tanımlaması
+    cg.add(var.sample(await sensor.new_sensor(config[CONF_MY_SAMPLE2]))) # sayaç sensörün fonksiyonu tanımlaması
