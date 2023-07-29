@@ -254,7 +254,7 @@ void Myi2c::loop()
     
     ESP_LOGCONFIG(TAG, "sample:");
     LOG_SENSOR("  ", "sample", this->temperature_sensor_);
-    ESP_LOGD(TAG, "Sample=%d",sample);
+    // ESP_LOGD(TAG, "Sample=%d",sample);
     this->temperature_sensor_->publish_state(sayac);
 }
 
