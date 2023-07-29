@@ -5,6 +5,7 @@ import esphome.config_validation as cv
 from esphome.components import i2c, sensor, output
 from esphome.const import (
     CONF_ID,
+    DEVICE_CLASS_EMPTY,
     STATE_CLASS_MEASUREMENT,
 )
 
