@@ -253,7 +253,6 @@ void Myi2c::loop()
     // percentage_sensor->publish_state(percentage);
     
     ESP_LOGCONFIG(TAG, "sample:");
-    LOG_I2C_DEVICE(this);
     LOG_UPDATE_INTERVAL(this);
     LOG_SENSOR("  ", "sample", this->temperature_sensor_);
     ESP_LOGD(TAG, "Sample=%d",sample);
