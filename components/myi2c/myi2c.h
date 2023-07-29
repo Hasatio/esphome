@@ -17,22 +17,22 @@
 namespace esphome {
 namespace myi2c {
 
-class Myi2c : public Component, public sensor::Sensor
+class Myi2c : public Component, public sensor::Sensor //ana sınıf
 {
 public:
 
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; } // çalışma önceliği
 
-void setup() override;
+void setup() override; // ayar fonksiyonu 
 
-void loop() override;
+void loop() override; // döngü fonksiyonu
 
-void bluetooth(String b);
+void bluetooth(String b); // bluetooth fonksiyonu
 
-void gain(float g);
+void gain(float g); // kazanç fonksiyonu
 
 #ifdef USE_SENSOR
-void sample(sensor::Sensor *sample) 
+void sample(sensor::Sensor *sample) // sensör fonksiyonu
 { 
     sample_ = sample;
 }
@@ -41,7 +41,7 @@ void sample(sensor::Sensor *sample)
 protected:
 
 #ifdef USE_SENSOR
-sensor::Sensor *sample_{nullptr};
+sensor::Sensor *sample_{nullptr}; // sensör değişkeni
 #endif
 };
 } //namespace myi2c
