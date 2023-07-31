@@ -15,7 +15,7 @@ DEPENDENCIES = ["myi2c"]
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(EzoPMP),
+            cv.GenerateID(): cv.use_id(Myi2c),
             cv.Optional(CONF_SAMPLE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_SAMPLE,
                 accuracy_decimals=2,
