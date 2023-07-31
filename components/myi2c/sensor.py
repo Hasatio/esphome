@@ -4,7 +4,7 @@ from esphome.components import sensor
 from esphome.const import CONF_ID, UNIT_EMPTY, ICON_EMPTY
 from . import Myi2c, CONF_HUB_ID
 
-# DEPENDENCIES = ['empty_sensor_hub']
+DEPENDENCIES = ["myi2c"]
 
 Sensor = sensor_ns.class_('Sensor', sensor.Sensor, cg.Nameable)
 
