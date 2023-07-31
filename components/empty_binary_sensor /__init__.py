@@ -1,3 +1,4 @@
+from typing import Optional
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor, binary_sensor
@@ -7,8 +8,11 @@ empty_sensor_ns = cg.esphome_ns.namespace('empty_sensor') # esphome üzerinde ku
 
 EmptySensor = empty_sensor_ns.class_('EmptySensor', sensor.Sensor, cg.Component)
 
-CONFIG_SCHEMA = sensor.SENSOR_SCHEMA.extend({
+CONFIG_SCHEMA = (
+        cv.Schema(
+{
     cv.GenerateID(): cv.declare_id(EmptySensor),
+    cv.Optional("binar"): cv.float_range(),
 }).extend(cv.COMPONENT_SCHEMA)
 
 
