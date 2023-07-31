@@ -9,6 +9,9 @@ from esphome.const import ( # esphome içindeki sabit değişkenler
     STATE_CLASS_MEASUREMENT,
 )
 
+AUTO_LOAD = ["sensor"]
+MULTI_CONF = True
+
 #DEPENDENCIES = ["i2c"]
 CONF_MY_GAIN = "gain" # kişisel değişkenler
 CONF_MY_BLUETOOTH = "bluetooth"
