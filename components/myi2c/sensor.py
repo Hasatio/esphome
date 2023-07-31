@@ -12,8 +12,6 @@ from . import Myi2c, CONF_MY_SAMPLE, UNIT_SAMPLE
 
 DEPENDENCIES = ["myi2c"]
 
-Sensor = sensor_ns.class_('Sensor', sensor.Sensor, cg.Nameable)
-
 CONFIG_SCHEMA = (
     cv.Schema(
         {
