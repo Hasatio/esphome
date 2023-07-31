@@ -1,22 +1,39 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor
-from esphome.const import CONF_ID, UNIT_EMPTY, ICON_EMPTY
-from . import Myi2c, CONF_SAMPLE
+from esphome.const import (
+    CONF_ID,
+    DEVICE_CLASS_EMPTY,
+    STATE_CLASS_MEASUREMENT,
+    ENTITY_CATEGORY_NONE,
+)
+
+from . import Myi2c, CONF_SAMPLE, UNIT_SAMPLE 
 
 DEPENDENCIES = ["myi2c"]
 
 Sensor = sensor_ns.class_('Sensor', sensor.Sensor, cg.Nameable)
 
-CONFIG_SCHEMA = sensor.sensor_schema(UNIT_EMPTY, ICON_EMPTY, 1).extend({
-    cv.GenerateID(): cv.declare_id(Sensor),
-    cv.GenerateID(CONF_SAMPLE): cv.use_id(Myi2c)
-}).extend(cv.COMPONENT_SCHEMA)
+CONFIG_SCHEMA = (
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.use_id(EzoPMP),
+            cv.Optional(CONF_SAMPLE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_SAMPLE,
+                accuracy_decimals=2,
+                device_class=DEVICE_CLASS_EMPTY,
+                state_class=STATE_CLASS_MEASUREMENT,
+                entity_category=ENTITY_CATEGORY_NONE,
+            ),
+        }
+    )
+)
 
 def to_code(config):
-    paren = yield cg.get_variable(config[CONF_SAMPLE])
-    var = cg.new_Pvariable(config[CONF_ID])
-    
-    yield sensor.register_sensor(var, config)
-    
-    cg.add(paren.sample(var))
+    parent = yield cg.get_variable(config[CONF_ID])
+
+    if CONF_SAMPLE in config:
+        sens = await sensor.new_sensor(config[CONF_SAMPLE])
+        cg.add(parent.sample(sens))
+
+
