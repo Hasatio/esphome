@@ -10,7 +10,7 @@ Sensor = sensor_ns.class_('Sensor', sensor.Sensor, cg.Nameable)
 
 CONFIG_SCHEMA = sensor.sensor_schema(UNIT_EMPTY, ICON_EMPTY, 1).extend({
     cv.GenerateID(): cv.declare_id(Sensor),
-    cv.GenerateID(CONF_HUB_ID): cv.use_id(Myi2c)
+    # cv.GenerateID(CONF_HUB_ID): cv.use_id(Myi2c)
 }).extend(cv.COMPONENT_SCHEMA)
 
 def to_code(config):
