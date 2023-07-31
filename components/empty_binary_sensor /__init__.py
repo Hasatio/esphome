@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import binary_sensor
 from esphome.const import CONF_ID
 
-empty_binary_sensor_ns = cg.esphome_ns.namespace('empty_binary_sensor')
+empty_binary_sensor_ns = cg.esphome_ns.namespace('empty_binary_sensor') # esphome üzerinde kullanılan komponent adı "empty_binary_sensor" 
 
 EmptyBinarySensor = empty_binary_sensor_ns.class_('EmptyBinarySensor', binary_sensor.BinarySensor, cg.Component)
 
@@ -12,7 +12,7 @@ CONFIG_SCHEMA = binary_sensor.BINARY_SENSOR_SCHEMA.extend({
 }).extend(cv.COMPONENT_SCHEMA)
 
 
-def to_code(config):
+def to_code(config): # komponentin genel fonksiyon tanımı
     var = cg.new_Pvariable(config[CONF_ID])
-    yield cg.register_component(var, config)
-    yield binary_sensor.register_binary_sensor(var, config)
+    yield cg.register_component(var, config) # komponent tanımı yapıldı
+    yield binary_sensor.register_binary_sensor(var, config) # binary_sensor tanımı yapıldı 
