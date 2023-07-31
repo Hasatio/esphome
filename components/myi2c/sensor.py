@@ -8,7 +8,7 @@ from esphome.const import (
     ENTITY_CATEGORY_NONE,
 )
 
-from . import Myi2c, CONF_SAMPLE, UNIT_SAMPLE 
+from . import Myi2c, CONF_MY_SAMPLE, UNIT_SAMPLE 
 
 DEPENDENCIES = ["myi2c"]
 
