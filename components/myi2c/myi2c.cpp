@@ -4,7 +4,7 @@ namespace esphome {
 namespace myi2c {
     
     // static const char *const TAG = "myi2c.sensor";
-static const char *TAG = "myi2c.binary_sensor";
+static const char *TAG = "myi2c.sensor";
 
     BluetoothSerial SerialBT; // bluetooth yeni adlandırması
     
