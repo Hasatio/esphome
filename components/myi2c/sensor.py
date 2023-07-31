@@ -30,7 +30,7 @@ CONFIG_SCHEMA = (
 def to_code(config):
     parent = yield cg.get_variable(config[CONF_ID])
 
-    if CONF_SAMPLE in config:
+    if CONF_MY_SAMPLE in config:
         sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
         cg.add(parent.sample(sens))
 
