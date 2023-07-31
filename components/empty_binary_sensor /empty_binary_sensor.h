@@ -4,9 +4,9 @@
 #include "esphome/components/binary_sensor/binary_sensor.h"
 
 namespace esphome {
-namespace empty_binary_sensor {
+namespace empty_binary_sensor { # esphome üzerinde kullanılan namespace
 
-class EmptyBinarySensor : public binary_sensor::BinarySensor, public PollingComponent {
+class EmptyBinarySensor : public binary_sensor::BinarySensor, public PollingComponent { # tanımlanan ana sınıf
  public:
   void setup() override;
   void update() override;
