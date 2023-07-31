@@ -16,7 +16,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(Myi2c),
-            cv.Optional(CONF_SAMPLE): sensor.sensor_schema(
+            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_SAMPLE,
                 accuracy_decimals=2,
                 device_class=DEVICE_CLASS_EMPTY,
@@ -31,7 +31,7 @@ def to_code(config):
     parent = yield cg.get_variable(config[CONF_ID])
 
     if CONF_SAMPLE in config:
-        sens = yield sensor.new_sensor(config[CONF_SAMPLE])
+        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
         cg.add(parent.sample(sens))
 
 
