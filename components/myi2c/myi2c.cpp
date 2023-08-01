@@ -258,6 +258,8 @@ void Myi2c::loop() // döngü fonksiyonu
       volts[i] = ads4.computeVolts(adc[i]) * mygain;
       data = data + String(volts[i]) + ",";
     }
+  
+    for(int i=0;i<16;i++) ESP_LOGD(TAG, "ads1115 %d:%d",i,volts[i]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADXL345
