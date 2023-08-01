@@ -7,6 +7,12 @@ from esphome.const import ( # esphome içindeki sabit değişkenler
     CONF_ID,
     DEVICE_CLASS_EMPTY,
     STATE_CLASS_MEASUREMENT,
+    ENTITY_CATEGORY_NONE,
+    ENTITY_CATEGORY_DIAGNOSTIC,
+    STATE_CLASS_TOTAL_INCREASING,
+    UNIT_SECOND,
+    ICON_TIMER,
+    DEVICE_CLASS_DURATION,
 )
 
 AUTO_LOAD = ["sensor"]
@@ -19,6 +25,7 @@ CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
 CONF_MY_SAMPLE_SEC = "sample_sec"
+CONF_MY_UPTIME = "uptime"
 UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
 
