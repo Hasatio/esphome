@@ -258,29 +258,8 @@ void Myi2c::loop() // döngü fonksiyonu
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
-
-// }
-
-// void Myi2c::update() // döngü fonksiyonu
-// {
-      const uint32_t ms = millis();
-      const uint64_t ms_mask = (1ULL << 32) - 1ULL;
-      const uint32_t last_ms = this->uptime_ & ms_mask;
-      if (ms < last_ms) {
-        this->uptime_ += ms_mask + 1ULL;
-        ESP_LOGD(TAG, "Detected roll-over \xf0\x9f\xa6\x84");
-      }
-      this->uptime_ &= ~ms_mask;
-      this->uptime_ |= ms;
     
-      // Do separate second and milliseconds conversion to avoid floating point division errors
-      // Probably some IEEE standard already guarantees this division can be done without loss
-      // of precision in a single division, but let's do it like this to be sure.
-      const uint64_t seconds_int = this->uptime_ / 1000ULL;
-      const float seconds = float(seconds_int) + (this->uptime_ % 1000ULL) / 1000.0f;
-      this->publish_state(seconds);
-    
-    this->sample_sec_->publish_state(sayac/seconds_int);
+    this->sample_sec_->publish_state(sayac/millis();
     
     if(seconds_int >= 59) 
     {
