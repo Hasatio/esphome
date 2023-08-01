@@ -77,9 +77,10 @@ static const char *TAG = "myi2c.sensor";
 
     uint8_t adc[16];
     uint64_t sayac = 0;
-    float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
+    float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
     double adxlmultiplier;
     String data = "";
+    bool success = false;
 
 void Myi2c::bluetooth(String b) // bluetooth fonksiyonu
 {
@@ -222,8 +223,6 @@ void Myi2c::setup() // ayar fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
     
-  float temperature = NAN;
-  bool success = false;
 #ifdef USE_ESP32
 #if defined(USE_ESP32_VARIANT_ESP32)
   uint8_t raw = temprature_sens_read();
