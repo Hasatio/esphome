@@ -38,7 +38,7 @@ void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
     sample_ = sample;
 }
 
-void my_sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
+void sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
 { 
     sample_sec_ = sample_sec;
 }
