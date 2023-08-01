@@ -255,13 +255,13 @@ void Myi2c::loop() // döngü fonksiyonu
     data = "";
  
     sayac += 1;
-    sayac_sec = sayac;
+    sayac_sec += 1;
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
     this->sample_sec_->publish_state(sayac_sec*1000/millis());
 
-    if(millis() > 10000) sayac_sec = 0;
+    if(millis() > 1000) sayac_sec = 0;
     
 }
 
