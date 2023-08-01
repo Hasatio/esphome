@@ -66,8 +66,8 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    # parent = await cg.get_variable(config[CONF_ID])
-    paren = await cg.get_variable(config[CONF_ADS1115_ID])
+    parent = await cg.get_variable(config[CONF_ID])
+    # paren = await cg.get_variable(config[CONF_ADS1115_ID])
     var = cg.new_Pvariable(config[CONF_ID], paren)
 
     if CONF_MY_SAMPLE in config:
