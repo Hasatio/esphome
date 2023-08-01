@@ -16,7 +16,6 @@ MULTI_CONF = True
 CONF_MY_GAIN = "gain" # kişisel değişkenler
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
-CONF_MY_SAMPLE2 = "sample2"
 UNIT_SAMPLE = "data/sec"
 DEVICE_CLASS_PRESSURE = "sample"
 
