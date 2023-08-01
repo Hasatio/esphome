@@ -77,10 +77,10 @@ static const char *TAG = "myi2c.sensor";
 
     uint8_t adc[16];
     uint64_t sayac = 0;
-    float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
+    float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
     double adxlmultiplier;
     String data = "";
-    bool success = false;
+    // bool success = false;
 
 void Myi2c::bluetooth(String b) // bluetooth fonksiyonu
 {
