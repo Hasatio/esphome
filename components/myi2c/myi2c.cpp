@@ -259,7 +259,7 @@ void Myi2c::loop() // döngü fonksiyonu
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
 
-}
+// }
 
 // void Myi2c::update() // döngü fonksiyonu
 // {
@@ -286,7 +286,7 @@ void Myi2c::loop() // döngü fonksiyonu
     {
         sayac = 0;
     }
-// }
+}
 
 std::string Myi2c::unique_id() { return get_mac_address() + "-uptime"; }
 
