@@ -42,7 +42,7 @@ CONFIG_SCHEMA = (
             state_class=STATE_CLASS_TOTAL_INCREASING,
             device_class=DEVICE_CLASS_DURATION,
             entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-            ),
+            ).extend(cv.polling_component_schema("60s")),
         }
     )
 )
