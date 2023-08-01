@@ -218,10 +218,9 @@ void Myi2c::setup() // ayar fonksiyonu
       Serial.println("Failed to initialize MAX17048.");
       while (1);
     }
-}
     
-void Myi2c::loop() // döngü fonksiyonu
-{
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  İnternal Temp
     
   float temperature = NAN;
   bool success = false;
@@ -232,11 +231,13 @@ void Myi2c::loop() // döngü fonksiyonu
   temperature = (raw - 32) / 1.8f;
   success = (raw != 128);
 
-  esp_err_t result = temp_sensor_read_celsius(&temperature);
-  temp_sensor_stop();
-  success = (result == ESP_OK);
 #endif  // USE_ESP32_VARIANT
 #endif  // USE_ESP32
+    
+}
+    
+void Myi2c::loop() // döngü fonksiyonu
+{
   if (success && std::isfinite(temperature)) {
     this->publish_state(temperature);
   } else {
