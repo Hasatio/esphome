@@ -101,7 +101,7 @@ void Myi2c::dump_config()
 void Myi2c::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  bt
+//  Bluetooth
     
     SerialBT.begin(btname);
     ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
@@ -220,6 +220,10 @@ void Myi2c::setup() // ayar fonksiyonu
       while (1);
     }
     
+}
+    
+void Myi2c::loop() // döngü fonksiyonu
+{  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
     
@@ -232,25 +236,27 @@ void Myi2c::setup() // ayar fonksiyonu
 
 #endif  // USE_ESP32_VARIANT
 #endif  // USE_ESP32
-    
-}
-    
-void Myi2c::loop() // döngü fonksiyonu
-{
-  if (success && std::isfinite(temperature)) {
-    this->publish_state(temperature);
-  } else {
-    ESP_LOGD(TAG, "Ignoring invalid temperature (success=%d, value=%.1f)", success, temperature);
-    if (!this->has_state()) {
-      this->publish_state(NAN);
+    if (success && std::isfinite(temperature)) 
+    {
+        this->publish_state(temperature);
+    } 
+    else 
+    {
+        ESP_LOGD(TAG, "Ignoring invalid temperature (success=%d, value=%.1f)", success, temperature);
+        if (!this->has_state()) 
+        {
+              this->publish_state(NAN);
+        }
     }
-  }
     
     if(SerialBT.available())
       {
         mygain = float(SerialBT.read());
         ESP_LOGD("data", "data: %f",mygain);
       }
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
     
     for(int i=0;i<4;i++)
     {
@@ -277,28 +283,38 @@ void Myi2c::loop() // döngü fonksiyonu
       data = data + String(volts[i]) + ",";
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADXL345
+    
     adxlmultiplier = ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
     x = accel.getX() * adxlmultiplier;
     y = accel.getY() * adxlmultiplier;
     z = accel.getZ() * adxlmultiplier;
+  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  MAX17048
     
     voltage = maxlipo.cellVoltage();
     percentage = maxlipo.cellPercent();
     
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Bluetooth
+    
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
-
+    
     SerialBT.println(data);
     data = "";
  
     sayac += 1;
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Sensor
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
     this->sample_sec_->publish_state(sayac*1000/millis());
     
 }
-
-std::string Myi2c::unique_id() { return get_mac_address() + "-uptime"; }
 
 } //namespace myi2c
 } //namespace esphome
