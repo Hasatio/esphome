@@ -293,7 +293,7 @@ void Myi2c::loop() // döngü fonksiyonu
 //  Sensor
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
-    this->sample()->publish_state(sayac);
+    this->sample_->publish_state(sayac);
     this->sample_sec_->publish_state(sayac*1000/millis());
     
 }
