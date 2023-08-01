@@ -53,8 +53,8 @@ static const char *TAG = "myi2c.sensor";
     #define address3 0x4a
     #define address4 0x4b
     
-    TwoWire I2C_1 = TwoWire(0);
-    //TwoWire I2C_2 = TwoWire(1);
+    // TwoWire I2C_1 = TwoWire(0);
+    // TwoWire I2C_2 = TwoWire(1);
 
     // Sensor *accel_x_sensor = new Sensor();
     // Sensor *accel_y_sensor = new Sensor();
@@ -99,7 +99,7 @@ void Myi2c::setup() // ayar fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
     
-    Wire.begin();
+    Wire.begin(SDA,SCL,freq);
     //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
