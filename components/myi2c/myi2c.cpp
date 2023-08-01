@@ -1,18 +1,18 @@
 #include "myi2c.h"
 
-// #ifdef USE_ESP32
-// #if defined(USE_ESP32_VARIANT_ESP32)
-// // there is no official API available on the original ESP32
-// extern "C" {
-// uint8_t temprature_sens_read();
-// }
-// #elif defined(USE_ESP32_VARIANT_ESP32C3) || defined(USE_ESP32_VARIANT_ESP32S2) || defined(USE_ESP32_VARIANT_ESP32S3)
-// #include "driver/temp_sensor.h"
-// #endif  // USE_ESP32_VARIANT
-// #endif  // USE_ESP32
-// #ifdef USE_RP2040
-// #include "Arduino.h"
-// #endif  // USE_RP2040
+#ifdef USE_ESP32
+#if defined(USE_ESP32_VARIANT_ESP32)
+// there is no official API available on the original ESP32
+extern "C" {
+uint8_t temprature_sens_read();
+}
+#elif defined(USE_ESP32_VARIANT_ESP32C3) || defined(USE_ESP32_VARIANT_ESP32S2) || defined(USE_ESP32_VARIANT_ESP32S3)
+#include "driver/temp_sensor.h"
+#endif  // USE_ESP32_VARIANT
+#endif  // USE_ESP32
+#ifdef USE_RP2040
+#include "Arduino.h"
+#endif  // USE_RP2040
 
 namespace esphome {
 namespace myi2c {
