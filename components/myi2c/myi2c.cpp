@@ -227,15 +227,11 @@ void Myi2c::loop() // döngü fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
     
-#ifdef USE_ESP32
-#if defined(USE_ESP32_VARIANT_ESP32)
   uint8_t raw = temprature_sens_read();
   ESP_LOGV(TAG, "Raw temperature value: %d", raw);
   temperature = (raw - 32) / 1.8f;
   success = (raw != 128);
 
-#endif  // USE_ESP32_VARIANT
-#endif  // USE_ESP32
     if (success && std::isfinite(temperature)) 
     {
         this->publish_state(temperature);
