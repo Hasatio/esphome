@@ -261,10 +261,10 @@ void Myi2c::loop() // döngü fonksiyonu
     
     this->sample_sec_->publish_state(sayac/millis());
     
-    if(seconds_int >= 59) 
-    {
-        sayac = 0;
-    }
+    // if(millis() >= 59) 
+    // {
+    //     sayac = 0;
+    // }
 }
 
 std::string Myi2c::unique_id() { return get_mac_address() + "-uptime"; }
