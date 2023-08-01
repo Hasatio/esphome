@@ -71,16 +71,16 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID], paren)
 
     if CONF_MY_SAMPLE in config:
-        # sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
-        # cg.add(parent.sample(sens))
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+        cg.add(parent.sample(sens))
         await sensor.register_sensor(var, config)
         await cg.register_component(var, config)
-        cg.add(var.sample(config[CONF_MY_SAMPLE]))
+        # cg.add(var.my_sample(config[CONF_MY_SAMPLE]))
     if CONF_MY_SAMPLE_SEC in config:
-        # sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
-        # cg.add(parent.sample_sec(sens))
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        cg.add(parent.sample_sec(sens))
         await sensor.register_sensor(var, config)
         await cg.register_component(var, config)
-        cg.add(var.sample_sec(config[CONF_MY_SAMPLE_SEC]))
+        # cg.add(var.my_sample_sec(config[CONF_MY_SAMPLE_SEC]))
 
 
