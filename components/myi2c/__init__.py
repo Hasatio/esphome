@@ -5,14 +5,6 @@ import esphome.config_validation as cv # "esphome/config_validation.py" yeni adl
 from esphome.components import binary_sensor, sensor # esphome içindeki kulanılan komponentler
 from esphome.const import ( # esphome içindeki sabit değişkenler
     CONF_ID,
-    DEVICE_CLASS_EMPTY,
-    STATE_CLASS_MEASUREMENT,
-    ENTITY_CATEGORY_NONE,
-    ENTITY_CATEGORY_DIAGNOSTIC,
-    STATE_CLASS_TOTAL_INCREASING,
-    UNIT_SECOND,
-    ICON_TIMER,
-    DEVICE_CLASS_DURATION,
 )
 
 AUTO_LOAD = ["sensor"]
