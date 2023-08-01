@@ -261,7 +261,7 @@ void Myi2c::loop() // döngü fonksiyonu
     this->sample_->publish_state(sayac);
     this->sample_sec_->publish_state(sayac_sec*1000/millis());
 
-    if(milis() > 10000) sayac_sec = 0;
+    if(millis() > 10000) sayac_sec = 0;
     
 }
 
