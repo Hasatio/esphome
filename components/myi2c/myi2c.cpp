@@ -282,7 +282,7 @@ void Myi2c::update() // döngü fonksiyonu
     
     this->sample_sec_->publish_state(sayac/seconds_int);
     
-    if(seconds_int >= 60) 
+    if(seconds_int >= 59) 
     {
         sayac = 0;
     }
