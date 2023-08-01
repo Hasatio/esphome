@@ -19,6 +19,11 @@ from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPL
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
+ADS1115Sensor = ads1115_ns.class_(
+    "ADS1115Sensor", sensor.Sensor, cg.PollingComponent, voltage_sampler.VoltageSampler
+)
+
+CONF_ADS1115_ID = "ads1115_id"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
@@ -29,6 +34,11 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
+            )
+            .extend(
+            {
+                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(ADS1115Component),
+            }
             ),
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
@@ -36,7 +46,13 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
-            ).extend(cv.polling_component_schema("10s")),
+            )
+            .extend(cv.polling_component_schema("10s"))
+            .extend(
+            {
+                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(ADS1115Component),
+            }
+            ),
             cv.Optional(CONF_MY_UPTIME): sensor.sensor_schema(
             unit_of_measurement=UNIT_SECOND,
             icon=ICON_TIMER,
@@ -50,18 +66,19 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    paren = await cg.get_variable(config[CONF_ID])
+    # parent = await cg.get_variable(config[CONF_ID])
+    paren = await cg.get_variable(config[CONF_ADS1115_ID])
     var = cg.new_Pvariable(config[CONF_ID], paren)
 
     if CONF_MY_SAMPLE in config:
         # sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
-        # cg.add(paren.sample(sens))
+        # cg.add(parent.sample(sens))
         await sensor.register_sensor(var, config)
         await cg.register_component(var, config)
         cg.add(var.sample(config[CONF_MY_SAMPLE]))
     if CONF_MY_SAMPLE_SEC in config:
         # sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
-        # cg.add(paren.sample_sec(sens))
+        # cg.add(parent.sample_sec(sens))
         await sensor.register_sensor(var, config)
         await cg.register_component(var, config)
         cg.add(var.sample_sec(config[CONF_MY_SAMPLE_SEC]))
