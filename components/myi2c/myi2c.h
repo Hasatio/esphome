@@ -6,8 +6,6 @@
 #include "esphome/core/defines.h"
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
-#include "esphome/components/uptime/uptime_sensor.h"
-#include "esphome/components/uptime/uptime_sensor.cpp"
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
@@ -37,9 +35,12 @@ void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 
 void dump_config() override;
 
+std::string unique_id() override;
+
 protected:
 
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
+uint64_t uptime_{0};
 
 }; // class Myi2c
 } //namespace myi2c
