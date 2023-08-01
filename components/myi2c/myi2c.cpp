@@ -259,7 +259,7 @@ void Myi2c::loop() // döngü fonksiyonu
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
     
-    this->sample_sec_->publish_state(sayac/millis();
+    this->sample_sec_->publish_state(sayac/millis());
     
     if(seconds_int >= 59) 
     {
