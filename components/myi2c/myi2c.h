@@ -33,14 +33,14 @@ void bluetooth(String b); // bluetooth fonksiyonu
 void gain(float g); // kazanç fonksiyonu
 
 #ifdef USE_SENSOR
-void my_sample(sensor::Sensor *my_sample) // sayaç sensörü fonksiyonu
+void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 { 
-    my_sample_ = my_sample;
+    sample_ = sample;
 }
 
-void my_sample_sec(sensor::Sensor *my_sample_sec) // sayaç sensörü fonksiyonu
+void my_sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
 { 
-    my_sample_sec_ = my_sample_sec;
+    sample_sec_ = sample_sec;
 }
 #endif
 
@@ -49,8 +49,8 @@ void dump_config() override;
 protected:
 
 #ifdef USE_SENSOR
-sensor::Sensor *my_sample_{nullptr}; // sensör değişkeni
-sensor::Sensor *my_sample_sec_{nullptr}; // sensör değişkeni
+sensor::Sensor *sample_{nullptr}; // sensör değişkeni
+sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 #endif
 
 }; // class Myi2c
