@@ -34,11 +34,11 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
-            )
-            .extend(
-            {
-                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
-            }
+            # )
+            # .extend(
+            # {
+            #     cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
+            # }
             ),
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
@@ -46,12 +46,12 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
-            )
-            .extend(cv.polling_component_schema("10s"))
-            .extend(
-            {
-                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
-            }
+            # )
+            # .extend(cv.polling_component_schema("10s"))
+            # .extend(
+            # {
+            #     cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
+            # }
             ),
             cv.Optional(CONF_MY_UPTIME): sensor.sensor_schema(
             unit_of_measurement=UNIT_SECOND,
