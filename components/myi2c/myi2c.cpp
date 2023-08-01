@@ -99,7 +99,7 @@ void Myi2c::setup() // ayar fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
     
-    Wire.begin(SDA,SCL,freq);
+    Wire.begin();
     //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
