@@ -18,7 +18,7 @@ CONFIG_SCHEMA = (
             cv.GenerateID(): cv.use_id(Myi2c),
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
                 unit_of_measurement=UNIT_SAMPLE,
-                accuracy_decimals=2,
+                accuracy_decimals=0,
                 device_class=DEVICE_CLASS_EMPTY,
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
