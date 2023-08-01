@@ -62,7 +62,7 @@ static const char *TAG = "myi2c.sensor";
     
     String btname = "ESP32"; // bt standart adı
 
-    uint8_t adc[16];
+    uint8_t adc[16], sayac_sec = 0;
     uint64_t sayac = 0;
     float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
     double adxlmultiplier;
@@ -255,6 +255,7 @@ void Myi2c::loop() // döngü fonksiyonu
     data = "";
  
     sayac += 1;
+    sayac_sec = UptimeSensor::seconds_int;
 
     // accel_x_sensor->publish_state(x);
     // accel_y_sensor->publish_state(y);
