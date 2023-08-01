@@ -19,8 +19,8 @@ from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPL
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
-ADS1115Sensor = ads1115_ns.class_(
-    "ADS1115Sensor", sensor.Sensor, cg.PollingComponent, voltage_sampler.VoltageSampler
+ADS1115Sensor = mti2c_ns.class_(
+    "ADS1115Sensor", sensor.Sensor, cg.PollingComponent
 )
 
 CONF_ADS1115_ID = "ads1115_id"
