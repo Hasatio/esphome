@@ -274,7 +274,7 @@ void Myi2c::loop() // döngü fonksiyonu
     sayac += 1;
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
-    // this->sample_->publish_state(sayac);
+    this->sample_->publish_state(sayac);
 }
 
 std::string Myi2c::unique_id() { return get_mac_address() + "-uptime"; }
