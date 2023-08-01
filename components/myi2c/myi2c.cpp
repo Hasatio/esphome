@@ -299,8 +299,8 @@ void Myi2c::loop() // döngü fonksiyonu
 
 void Myi2c::update()
 {  
-    this->my_sample_->publish_state(sayac);
-    this->my_sample_sec_->publish_state(sayac*1000/millis());
+    this->sample_->publish_state(sayac);
+    this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
 } //namespace myi2c
