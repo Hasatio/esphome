@@ -13,7 +13,9 @@ AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
 #DEPENDENCIES = ["i2c"]
-CONF_MY_GAIN = "gain" # kişisel değişkenler
+
+# kişisel değişkenler
+CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
 UNIT_SAMPLE = "data/sec"
@@ -28,13 +30,6 @@ CONFIG_SCHEMA = ( # komponent içindekiler
             cv.GenerateID(): cv.declare_id(Myi2c), # id tanımlaması
             cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
             cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
-            # cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
-            #         unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
-            #         accuracy_decimals=0, # sensörün sayısal gösterim şekli
-            #         device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-            #         state_class=STATE_CLASS_MEASUREMENT,
-            # ),
-            # cv.Optional(CONF_MY_SAMPLE2): binary_sensor.binary_sensor_schema(),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
@@ -43,19 +38,9 @@ CONFIG_SCHEMA = ( # komponent içindekiler
 def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
     yield cg.register_component(var, config) # komponent tanımlaması
-    # yield sensor.register_sensor(var, config)
-    # yield binary_sensor.register_binary_sensor(var, config)
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
     
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
-
-    # if CONF_MY_SAMPLE in config:
-    #     conf = config[CONF_MY_SAMPLE]
-    #     sens = await sensor.new_sensor(conf)
-    #     cg.add(var.sample(sens)) # sayaç sensörün fonksiyonu tanımlaması
-    
-    # cg.add(var.sample(yield sensor.new_sensor(config[CONF_MY_SAMPLE])))
-    # cg.add(var.sample(yield binary_sensor.new_binary_sensor(config[CONF_MY_SAMPLE2])))
