@@ -52,9 +52,11 @@ async def to_code(config):
 
     if CONF_MY_SAMPLE in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+        await cg.register_component(sens, config)
         cg.add(parent.sample(sens))
     if CONF_MY_SAMPLE_SEC in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        await cg.register_component(sens, config)
         cg.add(parent.sample_sec(sens))
 
 
