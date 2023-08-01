@@ -80,8 +80,8 @@ void Myi2c::gain(float g) // kazanç fonksiyonu
 
 void Myi2c::dump_config()
 {
-    ESP_LOGCONFIG(TAG, "sample:");
-    LOG_SENSOR("  ", "sample", this->sample_);
+    // ESP_LOGCONFIG(TAG, "sample:");
+    // LOG_SENSOR("  ", "sample", this->sample_);
 }
 
 void Myi2c::setup() // ayar fonksiyonu
@@ -225,7 +225,6 @@ void Myi2c::loop() // döngü fonksiyonu
       // of precision in a single division, but let's do it like this to be sure.
       const uint64_t seconds_int = this->uptime_ / 1000ULL;
       const float seconds = float(seconds_int) + (this->uptime_ % 1000ULL) / 1000.0f;
-      this->publish_state(seconds);
     
     if(SerialBT.available())
       {
@@ -275,6 +274,12 @@ void Myi2c::loop() // döngü fonksiyonu
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
+    this->sample_sec_->publish_state(sayac/seconds);
+
+    if(seconds >= 60) 
+    {
+        sayac = 0;
+    }
 }
 
 std::string Myi2c::unique_id() { return get_mac_address() + "-uptime"; }
