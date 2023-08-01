@@ -259,10 +259,10 @@ void Myi2c::loop() // döngü fonksiyonu
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
 
-// }
+}
 
-// void Myi2c::update() // döngü fonksiyonu
-// {
+void Myi2c::update() // döngü fonksiyonu
+{
       const uint32_t ms = millis();
       const uint64_t ms_mask = (1ULL << 32) - 1ULL;
       const uint32_t last_ms = this->uptime_ & ms_mask;
