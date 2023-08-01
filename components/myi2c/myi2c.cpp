@@ -227,9 +227,9 @@ void Myi2c::update() // döngü fonksiyonu
       const float seconds = float(seconds_int) + (this->uptime_ % 1000ULL) / 1000.0f;
       this->publish_state(seconds);
     
-    this->sample_sec_->publish_state(sayac/seconds);
+    this->sample_sec_->publish_state(sayac/seconds_int);
     
-    if(seconds >= 60) 
+    if(seconds_int >= 60) 
     {
         sayac = 0;
     }
