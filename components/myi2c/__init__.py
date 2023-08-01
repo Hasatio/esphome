@@ -18,8 +18,9 @@ MULTI_CONF = True
 CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
-UNIT_SAMPLE = "data/sec"
-DEVICE_CLASS_PRESSURE = "sample"
+CONF_MY_SAMPLE_SEC = "sample_sec"
+UNIT_SAMPLE = "data"
+UNIT_SAMPLE_SEC = "data/sec"
 
 myi2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
 Myi2c = myi2c_ns.class_("Myi2c", binary_sensor.BinarySensor, sensor.Sensor, cg.Component) # sınıf tanımlaması
