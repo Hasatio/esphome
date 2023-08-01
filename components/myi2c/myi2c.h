@@ -35,7 +35,7 @@ void gain(float g); // kazanç fonksiyonu
 #ifdef USE_SENSOR
 void my_sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 { 
-    sample_ = sample;
+    my_sample_ = my_sample;
 }
 
 void my_sample_sec(sensor::Sensor *my_sample_sec) // sayaç sensörü fonksiyonu
