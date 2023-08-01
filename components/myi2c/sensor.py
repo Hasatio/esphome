@@ -8,7 +8,7 @@ from esphome.const import (
     ENTITY_CATEGORY_NONE,
 )
 
-from . import Myi2c, CONF_MY_SAMPLE, UNIT_SAMPLE 
+from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
@@ -23,6 +23,13 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
             ),
+            cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
+                unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
+                accuracy_decimals=1, # sensörün sayısal gösterim şekli
+                device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                state_class=STATE_CLASS_MEASUREMENT,
+                entity_category=ENTITY_CATEGORY_NONE,
+            ),
         }
     )
 )
@@ -33,5 +40,8 @@ def to_code(config):
     if CONF_MY_SAMPLE in config:
         sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
         cg.add(parent.sample(sens))
+    if CONF_MY_SAMPLE_SEC in config:
+        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        cg.add(parent.sample_sec(sens))
 
 
