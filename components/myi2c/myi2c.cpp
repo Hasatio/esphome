@@ -297,7 +297,7 @@ void Myi2c::loop() // döngü fonksiyonu
     voltage = maxlipo.cellVoltage();
     percentage = maxlipo.cellPercent();
     
-    data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," String(temperature);
+    data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
 
     SerialBT.println(data);
     data = "";
