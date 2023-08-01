@@ -6,7 +6,6 @@
 #include "esphome/core/defines.h"
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
