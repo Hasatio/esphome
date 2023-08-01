@@ -234,9 +234,9 @@ void Myi2c::loop() // döngü fonksiyonu
   temperature = (raw - 32) / 1.8f;
   success = (raw != 128);
 
-  esp_err_t result = temp_sensor_read_celsius(&temperature);
-  temp_sensor_stop();
-  success = (result == ESP_OK);
+  // esp_err_t result = temp_sensor_read_celsius(&temperature);
+  // temp_sensor_stop();
+  // success = (result == ESP_OK);
 #endif  // USE_ESP32_VARIANT
 #endif  // USE_ESP32
     
