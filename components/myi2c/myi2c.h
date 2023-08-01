@@ -33,6 +33,11 @@ void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
     sample_ = sample;
 }
 
+void sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
+{ 
+    sample_sec_ = sample_sec;
+}
+
 void dump_config() override;
 
 std::string unique_id() override;
@@ -40,6 +45,7 @@ std::string unique_id() override;
 protected:
 
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
+sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 uint64_t uptime_{0};
 
 }; // class Myi2c
