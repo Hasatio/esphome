@@ -260,5 +260,7 @@ void Myi2c::loop() // döngü fonksiyonu
     // this->sample_->publish_state(sayac);
 }
 
+std::string UptimeSensor::unique_id() { return get_mac_address() + "-uptime"; }
+
 } //namespace myi2c
 } //namespace esphome
