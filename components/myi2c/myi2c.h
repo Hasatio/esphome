@@ -26,7 +26,7 @@ void setup() override; // ayar fonksiyonu
 
 void loop() override; // döngü fonksiyonu
 
-void update() override; 
+void update(); 
 
 void bluetooth(String b); // bluetooth fonksiyonu
 
