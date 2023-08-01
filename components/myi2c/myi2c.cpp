@@ -208,7 +208,7 @@ void Myi2c::setup() // ayar fonksiyonu
     }
 }
 
-void Myi2c::loop() // döngü fonksiyonu
+void Myi2c::update() // döngü fonksiyonu
 {
       const uint32_t ms = millis();
       const uint64_t ms_mask = (1ULL << 32) - 1ULL;
@@ -225,7 +225,13 @@ void Myi2c::loop() // döngü fonksiyonu
       // of precision in a single division, but let's do it like this to be sure.
       const uint64_t seconds_int = this->uptime_ / 1000ULL;
       const float seconds = float(seconds_int) + (this->uptime_ % 1000ULL) / 1000.0f;
+      this->publish_state(seconds);
     
+    this->sample_sec_->publish_state(sayac/seconds);
+}
+    
+void Myi2c::loop() // döngü fonksiyonu
+{
     if(SerialBT.available())
       {
         mygain = float(SerialBT.read());
