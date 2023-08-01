@@ -37,7 +37,7 @@ CONFIG_SCHEMA = (
             )
             .extend(
             {
-                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(ADS1115Component),
+                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
             }
             ),
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
@@ -50,7 +50,7 @@ CONFIG_SCHEMA = (
             .extend(cv.polling_component_schema("10s"))
             .extend(
             {
-                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(ADS1115Component),
+                cv.GenerateID(CONF_ADS1115_ID): cv.use_id(Myi2c),
             }
             ),
             cv.Optional(CONF_MY_UPTIME): sensor.sensor_schema(
