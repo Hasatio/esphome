@@ -1,5 +1,9 @@
 #include "myi2c.h"
 
+extern "C" {
+uint8_t temprature_sens_read();
+}
+
 namespace esphome {
 namespace myi2c {
     
@@ -67,9 +71,6 @@ static const char *TAG = "myi2c.sensor";
     double adxlmultiplier;
     String data = "";
     bool success = false;
-extern "C" {
-uint8_t temprature_sens_read();
-}
 
 void Myi2c::bluetooth(String b) // bluetooth fonksiyonu
 {
