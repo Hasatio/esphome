@@ -15,8 +15,8 @@ MULTI_CONF = True
 # kişisel değişkenler
 CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
-CONF_MY_SAMPLE = "sample"
-CONF_MY_SAMPLE_SEC = "sample_sec"
+CONF_MY_SAMPLE = "my_sample"
+CONF_MY_SAMPLE_SEC = "my_sample_sec"
 CONF_MY_UPTIME = "uptime"
 UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
