@@ -47,14 +47,14 @@ CONFIG_SCHEMA = (
     )
 )
 
-def to_code(config):
-    parent = yield cg.get_variable(config[CONF_ID])
+async def to_code(config):
+    parent = await cg.get_variable(config[CONF_ID])
 
     if CONF_MY_SAMPLE in config:
-        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
         cg.add(parent.sample(sens))
     if CONF_MY_SAMPLE_SEC in config:
-        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
         cg.add(parent.sample_sec(sens))
 
 
