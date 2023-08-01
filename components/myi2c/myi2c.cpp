@@ -62,7 +62,7 @@ static const char *TAG = "myi2c.sensor";
     
     String btname = "ESP32"; // bt standart adı
 
-    uint8_t adc[16], sayac_sec = 0;
+    uint8_t adc[16];
     uint64_t sayac = 0;
     float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
     double adxlmultiplier;
@@ -255,13 +255,10 @@ void Myi2c::loop() // döngü fonksiyonu
     data = "";
  
     sayac += 1;
-    sayac_sec += 1;
     
     // ESP_LOGD(TAG, "Sample = %d",sample_);
     this->sample_->publish_state(sayac);
-    this->sample_sec_->publish_state(sayac_sec*1000/millis());
-
-    if(millis() > 1000) sayac_sec = 0;
+    this->sample_sec_->publish_state(sayac*1000/millis());
     
 }
 
