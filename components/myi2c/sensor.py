@@ -8,7 +8,7 @@ from esphome.const import (
     ENTITY_CATEGORY_NONE,
 )
 
-from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
+from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC, CONF_MY_UPTIME
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
@@ -29,6 +29,14 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
+            ),
+            cv.Optional(CONF_MY_UPTIME): sensor.sensor_schema(
+            unit_of_measurement=UNIT_SECOND,
+            icon=ICON_TIMER,
+            accuracy_decimals=0,
+            state_class=STATE_CLASS_TOTAL_INCREASING,
+            device_class=DEVICE_CLASS_DURATION,
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
             ),
         }
     )
