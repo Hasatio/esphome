@@ -68,19 +68,19 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_ID])
     # paren = await cg.get_variable(config[CONF_ADS1115_ID])
-    var = cg.new_Pvariable(config[CONF_ID], parent)
+    # var = cg.new_Pvariable(config[CONF_ID], parent)
 
     if CONF_MY_SAMPLE in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
         cg.add(parent.sample(sens))
-        await sensor.register_sensor(var, config)
-        await cg.register_component(var, config)
+        # await sensor.register_sensor(var, config)
+        # await cg.register_component(var, config)
         # cg.add(var.my_sample(config[CONF_MY_SAMPLE]))
     if CONF_MY_SAMPLE_SEC in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
         cg.add(parent.sample_sec(sens))
-        await sensor.register_sensor(var, config)
-        await cg.register_component(var, config)
+        # await sensor.register_sensor(var, config)
+        # await cg.register_component(var, config)
         # cg.add(var.my_sample_sec(config[CONF_MY_SAMPLE_SEC]))
 
 
