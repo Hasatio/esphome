@@ -30,7 +30,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
-                accuracy_decimals=1, # sensörün sayısal gösterim şekli
+                accuracy_decimals=0, # sensörün sayısal gösterim şekli
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
