@@ -15,7 +15,7 @@ from esphome.const import (
 
 from . import Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC, CONF_MY_UPTIME
 
-DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
+# DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -52,11 +52,11 @@ async def to_code(config):
 
     if CONF_MY_SAMPLE in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
-        await cg.register_component(sens, config)
+        # await cg.register_component(sens, config)
         cg.add(parent.sample(sens))
     if CONF_MY_SAMPLE_SEC in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
-        await cg.register_component(sens, config)
+        # await cg.register_component(sens, config)
         cg.add(parent.sample_sec(sens))
 
 
