@@ -34,7 +34,7 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
-            ),
+            ).extend(cv.polling_component_schema("1s")),
             cv.Optional(CONF_MY_UPTIME): sensor.sensor_schema(
             unit_of_measurement=UNIT_SECOND,
             icon=ICON_TIMER,
