@@ -24,9 +24,9 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 
 void setup() override; // ayar fonksiyonu 
 
-void loop(); // döngü fonksiyonu
+void loop() override; // döngü fonksiyonu
 
-void update(); 
+void update() override; 
 
 void bluetooth(String b); // bluetooth fonksiyonu
 
