@@ -35,9 +35,9 @@ CONFIG_SCHEMA = ( # komponent içindekiler
     .extend(cv.COMPONENT_SCHEMA)
 )
 
-def to_code(config): # fonksiyon tanımlaması
+async def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
-    yield cg.register_component(var, config) # komponent tanımlaması
+    await cg.register_component(var, config) # komponent tanımlaması
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
