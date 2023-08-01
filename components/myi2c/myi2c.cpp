@@ -62,7 +62,7 @@ static const char *TAG = "myi2c.sensor";
     
     String btname = "ESP32"; // bt standart adı
 
-    uint8_t adc[16], sayac_rec = 0;
+    uint8_t adc[16], sayac_sec = 0;
     uint64_t sayac = 0;
     float volts[16], x, y, z, voltage, percentage, mygain = 1.0;
     double adxlmultiplier;
