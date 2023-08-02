@@ -28,7 +28,7 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
             )
-            .extend(cv.polling_component_schema("1ms"))
+            .extend(cv.polling_component_schema("1s"))
             ,
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
@@ -37,7 +37,7 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
             )
-            # .extend(cv.polling_component_schema("1ms"))
+            # .extend(cv.polling_component_schema("1s"))
             ,
         }
     )
