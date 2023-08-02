@@ -299,7 +299,7 @@ void Myi2c::loop() // döngü fonksiyonu
 
 void Myi2c::update()
 {  
-    this->sample_all_->publish_state(sayac);
+    // this->sample_all_->publish_state(sayac);
     this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
