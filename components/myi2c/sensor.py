@@ -13,9 +13,12 @@ from esphome.const import (
     DEVICE_CLASS_DURATION,
 )
 
-from . import myi2c_ns, Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
+from . import myi2c_ns, Myi2c, CONF_MY_ID, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
+
+sensor_ns = cg.esphome_ns.namespace('sensor')
+Sensor = sensor_ns.class_('Sensor', sensor.Sensor, cg.Nameable)
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -39,14 +42,21 @@ CONFIG_SCHEMA = (
     )
 )
 
-def to_code(config):
-    parent = yield cg.get_variable(config[CONF_ID])
+# def to_code(config):
+#     parent = yield cg.get_variable(config[CONF_ID])
 
-    # if CONF_MY_SAMPLE in config:
-    #     sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
-    #     cg.add(parent.sample(sens))
-    if CONF_MY_SAMPLE_SEC in config:
-        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
-        cg.add(parent.sample_sec(sens))
+#     if CONF_MY_SAMPLE in config:
+#         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+#         cg.add(parent.sample(sens))
+#     if CONF_MY_SAMPLE_SEC in config:
+#         sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+#         cg.add(parent.sample_sec(sens))
+def to_code(config):
+    paren = yield cg.get_variable(config[CONF_MY_ID])
+    var = cg.new_Pvariable(config[CONF_ID])
+    
+    yield sensor.register_sensor(var, config)
+    
+    cg.add(paren.register_sensor(var))
 
 
