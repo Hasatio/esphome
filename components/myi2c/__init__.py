@@ -38,7 +38,6 @@ CONFIG_SCHEMA = ( # komponent içindekiler
 async def to_code(config): # fonksiyon tanımlaması
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config) # komponent tanımlaması
-    await sensor.register_sensor(var, config)
     
     if CONF_MY_GAIN in config:
         cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
