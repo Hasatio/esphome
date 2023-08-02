@@ -13,6 +13,7 @@ MULTI_CONF = True
 #DEPENDENCIES = ["i2c"]
 
 # kişisel değişkenler
+CONF_MY_ID = 'my_id'
 CONF_MY_GAIN = "gain"
 CONF_MY_BLUETOOTH = "bluetooth"
 CONF_MY_SAMPLE = "sample"
