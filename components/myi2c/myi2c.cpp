@@ -295,14 +295,16 @@ void Myi2c::loop() // döngü fonksiyonu
 //  Sensor
     
 #ifdef USE_SENSOR
-    // this->sample_->publish_state(sayac);
-    // this->sample_sec_->publish_state(sayac*1000/millis());
+    this->sample_->publish_state(sayac);
     // ESP_LOGD(TAG, "Sample = %d",sample_);
 #endif
 }
 
 void Myi2c::update()
 {  
+#ifdef USE_SENSOR
+    this->sample_sec_->publish_state(sayac*1000/millis());
+#endif
 }
 
 } //namespace myi2c
