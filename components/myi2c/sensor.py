@@ -37,7 +37,7 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 entity_category=ENTITY_CATEGORY_NONE,
             )
-            # .extend(cv.polling_component_schema("1s"))
+            .extend(cv.polling_component_schema("1s"))
             ,
         }
     )
