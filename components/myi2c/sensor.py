@@ -50,6 +50,6 @@ async def to_code(config):
     if CONF_MY_SAMPLE_SEC in config:
         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
         cg.add(parent.sample_sec(sens))
-        await cg.register_component(sens, config[CONF_MY_SAMPLE])
+        await cg.register_component(sens, config[CONF_MY_SAMPLE_SEC])
 
 
