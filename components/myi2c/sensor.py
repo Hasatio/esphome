@@ -13,31 +13,29 @@ from esphome.const import (
     DEVICE_CLASS_DURATION,
 )
 
-from . import myi2c_ns, Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC, CONF_MY_UPTIME
+from . import myi2c_ns, Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
 DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
-
-CONF_ADS1115_ID = "ads1115_id"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(Myi2c),
-            # cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
-            #     unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
-            #     accuracy_decimals=0, # sensörün sayısal gösterim şekli
-            #     device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-            #     state_class=STATE_CLASS_MEASUREMENT,
-            #     entity_category=ENTITY_CATEGORY_NONE,
-            # ),
-            # cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç sensör tanımlaması
-            #     unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
-            #     accuracy_decimals=0, # sensörün sayısal gösterim şekli
-            #     device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-            #     state_class=STATE_CLASS_MEASUREMENT,
-            #     entity_category=ENTITY_CATEGORY_NONE,
-            # )
-            # .extend(cv.polling_component_schema("10s")),
+            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
+                unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
+                accuracy_decimals=0, # sensörün sayısal gösterim şekli
+                device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                state_class=STATE_CLASS_MEASUREMENT,
+                entity_category=ENTITY_CATEGORY_NONE,
+            ),
+            cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
+                unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
+                accuracy_decimals=0, # sensörün sayısal gösterim şekli
+                device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                state_class=STATE_CLASS_MEASUREMENT,
+                entity_category=ENTITY_CATEGORY_NONE,
+            )
+            .extend(cv.polling_component_schema("10s")),
         }
     )
 )
