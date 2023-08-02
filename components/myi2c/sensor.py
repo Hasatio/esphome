@@ -39,14 +39,14 @@ CONFIG_SCHEMA = (
                 entity_category=ENTITY_CATEGORY_NONE,
             ).extend(cv.polling_component_schema("10s")),
         }
-    )
+    ).extend(cv.COMPONENT_SCHEMA)
 )
 
 # def to_code(config):
 #     parent = yield cg.get_variable(config[CONF_ID])
 
 #     if CONF_MY_SAMPLE in config:
-#         sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+#         sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
 #         cg.add(parent.sample(sens))
 #     if CONF_MY_SAMPLE_SEC in config:
 #         sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
@@ -58,5 +58,11 @@ def to_code(config):
     yield sensor.register_sensor(var, config)
     
     cg.add(paren.register_sensor(var))
+    if CONF_MY_SAMPLE in config:
+        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE])
+        cg.add(paren.sample(sens))
+    if CONF_MY_SAMPLE_SEC in config:
+        sens = yield sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        cg.add(paren.sample_sec(sens))
 
 
