@@ -33,9 +33,9 @@ void bluetooth(String b); // bluetooth fonksiyonu
 void gain(float g); // kazanç fonksiyonu
 
 #ifdef USE_SENSOR
-void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
+void sample_all(sensor::Sensor *sample_all) // sayaç sensörü fonksiyonu
 { 
-    sample_ = sample;
+    sample_all_ = sample_all;
 }
 
 void sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
@@ -49,7 +49,7 @@ void dump_config() override;
 protected:
 
 #ifdef USE_SENSOR
-sensor::Sensor *sample_{nullptr}; // sensör değişkeni
+sensor::Sensor *sample_all_{nullptr}; // sensör değişkeni
 sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 #endif
 
