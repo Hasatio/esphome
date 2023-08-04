@@ -1,5 +1,3 @@
-from typing import Optional # optional özelliği ekleme
-
 import esphome.codegen as cg # "esphome/codegen.py" yeni adlandırması
 import esphome.config_validation as cv # "esphome/config_validation.py" yeni adlandırması
 from esphome.components import binary_sensor, sensor # esphome içindeki kulanılan komponentler
