@@ -28,7 +28,6 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    # parent = await cg.get_variable(config[CONF_ID])
     parent = await cg.get_variable(config[CONF_ID])
 
     if CONF_MY_SAMPLE in config:
