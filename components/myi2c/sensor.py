@@ -12,7 +12,7 @@ DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörl
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_MY_ID): cv.use_id(Myi2c),
+            cv.GenerateID(): cv.use_id(Myi2c),
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
