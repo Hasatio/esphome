@@ -3,14 +3,6 @@ import esphome.config_validation as cv
 from esphome.components import sensor
 from esphome.const import (
     CONF_ID,
-    DEVICE_CLASS_EMPTY,
-    STATE_CLASS_MEASUREMENT,
-    ENTITY_CATEGORY_NONE,
-    ENTITY_CATEGORY_DIAGNOSTIC,
-    STATE_CLASS_TOTAL_INCREASING,
-    UNIT_SECOND,
-    ICON_TIMER,
-    DEVICE_CLASS_DURATION,
 )
 
 from . import myi2c_ns, Myi2c, CONF_MY_ID, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
@@ -25,14 +17,12 @@ CONFIG_SCHEMA = (
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
             )
-            .extend(cv.polling_component_schema("1s"))
-            ,
+            .extend(cv.polling_component_schema("1s")),
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
             )
-            .extend(cv.polling_component_schema("1s"))
-            ,
+            .extend(cv.polling_component_schema("1s")),
         }
     )
 )
