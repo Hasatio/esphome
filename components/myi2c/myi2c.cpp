@@ -293,5 +293,9 @@ if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/mi
 #endif
 }
 
+void Myi2c::update()
+{ 
+}
+
 } //namespace myi2c
 } //namespace esphome
