@@ -11,15 +11,14 @@ MULTI_CONF = True
 #DEPENDENCIES = ["i2c"]
 
 # kişisel değişkenler
-CONF_MY_ID = 'my_id'
-CONF_MY_GAIN = "gain"
-CONF_MY_BLUETOOTH = "bluetooth"
-CONF_MY_SAMPLE = "sample"
-CONF_MY_SAMPLE_SEC = "sample_sec"
+CONF_MY_GAIN = "gain" # esphome da kullanılan komponent değişkeni "gain"
+CONF_MY_BLUETOOTH = "bluetooth" # esphome da kullanılan komponent değişkeni "bluetooth"
+CONF_MY_SAMPLE = "sample" # esphome da kullanılan sensor "sample"
+CONF_MY_SAMPLE_SEC = "sample_sec" # esphome da kullanılan sensor "sample_sec"
 UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
 
-myi2c_ns = cg.esphome_ns.namespace("myi2c") # esphome component adı "myi2c"
+myi2c_ns = cg.esphome_ns.namespace("myi2c") # esphome komponent adı "myi2c"
 Myi2c = myi2c_ns.class_("Myi2c", cg.Component) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
