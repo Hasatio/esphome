@@ -26,8 +26,6 @@ void setup() override; // ayar fonksiyonu
 
 void loop() override; // döngü fonksiyonu
 
-void update() override;
-
 void bluetooth(String b); // bluetooth fonksiyonu
 
 void gain(float g); // kazanç fonksiyonu
@@ -43,8 +41,6 @@ void sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
     sample_sec_ = sample_sec;
 }
 #endif
-
-void dump_config() override;
 
 protected:
 
