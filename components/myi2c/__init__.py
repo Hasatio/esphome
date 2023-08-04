@@ -1,6 +1,6 @@
 import esphome.codegen as cg # "esphome/codegen.py" yeni adlandırması
 import esphome.config_validation as cv # "esphome/config_validation.py" yeni adlandırması
-from esphome.components import binary_sensor, sensor # esphome içindeki kulanılan komponentler
+from esphome.components import sensor # esphome içindeki kulanılan komponentler
 from esphome.const import ( # esphome içindeki sabit değişkenler
     CONF_ID,
 )
