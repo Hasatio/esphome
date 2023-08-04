@@ -24,18 +24,18 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
-                device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-                state_class=STATE_CLASS_MEASUREMENT,
-                entity_category=ENTITY_CATEGORY_NONE,
+                # device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                # state_class=STATE_CLASS_MEASUREMENT,
+                # entity_category=ENTITY_CATEGORY_NONE,
             )
             .extend(cv.polling_component_schema("1s"))
             ,
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
-                device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
-                state_class=STATE_CLASS_MEASUREMENT,
-                entity_category=ENTITY_CATEGORY_NONE,
+                # device_class=DEVICE_CLASS_EMPTY, # sensör sınıfı
+                # state_class=STATE_CLASS_MEASUREMENT,
+                # entity_category=ENTITY_CATEGORY_NONE,
             )
             .extend(cv.polling_component_schema("1s"))
             ,
@@ -47,11 +47,11 @@ async def to_code(config):
     # parent = await cg.get_variable(config[CONF_ID])
     parent = await cg.get_variable(config[CONF_MY_ID])
 
-    # if CONF_MY_SAMPLE in config:
-    #     sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
-    #     cg.add(parent.sample(sens))
-    # if CONF_MY_SAMPLE_SEC in config:
-    #     sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
-    #     cg.add(parent.sample_sec(sens))
+    if CONF_MY_SAMPLE in config:
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+        cg.add(parent.sample(sens))
+    if CONF_MY_SAMPLE_SEC in config:
+        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        cg.add(parent.sample_sec(sens))
 
 
