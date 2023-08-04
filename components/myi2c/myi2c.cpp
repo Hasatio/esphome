@@ -82,12 +82,6 @@ void Myi2c::gain(float g) // kazanç fonksiyonu
     mygain = g;
 }
 
-void Myi2c::dump_config()
-{
-    // ESP_LOGCONFIG(TAG, "sample:");
-    // LOG_SENSOR("  ", "sample", this->sample_);
-}
-
 void Myi2c::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
