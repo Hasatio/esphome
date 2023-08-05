@@ -61,9 +61,7 @@ async def to_code(config):
     cg.add(var.set_temperature_offset(config[CONF_TEMPERATURE_OFFSET]))
     cg.add(var.set_iaq_mode(config[CONF_IAQ_MODE]))
     cg.add(var.set_sample_rate(config[CONF_SAMPLE_RATE]))
-    cg.add(
-        var.set_state_save_interval(config[CONF_STATE_SAVE_INTERVAL].total_milliseconds)
-    )
+    cg.add(var.set_state_save_interval(config[CONF_STATE_SAVE_INTERVAL].total_milliseconds))
 
     # Although this component does not use SPI, the BSEC library requires the SPI library
     cg.add_library("SPI", None)
