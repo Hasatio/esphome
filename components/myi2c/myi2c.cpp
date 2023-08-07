@@ -151,11 +151,11 @@ void Myi2c::setup() // ayar fonksiyonu
     ads2.setDataRate(RATE_ADS1115_860SPS);
     ads3.setDataRate(RATE_ADS1115_860SPS);
     ads4.setDataRate(RATE_ADS1115_860SPS);
-    // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1,true);
-    ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    ads3.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    ads4.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    // // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1,true);
+    // ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    // ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    // ads3.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    // ads4.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
