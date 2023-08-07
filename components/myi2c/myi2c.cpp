@@ -151,11 +151,20 @@ void Myi2c::setup() // ayar fonksiyonu
     ads2.setDataRate(RATE_ADS1115_860SPS);
     ads3.setDataRate(RATE_ADS1115_860SPS);
     ads4.setDataRate(RATE_ADS1115_860SPS);
-    // // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1,true);
-    // ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    // ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    // ads3.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
-    // ads4.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    
+    // ADS1X15_REG_CONFIG_MUX_DIFF_0_1 (0x0000) ///< Differential P = AIN0, N = AIN1 (default)
+    // ADS1X15_REG_CONFIG_MUX_DIFF_0_3 (0x1000) ///< Differential P = AIN0, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_DIFF_1_3 (0x2000) ///< Differential P = AIN1, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_DIFF_2_3 (0x3000) ///< Differential P = AIN2, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_0 (0x4000) ///< Single-ended AIN0
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_1 (0x5000) ///< Single-ended AIN1
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
+    // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1,true);
+    ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    ads3.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_3,true);
+    ads4.startADCReading(ADS1X15_REG_CONFIG_MUX_SINGLE_3,true);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
