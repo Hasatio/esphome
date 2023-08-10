@@ -13,7 +13,7 @@
 namespace esphome {
 namespace myi2c {
 
-class Myi2c : public Component // ana sınıf
+class Myi2c : public PollingComponent // ana sınıf
 {
 public:
 
