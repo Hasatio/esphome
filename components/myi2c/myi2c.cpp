@@ -244,15 +244,6 @@ void Myi2c::loop() // döngü fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
-    // for(int i=0;i<16;i++)
-    // {
-    //   if(0<i<4) adc[i] = ads1.readADC_SingleEnded(i%4);
-    //   if(4<i<8) adc[i] = ads2.readADC_SingleEnded(i%4);
-    //   if(8<i<12) adc[i] = ads3.readADC_SingleEnded(i%4);
-    //   if(12<i<16) adc[i] = ads4.readADC_SingleEnded(i%4);
-    //   volts[i] = ads1.computeVolts(adc[i]) * mygain;
-    //   data = data + String(volts[i]) + ",";
-    // }
      for(int i=4;i<8;i++)
     {
       adc[i] = ads2.readADC_SingleEnded(i%4);
