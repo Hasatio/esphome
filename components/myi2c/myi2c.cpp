@@ -228,10 +228,10 @@ void Myi2c::loop() // döngü fonksiyonu
 //  İnternal Temp
     
   uint8_t raw = temprature_sens_read();
-  ESP_LOGV(TAG, "Raw temperature value: %d", raw);
+  // ESP_LOGV(TAG, "Raw temperature value: %d", raw);
   temperature = (raw - 32) / 1.8f;
-  success = (raw != 128);
-    
+  // success = (raw != 128);
+
   // if (success && std::isfinite(temperature)) {
   //   this->publish_state(temperature);
   // } else {
