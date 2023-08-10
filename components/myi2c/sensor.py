@@ -16,11 +16,15 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
-            ).extend(cv.polling_component_schema("10ms")),
+            )
+            # .extend(cv.polling_component_schema("1ms"))
+            ,
             cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
-            ).extend(cv.polling_component_schema("10ms")),
+            )
+            # .extend(cv.polling_component_schema("1ms"))
+            ,
         }
     )
 )
