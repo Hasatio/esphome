@@ -296,8 +296,8 @@ void Myi2c::loop() // döngü fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
     
-if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
-if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
+if (this->sample_!= nullptr) this->sample_->publish_state(sayac);
+if (this->sample_sec_!= nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
 void Myi2c::update()
