@@ -244,28 +244,13 @@ void Myi2c::loop() // döngü fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
-    for(int i=0;i<4;i++)
+    for(int i=0;i<16;i++)
     {
-      adc[i] = ads1.readADC_SingleEnded(i%4);
+      if(0<i<4) adc[i] = ads1.readADC_SingleEnded(i%4);
+      if(4<i<8) adc[i] = ads2.readADC_SingleEnded(i%4);
+      if(8<i<12) adc[i] = ads3.readADC_SingleEnded(i%4);
+      if(12<i<16) adc[i] = ads4.readADC_SingleEnded(i%4);
       volts[i] = ads1.computeVolts(adc[i]) * mygain;
-      data = data + String(volts[i]) + ",";
-    }
-    for(int i=4;i<8;i++)
-    {
-      adc[i] = ads2.readADC_SingleEnded(i%4);
-      volts[i] = ads2.computeVolts(adc[i]) * mygain;
-      data = data + String(volts[i]) + ",";
-    }
-    for(int i=8;i<12;i++)
-    {
-      adc[i] = ads3.readADC_SingleEnded(i%4);
-      volts[i] = ads3.computeVolts(adc[i]) * mygain;
-      data = data + String(volts[i]) + ",";
-    }
-    for(int i=12;i<16;i++)
-    {
-      adc[i] = ads4.readADC_SingleEnded(i%4);
-      volts[i] = ads4.computeVolts(adc[i]) * mygain;
       data = data + String(volts[i]) + ",";
     }
 
@@ -287,6 +272,7 @@ void Myi2c::loop() // döngü fonksiyonu
 //  Bluetooth
     
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
+    // ESP_LOGD(TAG, "data = %d",data);
     
     SerialBT.println(data);
     data = "";
@@ -304,7 +290,6 @@ void Myi2c::loop() // döngü fonksiyonu
     
 if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
 if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
-    // ESP_LOGD(TAG, "Sample = %d",sample_);
 }
 
 void Myi2c::update()
