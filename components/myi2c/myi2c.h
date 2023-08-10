@@ -23,7 +23,7 @@ void setup() override; // ayar fonksiyonu
 
 void loop() override; // döngü fonksiyonu
 
-void update();
+void update() override;
 
 void bluetooth(String b); // bluetooth fonksiyonu
 
