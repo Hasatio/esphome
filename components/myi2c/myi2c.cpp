@@ -272,7 +272,6 @@ void Myi2c::loop() // döngü fonksiyonu
 //  Bluetooth
     
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
-    ESP_LOGD(TAG, "data = %s",data);
     
     SerialBT.println(data);
     data = "";
