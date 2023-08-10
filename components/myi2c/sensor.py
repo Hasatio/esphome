@@ -23,7 +23,7 @@ CONFIG_SCHEMA = (
                 unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
             )
-            # .extend(cv.polling_component_schema("1s"))
+            .extend(cv.polling_component_schema("1ms"))
             ,
         }
     )
