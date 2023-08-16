@@ -44,17 +44,17 @@ async def to_code(config): # fonksiyon tanımlaması
 
     cg.add_library(
         "Adafruit ADS1X15",
-        1
+        ""
     )
     cg.add_library(
         "Adafruit ADXL345",
-        1
+        ""
     )
     cg.add_library(
         "Adafruit MAX1704X",
-        1
+        ""
     )
     cg.add_library(
         "BluetoothSerial",
-        1
+        ""
     )
