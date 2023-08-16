@@ -43,14 +43,14 @@ async def to_code(config): # fonksiyon tanımlaması
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
 
     cg.add_library(
-        "Adafruit ADS1X15",
+        "Adafruit ADS1X15"
     )
     cg.add_library(
-        "Adafruit ADXL345",
+        "Adafruit ADXL345"
     )
     cg.add_library(
-        "Adafruit MAX1704X",
+        "Adafruit MAX1704X"
     )
     cg.add_library(
-        "BluetoothSerial",
+        "BluetoothSerial"
     )
