@@ -67,12 +67,11 @@ async def to_code(config):
 
     cg.add_define("USE_BSEC")
     cg.add_library(
-        "BSEC-Arduino-library",
+        "BSEC Software Library",
         # "BoschSensortec/BSEC Software Library", 
         "1.6.1480",
     )
     cg.add_library(
-        # "BoschSensortec/Bosch-BME68x-Library",
         "BME68x Sensor library",
         "",
         # "1.1.40406",
