@@ -74,7 +74,7 @@ async def to_code(config):
     cg.add_library(
         "BoschSensortec/Bosch-BME68x-Library",
         # "BME68x Sensor library",
-        "1.1.40406",
+        "1.1.40407",
         # "https://github.com/BoschSensortec/Bosch-BME68x-Library.git",
     )
     cg.add_library(
