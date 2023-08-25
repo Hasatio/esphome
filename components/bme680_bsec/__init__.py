@@ -66,7 +66,7 @@ async def to_code(config):
     cg.add_library("SPI", None)
 
     cg.add_define("USE_BSEC")
-    cg.add_library("boschsensortec/BSEC Software Library", "1.6.1480")
+    # cg.add_library("boschsensortec/BSEC Software Library", "1.6.1480")
     # cg.add_library(
     #     "BME68x Sensor library",
     #     "1.1.40406",
