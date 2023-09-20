@@ -11,7 +11,7 @@
 #include <BluetoothSerial.h>
 
 namespace esphome {
-namespace component {
+namespace posture_analyzer {
 
 class Component : public PollingComponent // ana sınıf
 {

@@ -5,7 +5,7 @@ uint8_t temprature_sens_read();
 }
 
 namespace esphome {
-namespace component {
+namespace posture_analyzer {
     
 static const char *TAG = "myi2c.sensor";
 
