@@ -7,7 +7,7 @@ from esphome.const import (
 
 from . import component_ns, Component, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
-DEPENDENCIES = ["posture_analyzer"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
+DEPENDENCIES = ["component"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
 CONFIG_SCHEMA = (
     cv.Schema(
