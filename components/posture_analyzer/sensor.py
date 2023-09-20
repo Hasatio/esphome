@@ -5,14 +5,14 @@ from esphome.const import (
     CONF_ID,
 )
 
-from . import myi2c_ns, Myi2c, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
+from . import component_ns, Component, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
-DEPENDENCIES = ["myi2c"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
+DEPENDENCIES = ["component"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(Myi2c),
+            cv.GenerateID(): cv.use_id(Component),
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
