@@ -7,7 +7,7 @@ uint8_t temprature_sens_read();
 namespace esphome {
 namespace posture_analyzer {
     
-static const char *TAG = "myi2c.sensor";
+static const char *TAG = "mysensor";
 
     BluetoothSerial SerialBT; // bluetooth yeni adlandırması
     
@@ -304,5 +304,5 @@ void Component::update()
 { 
 }
 
-} //namespace myi2c
+} //namespace posture_analyzer
 } //namespace esphome

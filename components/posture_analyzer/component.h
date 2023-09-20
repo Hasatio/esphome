@@ -44,6 +44,6 @@ protected:
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
 sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 
-}; // class Myi2c
-} //namespace myi2c
+}; // class Component
+} //namespace posture_analyzer
 } //namespace esphome

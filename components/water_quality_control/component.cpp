@@ -1,23 +1,24 @@
-#include "esphome/core/log.h"
-#include "waterqualitycontrol.h"
+#include "component.h"
 
 namespace esphome {
-namespace empty_component {
+namespace water_quality_control {
 
-static const char *TAG = "empty_component.component";
+static const char *TAG = "mysensor";
 
-void EmptyComponent::setup() {
-
-}
-
-void EmptyComponent::loop() {
+void EmptyComponent::setup() 
+{
 
 }
 
-void EmptyComponent::dump_config(){
-    ESP_LOGCONFIG(TAG, "Empty component");
+void EmptyComponent::loop() 
+{
+
+}
+
+void EmptyComponent::dump_config()
+{
 }
 
 
-}  // namespace waterqualitycontrol
+}  // namespace water_quality_control
 }  // namespace esphome
