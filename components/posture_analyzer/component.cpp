@@ -1,11 +1,11 @@
-#include "myi2c.h"
+#include "component.h"
 
 extern "C" {
 uint8_t temprature_sens_read();
 }
 
 namespace esphome {
-namespace myi2c {
+namespace component {
     
 static const char *TAG = "myi2c.sensor";
 
@@ -72,17 +72,17 @@ static const char *TAG = "myi2c.sensor";
     String data = "";
     bool success = false;
 
-void Myi2c::bluetooth(String b) // bluetooth fonksiyonu
+void Component::bluetooth(String b) // bluetooth fonksiyonu
 {
     btname = b;
 }
 
-void Myi2c::gain(float g) // kazanç fonksiyonu
+void Component::gain(float g) // kazanç fonksiyonu
 {
     mygain = g;
 }
 
-void Myi2c::setup() // ayar fonksiyonu
+void Component::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
@@ -222,7 +222,7 @@ void Myi2c::setup() // ayar fonksiyonu
     
 }
     
-void Myi2c::loop() // döngü fonksiyonu
+void Component::loop() // döngü fonksiyonu
 {  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
@@ -300,7 +300,7 @@ if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
 if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
-void Myi2c::update()
+void Component::update()
 { 
 }
 

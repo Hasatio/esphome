@@ -11,9 +11,9 @@
 #include <BluetoothSerial.h>
 
 namespace esphome {
-namespace myi2c {
+namespace component {
 
-class Myi2c : public PollingComponent // ana sınıf
+class Component : public PollingComponent // ana sınıf
 {
 public:
 
