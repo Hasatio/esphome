@@ -7,21 +7,21 @@ from esphome.const import (
 
 from . import component_ns, Component, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
 
-DEPENDENCIES = ["posture_analyzer"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
+DEPENDENCIES = ["water_quality_control"]
 
 CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(Component),
-            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
-                unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
-                accuracy_decimals=0, # sensörün sayısal gösterim şekli
+            cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_SAMPLE,
+                accuracy_decimals=0,
             )
             # .extend(cv.polling_component_schema("1ms"))
             ,
-            cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema( # sayaç/saniye sensör tanımlaması
-                unit_of_measurement=UNIT_SAMPLE_SEC, # sensörün birimi
-                accuracy_decimals=0, # sensörün sayısal gösterim şekli
+            cv.Optional(CONF_MY_SAMPLE_SEC): sensor.sensor_schema(
+                unit_of_measurement=UNIT_SAMPLE_SEC,
+                accuracy_decimals=0,
             )
             # .extend(cv.polling_component_schema("1ms"))
             ,

@@ -47,12 +47,16 @@ static const char *TAG = "mysensor";
     #define SCL_4 10
     #define freq_4 800000
     */
-    // ads1115 i2c adres ayarları
-    #define address1 0x48
-    #define address2 0x49
-    #define address3 0x4a
-    #define address4 0x4b
-    
+
+    // i2c adres ayarları
+    #define ADS1X15_ADDRESS1 0x48
+    #define ADS1X15_ADDRESS2 0x49
+    #define ADS1X15_ADDRESS3 0x4a
+    #define ADS1X15_ADDRESS4 0x4b
+    #define ADXL345_DEFAULT_ADDRESS 0x53
+    #define MAX17048_I2CADDR_DEFAULT 0x36
+
+  
     // TwoWire I2C_1 = TwoWire(0);
     // TwoWire I2C_2 = TwoWire(1);
 
@@ -105,10 +109,11 @@ void Component::setup() // ayar fonksiyonu
     //bool status2 = ads2.begin(address2);
     //bool status3 = ads3.begin(address3);
     //bool status4 = ads4.begin(address4);
-    bool status1 = ads1.begin(address1,&Wire);
-    bool status2 = ads2.begin(address2,&Wire);
-    bool status3 = ads3.begin(address3,&Wire);
-    bool status4 = ads4.begin(address4,&Wire);
+    bool status1 = ads1.begin(ADS1X15_ADDRESS1,&Wire);
+    bool status2 = ads2.begin(ADS1X15_ADDRESS2,&Wire);
+    bool status3 = ads3.begin(ADS1X15_ADDRESS3,&Wire);
+    bool status4 = ads4.begin(ADS1X15_ADDRESS4,&Wire);
+
     if (!status1)
     {
       SerialBT.println("Failed to initialize ADS1115_1.");
@@ -243,8 +248,14 @@ void Component::loop() // döngü fonksiyonu
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-    
-     for(int i=4;i<8;i++)
+
+    for(int i=0;i<4;i++)
+    {
+      adc[i] = ads1.readADC_SingleEnded(i%4);
+      volts[i] = ads1.computeVolts(adc[i]) * mygain;
+      data = data + String(volts[i]) + ",";
+    }
+    for(int i=4;i<8;i++)
     {
       adc[i] = ads2.readADC_SingleEnded(i%4);
       volts[i] = ads2.computeVolts(adc[i]) * mygain;
@@ -296,8 +307,8 @@ void Component::loop() // döngü fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
     
-if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
-if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
+    if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
+    if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
 void Component::update()
