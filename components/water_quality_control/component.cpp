@@ -26,9 +26,44 @@ static const char *TAG = "mysensor";
     #define PCA9685_I2C_ADDRESS 0x40 
 
 
-    uint16_t adc[8], pwmfreq=1000;
-    uint64_t sayac = 0;
+    uint16_t adc[8], PwmFreq = 1000;
     float volts[8];
+
+    char Pump_TimeConstant[6];
+    uint8_t Pump_CalibX[8], Pump_CalibY[8], Pump_Mode[4], Pump_Dose[4], Pump_Total[4], Pump_Status[4]; 
+    uint16_t Pump_Circulation[2];
+    bool Pump_Reset[6];
+
+    uint8_t Servo_Mode[8], Servo_Status[8];
+    uint16_t Servo_Position[8];
+
+    uint16_t AnIn_LvlResMin[2], AnIn_LvlResMax[2], AnOut_LvlPerc[2], AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
+    float AnOut_Vcc, AnOut_Temp, TempRes;
+    uint16_t AnOut_SensPerc[4];
+
+    uint8_t DigIn_FilterCoeff[4];
+    bool DigIn_Status[4], DigOut_Status[4]; 
+
+
+void Component::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4])
+{
+    for(int i = 0; i < 6; i++)
+    {
+        Pump_TimeConstant[i] = PT[i];
+        ESP_LOGD(TAG,"%s", Pump_TimeConstant[i]);
+    }
+    for(int i = 0; i < 8; i++)
+    {
+        Pump_CalibX[i] = PCX[i];
+        Pump_CalibY[i] = PCY[i];
+        ESP_LOGD(TAG,"%d", Pump_CalibX[i]);
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        Pump_Mode[i] = PM[i];
+        Pump_Dose[i] = PD[i];
+    }
+}
 
 void Component::setup() 
 {
@@ -69,8 +104,8 @@ void Component::setup()
     // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
     // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
     // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-    ads1.setGain(GAIN_ONE); 
-    ads2.setGain(GAIN_ONE); 
+    ads1.setGain(GAIN_TWOTHIRDS);
+    ads2.setGain(GAIN_TWOTHIRDS);
     
     // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
     // RATE_ADS1115_16SPS (0x0020)  ///< 16 samples per second
@@ -127,7 +162,23 @@ void Component::setup()
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS,&Wire);
     
     pwm.begin();
-
+    /*
+    * In theory the internal oscillator (clock) is 25MHz but it really isn't
+    * that precise. You can 'calibrate' this by tweaking this number until
+    * you get the PWM update frequency you're expecting!
+    * The int.osc. for the PCA9685 chip is a range between about 23-27MHz and
+    * is used for calculating things like writeMicroseconds()
+    * Analog servos run at ~50 Hz updates, It is importaint to use an
+    * oscilloscope in setting the int.osc frequency for the I2C PCA9685 chip.
+    * 1) Attach the oscilloscope to one of the PWM signal pins and ground on
+    *    the I2C PCA9685 chip you are setting the value for.
+    * 2) Adjust setOscillatorFrequency() until the PWM update frequency is the
+    *    expected value (50Hz for most ESCs)
+    * Setting the value here is specific to each individual I2C PCA9685 chip and
+    * affects the calculations for the PWM update frequency. 
+    * Failure to correctly set the int.osc value will cause unexpected PWM results
+    */
+    pwm.setOscillatorFrequency(27000000);
     pwm.setPWMFreq(pwmfreq);
 
 }
@@ -138,18 +189,20 @@ void Component::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
-    for(int i=0;i<4;i++)
+    for(int i = 0; i < 4; i++)
     {
       adc[i] = ads1.readADC_SingleEnded(i%4);
-      volts[i] = ads1.computeVolts(adc[i]) * mygain;
-      data = data + String(volts[i]) + ",";
+      volts[i] = ads1.computeVolts(adc[i]);
     }
-    for(int i=4;i<8;i++)
+    for(int i = 4; i < 8; i++)
     {
       adc[i] = ads2.readADC_SingleEnded(i%4);
-      volts[i] = ads2.computeVolts(adc[i]) * mygain;
-      data = data + String(volts[i]) + ",";
+      volts[i] = ads2.computeVolts(adc[i]);
     }
+
+    TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    AnOut_Temp = (sqrt((-0,00232 * TempRes) + 17,59246) - 3,908) / (-0,00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -179,18 +232,26 @@ void Component::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 
-    for (uint8_t pin=0; pin<16; pin++) 
+    // for (uint8_t pin=0; pin<16; pin++) 
+    // {
+    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
+    // delay(100);
+    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+    // }
+    for (uint16_t i=0; i<4096; i += 8) 
     {
-    pwm.setPWM(pin, 4096, 0);       // turns pin fully on
-    delay(100);
-    pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+        {
+        pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
+        }
     }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  Sensor
-    
-if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
-if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
+    for (uint16_t i=0; i<4096; i += 8) 
+    {
+        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+        {
+        pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
+        }
+    }
 
 }
 

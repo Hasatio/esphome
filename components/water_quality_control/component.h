@@ -15,11 +15,13 @@ namespace water_quality_control {
 class Component : public Component {
  public:
 
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; } // çalışma önceliği
+float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void setup() override;
 void loop() override;
 void dump_config() override;
+
+void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]);
 
 };
 
