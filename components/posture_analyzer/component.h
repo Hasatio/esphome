@@ -46,5 +46,6 @@ sensor::Sensor *sample_{nullptr}; // sensör değişkeni
 sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 
 }; // class MyComponent
+
 } //namespace posture_analyzer
 } //namespace esphome
