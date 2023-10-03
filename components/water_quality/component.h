@@ -4,6 +4,7 @@
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
+#include <Wire.h>
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_MCP23008.h>
 #include <Adafruit_PWMServoDriver.h>
