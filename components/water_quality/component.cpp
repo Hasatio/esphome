@@ -20,6 +20,7 @@ static const char *TAG = "mysensor";
     #define freq 800000
 
     // i2c adres ayarları
+    #define TCA9548_ADDRESS 0x70 
     #define ADS1X15_ADDRESS1 0x48
     #define ADS1X15_ADDRESS2 0x49
     #define MCP23008_ADDRESS 0x20
@@ -65,18 +66,21 @@ void MyComponent::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],
     }
 }
 
+void tcaselect(uint8_t bus){
+    if (bus > 7) return;
+    Wire.begin(SDA,SCL,freq);
+    Wire.beginTransmission(TCA9548_ADDRESS);
+    Wire.write(1 << bus);
+    Wire.endTransmission();
+}
+
 void MyComponent::setup() 
 {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  i2c
-    
-    Wire.begin(SDA,SCL,freq);
-    // Wire.setClock(800000);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-  
+    
+    tcaselect(0);
     bool status1 = ads1.begin(ADS1X15_ADDRESS1, &Wire);
     bool status2 = ads2.begin(ADS1X15_ADDRESS2, &Wire);
 
@@ -131,6 +135,7 @@ void MyComponent::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
+    tcaselect(0);
     bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
 
     if (!status3)
@@ -159,6 +164,7 @@ void MyComponent::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 
+    tcaselect(0);
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
     bool status4 = pwm.begin();
@@ -195,6 +201,7 @@ void MyComponent::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
+    tcaselect(0);
     for(int i = 0; i < 4; i++)
     {
       adc[i] = ads1.readADC_SingleEnded(i%4);
@@ -213,6 +220,7 @@ void MyComponent::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
+    tcaselect(0);
     mcp.digitalWrite(4,LOW);
     mcp.digitalWrite(5,LOW);
     mcp.digitalWrite(6,LOW);
@@ -238,6 +246,7 @@ void MyComponent::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 
+    tcaselect(0);
     // for (uint8_t pin=0; pin<16; pin++) 
     // {
     // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
