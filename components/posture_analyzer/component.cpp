@@ -14,8 +14,6 @@ static const char *TAG = "mysensor";
     #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
     #error Bluetooth off--Run `make menuconfig` to enable it 
     #endif
-    
-    Adafruit_I2CDevice i2c_dev = Adafruit_I2CDevice(0x10);
 
     //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
     Adafruit_ADS1115 ads1; // ads1115 yeni adlandırması
