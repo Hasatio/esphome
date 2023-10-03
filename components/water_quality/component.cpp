@@ -77,8 +77,8 @@ void Component::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
   
-    bool status1 = ads1.begin(ADS1X15_ADDRESS1,&Wire);
-    bool status2 = ads2.begin(ADS1X15_ADDRESS2,&Wire);
+    bool status1 = ads1.begin(ADS1X15_ADDRESS1, &Wire);
+    bool status2 = ads2.begin(ADS1X15_ADDRESS2, &Wire);
 
     if (!status1)
     {
@@ -131,7 +131,7 @@ void Component::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
-    bool status3 = mcp.begin(MCP23008_ADDRESS,&Wire);
+    bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
 
     if (!status3)
     {
@@ -159,9 +159,15 @@ void Component::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 
-    Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS,&Wire);
+    Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
-    pwm.begin();
+    bool status4 = pwm.begin();
+
+    if (!status4)
+    {
+      ESP_LOGD(TAG,"Failed to initialize PCA9685.");
+      while (1);
+    }
     /*
     * In theory the internal oscillator (clock) is 25MHz but it really isn't
     * that precise. You can 'calibrate' this by tweaking this number until
