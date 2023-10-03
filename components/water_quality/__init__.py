@@ -21,16 +21,8 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     
-    cg.add_library(
-        "Adafruit ADS1X15",
-        ""
-    )
-    cg.add_library(
-        "Adafruit MCP23008 library",
-        ""
-    )
-    cg.add_library(
-        "Adafruit PWM Servo Driver Library",
-        ""
-    )
+    cg.add_library("Wire", None)
+    cg.add_library("Adafruit ADS1X15", None)
+    cg.add_library("Adafruit MCP23008 library", None)
+    cg.add_library("Adafruit PWM Servo Driver Library", None)
     
