@@ -45,7 +45,7 @@ static const char *TAG = "mysensor";
     bool DigIn_Status[4], DigOut_Status[4]; 
 
 
-void Component::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4])
+void MyComponent::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4])
 {
     for(int i = 0; i < 6; i++)
     {
@@ -65,7 +65,7 @@ void Component::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],ui
     }
 }
 
-void Component::setup() 
+void MyComponent::setup() 
 {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +189,7 @@ void Component::setup()
 
 }
 
-void Component::loop() 
+void MyComponent::loop() 
 {
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

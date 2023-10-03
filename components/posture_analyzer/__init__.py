@@ -19,12 +19,12 @@ UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
 
 component_ns = cg.esphome_ns.namespace("posture_analyzer") # esphome komponent adı "myi2c"
-Component = component_ns.class_("Component", cg.Component) # sınıf tanımlaması
+MyComponent = component_ns.class_("MyComponent", cg.Component) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(Component), # id tanımlaması
+            cv.GenerateID(): cv.declare_id(MyComponent), # id tanımlaması
             cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
             cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
         }

@@ -7,10 +7,10 @@ AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
 component_ns = cg.esphome_ns.namespace("water_quality")
-Component = component_ns.class_("Component", cg.Component)
+MyComponent = component_ns.class_("MyComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(Component)
+    cv.GenerateID(): cv.declare_id(MyComponent)
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):

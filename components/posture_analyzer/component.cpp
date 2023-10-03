@@ -76,17 +76,17 @@ static const char *TAG = "mysensor";
     String data = "";
     bool success = false;
 
-void Component::bluetooth(String b) // bluetooth fonksiyonu
+void MyComponent::bluetooth(String b) // bluetooth fonksiyonu
 {
     btname = b;
 }
 
-void Component::gain(float g) // kazanç fonksiyonu
+void MyComponent::gain(float g) // kazanç fonksiyonu
 {
     mygain = g;
 }
 
-void Component::setup() // ayar fonksiyonu
+void MyComponent::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
@@ -227,7 +227,7 @@ void Component::setup() // ayar fonksiyonu
     
 }
     
-void Component::loop() // döngü fonksiyonu
+void MyComponent::loop() // döngü fonksiyonu
 {  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
@@ -311,7 +311,7 @@ void Component::loop() // döngü fonksiyonu
     if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
-void Component::update()
+void MyComponent::update()
 { 
 }
 
