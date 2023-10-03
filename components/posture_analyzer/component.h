@@ -6,7 +6,8 @@
 #include "esphome/core/hal.h"
 #include "esphome/components/sensor/sensor.h"
 #include "Wire.h"
-#include "Adafruit_I2CDevice.h"
+#include <Adafruit_BusIO_Register.h>
+#include <Adafruit_I2CDevice.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_ADXL345_U.h>
