@@ -23,9 +23,7 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; } // çalışma önceliği
 
 void setup() override; // ayar fonksiyonu 
-
 void loop() override; // döngü fonksiyonu
-
 void update() override;
 
 void bluetooth(String b); // bluetooth fonksiyonu
