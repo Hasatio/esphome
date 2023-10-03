@@ -14,7 +14,7 @@
 namespace esphome {
 namespace water_quality {
 
-class Component : public Component 
+class Component : public PollingComponent 
 {
 public:
 
