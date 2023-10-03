@@ -22,7 +22,6 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 
 void setup() override;
 void loop() override;
-void dump_config() override;
 
 void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]);
 
