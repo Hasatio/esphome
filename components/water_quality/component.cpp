@@ -29,7 +29,7 @@ static const char *TAG = "mysensor";
     uint16_t adc[8], PwmFreq = 1000;
     float volts[8];
 
-    char Pump_TimeConstant[6];
+    String Pump_TimeConstant[6];
     uint8_t Pump_CalibX[8], Pump_CalibY[8], Pump_Mode[4], Pump_Dose[4], Pump_Total[4], Pump_Status[4]; 
     uint16_t Pump_Circulation[2];
     bool Pump_Reset[6];
@@ -185,7 +185,7 @@ void Component::setup()
     * Failure to correctly set the int.osc value will cause unexpected PWM results
     */
     pwm.setOscillatorFrequency(27000000);
-    pwm.setPWMFreq(pwmfreq);
+    pwm.setPWMFreq(PwmFreq);
 
 }
 
