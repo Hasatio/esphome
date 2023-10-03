@@ -14,8 +14,9 @@
 namespace esphome {
 namespace water_quality {
 
-class Component : public Component {
- public:
+class Component : public Component 
+{
+public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
