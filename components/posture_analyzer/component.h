@@ -1,6 +1,7 @@
 #pragma once
 
 #include "esphome.h"
+#include "wire.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
 #include "esphome/core/hal.h"
