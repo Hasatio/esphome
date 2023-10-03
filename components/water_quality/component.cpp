@@ -66,7 +66,7 @@ void MyComponent::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],
     }
 }
 
-void tcaselect(uint8_t bus){
+void MyComponent::tcaselect(uint8_t bus){
     if (bus > 7) return;
     Wire.begin(SDA,SCL,freq);
     Wire.beginTransmission(TCA9548_ADDRESS);
