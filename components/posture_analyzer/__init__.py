@@ -54,6 +54,16 @@ async def to_code(config): # fonksiyon tanımlaması
         "Adafruit MAX1704X",
         ""
     )
+    
+    cg.add_library(
+        "Adafruit BusIO",
+        ""
+    )
+    
+    cg.add_library(
+        "Adafruit Unified Sensor",
+        ""
+    )
     cg.add_library(
         "BluetoothSerial",
         ""
