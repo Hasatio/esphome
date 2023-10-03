@@ -6,7 +6,7 @@ from esphome.const import CONF_ID
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
-component_ns = cg.esphome_ns.namespace("water_quality_control")
+component_ns = cg.esphome_ns.namespace("water_quality")
 Component = component_ns.class_("Component", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({

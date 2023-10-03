@@ -10,7 +10,7 @@
 
 
 namespace esphome {
-namespace water_quality_control {
+namespace water_quality {
 
 class Component : public Component {
  public:
@@ -26,5 +26,5 @@ void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]
 };
 
 
-}  // namespace water_quality_control
+}  // namespace water_quality
 }  // namespace esphome

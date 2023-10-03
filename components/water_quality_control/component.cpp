@@ -1,7 +1,7 @@
 #include "component.h"
 
 namespace esphome {
-namespace water_quality_control {
+namespace water_quality {
 
 static const char *TAG = "mysensor";
 
@@ -256,5 +256,5 @@ void Component::loop()
 }
 
 
-}  // namespace water_quality_control
+}  // namespace water_quality
 }  // namespace esphome
