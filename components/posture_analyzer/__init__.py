@@ -42,29 +42,10 @@ async def to_code(config): # fonksiyon tanımlaması
     if CONF_MY_BLUETOOTH in config:
         cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
 
-    cg.add_library(
-        "Adafruit ADS1X15",
-        ""
-    )
-    cg.add_library(
-        "Adafruit ADXL345",
-        ""
-    )
-    cg.add_library(
-        "Adafruit MAX1704X",
-        ""
-    )
-    
-    cg.add_library(
-        "Adafruit BusIO",
-        ""
-    )
-    
-    cg.add_library(
-        "Adafruit Unified Sensor",
-        ""
-    )
-    cg.add_library(
-        "BluetoothSerial",
-        ""
-    )
+    cg.add_library("Wire", None)
+    cg.add_library("Adafruit ADS1X15",None)
+    cg.add_library("Adafruit ADXL345",None)
+    cg.add_library("Adafruit MAX1704X",None)
+    cg.add_library("Adafruit BusIO",None)
+    cg.add_library("Adafruit Unified Sensor",None)
+    cg.add_library("BluetoothSerial",None)
