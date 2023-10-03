@@ -38,7 +38,7 @@ static const char *TAG = "mysensor";
     uint16_t Servo_Position[8];
 
     uint16_t AnIn_LvlResMin[2], AnIn_LvlResMax[2], AnOut_LvlPerc[2], AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    double AnOut_Vcc, AnOut_Temp, TempRes;
+    float AnOut_Vcc, AnOut_Temp, TempRes;
     uint16_t AnOut_SensPerc[4];
 
     uint8_t DigIn_FilterCoeff[4];
@@ -207,7 +207,7 @@ void Component::loop()
     }
 
     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    AnOut_Temp = (float)(sqrt((-0,00232 * TempRes) + 17,59246) - 3,908) / (-0,00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
