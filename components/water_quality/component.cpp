@@ -38,7 +38,7 @@ static const char *TAG = "mysensor";
     uint16_t Servo_Position[8];
 
     uint16_t AnIn_LvlResMin[2], AnIn_LvlResMax[2], AnOut_LvlPerc[2], AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    float AnOut_Vcc, AnOut_Temp, TempRes;
+    double AnOut_Vcc, AnOut_Temp, TempRes;
     uint16_t AnOut_SensPerc[4];
 
     uint8_t DigIn_FilterCoeff[4];
