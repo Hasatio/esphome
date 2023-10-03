@@ -53,8 +53,8 @@ static const char *TAG = "mysensor";
     #define ADS1X15_ADDRESS2 0x49
     #define ADS1X15_ADDRESS3 0x4a
     #define ADS1X15_ADDRESS4 0x4b
-    #define ADXL345_DEFAULT_ADDRESS 0x53
-    #define MAX17048_I2CADDR_DEFAULT 0x36
+    #define ADXL345_ADDRESS 0x53
+    #define MAX17048_ADDRESS 0x36
 
   
     // TwoWire I2C_1 = TwoWire(0);
@@ -180,7 +180,7 @@ void Component::setup() // ayar fonksiyonu
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADXL345
 
-    bool status5 = accel.begin(ADXL345_DEFAULT_ADDRESS);
+    bool status5 = accel.begin(ADXL345_ADDRESS);
 
     if (!status5)
     {
