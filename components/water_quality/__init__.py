@@ -22,6 +22,7 @@ async def to_code(config):
     await cg.register_component(var, config)
     
     cg.add_library("Wire", None)
+    cg.add_library("SPI", None)
     cg.add_library("Adafruit BusIO",None)
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit MCP23008 library", None)
