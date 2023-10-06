@@ -154,7 +154,6 @@ void MyComponent::setup()
 //  MCP23008
 
     tcaselect(0);
-    // bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
     
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
@@ -198,8 +197,6 @@ void MyComponent::setup()
     tcaselect(0);
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
-    bool status4 = pwm.begin();
-
     if (!pwm.begin()) 
     {
       ESP_LOGE(TAG,"Failed to initialize PCA9685.");
