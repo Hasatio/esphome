@@ -16,7 +16,7 @@ class MyComponent : public Component
 {
 public:
 
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+// float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void setup() override;
 void loop() override;
