@@ -279,7 +279,7 @@ void MyComponent::loop()
 //         pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
 //         }
 //     }
-
+delay(1000);
 }
 
 
