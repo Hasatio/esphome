@@ -229,77 +229,77 @@ void MyComponent::setup()
 void MyComponent::loop() 
 {
     
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  ADS1115
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  ADS1115
 
-    tcaselect(0);
-    for(int i = 0; i < 4; i++)
-    {
-      adc[i] = ads1.readADC_SingleEnded(i%4);
-      volts[i] = ads1.computeVolts(adc[i]);
-    }
-    for(int i = 4; i < 8; i++)
-    {
-      adc[i] = ads2.readADC_SingleEnded(i%4);
-      volts[i] = ads2.computeVolts(adc[i]);
-    }
+//     tcaselect(0);
+//     for(int i = 0; i < 4; i++)
+//     {
+//       adc[i] = ads1.readADC_SingleEnded(i%4);
+//       volts[i] = ads1.computeVolts(adc[i]);
+//     }
+//     for(int i = 4; i < 8; i++)
+//     {
+//       adc[i] = ads2.readADC_SingleEnded(i%4);
+//       volts[i] = ads2.computeVolts(adc[i]);
+//     }
 
-    TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-    AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+//     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+//     AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+//     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  MCP23008
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  MCP23008
 
-    tcaselect(0);
-    mcp.digitalWrite(4,LOW);
-    mcp.digitalWrite(5,LOW);
-    mcp.digitalWrite(6,LOW);
-    mcp.digitalWrite(7,LOW);
+//     tcaselect(0);
+//     mcp.digitalWrite(4,LOW);
+//     mcp.digitalWrite(5,LOW);
+//     mcp.digitalWrite(6,LOW);
+//     mcp.digitalWrite(7,LOW);
 
-    for(int i = 0; i < 4; i++)
-    {
-        DigIn_Status[i] = mcp.digitalRead(i);
-        ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
-    }
+//     for(int i = 0; i < 4; i++)
+//     {
+//         DigIn_Status[i] = mcp.digitalRead(i);
+//         ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+//     }
 
-    for(int i = 0; i < 4; i++)
-    {
-        if (DigOut_Status[i] == 1)
-        {
-            mcp.digitalWrite(i+4, HIGH);
-        }
-        else
-        { 
-            mcp.digitalWrite(i+4, LOW);
-        }
-        ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
-    }
+//     for(int i = 0; i < 4; i++)
+//     {
+//         if (DigOut_Status[i] == 1)
+//         {
+//             mcp.digitalWrite(i+4, HIGH);
+//         }
+//         else
+//         { 
+//             mcp.digitalWrite(i+4, LOW);
+//         }
+//         ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+//     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  PCA9685
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  PCA9685
 
-    tcaselect(0);
-    // for (uint8_t pin=0; pin<16; pin++) 
-    // {
-    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
-    // delay(100);
-    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
-    // }
-    for (uint16_t i=0; i<4096; i += 8) 
-    {
-        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-        {
-        pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-        }
-    }
-    for (uint16_t i=0; i<4096; i += 8) 
-    {
-        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-        {
-        pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
-        }
-    }
+//     tcaselect(0);
+//     // for (uint8_t pin=0; pin<16; pin++) 
+//     // {
+//     // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
+//     // delay(100);
+//     // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+//     // }
+//     for (uint16_t i=0; i<4096; i += 8) 
+//     {
+//         for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+//         {
+//         pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
+//         }
+//     }
+//     for (uint16_t i=0; i<4096; i += 8) 
+//     {
+//         for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+//         {
+//         pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
+//         }
+//     }
 delay(1000);
 }
 
