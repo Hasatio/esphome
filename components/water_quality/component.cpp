@@ -245,8 +245,8 @@ void MyComponent::loop()
     AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
-    ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
-    ESP_LOGE(TAG,"Temp = %d", AnOut_Vcc);
+    // ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
+    // ESP_LOGD(TAG,"Temp = %d", AnOut_Vcc);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -260,7 +260,7 @@ void MyComponent::loop()
     for(int i = 0; i < 4; i++)
     {
         DigIn_Status[i] = mcp.digitalRead(i);
-        ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
     }
 
     for(int i = 0; i < 4; i++)
@@ -273,7 +273,7 @@ void MyComponent::loop()
         { 
             mcp.digitalWrite(i+4, LOW);
         }
-        ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+        // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
