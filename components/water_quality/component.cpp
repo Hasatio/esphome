@@ -286,19 +286,21 @@ void MyComponent::loop()
     // delay(100);
     // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
     // }
-    for (uint16_t i=0; i<4096; i += 8) 
-    {
-        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-        {
-        pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-        }
-    }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
+    // }
     for (uint16_t i=0; i<4096; i += 8) 
     {
         for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
         {
         pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
         }
+        
+        ESP_LOGD(TAG,"pwm = %d", i);
     }
 delay(1000);
 }
