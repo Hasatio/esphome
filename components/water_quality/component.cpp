@@ -229,17 +229,17 @@ void MyComponent::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
-//     tcaselect(0);
-//     for(int i = 0; i < 4; i++)
-//     {
-//       adc[i] = ads1.readADC_SingleEnded(i%4);
-//       volts[i] = ads1.computeVolts(adc[i]);
-//     }
-//     for(int i = 4; i < 8; i++)
-//     {
-//       adc[i] = ads2.readADC_SingleEnded(i%4);
-//       volts[i] = ads2.computeVolts(adc[i]);
-//     }
+    tcaselect(0);
+    for(int i = 0; i < 4; i++)
+    {
+      adc[i] = ads1.readADC_SingleEnded(i%4);
+      volts[i] = ads1.computeVolts(adc[i]);
+    }
+    for(int i = 4; i < 8; i++)
+    {
+      adc[i] = ads2.readADC_SingleEnded(i%4);
+      volts[i] = ads2.computeVolts(adc[i]);
+    }
 
 //     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
 //     AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
