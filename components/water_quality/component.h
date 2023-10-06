@@ -28,7 +28,7 @@ void tcaselect(uint8_t bus);
 
 void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]);
 
-void dat(const std::vector<uint8_t> &data){Servo_Position[]=data;}
+void dat(const std::vector<uint8_t> &data);
 };
 
 }  // namespace water_quality
