@@ -68,7 +68,6 @@ static const char *TAG = "mysensor";
 
 void MyComponent::tcaselect(uint8_t bus){
     if (bus > 7) return;
-    Wire.begin(SDA,SCL,freq);
     Wire.beginTransmission(TCA9548_ADDRESS);
     Wire.write(1 << bus);
     Wire.endTransmission();
@@ -76,6 +75,25 @@ void MyComponent::tcaselect(uint8_t bus){
 
 void MyComponent::setup() 
 {
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+
+    Wire.begin(SDA,SCL,freq);
+
+    for (uint8_t t=0; t<8; t++) {
+      tcaselect(t);
+      ESP_LOGD(TAG,"TCA Port %d", t);
+
+      for (uint8_t addr = 0; addr<=127; addr++) {
+        if (addr == TCA9548_ADDRESS) continue;
+
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) {
+          ESP_LOGD(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
