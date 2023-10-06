@@ -136,7 +136,7 @@ void MyComponent::setup()
 // //  MCP23008
 
     tcaselect(0);
-    bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
+    bool status3 = mcp.begin(MCP23017_ADDRESS, &Wire);
 
 //     if (!status3)
 //     {
@@ -144,22 +144,22 @@ void MyComponent::setup()
 //       while (1);
 //     }
 
-//     mcp.pinMode(0, INPUT);
-//     mcp.pinMode(1, INPUT);
-//     mcp.pinMode(2, INPUT);
-//     mcp.pinMode(3, INPUT);
-//     mcp.pullUp(0, HIGH);
-//     mcp.pullUp(1, HIGH);
-//     mcp.pullUp(2, HIGH);
-//     mcp.pullUp(3, HIGH);
-//     mcp.pinMode(4, OUTPUT);
-//     mcp.pinMode(5, OUTPUT);
-//     mcp.pinMode(6, OUTPUT);
-//     mcp.pinMode(7, OUTPUT);
-//     mcp.digitalWrite(4,LOW);
-//     mcp.digitalWrite(5,LOW);
-//     mcp.digitalWrite(6,LOW);
-//     mcp.digitalWrite(7,LOW);
+    mcp.pinMode(0, INPUT);
+    mcp.pinMode(1, INPUT);
+    mcp.pinMode(2, INPUT);
+    mcp.pinMode(3, INPUT);
+    mcp.pullUp(0, HIGH);
+    mcp.pullUp(1, HIGH);
+    mcp.pullUp(2, HIGH);
+    mcp.pullUp(3, HIGH);
+    mcp.pinMode(4, OUTPUT);
+    mcp.pinMode(5, OUTPUT);
+    mcp.pinMode(6, OUTPUT);
+    mcp.pinMode(7, OUTPUT);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // //  PCA9685
@@ -220,28 +220,26 @@ void MyComponent::loop()
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // //  MCP23008
 
-//     tcaselect(0);
-//     mcp.digitalWrite(4,LOW);
-//     mcp.digitalWrite(5,LOW);
-//     mcp.digitalWrite(6,LOW);
-//     mcp.digitalWrite(7,LOW);
+    tcaselect(0);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
 
-//     if (mcp.digitalRead(0) == LOW)
-//     {
-//         mcp.digitalWrite(4, HIGH);
-//     }  
-//     if (mcp.digitalRead(1) == LOW)
-//     {
-//         mcp.digitalWrite(5, HIGH);
-//     }
-//     if (mcp.digitalRead(2) == LOW)
-//     {
-//         mcp.digitalWrite(6, HIGH);
-//     }  
-//     if (mcp.digitalRead(3) == LOW)
-//     {
-//         mcp.digitalWrite(7, HIGH);
-//     }
+    for(int i = 0; i < 4; i++)
+    {
+        DigIn_Status[i] = mcp.digitalRead(i);
+        if (DigOut_Status[i] == 1)
+        {
+            mcp.digitalWrite(i+4, HIGH);
+        }
+        else
+        { 
+            mcp.digitalWrite(i+4, LOW);
+        }
+        ESP_LOGD(TAG,"dig input %d:%d", i, DigIn_Status[i]);
+        ESP_LOGD(TAG,"dig output %d:%d", i, DigOut_Status[i]);
+    }
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // //  PCA9685
