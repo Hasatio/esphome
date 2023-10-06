@@ -46,25 +46,25 @@ static const char *TAG = "mysensor";
     bool DigIn_Status[4], DigOut_Status[4]; 
 
 
-// void MyComponent::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4])
-// {
-//     for(int i = 0; i < 6; i++)
-//     {
-//         Pump_TimeConstant[i] = PT[i];
-//         ESP_LOGD(TAG,"%s", Pump_TimeConstant[i]);
-//     }
-//     for(int i = 0; i < 8; i++)
-//     {
-//         Pump_CalibX[i] = PCX[i];
-//         Pump_CalibY[i] = PCY[i];
-//         ESP_LOGD(TAG,"%d", Pump_CalibX[i]);
-//     }
-//     for(int i = 0; i < 4; i++)
-//     {
-//         Pump_Mode[i] = PM[i];
-//         Pump_Dose[i] = PD[i];
-//     }
-// }
+void MyComponent::pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4])
+{
+    for(int i = 0; i < 6; i++)
+    {
+        Pump_TimeConstant[i] = PT[i];
+        ESP_LOGD(TAG,"%s", Pump_TimeConstant[i]);
+    }
+    for(int i = 0; i < 8; i++)
+    {
+        Pump_CalibX[i] = PCX[i];
+        Pump_CalibY[i] = PCY[i];
+        ESP_LOGD(TAG,"%d", Pump_CalibX[i]);
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        Pump_Mode[i] = PM[i];
+        Pump_Dose[i] = PD[i];
+    }
+}
 
 void MyComponent::tcaselect(uint8_t bus){
     if (bus > 7) return;
@@ -241,9 +241,12 @@ void MyComponent::loop()
       volts[i] = ads2.computeVolts(adc[i]);
     }
 
-//     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-//     AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-//     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+
+    ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
+    ESP_LOGE(TAG,"Temp = %d", AnOut_Vcc);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
