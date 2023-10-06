@@ -251,30 +251,30 @@ void MyComponent::loop()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
-//     tcaselect(0);
-//     mcp.digitalWrite(4,LOW);
-//     mcp.digitalWrite(5,LOW);
-//     mcp.digitalWrite(6,LOW);
-//     mcp.digitalWrite(7,LOW);
+    tcaselect(0);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
 
-//     for(int i = 0; i < 4; i++)
-//     {
-//         DigIn_Status[i] = mcp.digitalRead(i);
-//         ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
-//     }
+    for(int i = 0; i < 4; i++)
+    {
+        DigIn_Status[i] = mcp.digitalRead(i);
+        ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+    }
 
-//     for(int i = 0; i < 4; i++)
-//     {
-//         if (DigOut_Status[i] == 1)
-//         {
-//             mcp.digitalWrite(i+4, HIGH);
-//         }
-//         else
-//         { 
-//             mcp.digitalWrite(i+4, LOW);
-//         }
-//         ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
-//     }
+    for(int i = 0; i < 4; i++)
+    {
+        if (DigOut_Status[i] == 1)
+        {
+            mcp.digitalWrite(i+4, HIGH);
+        }
+        else
+        { 
+            mcp.digitalWrite(i+4, LOW);
+        }
+        ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
@@ -293,15 +293,15 @@ void MyComponent::loop()
     //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
     //     }
     // }
-    for (uint16_t i=0; i<4096; i += 8) 
-    {
-        for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-        {
-        pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
-        }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
         
-        ESP_LOGD(TAG,"pwm = %d", i);
-    }
+    //     ESP_LOGD(TAG,"pwm = %d", i);
+    // }
 delay(1000);
 }
 
