@@ -81,8 +81,8 @@ void MyComponent::setup()
 //  ADS1115
     
     tcaselect(0);
-    bool status1 = ads1.begin(ADS1X15_ADDRESS1, &Wire);
-    bool status2 = ads2.begin(ADS1X15_ADDRESS2, &Wire);
+    bool status1 = ads1.begin(ADS1X15_ADDRESS1);
+    bool status2 = ads2.begin(ADS1X15_ADDRESS2);
 
     if (!status1)
     {
