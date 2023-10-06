@@ -84,7 +84,7 @@ void MyComponent::setup()
     for (uint8_t t=0; t<8; t++) 
     {
       tcaselect(t);
-      ESP_LOGC(TAG,"TCA Port %d", t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
       {
@@ -93,7 +93,7 @@ void MyComponent::setup()
         Wire.beginTransmission(addr);
         if (!Wire.endTransmission()) 
         {
-          ESP_LOGC(TAG,"Found I2C 0x%x",addr);
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
         }
       }
     }
@@ -228,7 +228,7 @@ void MyComponent::loop()
     for (uint8_t t=0; t<8; t++) 
     {
       tcaselect(t);
-      ESP_LOGC(TAG,"TCA Port %d", t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
       {
@@ -237,7 +237,7 @@ void MyComponent::loop()
         Wire.beginTransmission(addr);
         if (!Wire.endTransmission()) 
         {
-          ESP_LOGC(TAG,"Found I2C 0x%x",addr);
+          ESP_LOGD(TAG,"Found I2C 0x%x",addr);
         }
       }
     }
