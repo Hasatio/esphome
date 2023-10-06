@@ -80,9 +80,9 @@ void MyComponent::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
-    tcaselect(0);
-    bool status1 = ads1.begin(ADS1X15_ADDRESS1);
-    bool status2 = ads2.begin(ADS1X15_ADDRESS2);
+    // tcaselect(0);
+    // bool status1 = ads1.begin(ADS1X15_ADDRESS1);
+    // bool status2 = ads2.begin(ADS1X15_ADDRESS2);
 
     // if (!status1)
     // {
@@ -108,8 +108,8 @@ void MyComponent::setup()
     // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
     // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
     // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-    ads1.setGain(GAIN_TWOTHIRDS);
-    ads2.setGain(GAIN_TWOTHIRDS);
+    // ads1.setGain(GAIN_TWOTHIRDS);
+    // ads2.setGain(GAIN_TWOTHIRDS);
     
     // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
     // RATE_ADS1115_16SPS (0x0020)  ///< 16 samples per second
@@ -119,8 +119,8 @@ void MyComponent::setup()
     // RATE_ADS1115_250SPS (0x00A0) ///< 250 samples per second
     // RATE_ADS1115_475SPS (0x00C0) ///< 475 samples per second
     // RATE_ADS1115_860SPS (0x00E0) ///< 860 samples per second
-    ads1.setDataRate(RATE_ADS1115_860SPS);
-    ads2.setDataRate(RATE_ADS1115_860SPS);
+    // ads1.setDataRate(RATE_ADS1115_860SPS);
+    // ads2.setDataRate(RATE_ADS1115_860SPS);
     
     // ADS1X15_REG_CONFIG_MUX_DIFF_0_1 (0x0000) ///< Differential P = AIN0, N = AIN1 (default)
     // ADS1X15_REG_CONFIG_MUX_DIFF_0_3 (0x1000) ///< Differential P = AIN0, N = AIN3
@@ -135,8 +135,8 @@ void MyComponent::setup()
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // //  MCP23008
 
-//     tcaselect(0);
-//     bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
+    tcaselect(0);
+    bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
 
 //     if (!status3)
 //     {
