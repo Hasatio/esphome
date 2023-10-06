@@ -25,7 +25,6 @@ CONFIG_SCHEMA = cv.Schema({
                 ),
             ),
             cv.Length(max=8),
-            validate_user_characters,
         ),
 }).extend(cv.COMPONENT_SCHEMA)
 
