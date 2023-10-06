@@ -84,7 +84,7 @@ void MyComponent::setup()
     for (uint8_t t=0; t<8; t++) 
     {
       tcaselect(t);
-      ESP_LOGD(TAG,"TCA Port %d", t);
+      ESP_LOGC(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
       {
@@ -93,7 +93,7 @@ void MyComponent::setup()
         Wire.beginTransmission(addr);
         if (!Wire.endTransmission()) 
         {
-          ESP_LOGD(TAG,"Found I2C 0x%x",addr);
+          ESP_LOGC(TAG,"Found I2C 0x%x",addr);
         }
       }
     }
@@ -225,7 +225,22 @@ void MyComponent::setup()
 
 void MyComponent::loop() 
 {
-    
+    for (uint8_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGC(TAG,"TCA Port %d", t);
+
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
+
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGC(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
