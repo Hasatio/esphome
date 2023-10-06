@@ -42,7 +42,7 @@ static const char *TAG = "mysensor";
     float AnOut_Vcc, AnOut_Temp, TempRes;
     uint16_t AnOut_SensPerc[4];
 
-    uint8_t DigIn_FilterCoeff[4];
+    uint8_t DigIn_FilterCoeff[4][10];
     bool DigIn_Status[4], DigOut_Status[4]; 
 
 
@@ -225,22 +225,7 @@ void MyComponent::setup()
 
 void MyComponent::loop() 
 {
-    for (uint8_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
 
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGD(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -260,8 +245,13 @@ void MyComponent::loop()
     AnOut_Temp = (float)(sqrt((-0.00232 * TempRes) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
-    // ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
-    // ESP_LOGD(TAG,"Temp = %d", AnOut_Vcc);
+    AnOut_LvlPerc[0] = (float)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    AnOut_LvlPerc[1] = (float)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    
+    ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
+    ESP_LOGD(TAG,"Temp = %d", AnOut_Vcc);
+    ESP_LOGD(TAG,"Lvl1 = %d", AnOut_LvlPerc[0]);
+    ESP_LOGD(TAG,"Lvl2 = %d", AnOut_LvlPerc[2]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
