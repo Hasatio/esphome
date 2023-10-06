@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
 
-    Adafruit_MCP23008 mcp;
+    Adafruit_MCP23017 mcp;
 
     Adafruit_PWMServoDriver pwm;
 
@@ -136,7 +136,7 @@ void MyComponent::setup()
 // //  MCP23008
 
     tcaselect(0);
-    bool status3 = mcp.begin(MCP23017_ADDRESS, &Wire);
+    bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
 
 //     if (!status3)
 //     {
