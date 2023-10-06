@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
 
-    Adafruit_MCP23X17 mcp;
+    Adafruit_MCP23X08 mcp;
 
     Adafruit_PWMServoDriver pwm;
 
@@ -139,11 +139,11 @@ void MyComponent::setup()
     // bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
     bool status3 = mcp.begin_I2C(MCP23008_ADDRESS, &Wire);
 
-//     if (!status3)
-//     {
-//       ESP_LOGD(TAG,"Failed to initialize MCP23008.");
-//       while (1);
-//     }
+    if (!status3)
+    {
+      ESP_LOGD(TAG,"Failed to initialize MCP23008.");
+      while (1);
+    }
 
     // mcp.pinMode(0, INPUT);
     // mcp.pinMode(1, INPUT);
@@ -245,7 +245,7 @@ void MyComponent::loop()
         DigIn_Status[i] = mcp.digitalRead(i);
         ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
     }
-    
+
     for(int i = 0; i < 4; i++)
     {
         if (DigOut_Status[i] == 1)
