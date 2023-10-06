@@ -84,16 +84,16 @@ void MyComponent::setup()
     bool status1 = ads1.begin(ADS1X15_ADDRESS1);
     bool status2 = ads2.begin(ADS1X15_ADDRESS2);
 
-    if (!status1)
-    {
-      ESP_LOGD(TAG,"Failed to initialize ADS1115_1.");
-      while (1);
-    }
-    if (!status2)
-    {
-      ESP_LOGD(TAG,"Failed to initialize ADS1115_2.");
-      while (1);
-    }
+    // if (!status1)
+    // {
+    //   ESP_LOGD(TAG,"Failed to initialize ADS1115_1.");
+    //   while (1);
+    // }
+    // if (!status2)
+    // {
+    //   ESP_LOGD(TAG,"Failed to initialize ADS1115_2.");
+    //   while (1);
+    // }
 
     // The ADC input range (or gain) can be changed via the following
     // functions, but be careful never to exceed VDD +0.3V max, or to
