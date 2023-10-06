@@ -15,8 +15,8 @@ static const char *TAG = "mysensor";
 
 
     // i2c ayarları
-    #define SDA 21 
-    #define SCL 22
+    #define SDA 16 
+    #define SCL 32
     #define freq 800000
 
     // i2c adres ayarları
