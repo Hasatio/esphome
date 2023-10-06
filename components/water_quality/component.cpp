@@ -248,6 +248,7 @@ void MyComponent::loop()
     AnOut_LvlPerc[0] = (float)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     AnOut_LvlPerc[1] = (float)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     
+    ESP_LOGD(TAG,"Vcc = %d", volts[0]);
     ESP_LOGD(TAG,"Vcc = %d", AnOut_Temp);
     ESP_LOGD(TAG,"Temp = %d", AnOut_Vcc);
     ESP_LOGD(TAG,"Lvl1 = %d", AnOut_LvlPerc[0]);
