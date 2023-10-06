@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
 
-    Adafruit_MCP23017 mcp;
+    Adafruit_MCP23X17 mcp;
 
     Adafruit_PWMServoDriver pwm;
 
