@@ -232,13 +232,15 @@ void MyComponent::loop()
     tcaselect(0);
     for(int i = 0; i < 4; i++)
     {
-      adc[i] = ads1.readADC_SingleEnded(i%4);
-      volts[i] = ads1.computeVolts(adc[i]);
+        adc[i] = ads1.readADC_SingleEnded(i%4);
+        volts[i] = ads1.computeVolts(adc[i]);
+        ESP_LOGD(TAG,"ads%d = %d", i+1, volts[i]);
     }
     for(int i = 4; i < 8; i++)
     {
-      adc[i] = ads2.readADC_SingleEnded(i%4);
-      volts[i] = ads2.computeVolts(adc[i]);
+        adc[i] = ads2.readADC_SingleEnded(i%4);
+        volts[i] = ads2.computeVolts(adc[i]);
+        ESP_LOGD(TAG,"ads%d = %d", i+1, volts[i]);
     }
 
     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
