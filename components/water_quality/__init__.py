@@ -6,15 +6,27 @@ from esphome.const import CONF_ID, CONF_DATA
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
+CONF_USER_CHARACTERS = "user_characters"
+
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
-    cv.Optional(CONF_DATA): cv.All(
+    cv.Optional(CONF_USER_CHARACTERS): cv.All(
+            cv.ensure_list(
+                cv.Schema(
+                    {
+                        cv.Required(CONF_DATA): cv.All(
                             cv.ensure_list(cv.int_range(min=0, max=31)),
                             cv.Length(min=8, max=8),
                         ),
+                    }
+                ),
+            ),
+            cv.Length(max=8),
+            validate_user_characters,
+        ),
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):
@@ -24,7 +36,9 @@ CONFIG_SCHEMA = cv.Schema({
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-    cg.add(var.dat(usr[CONF_DATA]))
+    if CONF_USER_CHARACTERS in config:
+        for usr in config[CONF_USER_CHARACTERS]:
+            cg.add(var.dat(usr[CONF_DATA]))
     
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)
