@@ -18,7 +18,7 @@ CONFIG_SCHEMA = cv.Schema({
                 cv.Schema(
                     {
                         cv.Required(CONF_DATA): cv.All(
-                            cv.ensure_list(cv.int_range(min=0, max=31))
+                            cv.ensure_list(cv.int_)
                         ),
                     }
                 ),
