@@ -243,6 +243,11 @@ void MyComponent::loop()
     for(int i = 0; i < 4; i++)
     {
         DigIn_Status[i] = mcp.digitalRead(i);
+        ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+    }
+    
+    for(int i = 0; i < 4; i++)
+    {
         if (DigOut_Status[i] == 1)
         {
             mcp.digitalWrite(i+4, HIGH);
@@ -251,8 +256,7 @@ void MyComponent::loop()
         { 
             mcp.digitalWrite(i+4, LOW);
         }
-        ESP_LOGD(TAG,"dig input %d:%d", i, DigIn_Status[i]);
-        ESP_LOGD(TAG,"dig output %d:%d", i, DigOut_Status[i]);
+        ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
     }
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
