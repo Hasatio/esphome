@@ -80,16 +80,12 @@ void MyComponent::setup()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
-    // tcaselect(0);
-    // bool status1 = ads1.begin(ADS1X15_ADDRESS1);
-    // bool status2 = ads2.begin(ADS1X15_ADDRESS2);
-
-    // if (!status1)
+    // if (!ads1.begin(ADS1X15_ADDRESS1))
     // {
     //   ESP_LOGD(TAG,"Failed to initialize ADS1115_1.");
     //   while (1);
     // }
-    // if (!status2)
+    // if (!ads2.begin(ADS1X15_ADDRESS2))
     // {
     //   ESP_LOGD(TAG,"Failed to initialize ADS1115_2.");
     //   while (1);
@@ -137,12 +133,11 @@ void MyComponent::setup()
 
     tcaselect(0);
     // bool status3 = mcp.begin(MCP23008_ADDRESS, &Wire);
-    bool status3 = mcp.begin_I2C(MCP23008_ADDRESS, &Wire);
-
-    if (!status3)
+    
+    if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
-      ESP_LOGD(TAG,"Failed to initialize MCP23008.");
-      while (1);
+        ESP_LOGD(TAG,"Failed to initialize MCP23008.");
+        while (1);
     }
 
     // mcp.pinMode(0, INPUT);
@@ -183,7 +178,7 @@ void MyComponent::setup()
     
 //     bool status4 = pwm.begin();
 
-//     if (!status4)
+//     if (!pwm.begin()) 
 //     {
 //       ESP_LOGD(TAG,"Failed to initialize PCA9685.");
 //       while (1);
