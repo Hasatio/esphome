@@ -21,7 +21,7 @@ DEPENDENCIES = ["water_quality"]
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            # cv.GenerateID(): cv.use_id(MyComponent),
+            cv.GenerateID(): cv.use_id(MyComponent),
             cv.Optional(CONF_PUMP_TOTAL): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MILILITER,
                 accuracy_decimals=2,
@@ -44,9 +44,9 @@ async def to_code(config):
     if CONF_PUMP_TOTAL in config:
         sens = await sensor.new_sensor(config[CONF_PUMP_TOTAL])
         cg.add(parent.Pump_0_Total(sens))
-        cg.add(parent.Pump_1_Total(sens))
-        cg.add(parent.Pump_2_Total(sens))
-        cg.add(parent.Pump_3_Total(sens))
+        # cg.add(parent.Pump_1_Total(sens))
+        # cg.add(parent.Pump_2_Total(sens))
+        # cg.add(parent.Pump_3_Total(sens))
         
     if CONF_PUMP_STATUS in config:
         sens = await sensor.new_sensor(config[CONF_PUMP_STATUS])
