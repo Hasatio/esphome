@@ -30,15 +30,15 @@ void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]
 
 void dat(std::vector<uint8_t> &data);
 
-void pt(sensor::Sensor *Pump_0_Total) {Pump_0_Total_ = Pump_0_Total;};
-// void Pump_1_Total(sensor::Sensor *pt) {Pump_1_Total_ = pt;}
-// void Pump_2_Total(sensor::Sensor *pt) {Pump_2_Total_ = pt;}
-// void Pump_3_Total(sensor::Sensor *pt) {Pump_3_Total_ = pt;}
+void Pump_0_Total(sensor::Sensor *pt) {Pump_0_Total_ = pt;};
+void Pump_1_Total(sensor::Sensor *pt) {Pump_1_Total_ = pt;}
+void Pump_2_Total(sensor::Sensor *pt) {Pump_2_Total_ = pt;}
+void Pump_3_Total(sensor::Sensor *pt) {Pump_3_Total_ = pt;}
 
-void ps(sensor::Sensor *Pump_0_Status) {Pump_0_Status_ = Pump_0_Status;};
-// void Pump_1_Status(sensor::Sensor *ps) {Pump_1_Status_ = ps;}
-// void Pump_2_Status(sensor::Sensor *ps) {Pump_2_Status_ = ps;}
-// void Pump_3_Status(sensor::Sensor *ps) {Pump_3_Status_ = ps;}
+void Pump_0_Status(sensor::Sensor *ps) {Pump_0_Status_ = ps;};
+void Pump_1_Status(sensor::Sensor *ps) {Pump_1_Status_ = ps;}
+void Pump_2_Status(sensor::Sensor *ps) {Pump_2_Status_ = ps;}
+void Pump_3_Status(sensor::Sensor *ps) {Pump_3_Status_ = ps;}
 
 // void Pump_1_Status(sensor::Sensor *ps) {Servo_0_Position = ps;}
 // void Pump_1_Status(sensor::Sensor *ps) {Servo_1_Position = ps;}
@@ -87,6 +87,7 @@ sensor::Sensor *Pump_0_Status_{nullptr};
 sensor::Sensor *Pump_1_Status_{nullptr};
 sensor::Sensor *Pump_2_Status_{nullptr};
 sensor::Sensor *Pump_3_Status_{nullptr};
+
 sensor::Sensor *Servo_0_Position{nullptr};
 sensor::Sensor *Servo_1_Position{nullptr};
 sensor::Sensor *Servo_2_Position{nullptr};
@@ -103,6 +104,7 @@ sensor::Sensor *Servo_4_Status{nullptr};
 sensor::Sensor *Servo_5_Status{nullptr};
 sensor::Sensor *Servo_6_Status{nullptr};
 sensor::Sensor *Servo_7_Status{nullptr};
+
 sensor::Sensor *AnOut_0_Temp_{nullptr};
 sensor::Sensor *AnOut_1_Vcc_{nullptr};
 sensor::Sensor *AnOut_2_LvlPerc_{nullptr};
@@ -111,6 +113,7 @@ sensor::Sensor *AnOut_0_SensPerc_{nullptr};
 sensor::Sensor *AnOut_1_SensPerc_{nullptr};
 sensor::Sensor *AnOut_2_SensPerc_{nullptr};
 sensor::Sensor *AnOut_3_SensPerc_{nullptr};
+
 sensor::Sensor *DigIn_0_Status_{nullptr};
 sensor::Sensor *DigIn_1_Status_{nullptr};
 sensor::Sensor *DigIn_2_Status_{nullptr};

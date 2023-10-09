@@ -249,7 +249,7 @@ void MyComponent::loop()
     AnOut_Vcc = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
     AnOut_LvlPerc[0] = (int)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    AnOut_LvlPerc[1] = 1+(int)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    AnOut_LvlPerc[1] = (int)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     
     // ESP_LOGD(TAG,"Temp = %f", AnOut_Temp);
     // ESP_LOGD(TAG,"Vcc = %f", AnOut_Vcc);
@@ -310,6 +310,11 @@ void MyComponent::loop()
         
     //     ESP_LOGD(TAG,"pwm = %d", i);
     // }
+    Pump_Total[0] = Pump_Total[3]+1;
+    Pump_Total[1] = Pump_Total[0]+1;
+    Pump_Total[2] = Pump_Total[1]+1;
+    Pump_Total[3] = Pump_Total[2]+1;
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
@@ -322,6 +327,7 @@ void MyComponent::loop()
     if (this->Pump_1_Status_ != nullptr) this->Pump_1_Status_->publish_state(Pump_Status[1]);
     if (this->Pump_2_Status_ != nullptr) this->Pump_2_Status_->publish_state(Pump_Status[2]);
     if (this->Pump_3_Status_ != nullptr) this->Pump_3_Status_->publish_state(Pump_Status[3]);
+
     if (this->Servo_0_Position != nullptr) this->Servo_0_Position->publish_state(Servo_Position[0]);
     if (this->Servo_1_Position != nullptr) this->Servo_1_Position->publish_state(Servo_Position[1]);
     if (this->Servo_2_Position != nullptr) this->Servo_2_Position->publish_state(Servo_Position[2]);
