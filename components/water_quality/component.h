@@ -50,6 +50,15 @@ sensor::Sensor *Pump_0_Status_{nullptr};
 // sensor::Sensor *Pump_1_Status_{nullptr};
 // sensor::Sensor *Pump_2_Status_{nullptr};
 // sensor::Sensor *Pump_3_Status_{nullptr};
+sensor::Sensor *Temp_{nullptr};
+sensor::Sensor *Vcc_{nullptr};
+sensor::Sensor *Level_0_{nullptr};
+sensor::Sensor *Level_1_{nullptr};
+sensor::Sensor *DigOut_0_Status{nullptr};
+sensor::Sensor *DigOut_1_Status{nullptr};
+sensor::Sensor *DigOut_2_Status{nullptr};
+sensor::Sensor *DigOut_3_Status{nullptr};
+
 
 };
  

@@ -29,7 +29,6 @@ CONFIG_SCHEMA = (
             # .extend(cv.polling_component_schema("1ms"))
             ,
             cv.Optional(CONF_PUMP_STATUS): sensor.sensor_schema(
-                unit_of_measurement=UNIT_MILILITER,
                 accuracy_decimals=0,
             )
             # .extend(cv.polling_component_schema("1ms"))
