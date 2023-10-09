@@ -31,13 +31,50 @@ void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]
 void dat(std::vector<uint8_t> &data);
 
 void pt(sensor::Sensor *Pump_0_Total) {Pump_0_Total_ = Pump_0_Total;};
-// void Pump_1_Total(sensor::Sensor *pt) {Pump_1_Total_ = pt;}
-// void Pump_2_Total(sensor::Sensor *pt) {Pump_2_Total_ = pt;}
-// void Pump_3_Total(sensor::Sensor *pt) {Pump_3_Total_ = pt;}
+void Pump_1_Total(sensor::Sensor *pt) {Pump_1_Total_ = pt;}
+void Pump_2_Total(sensor::Sensor *pt) {Pump_2_Total_ = pt;}
+void Pump_3_Total(sensor::Sensor *pt) {Pump_3_Total_ = pt;}
+
 void ps(sensor::Sensor *Pump_0_Status) {Pump_0_Status_ = Pump_0_Status;};
-// void Pump_1_Status(sensor::Sensor *ps) {Pump_1_Status_ = ps;} 
-// void Pump_2_Status(sensor::Sensor *ps) {Pump_2_Status_ = ps;}
-// void Pump_3_Status(sensor::Sensor *ps) {Pump_3_Status_ = ps;}
+void Pump_1_Status(sensor::Sensor *ps) {Pump_1_Status_ = ps;}
+void Pump_2_Status(sensor::Sensor *ps) {Pump_2_Status_ = ps;}
+void Pump_3_Status(sensor::Sensor *ps) {Pump_3_Status_ = ps;}
+
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_0_Position = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_1_Position = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {Servo_2_Position = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {Servo_3_Position = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_4_Position = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_5_Position = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {Servo_6_Position = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {Servo_7_Position = ps;}
+
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_0_Status = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_1_Status = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {Servo_2_Status = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {Servo_3_Status = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_4_Status = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {Servo_5_Status = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {Servo_6_Status = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {Servo_7_Status = ps;}
+
+// void AnOut_0_Temp(sensor::Sensor *ao) {AnOut_0_Temp_ = ao;}
+// void AnOut_1_Vcc(sensor::Sensor *ao) {AnOut_1_Vcc_ = ao;}
+void Pump_2_Status(sensor::Sensor *ao) {AnOut_2_LvlPerc_ = ao;}
+void Pump_3_Status(sensor::Sensor *ao) {AnOut_3_LvlPerc_ = ao;}
+// void Pump_1_Status(sensor::Sensor *ao) {AnOut_0_SensPerc_ = ao;}
+// void Pump_1_Status(sensor::Sensor *ao) {AnOut_1_SensPerc_ = ao;}
+// void Pump_2_Status(sensor::Sensor *ao) {AnOut_2_SensPerc_ = ao;}
+// void Pump_3_Status(sensor::Sensor *ao) {AnOut_3_SensPerc_ = ao;}
+
+// void Pump_1_Status(sensor::Sensor *ps) {DigIn_0_Status_ = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {DigIn_1_Status_ = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {DigIn_2_Status_ = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {DigIn_3_Status_ = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {DigOut_0_Status_ = ps;}
+// void Pump_1_Status(sensor::Sensor *ps) {DigOut_1_Status_ = ps;}
+// void Pump_2_Status(sensor::Sensor *ps) {DigOut_2_Status_ = ps;}
+// void Pump_3_Status(sensor::Sensor *ps) {DigOut_3_Status_ = ps;}
 
 
 protected:

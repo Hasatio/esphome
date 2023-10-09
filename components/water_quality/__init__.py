@@ -12,6 +12,8 @@ MULTI_CONF = True
 CONF_USER_CHARACTERS = "user_characters"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
+CONF_ANALOG_OUTPUT = "analog_output"
+
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
