@@ -21,7 +21,7 @@ DEPENDENCIES = ["water_quality"]
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            # cv.GenerateID(): cv.use_id(MyComponent),
+            cv.GenerateID(): cv.use_id(MyComponent),
             cv.Optional(CONF_PUMP_TOTAL): sensor.sensor_schema(
                 unit_of_measurement=UNIT_MILILITER,
                 accuracy_decimals=2,
