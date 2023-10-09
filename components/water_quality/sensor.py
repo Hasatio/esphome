@@ -67,7 +67,7 @@ async def to_code(config):
         
     if CONF_PUMP_STATUS in config:
         sens = await sensor.new_sensor(config[CONF_PUMP_STATUS])
-        cg.add(parent.ps(sens))
+        cg.add(parent.Pump_0_Status(sens))
         
     if CONF_ANALOG_OUTPUT in config:
         sens = await sensor.new_sensor(config[CONF_ANALOG_OUTPUT])
