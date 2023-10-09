@@ -1,12 +1,19 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-# from esphome.components import sensor
-from esphome.const import CONF_ID, CONF_DATA
+from esphome.components import sensor
+from esphome.const import (
+    CONF_ID, 
+    CONF_DATA,
+) 
 
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
 CONF_USER_CHARACTERS = "user_characters"
+CONF_PUMP_TOTAL = "pump_total"
+CONF_PUMP_STATUS = "pump_status"
+UNIT_MILILITER = "ml"
+UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
@@ -34,9 +41,10 @@ CONFIG_SCHEMA = cv.Schema({
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
-    if CONF_USER_CHARACTERS in config:
-        for usr in config[CONF_USER_CHARACTERS]:
-            cg.add(var.dat(usr[CONF_DATA]))
+    
+    # if CONF_USER_CHARACTERS in config:
+    #     for usr in config[CONF_USER_CHARACTERS]:
+    #         cg.add(var.dat(usr[CONF_DATA]))
     
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)

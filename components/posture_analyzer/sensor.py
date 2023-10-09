@@ -5,7 +5,14 @@ from esphome.const import (
     CONF_ID,
 )
 
-from . import component_ns, MyComponent, CONF_MY_SAMPLE, CONF_MY_SAMPLE_SEC, UNIT_SAMPLE, UNIT_SAMPLE_SEC
+from . import (
+    component_ns, 
+    MyComponent, 
+    CONF_MY_SAMPLE, 
+    CONF_MY_SAMPLE_SEC, 
+    UNIT_SAMPLE, 
+    UNIT_SAMPLE_SEC,
+)
 
 DEPENDENCIES = ["posture_analyzer"] # gerekli olan komponent, bu olmadan tanımlı sensörler kullanılamaz.
 

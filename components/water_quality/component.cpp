@@ -235,13 +235,13 @@ void MyComponent::loop()
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
         volts[i] = ads1.computeVolts(adc[i]);
-        ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
     for(int i = 4; i < 8; i++)
     {
         adc[i] = ads2.readADC_SingleEnded(i%4);
         volts[i] = ads2.computeVolts(adc[i]);
-        ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
 
     TempRes = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnIn_TempRes / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
@@ -251,10 +251,10 @@ void MyComponent::loop()
     AnOut_LvlPerc[0] = (int)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     AnOut_LvlPerc[1] = (int)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     
-    ESP_LOGD(TAG,"Temp = %f", AnOut_Temp);
-    ESP_LOGD(TAG,"Vcc = %f", AnOut_Vcc);
-    ESP_LOGD(TAG,"Lvl1 = %d", AnOut_LvlPerc[0]);
-    ESP_LOGD(TAG,"Lvl2 = %d", AnOut_LvlPerc[2]);
+    // ESP_LOGD(TAG,"Temp = %f", AnOut_Temp);
+    // ESP_LOGD(TAG,"Vcc = %f", AnOut_Vcc);
+    // ESP_LOGD(TAG,"Lvl1 = %d", AnOut_LvlPerc[0]);
+    // ESP_LOGD(TAG,"Lvl2 = %d", AnOut_LvlPerc[2]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -310,6 +310,20 @@ void MyComponent::loop()
         
     //     ESP_LOGD(TAG,"pwm = %d", i);
     // }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Sensor
+    
+    
+    if (this->Pump_0_Total_ != nullptr) this->Pump_0_Total_->publish_state(Pump_Total[0]);
+    if (this->Pump_1_Total_ != nullptr) this->Pump_1_Total_->publish_state(Pump_Total[1]);
+    if (this->Pump_2_Total_ != nullptr) this->Pump_2_Total_->publish_state(Pump_Total[2]);
+    if (this->Pump_3_Total_ != nullptr) this->Pump_3_Total_->publish_state(Pump_Total[3]);
+    if (this->Pump_0_Status_ != nullptr) this->Pump_0_Status_->publish_state(Pump_Status[0]);
+    if (this->Pump_1_Status_ != nullptr) this->Pump_1_Status_->publish_state(Pump_Status[1]);
+    if (this->Pump_2_Status_ != nullptr) this->Pump_2_Status_->publish_state(Pump_Status[2]);
+    if (this->Pump_3_Status_ != nullptr) this->Pump_3_Status_->publish_state(Pump_Status[3]);
+
 delay(1000);
 }
 
