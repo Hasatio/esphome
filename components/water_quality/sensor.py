@@ -71,5 +71,7 @@ async def to_code(config):
         
     if CONF_ANALOG_OUTPUT in config:
         sens = await sensor.new_sensor(config[CONF_ANALOG_OUTPUT])
+        cg.add(parent.AnOut_0_Temp(sens))
+        cg.add(parent.AnOut_1_Vcc(sens))
         cg.add(parent.AnOut_2_LvlPerc(sens))
         cg.add(parent.AnOut_3_LvlPerc(sens))
