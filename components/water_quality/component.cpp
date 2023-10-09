@@ -316,13 +316,13 @@ void MyComponent::loop()
     
     
     if (this->Pump_0_Total_ != nullptr) this->Pump_0_Total_->publish_state(Pump_Total[0]);
-    if (this->Pump_1_Total_ != nullptr) this->Pump_1_Total_->publish_state(Pump_Total[1]);
-    if (this->Pump_2_Total_ != nullptr) this->Pump_2_Total_->publish_state(Pump_Total[2]);
-    if (this->Pump_3_Total_ != nullptr) this->Pump_3_Total_->publish_state(Pump_Total[3]);
+    // if (this->Pump_1_Total_ != nullptr) this->Pump_1_Total_->publish_state(Pump_Total[1]);
+    // if (this->Pump_2_Total_ != nullptr) this->Pump_2_Total_->publish_state(Pump_Total[2]);
+    // if (this->Pump_3_Total_ != nullptr) this->Pump_3_Total_->publish_state(Pump_Total[3]);
     if (this->Pump_0_Status_ != nullptr) this->Pump_0_Status_->publish_state(Pump_Status[0]);
-    if (this->Pump_1_Status_ != nullptr) this->Pump_1_Status_->publish_state(Pump_Status[1]);
-    if (this->Pump_2_Status_ != nullptr) this->Pump_2_Status_->publish_state(Pump_Status[2]);
-    if (this->Pump_3_Status_ != nullptr) this->Pump_3_Status_->publish_state(Pump_Status[3]);
+    // if (this->Pump_1_Status_ != nullptr) this->Pump_1_Status_->publish_state(Pump_Status[1]);
+    // if (this->Pump_2_Status_ != nullptr) this->Pump_2_Status_->publish_state(Pump_Status[2]);
+    // if (this->Pump_3_Status_ != nullptr) this->Pump_3_Status_->publish_state(Pump_Status[3]);
 
 delay(1000);
 }
