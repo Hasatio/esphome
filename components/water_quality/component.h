@@ -58,10 +58,10 @@ void Pump_3_Status(sensor::Sensor *ps) {Pump_3_Status_ = ps;}
 // void Pump_2_Status(sensor::Sensor *ps) {Servo_6_Status = ps;}
 // void Pump_3_Status(sensor::Sensor *ps) {Servo_7_Status = ps;}
 
-// void AnOut_0_Temp(sensor::Sensor *ao) {AnOut_0_Temp_ = ao;}
-// void AnOut_1_Vcc(sensor::Sensor *ao) {AnOut_1_Vcc_ = ao;}
-void AnOut_2_LvlPerc(sensor::Sensor *ao) {AnOut_2_LvlPerc_ = ao;}
-void AnOut_3_LvlPerc(sensor::Sensor *ao) {AnOut_3_LvlPerc_ = ao;}
+void AnOut_0_Status(sensor::Sensor *ao) {AnOut_0_Temp_ = ao;}
+void AnOut_1_Status(sensor::Sensor *ao) {AnOut_1_Vcc_ = ao;}
+void AnOut_2_Status(sensor::Sensor *ao) {AnOut_2_LvlPerc_ = ao;}
+void AnOut_3_Status(sensor::Sensor *ao) {AnOut_3_LvlPerc_ = ao;}
 // void Pump_1_Status(sensor::Sensor *ao) {AnOut_0_SensPerc_ = ao;}
 // void Pump_1_Status(sensor::Sensor *ao) {AnOut_1_SensPerc_ = ao;}
 // void Pump_2_Status(sensor::Sensor *ao) {AnOut_2_SensPerc_ = ao;}
