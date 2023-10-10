@@ -352,7 +352,7 @@ void MyComponent::loop()
         this->AnOut_Status_->publish_state(AnOut_LvlPerc[1]);
     }
     // Pump_CalibX = int(custom_data);
-        ESP_LOGD(TAG,"data = %s", custom_data);
+        ESP_LOGD(TAG,"data = %d", custom_data);
     // if (this->AnOut_0_Temp_ != nullptr) this->AnOut_0_Temp_->publish_state(AnOut_Temp);
     // if (this->AnOut_1_Vcc_ != nullptr) this->AnOut_1_Vcc_->publish_state(AnOut_Vcc);
     // if (this->AnOut_2_LvlPerc_ != nullptr) this->AnOut_2_LvlPerc_->publish_state(AnOut_LvlPerc[0]);
