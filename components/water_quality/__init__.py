@@ -4,7 +4,7 @@ from esphome.components import sensor
 from esphome.const import (
     CONF_ID, 
     CONF_DATA,
-    CONF_CUSTOM_COMMAND,
+    CONF_CUSTOM,
 ) 
 
 AUTO_LOAD = ["sensor"]
