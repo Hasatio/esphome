@@ -19,17 +19,21 @@ class MyComponent : public Component
 {
 public:
 
-uint8_t data[2];
+uint8_t data1[2];
 // float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void setup() override;
 void loop() override;
 
-void set_custom_data(uint8_t dat[]) { data = &dat; }
+void set_custom_data(uint8_t data[]) 
+{ 
+    // data = &dat; 
+    memcpy(&data1, &data, sizeof data);
+}
 
 private:
 
-std::vector<uint8_t> custom_data{};
+// std::vector<uint8_t> custom_data{};
 
 };
  
