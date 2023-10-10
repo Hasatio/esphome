@@ -76,7 +76,7 @@ void AnOut_Status(sensor::Sensor *a)
 
 protected:
 
-std::vector<uint8_t> user_defined_chars_;
+std::vector<uint8_t*> user_defined_chars_;
 
 sensor::Sensor *Pump_0_Total_{nullptr};
 sensor::Sensor *Pump_1_Total_{nullptr};
