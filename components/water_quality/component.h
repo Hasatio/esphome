@@ -24,7 +24,7 @@ public:
 void setup() override;
 void loop() override;
 
-void set_custom_data(uint8_t data[]) { custom_data = data; }
+void set_custom_data(uint8_t dat[]) { data = dat; }
 
 private:
 

@@ -5,6 +5,7 @@ namespace water_quality {
 
 static const char *TAG = "mysensor";
 
+uint8_t data[8];
 uint8_t data2[] = {1,2,3,4};
 void MyComponent::setup() 
 {
