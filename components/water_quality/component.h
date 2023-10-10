@@ -27,7 +27,7 @@ void loop() override;
 void set_custom_data(uint8_t data[]) 
 { 
     // data = &dat; 
-    memcpy(&data1, &data, sizeof data1);
+    // memcpy(&data1, &data, sizeof data1);
 }
 
 private:
