@@ -19,6 +19,7 @@ class MyComponent : public Component
 {
 public:
 
+uint8_t data[8];
 // float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void setup() override;
