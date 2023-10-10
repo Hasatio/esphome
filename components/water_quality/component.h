@@ -74,8 +74,6 @@ void AnOut_Status(sensor::Sensor *a)
 // void DigOut_2_Status_(sensor::Sensor *d) {DigOut_2_Status_ = d;}
 // void DigOut_3_Status_(sensor::Sensor *d) {DigOut_3_Status_ = d;}
 
-output::FloatOutput *get_output(int i) { return this->outputs_[i]; }
-
 protected:
 
 std::map<uint8_t, std::vector<uint8_t> > user_defined_chars_;
