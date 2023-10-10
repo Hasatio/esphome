@@ -15,7 +15,7 @@ void MyComponent::loop()
 {
 
     // Pump_CalibX = int(custom_data);
-        ESP_LOGD(TAG,"data1 = %d", *custom_data);
+        ESP_LOGD(TAG,"data1 = %d", custom_data);
         ESP_LOGD(TAG,"data2 = %d", data2[0]);
 
 delay(1000);
