@@ -24,11 +24,12 @@ uint8_t data1[2];
 void setup() override;
 void loop() override;
 
-// void set_custom_data(uint8_t data[]) 
-// { 
-//     // data = &dat; 
-//     memcpy(&data1, &data, sizeof data1);
-// }
+void set_custom_data(uint8_t data[]) 
+{ 
+    // data = &dat; 
+    // memcpy(&data1, &data, sizeof data1);
+    *data1 = &data;
+}
 
 private:
 
