@@ -44,9 +44,9 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     
-    # if CONF_USER_CHARACTERS in config:
-    #     for usr in config[CONF_USER_CHARACTERS]:
-    #         cg.add(var.dat(usr[CONF_DATA]))
+    if CONF_USER_CHARACTERS in config:
+        for usr in config[CONF_USER_CHARACTERS]:
+            cg.add(var.dat(usr[CONF_DATA]))
     
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)

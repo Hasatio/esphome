@@ -28,7 +28,7 @@ void tcaselect(uint8_t bus);
 
 void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]);
 
-void dat(std::vector<uint8_t> &data);
+void dat(uint8_t pos, const std::vector<uint8_t*> &data) { this->user_defined_chars_[pos] = data; };
 
 void Pump_0_Total(sensor::Sensor *p) {Pump_0_Total_ = p;}
 void Pump_1_Total(sensor::Sensor *p) {Pump_1_Total_ = p;}
@@ -74,8 +74,11 @@ void AnOut_Status(sensor::Sensor *a)
 // void DigOut_2_Status_(sensor::Sensor *d) {DigOut_2_Status_ = d;}
 // void DigOut_3_Status_(sensor::Sensor *d) {DigOut_3_Status_ = d;}
 
+output::FloatOutput *get_output(int i) { return this->outputs_[i]; }
 
 protected:
+
+std::map<uint8_t, std::vector<uint8_t> > user_defined_chars_;
 
 sensor::Sensor *Pump_0_Total_{nullptr};
 sensor::Sensor *Pump_1_Total_{nullptr};
@@ -121,7 +124,6 @@ sensor::Sensor *DigOut_0_Status_{nullptr};
 sensor::Sensor *DigOut_1_Status_{nullptr};
 sensor::Sensor *DigOut_2_Status_{nullptr};
 sensor::Sensor *DigOut_3_Status_{nullptr};
-
 
 };
  
