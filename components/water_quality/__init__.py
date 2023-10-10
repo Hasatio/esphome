@@ -35,7 +35,7 @@ CONFIG_SCHEMA = cv.Schema({
     #         ),
     #         cv.Length(max=8),
     #     ),
-    cv.Optional(CONF_CUSTOM_COMMAND): cv.ensure_list(cv.hex_uint8_t),
+    cv.Optional(CONF_CUSTOM_COMMAND): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):
