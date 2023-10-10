@@ -345,10 +345,13 @@ void MyComponent::loop()
     if (this->Servo_6_Status != nullptr) this->Servo_6_Status->publish_state(Servo_Status[2]);
     if (this->Servo_7_Status != nullptr) this->Servo_7_Status->publish_state(Servo_Status[3]);
 
-    if (this->AnOut_0_Status_ != nullptr) this->AnOut_0_Status_->publish_state(AnOut_Temp);
-    if (this->AnOut_1_Status_ != nullptr) this->AnOut_1_Status_->publish_state(AnOut_Vcc);
-    if (this->AnOut_2_Status_ != nullptr) this->AnOut_2_Status_->publish_state(AnOut_LvlPerc[0]);
-    if (this->AnOut_3_Status_ != nullptr) this->AnOut_3_Status_->publish_state(AnOut_LvlPerc[1]);
+    if (this->AnOut_Status_ != nullptr) 
+    {
+        this->AnOut_Status_->publish_state(AnOut_Temp);
+        this->AnOut_Status_->publish_state(AnOut_Vcc);
+        this->AnOut_Status_->publish_state(AnOut_LvlPerc[0]);
+        this->AnOut_Status_->publish_state(AnOut_LvlPerc[1]);
+    }
     // if (this->AnOut_0_Temp_ != nullptr) this->AnOut_0_Temp_->publish_state(AnOut_Temp);
     // if (this->AnOut_1_Vcc_ != nullptr) this->AnOut_1_Vcc_->publish_state(AnOut_Vcc);
     // if (this->AnOut_2_LvlPerc_ != nullptr) this->AnOut_2_LvlPerc_->publish_state(AnOut_LvlPerc[0]);
