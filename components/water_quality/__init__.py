@@ -46,7 +46,7 @@ async def to_code(config):
     
     if CONF_USER_CHARACTERS in config:
         for usr in config[CONF_USER_CHARACTERS]:
-            cg.add(var.dat(usr[CONF_DATA]))
+            cg.add(var.set_user_defined_char(usr[CONF_DATA]))
     
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)
