@@ -24,7 +24,7 @@ public:
 void setup() override;
 void loop() override;
 
-void set_custom_data(const std::vector<uint8_t> &data) { custom_data = data; }
+void set_custom_data(const uint8_t data) { custom_data = data; }
 
 private:
 
