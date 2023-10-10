@@ -25,7 +25,7 @@ uint8_t data[2];
 void setup() override;
 void loop() override;
 
-void set_custom_data(uint8_t dat[]) { &data = dat; }
+void set_custom_data(uint8_t dat[]) { data = &dat; }
 
 private:
 
