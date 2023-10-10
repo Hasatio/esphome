@@ -11,8 +11,6 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <vector>
 
-using namespace std;
-
 namespace esphome {
 namespace water_quality {
 
