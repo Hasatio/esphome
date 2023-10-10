@@ -47,7 +47,7 @@ CONFIG_SCHEMA = (
             # )
             # ,
             cv.Optional(CONF_ANALOG_OUTPUT): sensor.sensor_schema(
-                unit_of_measurement=UNIT_PERCENT,
+                # unit_of_measurement=UNIT_PERCENT,
                 accuracy_decimals=2,
             )
             ,
@@ -71,7 +71,7 @@ async def to_code(config):
         
     if CONF_ANALOG_OUTPUT in config:
         sens = await sensor.new_sensor(config[CONF_ANALOG_OUTPUT])
-        cg.add(parent.AnOut_0_Status(sens))
+        cg.add(parent.AnOut_Status(sens))
         # cg.add(parent.AnOut_1_Status(sens))
         # cg.add(parent.AnOut_2_Status(sens))
         # cg.add(parent.AnOut_3_Status(sens))

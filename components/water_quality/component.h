@@ -56,7 +56,7 @@ void Pump_3_Status(sensor::Sensor *p) {Pump_3_Status_ = p;}
 // void Servo_6_Status(sensor::Sensor *s) {Servo_6_Status = s;}
 // void Servo_7_Status(sensor::Sensor *s) {Servo_7_Status = s;}
 
-void AnOut_0_Status(sensor::Sensor *a) 
+void AnOut_Status(sensor::Sensor *a) 
 {
     AnOut_Status_ = a;
 }
