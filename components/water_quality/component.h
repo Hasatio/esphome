@@ -28,7 +28,9 @@ void set_custom_data(uint8_t data[])
 { 
     // data = &dat; 
     // memcpy(&data1, &data, sizeof data1);
-    data1 = data;
+    // data1 = data;
+    data1[0]=data[0];
+    data1[1]=data[1];
 }
 
 private:
