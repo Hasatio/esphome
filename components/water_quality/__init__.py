@@ -35,7 +35,7 @@ CONFIG_SCHEMA = cv.Schema({
     #         ),
     #         cv.Length(max=8),
     #     ),
-    cv.Optional(CONF_CUSTOM): cv.ensure_list(cv.uint8_t),
+    # cv.Optional(CONF_CUSTOM): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):
@@ -50,14 +50,7 @@ async def to_code(config):
     #     for usr in config[CONF_USER_CHARACTERS]:
     #         cg.add(var.set_user_defined_char(usr[CONF_DATA]))
     
-    if CONF_CUSTOM in config:
-        cg.add(var.set_custom_data(config[CONF_CUSTOM]))
+    # if CONF_CUSTOM in config:
+    #     cg.add(var.set_custom_data(config[CONF_CUSTOM]))
 
-    
-    cg.add_library("Wire", None)
-    cg.add_library("SPI", None)
-    cg.add_library("Adafruit BusIO",None)
-    cg.add_library("Adafruit ADS1X15", None)
-    cg.add_library("Adafruit MCP23017 Arduino Library", None)
-    cg.add_library("Adafruit PWM Servo Driver Library", None)
     
