@@ -35,7 +35,7 @@ CONFIG_SCHEMA = cv.Schema({
     #         ),
     #         cv.Length(max=8),
     #     ),
-    cv.Optional(CONF_CUSTOM_COMMAND): cv.ensure_list(cv.uint8_t),
+    cv.Optional(CONF_CUSTOM): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):
@@ -50,8 +50,8 @@ async def to_code(config):
     #     for usr in config[CONF_USER_CHARACTERS]:
     #         cg.add(var.set_user_defined_char(usr[CONF_DATA]))
     
-    if CONF_CUSTOM_COMMAND in config:
-        cg.add(var.set_custom_data(config[CONF_CUSTOM_COMMAND]))
+    if CONF_CUSTOM in config:
+        cg.add(var.set_custom_data(config[CONF_CUSTOM]))
 
     
     cg.add_library("Wire", None)
