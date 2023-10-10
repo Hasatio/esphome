@@ -76,7 +76,7 @@ void AnOut_Status(sensor::Sensor *a)
 
 protected:
 
-std::vector<uint8_t> custom_data{};
+std::vector<uint8_t> custom_data{nullptr};
 
 sensor::Sensor *Pump_0_Total_{nullptr};
 sensor::Sensor *Pump_1_Total_{nullptr};
