@@ -28,7 +28,7 @@ void tcaselect(uint8_t bus);
 
 void pump(String PT[6],uint8_t PCX[8],uint8_t PCY[8],uint8_t PM[4],uint8_t PD[4]);
 
-void set_user_defined_char(const std::vector<uint8_t> &data) { custom_data = data; }
+void set_custom_data(const std::vector<uint8_t> &data) { custom_data = data; }
 
 void Pump_0_Total(sensor::Sensor *p) {Pump_0_Total_ = p;}
 void Pump_1_Total(sensor::Sensor *p) {Pump_1_Total_ = p;}
