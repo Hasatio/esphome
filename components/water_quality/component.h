@@ -26,6 +26,8 @@ void loop() override;
 
 void set_custom_data(std::vector<uint8_t> &data) { custom_data = data; }
 
+std::vector<uint8_t> custom_data{};
+
 };
  
 }  // namespace water_quality
