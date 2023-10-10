@@ -26,10 +26,11 @@ void loop() override;
 //     data1[0]=data[0];
 //     data1[1]=data[1];
 // }
+void set_custom_data(const std::vector<uint8_t> &data) { custom_data = data; }
 
 private:
 
-// std::vector<uint8_t> custom_data{};
+std::vector<uint8_t> custom_data{};
 
 };
  
