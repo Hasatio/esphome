@@ -34,8 +34,8 @@ void calibration(const std::vector<uint8_t> &cx)
 
 private:
 
-std::vector<uint8_t> Pump_Calib_X{nullptr};
-std::vector<uint8_t> Pump_Calib_Y{nullptr};
+std::vector<uint8_t> Pump_Calib_X{};
+std::vector<uint8_t> Pump_Calib_Y{};
 
 };
  
