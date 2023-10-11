@@ -27,7 +27,7 @@ CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
     cv.Optional(CONF_CALIBRATION): # cv.All(
             # cv.ensure_list(
-            #     cv.Schema(
+                cv.Schema(
                     {
                         cv.Required(CONF_X): cv.All(
                             cv.ensure_list(cv.uint8_t)
@@ -36,7 +36,7 @@ CONFIG_SCHEMA = cv.Schema({
                         #     cv.ensure_list(cv.uint8_t)
                         # ),
                     }
-            #     ),
+                ),
             # ),
             # cv.Length(max=8),
         # ),
