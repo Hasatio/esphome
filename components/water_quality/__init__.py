@@ -42,7 +42,7 @@ CONFIG_SCHEMA = (
                         }
                     ).extend(cv.COMPONENT_SCHEMA),
                 ),
-                # cv.Length(max=2),
+                cv.Length(max=2),
             ),
             # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
             # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
