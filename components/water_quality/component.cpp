@@ -6,7 +6,7 @@ namespace water_quality {
 static const char *TAG = "mysensor";
 
     String Pump_TimeConstant[6];
-    uint8_t Pump_CalibX[8], Pump_CalibY[8], Pump_Mode[4], Pump_Dose[4], Pump_Total[4], Pump_Status[4]; 
+    uint8_t Pump_Mode[4], Pump_Dose[4], Pump_Total[4], Pump_Status[4]; 
     uint16_t Pump_Circulation[2];
     bool Pump_Reset[6];
 
