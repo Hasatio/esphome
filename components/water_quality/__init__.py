@@ -25,9 +25,9 @@ MyComponent = component_ns.class_("MyComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
-    cv.Optional(CONF_CALIBRATION): cv.All(
-            cv.ensure_list(
-                cv.Schema(
+    cv.Optional(CONF_CALIBRATION): # cv.All(
+            # cv.ensure_list(
+            #     cv.Schema(
                     {
                         cv.Required(CONF_X): cv.All(
                             cv.ensure_list(cv.uint8_t)
@@ -36,10 +36,10 @@ CONFIG_SCHEMA = cv.Schema({
                         #     cv.ensure_list(cv.uint8_t)
                         # ),
                     }
-                ),
-            ),
+            #     ),
+            # ),
             # cv.Length(max=8),
-        ),
+        # ),
     # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
     # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
@@ -52,11 +52,11 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     
-    if CONF_CALIBRATION in config:
-        for usr in config[CONF_CALIBRATION]:
-            cg.add(var.calibration(usr[CONF_X]))
-    
     # if CONF_CALIBRATION in config:
-    #     cg.add(var.calibration(config[CONF_X],config[CONF_Y]))
+    #     for usr in config[CONF_CALIBRATION]:
+    #         cg.add(var.calibration(usr[CONF_X]))
+    
+    if CONF_CALIBRATION in config:
+        cg.add(var.calibration(config[CONF_X]))
 
     
