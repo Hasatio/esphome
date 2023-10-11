@@ -32,9 +32,9 @@ CONFIG_SCHEMA = cv.Schema({
                         cv.Required(CONF_X): cv.All(
                             cv.ensure_list(cv.uint8_t)
                         ),
-                        cv.Required(CONF_Y): cv.All(
-                            cv.ensure_list(cv.uint8_t)
-                        ),
+                        # cv.Required(CONF_Y): cv.All(
+                        #     cv.ensure_list(cv.uint8_t)
+                        # ),
                     }
                 ),
             ),
@@ -52,11 +52,11 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     
-    # if CONF_USER_CHARACTERS in config:
-    #     for usr in config[CONF_USER_CHARACTERS]:
-    #         cg.add(var.set_user_defined_char(usr[CONF_DATA]))
-    
     if CONF_CALIBRATION in config:
-        cg.add(var.calibration(config[CONF_X],config[CONF_Y]))
+        for usr in config[CONF_CALIBRATION]:
+            cg.add(var.calibration(usr[CONF_X]))
+    
+    # if CONF_CALIBRATION in config:
+    #     cg.add(var.calibration(config[CONF_X],config[CONF_Y]))
 
     
