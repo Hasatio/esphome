@@ -26,20 +26,22 @@ MyComponent = component_ns.class_("MyComponent", cg.Component)
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
     cv.Optional(CONF_CALIBRATION): cv.All(
-            cv.ensure_list(
-                cv.Schema(
-                    {
-                        cv.Required(CONF_X): cv.All(
-                            cv.ensure_list(cv.uint8_t)
-                        ),
-                        cv.Required(CONF_Y): cv.All(
-                            cv.ensure_list(cv.uint8_t)
-                        ),
-                    }
-                ),
+        cv.ensure_list(
+            cv.Schema(
+                {
+                    cv.Required(CONF_X): cv.All(
+                        cv.ensure_list(cv.uint8_t),
+                        cv.Length(min=8, max=8),
+                    ),
+                    cv.Required(CONF_Y): cv.All(
+                        cv.ensure_list(cv.uint8_t),
+                        cv.Length(min=8, max=8),
+                    ),
+                }
             ),
-            # cv.Length(max=8),
         ),
+        cv.Length(max=2),
+    ),
     # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
     # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
