@@ -50,7 +50,7 @@ CONFIG_SCHEMA = cv.Schema({
 #     var = cg.new_Pvariable(config[CONF_ID])
 #     yield cg.register_component(var, config)
 
-def to_code(config):
+async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     yield cg.register_component(var, config)
     
