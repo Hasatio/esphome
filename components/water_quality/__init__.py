@@ -21,7 +21,7 @@ UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
 component_ns = cg.esphome_ns.namespace("water_quality")
-MyComponent = component_ns.class_("MyComponent", cg.Component)
+MyComponent = component_ns.class_("MyComponent", cg.PollingComponent)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
@@ -52,7 +52,7 @@ CONFIG_SCHEMA = cv.Schema({
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
-    yield cg.register_component(var, config)
+    await cg.register_component(var, config)
     
     # if CONF_CALIBRATION in config:
     #     for usr in config[CONF_CALIBRATION]:
