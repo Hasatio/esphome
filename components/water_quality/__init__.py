@@ -95,6 +95,6 @@ async def to_code(config):
                 conf[CONF_X3], 
                 conf[CONF_Y3],
                 conf[CONF_X4], 
-                conf[CONF_Y4]
+                conf[CONF_Y4],
                 ))
     
