@@ -17,8 +17,14 @@ void MyComponent::loop()
     // Pump_CalibX = int(custom_data);
     for (size_t i = 0; i < 8; i++)
     {
-        ESP_LOGD(TAG,"x = %d", Pump_Calib_X[i]);
-        ESP_LOGD(TAG,"y = %d", Pump_Calib_Y[i]);
+        ESP_LOGD(TAG,"x = %d", Pump_Calib_X1[i]);
+        ESP_LOGD(TAG,"y = %d", Pump_Calib_Y1[i]);
+        ESP_LOGD(TAG,"x = %d", Pump_Calib_X2[i]);
+        ESP_LOGD(TAG,"y = %d", Pump_Calib_Y2[i]);
+        ESP_LOGD(TAG,"x = %d", Pump_Calib_X3[i]);
+        ESP_LOGD(TAG,"y = %d", Pump_Calib_Y3[i]);
+        ESP_LOGD(TAG,"x = %d", Pump_Calib_X4[i]);
+        ESP_LOGD(TAG,"y = %d", Pump_Calib_Y4[i]);
     }
     
         

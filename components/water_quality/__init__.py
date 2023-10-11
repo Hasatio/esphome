@@ -11,8 +11,14 @@ from esphome.const import (
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
-CONF_X = "x"
-CONF_Y = "y"
+CONF_X1 = "x1"
+CONF_Y1 = "y1"
+CONF_X2 = "x2"
+CONF_Y2 = "y2"
+CONF_X3 = "x3"
+CONF_Y3 = "y3"
+CONF_X4 = "x4"
+CONF_Y4 = "y4"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
@@ -31,18 +37,42 @@ CONFIG_SCHEMA = (
                 cv.ensure_list(
                     cv.Schema(
                         {
-                            cv.Required(CONF_X): cv.All(
+                            cv.Required(CONF_X1): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Required(CONF_Y): cv.All(
+                            cv.Required(CONF_Y1): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_X2): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_Y2): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_X3): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_Y3): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_X4): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
+                            cv.Optional(CONF_Y4): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
                         }
                     ).extend(cv.COMPONENT_SCHEMA),
                 ),
-                cv.Length(max=2),
+                cv.Length(max=8),
             ),
             # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
             # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
@@ -57,5 +87,14 @@ async def to_code(config):
     
     if CONF_CALIBRATION in config:
         for conf in config[CONF_CALIBRATION]:
-            cg.add(var.calibration(conf[CONF_X], conf[CONF_Y]))
+            cg.add(var.calibration(
+                conf[CONF_X1], 
+                conf[CONF_Y1],
+                conf[CONF_X2], 
+                conf[CONF_Y2],
+                conf[CONF_X3], 
+                conf[CONF_Y3],
+                conf[CONF_X4], 
+                conf[CONF_Y4]
+                ))
     
