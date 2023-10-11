@@ -1,0 +1,160 @@
+substitutions:
+  devicename: "devkit-s-l"
+  
+esphome:
+  name: $devicename
+  friendly_name: $devicename
+
+  libraries:
+    # - "Grove 3-Axis Digital Gyro"
+    - "Wire"
+    - "SPI"
+    - "Adafruit BusIO"
+    - "Adafruit Unified Sensor"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  # encryption:
+  #   key: "O5RwEA6uQr7bO6Y2BRDxK9AKg+przdEtgECJXmjZfrE="
+
+ota:
+
+
+wifi:
+  ssid: !secret wifi_ssid2
+  password: !secret wifi_password2
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: $devicename
+    password: $devicename
+  reboot_timeout: 0s
+  fast_connect: true
+  # power_save_mode: none
+
+captive_portal:
+
+web_server:
+  port: 80
+  css_url: v3
+  include_internal: True
+  local: True
+  version: 2
+
+
+external_components:
+    - source: github://Hasatio/esphome@main
+      components: [posture_analyzer]
+      refresh: always
+
+
+posture_analyzer:
+  id: my
+  gain: 1.0
+  bluetooth: $devicename
+
+
+sensor:
+  # - platform: myi2c
+  #   sample:
+  #     id: s
+  #     name: sample
+      
+  - platform: posture_analyzer
+    sample_sec:
+      id: ss
+      name: sample_sec
+
+  - platform: internal_temperature
+    name: "Internal Temperature"
+    update_interval: 1s
+    # internal: true
+    # disabled_by_default: true
+    on_value:
+      if:
+        condition:
+          wifi.connected:
+        then:
+        - light.turn_on: 
+            id: led
+            # effect: strobe
+
+
+button:
+  - platform: restart
+    name: "Restart"
+
+
+# switch:
+#   - platform: gpio
+#     name: "Led"
+#     pin: 
+#       number: GPIO13
+#       mode:
+#         output: True
+#       inverted: False
+
+
+# status_led:
+#     pin: 
+#       number: GPIO13
+#       mode:
+#         output: True
+#       inverted: False
+
+
+light:
+  - platform: status_led
+    name: "status led"
+    id: status
+    pin: 
+      number: GPIO13
+      mode:
+        output: True
+      inverted: False
+    # on_state:
+    #   if:
+    #     condition:
+    #       wifi.connected:
+    #     then:
+    #     - light.turn_on: 
+    #         id: status
+    #         # effect: strobe
+
+  - platform: binary
+    name: "led"
+    id: led
+    output: o13
+    effects:
+      - strobe:
+          name: strobe
+          colors:
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              duration: 50ms
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              duration: 200ms
+
+
+output:    
+  - platform: gpio
+    id: o13
+    pin: 
+      number: GPIO13
+      mode:
+        output: True
+      inverted: False
+
