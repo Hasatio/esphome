@@ -63,8 +63,8 @@ async def to_code(config):
         # for usr in config[CONF_CALIBRATION]:
         #     cg.add(var.calibration(usr[CONF_X]))
     
-        for conf in config.get([CONF_CALIBRATION],[]):
-            if CONF_CALIBRATION in conf:
+        for conf in config[CONF_CALIBRATION]:
+            if CONF_X in conf:
                 cg.add(var.calibration(conf[CONF_X]))
         await cg.register_component(var, conf)
     

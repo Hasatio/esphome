@@ -59,18 +59,21 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_ID])
 
     # if CONF_PUMP_TOTAL in config:
-    #     sens = await sensor.new_sensor(config[CONF_PUMP_TOTAL])
+    #     conf = config[CONF_PUMP_TOTAL]
+    #     sens = await sensor.new_sensor(conf)
     #     cg.add(parent.PPump_0_Total(sens))
     #     cg.add(parent.PPump_1_Total(sens))
     #     cg.add(parent.PPump_2_Total(sens))
     #     cg.add(parent.PPump_3_Total(sens))
         
     # if CONF_PUMP_STATUS in config:
-    #     sens = await sensor.new_sensor(config[CONF_PUMP_STATUS])
+    #     conf = config[CONF_PUMP_STATUS]
+    #     sens = await sensor.new_sensor(conf)
     #     cg.add(parent.PPump_0_Status(sens))
         
     # if CONF_ANALOG_OUTPUT in config:
-    #     sens = await sensor.new_sensor(config[CONF_ANALOG_OUTPUT])
+    #     conf = config[CONF_ANALOG_OUTPUT]
+    #     sens = await sensor.new_sensor(conf)
     #     cg.add(parent.AnOut_Status(sens))
     #     # cg.add(parent.AnOut_1_Status(sens))
     #     # cg.add(parent.AnOut_2_Status(sens))

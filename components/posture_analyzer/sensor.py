@@ -40,8 +40,10 @@ async def to_code(config):
     parent = await cg.get_variable(config[CONF_ID])
 
     if CONF_MY_SAMPLE in config:
-        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE])
+        conf = config[CONF_MY_SAMPLE]
+        sens = await sensor.new_sensor(conf)
         cg.add(parent.sample(sens))
     if CONF_MY_SAMPLE_SEC in config:
-        sens = await sensor.new_sensor(config[CONF_MY_SAMPLE_SEC])
+        conf = config[CONF_MY_SAMPLE_SEC]
+        sens = await sensor.new_sensor(conf)
         cg.add(parent.sample_sec(sens))
