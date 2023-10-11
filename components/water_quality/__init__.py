@@ -5,12 +5,14 @@ from esphome.const import (
     CONF_ID, 
     CONF_DATA,
     CONF_CUSTOM,
+    CONF_CALIBRATION,
 ) 
 
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
-CONF_USER_CHARACTERS = "user_characters"
+CONF_X = "x"
+CONF_Y = "y"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
@@ -23,19 +25,23 @@ MyComponent = component_ns.class_("MyComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(MyComponent),
-    # cv.Optional(CONF_USER_CHARACTERS): cv.All(
-    #         cv.ensure_list(
-    #             cv.Schema(
-    #                 {
-    #                     cv.Required(CONF_DATA): cv.All(
-    #                         cv.ensure_list(cv.uint8_t)
-    #                     ),
-    #                 }
-    #             ),
-    #         ),
-    #         cv.Length(max=8),
-    #     ),
-    cv.Optional(CONF_CUSTOM): cv.ensure_list(cv.uint8_t),
+    cv.Optional(CONF_CALIBRATION): cv.All(
+            cv.ensure_list(
+                cv.Schema(
+                    {
+                        cv.Required(CONF_X): cv.All(
+                            cv.ensure_list(cv.uint8_t)
+                        ),
+                        cv.Required(CONF_Y): cv.All(
+                            cv.ensure_list(cv.uint8_t)
+                        ),
+                    }
+                ),
+            ),
+            # cv.Length(max=8),
+        ),
+    # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
+    # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
 }).extend(cv.COMPONENT_SCHEMA)
 
 # def to_code(config):
@@ -50,7 +56,7 @@ async def to_code(config):
     #     for usr in config[CONF_USER_CHARACTERS]:
     #         cg.add(var.set_user_defined_char(usr[CONF_DATA]))
     
-    if CONF_CUSTOM in config:
-        cg.add(var.set_custom_data(config[CONF_CUSTOM]))
+    if CONF_CALIBRATION in config:
+        cg.add(var.calibration(config[CONF_X],config[CONF_Y]))
 
     

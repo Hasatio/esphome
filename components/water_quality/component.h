@@ -26,11 +26,16 @@ void loop() override;
 //     data1[0]=data[0];
 //     data1[1]=data[1];
 // }
-void set_custom_data(const std::vector<uint8_t> &data) { custom_data = data; }
+void calibration(const std::vector<uint8_t> &cx, const std::vector<uint8_t> &cy) 
+{ 
+    Pump_Calib_X = cx;
+    Pump_Calib_Y = cy;
+}
 
 private:
 
-std::vector<uint8_t> custom_data{};
+std::vector<uint8_t> Pump_Calib_X{nullptr};
+std::vector<uint8_t> Pump_Calib_Y{nullptr};
 
 };
  
