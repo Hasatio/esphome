@@ -33,10 +33,10 @@ CONFIG_SCHEMA = cv.Schema({
                         cv.ensure_list(cv.uint8_t),
                         cv.Length(min=8, max=8),
                     ),
-                    cv.Required(CONF_Y): cv.All(
-                        cv.ensure_list(cv.uint8_t),
-                        cv.Length(min=8, max=8),
-                    ),
+                    # cv.Required(CONF_Y): cv.All(
+                    #     cv.ensure_list(cv.uint8_t),
+                    #     cv.Length(min=8, max=8),
+                    # ),
                 }
             ).extend(cv.COMPONENT_SCHEMA),
         ),
@@ -57,9 +57,8 @@ async def to_code(config):
     if CONF_CALIBRATION in config:
         for usr in config[CONF_CALIBRATION]:
             cg.add(var.calibration(usr[CONF_X]))
-            await cg.register_component(var, config)
     
     # if CONF_CALIBRATION in config:
-    #     cg.add(var.calibration(config[CONF_Y]))
+    #     cg.add(var.calibration(config[CONF_X]))
 
     
