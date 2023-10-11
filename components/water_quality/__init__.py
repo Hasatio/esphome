@@ -45,7 +45,16 @@ CONFIG_SCHEMA = (
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_X2): cv.All(
+                            cv.Optional(CONF_X2, default={1,
+                                                          2,
+                                                          3,
+                                                          4,
+                                                          5,
+                                                          6,
+                                                          7,
+                                                          8
+                                                          }
+                            ): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
