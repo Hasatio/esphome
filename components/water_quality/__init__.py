@@ -45,36 +45,27 @@ CONFIG_SCHEMA = (
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_X2, default={1,
-                                                          2,
-                                                          3,
-                                                          4,
-                                                          5,
-                                                          6,
-                                                          7,
-                                                          8
-                                                          }
-                            ): cv.All(
+                            cv.Required(CONF_X2): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_Y2): cv.All(
+                            cv.Required(CONF_Y2): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_X3): cv.All(
+                            cv.Required(CONF_X3): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_Y3): cv.All(
+                            cv.Required(CONF_Y3): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_X4): cv.All(
+                            cv.Required(CONF_X4): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            cv.Optional(CONF_Y4): cv.All(
+                            cv.Required(CONF_Y4): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
