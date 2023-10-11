@@ -15,7 +15,7 @@ void MyComponent::loop()
 {
 
     // Pump_CalibX = int(custom_data);
-    for (size_t i = 0; i < 2; i++)
+    for (size_t i = 0; i < 8; i++)
     {
         ESP_LOGD(TAG,"data1 = %d", custom_data[i]);
     }
