@@ -35,10 +35,10 @@ CONFIG_SCHEMA = (
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
                             ),
-                            # cv.Required(CONF_Y): cv.All(
-                            #     cv.ensure_list(cv.uint8_t),
-                            #     cv.Length(min=8, max=8),
-                            # ),
+                            cv.Required(CONF_Y): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min=8, max=8),
+                            ),
                         }
                     ).extend(cv.COMPONENT_SCHEMA),
                 ),
@@ -50,9 +50,6 @@ CONFIG_SCHEMA = (
     ).extend(cv.COMPONENT_SCHEMA)
 )
 
-# def to_code(config):
-#     var = cg.new_Pvariable(config[CONF_ID])
-#     yield cg.register_component(var, config)
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])

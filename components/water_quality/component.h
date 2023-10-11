@@ -26,10 +26,10 @@ void loop() override;
 //     data1[0]=data[0];
 //     data1[1]=data[1];
 // }
-void calibration(const std::vector<uint8_t> &cx) 
+void calibration(const std::vector<uint8_t> &cx, const std::vector<uint8_t> &cy) 
 { 
     Pump_Calib_X = cx;
-    // Pump_Calib_Y = cy;
+    Pump_Calib_Y = cy;
 }
 
 private:
