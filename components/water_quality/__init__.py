@@ -64,7 +64,8 @@ async def to_code(config):
         #     cg.add(var.calibration(usr[CONF_X]))
     
         for conf in config[CONF_CALIBRATION]:
-            cg.add(var.calibration(conf[CONF_X]))
+            template_ = await cg.templatable(conf[CONF_X], [(uint8_t, "x")], uint8_t)
+            cg.add(var.calibration(template_))
             # await cg.register_component(var, conf)
     
     # if CONF_CALIBRATION in config:
