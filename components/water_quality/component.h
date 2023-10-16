@@ -74,24 +74,16 @@ sensor::Sensor *DigOut_Status_{nullptr};
 
 };
 
-// template<typename... Ts> class BrakeAction : public Action<Ts...> {
-//  public:
-//   explicit BrakeAction(HBridgeFan *parent) : parent_(parent) {}
 
-//   void play(Ts... x) override { this->parent_->brake(); }
-
-//   HBridgeFan *parent_;
-// };
-
-template<typename... Ts> class EzoPMPDoseVolumeAction : public Action<Ts...> {
+template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
  public:
-  EzoPMPDoseVolumeAction(MyComponent *ezopmp) : ezopmp_(ezopmp) {}
+  DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
 
-  void play(Ts... x) override { this->ezopmp_->dose(this->volume_.value(x...)); }
-  TEMPLATABLE_VALUE(double, volume)
+  void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
+  TEMPLATABLE_VALUE(double, data)
 
  protected:
-  MyComponent *ezopmp_;
+  MyComponent *dose_;
 };
 
 }  // namespace water_quality
