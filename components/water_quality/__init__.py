@@ -138,7 +138,7 @@ EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
 
 
 @automation.register_action(
-    "ezo_pmp.dose_volume", 
+    "water_quality.dose", 
     EzoPMPDoseVolumeAction, 
     EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA
 )
