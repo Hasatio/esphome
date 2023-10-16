@@ -75,7 +75,7 @@ CONFIG_SCHEMA = (
                         }
                     ).extend(cv.COMPONENT_SCHEMA),
                 ),
-                cv.Length(max=8),
+                cv.Length(max=12),
             ),
         }
     )
@@ -101,9 +101,6 @@ async def to_code(config):
                 ))
 
 
-
-
-
 DoseVolumeAction = component_ns.class_("DoseVolumeAction", automation.Action)
 
 DOSE_VOLUME_ACTION_SCHEMA = cv.All(
@@ -121,6 +118,7 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     DoseVolumeAction, 
     DOSE_VOLUME_ACTION_SCHEMA
 )
+
 async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
