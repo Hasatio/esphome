@@ -17,6 +17,7 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
+double dd;
 
 void setup() override;
 void loop() override;
@@ -35,7 +36,7 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
 
 void dose(double d)
 {
-
+    dd = d;
 }
 
 void AnIn_Status(sensor::Sensor *a) 
