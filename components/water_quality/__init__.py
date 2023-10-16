@@ -1,5 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
+from esphome import automation
+from esphome.automation import maybe_simple_id
 from esphome.components import sensor
 from esphome.const import (
     CONF_ID, 
@@ -22,12 +24,14 @@ CONF_Y4 = "y4"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
+CONF_VOLUME = "volume"
 
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
+
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -74,10 +78,9 @@ CONFIG_SCHEMA = (
                 ),
                 cv.Length(max=8),
             ),
-            # cv.Optional(CONF_X): cv.ensure_list(cv.uint8_t),
-            # cv.Optional(CONF_Y): cv.ensure_list(cv.uint8_t),
         }
-    ).extend(cv.COMPONENT_SCHEMA)
+    )
+    .extend(cv.COMPONENT_SCHEMA)
 )
 
 
@@ -97,4 +100,53 @@ async def to_code(config):
                 conf[CONF_X4], 
                 conf[CONF_Y4],
                 ))
-    
+
+
+# BrakeAction = component_ns.class_("BrakeAction", automation.Action)
+
+# @automation.register_action(
+#     "fan.hbridge.brake",
+#     BrakeAction,
+#     maybe_simple_id({cv.Required(CONF_ID): cv.use_id(MyComponent)}),
+# )
+# async def fan_hbridge_brake_to_code(config, action_id, template_arg, args):
+#     paren = await cg.get_variable(config[CONF_ID])
+#     var = cg.new_Pvariable(action_id, template_arg, paren)
+#     return var
+
+
+
+
+
+
+
+
+
+
+
+
+EzoPMPDoseVolumeAction = component_ns.class_("EzoPMPDoseVolumeAction", automation.Action)
+
+EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
+    {
+        cv.Required(CONF_ID): cv.use_id(MyComponent),
+        cv.Required(CONF_VOLUME): cv.templatable(
+            cv.float_range()
+        ),  # Any way to represent as proper volume (vs. raw int)
+    }
+)
+
+
+@automation.register_action(
+    "ezo_pmp.dose_volume", 
+    EzoPMPDoseVolumeAction, 
+    EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA
+)
+async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    template_ = await cg.templatable(config[CONF_VOLUME], args, cg.double)
+    cg.add(var.dose(template_))
+
+    return var

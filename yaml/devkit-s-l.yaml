@@ -132,7 +132,7 @@ light:
   - platform: binary
     name: "led"
     id: led
-    output: o13
+    output: out
     effects:
       - strobe:
           name: strobe
@@ -151,7 +151,7 @@ light:
 
 output:    
   - platform: gpio
-    id: o13
+    id: out
     pin: 
       number: GPIO13
       mode:

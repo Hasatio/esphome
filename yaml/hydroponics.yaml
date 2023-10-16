@@ -279,36 +279,30 @@ switch:
 
 
 light:
-  # - platform: status_led
-  #   name: "status led"
-  #   id: status
-  #   pin: 
-  #     number: GPIO33
-  #     mode:
-  #       output: True
-  #     inverted: False
-    # on_state:
-    #   if:
-    #     condition:
-    #       wifi.connected:
-    #     then:
-    #     - light.turn_on: 
-    #         id: led
-    #         # effect: strobe
-    #     else:
-    #     - light.turn_off: 
-    #         id: led
-    # on_turn_off:
-    #   if:
-    #     condition:
-    #       wifi.connected:
-    #     then:
-    #     - light.turn_on: 
-    #         id: led
-    #         # effect: strobe
-    #     else:
-    #     - light.turn_off: 
-    #         id: led
+  - platform: status_led
+    name: "status led"
+    id: status
+    pin: 
+      number: GPIO33
+      mode:
+        output: True
+      inverted: False
+    on_state:
+      if:
+        condition:
+          wifi.connected:
+        then:
+        - light.turn_on: 
+            id: led
+            # effect: strobe
+    on_turn_off:
+      if:
+        condition:
+          wifi.connected:
+        then:
+        - light.turn_on: 
+            id: led
+            # effect: strobe
 
   - platform: binary
     name: "led"
@@ -328,14 +322,6 @@ light:
               duration: 100ms
             - state: false
               duration: 200ms
-    on_turn_off:
-      if:
-        condition:
-          wifi.connected:
-        then:
-        - light.turn_on: 
-            id: led
-            # effect: strobe
 
 
 output:
