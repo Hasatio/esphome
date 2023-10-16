@@ -74,4 +74,4 @@ async def to_code(config):
     if CONF_ANALOG_OUTPUT in config:
         conf = config[CONF_ANALOG_OUTPUT]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnOut_Status(sens))
+        cg.add(parent.AnIn_Status(sens))

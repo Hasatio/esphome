@@ -38,9 +38,9 @@ void dose(double d)
 
 }
 
-void AnOut_Status(sensor::Sensor *a) 
+void AnIn_Status(sensor::Sensor *a) 
 {
-    AnOut_Status_ = a;
+    AnIn_Status_ = a;
 }
 
 private:
