@@ -34,7 +34,7 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
     this->Pump_Calib_Y4 = cy4;
 }
 
-void dose_volume(double d)
+void dose(double d)
 {
     dd = d;
 }
@@ -87,7 +87,7 @@ template<typename... Ts> class EzoPMPDoseVolumeAction : public Action<Ts...> {
  public:
   EzoPMPDoseVolumeAction(MyComponent *ezopmp) : ezopmp_(ezopmp) {}
 
-  void play(Ts... x) override { this->ezopmp_->dose_volume(this->volume_.value(x...)); }
+  void play(Ts... x) override { this->ezopmp_->dose(this->volume_.value(x...)); }
   TEMPLATABLE_VALUE(double, volume)
 
  protected:

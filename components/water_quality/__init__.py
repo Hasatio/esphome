@@ -102,23 +102,6 @@ async def to_code(config):
                 ))
 
 
-# BrakeAction = component_ns.class_("BrakeAction", automation.Action)
-
-# @automation.register_action(
-#     "fan.hbridge.brake",
-#     BrakeAction,
-#     maybe_simple_id({cv.Required(CONF_ID): cv.use_id(MyComponent)}),
-# )
-# async def fan_hbridge_brake_to_code(config, action_id, template_arg, args):
-#     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
-#     return var
-
-
-
-
-
-
 
 
 
@@ -132,7 +115,7 @@ EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
         cv.Required(CONF_ID): cv.use_id(MyComponent),
         cv.Required(CONF_VOLUME): cv.templatable(
             cv.float_range()
-        ),  # Any way to represent as proper volume (vs. raw int)
+        ),
     }
 )
 
@@ -147,6 +130,6 @@ async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     template_ = await cg.templatable(config[CONF_VOLUME], args, cg.double)
-    cg.add(var.set_volume(template_))
+    cg.add(var.set(template_))
 
     return var
