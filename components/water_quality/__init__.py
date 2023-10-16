@@ -1,7 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import automation
-from esphome.automation import maybe_simple_id
 from esphome.components import sensor
 from esphome.const import (
     CONF_ID, 
@@ -130,6 +129,6 @@ async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     template_ = await cg.templatable(config[CONF_VOLUME], args, cg.double)
-    cg.add(var.set_duration(template_))
+    cg.add(var.set_volume(template_))
 
     return var
