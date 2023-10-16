@@ -104,9 +104,9 @@ async def to_code(config):
 
 
 
-EzoPMPDoseVolumeAction = component_ns.class_("EzoPMPDoseVolumeAction", automation.Action)
+DoseVolumeAction = component_ns.class_("DoseVolumeAction", automation.Action)
 
-EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
+DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     {
         cv.Required(CONF_ID): cv.use_id(MyComponent),
         cv.Required(CONF_DOSE): cv.templatable(
@@ -118,14 +118,14 @@ EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.dose", 
-    EzoPMPDoseVolumeAction, 
-    EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA
+    DoseVolumeAction, 
+    DOSE_VOLUME_ACTION_SCHEMA
 )
 async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     template_ = await cg.templatable(config[CONF_DOSE], args, cg.double)
-    cg.add(var.set_data(template_))
+    cg.add(var.set_volume(template_))
 
     return var
