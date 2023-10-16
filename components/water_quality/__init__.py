@@ -130,6 +130,6 @@ async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     template_ = await cg.templatable(config[CONF_VOLUME], args, cg.double)
-    cg.add(var.set(template_))
+    cg.add(var.volume(template_))
 
     return var
