@@ -90,7 +90,7 @@ template<typename... Ts> class EzoPMPDoseVolumeAction : public Action<Ts...> {
   TEMPLATABLE_VALUE(double, volume)
 
  protected:
-  EzoPMP *ezopmp_;
+  MyComponent *ezopmp_;
 };
 
 }  // namespace water_quality
