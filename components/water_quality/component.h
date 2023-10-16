@@ -33,7 +33,7 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
     this->Pump_Calib_Y4 = cy4;
 }
 
-void dose(float d)
+void dose(double d)
 {
 
 }
