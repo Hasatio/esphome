@@ -23,7 +23,7 @@ CONF_Y4 = "y4"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
-CONF_VOLUME = "volume"
+CONF_DOSE = "dose"
 
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
@@ -111,8 +111,8 @@ EzoPMPDoseVolumeAction = component_ns.class_("EzoPMPDoseVolumeAction", automatio
 
 EZO_PMP_DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     {
-        cv.Required(CONF_ID): cv.use_id(MyComponent),
-        cv.Required(CONF_VOLUME): cv.templatable(
+        # cv.Required(CONF_ID): cv.use_id(MyComponent),
+        cv.Required(CONF_DOSE): cv.templatable(
             cv.float_range()
         ),
     }
@@ -128,7 +128,7 @@ async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    template_ = await cg.templatable(config[CONF_VOLUME], args, cg.double)
+    template_ = await cg.templatable(config[CONF_DOSE], args, cg.double)
     cg.add(var.set_volume(template_))
 
     return var
