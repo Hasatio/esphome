@@ -81,8 +81,9 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
   DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
 
 //   void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
+//   void play(Ts... x) override { this->dose_->dd; }
   void play(Ts... x) override { this->dose_->Pump_Dose; }
-  TEMPLATABLE_VALUE(double, data)
+  TEMPLATABLE_VALUE(std::vector<uint8_t>, data)
 
  protected:
   MyComponent *dose_;
