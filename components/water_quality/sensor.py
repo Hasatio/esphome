@@ -20,6 +20,7 @@ from . import (
     UNIT_MILILITERS_PER_MINUTE,
 )
 
+CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
 CONFIG_SCHEMA = (

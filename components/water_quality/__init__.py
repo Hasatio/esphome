@@ -8,7 +8,7 @@ from esphome.const import (
     CONF_CUSTOM,
     CONF_CALIBRATION,
 ) 
-
+CODEOWNERS = ["@hasatio"]
 AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
