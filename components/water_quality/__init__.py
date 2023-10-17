@@ -110,7 +110,7 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
         #     cv.float_range()
         # ),
         cv.Required(CONF_DOSE): cv.templatable(
-            cv.ensure_list(cv.uint8_t)
+            cv.uint8_t
         ),
     }
 )

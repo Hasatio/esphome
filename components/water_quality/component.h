@@ -17,7 +17,7 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
-double dd;
+uint8_t dd;
 
 void setup() override;
 void loop() override;
@@ -34,7 +34,7 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
     this->Pump_Calib_Y4 = cy4;
 }
 
-// void dose(uint8_t d)
+// void dose(double d)
 // {
 //     dd = d;
 // }
@@ -83,8 +83,8 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
 //   void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
   void play(Ts... x) override { this->dose_->dd; }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
-//   TEMPLATABLE_VALUE(uint8_t, data)
-  TEMPLATABLE_VALUE(double, data)
+  TEMPLATABLE_VALUE(uint8_t, data)
+//   TEMPLATABLE_VALUE(double, data)
 
  protected:
   MyComponent *dose_;
