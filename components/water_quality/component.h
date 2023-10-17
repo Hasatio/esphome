@@ -44,7 +44,6 @@ void AnIn_Status(sensor::Sensor *a)
     AnIn_Status_ = a;
 }
 
-private:
 
 std::vector<uint8_t> Pump_Calib_X1{};
 std::vector<uint8_t> Pump_Calib_Y1{};
@@ -63,6 +62,8 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
+
+private:
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
