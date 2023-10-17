@@ -45,7 +45,7 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-protected:
+// protected:
 
 std::vector<uint8_t> Pump_Calib_X1{};
 std::vector<uint8_t> Pump_Calib_Y1{};
