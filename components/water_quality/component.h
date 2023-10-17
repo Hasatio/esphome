@@ -63,7 +63,7 @@ std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
 
-private:
+protected:
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
