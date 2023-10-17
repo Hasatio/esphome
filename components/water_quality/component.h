@@ -34,7 +34,7 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
     this->Pump_Calib_Y4 = cy4;
 }
 
-void dose(double d)
+void dose(uint8_t d)
 {
     dd = d;
 }
@@ -84,7 +84,7 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
   void play(Ts... x) override { this->dose_->dd; }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
   TEMPLATABLE_VALUE(uint8_t, data)
-//   TEMPLATABLE_VALUE(std::vector<uint8_t>, data)
+//   TEMPLATABLE_VALUE(double, data)
 
  protected:
   MyComponent *dose_;
