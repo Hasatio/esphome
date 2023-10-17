@@ -80,7 +80,7 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
  public:
   DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
 
-  void play(Ts... x) override { this->dose_->dose(this->data_.value(x...));Pump_Dose=this->data_.value(x...); }
+  void play(Ts... x) override { this->dose_->dose(this->data_.value(x...));Pump_Dose[0]=this->data_.value(x...); }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
 //   TEMPLATABLE_VALUE(uint8_t, data)
