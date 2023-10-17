@@ -45,6 +45,8 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
+protected:
+
 std::vector<uint8_t> Pump_Calib_X1{};
 std::vector<uint8_t> Pump_Calib_Y1{};
 std::vector<uint8_t> Pump_Calib_X2{};
@@ -63,8 +65,6 @@ std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
 
-protected:
-
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
@@ -80,8 +80,8 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
  public:
   DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
 
-  void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
-//   void play(Ts... x) override { this->dose_->dd; }
+//   void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
+  void play(Ts... x) override { this->dose_->dd; }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
 //   TEMPLATABLE_VALUE(uint8_t, data)
   TEMPLATABLE_VALUE(double, data)
