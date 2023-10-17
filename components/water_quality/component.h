@@ -53,7 +53,7 @@ std::vector<uint8_t> Pump_Calib_X3{};
 std::vector<uint8_t> Pump_Calib_Y3{};
 std::vector<uint8_t> Pump_Calib_X4{};
 std::vector<uint8_t> Pump_Calib_Y4{};
-std::vector<uint8_t> Pump_Mode{};
+// std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{};
 std::vector<uint8_t> Pump_Circulation{};
 std::vector<uint8_t> Pump_Reset{};
@@ -86,6 +86,8 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
 
  protected:
   MyComponent *dose_;
+  
+std::vector<uint8_t> Pump_Mode{};
 };
 
 }  // namespace water_quality
