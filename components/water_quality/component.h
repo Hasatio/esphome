@@ -34,6 +34,11 @@ void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy
     this->Pump_Calib_Y4 = cy4;
 }
 
+void pump()
+{
+
+}
+
 void dose(double d)
 {
     dd = d;
@@ -44,8 +49,6 @@ void AnIn_Status(sensor::Sensor *a)
     AnIn_Status_ = a;
 }
 
-
-// protected:
 
 std::vector<uint8_t> Pump_Calib_X1{};
 std::vector<uint8_t> Pump_Calib_Y1{};
@@ -64,6 +67,8 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
+
+protected:
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
@@ -90,6 +95,25 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
   MyComponent *dose_;
   
 };
+
+// template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
+//     public:
+//     DoseVolumeAction(MyComponent *parent) : parent_(parent){};
+
+//     void set_data(const std::vector<uint8_t> &data) { code_ = data; }
+
+//     void play(Ts... x) 
+//     {
+//         std::vector<uint8_t> dt = this->code_.value(x...);
+
+//         this->parent_->pump(dt);
+//     }
+
+//     TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
+
+//     protected:
+//     LightWaveRF *parent_;
+// };
 
 }  // namespace water_quality
 }  // namespace esphome
