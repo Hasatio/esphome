@@ -122,12 +122,12 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     DOSE_VOLUME_ACTION_SCHEMA
 )
 
-async def ezo_pmp_dose_volume_to_code(config, action_id, template_arg, args):
+async def dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    template_ = await cg.templatable(config[CONF_DOSE], args, cg.double)
-    # template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
+    # template_ = await cg.templatable(config[CONF_DOSE], args, cg.double)
+    template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
     cg.add(var.set_data(template_))
 
     return var

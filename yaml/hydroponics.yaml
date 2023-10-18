@@ -46,6 +46,21 @@ web_server:
   local: True
   version: 2
 
+interval:
+  - interval: 1s
+    then:
+      if:
+        condition:
+          wifi.connected:
+        then:
+          - light.turn_on: 
+              id: led
+              # effect: strobe
+        else:
+          - light.turn_off: 
+              id: led
+
+
 # i2c:
 #   id: i2c0
 #   sda: GPIO16
@@ -241,14 +256,14 @@ button:
   # #     - ezo_pmp.find:
   # #         id: ezo_pmp0
 
-  # - platform: template
-  #   name: "Dose Volume"
-  #   on_press:   
-  #     then:
-  #     - ezo_pmp.dose_volume:
-  #         id: ezo_pmp0
-  #         volume: !lambda |-
-  #           return id(volume).state;
+  - platform: template
+    name: "Dose Volume"
+    on_press:   
+      then:
+        - water_quality.dose:
+            id: water
+            dose: !lambda |-
+              return id(volume).state;
 
   # # - platform: template
   # #   name: "Dose Volume"
@@ -260,14 +275,14 @@ button:
   # #           return id(volume).state;
 
 
-switch:
-  - platform: gpio
-    name: "Led"
-    pin: 
-      number: GPIO33
-      mode:
-        output: True
-      inverted: False
+# switch:
+#   - platform: gpio
+#     name: "Led"
+#     pin: 
+#       number: GPIO33
+#       mode:
+#         output: True
+#       inverted: False
 
 
 # status_led:
@@ -275,34 +290,18 @@ switch:
 #       number: GPIO33
 #       mode: 
 #         output: True
-#       inverted: False
+      # inverted: False
 
 
 light:
-  - platform: status_led
-    name: "status led"
-    id: status
-    pin: 
-      number: GPIO33
-      mode:
-        output: True
-      inverted: False
-    on_state:
-      if:
-        condition:
-          wifi.connected:
-        then:
-        - light.turn_on: 
-            id: led
-            # effect: strobe
-    on_turn_off:
-      if:
-        condition:
-          wifi.connected:
-        then:
-        - light.turn_on: 
-            id: led
-            # effect: strobe
+  # - platform: status_led
+  #   name: "status led"
+  #   id: status
+  #   pin: 
+  #     number: GPIO33
+  #     mode:
+  #       output: True
+  #     inverted: False
 
   - platform: binary
     name: "led"
@@ -322,6 +321,14 @@ light:
               duration: 100ms
             - state: false
               duration: 200ms
+    # on_state:
+    #   if:
+    #     condition:
+    #       wifi.connected:
+    #     then:
+    #     - light.turn_on: 
+    #         id: led
+    #         # effect: strobe
 
 
 output:
@@ -440,7 +447,7 @@ output:
 #     decay_mode: fast   # slow decay mode (braking) or fast decay (coasting).
 
 
-# number:
+number:
   # - platform: template
   #   id: motor
   #   name: "Motor"
@@ -450,14 +457,20 @@ output:
   #   initial_value: 0
   #   step: 1
 
-  # - platform: template
-  #   id: volume
-  #   name: "Volume"
-  #   optimistic: true
-  #   min_value: -100
-  #   max_value: 100
-  #   initial_value: 0
-  #   step: 0.01
+  - platform: template
+    id: volume
+    name: "Volume"
+    optimistic: true
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.dose:
+            id: water
+            dose: !lambda |-
+              return id(volume).state;
 
   # - platform: template
   #   id: duration

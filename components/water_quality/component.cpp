@@ -30,7 +30,7 @@ void MyComponent::loop()
     }
     
         
-        ESP_LOGD(TAG,"%f", dd);
+        ESP_LOGD(TAG,"%d", dd);
 
 delay(1000);
 }
