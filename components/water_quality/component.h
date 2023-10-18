@@ -17,33 +17,21 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
-double dd;
+double dd,dd2;
 
 void setup() override;
 void loop() override;
 
-void calibration(const std::vector<uint8_t> &x1,
-                const std::vector<uint8_t> &y1,
-                const std::vector<uint8_t> &x2,
-                const std::vector<uint8_t> &y2,
-                const std::vector<uint8_t> &x3,
-                const std::vector<uint8_t> &y3,
-                const std::vector<uint8_t> &x4,
-                const std::vector<uint8_t> &y4)
+void calibration(const std::vector<uint8_t> &cx1, const std::vector<uint8_t> &cy1, const std::vector<uint8_t> &cx2, const std::vector<uint8_t> &cy2, const std::vector<uint8_t> &cx3, const std::vector<uint8_t> &cy3, const std::vector<uint8_t> &cx4, const std::vector<uint8_t> &cy4) 
 { 
-    this->Pump_Calib_X1 = x1;
-    this->Pump_Calib_Y1 = y1;
-    this->Pump_Calib_X2 = x2;
-    this->Pump_Calib_Y2 = y2;
-    this->Pump_Calib_X3 = x3;
-    this->Pump_Calib_Y3 = y3;
-    this->Pump_Calib_X4 = x4;
-    this->Pump_Calib_Y4 = y4;
-}
-
-void pump()
-{
-
+    this->Pump_Calib_X1 = cx1;
+    this->Pump_Calib_Y1 = cy1;
+    this->Pump_Calib_X2 = cx2;
+    this->Pump_Calib_Y2 = cy2;
+    this->Pump_Calib_X3 = cx3;
+    this->Pump_Calib_Y3 = cy3;
+    this->Pump_Calib_X4 = cx4;
+    this->Pump_Calib_Y4 = cy4;
 }
 
 void dose(double d)
@@ -57,6 +45,7 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
+// protected:
 
 std::vector<uint8_t> Pump_Calib_X1{};
 std::vector<uint8_t> Pump_Calib_Y1{};
@@ -76,8 +65,6 @@ std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
 
-protected:
-
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
@@ -96,6 +83,7 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
     void play(Ts... x) override 
     { 
         this->dose_->dose(this->data_.value(x...));
+        Pump_Dose[0]=this->data_.value(x...); 
     }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
 //   void play(Ts... x) override { this->dose_->Pump_Dose; }
@@ -106,25 +94,6 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
     MyComponent *dose_;
   
 };
-
-// template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
-//     public:
-//     DoseVolumeAction(MyComponent *parent) : parent_(parent){};
-
-//     void set_data(const std::vector<uint8_t> &data) { code_ = data; }
-
-//     void play(Ts... x) 
-//     {
-//         std::vector<uint8_t> dt = this->code_.value(x...);
-
-//         this->parent_->pump(dt);
-//     }
-
-//     TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
-
-//     protected:
-//     LightWaveRF *parent_;
-// };
 
 }  // namespace water_quality
 }  // namespace esphome
