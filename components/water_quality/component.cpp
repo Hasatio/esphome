@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
 
 void MyComponent::setup() 
 {
-
+    Pump_Dose[0]=2;
 }
 
 void MyComponent::loop() 
@@ -26,7 +26,7 @@ void MyComponent::loop()
         // ESP_LOGD(TAG,"x4[%d] = %d", i, Pump_Calib_X4[i]);
         // ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
 
-        ESP_LOGD(TAG,"data[%d] = %d", i, Pump_Dose[0]);
+        ESP_LOGD(TAG,"data[%d] = %d", i, Pump_Dose[i]);
     }
     
         
