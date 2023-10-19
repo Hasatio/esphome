@@ -88,36 +88,36 @@ sensor::Sensor *DigOut_Status_{nullptr};
 };
 
 
-template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
- public:
-  DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
-
-  void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
-  TEMPLATABLE_VALUE(uint8_t, data)
-
- protected:
-  MyComponent *dose_;
-  
-};
-
 // template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
-//     public:
-//     DoseVolumeAction(MyComponent *parent) : parent_(parent){};
+//  public:
+//   DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
 
-//     void set_data(const std::vector<uint8_t> &data) { code_ = data; }
+//   void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
+//   TEMPLATABLE_VALUE(uint8_t, data)
 
-//     void play(Ts... x) 
-//     {
-//         std::vector<uint8_t> dt = this->code_.value(x...);
-
-//         this->parent_->pump(dt);
-//     }
-
-//     TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
-
-//     protected:
-//     MyComponent *parent_;
+//  protected:
+//   MyComponent *dose_;
+  
 // };
+
+template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
+    public:
+    DoseVolumeAction(MyComponent *parent) : parent_(parent){};
+
+    void set_data(const std::vector<uint8_t> &data) { code_ = data; }
+
+    void play(Ts... x) 
+    {
+        std::vector<uint8_t> dt = this->code_.value(x...);
+
+        this->parent_->pump(dt);
+    }
+
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
+
+    protected:
+    MyComponent *parent_;
+};
 
 }  // namespace water_quality
 }  // namespace esphome

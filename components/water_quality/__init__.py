@@ -107,8 +107,11 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     {
         # cv.Required(CONF_ID): cv.use_id(MyComponent),
         cv.GenerateID(): cv.use_id(MyComponent),
+        # cv.Required(CONF_DOSE): cv.templatable(
+        #     cv.int_range()
+        # ),
         cv.Required(CONF_DOSE): cv.templatable(
-            cv.int_range()
+            cv.ensure_list(cv.uint8_t)
         ),
     }
 )
