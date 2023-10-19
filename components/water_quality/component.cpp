@@ -30,9 +30,9 @@ void MyComponent::loop()
     }
     
         
-        ESP_LOGD(TAG,"%d", dd);
+        // ESP_LOGD(TAG,"%d", dd);
 
-delay(100);
+delay(1000);
 }
 void MyComponent::pump(const std::vector<uint8_t> &p)
 {
