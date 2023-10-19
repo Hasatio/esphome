@@ -34,7 +34,7 @@ void MyComponent::loop()
 
 delay(100);
 }
-void pump(const std::vector<uint8_t> &p)
+void MyComponent::pump(const std::vector<uint8_t> &p)
 {
     for (size_t i = 0; i < p.size(); i++)
     {
