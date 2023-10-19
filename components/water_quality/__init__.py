@@ -123,11 +123,19 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
     DOSE_VOLUME_ACTION_SCHEMA
 )
 
+# async def dose_volume_to_code(config, action_id, template_arg, args):
+#     paren = await cg.get_variable(config[CONF_ID])
+#     var = cg.new_Pvariable(action_id, template_arg, paren)
+
+#     template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
+#     cg.add(var.set_data(template_))
+    
 async def dose_volume_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
+    code = config[CONF_DOSE]
     template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
-    cg.add(var.set_data(template_))
+    cg.add(var.set_data(code))
 
     return var
