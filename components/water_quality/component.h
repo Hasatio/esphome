@@ -67,7 +67,7 @@ std::vector<uint8_t> Pump_Calib_Y3{};
 std::vector<uint8_t> Pump_Calib_X4{};
 std::vector<uint8_t> Pump_Calib_Y4{};
 std::vector<uint8_t> Pump_Mode{};
-std::vector<uint8_t> Pump_Dose{0};
+std::vector<uint8_t> Pump_Dose{};
 std::vector<uint8_t> Pump_Circulation{};
 std::vector<uint8_t> Pump_Reset{};
 std::vector<uint8_t> Servo_Mode{};
