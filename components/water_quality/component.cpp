@@ -30,7 +30,7 @@ void MyComponent::loop()
         // ESP_LOGD(TAG,"data[0] = %d", Pump_Dose[0]);
     
         
-        ESP_LOGD(TAG,"%d", dd[0]);
+        ESP_LOGD(TAG,"%d", dd2[0]);
 
 delay(1000);
 }
@@ -38,7 +38,7 @@ void MyComponent::pump(const std::vector<uint8_t> &p)
 {
     for (size_t i = 0; i < p.size(); i++)
     {
-        dd[i] = p[i];
+        dd2[i] = p[i];
         ESP_LOGD(TAG,"%d", p[i]);
     }
 }
