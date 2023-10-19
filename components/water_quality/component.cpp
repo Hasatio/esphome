@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
 
 void MyComponent::setup() 
 {
-    // Pump_Dose[0]=2;
+    test[0] = 2;
 }
 
 void MyComponent::loop() 
