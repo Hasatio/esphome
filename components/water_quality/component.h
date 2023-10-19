@@ -41,9 +41,9 @@ void calibration(const std::vector<uint8_t> &x1,
     this->Pump_Calib_Y4 = y4;
 }
 
-void pump()
+void pump(const std::vector<uint8_t> &p)
 {
-
+    this->Pump_Dose = p;
 }
 
 void dose(uint8_t d)
@@ -116,7 +116,7 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
 //     TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
 
 //     protected:
-//     LightWaveRF *parent_;
+//     MyComponent *parent_;
 // };
 
 }  // namespace water_quality
