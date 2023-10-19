@@ -111,7 +111,7 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
         #     cv.int_range()
         # ),
         cv.Required(CONF_DOSE): cv.All(
-                [cv.Any(cv.hex_uint8_t)],
+                [cv.Any(cv.uint8_t)],
         ),
     }
 )
