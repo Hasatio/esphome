@@ -75,7 +75,7 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
-std::vector<uint8_t> test{};
+std::vector<uint8_t> test{\0};
 
 protected:
 
