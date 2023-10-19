@@ -17,14 +17,14 @@ void MyComponent::loop()
 
     for (size_t i = 0; i < Pump_Calib_X1.size(); i++)
     {
-        ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
-        ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
-        ESP_LOGD(TAG,"x2[%d] = %d", i, Pump_Calib_X2[i]);
-        ESP_LOGD(TAG,"y2[%d] = %d", i, Pump_Calib_Y2[i]);
-        ESP_LOGD(TAG,"x3[%d] = %d", i, Pump_Calib_X3[i]);
-        ESP_LOGD(TAG,"y3[%d] = %d", i, Pump_Calib_Y3[i]);
-        ESP_LOGD(TAG,"x4[%d] = %d", i, Pump_Calib_X4[i]);
-        ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
+        // ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
+        // ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
+        // ESP_LOGD(TAG,"x2[%d] = %d", i, Pump_Calib_X2[i]);
+        // ESP_LOGD(TAG,"y2[%d] = %d", i, Pump_Calib_Y2[i]);
+        // ESP_LOGD(TAG,"x3[%d] = %d", i, Pump_Calib_X3[i]);
+        // ESP_LOGD(TAG,"y3[%d] = %d", i, Pump_Calib_Y3[i]);
+        // ESP_LOGD(TAG,"x4[%d] = %d", i, Pump_Calib_X4[i]);
+        // ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
 
         // ESP_LOGD(TAG,"data[%d] = %d", i, Pump_Dose[i]);
     }
@@ -34,7 +34,13 @@ void MyComponent::loop()
 
 delay(100);
 }
-
+void pump(const std::vector<uint8_t> &p)
+{
+    for (size_t i = 0; i < p.size(); i++)
+    {
+        ESP_LOGD(TAG,"%d", p[i]);
+    }
+}
 
 }  // namespace water_quality
 }  // namespace esphome

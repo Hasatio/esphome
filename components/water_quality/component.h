@@ -42,10 +42,10 @@ void calibration(const std::vector<uint8_t> &x1,
     this->Pump_Calib_Y4 = y4;
 }
 
-void pump(const std::vector<uint8_t> &p)
-{
-    this->Pump_Dose = p;
-}
+void pump(const std::vector<uint8_t> &p);
+// {
+//     this->Pump_Dose = p;
+// }
 
 void dose(uint8_t d)
 {
