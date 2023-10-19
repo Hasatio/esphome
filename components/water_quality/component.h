@@ -44,7 +44,7 @@ void calibration(const std::vector<uint8_t> &x1,
 
 void pump(const std::vector<uint8_t> &p)
 {
-    dd2 = p;
+    this->test = p;
 }
 
 void dose(uint8_t d)
@@ -75,6 +75,7 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
+std::vector<uint8_t> test{};
 
 protected:
 
