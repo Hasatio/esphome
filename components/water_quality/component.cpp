@@ -15,7 +15,7 @@ void MyComponent::setup()
 void MyComponent::loop() 
 {
 
-    for (size_t i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
     //     ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
     //     ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
