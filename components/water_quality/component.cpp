@@ -38,6 +38,7 @@ void MyComponent::pump(const std::vector<uint8_t> &p)
 {
     for (size_t i = 0; i < p.size(); i++)
     {
+        Pump_Dose[i] = p[i];
         ESP_LOGD(TAG,"%d", p[i]);
     }
 }
