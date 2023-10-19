@@ -26,7 +26,7 @@ void MyComponent::loop()
         // ESP_LOGD(TAG,"x4[%d] = %d", i, Pump_Calib_X4[i]);
         // ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
 
-        // ESP_LOGD(TAG,"data[%d] = %d", i, Pump_Dose[i]);
+        ESP_LOGD(TAG,"data[%d] = %d", i, Pump_Dose[i]);
     }
     
         
