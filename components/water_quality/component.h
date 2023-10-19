@@ -104,16 +104,16 @@ template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
     public:
     DoseVolumeAction(MyComponent *parent) : parent_(parent){};
 
-    void set_data(const std::vector<uint8_t> &data) { code_ = data; }
+    void set_d(const std::vector<uint8_t> &d) { data_ = d; }
 
     void play(Ts... x) 
     {
-        std::vector<uint8_t> dt = this->code_.value(x...);
+        std::vector<uint8_t> dt = this->data_.value(x...);
 
         this->parent_->pump(dt);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, data);
 
     protected:
     MyComponent *parent_;
