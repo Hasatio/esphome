@@ -18,7 +18,7 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
-uint8_t dd,dd2[8]={\0};
+uint8_t dd,dd2[8]={"\0"};
 
 void setup() override;
 void loop() override;
@@ -75,7 +75,7 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
-std::vector<uint8_t> test{\0};
+std::vector<uint8_t> test{"\0"};
 
 protected:
 
