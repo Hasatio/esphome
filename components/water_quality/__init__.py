@@ -101,9 +101,9 @@ async def to_code(config):
                 ))
 
 
-DoseVolumeAction = component_ns.class_("DoseVolumeAction", automation.Action)
+PumpDoseAction = component_ns.class_("DoseVolumeAction", automation.Action)
 
-DOSE_VOLUME_ACTION_SCHEMA = cv.All(
+PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
         # cv.Required(CONF_ID): cv.use_id(MyComponent),
         cv.GenerateID(): cv.use_id(MyComponent),
@@ -119,8 +119,8 @@ DOSE_VOLUME_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.dose", 
-    DoseVolumeAction, 
-    DOSE_VOLUME_ACTION_SCHEMA
+    PumpDoseAction, 
+    PUMP_DOSE_ACTION_SCHEMA
 )
 
 # async def dose_volume_to_code(config, action_id, template_arg, args):

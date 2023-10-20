@@ -47,18 +47,26 @@ web_server:
   version: 2
 
 interval:
-  - interval: 1s
+  - interval: 100ms
     then:
       if:
         condition:
           wifi.connected:
         then:
-          - light.turn_on: 
-              id: led
-              # effect: strobe
+          if:
+            condition:
+              api.connected:
+            then:
+              - light.turn_on: 
+                  id: led
+            else:
+              - light.turn_on: 
+                  id: led
+                  effect: strobe
         else:
           - light.turn_off: 
               id: led
+
 
 
 # i2c:
@@ -261,9 +269,10 @@ button:
     on_press:   
       then:
         - water_quality.dose:
-            id: water
-            dose: !lambda |-
-              return id(volume).state;
+    #         id: water
+    #         dose: !lambda |-
+    #           return id(volume).state;
+            dose: [1,2,3,4]
 
   # # - platform: template
   # #   name: "Dose Volume"
@@ -467,10 +476,10 @@ number:
     step: 1
     on_value:
       then:
-        - water_quality.dose:
-            id: water
-            dose: !lambda |-
-              return id(volume).state;
+        # - water_quality.dose:
+            # id: water
+            # dose: !lambda |-
+            #   return id(volume).state;
 
   # - platform: template
   #   id: duration
@@ -511,5 +520,3 @@ number:
   #   pump_state:
   #     id: pump_state
   #     name: Pump State    
-
-    

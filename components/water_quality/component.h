@@ -48,11 +48,6 @@ void pump(const std::vector<uint8_t> &p)
     this->Pump_Dose = p;
 }
 
-void dose(uint8_t d)
-{
-    dd = d;
-}
-
 void AnIn_Status(sensor::Sensor *a) 
 {
     AnIn_Status_ = a;
@@ -76,7 +71,6 @@ std::vector<uint8_t> Servo_Position{};
 std::vector<uint8_t> AnIn_LvlResMin{};
 std::vector<uint8_t> AnIn_LvlResMax{};
 std::vector<uint8_t> DigIn_Status{};
-std::vector<uint8_t> test{};
 
 protected:
 
@@ -91,21 +85,9 @@ sensor::Sensor *DigOut_Status_{nullptr};
 };
 
 
-// template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
-//  public:
-//   DoseVolumeAction(MyComponent *dose) : dose_(dose) {}
-
-//   void play(Ts... x) override { this->dose_->dose(this->data_.value(x...)); }
-//   TEMPLATABLE_VALUE(uint8_t, data)
-
-//  protected:
-//   MyComponent *dose_;
-  
-// };
-
-template<typename... Ts> class DoseVolumeAction : public Action<Ts...> {
+template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
-    DoseVolumeAction(MyComponent *parent) : parent_(parent){};
+    PumpDoseAction(MyComponent *parent) : parent_(parent){};
     TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
     
     void set_data(const std::vector<uint8_t> &data) { code_ = data; }
