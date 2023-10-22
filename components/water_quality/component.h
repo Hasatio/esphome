@@ -43,9 +43,14 @@ void calibration(const std::vector<uint8_t> &x1,
     this->Pump_Calib_Y4 = y4;
 }
 
-void pump(const std::vector<uint8_t> &p)
+void pump_type(const std::vector<uint8_t> &t)
 {
-    this->Pump_Dose = p;
+    this->Pump_Type = t;
+}
+
+void pump_dose(const std::vector<uint8_t> &d)
+{
+    this->Pump_Dose = d;
 }
 
 void AnIn_Status(sensor::Sensor *a) 
@@ -62,6 +67,7 @@ std::vector<uint8_t> Pump_Calib_X3{};
 std::vector<uint8_t> Pump_Calib_Y3{};
 std::vector<uint8_t> Pump_Calib_X4{};
 std::vector<uint8_t> Pump_Calib_Y4{};
+std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{};
 std::vector<uint8_t> Pump_Circulation{};
@@ -85,18 +91,37 @@ sensor::Sensor *DigOut_Status_{nullptr};
 };
 
 
-template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
+template<typename... Ts> class PumpTypeAction : public Action<Ts...> {
     public:
     PumpDoseAction(MyComponent *parent) : parent_(parent){};
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, code);
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, type);
     
-    void set_data(const std::vector<uint8_t> &data) { code_ = data; }
+    void set_type(const std::vector<uint8_t> &set) { type_ = set; }
 
     void play(Ts... x) 
     {
-    std::vector<uint8_t> msg = this->code_.value(x...);
+    std::vector<uint8_t> data = this->type_.value(x...);
 
-    this->parent_->pump(msg);
+    this->parent_->pump_type(data);
+    }
+
+
+    protected:
+    MyComponent *parent_;
+};
+
+template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
+    public:
+    PumpDoseAction(MyComponent *parent) : parent_(parent){};
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, dose);
+    
+    void set_dose(const std::vector<uint8_t> &set) { dose_ = set; }
+
+    void play(Ts... x) 
+    {
+    std::vector<uint8_t> data = this->dose_.value(x...);
+
+    this->parent_->pump_dose(data);
     }
 
 

@@ -23,7 +23,7 @@ CONF_Y4 = "y4"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
-CONF_DOSE = "dose"
+CONF_PUMP_DOSE = "pump_dose"
 
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
@@ -100,8 +100,19 @@ async def to_code(config):
                 conf[CONF_Y4],
                 ))
 
+PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
+PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 
-PumpDoseAction = component_ns.class_("DoseVolumeAction", automation.Action)
+
+PUMP_TYPE_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_PUMP_DOSE): cv.All(
+                [cv.Any(cv.uint8_t)],
+                cv.Length(min=6, max=6),
+        ),
+    }
+)
 
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
@@ -110,7 +121,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         # cv.Required(CONF_DOSE): cv.templatable(
         #     cv.int_range()
         # ),
-        cv.Required(CONF_DOSE): cv.All(
+        cv.Required(CONF_PUMP_DOSE): cv.All(
                 [cv.Any(cv.uint8_t)],
         ),
     }
@@ -118,24 +129,34 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
 
 
 @automation.register_action(
-    "water_quality.dose", 
+    "water_quality.pump_type", 
+    PumpTypeAction, 
+    PUMP_TYPE_ACTION_SCHEMA
+)
+
+@automation.register_action(
+    "water_quality.pump_dose", 
     PumpDoseAction, 
     PUMP_DOSE_ACTION_SCHEMA
 )
 
-# async def dose_volume_to_code(config, action_id, template_arg, args):
-#     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
-#     cg.add(var.set_data(template_))
-    
-async def dose_volume_to_code(config, action_id, template_arg, args):
+async def pump_type_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    code = config[CONF_DOSE]
-    template_ = await cg.templatable(config[CONF_DOSE], args, cg.uint8)
-    cg.add(var.set_data(code))
+    type = config[CONF_PUMP_TYPE]
+    cg.add(var.set_type(type))
+
+    return var
+
+async def pump_dose_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    dose = config[CONF_PUMP_DOSE]
+    # template_ = await cg.templatable(dose, args, cg.uint8)
+    # cg.add(var.set_data(template_))
+    cg.add(var.set_dose(dose))
 
     return var
