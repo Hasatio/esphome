@@ -114,7 +114,7 @@ CONFIG_SCHEMA = cv.All(
     cv.typed_schema(
         {
             PUMP_TYPE_DOSE: CALIBRATION_SCHEMA
-            "2": cv.Schema()
+            PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA
         },
         key=CONF_PUMP_TYPE,
         default_type=PUMP_TYPE_NULL,
