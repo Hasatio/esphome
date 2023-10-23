@@ -36,7 +36,7 @@ CONFIG_SCHEMA = (
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
             cv.Required(CONF_PUMP_TYPE): cv.All(
-                                cv.ensure_list(cv.int_range(min=0, max=2)),
+                                cv.ensure_list(cv.uint_range(min=0, max=2)),
                                 cv.Length(min=6, max=6),
             ),
             cv.Required(CONF_PUMP_CALIBRATION): cv.All(
