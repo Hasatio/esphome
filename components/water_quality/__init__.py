@@ -36,7 +36,7 @@ UNIT_MILILITERS_PER_MINUTE = "ml/min"
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
 
-CALIBRATION_SCHEMA = cv.COMPONENT_SCHEMA.extend(
+CALIBRATION_SCHEMA = cv.Schema(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_CALIBRATION): cv.All(
@@ -59,14 +59,14 @@ CALIBRATION_SCHEMA = cv.COMPONENT_SCHEMA.extend(
 )
 
 CONFIG_SCHEMA = (
-    # cv.Schema(
-    #     {
-    #         cv.GenerateID(): cv.declare_id(MyComponent),
-    #         # cv.Required(CONF_PUMP_TYPE): cv.All(
-    #         #                     cv.ensure_list(cv.int_range(min=0, max=2)),
-    #         #                     cv.Length(min=6, max=6),
-    #         # ),
-    #     }
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.declare_id(MyComponent),
+            # cv.Required(CONF_PUMP_TYPE): cv.All(
+            #                     cv.ensure_list(cv.int_range(min=0, max=2)),
+            #                     cv.Length(min=6, max=6),
+            # ),
+        # }
     # )
     # .extend(cv.COMPONENT_SCHEMA),
             # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
@@ -110,60 +110,39 @@ CONFIG_SCHEMA = (
             #     ),
             #     cv.Length(max=12),
             # ),
-    cv.typed_schema(
-        {
-            PUMP_TYPE_NULL: cv.Schema({}),
-            PUMP_TYPE_DOSE: cv.COMPONENT_SCHEMA.extend(
-                {
-                    cv.GenerateID(): cv.declare_id(MyComponent),
-                    cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-                        cv.ensure_list(
-                            cv.Schema(
+                        CONF_PUMP_TYPE
+                       
+            cv.Required(CONF_PUMP_TYPE): cv.All(
+                cv.ensure_list(
+                    cv.typed_schema(
+                        {
+                            PUMP_TYPE_NULL: cv.Schema({}),
+                            PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
                                 {
-                                    cv.Required(CONF_X1): cv.All(
-                                        cv.ensure_list(cv.uint8_t),
-                                        cv.Length(min=8, max=8),
-                                    ),
-                                    cv.Required(CONF_Y1): cv.All(
-                                        cv.ensure_list(cv.uint8_t),
-                                        cv.Length(min=8, max=8),
-                                    ),
+                                    cv.GenerateID(): cv.declare_id(MyComponent),
+                                    
                                 }
-                            )
-                        )
-                    ),
-                }
-            ),
-            PUMP_TYPE_CIRCULATION: cv.COMPONENT_SCHEMA.extend(
-                {
-                    cv.GenerateID(): cv.declare_id(MyComponent),
-                    cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-                        cv.ensure_list(
-                            cv.Schema(
+                            ),
+                            PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
                                 {
-                                    cv.Required(CONF_X1): cv.All(
-                                        cv.ensure_list(cv.uint8_t),
-                                        cv.Length(min=8, max=8),
-                                    ),
-                                    cv.Required(CONF_Y1): cv.All(
-                                        cv.ensure_list(cv.uint8_t),
-                                        cv.Length(min=8, max=8),
-                                    ),
+                                    cv.GenerateID(): cv.declare_id(MyComponent),
+                                    
                                 }
-                            )
-                        )
+                            ),
+                        },
+                        # key=CONF_PUMP_TYPE,
+                        default_type=PUMP_TYPE_NULL,
+                        lower=True,
                     ),
-                }
-            ),
-        },
-        key=CONF_PUMP_TYPE,
-        default_type=PUMP_TYPE_NULL,
-        # upper=True,
-    ),
+                ),
+                cv.Length(min=1),
+            ), 
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
             #         cv.ensure_list(cv.uint8_t),
             # ),
+        }
+    )
 )
 
 
