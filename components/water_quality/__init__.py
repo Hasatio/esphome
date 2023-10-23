@@ -66,15 +66,15 @@ TYPE_SCHEMA = cv.typed_schema(
                 cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
-        ),
+        ).extend(cv.COMPONENT_SCHEMA),
         PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
             {
                 cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
-        ),
+        ).extend(cv.COMPONENT_SCHEMA),
     },
-    # key=CONF_PUMP_TYPE,
+    key=CONF_PUMP_TYPE,
     default_type=PUMP_TYPE_NULL,
     int=True,
 )
@@ -132,7 +132,7 @@ CONFIG_SCHEMA = (
             #     cv.Length(max=12),
             # ),
                        
-            cv.Required(CONF_PUMP_TYPE): cv.All(
+            cv.All(
                 cv.ensure_list(TYPE_SCHEMA),
                 cv.Length(min=1),
             ), 
