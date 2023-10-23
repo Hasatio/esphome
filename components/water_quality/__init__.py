@@ -79,7 +79,7 @@ TYPE_SCHEMA = cv.typed_schema(
     int=True,
 )
                     
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
@@ -87,8 +87,10 @@ CONFIG_SCHEMA = (
             #                     cv.ensure_list(cv.int_range(min=0, max=2)),
             #                     cv.Length(min=6, max=6),
             # ),
-        # }
-    # )
+        
+        }
+    )
+    .extend(cv.COMPONENT_SCHEMA),
     # .extend(cv.COMPONENT_SCHEMA),
             # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
             #     cv.ensure_list(
@@ -132,14 +134,11 @@ CONFIG_SCHEMA = (
             #     cv.Length(max=12),
             # ),
                        
-            TYPE_SCHEMA,
+    TYPE_SCHEMA,
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
             #         cv.ensure_list(cv.uint8_t),
             # ),
-        }
-    )
-    .extend(cv.COMPONENT_SCHEMA),
 )
 
 
