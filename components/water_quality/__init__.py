@@ -57,7 +57,28 @@ CALIBRATION_SCHEMA = cv.Schema(
         ),
     }
 )
-
+                    
+TYPE_SCHEMA = cv.typed_schema(
+    {
+        PUMP_TYPE_NULL: cv.Schema({}),
+        PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
+            {
+                cv.GenerateID(): cv.declare_id(MyComponent),
+                
+            }
+        ),
+        PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
+            {
+                cv.GenerateID(): cv.declare_id(MyComponent),
+                
+            }
+        ),
+    },
+    # key=CONF_PUMP_TYPE,
+    default_type=PUMP_TYPE_NULL,
+    lower=True,
+)
+                    
 CONFIG_SCHEMA = (
     cv.Schema(
         {
@@ -110,31 +131,9 @@ CONFIG_SCHEMA = (
             #     ),
             #     cv.Length(max=12),
             # ),
-                        CONF_PUMP_TYPE
                        
             cv.Required(CONF_PUMP_TYPE): cv.All(
-                cv.ensure_list(
-                    cv.typed_schema(
-                        {
-                            PUMP_TYPE_NULL: cv.Schema({}),
-                            PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
-                                {
-                                    cv.GenerateID(): cv.declare_id(MyComponent),
-                                    
-                                }
-                            ),
-                            PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
-                                {
-                                    cv.GenerateID(): cv.declare_id(MyComponent),
-                                    
-                                }
-                            ),
-                        },
-                        # key=CONF_PUMP_TYPE,
-                        default_type=PUMP_TYPE_NULL,
-                        lower=True,
-                    ),
-                ),
+                cv.ensure_list(TYPE_SCHEMA),
                 cv.Length(min=1),
             ), 
             # if config[CONF_PUMP_TYPE][0] == 1:
