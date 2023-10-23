@@ -76,7 +76,7 @@ TYPE_SCHEMA = cv.typed_schema(
     },
     # key=CONF_PUMP_TYPE,
     default_type=PUMP_TYPE_NULL,
-    lower=True,
+    int=True,
 )
                     
 CONFIG_SCHEMA = (
