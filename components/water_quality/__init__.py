@@ -132,10 +132,7 @@ CONFIG_SCHEMA = (
             #     cv.Length(max=12),
             # ),
                        
-            cv.All(
-                cv.ensure_list(TYPE_SCHEMA),
-                cv.Length(min=1),
-            )
+            TYPE_SCHEMA,
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
             #         cv.ensure_list(cv.uint8_t),
