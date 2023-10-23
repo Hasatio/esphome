@@ -29,7 +29,7 @@ void MyComponent::loop()
         // ESP_LOGD(TAG,"%d", Pump_Dose[i]);
     for (size_t i = 0; i < sizeof Pump_Type / sizeof Pump_Type[0]; i++)
     {
-        ESP_LOGD(TAG,"%d", Pump_Type[i]);
+        ESP_LOGD(TAG,"%d = %d", i, Pump_Type[i]);
     }
         // ESP_LOGD(TAG,"data[0] = %d", Pump_Dose[0]);
     
