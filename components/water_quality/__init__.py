@@ -41,10 +41,10 @@ CONFIG_SCHEMA = (
             ),
             cv.Required(CONF_PUMP_CALIBRATION): cv.All(
                 cv.ensure_list(
-                    cv.Schema(
-                        {
                             
-                            if config[CONF_PUMP_TYPE][0] == 1:
+                    if config[CONF_PUMP_TYPE][0] == 1:
+                        cv.Schema(
+                            {
                                 cv.Required(CONF_X1): cv.All(
                                     cv.ensure_list(cv.uint8_t),
                                     cv.Length(min=8, max=8),
@@ -53,6 +53,10 @@ CONFIG_SCHEMA = (
                                     cv.ensure_list(cv.uint8_t),
                                     cv.Length(min=8, max=8),
                                 ),
+                            }
+                        ).extend(cv.COMPONENT_SCHEMA),
+                    cv.Schema(
+                        {
                             cv.Required(CONF_X2): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
