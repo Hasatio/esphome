@@ -91,7 +91,7 @@ async def to_code(config):
     await cg.register_component(var, config)
     
     if CONF_PUMP_TYPE in config:
-        conf = conf[CONF_PUMP_TYPE]
+        conf = config[CONF_PUMP_TYPE]
         cg.add(var.pump_type(conf))
     if CONF_PUMP_CALIBRATION in config:
         for conf in config[CONF_PUMP_CALIBRATION]:
