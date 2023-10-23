@@ -3,7 +3,8 @@ import esphome.config_validation as cv
 from esphome import automation
 from esphome.components import sensor
 from esphome.const import (
-    CONF_ID, 
+    CONF_ID,
+    CONF_DATA
 ) 
 CODEOWNERS = ["@hasatio"]
 AUTO_LOAD = ["sensor"]
@@ -39,54 +40,51 @@ CONFIG_SCHEMA = (
                                 cv.ensure_list(cv.int_range(min=0, max=2)),
                                 cv.Length(min=6, max=6),
             ),
-            cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-                            
-                if config[CONF_PUMP_TYPE][0] == 1:
-                    cv.ensure_list(
-                        cv.Schema(
-                            {
-                                cv.Required(CONF_X1): cv.All(
-                                    cv.ensure_list(cv.uint8_t),
-                                    cv.Length(min=8, max=8),
-                                ),
-                                cv.Required(CONF_Y1): cv.All(
-                                    cv.ensure_list(cv.uint8_t),
-                                    cv.Length(min=8, max=8),
-                                ),
-                            }
-                        ).extend(cv.COMPONENT_SCHEMA),
-                    ),  
-                cv.ensure_list(
-                    cv.Schema(
-                        {
-                            cv.Required(CONF_X2): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_Y2): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_X3): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_Y3): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_X4): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_Y4): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                        }
-                    ).extend(cv.COMPONENT_SCHEMA),
-                ),
-                cv.Length(max=12),
+            # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
+            #     cv.ensure_list(
+            #         cv.Schema(
+            #             {
+            #                 cv.Required(CONF_X1): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_Y1): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_X2): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_Y2): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_X3): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_Y3): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_X4): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #                 cv.Required(CONF_Y4): cv.All(
+            #                     cv.ensure_list(cv.uint8_t),
+            #                     cv.Length(min=8, max=8),
+            #                 ),
+            #             }
+            #         ).extend(cv.COMPONENT_SCHEMA),
+            #     ),
+            #     cv.Length(max=12),
+            # ),
+            
+            if config[CONF_PUMP_TYPE][0] == 1:
+                cv.Required(CONF_DATA): cv.All(
+                    cv.ensure_list(cv.uint8_t),
             ),
         }
     )
