@@ -115,6 +115,7 @@ CONFIG_SCHEMA = cv.All(
             PUMP_TYPE_NULL: cv.Schema({}),
             PUMP_TYPE_DOSE: cv.COMPONENT_SCHEMA.extend(
                 {
+                    cv.GenerateID(): cv.declare_id(MyComponent),
                     cv.Required(CONF_PUMP_CALIBRATION): cv.All(
                         cv.ensure_list(
                             cv.Schema(
@@ -135,6 +136,7 @@ CONFIG_SCHEMA = cv.All(
             ),
             PUMP_TYPE_CIRCULATION: cv.COMPONENT_SCHEMA.extend(
                 {
+                    cv.GenerateID(): cv.declare_id(MyComponent),
                     cv.Required(CONF_PUMP_CALIBRATION): cv.All(
                         cv.ensure_list(
                             cv.Schema(
