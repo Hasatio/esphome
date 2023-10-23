@@ -20,6 +20,7 @@ uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistan
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
 uint8_t dd,dd2[8]={0,0,0,0,0,0,0,0};
+int test;
 
 void setup() override;
 void loop() override;
@@ -44,7 +45,7 @@ void pump_calibration(const std::vector<uint8_t> &x1,
 }
 void test(int tt)
 {
-    int test = tt;
+    test = tt;
 }
 void pump_type(const std::vector<uint8_t> &t)
 {
