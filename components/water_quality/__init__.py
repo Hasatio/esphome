@@ -25,21 +25,49 @@ CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
 
+PUMP_TYPE_NULL = "0"
+PUMP_TYPE_DOSE = "1"
+PUMP_TYPE_CIRCULATION = "2"
+PUMP_TYPES_SUPPORTED = [PUMP_TYPE_NULL, PUMP_TYPE_DOSE, PUMP_TYPE_CIRCULATION]
+
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
 
+CALIBRATION_SCHEMA = cv.Schema(
+    {
+        cv.Required(CONF_PUMP_CALIBRATION): cv.All(
+            cv.ensure_list(
+                cv.Schema(
+                    {
+                        cv.Required(CONF_X1): cv.All(
+                            cv.ensure_list(cv.uint8_t),
+                            cv.Length(min=8, max=8),
+                        ),
+                        cv.Required(CONF_Y1): cv.All(
+                            cv.ensure_list(cv.uint8_t),
+                            cv.Length(min=8, max=8),
+                        ),
+                    }
+                )
+            )
+        )
+    }
+),
 
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
-            cv.Required(CONF_PUMP_TYPE): cv.All(
-                                cv.ensure_list(cv.int_range(min=0, max=2)),
-                                cv.Length(min=6, max=6),
-            ),
+            # cv.Required(CONF_PUMP_TYPE): cv.All(
+            #                     cv.ensure_list(cv.int_range(min=0, max=2)),
+            #                     cv.Length(min=6, max=6),
+            # ),
+        }
+    )
+    .extend(cv.COMPONENT_SCHEMA),
             # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
             #     cv.ensure_list(
             #         cv.Schema(
@@ -81,14 +109,19 @@ CONFIG_SCHEMA = (
             #     ),
             #     cv.Length(max=12),
             # ),
-            
-            if config[CONF_PUMP_TYPE][0] == 1:
-                cv.Required(CONF_DATA): cv.All(
-                    cv.ensure_list(cv.uint8_t),
-            ),
-        }
-    )
-    .extend(cv.COMPONENT_SCHEMA)
+    cv.typed_schema(
+        {
+            PUMP_TYPE_DOSE: CALIBRATION_SCHEMA
+            PUMP_TYPE_CIRCULATION:
+        },
+        key=CONF_PUMP_TYPE,
+        default_type=PUMP_TYPE_NULL,
+        upper=True,
+    ),
+            # if config[CONF_PUMP_TYPE][0] == 1:
+            #     cv.Required(CONF_DATA): cv.All(
+            #         cv.ensure_list(cv.uint8_t),
+            # ),
 )
 
 
