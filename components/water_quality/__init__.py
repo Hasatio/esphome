@@ -105,8 +105,8 @@ async def to_code(config):
                 conf[CONF_X4], 
                 conf[CONF_Y4],
                 ))
-    for type in config[CONF_PUMP_TYPE].items():
-        cg.add(var.pump_dose(type))
+    conf = config[CONF_PUMP_TYPE]
+    cg.add(var.pump_type(conf))
         
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
