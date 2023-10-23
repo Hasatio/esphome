@@ -59,18 +59,16 @@ CALIBRATION_SCHEMA = cv.COMPONENT_SCHEMA.extend(
 )
 
 CONFIG_SCHEMA = cv.All(
-    (
-        cv.Schema(
-            {
-                cv.GenerateID(): cv.declare_id(MyComponent),
-                # cv.Required(CONF_PUMP_TYPE): cv.All(
-                #                     cv.ensure_list(cv.int_range(min=0, max=2)),
-                #                     cv.Length(min=6, max=6),
-                # ),
-            }
-        )
-        .extend(cv.COMPONENT_SCHEMA),
-    ),
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.declare_id(MyComponent),
+            # cv.Required(CONF_PUMP_TYPE): cv.All(
+            #                     cv.ensure_list(cv.int_range(min=0, max=2)),
+            #                     cv.Length(min=6, max=6),
+            # ),
+        }
+    )
+    .extend(cv.COMPONENT_SCHEMA),
             # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
             #     cv.ensure_list(
             #         cv.Schema(
