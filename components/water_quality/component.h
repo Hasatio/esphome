@@ -91,24 +91,24 @@ sensor::Sensor *DigOut_Status_{nullptr};
 };
 
 
-template<typename... Ts> class PumpTypeAction : public Action<Ts...> {
-    public:
-    PumpDoseAction(MyComponent *parent) : parent_(parent){};
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, type);
+// template<typename... Ts> class PumpTypeAction : public Action<Ts...> {
+//     public:
+//     PumpDoseAction(MyComponent *parent) : parent_(parent){};
+//     TEMPLATABLE_VALUE(std::vector<uint8_t>, type);
     
-    void set_type(const std::vector<uint8_t> &set) { type_ = set; }
+//     void set_type(const std::vector<uint8_t> &set) { type_ = set; }
 
-    void play(Ts... x) 
-    {
-    std::vector<uint8_t> data = this->type_.value(x...);
+//     void play(Ts... x) 
+//     {
+//     std::vector<uint8_t> data = this->type_.value(x...);
 
-    this->parent_->pump_type(data);
-    }
+//     this->parent_->pump_type(data);
+//     }
 
 
-    protected:
-    MyComponent *parent_;
-};
+//     protected:
+//     MyComponent *parent_;
+// };
 
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
