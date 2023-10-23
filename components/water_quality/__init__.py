@@ -40,9 +40,9 @@ CONFIG_SCHEMA = (
                                 cv.Length(min=6, max=6),
             ),
             cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-                cv.ensure_list(
                             
-                    if config[CONF_PUMP_TYPE][0] == 1:
+                if config[CONF_PUMP_TYPE][0] == 1:
+                    cv.ensure_list(
                         cv.Schema(
                             {
                                 cv.Required(CONF_X1): cv.All(
@@ -55,6 +55,8 @@ CONFIG_SCHEMA = (
                                 ),
                             }
                         ).extend(cv.COMPONENT_SCHEMA),
+                    ),  
+                cv.ensure_list(
                     cv.Schema(
                         {
                             cv.Required(CONF_X2): cv.All(
