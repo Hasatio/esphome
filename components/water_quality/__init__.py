@@ -93,6 +93,8 @@ async def to_code(config):
     if CONF_PUMP_TYPE in config:
         conf = config[CONF_PUMP_TYPE]
         cg.add(var.pump_type(conf))
+    if config[CONF_PUMP_TYPE[0]] == 1:
+        cg.add(var.set_dose(100))
     if CONF_PUMP_CALIBRATION in config:
         for conf in config[CONF_PUMP_CALIBRATION]:
             cg.add(var.pump_calibration(
@@ -105,8 +107,6 @@ async def to_code(config):
                 conf[CONF_X4], 
                 conf[CONF_Y4],
                 ))
-    if config[CONF_PUMP_TYPE[0]] == 1:
-        cg.add(var.set_dose(100))
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
 PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
