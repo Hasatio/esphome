@@ -24,7 +24,7 @@ uint8_t dd,dd2[8]={0,0,0,0,0,0,0,0};
 void setup() override;
 void loop() override;
 
-void calibration(const std::vector<uint8_t> &x1,
+void pump_calibration(const std::vector<uint8_t> &x1,
                 const std::vector<uint8_t> &y1,
                 const std::vector<uint8_t> &x2,
                 const std::vector<uint8_t> &y2,

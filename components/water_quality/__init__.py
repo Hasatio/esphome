@@ -20,10 +20,11 @@ CONF_X3 = "x3"
 CONF_Y3 = "y3"
 CONF_X4 = "x4"
 CONF_Y4 = "y4"
+CONF_PUMP_TYPE = "pump_type"
+CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_ANALOG_OUTPUT = "analog_output"
-CONF_PUMP_DOSE = "pump_dose"
 
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
@@ -36,7 +37,11 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
-            cv.Optional(CONF_CALIBRATION): cv.All(
+            cv.Required(CONF_PUMP_TYPE): cv.All(
+                                cv.ensure_list(cv.int_range(min=0, max=2)),
+                                cv.Length(min=6, max=6),
+            ),
+            cv.Required(CONF_CALIBRATION): cv.All(
                 cv.ensure_list(
                     cv.Schema(
                         {
@@ -89,7 +94,7 @@ async def to_code(config):
     
     if CONF_CALIBRATION in config:
         for conf in config[CONF_CALIBRATION]:
-            cg.add(var.calibration(
+            cg.add(var.pump_calibration(
                 conf[CONF_X1], 
                 conf[CONF_Y1],
                 conf[CONF_X2], 
@@ -99,20 +104,23 @@ async def to_code(config):
                 conf[CONF_X4], 
                 conf[CONF_Y4],
                 ))
+    if CONF_PUMP_TYPE in config:
+        conf = conf[CONF_PUMP_TYPE]
+        cg.add(var.pump_type(conf))
 
-PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
+# PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
 PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 
 
-PUMP_TYPE_ACTION_SCHEMA = cv.All(
-    {
-        cv.GenerateID(): cv.use_id(MyComponent),
-        cv.Required(CONF_PUMP_DOSE): cv.All(
-                [cv.Any(cv.uint8_t)],
-                cv.Length(min=6, max=6),
-        ),
-    }
-)
+# PUMP_TYPE_ACTION_SCHEMA = cv.All(
+#     {
+#         cv.GenerateID(): cv.use_id(MyComponent),
+#         cv.Required(CONF_PUMP_TYPE): cv.All(
+#                 [cv.Any(cv.uint8_t)],
+#                 cv.Length(min=6, max=6),
+#         ),
+#     }
+# )
 
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
@@ -128,11 +136,11 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
 )
 
 
-@automation.register_action(
-    "water_quality.pump_type", 
-    PumpTypeAction, 
-    PUMP_TYPE_ACTION_SCHEMA
-)
+# @automation.register_action(
+#     "water_quality.pump_type", 
+#     PumpTypeAction, 
+#     PUMP_TYPE_ACTION_SCHEMA
+# )
 
 @automation.register_action(
     "water_quality.pump_dose", 
@@ -141,14 +149,14 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
 )
 
 
-async def pump_type_to_code(config, action_id, template_arg, args):
-    paren = await cg.get_variable(config[CONF_ID])
-    var = cg.new_Pvariable(action_id, template_arg, paren)
+# async def pump_type_to_code(config, action_id, template_arg, args):
+#     paren = await cg.get_variable(config[CONF_ID])
+#     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    type = config[CONF_PUMP_TYPE]
-    cg.add(var.set_type(type))
+#     type = config[CONF_PUMP_TYPE]
+#     cg.add(var.set_type(type))
 
-    return var
+#     return var
 
 async def pump_dose_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
