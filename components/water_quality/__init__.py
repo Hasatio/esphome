@@ -110,56 +110,56 @@ CONFIG_SCHEMA = cv.All(
             #     ),
             #     cv.Length(max=12),
             # ),
-    # cv.typed_schema(
-    #     {
-    #         PUMP_TYPE_NULL: cv.Schema({}),
-    #         PUMP_TYPE_DOSE: cv.COMPONENT_SCHEMA.extend(
-    #             {
-    #                 cv.GenerateID(): cv.use_id(MyComponent),
-    #                 cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-    #                     cv.ensure_list(
-    #                         cv.Schema(
-    #                             {
-    #                                 cv.Required(CONF_X1): cv.All(
-    #                                     cv.ensure_list(cv.uint8_t),
-    #                                     cv.Length(min=8, max=8),
-    #                                 ),
-    #                                 cv.Required(CONF_Y1): cv.All(
-    #                                     cv.ensure_list(cv.uint8_t),
-    #                                     cv.Length(min=8, max=8),
-    #                                 ),
-    #                             }
-    #                         )
-    #                     )
-    #                 ),
-    #             }
-    #         ),
-    #         PUMP_TYPE_CIRCULATION: cv.COMPONENT_SCHEMA.extend(
-    #             {
-    #                 cv.GenerateID(): cv.use_id(MyComponent),
-    #                 cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-    #                     cv.ensure_list(
-    #                         cv.Schema(
-    #                             {
-    #                                 cv.Required(CONF_X1): cv.All(
-    #                                     cv.ensure_list(cv.uint8_t),
-    #                                     cv.Length(min=8, max=8),
-    #                                 ),
-    #                                 cv.Required(CONF_Y1): cv.All(
-    #                                     cv.ensure_list(cv.uint8_t),
-    #                                     cv.Length(min=8, max=8),
-    #                                 ),
-    #                             }
-    #                         )
-    #                     )
-    #                 ),
-    #             }
-    #         ),
-    #     },
-    #     key=CONF_PUMP_TYPE,
-    #     default_type=PUMP_TYPE_NULL,
-    #     # upper=True,
-    # ),
+    cv.typed_schema(
+        {
+            PUMP_TYPE_NULL: cv.Schema({}),
+            PUMP_TYPE_DOSE: cv.COMPONENT_SCHEMA.extend(
+                {
+                    cv.GenerateID(): cv.use_id(MyComponent),
+                    cv.Required(CONF_PUMP_CALIBRATION): cv.All(
+                        cv.ensure_list(
+                            cv.Schema(
+                                {
+                                    cv.Required(CONF_X1): cv.All(
+                                        cv.ensure_list(cv.uint8_t),
+                                        cv.Length(min=8, max=8),
+                                    ),
+                                    cv.Required(CONF_Y1): cv.All(
+                                        cv.ensure_list(cv.uint8_t),
+                                        cv.Length(min=8, max=8),
+                                    ),
+                                }
+                            )
+                        )
+                    ),
+                }
+            ),
+            PUMP_TYPE_CIRCULATION: cv.COMPONENT_SCHEMA.extend(
+                {
+                    cv.GenerateID(): cv.use_id(MyComponent),
+                    cv.Required(CONF_PUMP_CALIBRATION): cv.All(
+                        cv.ensure_list(
+                            cv.Schema(
+                                {
+                                    cv.Required(CONF_X1): cv.All(
+                                        cv.ensure_list(cv.uint8_t),
+                                        cv.Length(min=8, max=8),
+                                    ),
+                                    cv.Required(CONF_Y1): cv.All(
+                                        cv.ensure_list(cv.uint8_t),
+                                        cv.Length(min=8, max=8),
+                                    ),
+                                }
+                            )
+                        )
+                    ),
+                }
+            ),
+        },
+        key=CONF_PUMP_TYPE,
+        default_type=PUMP_TYPE_NULL,
+        # upper=True,
+    ),
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
             #         cv.ensure_list(cv.uint8_t),
