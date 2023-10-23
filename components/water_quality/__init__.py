@@ -43,14 +43,16 @@ CONFIG_SCHEMA = (
                 cv.ensure_list(
                     cv.Schema(
                         {
-                            cv.Required(CONF_X1): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
-                            cv.Required(CONF_Y1): cv.All(
-                                cv.ensure_list(cv.uint8_t),
-                                cv.Length(min=8, max=8),
-                            ),
+                            
+                            if config[CONF_PUMP_TYPE][0] == 1:
+                                cv.Required(CONF_X1): cv.All(
+                                    cv.ensure_list(cv.uint8_t),
+                                    cv.Length(min=8, max=8),
+                                ),
+                                cv.Required(CONF_Y1): cv.All(
+                                    cv.ensure_list(cv.uint8_t),
+                                    cv.Length(min=8, max=8),
+                                ),
                             cv.Required(CONF_X2): cv.All(
                                 cv.ensure_list(cv.uint8_t),
                                 cv.Length(min=8, max=8),
@@ -106,7 +108,7 @@ async def to_code(config):
                 conf[CONF_Y4],
                 ))
 
-    if config[CONF_PUMP_TYPE[0]] == 0:
+    if config[CONF_PUMP_TYPE][0] == 0:
         cg.add(var.test(212))
         
 
