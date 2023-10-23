@@ -27,13 +27,13 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
     // }
 
-    for (size_t i = 0; i < (sizeof(Pump_Type) / sizeof(Pump_Type[0]/2)); i++)
-    {
-        ESP_LOGD(TAG,"%d = %d", i, Pump_Type[i]);
-    }
+    // for (size_t i = 0; i < (sizeof(Pump_Type) / sizeof(Pump_Type[0]/2)); i++)
+    // {
+    //     ESP_LOGD(TAG,"%d = %d", i, Pump_Type[i]);
+    // }
         // ESP_LOGD(TAG,"data[0] = %d", Pump_Dose[0]);
     
-        // ESP_LOGD(TAG,"%d", test[0]);
+        ESP_LOGD(TAG,"%d", test);
         // ESP_LOGD(TAG,"%d", dd);
 
 delay(1000);
