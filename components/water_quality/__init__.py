@@ -4,9 +4,6 @@ from esphome import automation
 from esphome.components import sensor
 from esphome.const import (
     CONF_ID, 
-    CONF_DATA,
-    CONF_CUSTOM,
-    CONF_CALIBRATION,
 ) 
 CODEOWNERS = ["@hasatio"]
 AUTO_LOAD = ["sensor"]
@@ -21,6 +18,7 @@ CONF_Y3 = "y3"
 CONF_X4 = "x4"
 CONF_Y4 = "y4"
 CONF_PUMP_TYPE = "pump_type"
+CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
@@ -41,7 +39,7 @@ CONFIG_SCHEMA = (
                                 cv.ensure_list(cv.int_range(min=0, max=2)),
                                 cv.Length(min=6, max=6),
             ),
-            cv.Required(CONF_CALIBRATION): cv.All(
+            cv.Required(CONF_PUMP_CALIBRATION): cv.All(
                 cv.ensure_list(
                     cv.Schema(
                         {
@@ -92,8 +90,8 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     
-    if CONF_CALIBRATION in config:
-        for conf in config[CONF_CALIBRATION]:
+    if CONF_PUMP_CALIBRATION in config:
+        for conf in config[CONF_PUMP_CALIBRATION]:
             cg.add(var.pump_calibration(
                 conf[CONF_X1], 
                 conf[CONF_Y1],
