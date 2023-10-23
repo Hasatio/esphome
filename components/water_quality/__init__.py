@@ -108,6 +108,8 @@ async def to_code(config):
     conf = config[CONF_PUMP_TYPE]
     if conf[0] == 0:
         cg.add(var.test(212))
+    if conf[0] == 1:
+        cg.add(var.test(312))
         
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
