@@ -33,7 +33,7 @@ void MyComponent::loop()
     // }
         // ESP_LOGD(TAG,"data[0] = %d", Pump_Dose[0]);
     
-        ESP_LOGD(TAG,"%d", test);
+        ESP_LOGD(TAG,"%d", ttt);
         // ESP_LOGD(TAG,"%d", dd);
 
 delay(1000);
