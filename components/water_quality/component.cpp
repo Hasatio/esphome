@@ -27,7 +27,7 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"y4[%d] = %d", i, Pump_Calib_Y4[i]);
     // }
 
-    for (size_t i = 0; i < (sizeof(Pump_Type) / sizeof(Pump_Type[0])); i++)
+    for (size_t i = 0; i < (sizeof(Pump_Type) / sizeof(Pump_Type[0]/2)); i++)
     {
         ESP_LOGD(TAG,"%d = %d", i, Pump_Type[i]);
     }
