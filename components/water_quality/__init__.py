@@ -38,7 +38,7 @@ MyComponent = component_ns.class_("MyComponent", cg.Component)
 
 CALIBRATION_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        # cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_CALIBRATION): cv.All(
             cv.ensure_list(
                 cv.Schema(
@@ -63,13 +63,13 @@ TYPE_SCHEMA = cv.typed_schema(
         PUMP_TYPE_NULL: cv.Schema({}),
         PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
             {
-                cv.GenerateID(): cv.declare_id(MyComponent),
+                # cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
         ).extend(cv.COMPONENT_SCHEMA),
         PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
             {
-                cv.GenerateID(): cv.declare_id(MyComponent),
+                # cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
         ).extend(cv.COMPONENT_SCHEMA),
