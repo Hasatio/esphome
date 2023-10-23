@@ -60,7 +60,7 @@ CALIBRATION_SCHEMA = cv.Schema(
                     
 TYPE_SCHEMA = cv.typed_schema(
     {
-        PUMP_TYPE_NULL: cv.Schema(cv.GenerateID(): cv.use_id(MyComponent),),
+        PUMP_TYPE_NULL: cv.Schema(),
         PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
             {
                 # cv.GenerateID(): cv.declare_id(MyComponent),
