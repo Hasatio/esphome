@@ -48,8 +48,8 @@ void pump_calibration(const std::vector<uint8_t> &x, //uint8_t x[]
 { 
     // x.resize(8);
     // y.resize(8);
-    this->Pump_Calib_X1 = x;
-    this->Pump_Calib_Y1 = y;
+    // this->Pump_Calib_X1 = x;
+    // this->Pump_Calib_Y1 = y;
 }
 
 void pump_type(const std::vector<uint8_t> &t)
@@ -68,15 +68,19 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-// uint8_t Pump_Calib_X1[8]{0};
+uint8_t Pump_Calib_X[8];
 std::vector<uint8_t> Pump_Calib_X1{0};
 std::vector<uint8_t> Pump_Calib_Y1{0};
-std::vector<uint8_t> Pump_Calib_X2{0};
+std::vector<uint8_t> Pump_Calib_X2{};
 std::vector<uint8_t> Pump_Calib_Y2{};
 std::vector<uint8_t> Pump_Calib_X3{};
 std::vector<uint8_t> Pump_Calib_Y3{};
 std::vector<uint8_t> Pump_Calib_X4{};
 std::vector<uint8_t> Pump_Calib_Y4{};
+std::vector<uint8_t> Pump_Calib_X5{};
+std::vector<uint8_t> Pump_Calib_Y5{};
+std::vector<uint8_t> Pump_Calib_X6{};
+std::vector<uint8_t> Pump_Calib_Y6{};
 std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
