@@ -56,7 +56,7 @@ void pump_type(uint8_t t[])
 {
     for (int i = 0; i < 8; i++)
     {
-        this->Pump_Type[i] = t[i];
+        Pump_Type[i] = t[i];
     }
 }
 
@@ -85,7 +85,7 @@ std::vector<uint8_t> Pump_Calib_X5{};
 std::vector<uint8_t> Pump_Calib_Y5{};
 std::vector<uint8_t> Pump_Calib_X6{};
 std::vector<uint8_t> Pump_Calib_Y6{};
-uint8_t Pump_Type[8];
+uint8_t Pump_Type[];
 // std::vector<uint8_t> Pump_Type{0};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
