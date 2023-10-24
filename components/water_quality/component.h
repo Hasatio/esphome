@@ -43,10 +43,10 @@ void loop() override;
 //     this->Pump_Calib_X4 = x4;
 //     this->Pump_Calib_Y4 = y4;
 // }
-void pump_calibration(uint8_t x[8],
+void pump_calibration(uint8_t &(x[8]),
                       const std::vector<uint8_t> &y) 
 { 
-    Pump_Calib_X1[0] = x[0];
+    this->Pump_Calib_X1[0] = x[0];
     this->Pump_Calib_Y1 = y;
     // Pump_Calib_X1[8] = "\0";
     // Pump_Calib_Y1[8] = "\0";
