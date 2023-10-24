@@ -68,7 +68,7 @@ PUMP_CALIBRATION_SCHEMA = cv.Schema(
                     
 PUMP_TYPE_SCHEMA = cv.typed_schema(
     {
-        PUMP_TYPE_NULL: cv.Schema({}),
+        PUMP_TYPE_NULL: cv.Any({}),
         PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA.extend(
             {
                 # cv.GenerateID(): cv.declare_id(MyComponent),
@@ -206,9 +206,9 @@ async def to_code(config):
         arr = [conf[CONF_X], conf[CONF_Y]]
         cg.add(var.pump_calibration(arr))
             
-    if config[CONF_PUMP2][0] == 0:
+    if config[CONF_PUMP2][0] != 0:
         con = config[CONF_PUMP2][0]
-        conf = con[CONF_PUMP_CALIBRATION][0]
+        conf = con[PUMP_TYPE_SCHEMA][0]
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     cg.add(var.pump_type(conf[CONF_X]))
         cg.add(var.pump_type(conf[CONF_X]))
