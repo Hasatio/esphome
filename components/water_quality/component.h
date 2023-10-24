@@ -25,45 +25,27 @@ int ttt;
 void setup() override;
 void loop() override;
 
-// void pump_calibration(const std::vector<uint8_t> &x1,
-    //                   const std::vector<uint8_t> &y1,
-    //                   const std::vector<uint8_t> &x2,
-    //                   const std::vector<uint8_t> &y2,
-    //                   const std::vector<uint8_t> &x3,
-    //                   const std::vector<uint8_t> &y3,
-    //                   const std::vector<uint8_t> &x4,
-    //                   const std::vector<uint8_t> &y4) 
-// { 
-//     this->Pump_Calib_X1 = x1;
-//     this->Pump_Calib_Y1 = y1;
-//     this->Pump_Calib_X2 = x2;
-//     this->Pump_Calib_Y2 = y2;
-//     this->Pump_Calib_X3 = x3;
-//     this->Pump_Calib_Y3 = y3;
-//     this->Pump_Calib_X4 = x4;
-//     this->Pump_Calib_Y4 = y4;
-// }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
     so = sizeof(pc);
     so2 = sizeof(pc[0]);
-    for (size_t i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            this->Pump_Calib[i][j] = pc[i][j];
-        }
-    }
+    // for (size_t i = 0; i < 8; i++)
+    // {
+    //     for (int j = 0; j < 8; j++)
+    //     {
+    //         this->Pump_Calib[i][j] = pc[i][j];
+    //     }
+    // }
 }
 
 void pump_type(const std::vector<uint8_t> &pt)
 {
     so3 = sizeof(pt);
     so4 = sizeof(pt[0]);
-    for (int i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
-    {
-        this->Pump_Type[i] = pt[i];
-    }
+    // for (int i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
+    // {
+    //     this->Pump_Type[i] = pt[i];
+    // }
 }
 
 void pump_dose(const std::vector<uint8_t> &d)
