@@ -47,13 +47,13 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"[%d] = %d", i, Pump_Type[i]);
     // }
 
-    for (size_t i = 0; i < 2*6; i++)
-    {
-        for (size_t j = 0; j < 4; j++)
-        {
-            ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
-        }
-    }
+    // for (size_t i = 0; i < 2*6; i++)
+    // {
+    //     for (size_t j = 0; j < 4; j++)
+    //     {
+    //         ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
+    //     }
+    // }
 
 delay(1000);
 }
