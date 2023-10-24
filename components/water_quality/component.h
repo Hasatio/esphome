@@ -43,7 +43,7 @@ void loop() override;
 //     this->Pump_Calib_X4 = x4;
 //     this->Pump_Calib_Y4 = y4;
 // }
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc) //uint8_t x[][]
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
     ESP_LOGI("TAG","%d", sizeof(pc));
     ESP_LOGI("TAG","%d", sizeof(pc[0]));
@@ -51,7 +51,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc) //uint8_t x[]
     {
         for (int j = 0; j < 8; j++)
         {
-            this->Pump_Calib[i][j] = pc[i][j];
+            this->uint8_t Pump_Calib[i][j] = pc[i][j];
         }
     }
 }
@@ -75,7 +75,7 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-uint8_t Pump_Calib[][];
+// uint8_t Pump_Calib[][];
 uint8_t Pump_Type[6];
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
