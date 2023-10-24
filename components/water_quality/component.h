@@ -46,10 +46,10 @@ void loop() override;
 void pump_calibration(const std::vector<uint8_t> &x, //uint8_t x[]
                       const std::vector<uint8_t> &y) 
 { 
-    // this->Pump_Calib_X1 = x;
-    // this->Pump_Calib_Y1 = y;
-    Pump_Calib_X1.resize(8);
-    Pump_Calib_Y1.resize(8);
+    // x.resize(8);
+    // y.resize(8);
+    this->Pump_Calib_X1 = x;
+    this->Pump_Calib_Y1 = y;
 }
 
 void pump_type(const std::vector<uint8_t> &t)
