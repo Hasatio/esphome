@@ -20,9 +20,9 @@ void MyComponent::loop()
 
     for (size_t i = 0; i < sizeof(Pump_Calib_X1) / sizeof(Pump_Calib_X1[0]); i++)
     {
-        ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
-        ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
-        // ESP_LOGD(TAG,"x2[%d] = %d", i, Pump_Calib_X2[i]);
+        // ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
+        // ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
+        ESP_LOGD(TAG,"x2[%d] = %d", i, Pump_Calib_X2[i]);
         // ESP_LOGD(TAG,"y2[%d] = %d", i, Pump_Calib_Y2[i]);
         // ESP_LOGD(TAG,"x3[%d] = %d", i, Pump_Calib_X3[i]);
         // ESP_LOGD(TAG,"y3[%d] = %d", i, Pump_Calib_Y3[i]);
