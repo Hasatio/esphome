@@ -45,8 +45,8 @@ void loop() override;
 // }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
-    uint8_t so = sizeof(pc);
-    uint8_t so2 = sizeof(pc[0]);
+    so = sizeof(pc);
+    so2 = sizeof(pc[0]);
     for (size_t i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -74,7 +74,7 @@ void AnIn_Status(sensor::Sensor *a)
     AnIn_Status_ = a;
 }
 
-
+uint8_t so,so2;
 uint8_t Pump_Calib[12][];
 uint8_t Pump_Type[6];
 std::vector<uint8_t> Pump_Mode{};
