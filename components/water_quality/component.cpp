@@ -14,20 +14,19 @@ void MyComponent::setup()
 
 void MyComponent::loop() 
 {
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X1));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y1));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X2));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y2));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X3));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y3));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X4));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y4));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X5));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y5));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X6));
-    Pump_Calib_Y6.clear();
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y6));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X1));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y1));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X2));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y2));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X3));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y3));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X4));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y4));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X5));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y5));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X6));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y6));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
 
     // for (size_t i = 0; i < sizeof(Pump_Calib_X1) / sizeof(Pump_Calib_X1[0]); i++)
     // {
