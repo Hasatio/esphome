@@ -200,7 +200,7 @@ async def to_code(config):
         #             conf[CONF_Y],
         #             ))
         for conf in con[CONF_PUMP_CALIBRATION]:
-            cg.add(var.pump_calibration(conf[CONF_X]conf[CONF_Y]))
+            cg.add(var.pump_calibration([conf[CONF_X]][conf[CONF_Y]]))
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
 PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
