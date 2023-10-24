@@ -48,8 +48,8 @@ void pump_calibration(const std::vector<uint8_t> &x,
 { 
     for(int c = 0; c < 8; c++)
     {
-        Pump_Calib_X1[c]= x[c];
-        Pump_Calib_Y1[c]= y[c];
+        this->Pump_Calib_X1[c]= x[c];
+        this->Pump_Calib_Y1[c]= y[c];
     }
     // this->Pump_Calib_X2 = x[1];
     // this->Pump_Calib_Y2 = y[1];
