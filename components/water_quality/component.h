@@ -49,7 +49,7 @@ void pump_calibration(const std::vector<uint8_t> &x, //uint8_t x[]
     this->Pump_Calib_X1 = x;
     this->Pump_Calib_Y1 = y;
     Pump_Calib_X1.resize(8);
-    Pump_Calib_Y1.resize(8);
+    Pump_Calib_Y1.resize(8,10);
 }
 
 void pump_type(const std::vector<uint8_t> &t)
