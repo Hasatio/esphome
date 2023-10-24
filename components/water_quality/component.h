@@ -45,6 +45,8 @@ void loop() override;
 // }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pc) //uint8_t x[][]
 { 
+    ESP_LOGI(TAG,"%d", sizeof(pc));
+    ESP_LOGI(TAG,"%d", sizeof(pc[0]));
     for (size_t i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
