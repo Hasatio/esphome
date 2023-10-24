@@ -197,7 +197,7 @@ async def to_code(config):
         cg.add(var.pump_calibration(arr))
             
     con = config[CONF_PUMP2]
-    if con[CONF_PUMP_TYPE[0]] != 0:
+    if con[0][CONF_PUMP_TYPE] != 0:
         for conf in con[CONF_PUMP_CALIBRATION]:
             cg.add(var.pump_type(conf[CONF_X]))
             
