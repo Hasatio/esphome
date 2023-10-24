@@ -186,9 +186,10 @@ async def to_code(config):
             
     con = config[CONF_PUMP2][0]
     type.append(con[CONF_PUMP_TYPE])
-    # if con[CONF_PUMP_TYPE] != 0:
-    #     for conf in con[CONF_PUMP_CALIBRATION]:
-    #         calib.append([conf[CONF_X]],[conf[CONF_Y]])
+    if con[CONF_PUMP_TYPE] != 0:
+        for conf in con[CONF_PUMP_CALIBRATION]:
+            calib.append([conf[CONF_X]])
+            calib.append([conf[CONF_Y]])
         
     con = config[CONF_PUMP3][0]
     type.append(con[CONF_PUMP_TYPE])
