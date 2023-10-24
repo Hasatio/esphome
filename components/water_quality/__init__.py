@@ -20,7 +20,7 @@ CONF_X3 = "x3"
 CONF_Y3 = "y3"
 CONF_X4 = "x4"
 CONF_Y4 = "y4"
-CONF_PUMP1 = "pump1"
+CONF_PUMP_TYPE1 = "pump_type1"
 CONF_PUMP2 = "pump2"
 CONF_PUMP3 = "pump3"
 CONF_PUMP4 = "pump4"
@@ -158,7 +158,7 @@ CONFIG_SCHEMA = cv.All(
     #     int=True,
     # )           
     # PUMP_TYPE_SCHEMA,
-            cv.Required(CONF_PUMP1): cv.All(
+            cv.Required(CONF_PUMP_TYPE1): cv.All(
                 PUMP_CALIBRATION_SCHEMA, cv.Length(min=0)
             ),
             # if config[CONF_PUMP_TYPE][0] == 1:
@@ -193,8 +193,8 @@ async def to_code(config):
 
     # if config[CONF_PUMP_TYPE][0] == 0:
     #     cg.add(var.test(212))
-    con = config[CONF_PUMP1]
-    if config[CONF_PUMP1] != 0:
+    con = config[CONF_PUMP_TYPE1]
+    if config[CONF_PUMP_TYPE1] != 0:
         for conf in con[CONF_PUMP_CALIBRATION]:
             for conf in con[CONF_PUMP_CALIBRATION]:
                 arr = [conf[CONF_X], conf[CONF_Y]]
