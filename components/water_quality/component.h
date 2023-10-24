@@ -43,8 +43,7 @@ void loop() override;
 //     this->Pump_Calib_X4 = x4;
 //     this->Pump_Calib_Y4 = y4;
 // }
-void pump_calibration(const std::vector<std::vector<uint8_t>> &x) //uint8_t x[]
-                    //   const std::vector<uint8_t> &y) 
+void pump_calibration(const std::vector<std::vector<uint8_t>> &x) //uint8_t x[][]
 { 
     // x.resize(8);
     // y.resize(8);
