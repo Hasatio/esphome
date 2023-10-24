@@ -42,7 +42,7 @@ void MyComponent::loop()
 
     for (size_t i = 0; i < sizeof(Pump_Calib) / sizeof(Pump_Calib[0][0]); i++)
     {
-        for (size_t j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0]); j++)
+        for (size_t j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0][0]); j++)
         {
             ESP_LOGD(TAG,"%d = %d", i, Pump_Calib[i][j]);
         }
