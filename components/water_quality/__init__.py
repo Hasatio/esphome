@@ -26,6 +26,7 @@ CONF_PUMP3 = "pump3"
 CONF_PUMP4 = "pump4"
 CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
+CONF_TYPE = "type"
 CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_TOTAL = "pump_total"
@@ -209,7 +210,7 @@ async def to_code(config):
         con = config[CONF_PUMP2][0]
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     cg.add(var.pump_type(conf[CONF_X]))
-        cg.add(var.pump_type(config[CONF_PUMP2][0]))
+        cg.add(var.pump_type(config[CONF_PUMP2][1]))
             
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)
