@@ -159,7 +159,7 @@ CONFIG_SCHEMA = cv.All(
     # )           
     # PUMP_TYPE_SCHEMA,
             cv.Required(CONF_PUMP1): cv.All(
-                PUMP_CALIBRATION_SCHEMA, cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
@@ -196,11 +196,12 @@ async def to_code(config):
 
     # if config[CONF_PUMP_TYPE][0] == 0:
     #     cg.add(var.test(212))
-    co = config[CONF_PUMP1]
-    # con = co[PUMP_TYPE_SCHEMA]
-    # if config[CONF_PUMP1] != 0:
-    for conf in co[PUMP_CALIBRATION_SCHEMA]:
-        for conf in co[PUMP_CALIBRATION_SCHEMA]:
+    
+    
+    con = config[CONF_PUMP1]
+    # if config[CONF_PUMP_TYPE1] != 0:
+    for conf in con[CONF_PUMP_CALIBRATION]:
+        for conf in con[CONF_PUMP_CALIBRATION]:
             arr = [conf[CONF_X], conf[CONF_Y]]
             cg.add(var.pump_calibration(arr))
 
