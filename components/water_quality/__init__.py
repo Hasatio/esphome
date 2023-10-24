@@ -218,7 +218,8 @@ async def to_code(config):
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
-    uint8_t data[] = {1, 2, 0, 0, 2, 1};
+        
+    data = {1, 2, 0, 0, 2, 1}
     cg.add(var.pump_calibration(calib))
     cg.add(var.pump_type(data))
             
