@@ -134,6 +134,18 @@ CONFIG_SCHEMA = cv.All(
             cv.Required(CONF_PUMP2): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
+            cv.Required(CONF_PUMP3): cv.All(
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+            ),
+            cv.Required(CONF_PUMP4): cv.All(
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+            ),
+            cv.Required(CONF_PUMP5): cv.All(
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+            ),
+            cv.Required(CONF_PUMP6): cv.All(
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+            ),
         }
     )
     .extend(cv.COMPONENT_SCHEMA),
@@ -173,6 +185,34 @@ async def to_code(config):
             calib.append(conf[CONF_Y])
             
     con = config[CONF_PUMP2][0]
+    if con[CONF_PUMP_TYPE] != 0:
+        type.append(con[CONF_PUMP_TYPE])
+        # for conf in con[CONF_PUMP_CALIBRATION]:
+        #     calib.append(conf[CONF_X])
+        #     calib.append(conf[CONF_Y])
+        
+    con = config[CONF_PUMP3][0]
+    if con[CONF_PUMP_TYPE] != 0:
+        type.append(con[CONF_PUMP_TYPE])
+        # for conf in con[CONF_PUMP_CALIBRATION]:
+        #     calib.append(conf[CONF_X])
+        #     calib.append(conf[CONF_Y])
+        
+    con = config[CONF_PUMP4][0]
+    if con[CONF_PUMP_TYPE] != 0:
+        type.append(con[CONF_PUMP_TYPE])
+        # for conf in con[CONF_PUMP_CALIBRATION]:
+        #     calib.append(conf[CONF_X])
+        #     calib.append(conf[CONF_Y])
+        
+    con = config[CONF_PUMP5][0]
+    if con[CONF_PUMP_TYPE] != 0:
+        type.append(con[CONF_PUMP_TYPE])
+        # for conf in con[CONF_PUMP_CALIBRATION]:
+        #     calib.append(conf[CONF_X])
+        #     calib.append(conf[CONF_Y])
+        
+    con = config[CONF_PUMP6][0]
     if con[CONF_PUMP_TYPE] != 0:
         type.append(con[CONF_PUMP_TYPE])
         # for conf in con[CONF_PUMP_CALIBRATION]:
