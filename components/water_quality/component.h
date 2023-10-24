@@ -72,14 +72,14 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-std::vector<uint8_t> Pump_Calib_X1{};
-std::vector<uint8_t> Pump_Calib_Y1{};
-std::vector<uint8_t> Pump_Calib_X2{};
-std::vector<uint8_t> Pump_Calib_Y2{};
-std::vector<uint8_t> Pump_Calib_X3{};
-std::vector<uint8_t> Pump_Calib_Y3{};
-std::vector<uint8_t> Pump_Calib_X4{};
-std::vector<uint8_t> Pump_Calib_Y4{};
+std::vector<uint8_t> Pump_Calib_X1{0};
+std::vector<uint8_t> Pump_Calib_Y1{0};
+std::vector<uint8_t> Pump_Calib_X2{0};
+std::vector<uint8_t> Pump_Calib_Y2{0};
+std::vector<uint8_t> Pump_Calib_X3{0};
+std::vector<uint8_t> Pump_Calib_Y3{0};
+std::vector<uint8_t> Pump_Calib_X4{0};
+std::vector<uint8_t> Pump_Calib_Y4{0};
 std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
