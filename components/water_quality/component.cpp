@@ -9,7 +9,7 @@ static const char *TAG = "mysensor";
 
 void MyComponent::setup() 
 {
-
+    Pump_Calib_X1.clear;
 }
 
 void MyComponent::loop() 
