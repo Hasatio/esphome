@@ -176,7 +176,7 @@ async def to_code(config):
     #     cg.add(var.test(212))
     
     type = []
-    calib = []
+    calib = [[]]
     con = config[CONF_PUMP1][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
