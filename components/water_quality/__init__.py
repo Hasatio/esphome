@@ -74,13 +74,13 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
                 # cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA.extend(
             {
                 # cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
     },
     # key=CONF_PUMP_TYPE,
     default_type=PUMP_TYPE_NULL,
@@ -208,7 +208,7 @@ async def to_code(config):
             
     if config[CONF_PUMP2][0] != 0:
         con = config[CONF_PUMP2][0]
-        conf = con[PUMP_TYPE_SCHEMA][0]
+        conf = con[CONF_PUMP_CALIBRATION][0]
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     cg.add(var.pump_type(conf[CONF_X]))
         cg.add(var.pump_type(conf[CONF_X]))
