@@ -46,14 +46,14 @@ void loop() override;
 void pump_calibration(const std::vector<uint8_t> &x,
                       const std::vector<uint8_t> &y) 
 { 
-    this->Pump_Calib_X1 = x[0];
-    this->Pump_Calib_Y1 = y[0];
-    this->Pump_Calib_X2 = x[1];
-    this->Pump_Calib_Y2 = y[1];
-    this->Pump_Calib_X3 = x[2];
-    this->Pump_Calib_Y3 = y[2];
-    this->Pump_Calib_X4 = x[3];
-    this->Pump_Calib_Y4 = y[3];
+    this->Pump_Calib_X1 = x;
+    this->Pump_Calib_Y1 = y;
+    // this->Pump_Calib_X2 = x[1];
+    // this->Pump_Calib_Y2 = y[1];
+    // this->Pump_Calib_X3 = x[2];
+    // this->Pump_Calib_Y3 = y[2];
+    // this->Pump_Calib_X4 = x[3];
+    // this->Pump_Calib_Y4 = y[3];
 }
 
 void pump_type(const std::vector<uint8_t> &t)
