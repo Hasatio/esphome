@@ -29,7 +29,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
     so = sizeof(pc);
     so2 = sizeof(pc[0]);
-    for (size_t i = 0; i < 12; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
         {
