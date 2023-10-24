@@ -159,7 +159,7 @@ CONFIG_SCHEMA = cv.All(
     # )           
     # PUMP_TYPE_SCHEMA,
             cv.Required(CONF_PUMP_TYPE1): cv.All(
-                PUMP_CALIBRATION_SCHEMA, cv.Length(min=1)
+                PUMP_CALIBRATION_SCHEMA, cv.Length(min=0)
             ),
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
