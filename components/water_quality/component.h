@@ -85,7 +85,7 @@ std::vector<uint8_t> Pump_Calib_X5{};
 std::vector<uint8_t> Pump_Calib_Y5{};
 std::vector<uint8_t> Pump_Calib_X6{};
 std::vector<uint8_t> Pump_Calib_Y6{};
-uint8_t Pump_Type[];
+uint8_t Pump_Type[6];
 // std::vector<uint8_t> Pump_Type{0};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
