@@ -165,6 +165,9 @@ CONFIG_SCHEMA = cv.All(
             #     cv.Required(CONF_DATA): cv.All(
             #         cv.ensure_list(cv.uint8_t),
             # ),
+            cv.Required(CONF_PUMP2): cv.All(
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=0)
+            ),
         }
     )
     .extend(cv.COMPONENT_SCHEMA),
