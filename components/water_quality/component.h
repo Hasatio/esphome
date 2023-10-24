@@ -69,7 +69,7 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-uint8_t Pump_Calib[][8];
+// uint8_t Pump_Calib[][8];
 std::vector<std::vector<uint8_t>> Pump_Calib{0};
 std::vector<uint8_t> Pump_Calib_X1{0};
 std::vector<uint8_t> Pump_Calib_Y1{0};
