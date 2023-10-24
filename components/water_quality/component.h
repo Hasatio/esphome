@@ -29,13 +29,13 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
     so = sizeof(pc);
     so2 = sizeof(pc[0]);
-    // for (size_t i = 0; i < 8; i++)
-    // {
-    //     for (int j = 0; j < 8; j++)
-    //     {
-    //         this->Pump_Calib[i][j] = pc[i][j];
-    //     }
-    // }
+    for (size_t i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            this->Pump_Calib[i][j] = pc[i][j];
+        }
+    }
 }
 
 void pump_type(const std::vector<uint8_t> &pt)
