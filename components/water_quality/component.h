@@ -46,11 +46,11 @@ void loop() override;
 void pump_calibration(const std::vector<uint8_t> &x,
                       const std::vector<uint8_t> &y) 
 { 
-    for(int c = 0; c < 8; c++)
-    {
-        this->Pump_Calib_X1[c]= x[c];
-        this->Pump_Calib_Y1[c]= y[c];
-    }
+    // for(int c = 0; c < 8; c++)
+    // {
+    //     this->Pump_Calib_X1[c]= x[c];
+    //     this->Pump_Calib_Y1[c]= y[c];
+    // }
     // this->Pump_Calib_X2 = x[1];
     // this->Pump_Calib_Y2 = y[1];
     // this->Pump_Calib_X3 = x[2];
@@ -75,8 +75,8 @@ void AnIn_Status(sensor::Sensor *a)
 }
 
 
-std::vector<uint8_t> Pump_Calib_X1{};
-std::vector<uint8_t> Pump_Calib_Y1{};
+std::vector<uint8_t> Pump_Calib_X1{0};
+std::vector<uint8_t> Pump_Calib_Y1{0};
 std::vector<uint8_t> Pump_Calib_X2{};
 std::vector<uint8_t> Pump_Calib_Y2{};
 std::vector<uint8_t> Pump_Calib_X3{};
