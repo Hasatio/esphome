@@ -47,7 +47,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc) //uint8_t x[]
 { 
     for (size_t i = 0; i < 2; i++)
     {
-        for (int j = 0; j < sizeof(Pump_Type) / sizeof(Pump_Type[0]); j++)
+        for (int j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0]); j++)
         {
             this->Pump_Calib[i][j] = pc[i][j];
         }
