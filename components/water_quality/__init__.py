@@ -43,7 +43,7 @@ UNIT_MILILITERS_PER_MINUTE = "ml/min"
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
 
-CALIBRATION_SCHEMA = cv.Schema(
+PUMP_CALIBRATION_SCHEMA = cv.Schema(
     {
         # cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_CALIBRATION): cv.All(
@@ -65,16 +65,16 @@ CALIBRATION_SCHEMA = cv.Schema(
     }
 )
                     
-TYPE_SCHEMA = cv.typed_schema(
+PUMP_TYPE_SCHEMA = cv.typed_schema(
     {
         # PUMP_TYPE_NULL: cv.Schema(),
-        PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
+        PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA.extend(
             {
                 # cv.GenerateID(): cv.declare_id(MyComponent),
                 
             }
         ).extend(cv.COMPONENT_SCHEMA),
-        PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
+        PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA.extend(
             {
                 # cv.GenerateID(): cv.declare_id(MyComponent),
                 
@@ -157,9 +157,9 @@ CONFIG_SCHEMA = cv.All(
     #     default_type=PUMP_TYPE_NULL,
     #     int=True,
     # )           
-    # TYPE_SCHEMA,
+    # PUMP_TYPE_SCHEMA,
             cv.Required(CONF_PUMP_TYPE1): cv.All(
-                cv.ensure_list(TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
