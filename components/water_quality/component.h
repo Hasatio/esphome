@@ -56,7 +56,7 @@ void pump_type(std::vector<uint8_t> &t)
 {
     for (int i = 0; i < 8; i++)
     {
-        this->Pump_Type[i] = t[i];
+        Pump_Type[i] = t[i];
     }
 }
 
