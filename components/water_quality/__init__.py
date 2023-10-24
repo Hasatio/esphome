@@ -26,7 +26,7 @@ CONF_PUMP3 = "pump3"
 CONF_PUMP4 = "pump4"
 CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
-CONF_TYPE = "type"
+CONF_PUMP_TYPE = "type"
 CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_TOTAL = "pump_total"
@@ -72,7 +72,7 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
         PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA,
         PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA,
     },
-    # key=CONF_PUMP_TYPE,
+    key=CONF_PUMP_TYPE,
     default_type=PUMP_TYPE_NULL,
     int=True,
 )
