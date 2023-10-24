@@ -45,7 +45,7 @@ void loop() override;
 // }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pc) //uint8_t x[][]
 { 
-    for (size_t i = 0; i < 2; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         for (int j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0]); j++)
         {
@@ -74,19 +74,6 @@ void AnIn_Status(sensor::Sensor *a)
 
 
 uint8_t Pump_Calib[12][12];
-// std::vector<std::vector<uint8_t>> Pump_Calib{{0},{0}};
-std::vector<uint8_t> Pump_Calib_X1{0};
-std::vector<uint8_t> Pump_Calib_Y1{0};
-std::vector<uint8_t> Pump_Calib_X2{};
-std::vector<uint8_t> Pump_Calib_Y2{};
-std::vector<uint8_t> Pump_Calib_X3{};
-std::vector<uint8_t> Pump_Calib_Y3{};
-std::vector<uint8_t> Pump_Calib_X4{};
-std::vector<uint8_t> Pump_Calib_Y4{};
-std::vector<uint8_t> Pump_Calib_X5{};
-std::vector<uint8_t> Pump_Calib_Y5{};
-std::vector<uint8_t> Pump_Calib_X6{};
-std::vector<uint8_t> Pump_Calib_Y6{};
 uint8_t Pump_Type[6];
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
