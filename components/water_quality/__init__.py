@@ -159,7 +159,7 @@ CONFIG_SCHEMA = cv.All(
     # )           
     # TYPE_SCHEMA,
             cv.Required(CONF_PUMP_TYPE1): cv.All(
-                cv.ensure_list(MENU_ITEM_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(TYPE_SCHEMA), cv.Length(min=1)
             ),
             # if config[CONF_PUMP_TYPE][0] == 1:
             #     cv.Required(CONF_DATA): cv.All(
