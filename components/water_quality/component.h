@@ -25,28 +25,37 @@ int ttt;
 void setup() override;
 void loop() override;
 
-void pump_calibration(const std::vector<uint8_t> &x1,
-                const std::vector<uint8_t> &y1,
-                const std::vector<uint8_t> &x2,
-                const std::vector<uint8_t> &y2,
-                const std::vector<uint8_t> &x3,
-                const std::vector<uint8_t> &y3,
-                const std::vector<uint8_t> &x4,
-                const std::vector<uint8_t> &y4) 
+// void pump_calibration(const std::vector<uint8_t> &x1,
+//                 const std::vector<uint8_t> &y1,
+//                 const std::vector<uint8_t> &x2,
+//                 const std::vector<uint8_t> &y2,
+//                 const std::vector<uint8_t> &x3,
+//                 const std::vector<uint8_t> &y3,
+//                 const std::vector<uint8_t> &x4,
+//                 const std::vector<uint8_t> &y4) 
+// { 
+//     this->Pump_Calib_X1 = x1;
+//     this->Pump_Calib_Y1 = y1;
+//     this->Pump_Calib_X2 = x2;
+//     this->Pump_Calib_Y2 = y2;
+//     this->Pump_Calib_X3 = x3;
+//     this->Pump_Calib_Y3 = y3;
+//     this->Pump_Calib_X4 = x4;
+//     this->Pump_Calib_Y4 = y4;
+// }
+void pump_calibration(const std::vector<std::vector<uint8_t>> &x,
+                const std::vector<std::vector<uint8_t>> &y) 
 { 
-    this->Pump_Calib_X1 = x1;
-    this->Pump_Calib_Y1 = y1;
-    this->Pump_Calib_X2 = x2;
-    this->Pump_Calib_Y2 = y2;
-    this->Pump_Calib_X3 = x3;
-    this->Pump_Calib_Y3 = y3;
-    this->Pump_Calib_X4 = x4;
-    this->Pump_Calib_Y4 = y4;
+    this->Pump_Calib_X1 = x[0];
+    this->Pump_Calib_Y1 = y[0];
+    this->Pump_Calib_X2 = x[1];
+    this->Pump_Calib_Y2 = y[1];
+    this->Pump_Calib_X3 = x[2];
+    this->Pump_Calib_Y3 = y[2];
+    this->Pump_Calib_X4 = x[3];
+    this->Pump_Calib_Y4 = y[3];
 }
-void test(int tt)
-{
-    ttt = tt;
-}
+
 void pump_type(const std::vector<uint8_t> &t)
 {
     this->Pump_Type = t;
