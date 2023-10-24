@@ -178,43 +178,43 @@ async def to_code(config):
     type = []
     calib = [[]]
     con = config[CONF_PUMP1][0]
+    type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
             
     con = config[CONF_PUMP2][0]
-    if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
+    type.append(con[CONF_PUMP_TYPE])
+    # if con[CONF_PUMP_TYPE] != 0:
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
         
     con = config[CONF_PUMP3][0]
-    if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
+    type.append(con[CONF_PUMP_TYPE])
+    # if con[CONF_PUMP_TYPE] != 0:
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
         
     con = config[CONF_PUMP4][0]
-    if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
+    type.append(con[CONF_PUMP_TYPE])
+    # if con[CONF_PUMP_TYPE] != 0:
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
         
     con = config[CONF_PUMP5][0]
-    if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
+    type.append(con[CONF_PUMP_TYPE])
+    # if con[CONF_PUMP_TYPE] != 0:
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
         
     con = config[CONF_PUMP6][0]
-    if con[CONF_PUMP_TYPE] != 0:
-        type.append(con[CONF_PUMP_TYPE])
+    type.append(con[CONF_PUMP_TYPE])
+    # if con[CONF_PUMP_TYPE] != 0:
         # for conf in con[CONF_PUMP_CALIBRATION]:
         #     calib.append(conf[CONF_X])
         #     calib.append(conf[CONF_Y])
