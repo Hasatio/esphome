@@ -52,7 +52,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &x) //uint8_t x[][
     this->Pump_Calib = x;
 }
 
-void pump_type(std::vector<uint8_t> &t)
+void pump_type(const std::vector<uint8_t> &t)
 {
     for (int i = 0; i < 8; i++)
     {
