@@ -128,34 +128,9 @@ CONFIG_SCHEMA = cv.All(
             #     ),
             #     cv.Length(max=12),
             # ),
-    # cv.typed_schema(
-    #     {
-    #         # PUMP_TYPE_NULL: cv.Schema(),
-    #         PUMP_TYPE_DOSE: CALIBRATION_SCHEMA.extend(
-    #             {
-    #                 # cv.GenerateID(): cv.declare_id(MyComponent),
-                    
-    #             }
-    #         ).extend(cv.COMPONENT_SCHEMA),
-    #         PUMP_TYPE_CIRCULATION: CALIBRATION_SCHEMA.extend(
-    #             {
-    #                 # cv.GenerateID(): cv.declare_id(MyComponent),
-                    
-    #             }
-    #         ).extend(cv.COMPONENT_SCHEMA),
-    #     },
-    #     key=CONF_PUMP_TYPE1,
-    #     default_type=PUMP_TYPE_NULL,
-    #     int=True,
-    # )           
-    # PUMP_TYPE_SCHEMA,
             cv.Required(CONF_PUMP1): cv.All(
-                PUMP_CALIBRATION_SCHEMA, cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
-            # if config[CONF_PUMP_TYPE][0] == 1:
-            #     cv.Required(CONF_DATA): cv.All(
-            #         cv.ensure_list(cv.uint8_t),
-            # ),
             cv.Required(CONF_PUMP2): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
@@ -189,12 +164,12 @@ async def to_code(config):
     #     cg.add(var.test(212))
     
     type = []
-    # if config[CONF_PUMP1] != 0:
-    con = config[CONF_PUMP1]
-    for conf in con[CONF_PUMP_CALIBRATION]:
-        # for conf in con[CONF_PUMP_CALIBRATION]:
-        arr = [conf[CONF_X], conf[CONF_Y]]
-        cg.add(var.pump_calibration(arr))
+    con = config[CONF_PUMP1][0]
+    if con[CONF_PUMP_TYPE] != 0:
+        type.append(con[CONF_PUMP_TYPE])
+        for conf in con[CONF_PUMP_CALIBRATION]:
+            arr = [conf[CONF_X], conf[CONF_Y]]
+            cg.add(var.pump_calibration(arr))
             
     con = config[CONF_PUMP2][0]
     if con[CONF_PUMP_TYPE] != 0:
