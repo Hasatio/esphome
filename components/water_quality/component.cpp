@@ -26,8 +26,8 @@ void MyComponent::loop()
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y5));
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X6));
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y6));
-    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
-    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib[0][0]));
+    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
+    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib[0][0]));
 
     for (size_t i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
     {
@@ -45,7 +45,7 @@ void MyComponent::loop()
 
     for (size_t i = 0; i < 2*3; i++)
     {
-        for (size_t j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0]); j++)
+        for (size_t j = 0; j < sizeof(Pump_Calib) / sizeof(Pump_Calib[0][0]); j++)
         {
             ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
         }
