@@ -30,7 +30,7 @@ void MyComponent::loop()
     ESP_LOGD(TAG,"%d", Pump_Mode.size());
     ESP_LOGD(TAG,"%d", sizeof(number));
 
-    for (size_t i = 0; i < 2); i++)
+    for (size_t i = 0; i < 2; i++)
     {
     //     ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
     //     ESP_LOGD(TAG,"y1[%d] = %d", i, Pump_Calib_Y1[i]);
