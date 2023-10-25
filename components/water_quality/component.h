@@ -24,14 +24,14 @@ uint8_t number;
 void setup() override;
 void loop() override;
 
-void pump_type(const std::vector<uint8_t> &pt)
+void pump_type(const std::vector<uint8_t> &pt, uint8_t s)
 {
+    number = s;
     this->Pump_Type = pt;
 }
 
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc, uint8_t s)
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
-    number = s;
     this->Pump_Calib = pc;
 }
 
