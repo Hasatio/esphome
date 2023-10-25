@@ -104,7 +104,8 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     {
     std::vector<uint8_t> data = this->mode_.value(x...);
 
-    this->parent_->pump_mode(data);
+    // this->parent_->pump_mode(data);
+    this->parent_->pump_mode(this->mode_.value(x...));
     }
 
 
