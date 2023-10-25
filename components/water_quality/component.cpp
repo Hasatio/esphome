@@ -32,6 +32,7 @@ void MyComponent::loop()
     ESP_LOGD(TAG,"%d", so2);
     ESP_LOGD(TAG,"%d", so3);
     ESP_LOGD(TAG,"%d", so4);
+    ESP_LOGD(TAG,"%d", so5);
 
     // for (size_t i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
     // {

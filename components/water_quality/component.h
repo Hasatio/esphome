@@ -29,6 +29,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 { 
     so = sizeof(pc);
     so2 = sizeof(pc[0]);
+    so3 = sizeof(pc[0]);
     // for (size_t i = 0; i < 10; i++)
     // {
     //     for (int j = 0; j < 10; j++)
@@ -40,8 +41,8 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 
 void pump_type(const std::vector<uint8_t> &pt)
 {
-    so3 = sizeof(pt);
-    so4 = sizeof(pt[0]);
+    so4 = sizeof(pt);
+    so5 = sizeof(pt[0]);
     // for (int i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
     // {
     //     this->Pump_Type[i] = pt[i];
@@ -58,7 +59,7 @@ void AnIn_Status(sensor::Sensor *a)
     AnIn_Status_ = a;
 }
 
-uint8_t so,so2,so3,so4;
+uint8_t so,so2,so3,so4,so5;
 uint8_t Pump_Calib[12][10];
 uint8_t Pump_Type[6];
 std::vector<uint8_t> Pump_Mode{};
