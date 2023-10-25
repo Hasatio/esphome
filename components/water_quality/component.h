@@ -49,7 +49,7 @@ protected:
 
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
-std::vector<uint8_t> Pump_Mode{};
+std::vector<uint8_t> Pump_Mode{0};
 std::vector<uint8_t> Pump_Dose{0};
 std::vector<uint8_t> Pump_Circulation{0};
 std::vector<uint8_t> Pump_Reset{};
