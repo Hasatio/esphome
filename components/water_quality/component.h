@@ -84,9 +84,9 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 
     void play(Ts... x) 
     {
-    std::vector<uint8_t> pump = this->set_.value(x...);
+    std::vector<uint8_t> val = this->set_.value(x...);
 
-    this->parent_->pump_mode(data);
+    this->parent_->pump_mode(val);
     }
 
 
