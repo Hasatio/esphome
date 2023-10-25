@@ -53,11 +53,11 @@ PUMP_CALIBRATION_SCHEMA = cv.Schema(
                     {
                         cv.Required(CONF_X): cv.All(
                             cv.ensure_list(cv.uint8_t),
-                            cv.Length(min=12, max=13),
+                            cv.Length(min=8, max=8),
                         ),
                         cv.Required(CONF_Y): cv.All(
                             cv.ensure_list(cv.uint8_t),
-                            cv.Length(min=12, max=13),
+                            cv.Length(min=8, max=8),
                         ),
                     }
                 )
