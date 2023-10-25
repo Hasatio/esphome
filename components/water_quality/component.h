@@ -35,9 +35,14 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
     this->Pump_Calib = pc;
 }
 
-void pump_dose(const std::vector<uint8_t> &d)
+void pump_mode(const std::vector<uint8_t> &pm)
 {
-    this->Pump_Dose = d;
+    this->Pump_Mode = pm;
+}
+
+void pump_dose(const std::vector<uint8_t> &pd)
+{
+    this->Pump_Dose = pd;
 }
 
 void AnIn_Status(sensor::Sensor *a) 

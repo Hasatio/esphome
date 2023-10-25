@@ -82,53 +82,6 @@ CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
-            # cv.Required(CONF_PUMP_TYPE): cv.All(
-            #                     cv.ensure_list(cv.int_range(min=0, max=2)),
-            #                     cv.Length(min=6, max=6),
-            # ),
-        
-    # .extend(cv.COMPONENT_SCHEMA),
-            # cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-            #     cv.ensure_list(
-            #         cv.Schema(
-            #             {
-            #                 cv.Required(CONF_X1): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_Y1): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_X2): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_Y2): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_X3): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_Y3): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_X4): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #                 cv.Required(CONF_Y4): cv.All(
-            #                     cv.ensure_list(cv.uint8_t),
-            #                     cv.Length(min=8, max=8),
-            #                 ),
-            #             }
-            #         ).extend(cv.COMPONENT_SCHEMA),
-            #     ),
-            #     cv.Length(max=12),
-            # ),
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
             ),
