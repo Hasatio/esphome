@@ -25,7 +25,7 @@ uint8_t number;
 void setup() override;
 void loop() override;
 
-void pump_type(const std::vector<uint8_t> &pt, uint8_t s)
+void pump_type(const std::vector<uint8_t> &pt, const uint8_t s)
 {
     number = s;
     this->Pump_Type = pt;
@@ -38,11 +38,13 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 
 void pump_mode(std::vector<uint8_t> &pm)
 {
+    pm.resize(number);
     this->Pump_Mode = pm;
 }
 
-void pump_dose(const std::vector<uint8_t> &pd)
+void pump_dose(std::vector<uint8_t> &pd)
 {
+    pd.resize(number);
     this->Pump_Dose = pd;
 }
 
@@ -105,7 +107,6 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     {
     std::vector<uint8_t> data = this->mode_.value(x...);
 
-    data.resize(number);
     this->parent_->pump_mode(data);
     // this->parent_->pump_mode(this->mode_.value(x...));
     }
