@@ -227,8 +227,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
         
-    cg.add(var.pump_calibration(calib))
-    cg.add(var.pump_type(type, num))
+    cg.add(var.pump_calibration(calib, num))
+    cg.add(var.pump_type(type))
             
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)

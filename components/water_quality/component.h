@@ -24,21 +24,15 @@ uint8_t number;
 void setup() override;
 void loop() override;
 
-void pump_type(const std::vector<uint8_t> &pt, uint8_t s)
+void pump_type(const std::vector<uint8_t> &pt)
 {
-    number = s;
     this->Pump_Type = pt;
 }
 
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pc, uint8_t s)
 { 
-    for (size_t i = 0; i < number*2; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            this->Pump_Calib[i][j] = pc[i][j];
-        }
-    }
+    number = s;
+    this->Pump_Calib = pc;
 }
 
 void pump_dose(const std::vector<uint8_t> &d)
@@ -53,7 +47,7 @@ void AnIn_Status(sensor::Sensor *a)
 
 protected:
 
-uint8_t Pump_Calib[12][8];
+std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{};
 std::vector<uint8_t> Pump_Dose{0};
