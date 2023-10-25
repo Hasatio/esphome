@@ -41,7 +41,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 
 void pump_type(const std::vector<uint8_t> &pt)
 {
-    for (int i = 0; i < 6); i++)
+    for (int i = 0; i < 6; i++)
     {
         this->Pump_Type[i] = pt[i];
     }
