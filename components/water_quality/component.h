@@ -24,23 +24,23 @@ uint8_t number;
 void setup() override;
 void loop() override;
 
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc, uint8_t s)
-{ 
+void pump_type(const std::vector<uint8_t> &pt, uint8_t s)
+{
     number = s;
+    for (int i = 0; i < 6; i++)
+    {
+        this->Pump_Type[i] = pt[i];
+    }
+}
+
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
+{ 
     for (size_t i = 0; i < s*2; i++)
     {
         for (int j = 0; j < 8; j++)
         {
             this->Pump_Calib[i][j] = pc[i][j];
         }
-    }
-}
-
-void pump_type(const std::vector<uint8_t> &pt)
-{
-    for (int i = 0; i < 6; i++)
-    {
-        this->Pump_Type[i] = pt[i];
     }
 }
 
