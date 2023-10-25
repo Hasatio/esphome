@@ -28,7 +28,7 @@ void MyComponent::loop()
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y6));
     ESP_LOGD(TAG,"%d", sizeof(Pump_Mode));
     ESP_LOGD(TAG,"%d", Pump_Mode.size());
-    ESP_LOGD(TAG,"%d", sizeof(number));
+    ESP_LOGD(TAG,"%d", number);
 
     for (size_t i = 0; i < 2; i++)
     {
