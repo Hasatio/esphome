@@ -38,7 +38,6 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
 
 void pump_mode(std::vector<uint8_t> &pm)
 {
-    pm.resize(number);
     this->Pump_Mode = pm;
 }
 
@@ -106,6 +105,7 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     {
     std::vector<uint8_t> data = this->mode_.value(x...);
 
+    data.resize(number);
     this->parent_->pump_mode(data);
     // this->parent_->pump_mode(this->mode_.value(x...));
     }
