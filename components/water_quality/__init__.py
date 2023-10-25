@@ -215,7 +215,7 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     mode = config[CONF_PUMP_MODE]
-    cg.add(var.set_mode(mode))
+    cg.add(var.pump_mode(mode))
 
     return var
 
