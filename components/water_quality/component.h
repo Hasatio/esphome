@@ -98,7 +98,7 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     PumpModeAction(MyComponent *parent) : parent_(parent){};
     TEMPLATABLE_VALUE(std::vector<uint8_t>, mode);
     
-    void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
+    // void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
 
     void play(Ts... x) 
     {
