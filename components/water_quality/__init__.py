@@ -221,7 +221,8 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_MODE): cv.All(
-                [cv.Any(cv.uint8_t)],
+                # [cv.Any(cv.uint8_t)],
+                cv.uint8_t,
                 cv.Length(min=0, max=3),
         ),
     }
