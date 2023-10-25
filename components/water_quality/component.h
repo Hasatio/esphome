@@ -78,13 +78,13 @@ sensor::Sensor *DigOut_Status_{nullptr};
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     public:
     PumpModeAction(MyComponent *parent) : parent_(parent){};
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, mode);
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, data);
     
-    void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
+    void set_mode(const std::vector<uint8_t> &set) { data_ = set; }
 
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->mode_.value(x...);
+    std::vector<uint8_t> pump = this->set_.value(x...);
 
     this->parent_->pump_mode(data);
     }
@@ -103,9 +103,9 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
 
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->dose_.value(x...);
+    std::vector<uint8_t> val = this->dose_.value(x...);
 
-    this->parent_->pump_dose(data);
+    this->parent_->pump_dose(val);
     }
 
 
