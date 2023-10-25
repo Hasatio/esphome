@@ -173,10 +173,13 @@ PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
-        cv.Required(CONF_PUMP_MODE): cv.All(
+        cv.Required(CONF_PUMP_MODE): (
+            # cv.All(
                 # [cv.Any(cv.uint8_t)],
-                cv.templatable(cv.ensure_list(cv.uint8_t)),
-                cv.Length(min=0, max=3),
+                # cv.ensure_list(cv.uint8_t),
+                cv.templatable(cv.uint8_t),
+                # cv.Length(min=0, max=3),
+            # )
         ),
         # cv.Required(CONF_PUMP_MODE):
         #     cv.templatable(cv.int_range()),
@@ -214,8 +217,8 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     mode = config[CONF_PUMP_MODE]
-    # template_ = await cg.templatable(mode, args, cg.uint8)
-    template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
+    template_ = await cg.templatable(mode, args, cg.uint8)
+    # template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
     cg.add(var.set_mode(template_))
     # cg.add(var.set_mode(mode))
 
