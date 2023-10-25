@@ -214,8 +214,8 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     mode = config[CONF_PUMP_MODE]
-    template_ = await cg.templatable(mode, args, cg.uint8)
-    # template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
+    # template_ = await cg.templatable(mode, args, cg.uint8)
+    template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
     cg.add(var.set_mode(template_))
     # cg.add(var.set_mode(mode))
 
