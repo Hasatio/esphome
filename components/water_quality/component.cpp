@@ -43,7 +43,7 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"[%d] = %d", i, Pump_Type[i]);
     // }
 
-    for (size_t i = 0; i < 2*6; i++)
+    for (size_t i = 0; i < number*2; i++)
     {
         for (size_t j = 0; j < 4; j++)
         {
