@@ -19,24 +19,21 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
-uint8_t dd,dd2[8]={0,0,0,0,0,0,0,0};
-int ttt;
+uint8_t number;
 
 void setup() override;
 void loop() override;
 
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pc, uint8_t s)
 { 
-    so = sizeof(pc);
-    so2 = sizeof(pc[0]);
-    so3 = sizeof(pc[0][0]);
-    // for (size_t i = 0; i < 10; i++)
-    // {
-    //     for (int j = 0; j < 10; j++)
-    //     {
-    //         this->Pump_Calib[i][j] = pc[i][j];
-    //     }
-    // }
+    number = s;
+    for (size_t i = 0; i < s*2; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            this->Pump_Calib[i][j] = pc[i][j];
+        }
+    }
 }
 
 void pump_type(const std::vector<uint8_t> &pt)
@@ -57,7 +54,6 @@ void AnIn_Status(sensor::Sensor *a)
     AnIn_Status_ = a;
 }
 
-uint8_t so,so2,so3,so4,so5;
 uint8_t Pump_Calib[12][8];
 uint8_t Pump_Type[6];
 std::vector<uint8_t> Pump_Mode{};

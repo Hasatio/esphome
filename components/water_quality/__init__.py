@@ -177,9 +177,12 @@ async def to_code(config):
     
     type = []
     calib = []
+    num = 0
+    
     con = config[CONF_PUMP1][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -187,6 +190,7 @@ async def to_code(config):
     con = config[CONF_PUMP2][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -194,6 +198,7 @@ async def to_code(config):
     con = config[CONF_PUMP3][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -201,6 +206,7 @@ async def to_code(config):
     con = config[CONF_PUMP4][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -208,6 +214,7 @@ async def to_code(config):
     con = config[CONF_PUMP5][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -215,12 +222,13 @@ async def to_code(config):
     con = config[CONF_PUMP6][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
+        num +=1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
         
     cg.add(var.pump_calibration(calib))
-    cg.add(var.pump_type(type))
+    cg.add(var.pump_type(type, num))
             
 
 # PumpTypeAction = component_ns.class_("PumpTypeAction", automation.Action)

@@ -26,11 +26,9 @@ void MyComponent::loop()
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y5));
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_X6));
     // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib_Y6));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
-    ESP_LOGD(TAG,"%d", sizeof(Pump_Calib[0]));
-    ESP_LOGD(TAG,"%d", so);
-    ESP_LOGD(TAG,"%d", so2);
-    ESP_LOGD(TAG,"%d", so3);
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib));
+    // ESP_LOGD(TAG,"%d", sizeof(Pump_Calib[0]));
+
     // for (size_t i = 0; i < sizeof(Pump_Type) / sizeof(Pump_Type[0]); i++)
     // {
     // //     ESP_LOGD(TAG,"x1[%d] = %d", i, Pump_Calib_X1[i]);
@@ -45,13 +43,13 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"[%d] = %d", i, Pump_Type[i]);
     // }
 
-    // for (size_t i = 0; i < 2*6; i++)
-    // {
-    //     for (size_t j = 0; j < 4; j++)
-    //     {
-    //         ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
-    //     }
-    // }
+    for (size_t i = 0; i < 2*6; i++)
+    {
+        for (size_t j = 0; j < 4; j++)
+        {
+            ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
+        }
+    }
 
 delay(1000);
 }
