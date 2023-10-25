@@ -223,7 +223,6 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
         cv.Required(CONF_PUMP_MODE): cv.All(
                 # [cv.Any(cv.uint8_t)],
                 cv.templatable(cv.int_range()),
-                cv.Length(min=0, max=3),
         ),
     }
 )
