@@ -36,7 +36,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
     this->Pump_Calib = pc;
 }
 
-void pump_mode(const std::vector<uint8_t> &pm)
+void pump_mode(std::vector<uint8_t> &pm)
 {
     pm.resize(number);
     this->Pump_Mode = pm;
