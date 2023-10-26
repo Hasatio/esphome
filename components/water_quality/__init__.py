@@ -18,7 +18,7 @@ CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
 CONF_X = "x"
 CONF_Y = "y"
-CONF_PUMP_TYPE = "type"
+CONF_PUMP_TYPE = "pump_type"
 CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
@@ -109,7 +109,7 @@ CONFIG_SCHEMA = cv.All(
                 cv.Length(min = 1)
             ),
             cv.Optional(CONF_SERVO_CHANNELS): cv.All(
-                cv.ensure_list(cv.uint8_t),
+                cv.ensure_list(cv.int_range(min = 0, max = 1)),
                 cv.Length(max = 8)
             ),
             cv.Required(CONF_LEVEL): cv.All(
@@ -133,19 +133,19 @@ CONFIG_SCHEMA = cv.All(
                     cv.Schema(
                         {
                             cv.Required(CONF_EC_CHANNEL): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.int_range(min = 0, max = 4)),
                                 cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_EC_TYPE): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.int_range(min = 0, max = 2)),
                                 cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_PH_CHANNEL): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.int_range(min = 0, max = 4)),
                                 cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_PH_TYPE): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.int_range(min = 0, max = 2)),
                                 cv.Length(min = 1, max = 1)
                             ),
                         }
