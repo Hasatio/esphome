@@ -217,9 +217,9 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     val = config[CONF_PUMP_DOSE]
-    # template_ = await cg.templatable(dose, args, cg.uint8)
-    # template_ = await cg.templatable(dose, args, cg.std_vector.template(cg.uint8))
-    # cg.add(var.set_dose(template_))
-    cg.add(var.set_mode(val))
+    if cg.is_template(val):
+        # template_ = await cg.templatable(dose, args, cg.uint8)
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_dose(template_))
 
     return var
