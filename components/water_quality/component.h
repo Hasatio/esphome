@@ -109,7 +109,7 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     PumpModeAction(MyComponent *parent) : parent_(parent){};
     TEMPLATABLE_VALUE(std::vector<uint8_t>, mode);
     
-    // void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
+    void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
 
     void play(Ts... x) 
     {
@@ -126,15 +126,15 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
     PumpDoseAction(MyComponent *parent) : parent_(parent){};
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, dose);
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
     
-    void set_dose(const std::vector<uint8_t> &set) { dose_ = set; }
+    void set_dose(const std::vector<uint8_t> &set) { val_ = set; }
 
     void play(Ts... x) 
     {
-    std::vector<uint8_t> val = this->dose_.value(x...);
+    std::vector<uint8_t> data = this->val_.value(x...);
 
-    this->parent_->pump_dose(val);
+    this->parent_->pump_dose(data);
     }
 
 

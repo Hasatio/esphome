@@ -180,8 +180,10 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         # cv.Required(CONF_DOSE): cv.templatable(
         #     cv.int_range()
         # ),
-        cv.Required(CONF_PUMP_DOSE): cv.All(
+        cv.Required(CONF_PUMP_DOSE): (
+            cv.All(
                 [cv.Any(cv.uint8_t)],
+            )
         ),
     }
 )
