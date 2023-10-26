@@ -241,10 +241,9 @@ async def to_code(config):
         conf = config[CONF_SERVO_CHANNELS]
         cg.add(var.servo_channels(conf))
         
-    con = config[CONF_LEVEL]
     min = []
     max = []
-    for conf in con[CONF_PUMP_CALIBRATION]:
+    for conf in config[CONF_LEVEL]:
         min.append(conf[CONF_RES_MIN])
         max.append(conf[CONF_RES_MAX])
     cg.add(var.level_res(min, max))
