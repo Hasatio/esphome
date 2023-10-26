@@ -200,7 +200,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         # ),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             
-            cv.Any(cv.uint8_t),
+            cv.templatable(cv.uint8_t),
             cv.Length(min=0, max=3),
         ),
     }
