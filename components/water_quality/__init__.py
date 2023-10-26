@@ -199,9 +199,9 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         #     cv.int_range()
         # ),
         cv.Required(CONF_PUMP_DOSE): (
-            cv.All(
-                [cv.Any(cv.uint8_t)],
-            )
+            
+                cv.Any(cv.uint8_t),
+            
         ),
     }
 )
