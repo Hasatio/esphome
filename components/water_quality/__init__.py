@@ -182,13 +182,13 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    mode = config[CONF_PUMP_MODE]
-    # template_ = await cg.templatable(mode, args, cg.uint8)
-    template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
-    cg.add(var.set_val(template_))
-    # cg.add(var.set_mode(mode))
+    val = config[CONF_PUMP_DOSE]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
 
     return var
+
 
 PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 
@@ -218,7 +218,6 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_DOSE]
     if cg.is_template(val):
-        # template_ = await cg.templatable(dose, args, cg.uint8)
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
         cg.add(var.set_val(template_))
 
