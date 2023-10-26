@@ -82,13 +82,13 @@ void level_res(std::vector<uint16_t> &rmin, std::vector<uint16_t> &rmax)
     this->AnInL_LvlResMax = rmax;
 }
 
-void ec(uint8_t &ch, uint8_t &type)
+void ec(uint8_t ch, uint8_t type)
 {
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
 
-void ph(uint8_t &ch, uint8_t &type)
+void ph(uint8_t ch, uint8_t type)
 {
     AnInPH_Ch = ch;
     AnInPH_Type = type;
