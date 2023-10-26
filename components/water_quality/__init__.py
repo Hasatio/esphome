@@ -129,7 +129,7 @@ CONFIG_SCHEMA = cv.All(
                 )
             ),
             cv.Required(CONF_SENSORS): cv.All(
-                cv.ensure_list(
+                # cv.ensure_list(
                     cv.Schema(
                         {
                             cv.Required(CONF_EC_CHANNEL): cv.All(
@@ -150,7 +150,7 @@ CONFIG_SCHEMA = cv.All(
                             ),
                         }
                     )
-                )
+                # )
             ),
             
         }
