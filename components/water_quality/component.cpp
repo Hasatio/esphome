@@ -40,7 +40,7 @@ void MyComponent::loop()
     {
         for (size_t j = 0; j < 4; j++)
         {
-            ESP_LOGD(TAG,"x/y[%d] = %d", i, Pump_Calib[i][j]);
+            ESP_LOGD(TAG,"x[%d]y[%d] = %d", i, j, Pump_Calib[i][j]);
         }
     }
 
