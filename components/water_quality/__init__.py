@@ -7,7 +7,7 @@ from esphome.const import (
 ) 
 
 CODEOWNERS = ["@hasatio"]
-AUTO_LOAD = ["sensor", "output"]
+AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
 CONF_PUMP1 = "pump1"
@@ -22,6 +22,20 @@ CONF_PUMP_TYPE = "type"
 CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
+CONF_PUMP_CIRCULATION = "pump_circulation"
+CONF_PUMP_RESET = "pump_reset"
+CONF_SERVO_CHANNELS = "servo_channels"
+CONF_SERVO_MODE = "servo_mode"
+CONF_SERVO_POSITION = "servo_position"
+CONF_LEVEL = "level"
+CONF_RES_MIN = "res_min"
+CONF_RES_MAX = "res_max"
+CONF_SENSORS = "sensors"
+CONF_EC_CHANNEL = "ec_channel"
+CONF_EC_TYPE = "ec_type"
+CONF_PH_CHANNEL = "ph_channel"
+CONF_PH_TYPE = "ph_type"
+CONF_DIGITAL_OUT = "digital_out"
 
 PUMP_TYPE_NULL = 0
 PUMP_TYPE_DOSE = 1
@@ -38,11 +52,11 @@ PUMP_CALIBRATION_SCHEMA = cv.Schema(
                     {
                         cv.Required(CONF_X): cv.All(
                             cv.ensure_list(cv.uint8_t),
-                            cv.Length(min=8, max=8),
+                            cv.Length(min = 8, max = 8),
                         ),
                         cv.Required(CONF_Y): cv.All(
                             cv.ensure_list(cv.uint8_t),
-                            cv.Length(min=8, max=8),
+                            cv.Length(min = 8, max = 8),
                         ),
                     }
                 )
@@ -71,23 +85,74 @@ CONFIG_SCHEMA = cv.All(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
             cv.Required(CONF_PUMP1): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP2): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP3): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP4): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP5): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP6): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA), cv.Length(min=1)
+                cv.ensure_list(PUMP_TYPE_SCHEMA),
+                cv.Length(min = 1)
             ),
+            cv.Optional(CONF_SERVO_CHANNELS): cv.All(
+                cv.ensure_list(cv.uint8_t),
+                cv.Length(max = 8)
+            ),
+            cv.Required(CONF_LEVEL): cv.All(
+                cv.ensure_list(
+                    cv.Schema(
+                        {
+                            cv.Required(CONF_RES_MIN): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 2)
+                            ),
+                            cv.Required(CONF_RES_MAX): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 2)
+                            ),  
+                        }
+                    )
+                )
+            ),
+            cv.Required(CONF_SENSORS): cv.All(
+                cv.ensure_list(
+                    cv.Schema(
+                        {
+                            cv.Required(CONF_EC_CHANNEL): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 1)
+                            ),
+                            cv.Required(CONF_EC_TYPE): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 1)
+                            ),
+                            cv.Required(CONF_PH_CHANNEL): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 1)
+                            ),
+                            cv.Required(CONF_PH_TYPE): cv.All(
+                                cv.ensure_list(cv.uint8_t),
+                                cv.Length(min = 1, max = 1)
+                            ),
+                        }
+                    )
+                )
+            ),
+            
         }
     )
     .extend(cv.COMPONENT_SCHEMA),
@@ -100,12 +165,16 @@ async def to_code(config):
     
     type = []
     calib = []
-    num = 0
+    dose = 0
+    circ = 0
     
     con = config[CONF_PUMP1][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -113,7 +182,10 @@ async def to_code(config):
     con = config[CONF_PUMP2][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -121,7 +193,10 @@ async def to_code(config):
     con = config[CONF_PUMP3][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -129,7 +204,10 @@ async def to_code(config):
     con = config[CONF_PUMP4][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -137,7 +215,10 @@ async def to_code(config):
     con = config[CONF_PUMP5][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
@@ -145,13 +226,34 @@ async def to_code(config):
     con = config[CONF_PUMP6][0]
     type.append(con[CONF_PUMP_TYPE])
     if con[CONF_PUMP_TYPE] != 0:
-        num +=1
+        if con[CONF_PUMP_TYPE] == 1:
+            dose += 1
+        else:
+            circ += 1
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
         
     cg.add(var.pump_calibration(calib))
-    cg.add(var.pump_type(type, num))
+    cg.add(var.pump_type(type, dose, circ))
+    
+    if CONF_SERVO_CHANNELS in config:
+        conf = config[CONF_SERVO_CHANNELS]
+        cg.add(var.servo_channels(conf))
+        
+    conf = config[CONF_LEVEL]
+    min = conf[CONF_RES_MIN]
+    max = conf[CONF_RES_MAX]
+    cg.add(var.level_res(min, max))
+    
+    conf = config[CONF_SENSORS]
+    ch = conf[CONF_EC_CHANNEL]
+    t = conf[CONF_EC_TYPE]
+    cg.add(var.ec(ch, t))
+    ch = conf[CONF_PH_CHANNEL]
+    t = conf[CONF_PH_TYPE]
+    cg.add(var.ph(ch, t))
+
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
@@ -195,13 +297,8 @@ PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
-        # cv.Required(CONF_DOSE): cv.templatable(
-        #     cv.int_range()
-        # ),
         cv.Required(CONF_PUMP_DOSE): cv.All(
-            
             cv.templatable(cv.ensure_list(cv.uint8_t)),
-            # cv.Length(min=0, max=3),
         ),
     }
 )
@@ -217,6 +314,151 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     val = config[CONF_PUMP_DOSE]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
+
+    return var
+
+
+PumpCirculationAction = component_ns.class_("PumpCirculationAction", automation.Action)
+
+PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_PUMP_CIRCULATION): cv.All(
+            cv.templatable(cv.ensure_list(cv.uint8_t)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.pump_circulation", 
+    PumpCirculationAction, 
+    PUMP_CIRCULATION_ACTION_SCHEMA
+)
+
+async def pump_circulation_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_PUMP_CIRCULATION]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
+
+    return var
+
+
+PumpResetAction = component_ns.class_("PumpResetAction", automation.Action)
+
+PUMP_RESET_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_PUMP_RESET): cv.All(
+            cv.templatable(cv.ensure_list(cv.uint8_t)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.pump_reset", 
+    PumpResetAction, 
+    PUMP_RESET_ACTION_SCHEMA
+)
+
+async def pump_reset_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_PUMP_RESET]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
+
+    return var
+
+
+ServoModeAction = component_ns.class_("ServoModeAction", automation.Action)
+
+SERVO_MODE_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_SERVO_MODE): cv.All(
+            cv.templatable(cv.ensure_list(cv.uint8_t)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.servo_mode", 
+    ServoModeAction, 
+    SERVO_MODE_ACTION_SCHEMA
+)
+
+async def servo_mode_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_SERVO_MODE]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
+
+    return var
+
+
+ServoPositionAction = component_ns.class_("ServoModeAction", automation.Action)
+
+SERVO_POSITION_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_SERVO_POSITION): cv.All(
+            cv.templatable(cv.ensure_list(cv.uint8_t)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.servo_position", 
+    ServoPositionAction, 
+    SERVO_POSITION_ACTION_SCHEMA
+)
+
+async def servo_position_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_SERVO_POSITION]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_val(template_))
+
+    return var
+
+
+DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
+
+DIGITAL_OUT_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.Required(CONF_DIGITAL_OUT): cv.All(
+            cv.templatable(cv.ensure_list(cv.uint8_t)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.digital_out", 
+    DigitalOutAction, 
+    DIGITAL_OUT_ACTION_SCHEMA
+)
+
+async def digital_out_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_DIGITAL_OUT]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
         cg.add(var.set_val(template_))
