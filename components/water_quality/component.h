@@ -48,9 +48,9 @@ void pump_dose(std::vector<uint8_t> &pd)
     this->Pump_Dose = pd;
 }
 
-void AnIn_Status(sensor::Sensor *a) 
+void AnLIn_Perc(sensor::Sensor *a) 
 {
-    AnIn_Status_ = a;
+    AnLIn_Perc_ = a;
 }
 
 protected:
