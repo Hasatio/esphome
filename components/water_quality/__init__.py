@@ -5,13 +5,12 @@ from esphome.const import (
     CONF_DATA
 ) 
 
-from .output import (
+from output import (
     CONF_X,
     CONF_Y,
     CONF_PUMP_TYPE,
     CONF_PUMP_CALIBRATION, 
     PUMP_TYPE_SCHEMA,
-    PUMP_MODE_ACTION_SCHEMA
 )
 
 CODEOWNERS = ["@hasatio"]
