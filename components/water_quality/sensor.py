@@ -12,16 +12,19 @@ from esphome.const import (
 
 from . import (
     component_ns, 
-    MyComponent, 
-    CONF_PUMP_TOTAL,
-    CONF_PUMP_STATUS,
-    CONF_ANALOG_OUTPUT,
-    UNIT_MILILITER, 
-    UNIT_MILILITERS_PER_MINUTE,
+    MyComponent,
 )
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
+
+CONF_PUMP_TOTAL = "pump_total"
+CONF_PUMP_STATUS = "pump_status"
+CONF_LEVEL = "level"
+
+UNIT_MILILITER = "ml"
+UNIT_MILILITERS_PER_MINUTE = "ml/min"
+
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -47,8 +50,8 @@ CONFIG_SCHEMA = (
             #     accuracy_decimals=2,
             # )
             # ,
-            cv.Optional(CONF_ANALOG_OUTPUT): sensor.sensor_schema(
-                # unit_of_measurement=UNIT_PERCENT,
+            cv.Optional(CONF_LEVEL): sensor.sensor_schema(
+                unit_of_measurement=UNIT_PERCENT,
                 accuracy_decimals=2,
             )
             ,
@@ -72,7 +75,7 @@ async def to_code(config):
     #     sens = await sensor.new_sensor(conf)
     #     cg.add(parent.PPump_0_Status(sens))
         
-    if CONF_ANALOG_OUTPUT in config:
-        conf = config[CONF_ANALOG_OUTPUT]
+    if CONF_LEVEL in config:
+        conf = config[CONF_LEVEL]
         sens = await sensor.new_sensor(conf)
         cg.add(parent.AnLIn_Perc(sens))

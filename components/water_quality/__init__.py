@@ -22,17 +22,12 @@ CONF_PUMP_TYPE = "type"
 CONF_PUMP_CALIBRATION = "pump_calibration"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
-CONF_PUMP_TOTAL = "pump_total"
-CONF_PUMP_STATUS = "pump_status"
-CONF_ANALOG_OUTPUT = "analog_output"
 
 PUMP_TYPE_NULL = 0
 PUMP_TYPE_DOSE = 1
 PUMP_TYPE_CIRCULATION = 2
 PUMP_TYPES_SUPPORTED = [PUMP_TYPE_NULL, PUMP_TYPE_DOSE, PUMP_TYPE_CIRCULATION]
 
-UNIT_MILILITER = "ml"
-UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
 component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.Component)
