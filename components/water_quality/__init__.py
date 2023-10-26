@@ -220,6 +220,6 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     if cg.is_template(val):
         # template_ = await cg.templatable(dose, args, cg.uint8)
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
-        cg.add(var.set_dose(template_))
+        cg.add(var.set_val(template_))
 
     return var
