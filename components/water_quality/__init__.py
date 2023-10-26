@@ -182,7 +182,7 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    val = config[CONF_PUMP_DOSE]
+    val = config[CONF_PUMP_MODE]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
         cg.add(var.set_val(template_))
