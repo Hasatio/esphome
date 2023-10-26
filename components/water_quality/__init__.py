@@ -11,6 +11,7 @@ from .output import (
     CONF_PUMP_TYPE,
     CONF_PUMP_CALIBRATION, 
     PUMP_TYPE_SCHEMA,
+    PUMP_MODE_ACTION_SCHEMA
 )
 
 CODEOWNERS = ["@hasatio"]
