@@ -94,14 +94,14 @@ void ph(uint8_t &ch, uint8_t &type)
     AnInPH_Type = type;
 }
 
-void digital_out(std::vector<uint8_t> &do)
+void digital_out(std::vector<uint8_t> &dout)
 {
-    this->DigOut_Status = do;
+    this->DigOut_Status = dout;
 }
 
-void AnInL_Perc(sensor::Sensor *a) 
+void AnInL_Perc(sensor::Sensor *level) 
 {
-    AnInL_Perc_ = a;
+    AnInL_Perc_ = level;
 }
 
 protected:
