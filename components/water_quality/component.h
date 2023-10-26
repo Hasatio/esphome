@@ -25,55 +25,55 @@ uint8_t dose, circ;
 void setup() override;
 void loop() override;
 
-void pump_type(const std::vector<uint8_t> &pt, const uint8_t d, const uint8_t c)
+void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     dose = d;
     circ = c;
-    this->Pump_Type = pt;
+    this->Pump_Type = ptype;
 }
 
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pc)
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
 { 
-    this->Pump_Calib = pc;
+    this->Pump_Calib = pcalib;
 }
 
-void pump_mode(std::vector<uint8_t> &pm)
+void pump_mode(std::vector<uint8_t> &pmode)
 {
-    pm.resize(dose + circ);
-    this->Pump_Mode = pm;
+    pmode.resize(dose + circ);
+    this->Pump_Mode = pmode;
 }
 
-void pump_dose(std::vector<uint8_t> &pd)
+void pump_dose(std::vector<uint8_t> &pdose)
 {
-    pd.resize(dose);
-    this->Pump_Dose = pd;
+    pdose.resize(dose);
+    this->Pump_Dose = pdose;
 }
 
-void pump_circulation(std::vector<uint8_t> &pc)
+void pump_circulation(std::vector<uint8_t> &pcirc)
 {
-    pc.resize(circ);
-    this->Pump_Circulation = pc;
+    pcirc.resize(circ);
+    this->Pump_Circulation = pcirc;
 }
 
-void pump_reset(std::vector<uint8_t> &pr)
+void pump_reset(std::vector<uint8_t> &pres)
 {
-    pr.resize(dose + circ);
-    this->Pump_Reset = pr;
+    pres.resize(dose + circ);
+    this->Pump_Reset = pres;
 }
 
-void servo_channels(std::vector<uint8_t> &sc)
+void servo_channels(std::vector<uint8_t> &sch)
 {
-    this->Servo_Ch = sc;
+    this->Servo_Ch = sch;
 }
 
-void servo_mode(std::vector<uint8_t> &sm)
+void servo_mode(std::vector<uint8_t> &smode)
 {
-    this->Servo_Mode = sm;
+    this->Servo_Mode = smode;
 }
 
-void servo_position(std::vector<uint8_t> &sp)
+void servo_position(std::vector<uint8_t> &spos)
 {
-    this->Servo_Position = sp;
+    this->Servo_Position = spos;
 }
 
 void level_res(std::vector<uint8_t> &rmin, std::vector<uint8_t> &rmax)
@@ -82,16 +82,21 @@ void level_res(std::vector<uint8_t> &rmin, std::vector<uint8_t> &rmax)
     this->AnInL_LvlResMax = rmax;
 }
 
-void ec(uint8_t &ch, uint8_t &t)
+void ec(uint8_t &ch, uint8_t &type)
 {
     AnInEC_Ch = ch;
-    AnInEC_Type = t;
+    AnInEC_Type = type;
 }
 
-void ph(uint8_t &ch, uint8_t &t)
+void ph(uint8_t &ch, uint8_t &type)
 {
     AnInPH_Ch = ch;
-    AnInPH_Type = t;
+    AnInPH_Type = type;
+}
+
+void digital_out(std::vector<uint8_t> &do)
+{
+    this->DigOut_Status = do;
 }
 
 void AnInL_Perc(sensor::Sensor *a) 

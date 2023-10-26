@@ -36,7 +36,7 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
     // }
 
-    for (size_t i = 0; i < number*2; i++)
+    for (size_t i = 0; i < (dose+circ)*2; i++)
     {
         for (size_t j = 0; j < 4; j++)
         {
