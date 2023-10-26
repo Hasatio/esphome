@@ -61,7 +61,7 @@ void pump_reset(std::vector<uint8_t> &pres)
     this->Pump_Reset = pres;
 }
 
-void servo_channels(std::vector<uint8_t> &sch)
+void servo_channels(const std::vector<uint8_t> &sch)
 {
     this->Servo_Ch = sch;
 }
@@ -76,19 +76,19 @@ void servo_position(std::vector<uint8_t> &spos)
     this->Servo_Position = spos;
 }
 
-void level_res(std::vector<uint16_t> &rmin, std::vector<uint16_t> &rmax)
+void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     this->AnInL_LvlResMin = rmin;
     this->AnInL_LvlResMax = rmax;
 }
 
-void ec(uint8_t ch, uint8_t type)
+void ec(const uint8_t ch, const uint8_t type)
 {
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
 
-void ph(uint8_t ch, uint8_t type)
+void ph(const uint8_t ch, const uint8_t type)
 {
     AnInPH_Ch = ch;
     AnInPH_Type = type;
