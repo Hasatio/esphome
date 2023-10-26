@@ -5,7 +5,7 @@ from esphome.const import (
     CONF_DATA
 ) 
 
-from . import (
+from .output import (
     CONF_X,
     CONF_Y,
     CONF_PUMP_TYPE,
