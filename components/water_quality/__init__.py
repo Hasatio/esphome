@@ -117,11 +117,11 @@ CONFIG_SCHEMA = cv.All(
                     cv.Schema(
                         {
                             cv.Required(CONF_RES_MIN): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.uint16_t),
                                 cv.Length(min = 1, max = 2)
                             ),
                             cv.Required(CONF_RES_MAX): cv.All(
-                                cv.ensure_list(cv.uint8_t),
+                                cv.ensure_list(cv.uint16_t),
                                 cv.Length(min = 1, max = 2)
                             ),  
                         }

@@ -76,7 +76,7 @@ void servo_position(std::vector<uint8_t> &spos)
     this->Servo_Position = spos;
 }
 
-void level_res(std::vector<uint8_t> &rmin, std::vector<uint8_t> &rmax)
+void level_res(std::vector<uint16_t> &rmin, std::vector<uint16_t> &rmax)
 {
     this->AnInL_LvlResMin = rmin;
     this->AnInL_LvlResMax = rmax;
@@ -115,8 +115,8 @@ std::vector<uint8_t> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Ch{};
 std::vector<uint8_t> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
-std::vector<uint8_t> AnInL_LvlResMin{};
-std::vector<uint8_t> AnInL_LvlResMax{};
+std::vector<uint16_t> AnInL_LvlResMin{};
+std::vector<uint16_t> AnInL_LvlResMax{};
 uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
