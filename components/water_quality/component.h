@@ -86,34 +86,16 @@ sensor::Sensor *DigIn_Status_{nullptr};
 };
 
 
-template<typename... Ts> class PumpModeAction : public Action<Ts...> {
-    public:
-    PumpModeAction(MyComponent *parent) : parent_(parent){};
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
-    
-    void set_mode(const std::vector<uint8_t> &set) { val_ = set; }
-
-    void play(Ts... x) 
-    {
-    std::vector<uint8_t> data = this->val_.value(x...);
-
-    this->parent_->pump_mode(this->val_.value(x...));
-    }
-
-
-    protected:
-    MyComponent *parent_;
-};
 // template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 //     public:
 //     PumpModeAction(MyComponent *parent) : parent_(parent){};
-//     TEMPLATABLE_VALUE(std::vector<uint8_t>, mode);
+//     TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
     
-//     void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
+//     void set_mode(const std::vector<uint8_t> &set) { val_ = set; }
 
 //     void play(Ts... x) 
 //     {
-//     std::vector<uint8_t> data = this->mode_.value(x...);
+//     std::vector<uint8_t> data = this->val_.value(x...);
 
 //     this->parent_->pump_mode(data);
 //     }
@@ -122,6 +104,24 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 //     protected:
 //     MyComponent *parent_;
 // };
+template<typename... Ts> class PumpModeAction : public Action<Ts...> {
+    public:
+    PumpModeAction(MyComponent *parent) : parent_(parent){};
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, mode);
+    
+    // void set_mode(const std::vector<uint8_t> &set) { mode_ = set; }
+
+    void play(Ts... x) 
+    {
+    std::vector<uint8_t> data = this->mode_.value(x...);
+
+    this->parent_->pump_mode(data);
+    }
+
+
+    protected:
+    MyComponent *parent_;
+};
 
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
