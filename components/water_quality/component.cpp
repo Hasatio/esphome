@@ -32,7 +32,7 @@ void MyComponent::loop()
     for (size_t i = 0; i < Pump_Mode.size(); i++)
     {
     
-        // ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
+        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
         ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
     }
 
