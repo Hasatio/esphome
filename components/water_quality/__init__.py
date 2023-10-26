@@ -24,7 +24,6 @@ CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_CIRCULATION = "pump_circulation"
 CONF_PUMP_RESET = "pump_reset"
-CONF_SERVO_CHANNELS = "servo_channels"
 CONF_SERVO_MODE = "servo_mode"
 CONF_SERVO_POSITION = "servo_position"
 CONF_LEVEL = "level"
@@ -107,10 +106,6 @@ CONFIG_SCHEMA = cv.All(
             cv.Required(CONF_PUMP6): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
-            ),
-            cv.Optional(CONF_SERVO_CHANNELS): cv.All(
-                cv.ensure_list(cv.int_range(min = 0, max = 1)),
-                cv.Length(max = 8)
             ),
             cv.Required(CONF_LEVEL): cv.All(
                 cv.ensure_list(
@@ -237,9 +232,6 @@ async def to_code(config):
     cg.add(var.pump_calibration(calib))
     cg.add(var.pump_type(type, dose, circ))
     
-    if CONF_SERVO_CHANNELS in config:
-        conf = config[CONF_SERVO_CHANNELS]
-        cg.add(var.servo_channels(conf))
         
     min = []
     max = []

@@ -61,11 +61,6 @@ void pump_reset(std::vector<uint8_t> &pres)
     this->Pump_Reset = pres;
 }
 
-void servo_channels(const std::vector<uint8_t> &sch)
-{
-    this->Servo_Ch = sch;
-}
-
 void servo_mode(std::vector<uint8_t> &smode)
 {
     this->Servo_Mode = smode;
@@ -112,7 +107,6 @@ std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Reset{0,0,0,0,0,0};
-std::vector<uint8_t> Servo_Ch{};
 std::vector<uint8_t> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<uint16_t> AnInL_LvlResMin{};
