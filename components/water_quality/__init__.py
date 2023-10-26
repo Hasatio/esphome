@@ -155,8 +155,6 @@ async def to_code(config):
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
-PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
-
 
 PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
@@ -174,6 +172,26 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
     }
 )
 
+@automation.register_action(
+    "water_quality.pump_mode", 
+    PumpModeAction, 
+    PUMP_MODE_ACTION_SCHEMA
+)
+
+async def pump_mode_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    mode = config[CONF_PUMP_MODE]
+    # template_ = await cg.templatable(mode, args, cg.uint8)
+    template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
+    cg.add(var.set_mode(template_))
+    # cg.add(var.set_mode(mode))
+
+    return var
+
+PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
+
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
@@ -188,31 +206,11 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
     }
 )
 
-
-@automation.register_action(
-    "water_quality.pump_mode", 
-    PumpModeAction, 
-    PUMP_MODE_ACTION_SCHEMA
-)
-
 @automation.register_action(
     "water_quality.pump_dose", 
     PumpDoseAction, 
     PUMP_DOSE_ACTION_SCHEMA
 )
-
-
-async def pump_mode_to_code(config, action_id, template_arg, args):
-    paren = await cg.get_variable(config[CONF_ID])
-    var = cg.new_Pvariable(action_id, template_arg, paren)
-
-    mode = config[CONF_PUMP_MODE]
-    # template_ = await cg.templatable(mode, args, cg.uint8)
-    template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
-    cg.add(var.set_mode(template_))
-    # cg.add(var.set_mode(mode))
-
-    return var
 
 async def pump_dose_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
