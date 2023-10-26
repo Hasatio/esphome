@@ -185,8 +185,8 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     mode = config[CONF_PUMP_MODE]
     # template_ = await cg.templatable(mode, args, cg.uint8)
     template_ = await cg.templatable(mode, args, cg.std_vector.template(cg.uint8))
-    cg.add(var.set_mode(template_))
-    # cg.add(var.set_mode(mode))
+    # cg.add(var.set_mode(template_))
+    # # cg.add(var.set_mode(mode))
 
     return var
 
@@ -200,7 +200,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         # ),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             
-            cv.templatable(cv.uint8_t),
+            [cv.templatable(cv.uint8_t)],
             # cv.Length(min=0, max=3),
         ),
     }
