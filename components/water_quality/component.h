@@ -25,7 +25,7 @@ uint8_t number;
 void setup() override;
 void loop() override;
 
-void pump_type(const std::vector<uint8_t> &pt, uint8_t s)
+void pump_type(const std::vector<uint8_t> &pt, const uint8_t s)
 {
     number = s;
     this->Pump_Type = pt;
@@ -57,23 +57,31 @@ protected:
 
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
-std::vector<uint8_t> Pump_Mode{0};
-std::vector<uint8_t> Pump_Dose{0};
-std::vector<uint8_t> Pump_Circulation{0};
-std::vector<uint8_t> Pump_Reset{};
-std::vector<uint8_t> Servo_Mode{};
-std::vector<uint8_t> Servo_Position{};
-std::vector<uint8_t> AnIn_LvlResMin{};
-std::vector<uint8_t> AnIn_LvlResMax{};
-std::vector<uint8_t> DigIn_Status{};
+std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Circulation{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Reset{0,0,0,0,0,0};
+std::vector<uint8_t> Servo_Mode{0,0,0,0,0,0,0,0};
+std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
+std::vector<uint8_t> AnLIn_LvlResMin{};
+std::vector<uint8_t> AnLIn_LvlResMax{};
+std::vector<uint8_t> AnECIn_Ch{};
+std::vector<uint8_t> AnECIn_Type{};
+std::vector<uint8_t> AnPHIn_Ch{};
+std::vector<uint8_t> AnPHIn_Type{};
+std::vector<uint8_t> DigOut_Status{};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
 sensor::Sensor *Servo_Status_{nullptr};
-sensor::Sensor *AnIn_Status_{nullptr};
-sensor::Sensor *AnIn_SensPerc_{nullptr};
-sensor::Sensor *DigOut_Status_{nullptr};
+sensor::Sensor *AnWTIn_Val_{nullptr};
+sensor::Sensor *AnVPowIn_Val_{nullptr};
+sensor::Sensor *AnLIn_Perc_{nullptr};
+sensor::Sensor *AnGIn_Val_{nullptr};
+sensor::Sensor *AnECIn_Val_{nullptr};
+sensor::Sensor *AnPHIn_Val_{nullptr};
+sensor::Sensor *DigIn_Status_{nullptr};
 
 };
 
