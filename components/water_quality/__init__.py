@@ -239,7 +239,7 @@ async def to_code(config):
         max.append(conf[CONF_RES_MAX])
     cg.add(var.level_res(min, max))
     
-    conf = config[CONF_SENSORS]
+    conf = config[CONF_SENSORS][0]
     ch = conf[CONF_EC_CHANNEL]
     t = conf[CONF_EC_TYPE]
     cg.add(var.ec(ch, t))
