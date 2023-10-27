@@ -79,7 +79,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     this->Pump_Dose = pdose;
 }
 
-void pump_circulation(std::vector<uint8_t> &pcirc)
+void pump_circulation(std::vector<uint16_t> &pcirc)
 {
     pcirc.resize(circ);
 
