@@ -94,7 +94,7 @@ void pump_reset(std::vector<bool> &pres)
     this->Pump_Reset = pres;
 }
 
-void servo_mode(std::vector<uint8_t> &smode)
+void servo_mode(std::vector<bool> &smode)
 {
     if (Servo_Mode != smode)
     for (size_t i = 0; i < smode.size(); i++)
