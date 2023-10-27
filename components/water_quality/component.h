@@ -134,7 +134,7 @@ void ph(const uint8_t ch, const uint8_t type)
     AnInPH_Type = type;
 }
 
-void digital_out(std::vector<uint8_t> &dout)
+void digital_out(std::vector<bool> &dout)
 {
     if (DigOut_Status != dout)
     for (size_t i = 0; i < dout.size(); i++)
@@ -166,7 +166,7 @@ uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
-std::vector<uint8_t> DigOut_Status{0,0,0,0};
+std::vector<bool> DigOut_Status{0,0,0,0};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
@@ -291,12 +291,12 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->val_.value(x...);
+    std::vector<bool> data = this->val_.value(x...);
 
     this->parent_->digital_out(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+    TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
     MyComponent *parent_;
