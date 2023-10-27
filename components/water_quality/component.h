@@ -34,22 +34,11 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
     dose = d;
     circ = c;
     
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
-
     this->Pump_Type = ptype;
 }
 
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
 { 
-    for (size_t i = 0; i < (dose + circ)*2; i++)
-    {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, pcalib[i][j]);
-        }
-    }
-    
     this->Pump_Calib = pcalib;
 }
 
@@ -129,30 +118,18 @@ void servo_position(std::vector<uint8_t> &spos)
 
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    for (size_t i = 0; i < rmin.size(); i++)
-    {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, rmin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, rmax[i]);
-    }
-
     this->AnInL_LvlResMin = rmin;
     this->AnInL_LvlResMax = rmax;
 }
 
 void ec(const uint8_t ch, const uint8_t type)
 {
-    ESP_LOGI(TAG,"EC_ch = %d", ch);
-    ESP_LOGI(TAG,"EC_type = %d", type);
-
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
 
 void ph(const uint8_t ch, const uint8_t type)
 {
-    ESP_LOGI(TAG,"PH_ch = %d", ch);
-    ESP_LOGI(TAG,"PH_type = %d", type);
-
     AnInPH_Ch = ch;
     AnInPH_Type = type;
 }
