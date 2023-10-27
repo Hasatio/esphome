@@ -147,7 +147,6 @@ CONFIG_SCHEMA = cv.All(
                     )
                 # )
             ),
-            
         }
     )
     .extend(cv.COMPONENT_SCHEMA),
@@ -437,7 +436,11 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_DIGITAL_OUT): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(
+                cv.ensure_list(
+                    cv.int_range(min = 0, max = 1)
+                )
+            ),
         ),
     }
 )

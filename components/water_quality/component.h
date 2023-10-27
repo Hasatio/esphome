@@ -11,6 +11,7 @@
 namespace esphome {
 namespace water_quality {
 
+const char *TAG = "component";
 
 class MyComponent : public Component 
 {
@@ -18,7 +19,6 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-const char *TAG = "component";
 
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
@@ -158,6 +158,12 @@ void ph(const uint8_t ch, const uint8_t type)
 
 void digital_out(std::vector<uint8_t> &dout)
 {
+    if (DigOut_Status != dout)
+    for (size_t i = 0; i < dout.size(); i++)
+    {
+        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i]);
+    }
+
     this->DigOut_Status = dout;
 }
 
@@ -172,7 +178,7 @@ std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Circulation{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
