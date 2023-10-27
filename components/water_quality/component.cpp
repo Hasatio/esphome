@@ -36,13 +36,6 @@ void MyComponent::loop()
     //     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
     // }
 
-    // for (size_t i = 0; i < (dose+circ)*2; i++)
-    // {
-    //     for (size_t j = 0; j < 4; j++)
-    //     {
-    //         ESP_LOGD(TAG,"x[%d]y[%d] = %d", i, j, Pump_Calib[i][j]);
-    //     }
-    // }
 
 delay(1000);
 }
