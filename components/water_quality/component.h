@@ -18,8 +18,6 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-static const char *TAG = "mysensor";
-
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
@@ -42,7 +40,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
         for (size_t j = 0; j < 8; j++)
         {
             if (Pump_Calib[i][j] != pcalib[i][j])
-                ESP_LOGD(TAG,"x[%d]y[%d] = %d", i, j, Pump_Calib[i][j]);
+                ESP_LOGD("Pump_Calib","[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
         }
     }
     
@@ -56,7 +54,7 @@ void pump_mode(std::vector<uint8_t> &pmode)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         if (Pump_Mode[i] != pmode[i])
-            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
+            ESP_LOGD("Pump_Mode","[%d] = %d", i, Pump_Mode[i]);
     }
 
     this->Pump_Mode = pmode;
@@ -69,7 +67,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     for (size_t i = 0; i < (dose); i++)
     {
         if (Pump_Dose[i] != pdose[i])
-            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
+            ESP_LOGD("Pump_Dose","[%d] = %d", i, Pump_Dose[i]);
     }
 
     this->Pump_Dose = pdose;
@@ -82,7 +80,7 @@ void pump_circulation(std::vector<uint8_t> &pcirc)
     for (size_t i = 0; i < (circ); i++)
     {
         if (Pump_Circulation[i] != pcirc[i])
-            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
+            ESP_LOGD("Pump_Circulation","[%d] = %d", i, Pump_Circulation[i]);
     }
 
     this->Pump_Circulation = pcirc;
@@ -95,7 +93,7 @@ void pump_reset(std::vector<uint8_t> &pres)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         if (Pump_Reset[i] != pres[i])
-            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, Pump_Reset[i]);
+            ESP_LOGD("Pump_Reset","[%d] = %d", i, Pump_Reset[i]);
     }
 
     this->Pump_Reset = pres;
