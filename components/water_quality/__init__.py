@@ -349,7 +349,7 @@ PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_RESET): cv.All(
-            cv.templatable(cv.ensure_list(cv.bool)),
+            cv.templatable(cv.ensure_list(cv.boolean)),
         ),
     }
 )
@@ -378,7 +378,7 @@ SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_SERVO_MODE): cv.All(
-            cv.templatable(cv.ensure_list(cv.bool)),
+            cv.templatable(cv.ensure_list(cv.boolean)),
         ),
     }
 )
@@ -437,9 +437,7 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_DIGITAL_OUT): cv.All(
             cv.templatable(
-                cv.ensure_list(
-                    cv.int_range(min = 0, max = 1)
-                )
+                cv.ensure_list(cv.boolean)
             ),
         ),
     }
