@@ -18,6 +18,8 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
+static const char TAG = "component";
+
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
@@ -30,6 +32,10 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
 {
     dose = d;
     circ = c;
+    
+    ESP_LOGI(TAG,"Pump_dose = %d", dose);
+    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+
     this->Pump_Type = ptype;
 }
 
@@ -39,8 +45,7 @@ void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
     {
         for (size_t j = 0; j < 8; j++)
         {
-            if (Pump_Calib[i][j] != pcalib[i][j])
-                ESP_LOGD("Pump_Calib","[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
+            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, pcalib[i][j]);
         }
     }
     
@@ -51,10 +56,10 @@ void pump_mode(std::vector<uint8_t> &pmode)
 {
     pmode.resize(dose + circ);
 
+    if (Pump_Mode != pmode)
     for (size_t i = 0; i < (dose + circ); i++)
     {
-        if (Pump_Mode[i] != pmode[i])
-            ESP_LOGD("Pump_Mode","[%d] = %d", i, Pump_Mode[i]);
+        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
 
     this->Pump_Mode = pmode;
@@ -64,10 +69,10 @@ void pump_dose(std::vector<uint8_t> &pdose)
 {
     pdose.resize(dose);
 
+    if (Pump_Dose != pdose)
     for (size_t i = 0; i < (dose); i++)
     {
-        if (Pump_Dose[i] != pdose[i])
-            ESP_LOGD("Pump_Dose","[%d] = %d", i, Pump_Dose[i]);
+        ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose[i]);
     }
 
     this->Pump_Dose = pdose;
@@ -77,10 +82,10 @@ void pump_circulation(std::vector<uint8_t> &pcirc)
 {
     pcirc.resize(circ);
 
+    if (Pump_Circulation != pcirc)
     for (size_t i = 0; i < (circ); i++)
     {
-        if (Pump_Circulation[i] != pcirc[i])
-            ESP_LOGD("Pump_Circulation","[%d] = %d", i, Pump_Circulation[i]);
+        ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
     }
 
     this->Pump_Circulation = pcirc;
@@ -90,10 +95,10 @@ void pump_reset(std::vector<uint8_t> &pres)
 {
     pres.resize(dose + circ);
 
+    if (Pump_Reset != pres)
     for (size_t i = 0; i < (dose + circ); i++)
     {
-        if (Pump_Reset[i] != pres[i])
-            ESP_LOGD("Pump_Reset","[%d] = %d", i, Pump_Reset[i]);
+        ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres[i]);
     }
 
     this->Pump_Reset = pres;
@@ -101,28 +106,52 @@ void pump_reset(std::vector<uint8_t> &pres)
 
 void servo_mode(std::vector<uint8_t> &smode)
 {
+    if (Servo_Mode != smode)
+    for (size_t i = 0; i < smode.size(); i++)
+    {
+        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode[i]);
+    }
+
     this->Servo_Mode = smode;
 }
 
 void servo_position(std::vector<uint8_t> &spos)
 {
+    if (Servo_Position != spos)
+    for (size_t i = 0; i < spos.size(); i++)
+    {
+        ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos[i]);
+    }
+    
     this->Servo_Position = spos;
 }
 
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
+    for (size_t i = 0; i < rmin.size(); i++)
+    {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, rmin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, rmax[i]);
+    }
+
     this->AnInL_LvlResMin = rmin;
     this->AnInL_LvlResMax = rmax;
 }
 
 void ec(const uint8_t ch, const uint8_t type)
 {
+    ESP_LOGI(TAG,"EC_ch = %d", ch);
+    ESP_LOGI(TAG,"EC_type = %d", type);
+
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
 
 void ph(const uint8_t ch, const uint8_t type)
 {
+    ESP_LOGI(TAG,"PH_ch = %d", ch);
+    ESP_LOGI(TAG,"PH_type = %d", type);
+
     AnInPH_Ch = ch;
     AnInPH_Type = type;
 }
