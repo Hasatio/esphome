@@ -25,6 +25,7 @@ float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
 uint8_t dose, circ;
 
+void dump_config() override;
 void setup() override;
 void loop() override;
 
