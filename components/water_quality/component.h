@@ -11,13 +11,14 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *TAG = "mysensor";
 
 class MyComponent : public Component 
 {
 public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+
+static const char *TAG = "mysensor";
 
 uint16_t AnIn_TempRes = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnOut_Vcc, AnOut_Temp, TempRes;
