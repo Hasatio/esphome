@@ -258,7 +258,7 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
             cv.All(
                 # [cv.Any(cv.uint8_t)],
                 # [cv.ensure_list(cv.uint8_t)],
-                cv.templatable(cv.ensure_list(cv.uint8_t)),
+                cv.templatable(cv.ensure_list(cv.int_range(min = 0, max = 2))),
                 # cv.Length(min=0, max=3),
             )
         ),
@@ -349,7 +349,7 @@ PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_RESET): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(cv.ensure_list(cv.bool)),
         ),
     }
 )
@@ -366,7 +366,7 @@ async def pump_reset_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_RESET]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
         cg.add(var.set_val(template_))
 
     return var
@@ -378,7 +378,7 @@ SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_SERVO_MODE): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(cv.ensure_list(cv.bool)),
         ),
     }
 )
@@ -395,7 +395,7 @@ async def servo_mode_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_SERVO_MODE]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
         cg.add(var.set_val(template_))
 
     return var

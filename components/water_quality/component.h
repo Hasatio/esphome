@@ -92,7 +92,7 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
     this->Pump_Circulation = pcirc;
 }
 
-void pump_reset(std::vector<uint8_t> &pres)
+void pump_reset(std::vector<bool> &pres)
 {
     pres.resize(dose + circ);
 
@@ -180,7 +180,7 @@ std::vector<uint8_t> Pump_Type{};
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Reset{0,0,0,0,0,0};
+std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<uint16_t> AnInL_LvlResMin{};
@@ -263,12 +263,12 @@ template<typename... Ts> class PumpResetAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->val_.value(x...);
+    std::vector<bool> data = this->val_.value(x...);
 
     this->parent_->pump_reset(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+    TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
     MyComponent *parent_;
@@ -280,12 +280,12 @@ template<typename... Ts> class ServoModeAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->val_.value(x...);
+    std::vector<bool> data = this->val_.value(x...);
 
     this->parent_->servo_mode(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+    TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
     MyComponent *parent_;
