@@ -14,8 +14,6 @@ void MyComponent::setup()
 
 void MyComponent::loop() 
 {
-
-
     delay(1000);
 }
 

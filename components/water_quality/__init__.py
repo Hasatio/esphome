@@ -124,7 +124,7 @@ CONFIG_SCHEMA = cv.All(
                 )
             ),
             cv.Required(CONF_SENSORS): cv.All(
-                # cv.ensure_list(
+                cv.ensure_list(
                     cv.Schema(
                         {
                             cv.Required(CONF_EC_CHANNEL): cv.All(
@@ -145,7 +145,7 @@ CONFIG_SCHEMA = cv.All(
                             ),
                         }
                     )
-                # )
+                )
             ),
         }
     )
@@ -320,7 +320,7 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_CIRCULATION): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(cv.ensure_list(cv.uint16_t)),
         ),
     }
 )
@@ -337,7 +337,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_CIRCULATION]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16_t))
         cg.add(var.set_val(template_))
 
     return var

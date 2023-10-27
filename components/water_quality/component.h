@@ -245,12 +245,12 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->val_.value(x...);
+    std::vector<uint16_t> data = this->val_.value(x...);
 
     this->parent_->pump_circulation(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+    TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
     protected:
     MyComponent *parent_;
