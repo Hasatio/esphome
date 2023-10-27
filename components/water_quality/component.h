@@ -11,6 +11,8 @@
 namespace esphome {
 namespace water_quality {
 
+static const char *TAG = "mysensor";
+
 class MyComponent : public Component 
 {
 public:
