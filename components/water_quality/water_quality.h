@@ -15,7 +15,7 @@ namespace water_quality {
 
 static const char *const TAG = "component";
 
-class MyComponent : public Component 
+class MyComponent : public PollingComponent 
 {
 public:
 
@@ -29,7 +29,7 @@ uint8_t dose, circ;
 
 void setup() override;
 void loop() override;
-void update();
+void update() override;
 void dump_config() override
 {
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
