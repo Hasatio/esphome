@@ -4,6 +4,9 @@
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
+#include "esphome/core/automation.h"
+#include "esphome/components/i2c/i2c.h"
+#include <Wire.h>
 #include <array>
 #include <vector>
 #include <iterator>
@@ -25,9 +28,9 @@ float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
 uint8_t dose, circ;
 
-void dump_config() override;
 void setup() override;
 void loop() override;
+void dump_config() override;
 
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {

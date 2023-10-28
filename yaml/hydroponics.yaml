@@ -6,7 +6,7 @@ esphome:
   friendly_name: $devicename
   # on_boot:
   #   - lambda: |-
-  #       id(my_ota).set_auth_password("");
+  #       (unsigned char)id(my_ota).set_auth_password("");
 
 esp32:
   board: esp32-gateway
@@ -57,13 +57,23 @@ interval:
             condition:
               api.connected:
             then:
-              - light.turn_on: 
-                  id: led
-                  effect: none
+              if:
+                condition:
+                  not:
+                    light.is_on: led
+                then:
+                  - light.turn_on: 
+                      id: led
+                      effect: none
             else:
-              - light.turn_on: 
-                  id: led
-                  effect: strobe
+              if:
+                condition:
+                  not:
+                    light.is_on: led
+                then:
+                  - light.turn_on: 
+                      id: led
+                      effect: strobe
         else:
           - light.turn_off: 
               id: led
@@ -134,42 +144,68 @@ external_components:
 water_quality:
   id: water
   pump1: 
-    type: 1
+    pump_type: 1
     pump_calibration:
       x: [11,21,31,41,51,61,71,81]
       y: [15,25,35,45,55,65,75,85]
   pump2: 
-    type: 2
+    pump_type: 2
     pump_calibration:
       x: [12,22,32,42,52,62,72,82]
       y: [16,26,36,46,56,66,76,86]
   pump3: 
-    type: 0
+    pump_type: 0
   pump4: 
-    type: 0
+    pump_type: 0
   pump5: 
-    type: 2
+    pump_type: 2
     pump_calibration:
       x: [13,23,33,43,53,63,73,83]
       y: [17,27,37,47,57,67,77,87]
   pump6: 
-    type: 1
+    pump_type: 1
     pump_calibration:
       x: [14,24,34,44,54,64,74,84]
       y: [18,28,38,48,58,68,78,88]
+  level:
+    res_min: [150]
+    res_max: [250]
+  sensors:
+    ec_channel: 1
+    ec_type: 1
+    ph_channel: 2
+    ph_type: 1
 
 
 sensor:
   - platform: internal_temperature
     name: "Internal Temperature"
 
-  # - platform: water_quality
-  #   pump_total:
-  #     id: pump_total
-  #   pump_status:
-  #     id: pump_status
-  #   analog_output:
-  #     id: analog_output
+  - platform: water_quality
+    time_constant:
+      id: time_constant
+    pump_total_ml:
+      id: pump_total_ml
+    pump_total_l:
+      id: pump_total_l
+    pump_status:
+      id: pump_status
+    servo_status:
+      id: servo_status
+    water_temp:
+      id: water_temp
+    voltage:
+      id: voltage
+    level:
+      id: level
+    analog:
+      id: analog
+    ec:
+      id: ec
+    ph:
+      id: ph
+    digital:
+      id: digital
 
   # - platform: ads1115
   #   multiplexer: A0_GND
@@ -179,53 +215,13 @@ sensor:
   #   id: "ADS1115_1"
   #   update_interval: 0ms
 
-  # # - platform: ezo_pmp
-  # #   pump_voltage:
-  # #     id: pump_voltage
-  # #     name: Pump Voltage
-
-  # # - platform: ezo_pmp
-  # #   max_flow_rate:
-  # #     id: max_flow_rate
-  # #     name: Max Flow Rate
-      
-  # # - platform: ezo_pmp
-  # #   last_volume_requested:
-  # #     id: last_volume_requested
-  # #     name: Last Volume Requested
-
-  # # - platform: ezo_pmp
-  # #   absolute_total_volume_dosed:
-  # #     id: absolute_total_volume_dosed
-  # #     name: Absolute Total Volume Dosed
-      
-  # # - platform: ezo_pmp
-  # #   total_volume_dosed:
-  # #     id: total_volume_dosed
-  # #     name: Total Volume Dosed
-      
-  # # - platform: ezo_pmp
-  # #   current_volume_dosed:
-  # #     id: current_volume_dosed
-  # #     name: Current Volume Dosed
-
 
 button:
   - platform: restart
     name: "Restart"
     
-  - platform: template
-    name: "Pump Dose"
-    on_press:   
-      then:
-        # - water_quality.pump_dose:
-    #         id: water
-    #         dose: !lambda |-
-    #           return id(volume).state;
-            # pump_dose: [1,2,3,4]
 
-
-# switch:
+switch:
 #   - platform: gpio
 #     name: "Led"
 #     pin: 
@@ -233,6 +229,168 @@ button:
 #       mode:
 #         output: True
 #       inverted: False
+    
+  - platform: template
+    id: pump_reset1
+    name: "Pump_Reset1"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset1
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: pump_reset2
+    name: "Pump_Reset2"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset2
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: pump_reset3
+    name: "Pump_Reset3"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset3
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: pump_reset4
+    name: "Pump_Reset4"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset4
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: pump_reset5
+    name: "Pump_Reset5"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset5
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: pump_reset6
+    name: "Pump_Reset6"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset6
+    turn_off_action:
+      then:
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+
+  - platform: template
+    id: digital_out1
+    name: "Digital_Out1"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+    turn_off_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+
+  - platform: template
+    id: digital_out2
+    name: "Digital_Out2"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+    turn_off_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+
+  - platform: template
+    id: digital_out3
+    name: "Digital_Out3"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+    turn_off_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+
+  - platform: template
+    id: digital_out4
+    name: "Digital_Out4"
+    optimistic: true
+    turn_on_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
+    turn_off_action:
+      then:
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
 
 
 # status_led:
@@ -290,137 +448,298 @@ output:
         output: True
       inverted: False
 
-#   - platform: pca9685
-#     id: pwm0
-#     pca9685_id: pca9685_hub0
-#     channel: 0
-
-#   - platform: pca9685
-#     id: pwm1
-#     pca9685_id: pca9685_hub0
-#     channel: 1
-
-#   # - platform: pca9685custom
-#   #   id: pwm0
-#   #   pca9685custom_id: pca9685custom_hub0
-#   #   channel: 0
-
-#   # - platform: pca9685custom
-#   #   id: pwm1
-#   #   pca9685custom_id: pca9685custom_hub0
-#   #   channel: 1
-
-#   - platform: pca9685
-#     id: pwm4
-#     pca9685_id: pca9685_hub0
-#     channel: 4
-
-#   - platform: pca9685
-#     id: pwm5
-#     pca9685_id: pca9685_hub0
-#     channel: 5
-
-#   - platform: pca9685
-#     id: pwm6
-#     pca9685_id: pca9685_hub0
-#     channel: 6
-
-#   - platform: pca9685
-#     id: pwm7
-#     pca9685_id: pca9685_hub0
-#     channel: 7
-
-#   - platform: pca9685
-#     id: pwm12
-#     pca9685_id: pca9685_hub0
-#     channel: 12
-
-#   - platform: pca9685
-#     id: pwm13
-#     pca9685_id: pca9685_hub0
-#     channel: 13
-
-#   - platform: pca9685
-#     id: pwm14
-#     pca9685_id: pca9685_hub0
-#     channel: 14
-
-#   - platform: pca9685
-#     id: pwm15
-#     pca9685_id: pca9685_hub0
-#     channel: 15
-    
-#   - platform: ledc
-#     id: pwm
-#     pin: 13
-
-
-# fan:
-#   - platform: hbridge
-#     id: motor1
-#     name: "motor1"
-#     pin_a: pwm0
-#     pin_b: pwm1
-#     # enable_pin: motor_enable
-#     decay_mode: fast   # slow decay mode (braking) or fast decay (coasting).
-    
-#   - platform: hbridge
-#     id: test1
-#     name: "test1"
-#     pin_a: pwm4
-#     pin_b: pwm5
-#     # enable_pin: motor_enable
-#     decay_mode: slow   # slow decay mode (braking) or fast decay (coasting).
-
-#   - platform: hbridge
-#     id: test2
-#     name: "test2"
-#     pin_a: pwm6
-#     pin_b: pwm7
-#     # enable_pin: motor_enable
-#     decay_mode: fast   # slow decay mode (braking) or fast decay (coasting).
-
-#   - platform: hbridge
-#     id: test3
-#     name: "test3"
-#     pin_a: pwm12
-#     pin_b: pwm13
-#     # enable_pin: motor_enable
-#     decay_mode: slow   # slow decay mode (braking) or fast decay (coasting).
-
-#   - platform: hbridge
-#     id: test4
-#     name: "test4"
-#     pin_a: pwm14
-#     pin_b: pwm15
-#     # enable_pin: motor_enable
-#     decay_mode: fast   # slow decay mode (braking) or fast decay (coasting).
-
 
 number:
-  # - platform: template
-  #   id: motor
-  #   name: "Motor"
-  #   optimistic: true
-  #   min_value: -100
-  #   max_value: 100
-  #   initial_value: 0
-  #   step: 1
+  - platform: template
+    id: pump_mode1
+    name: "Pump_Mode1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            # id: water
+            # pump_mode: [1,2]
+            # pump_mode: !lambda |- 
+            #   int mode1_state = 1;
+            #   int mode2_state = 2;
+            #   std::vector<uint8_t> pump_mode = {mode1_state, mode2_state};
+            #   return pump_mode;
+            # pump_mode: !lambda |- 
+            #   return {1, 0, 1, 4};
+            pump_mode: !lambda |- 
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
-    id: volume
-    name: "Volume"
+    id: pump_mode2
+    name: "Pump_Mode2"
     optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
+
+  - platform: template
+    id: pump_mode3
+    name: "Pump_Mode3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
+
+  - platform: template
+    id: pump_mode4
+    name: "Pump_Mode4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
+
+  - platform: template
+    id: pump_mode5
+    name: "Pump_Mode5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
+
+  - platform: template
+    id: pump_mode6
+    name: "Pump_Mode6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
+
+  - platform: template
+    id: pump_dose1
+    name: "Pump_Dose1"
+    optimistic: true
+    mode: slider
     min_value: 0
     max_value: 100
     initial_value: 0
     step: 1
     on_value:
       then:
-        # - water_quality.dose:
-            # id: water
-            # dose: !lambda |-
-            #   return id(volume).state;
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_dose2
+    name: "Pump_Dose2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_dose3
+    name: "Pump_Dose3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_dose4
+    name: "Pump_Dose4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_dose5
+    name: "Pump_Dose5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_dose6
+    name: "Pump_Dose6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            id: water
+            pump_dose: !lambda |-
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
+
+  - platform: template
+    id: pump_circulation1
+    name: "Pump_Circulation1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: pump_circulation2
+    name: "Pump_Circulation2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: pump_circulation3
+    name: "Pump_Circulation3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: pump_circulation4
+    name: "Pump_Circulation4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: pump_circulation5
+    name: "Pump_Circulation5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: pump_circulation6
+    name: "Pump_Circulation6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            id: water
+            pump_circulation: !lambda |-
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   # - platform: template
   #   id: duration

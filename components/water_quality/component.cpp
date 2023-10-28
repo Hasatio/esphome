@@ -4,6 +4,16 @@ namespace esphome {
 namespace water_quality {
 
 
+void MyComponent::setup() 
+{
+    
+}
+
+void MyComponent::loop() 
+{
+    
+}
+
 void MyComponent::dump_config() 
 {
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
@@ -27,16 +37,6 @@ void MyComponent::dump_config()
     ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
     ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
     ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
-}
-
-void MyComponent::setup() 
-{
-    
-}
-
-void MyComponent::loop() 
-{
-    
 }
 
 }  // namespace water_quality
