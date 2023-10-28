@@ -152,10 +152,9 @@ void Pump_TimeConstant(sensor::Sensor *ptc)
 
 void Pump_Total_ml(sensor::Sensor *ptot) 
 {
-    
     for (size_t i = 0; i < dose; i++)
     {
-        if (ptot[i] == 1000)
+        if (ptot[i] > 999)
         {
             Pump_Total_l[i] += 1;
             ptot[i] = 0;
