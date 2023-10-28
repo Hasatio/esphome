@@ -152,15 +152,16 @@ void Pump_TimeConstant(sensor::Sensor *ptc)
 
 void Pump_Total_ml(sensor::Sensor *ptot) 
 {
-    Pump_Total_ml_ = ptot;
+    ml = ptot;
     for (size_t i = 0; i < dose; i++)
     {
-        if (Pump_Total_ml_[i] > 1000)
+        if (ml[i] > 1000)
         {
             Pump_Total_l[i] += 1;
-            Pump_Total_ml_[i] = 0;
+            ml[i] = 0;
         }
     }
+    Pump_Total_ml_ = ml;
 }
 
 void Pump_Total_l(sensor::Sensor *ptot) 
@@ -230,6 +231,7 @@ uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
+std::vector<uint16_t> ml{};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_ml_{nullptr};
