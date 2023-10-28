@@ -5,7 +5,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/core/automation.h"
-#include <Wire.h>
+// #include <Wire.h>
 #include <array>
 #include <vector>
 #include <iterator>
