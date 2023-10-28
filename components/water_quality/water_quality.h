@@ -29,7 +29,7 @@ uint8_t dose, circ;
 
 void setup() override;
 void loop() override;
-void update() override;
+void update();
 void dump_config() override
 {
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
