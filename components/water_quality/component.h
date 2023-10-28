@@ -139,7 +139,7 @@ void digital_out(std::vector<bool> &dout)
     if (DigOut_Status != dout)
     for (size_t i = 0; i < dout.size(); i++)
     {
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i]);
+        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (dout[i]? 1:0));
     }
     
     this->DigOut_Status = dout;
