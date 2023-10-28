@@ -166,7 +166,7 @@ uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
-std::vector<bool> DigOut_Status{};
+std::vector<bool> DigOut_Status{0,0,0,0};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
