@@ -136,7 +136,7 @@ void ph(const uint8_t ch, const uint8_t type)
 
 void digital_out(std::vector<bool> &dout)
 {
-    if (DigOut_Status != dout)
+    // if (DigOut_Status != dout)
     for (size_t i = 0; i < dout.size(); i++)
     {
         ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (dout[i]? 1:0));
