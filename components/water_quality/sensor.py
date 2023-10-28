@@ -100,22 +100,22 @@ async def to_code(config):
     if CONF_TIME_CONSTANT in config:
         conf = config[CONF_TIME_CONSTANT]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.Pump_TimeConstant(sens))
+        cg.add(parent.PPump_TimeConstant(sens))
         
     if CONF_PUMP_TOTAL_ML in config:
         conf = config[CONF_PUMP_TOTAL_ML]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.Pump_Total_ml(sens))
+        cg.add(parent.PPump_Total_ml(sens))
         
     if CONF_PUMP_TOTAL_L in config:
         conf = config[CONF_PUMP_TOTAL_L]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.Pump_Total_l(sens))
+        cg.add(parent.PPump_Total_l(sens))
         
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.Pump_Status(sens))
+        cg.add(parent.PPump_Status(sens))
         
     if CONF_SERVO_STATUS in config:
         conf = config[CONF_SERVO_STATUS]
@@ -135,7 +135,7 @@ async def to_code(config):
     if CONF_LEVEL in config:
         conf = config[CONF_LEVEL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnLIn_Perc(sens))
+        cg.add(parent.AnInL_Perc(sens))
         
     if CONF_ANALOG in config:
         conf = config[CONF_ANALOG]
