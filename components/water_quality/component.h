@@ -145,9 +145,73 @@ void digital_out(std::vector<bool> &dout)
     this->DigOut_Status = dout;
 }
 
+void Pump_TimeConstant(sensor::Sensor *ptc) 
+{
+    Pump_TimeConstant_ = ptc;
+}
+
+void Pump_Total_ml(sensor::Sensor *ptot) 
+{
+    
+    for (size_t i = 0; i < ptot.size(); i++)
+    {
+        if (ptot[i] == 1000)
+        {
+            Pump_Total_l[i] += 1;
+            ptot[i] = 0;
+        }
+    }
+    Pump_Total_ml_ = ptot;
+}
+
+void Pump_Total_l(sensor::Sensor *ptot) 
+{
+    Pump_Total_l_ = ptot;
+}
+
+void Pump_Status(sensor::Sensor *pstat) 
+{
+    Pump_Status_ = pstat;
+}
+
+void Servo_Status(sensor::Sensor *servo) 
+{
+    Servo_Status_ = servo;
+}
+
+void AnInWT_Val(sensor::Sensor *wtemp) 
+{
+    AnInWT_Val_ = wtemp;
+}
+
+void AnInVPow_Val(sensor::Sensor *vpow) 
+{
+    AnInVPow_Val_ = vpow;
+}
+
 void AnInL_Perc(sensor::Sensor *level) 
 {
     AnInL_Perc_ = level;
+}
+
+void AnInG_Val(sensor::Sensor *a) 
+{
+    AnInG_Val_ = a;
+}
+
+void AnInEC_Val(sensor::Sensor *ec) 
+{
+    AnInEC_Val_ = ec;
+}
+
+void AnInPH_Val(sensor::Sensor *ph) 
+{
+    AnInPH_Val_ = ph;
+}
+
+void DigIn_Status(sensor::Sensor *din) 
+{
+    DigIn_Status_ = din;
 }
 
 protected:
@@ -169,7 +233,8 @@ uint8_t AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
-sensor::Sensor *Pump_Total_{nullptr};
+sensor::Sensor *Pump_Total_ml_{nullptr};
+sensor::Sensor *Pump_Total_l_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
 sensor::Sensor *Servo_Status_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};
