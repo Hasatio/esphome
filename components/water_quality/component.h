@@ -285,7 +285,7 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8> data = this->val_.value(x...);
+    std::vector<uint8_t> data = this->val_.value(x...);
 
     if (DigOut_Status != dout)
     for (size_t i = 0; i < dout.size(); i++)
@@ -296,7 +296,7 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     this->parent_->digital_out(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8>, val);
+    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
 
     protected:
     MyComponent *parent_;
