@@ -16,7 +16,10 @@ void MyComponent::loop()
 
 void MyComponent::update() 
 {
-    if (this->DigOut_3_Status_ != nullptr) this->DigOut_3_Status_->publish_state(DigOut_Status[3]);
+    if (this->AnInVPow_Val_ != nullptr) 
+    {
+        this->AnInVPow_Val_->publish_state(AnOut_Vcc);
+    }
 }
 
 }  // namespace water_quality
