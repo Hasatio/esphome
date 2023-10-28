@@ -437,7 +437,7 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_DIGITAL_OUT): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.boolean)
+                cv.ensure_list(cv.uint8_t)
             ),
         ),
     }
@@ -455,7 +455,7 @@ async def digital_out_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_DIGITAL_OUT]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
         cg.add(var.set_val(template_))
 
     return var

@@ -134,15 +134,8 @@ void ph(const uint8_t ch, const uint8_t type)
     AnInPH_Type = type;
 }
 
-void digital_out(std::vector<bool> &dout)
+void digital_out(std::vector<uint8_t> &dout)
 {
-    if (DigOut_Status != dout)
-    for (size_t i = 0; i < dout.size(); i++)
-    {
-        ESP_LOGD(TAG,"DigOut_Status");
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (dout[i] ? 1 : 0));
-    }
-
     this->DigOut_Status = dout;
 }
 
@@ -292,12 +285,18 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<bool> data = this->val_.value(x...);
+    std::vector<uint8> data = this->val_.value(x...);
 
+    if (DigOut_Status != dout)
+    for (size_t i = 0; i < dout.size(); i++)
+    {
+        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i]);
+    }
+    
     this->parent_->digital_out(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<bool>, val);
+    TEMPLATABLE_VALUE(std::vector<uint8>, val);
 
     protected:
     MyComponent *parent_;
