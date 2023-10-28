@@ -258,7 +258,9 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
             cv.All(
                 # [cv.Any(cv.uint8_t)],
                 # [cv.ensure_list(cv.uint8_t)],
-                cv.templatable(cv.ensure_list(cv.int_range(min = 0, max = 2))),
+                cv.templatable(
+                    cv.ensure_list(cv.int_range(min = 0, max = 2))
+                ),
                 # cv.Length(min=0, max=3),
             )
         ),
@@ -291,7 +293,9 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_DOSE): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(
+                cv.ensure_list(cv.uint8_t)
+            ),
         ),
     }
 )
@@ -320,7 +324,9 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_CIRCULATION): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint16_t)),
+            cv.templatable(
+                cv.ensure_list(cv.uint16_t)
+            ),
         ),
     }
 )
@@ -349,7 +355,9 @@ PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_RESET): cv.All(
-            cv.templatable(cv.ensure_list(cv.boolean)),
+            cv.templatable(
+                cv.ensure_list(cv.boolean)
+            ),
         ),
     }
 )
@@ -378,7 +386,9 @@ SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_SERVO_MODE): cv.All(
-            cv.templatable(cv.ensure_list(cv.boolean)),
+            cv.templatable(
+                cv.ensure_list(cv.boolean)
+            ),
         ),
     }
 )
@@ -407,7 +417,9 @@ SERVO_POSITION_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_SERVO_POSITION): cv.All(
-            cv.templatable(cv.ensure_list(cv.uint8_t)),
+            cv.templatable(
+                cv.ensure_list(cv.uint8_t)
+            ),
         ),
     }
 )
@@ -430,6 +442,37 @@ async def servo_position_to_code(config, action_id, template_arg, args):
     return var
 
 
+# DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
+
+# DIGITAL_OUT_ACTION_SCHEMA = cv.All(
+#     {
+#         cv.GenerateID(): cv.use_id(MyComponent),
+#         cv.Required(CONF_DIGITAL_OUT): cv.All(
+#             cv.templatable(
+#                 cv.ensure_list(cv.uint8_t)
+#             ),
+#         ),
+#     }
+# )
+
+# @automation.register_action(
+#     "water_quality.digital_out", 
+#     DigitalOutAction, 
+#     DIGITAL_OUT_ACTION_SCHEMA
+# )
+
+# async def digital_out_to_code(config, action_id, template_arg, args):
+#     paren = await cg.get_variable(config[CONF_ID])
+#     var = cg.new_Pvariable(action_id, template_arg, paren)
+
+#     val = config[CONF_DIGITAL_OUT]
+#     if cg.is_template(val):
+#         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+#         cg.add(var.set_val(template_))
+
+#     return var
+
+
 DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
 
 DIGITAL_OUT_ACTION_SCHEMA = cv.All(
@@ -437,7 +480,7 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_DIGITAL_OUT): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.uint8_t)
+                cv.ensure_list(cv.bool)
             ),
         ),
     }
@@ -455,7 +498,7 @@ async def digital_out_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_DIGITAL_OUT]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
         cg.add(var.set_val(template_))
 
     return var
