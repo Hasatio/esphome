@@ -139,7 +139,7 @@ void digital_out(std::vector<bool> &dout)
     if (DigOut_Status != dout)
     for (size_t i = 0; i < dout.size(); i++)
     {
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i]);
+        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i] ? 1 : 0);
     }
 
     this->DigOut_Status = dout;
@@ -166,7 +166,7 @@ uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
-std::vector<bool> DigOut_Status{0,0,0,0};
+std::vector<bool> DigOut_Status{};
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_{nullptr};
