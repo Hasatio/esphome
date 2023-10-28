@@ -287,10 +287,10 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     {
     std::vector<uint8_t> data = this->val_.value(x...);
 
-    if (DigOut_Status != dout)
-    for (size_t i = 0; i < dout.size(); i++)
+    if (DigOut_Status != data)
+    for (size_t i = 0; i < data.size(); i++)
     {
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout[i]);
+        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, data[i]);
     }
     
     this->parent_->digital_out(data);
