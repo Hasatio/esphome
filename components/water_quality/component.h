@@ -88,7 +88,7 @@ void pump_reset(std::vector<bool> &pres)
     if (Pump_Reset != pres)
     for (size_t i = 0; i < (dose + circ); i++)
     {
-        ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres[i]);
+        ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pres[i]);
     }
 
     this->Pump_Reset = pres;
@@ -99,7 +99,7 @@ void servo_mode(std::vector<bool> &smode)
     if (Servo_Mode != smode)
     for (size_t i = 0; i < smode.size(); i++)
     {
-        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode[i]);
+        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, (int)smode[i]);
     }
 
     this->Servo_Mode = smode;
