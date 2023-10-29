@@ -247,6 +247,14 @@ async def to_code(config):
     t = conf[CONF_PH_TYPE]
     cg.add(var.ph(ch, t))
 
+    cg.add_library("Wire", None)
+    cg.add_library("SPI", None)
+    cg.add_library("Adafruit ADS1X15",None)
+    cg.add_library("Adafruit ADXL345",None)
+    cg.add_library("Adafruit MAX1704X",None)
+    cg.add_library("Adafruit BusIO",None)
+    cg.add_library("Adafruit Unified Sensor",None)
+    cg.add_library("BluetoothSerial",None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
