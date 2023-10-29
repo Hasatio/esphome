@@ -243,7 +243,7 @@ void update() override
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
     if (this->AnInLvl_Perc_ != nullptr) { 
-        for (size_t i = 0; i < AnInLvl_Perc_.size(); i++) 
+        for (size_t i = 0; i < AnInLvl_Perc_; i++) 
         this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
     }
 }
