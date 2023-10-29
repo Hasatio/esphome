@@ -38,8 +38,7 @@ UNIT_LITER = "l"
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
-MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice
-)
+MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice)
 
 CONFIG_SCHEMA = (
     cv.Schema(
