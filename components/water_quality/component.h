@@ -2,7 +2,7 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "component";
+// static const char *const TAG = "component";
 
 class MyComponent
 {
