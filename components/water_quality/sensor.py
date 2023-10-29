@@ -43,7 +43,7 @@ MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingCompon
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(MyComponent),
+            cv.GenerateID(): cv.use_id(Water_Quality),
             cv.Optional(CONF_TIME_CONSTANT): sensor.sensor_schema(
                 unit_of_measurement = UNIT_SECOND,
                 accuracy_decimals = 0,
