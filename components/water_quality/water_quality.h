@@ -26,26 +26,6 @@ class Water_Quality : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
-    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    Adafruit_ADS1115 ads1;
-    Adafruit_ADS1115 ads2;
-
-    Adafruit_MCP23X08 mcp;
-
-    Adafruit_PWMServoDriver pwm;
-
-
-    // i2c ayarları
-    #define SDA 16 
-    #define SCL 32
-    #define freq 800000
-
-    // i2c adres ayarları
-    #define TCA9548_ADDRESS 0x70
-    #define ADS1X15_ADDRESS1 0x48
-    #define ADS1X15_ADDRESS2 0x49
-    #define MCP23008_ADDRESS 0x20
-    #define PCA9685_I2C_ADDRESS 0x40
 
 void tcaselect(uint8_t bus){
     if (bus > 7) return;
@@ -76,8 +56,8 @@ void ads1115()
     WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
-    // AnOut_LvlPerc[0] = (int)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    // AnOut_LvlPerc[1] = (int)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[0] = (int)volts[2] * 100 / 5 * AnIn_LvlResMax[0] / (1000 + AnIn_LvlResMax[0]) - 5 * AnIn_LvlResMin[0] / (1000 + AnIn_LvlResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[1] = (int)volts[3] * 100 / 5 * AnIn_LvlResMax[1] / (1000 + AnIn_LvlResMax[1]) - 5 * AnIn_LvlResMin[1] / (1000 + AnIn_LvlResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 }
 
 void dump_config() override
@@ -261,10 +241,9 @@ void update() override
 {
     ads1115();
 
-    if (this->AnInVPow_Val_ != nullptr) 
-    {
-        this->AnInVPow_Val_->publish_state(VPow);
-    }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
+    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
+    if (this->AnInLvl_Perc_ != nullptr) { this->AnInLvl_Perc_->publish_state(LvlPerc); }
 }
 
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
@@ -418,7 +397,7 @@ uint8_t dose, circ;
     float volts[8];
 
     uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    float VPow, WT, WT_Res;
+    float VPow, WT, WT_Res, LvlPerc[2];
     uint16_t AnOut_SensPerc[4];
 
     uint8_t DigIn_FilterCoeff[4][10];
