@@ -56,9 +56,6 @@ uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
     uint8_t DigIn_FilterCoeff[4][10];
-class MyComponent
-{
-public:
 
 void tcaselect(uint8_t bus){
     if (bus > 7) return;
@@ -218,6 +215,9 @@ void ads1115()
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 }
 
+class MyComponent
+{
+public:
 
 };
 
