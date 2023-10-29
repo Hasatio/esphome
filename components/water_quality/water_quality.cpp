@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-void MyComponent::loop() 
+void Water_Quality::loop() 
 {
     
 }

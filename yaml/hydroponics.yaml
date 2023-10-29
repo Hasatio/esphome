@@ -80,11 +80,11 @@ interval:
 
 
 
-# i2c:
-#   id: i2c0
-#   sda: GPIO16
-#   scl: GPIO32
-#   scan: True
+i2c:
+  id: i2c0
+  sda: GPIO16
+  scl: GPIO32
+  scan: True
 
 
 # tca9548a:
@@ -117,9 +117,9 @@ interval:
 #   update_interval: 1s    
 
 # ads1115:
-#   - address: 0x48
-#     i2c_id: multiplex0channel2
-#     id: ads1115_hub0
+#   - id: ads1115_hub0
+#     address: 0x48
+#     i2c_id: multiplex0channel0
 #     continuous_mode: True
 
 
@@ -143,6 +143,8 @@ external_components:
 
 water_quality:
   id: water
+  address: 0x70
+  i2c_id: i2c0
   pump1: 
     pump_type: 1
     pump_calibration:
