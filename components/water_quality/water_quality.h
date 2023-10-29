@@ -397,9 +397,9 @@ uint8_t dose, circ;
     float volts[8];
 
     uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    uint8_t LvlPerc[2];
+    std::vector<uint8_t> LvlPerc{};
     float VPow, WT, WT_Res;
-    uint16_t AnOut_SensPerc[4];
+    std::vector<uint8_t> AnOut_SensPerc{};
 
     uint8_t DigIn_FilterCoeff[4][10];
 
