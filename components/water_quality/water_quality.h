@@ -56,6 +56,14 @@ float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
 uint8_t dose, circ;
 
+
+void tcaselect(uint8_t bus){
+    if (bus > 7) return;
+    Wire.beginTransmission(TCA9548_ADDRESS);
+    Wire.write(1 << bus);
+    Wire.endTransmission();
+}
+
 void setup() override
 {
 
@@ -209,10 +217,10 @@ void setup() override
 void loop() override;
 void update() override
 {
-    // if (this->AnInVPow_Val_ != nullptr) 
-    // {
-    //     this->AnInVPow_Val_->publish_state(AnOut_Vcc);
-    // }
+    if (this->AnInVPow_Val_ != nullptr) 
+    {
+        this->AnInVPow_Val_->publish_state(AnOut_Vcc);
+    }
 }
 
 void dump_config() override
