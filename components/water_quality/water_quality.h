@@ -232,13 +232,6 @@ std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
-std::vector<uint16_t> AnInLvl_ResMin{};
-std::vector<uint16_t> AnInLvl_ResMax{};
-uint8_t AnInEC_Ch;
-uint8_t AnInEC_Type;
-uint8_t AnInPH_Ch;
-uint8_t AnInPH_Type;
-std::vector<bool> DigOut_Status{0,0,0,0};
 uint8_t dose, circ;
 
 
