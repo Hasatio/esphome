@@ -74,7 +74,7 @@ CONFIG_SCHEMA = (
             ),
             cv.Optional(CONF_LEVEL): sensor.sensor_schema(
                 unit_of_measurement = UNIT_PERCENT,
-                accuracy_decimals = 2,
+                accuracy_decimals = 0,
             ),
             cv.Optional(CONF_ANALOG): sensor.sensor_schema(
                 unit_of_measurement = UNIT_VOLT,
