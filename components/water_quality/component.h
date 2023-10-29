@@ -203,7 +203,6 @@ void ads1115()
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 }
 
-protected:
     uint16_t adc[8], PwmFreq = 1000;
     float volts[8];
 
