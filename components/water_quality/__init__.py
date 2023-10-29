@@ -78,7 +78,7 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
 )
 
 component_ns = cg.esphome_ns.namespace("water_quality")
-Water_Quality = component_ns.class_("Water_Quality", cg.Component, i2c.I2CDevice)
+Water_Quality = component_ns.class_("Water_Quality", cg.PollingComponent, i2c.I2CDevice)
 
                     
 CONFIG_SCHEMA = cv.All(
