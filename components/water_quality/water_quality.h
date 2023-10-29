@@ -172,6 +172,33 @@ void mcp23008_set()
     mcp.digitalWrite(6,LOW);
     mcp.digitalWrite(7,LOW);
 }
+void mcp23008()
+{
+    tcaselect(0);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
+
+    for(size_t i = 0; i < 4; i++)
+    {
+        DigIn_Status[i] = mcp.digitalRead(i);
+        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+    }
+
+    for(size_t i = 0; i < 4; i++)
+    {
+        if (DigOut_Status[i] == 1)
+        {
+            mcp.digitalWrite(i+4, HIGH);
+        }
+        else
+        { 
+            mcp.digitalWrite(i+4, LOW);
+        }
+        // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 void pca9685_set()
@@ -202,6 +229,37 @@ void pca9685_set()
     */
     pwm.setOscillatorFrequency(27000000);
     pwm.setPWMFreq(PwmFreq);
+}
+void pca9685()
+{
+    tcaselect(0);
+    // for (uint8_t pin=0; pin<16; pin++) 
+    // {
+    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
+    // delay(100);
+    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+    // }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
+    // }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
+        
+    //     ESP_LOGD(TAG,"pwm = %d", i);
+    // }
+
+    for (uint8_t i = 0; i < Pump_Total.size(); i++) 
+        {
+            Pump_Total[i] += i;
+        }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
@@ -273,6 +331,8 @@ void dump_config() override
 void update() override
 {
     ads1115();
+    mcp23008();
+    pca9685();
     sensor();
 }
 
@@ -324,6 +384,23 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 
     this->Pump_Circulation = pcirc;
 }
+void pump_total(std::vector<uint16_t> &ptot)
+{
+    ptot.resize(dose + circ);
+
+    if (Pump_Total_ml != ptot)
+    for (size_t i = 0; i < (dose + circ); i++)
+    {
+        if ((Pump_Total_ml[i] + ptot[i]) > 999)
+        {
+            Pump_Total_l[i] += (int)(Pump_Total_ml[i] + ptot[i])/1000;
+            Pump_Total_ml[i] = (int)(Pump_Total_ml[i] + ptot[i])%1000;
+        }
+        ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
+    }
+
+    this->Pump_Circulation = pcirc;
+}
 void pump_reset(std::vector<bool> &pres)
 {
     pres.resize(dose + circ);
@@ -331,6 +408,11 @@ void pump_reset(std::vector<bool> &pres)
     if (Pump_Reset != pres)
     for (size_t i = 0; i < (dose + circ); i++)
     {
+        if (!pres[i])
+        {
+            Pump_Total_l[i] = 0;
+            Pump_Total_ml[i] = 0;
+        }
         ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pres[i]);
     }
 
