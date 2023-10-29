@@ -483,6 +483,7 @@ uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Total_l{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
@@ -504,6 +505,7 @@ protected:
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
+sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
 sensor::Sensor *Servo_Status_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};
