@@ -39,14 +39,13 @@ void tcaselect(uint8_t bus){
 void ads1115()
 {
     tcaselect(0);
-    for(int i = 0; i < 4; i++)
+    for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
         volts[i] = ads1.computeVolts(adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
-    for(int i = 4; i < 8; i++)
-    {
+    for(size_t i = 4; i < 8; i++){
         adc[i] = ads2.readADC_SingleEnded(i%4);
         volts[i] = ads2.computeVolts(adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
@@ -243,7 +242,10 @@ void update() override
 
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
-    if (this->AnInLvl_Perc_ != nullptr) { this->AnInLvl_Perc_->publish_state(LvlPerc); }
+    if (this->AnInLvl_Perc_ != nullptr) { 
+        for (size_t i = 0; i < AnInLvl_Perc_.size(); i++) 
+        this->AnInLvl_Perc_->publish_state(LvlPerc);
+    }
 }
 
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
