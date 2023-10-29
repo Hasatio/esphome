@@ -19,6 +19,13 @@
 namespace esphome {
 namespace water_quality {
 
+// static const char *const TAG = "component";
+
+class Water_Quality : public PollingComponent, public i2c::I2CDevice 
+{
+public:
+float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+
     //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
@@ -39,14 +46,6 @@ namespace water_quality {
     #define ADS1X15_ADDRESS2 0x49
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
-
-// static const char *const TAG = "component";
-
-class Water_Quality : public PollingComponent, public i2c::I2CDevice 
-{
-public:
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
