@@ -59,32 +59,32 @@ uint8_t dose, circ;
 void setup() override
 {
 
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// //  TCA9548
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
 
-//     Wire.begin(SDA,SCL,freq);
+    Wire.begin(SDA,SCL,freq);
 
-//     for (uint8_t t=0; t<8; t++) 
-//     {
-//       tcaselect(t);
-//       ESP_LOGI(TAG,"TCA Port %d", t);
+    for (uint8_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
 
-//       for (uint8_t addr = 0; addr<=127; addr++) 
-//       {
-//         if (addr == TCA9548_ADDRESS) continue;
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
 
-//         Wire.beginTransmission(addr);
-//         if (!Wire.endTransmission()) 
-//         {
-//           ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-//         }
-//       }
-//     }
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
-    // tcaselect(0);
+    tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
@@ -136,7 +136,7 @@ void setup() override
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
-    // tcaselect(0);
+    tcaselect(0);
     
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
@@ -177,7 +177,7 @@ void setup() override
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 
-    // tcaselect(0);
+    tcaselect(0);
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
     if (!pwm.begin()) 
