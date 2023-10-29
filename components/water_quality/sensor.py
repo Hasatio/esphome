@@ -15,7 +15,7 @@ from esphome.const import (
 
 from . import (
     component_ns, 
-    MyComponent,
+    Water_Quality,
 )
 
 CODEOWNERS = ["@hasatio"]
