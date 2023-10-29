@@ -40,7 +40,11 @@ static const char *const TAG = "component";
     #define ADS1X15_ADDRESS2 0x49
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
-    
+   
+class MyComponent
+{
+public:
+
 void tcaselect(uint8_t bus){
     if (bus > 7) return;
     Wire.beginTransmission(TCA9548_ADDRESS);
@@ -198,11 +202,6 @@ void ads1115()
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 }
-
-class MyComponent
-{
-public:
-
 
 };
 
