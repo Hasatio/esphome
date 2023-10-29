@@ -3,6 +3,8 @@
 namespace esphome {
 namespace water_quality {
 
+static const char *const TAG = "component";
+
 class MyComponent : public PollingComponent 
 {
 public:
