@@ -421,7 +421,6 @@ uint8_t dose, circ;
     uint16_t AnOut_SensPerc[4];
 
     uint8_t DigIn_FilterCoeff[4][10];
-    bool DigIn_Status[4], DigOut_Status[4]; 
 
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
