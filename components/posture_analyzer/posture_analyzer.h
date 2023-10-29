@@ -13,7 +13,7 @@
 namespace esphome {
 namespace posture_analyzer {
 
-class MyComponent : public PollingComponent // ana sınıf
+class Posture_Analyzer : public PollingComponent // ana sınıf
 {
 public:
 
