@@ -27,6 +27,54 @@ public:
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
+void dump_config() override
+{
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+
+    Wire.begin(SDA,SCL,freq);
+
+    for (uint8_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
+
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
+
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ESP_LOGI(TAG,"Pump_dose = %d", dose);
+    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+
+    for (size_t i = 0; i < (dose + circ)*2; i++)
+    {
+        for (size_t j = 0; j < 8; j++)
+        {
+            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
+        }
+    }
+
+    for (size_t i = 0; i < AnInL_LvlResMin.size(); i++)
+    {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInL_LvlResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInL_LvlResMax[i]);
+    }
+
+    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
+}
+
 void setup() override
 {
 
@@ -160,56 +208,8 @@ void update() override
 {
     if (this->AnInVPow_Val_ != nullptr) 
     {
-        this->AnInVPow_Val_->publish_state(AnOut_Vcc);
+        this->AnInVPow_Val_->publish_state(VPow);
     }
-}
-
-void dump_config() override
-{
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
-
-    Wire.begin(SDA,SCL,freq);
-
-    for (uint8_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
-
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
-
-    for (size_t i = 0; i < (dose + circ)*2; i++)
-    {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
-        }
-    }
-
-    for (size_t i = 0; i < AnInL_LvlResMin.size(); i++)
-    {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInL_LvlResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInL_LvlResMax[i]);
-    }
-
-    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
 
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
@@ -302,7 +302,7 @@ void servo_position(std::vector<uint8_t> &spos)
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     this->AnInL_LvlResMin = rmin;
-    this->AnInL_LvlResMax = rmax;
+    this->AnInLevel_LvlResMax = rmax;
 }
 
 void ec(const uint8_t ch, const uint8_t type)
@@ -335,8 +335,8 @@ void Pump_Status        (sensor::Sensor *pstat)  { Pump_Status_ = pstat; }
 void Servo_Status       (sensor::Sensor *servo)  { Servo_Status_ = servo; }
 void AnInWT_Val         (sensor::Sensor *wtemp)  { AnInWT_Val_ = wtemp; }
 void AnInVPow_Val       (sensor::Sensor *vpow)   { AnInVPow_Val_ = vpow; }
-void AnInL_Perc         (sensor::Sensor *level)  { AnInL_Perc_ = level; }
-void AnInG_Val          (sensor::Sensor *a)      { AnInG_Val_ = a; }
+void AnInLvl_Perc       (sensor::Sensor *level)  { AnInLvl_Perc_ = level; }
+void AnInGlob_Val       (sensor::Sensor *a)      { AnInGlob_Val_ = a; }
 void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
@@ -365,8 +365,8 @@ sensor::Sensor *Pump_Status_{nullptr};
 sensor::Sensor *Servo_Status_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};
 sensor::Sensor *AnInVPow_Val_{nullptr};
-sensor::Sensor *AnInL_Perc_{nullptr};
-sensor::Sensor *AnInG_Val_{nullptr};
+sensor::Sensor *AnInLvl_Perc_{nullptr};
+sensor::Sensor *AnInGlob_Val_{nullptr};
 sensor::Sensor *AnInEC_Val_{nullptr};
 sensor::Sensor *AnInPH_Val_{nullptr};
 sensor::Sensor *DigIn_Status_{nullptr};

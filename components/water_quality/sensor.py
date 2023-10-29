@@ -1,6 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor
+from esphome.components import i2c, sensor
 from esphome.const import (
     CONF_ID, 
     CONF_STATUS, 
@@ -38,6 +38,8 @@ UNIT_LITER = "l"
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
 
+MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice
+)
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -135,12 +137,12 @@ async def to_code(config):
     if CONF_LEVEL in config:
         conf = config[CONF_LEVEL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInL_Perc(sens))
+        cg.add(parent.AnInLvl_Perc(sens))
         
     if CONF_ANALOG in config:
         conf = config[CONF_ANALOG]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInG_Val(sens))
+        cg.add(parent.AnInGlob_Val(sens))
         
     if CONF_EC in config:
         conf = config[CONF_EC]
