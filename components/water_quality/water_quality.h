@@ -19,7 +19,7 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "component";
+// static const char *const TAG = "component";
 
     //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
     Adafruit_ADS1115 ads1;
