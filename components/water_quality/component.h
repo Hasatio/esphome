@@ -41,6 +41,21 @@ static const char *const TAG = "component";
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
    
+    uint16_t adc[8], PwmFreq = 1000;
+    float volts[8];
+
+    uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+    std::vector<float> LvlPerc{};
+    float VPow, WT, WT_Res;
+
+std::vector<uint16_t> AnInLvl_ResMin{};
+std::vector<uint16_t> AnInLvl_ResMax{};
+uint8_t AnInEC_Ch;
+uint8_t AnInEC_Type;
+uint8_t AnInPH_Ch;
+uint8_t AnInPH_Type;
+std::vector<bool> DigOut_Status{0,0,0,0};
+    uint8_t DigIn_FilterCoeff[4][10];
 class MyComponent
 {
 public:
@@ -203,21 +218,6 @@ void ads1115()
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 }
 
-    uint16_t adc[8], PwmFreq = 1000;
-    float volts[8];
-
-    uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    std::vector<float> LvlPerc{};
-    float VPow, WT, WT_Res;
-
-std::vector<uint16_t> AnInLvl_ResMin{};
-std::vector<uint16_t> AnInLvl_ResMax{};
-uint8_t AnInEC_Ch;
-uint8_t AnInEC_Type;
-uint8_t AnInPH_Ch;
-uint8_t AnInPH_Type;
-std::vector<bool> DigOut_Status{0,0,0,0};
-    uint8_t DigIn_FilterCoeff[4][10];
 
 };
 
