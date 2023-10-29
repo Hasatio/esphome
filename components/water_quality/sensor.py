@@ -43,7 +43,7 @@ UNIT_MILILITERS_PER_MINUTE = "ml/min"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(Water_Quality),
+            cv.GenerateID(): cv.use_id(MyComponent),
             cv.Optional(CONF_TIME_CONSTANT): sensor.sensor_schema(
                 unit_of_measurement = UNIT_SECOND,
                 accuracy_decimals = 0,
