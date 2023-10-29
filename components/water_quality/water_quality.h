@@ -68,28 +68,6 @@ void setup() override
 {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
-
-    Wire.begin(SDA,SCL,freq);
-
-    for (uint8_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
-
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
     
     tcaselect(0);
@@ -225,6 +203,29 @@ void update() override
 
 void dump_config() override
 {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+
+    Wire.begin(SDA,SCL,freq);
+
+    for (uint8_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
+
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
+
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
