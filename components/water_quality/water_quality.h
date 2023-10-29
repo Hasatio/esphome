@@ -396,7 +396,8 @@ uint8_t dose, circ;
     uint16_t adc[8], PwmFreq = 1000;
     float volts[8];
 
-    uint16_t AnInWT_Res = 1000, LvlPerc[2]; //temperature sensor model pt1000 and its resistance is 1k
+    uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+    uint8_t LvlPerc[2];
     float VPow, WT, WT_Res;
     uint16_t AnOut_SensPerc[4];
 
