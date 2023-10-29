@@ -355,8 +355,8 @@ void servo_position(std::vector<uint8_t> &spos)
 
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    this->AnInL_LvlResMin = rmin;
-    this->AnInLevel_LvlResMax = rmax;
+    this->AnInLvl_ResMin = rmin;
+    this->AnInLvl_ResMax = rmax;
 }
 
 void ec(const uint8_t ch, const uint8_t type)
