@@ -117,10 +117,10 @@ void dump_config() override
         }
     }
 
-    for (size_t i = 0; i < AnInL_LvlResMin.size(); i++)
+    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInL_LvlResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInL_LvlResMax[i]);
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
     }
 
     ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
