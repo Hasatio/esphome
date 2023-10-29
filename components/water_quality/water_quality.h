@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.h"
+// #include "component.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
