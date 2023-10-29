@@ -1,4 +1,4 @@
-#include "component.h"
+#include "posture_analyzer.h"
 
 extern "C" {
 uint8_t temprature_sens_read();
