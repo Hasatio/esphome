@@ -56,9 +56,165 @@ float AnOut_Vcc, AnOut_Temp, TempRes;
 uint8_t DigIn_FilterCoeff[4][10];
 uint8_t dose, circ;
 
-void setup() override;
+void setup() override
+{
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  TCA9548
+
+//     Wire.begin(SDA,SCL,freq);
+
+//     for (uint8_t t=0; t<8; t++) 
+//     {
+//       tcaselect(t);
+//       ESP_LOGI(TAG,"TCA Port %d", t);
+
+//       for (uint8_t addr = 0; addr<=127; addr++) 
+//       {
+//         if (addr == TCA9548_ADDRESS) continue;
+
+//         Wire.beginTransmission(addr);
+//         if (!Wire.endTransmission()) 
+//         {
+//           ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+//         }
+//       }
+//     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+    
+    // tcaselect(0);
+    if (!ads1.begin(ADS1X15_ADDRESS1))
+    {
+      ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
+    //   while (1);
+    }
+    if (!ads2.begin(ADS1X15_ADDRESS2))
+    {
+      ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
+    //   while (1);
+    }
+
+    // The ADC input range (or gain) can be changed via the following
+    // functions, but be careful never to exceed VDD +0.3V max, or to
+    // exceed the upper and lower limits if you adjust the input range!
+    // Setting these values incorrectly may destroy your ADC!
+    
+    //                                          ADS1015          ADS1115
+    //                                          -------          -------
+    // GAIN_TWOTHIRDS  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV (default)
+    // GAIN_ONE        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
+    // GAIN_TWO        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
+    // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
+    // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
+    // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
+    ads1.setGain(GAIN_TWOTHIRDS);
+    ads2.setGain(GAIN_TWOTHIRDS);
+    
+    // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
+    // RATE_ADS1115_16SPS (0x0020)  ///< 16 samples per second
+    // RATE_ADS1115_32SPS (0x0040)  ///< 32 samples per second
+    // RATE_ADS1115_64SPS (0x0060)  ///< 64 samples per second
+    // RATE_ADS1115_128SPS (0x0080) ///< 128 samples per second (default)
+    // RATE_ADS1115_250SPS (0x00A0) ///< 250 samples per second
+    // RATE_ADS1115_475SPS (0x00C0) ///< 475 samples per second
+    // RATE_ADS1115_860SPS (0x00E0) ///< 860 samples per second
+    ads1.setDataRate(RATE_ADS1115_860SPS);
+    ads2.setDataRate(RATE_ADS1115_860SPS);
+    
+    // ADS1X15_REG_CONFIG_MUX_DIFF_0_1 (0x0000) ///< Differential P = AIN0, N = AIN1 (default)
+    // ADS1X15_REG_CONFIG_MUX_DIFF_0_3 (0x1000) ///< Differential P = AIN0, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_DIFF_1_3 (0x2000) ///< Differential P = AIN1, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_DIFF_2_3 (0x3000) ///< Differential P = AIN2, N = AIN3
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_0 (0x4000) ///< Single-ended AIN0
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_1 (0x5000) ///< Single-ended AIN1
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
+    // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
+    // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  MCP23008
+
+    // tcaselect(0);
+    
+    if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
+    {
+        ESP_LOGE(TAG,"Failed to initialize MCP23008.");
+        // while (1);
+    }
+
+    // mcp.pinMode(0, INPUT);
+    // mcp.pinMode(1, INPUT);
+    // mcp.pinMode(2, INPUT);
+    // mcp.pinMode(3, INPUT);
+    // mcp.pullUp(0, HIGH);
+    // mcp.pullUp(1, HIGH);
+    // mcp.pullUp(2, HIGH);
+    // mcp.pullUp(3, HIGH);
+    // mcp.pinMode(4, OUTPUT);
+    // mcp.pinMode(5, OUTPUT);
+    // mcp.pinMode(6, OUTPUT);
+    // mcp.pinMode(7, OUTPUT);
+    // mcp.digitalWrite(4,LOW);
+    // mcp.digitalWrite(5,LOW);
+    // mcp.digitalWrite(6,LOW);
+    // mcp.digitalWrite(7,LOW);
+    
+    mcp.pinMode(0, INPUT_PULLUP);
+    mcp.pinMode(1, INPUT_PULLUP);
+    mcp.pinMode(2, INPUT_PULLUP);
+    mcp.pinMode(3, INPUT_PULLUP);
+    mcp.pinMode(4, OUTPUT);
+    mcp.pinMode(5, OUTPUT);
+    mcp.pinMode(6, OUTPUT);
+    mcp.pinMode(7, OUTPUT);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  PCA9685
+
+    // tcaselect(0);
+    Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
+    
+    if (!pwm.begin()) 
+    {
+      ESP_LOGE(TAG,"Failed to initialize PCA9685.");
+    //   while (1);
+    }
+    /*
+    * In theory the internal oscillator (clock) is 25MHz but it really isn't
+    * that precise. You can 'calibrate' this by tweaking this number until
+    * you get the PWM update frequency you're expecting!
+    * The int.osc. for the PCA9685 chip is a range between about 23-27MHz and
+    * is used for calculating things like writeMicroseconds()
+    * Analog servos run at ~50 Hz updates, It is importaint to use an
+    * oscilloscope in setting the int.osc frequency for the I2C PCA9685 chip.
+    * 1) Attach the oscilloscope to one of the PWM signal pins and ground on
+    *    the I2C PCA9685 chip you are setting the value for.
+    * 2) Adjust setOscillatorFrequency() until the PWM update frequency is the
+    *    expected value (50Hz for most ESCs)
+    * Setting the value here is specific to each individual I2C PCA9685 chip and
+    * affects the calculations for the PWM update frequency. 
+    * Failure to correctly set the int.osc value will cause unexpected PWM results
+    */
+    pwm.setOscillatorFrequency(27000000);
+    pwm.setPWMFreq(PwmFreq);
+
+}
+
 void loop() override;
-void update() override;
+void update() override
+{
+    if (this->AnInVPow_Val_ != nullptr) 
+    {
+        this->AnInVPow_Val_->publish_state(AnOut_Vcc);
+    }
+}
+
 void dump_config() override
 {
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
