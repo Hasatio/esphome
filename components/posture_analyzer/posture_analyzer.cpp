@@ -76,17 +76,17 @@ static const char *TAG = "mysensor";
     String data = "";
     bool success = false;
 
-void Posture_Analyzer::bluetooth(String b) // bluetooth fonksiyonu
+void MyComponent::bluetooth(String b) // bluetooth fonksiyonu
 {
     btname = b;
 }
 
-void Posture_Analyzer::gain(float g) // kazanç fonksiyonu
+void MyComponent::gain(float g) // kazanç fonksiyonu
 {
     mygain = g;
 }
 
-void Posture_Analyzer::setup() // ayar fonksiyonu
+void MyComponent::setup() // ayar fonksiyonu
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
@@ -227,7 +227,7 @@ void Posture_Analyzer::setup() // ayar fonksiyonu
     
 }
     
-void Posture_Analyzer::loop() // döngü fonksiyonu
+void MyComponent::loop() // döngü fonksiyonu
 {  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  İnternal Temp
@@ -311,7 +311,7 @@ void Posture_Analyzer::loop() // döngü fonksiyonu
     if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 
-void Posture_Analyzer::update()
+void MyComponent::update()
 { 
 }
 
