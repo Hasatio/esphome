@@ -210,8 +210,14 @@ protected:
     uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
     std::vector<float> LvlPerc{};
     float VPow, WT, WT_Res;
-    std::vector<uint8_t> AnOut_SensPerc{};
 
+std::vector<uint16_t> AnInLvl_ResMin{};
+std::vector<uint16_t> AnInLvl_ResMax{};
+uint8_t AnInEC_Ch;
+uint8_t AnInEC_Type;
+uint8_t AnInPH_Ch;
+uint8_t AnInPH_Type;
+std::vector<bool> DigOut_Status{0,0,0,0};
     uint8_t DigIn_FilterCoeff[4][10];
 
 };
