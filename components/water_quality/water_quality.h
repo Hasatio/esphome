@@ -209,10 +209,10 @@ void setup() override
 void loop() override;
 void update() override
 {
-    if (this->AnInVPow_Val_ != nullptr) 
-    {
-        this->AnInVPow_Val_->publish_state(AnOut_Vcc);
-    }
+    // if (this->AnInVPow_Val_ != nullptr) 
+    // {
+    //     this->AnInVPow_Val_->publish_state(AnOut_Vcc);
+    // }
 }
 
 void dump_config() override
