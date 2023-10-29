@@ -98,13 +98,11 @@ void internal_temp()
   //   }
   // }
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
 void bt_set()
 {
     SerialBT.begin(btname);
-    ESP_LOGD("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
 }
 void bt()
 {
@@ -121,7 +119,6 @@ void bt()
         ESP_LOGD("data", "data: %f",mygain);
       }
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
 void i2c_set()
@@ -131,7 +128,6 @@ void i2c_set()
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 void ads1115_set()
@@ -234,7 +230,6 @@ void ads1115()
       data = data + String(volts[i]) + ",";
     }
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADXL345
 void adxl345_set()
@@ -279,7 +274,6 @@ void adxl345()
     y = accel.getY() * adxlmultiplier;
     z = accel.getZ() * adxlmultiplier;
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MAX17048
 void max17048_set()
@@ -298,15 +292,14 @@ void max17048()
     percentage = maxlipo.cellPercent();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
 void sensor()
 {
     if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
     if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
-   
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void setup() override // ayar fonksiyonu
 {
     bt_set();
@@ -315,8 +308,11 @@ void setup() override // ayar fonksiyonu
     adxl345();
     max17048_set();
 }
-
 void loop() override; // döngü fonksiyonu
+void dump_config() override
+{
+    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
+}
 void update() override
 {
     internal_temp();
@@ -331,25 +327,20 @@ void bluetooth(String b) // bluetooth fonksiyonu
 {
     btname = b;
 }
-
 void gain(float g) // kazanç fonksiyonu
 {
     mygain = g;
 }
-
 void sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
 { 
     sample_ = sample;
 }
-
 void sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
 { 
     sample_sec_ = sample_sec;
 }
 
-protected:
 String btname = "ESP32"; // bt standart adı
-
 uint16_t adc[16];
 uint64_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
@@ -357,6 +348,7 @@ double adxlmultiplier;
 String data = "";
 bool success = false;
 
+protected:
 sensor::Sensor *sample_{nullptr}; // sensör değişkeni
 sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
 

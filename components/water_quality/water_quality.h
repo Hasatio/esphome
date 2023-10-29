@@ -55,85 +55,10 @@ void tcaselect(uint8_t bus){
     Wire.write(1 << bus);
     Wire.endTransmission();
 }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-void ads1115()
-{
-    tcaselect(0);
-    for(size_t i = 0; i < 4; i++)
-    {
-        adc[i] = ads1.readADC_SingleEnded(i%4);
-        volts[i] = ads1.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
-    }
-    for(size_t i = 4; i < 8; i++){
-        adc[i] = ads2.readADC_SingleEnded(i%4);
-        volts[i] = ads2.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
-    }
-
-    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-    VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-
-    LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-}
-
-void dump_config() override
-{
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
-
-    Wire.begin(SDA,SCL,freq);
-
-    for (uint8_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
-
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
-
-    for (size_t i = 0; i < (dose + circ)*2; i++)
-    {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
-        }
-    }
-
-    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
-    {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
-    }
-
-    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
-}
-
-void setup() override
-{
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  ADS1115
-    
+void ads1115_set()
+{ 
     tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
@@ -182,10 +107,33 @@ void setup() override
     // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
     // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
     // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
+}
+void ads1115()
+{
+    tcaselect(0);
+    for(size_t i = 0; i < 4; i++)
+    {
+        adc[i] = ads1.readADC_SingleEnded(i%4);
+        volts[i] = ads1.computeVolts(adc[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+    }
+    for(size_t i = 4; i < 8; i++){
+        adc[i] = ads2.readADC_SingleEnded(i%4);
+        volts[i] = ads2.computeVolts(adc[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+    }
 
+    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+
+    LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
-
+void mcp23008_set()
+{
     tcaselect(0);
     
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
@@ -223,10 +171,11 @@ void setup() override
     mcp.digitalWrite(5,LOW);
     mcp.digitalWrite(6,LOW);
     mcp.digitalWrite(7,LOW);
-
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
-
+void pca9685_set()
+{
     tcaselect(0);
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
@@ -254,12 +203,10 @@ void setup() override
     pwm.setOscillatorFrequency(27000000);
     pwm.setPWMFreq(PwmFreq);
 }
-
-void loop() override;
-void update() override
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sensor
+void sensor()
 {
-    ads1115();
-
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
     if (this->AnInLvl_Perc_ != nullptr) { 
@@ -267,6 +214,68 @@ void update() override
         this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void setup() override
+{
+    ads1115_set();
+    mcp23008_set();
+    pca9685_set();
+}
+void loop() override;
+void dump_config() override
+{
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+
+    Wire.begin(SDA,SCL,freq);
+
+    for (uint8_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
+
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
+
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ESP_LOGI(TAG,"Pump_dose = %d", dose);
+    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+
+    for (size_t i = 0; i < (dose + circ)*2; i++)
+    {
+        for (size_t j = 0; j < 8; j++)
+        {
+            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
+        }
+    }
+
+    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
+    {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
+    }
+
+    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
+}
+void update() override
+{
+    ads1115();
+    sensor();
+}
+
 
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
@@ -275,12 +284,10 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
     
     this->Pump_Type = ptype;
 }
-
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
 { 
     this->Pump_Calib = pcalib;
 }
-
 void pump_mode(std::vector<uint8_t> &pmode)
 {
     pmode.resize(dose + circ);
@@ -293,7 +300,6 @@ void pump_mode(std::vector<uint8_t> &pmode)
 
     this->Pump_Mode = pmode;
 }
-
 void pump_dose(std::vector<uint8_t> &pdose)
 {
     pdose.resize(dose);
@@ -306,7 +312,6 @@ void pump_dose(std::vector<uint8_t> &pdose)
 
     this->Pump_Dose = pdose;
 }
-
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
     pcirc.resize(circ);
@@ -319,7 +324,6 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 
     this->Pump_Circulation = pcirc;
 }
-
 void pump_reset(std::vector<bool> &pres)
 {
     pres.resize(dose + circ);
@@ -332,7 +336,6 @@ void pump_reset(std::vector<bool> &pres)
 
     this->Pump_Reset = pres;
 }
-
 void servo_mode(std::vector<bool> &smode)
 {
     if (Servo_Mode != smode)
@@ -343,7 +346,6 @@ void servo_mode(std::vector<bool> &smode)
 
     this->Servo_Mode = smode;
 }
-
 void servo_position(std::vector<uint8_t> &spos)
 {
     if (Servo_Position != spos)
@@ -354,25 +356,21 @@ void servo_position(std::vector<uint8_t> &spos)
     
     this->Servo_Position = spos;
 }
-
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     this->AnInLvl_ResMin = rmin;
     this->AnInLvl_ResMax = rmax;
 }
-
 void ec(const uint8_t ch, const uint8_t type)
 {
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
-
 void ph(const uint8_t ch, const uint8_t type)
 {
     AnInPH_Ch = ch;
     AnInPH_Type = type;
 }
-
 void digital_out(std::vector<bool> &dout)
 {
     if (DigOut_Status != dout)
@@ -419,8 +417,6 @@ uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
 std::vector<bool> DigOut_Status{0,0,0,0};
-
-
 
 protected:
 sensor::Sensor *Pump_TimeConstant_{nullptr};
