@@ -412,7 +412,7 @@ uint16_t adc[8], PwmFreq = 1000;
 float volts[8];
 std::vector<uint16_t> AnInLvl_ResMin{};
 std::vector<uint16_t> AnInLvl_ResMax{};
-std::vector<float> LvlPerc{};
+std::vector<float> LvlPerc{0};
 uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
