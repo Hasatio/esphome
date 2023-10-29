@@ -25,9 +25,6 @@ class MyComponent
 public:
 
 
-
-
-
 };
 
 }  // namespace water_quality
