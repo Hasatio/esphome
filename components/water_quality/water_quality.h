@@ -241,16 +241,6 @@ uint8_t AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
 uint8_t dose, circ;
 
-    uint16_t adc[8], PwmFreq = 1000;
-    float volts[8];
-
-    uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    std::vector<float> LvlPerc{};
-    float VPow, WT, WT_Res;
-    std::vector<uint8_t> AnOut_SensPerc{};
-
-    uint8_t DigIn_FilterCoeff[4][10];
-
 
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_ml_{nullptr};
