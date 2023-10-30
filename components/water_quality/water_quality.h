@@ -405,9 +405,8 @@ void pump_total(std::vector<uint16_t> &ptot)
             Pump_Total[0][i] += (int)(Pump_Total[0][i] + ptot[i])/1000;
             Pump_Total[1][i] = (int)(Pump_Total[1][i] + ptot[i])%1000;
         }
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d", i, ptot[i]);
     }
-        ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
-    
     this->Pump_Circulation = pcirc;
 }
 void pump_reset(std::vector<bool> &pres)
