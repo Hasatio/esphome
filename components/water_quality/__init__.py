@@ -128,7 +128,8 @@ CONFIG_SCHEMA = cv.All(
                             ),  
                         }
                     )
-                )
+                ),
+                cv.Length(min = 2, max = 2)
             ),
             cv.Required(CONF_SENSORS): cv.All(
                 cv.ensure_list(
@@ -136,23 +137,24 @@ CONFIG_SCHEMA = cv.All(
                         {
                             cv.Required(CONF_EC_CHANNEL): cv.All(
                                 cv.int_range(min = 0, max = 4),
-                                # cv.Length(min = 1, max = 1)
+                                cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_EC_TYPE): cv.All(
                                 cv.int_range(min = 0, max = 2),
-                                # cv.Length(min = 1, max = 1)
+                                cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_PH_CHANNEL): cv.All(
                                 cv.int_range(min = 0, max = 4),
-                                # cv.Length(min = 1, max = 1)
+                                cv.Length(min = 1, max = 1)
                             ),
                             cv.Required(CONF_PH_TYPE): cv.All(
                                 cv.int_range(min = 0, max = 2),
-                                # cv.Length(min = 1, max = 1)
+                                cv.Length(min = 1, max = 1)
                             ),
                         }
                     )
-                )
+                ),
+                cv.Length(min = 4, max = 4)
             ),
         }
     )
