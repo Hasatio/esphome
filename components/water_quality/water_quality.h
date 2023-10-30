@@ -346,6 +346,14 @@ void update() override
 }
 
 
+void Pump_TimeConstant(const std::vector<char> &ptc)
+{
+
+}
+void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
+{ 
+    this->Pump_Calib = pcalib;
+}
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     dose = d;
@@ -353,24 +361,6 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
     
     this->Pump_Type = ptype;
 }
-void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
-{ 
-    this->Pump_Calib = pcalib;
-}
-void pump_mode(std::vector<uint8_t> &pmode)
-{
-    pmode.resize(dose + circ);
-
-    if (Pump_Mode != pmode)
-    for (size_t i = 0; i < (dose + circ); i++)
-    {
-        if (pmode[i] == 1)
-        this->pump_total(Pump_Dose);
-        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
-    }
-
-    this->Pump_Mode = pmode;
-    }
 void pump_dose(std::vector<uint8_t> &pdose)
 {
     pdose.resize(dose);
@@ -382,7 +372,6 @@ void pump_dose(std::vector<uint8_t> &pdose)
     }
 
     this->Pump_Dose = pdose;
-    this->pump_total(*Pump_Dose);
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
@@ -407,6 +396,20 @@ void pump_total(std::vector<uint16_t> &ptot)
         Pump_Total[1][i] = (int)(Pump_Total[1][i] + ptot[i])%1000;
         ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
+}
+void pump_mode(std::vector<uint8_t> &pmode)
+{
+    pmode.resize(dose + circ);
+
+    if (Pump_Mode != pmode)
+    for (size_t i = 0; i < (dose + circ); i++)
+    {
+        if (pmode[i] == 1)
+        this->pump_total(Pump_Dose);
+        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
+    }
+
+    this->Pump_Mode = pmode;
 }
 void pump_reset(std::vector<bool> &pres)
 {
@@ -490,10 +493,10 @@ std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
+std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
-std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 float VPow, WT, WT_Res;

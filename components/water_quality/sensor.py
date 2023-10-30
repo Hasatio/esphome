@@ -44,10 +44,6 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(MyComponent),
-            cv.Optional(CONF_TIME_CONSTANT): sensor.sensor_schema(
-                unit_of_measurement = UNIT_SECOND,
-                accuracy_decimals = 0,
-            ),
             cv.Optional(CONF_PUMP_TOTAL_ML): sensor.sensor_schema(
                 unit_of_measurement = UNIT_MILILITER,
                 accuracy_decimals = 0,
@@ -98,11 +94,6 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_ID])
 
-    if CONF_TIME_CONSTANT in config:
-        conf = config[CONF_TIME_CONSTANT]
-        sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_TimeConstant(sens))
-        
     if CONF_PUMP_TOTAL_ML in config:
         conf = config[CONF_PUMP_TOTAL_ML]
         sens = await sensor.new_sensor(conf)

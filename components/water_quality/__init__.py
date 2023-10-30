@@ -20,8 +20,9 @@ CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
 CONF_X = "x"
 CONF_Y = "y"
-CONF_PUMP_TYPE = "pump_type"
+CONF_PUMP_TIME_CONSTANT = "pump_time_constant"
 CONF_PUMP_CALIBRATION = "pump_calibration"
+CONF_PUMP_TYPE = "pump_type"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_CIRCULATION = "pump_circulation"
@@ -109,6 +110,10 @@ CONFIG_SCHEMA = cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
             ),
+            cv.Required(CONF_PUMP_TIME_CONSTANT): cv.All(
+                cv.ensure_list(cv.char),
+                cv.Length(min = 1)
+            ),
             cv.Required(CONF_LEVEL): cv.All(
                 cv.ensure_list(
                     cv.Schema(
@@ -160,6 +165,9 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
+    
+    for conf in config[CONF_LEVEL]:
+        cg.add(var.Pump_TimeConstant(conf))
     
     type = []
     calib = []
