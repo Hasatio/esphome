@@ -346,7 +346,7 @@ void update() override
 }
 
 
-void Pump_TimeConstant(const std::vector<char> &ptc)
+void Pump_TimeConstant(const std::vector<String> &ptc)
 {
 
 }
