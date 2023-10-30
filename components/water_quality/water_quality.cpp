@@ -5,7 +5,7 @@ namespace water_quality {
 
 void MyComponent::loop() 
 {
-    
+    delay(1000);
 }
 
 }  // namespace water_quality
