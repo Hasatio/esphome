@@ -129,7 +129,6 @@ CONFIG_SCHEMA = cv.All(
                         }
                     )
                 ),
-                cv.Length(min = 2, max = 2)
             ),
             cv.Required(CONF_SENSORS): cv.All(
                 cv.ensure_list(
