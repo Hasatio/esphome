@@ -337,14 +337,7 @@ void dump_config() override
     ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
     ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
-void update() override
-{
-    ads1115();
-    mcp23008();
-    pca9685();
-    pump_total();
-    // sensor();
-}
+void update() override;
 
 
 void pump_time_constant(const std::vector<std::string> &ptc)
