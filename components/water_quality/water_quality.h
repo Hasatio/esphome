@@ -256,10 +256,10 @@ void pca9685()
     //     ESP_LOGD(TAG,"pwm = %d", i);
     // }
 
-    for (uint8_t i = 0; i < Pump_Total[1].size(); i++) 
-        {
-            Pump_Total[1][i] += i;
-        }
+    // for (uint8_t i = 0; i < Pump_Total[1].size(); i++) 
+    //     {
+    //         Pump_Total[1][i] += i;
+    //     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
@@ -380,6 +380,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     }
 
     this->Pump_Dose = pdose;
+    this->pump_total(pdose);
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
