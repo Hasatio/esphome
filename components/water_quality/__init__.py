@@ -86,6 +86,10 @@ CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
+            cv.Required(CONF_PUMP_TIME_CONSTANT): cv.All(
+                cv.ensure_list(cv.string_strict),
+                cv.Length(min = 1)
+            ),
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
@@ -108,10 +112,6 @@ CONFIG_SCHEMA = cv.All(
             ),
             cv.Required(CONF_PUMP6): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP_TIME_CONSTANT): cv.All(
-                cv.ensure_list(cv.string_strict),
                 cv.Length(min = 1)
             ),
             cv.Required(CONF_LEVEL): cv.All(
