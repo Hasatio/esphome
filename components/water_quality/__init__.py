@@ -153,7 +153,6 @@ CONFIG_SCHEMA = cv.All(
                         }
                     )
                 ),
-                cv.Length(min = 4, max = 4)
             ),
         }
     )
