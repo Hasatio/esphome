@@ -388,7 +388,6 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void pump_total()
 {
-    if (Pump_Total[1] != ptot)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         Pump_Total[0][i] += (int)(Pump_Total[0][i] + ptot[i])/1000;
