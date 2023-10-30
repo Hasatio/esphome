@@ -343,7 +343,7 @@ void update() override
     mcp23008();
     pca9685();
     pump_total();
-    sensor();
+    // sensor();
 }
 
 
