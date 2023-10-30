@@ -391,7 +391,7 @@ void pump_total(std::vector<uint16_t> &ptot)
 {
     ptot.resize(dose + circ);
 
-    if (Pump_Total_ml != ptot)
+    if (Pump_Total[1] != ptot)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         if ((Pump_Total[1][i] + ptot[i]) > 999)
@@ -480,7 +480,7 @@ void AnInLvl_Perc       (sensor::Sensor *level)  { AnInLvl_Perc_ = level; }
 void AnInGlob_Val       (sensor::Sensor *a)      { AnInGlob_Val_ = a; }
 void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
-void Digital_In       (sensor::Sensor *din)    { DigIn_Status_ = din; }
+void Digital_In         (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
