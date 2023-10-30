@@ -394,11 +394,12 @@ void pump_total(std::vector<uint16_t> &ptot)
     if (Pump_Total_ml != ptot)
     for (size_t i = 0; i < (dose + circ); i++)
     {
-        if ((Pump_Total_ml[i] + ptot[i]) > 999)
+        if ((Pump_Total[1][i] + ptot[i]) > 999)
         {
-            Pump_Total_l[i] += (int)(Pump_Total_ml[i] + ptot[i])/1000;
-            Pump_Total_ml[i] = (int)(Pump_Total_ml[i] + ptot[i])%1000;
+            Pump_Total[0][i] += (int)(Pump_Total[0][i] + ptot[i])/1000;
+            Pump_Total[1][i] = (int)(Pump_Total[1][i] + ptot[i])%1000;
         }
+    }
         ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
     }
 
@@ -409,12 +410,14 @@ void pump_reset(std::vector<bool> &pres)
     pres.resize(dose + circ);
 
     if (Pump_Reset != pres)
-    for (size_t i = 0; i < (dose + circ); i++)
+    for (size_t i = 0; i < 2; i++)
     {
-        if (!pres[i])
+        for (size_t j = 0; j < (dose + circ); j++)
         {
-            Pump_Total_l[i] = 0;
-            Pump_Total_ml[i] = 0;
+            if (!pres[j])
+            {
+                Pump_Total[i][j] = 0;
+            }
         }
         ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pres[i]);
     }
@@ -486,7 +489,7 @@ uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Total_l{0,0,0,0,0,0};
+std::vector<std::vector<uint16_t>> Pump_Total(6, std::vector<uint16_t>(2, 0));
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
@@ -508,7 +511,6 @@ protected:
 sensor::Sensor *Pump_TimeConstant_{nullptr};
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
-sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
 sensor::Sensor *Servo_Status_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};
