@@ -248,7 +248,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset1
+        - switch.turn_on: pump_reset1
 
   - platform: template
     id: pump_reset2
@@ -266,7 +266,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset2
+        - switch.turn_on: pump_reset2
 
   - platform: template
     id: pump_reset3
@@ -284,7 +284,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset3
+        - switch.turn_on: pump_reset3
 
   - platform: template
     id: pump_reset4
@@ -302,7 +302,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset4
+        - switch.turn_on: pump_reset4
 
   - platform: template
     id: pump_reset5
@@ -320,7 +320,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset5
+        - switch.turn_on: pump_reset5
 
   - platform: template
     id: pump_reset6
@@ -338,7 +338,7 @@ switch:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
         - delay: 0s
-        - switch.turn_off: pump_reset6
+        - switch.turn_on: pump_reset6
 
   - platform: template
     id: digital_out1
