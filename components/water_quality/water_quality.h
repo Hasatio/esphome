@@ -482,6 +482,7 @@ void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
+protected:
 std::vector<std::string> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
@@ -508,7 +509,6 @@ std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
 std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
-protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
