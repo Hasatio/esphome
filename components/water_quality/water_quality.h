@@ -265,6 +265,9 @@ void pca9685()
 // Sensor
 void sensor()
 {
+    if (this->Pump_Total_l_ != nullptr) { this->Pump_Total_l_->publish_state(Pump_Total_l); }
+    if (this->Pump_Total_ml_ != nullptr) { this->Pump_Total_ml_->publish_state(Pump_Total_ml); }
+
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
     if (this->AnInLvl_Perc_ != nullptr) { 
