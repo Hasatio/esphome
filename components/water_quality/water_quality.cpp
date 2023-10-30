@@ -5,7 +5,15 @@ namespace water_quality {
 
 void MyComponent::loop() 
 {
-    pump_total();
+    for (size_t i = 0; i < (dose + circ); i++)
+    {
+        if (Pump_Mode[i] == 1)
+        {
+            Pump_Total[0][i] += (int)(Pump_Total[0][i])/1000;
+            Pump_Total[1][i] = (int)(Pump_Total[1][i])%1000;
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+        }
+    }
     // delay(1000);
 }
 
