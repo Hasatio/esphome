@@ -380,7 +380,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     }
 
     this->Pump_Dose = pdose;
-    pump_total(this->pdose);
+    pump_total(Pump_Dose);
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
