@@ -347,7 +347,7 @@ void update() override
 }
 
 
-void pump_time_constant(const std::vector<char> &ptc)
+void pump_time_constant(const std::vector<std::string> &ptc)
 {
     this->Pump_Time_Constant = ptc;
 }
@@ -489,7 +489,7 @@ void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
-std::vector<char> Pump_Time_Constant{};
+std::vector<std::string> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
