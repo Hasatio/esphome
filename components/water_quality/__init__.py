@@ -111,7 +111,7 @@ CONFIG_SCHEMA = cv.All(
                 cv.Length(min = 1)
             ),
             cv.Required(CONF_PUMP_TIME_CONSTANT): cv.All(
-                cv.ensure_list(cv.char),
+                cv.ensure_list(cv.char16_t),
                 cv.Length(min = 1)
             ),
             cv.Required(CONF_LEVEL): cv.All(
