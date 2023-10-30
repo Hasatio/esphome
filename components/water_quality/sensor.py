@@ -21,7 +21,6 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
-CONF_TIME_CONSTANT = "time_constant"
 CONF_PUMP_TOTAL_ML = "pump_total_ml"
 CONF_PUMP_TOTAL_L = "pump_total_l"
 CONF_PUMP_STATUS = "pump_status"
