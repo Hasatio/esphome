@@ -342,11 +342,12 @@ void update() override
     ads1115();
     mcp23008();
     pca9685();
+    pump_total();
     sensor();
 }
 
 
-void pump_time_constant(const std::vector<String> &ptc)
+void pump_time_constant(const std::vector<char> &ptc)
 {
     this->Pump_Time_Constant = ptc;
 }
@@ -385,10 +386,8 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 
     this->Pump_Circulation = pcirc;
 }
-void pump_total(std::vector<uint16_t> &ptot)
+void pump_total()
 {
-    ptot.resize(dose + circ);
-
     if (Pump_Total[1] != ptot)
     for (size_t i = 0; i < (dose + circ); i++)
     {
@@ -405,7 +404,7 @@ void pump_mode(std::vector<uint8_t> &pmode)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         if (pmode[i] == 1)
-        this->pump_total((int)Pump_Dose);
+        this->Pump_Total[1][i] = (Pump_Dose[i]);
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
 
@@ -488,7 +487,7 @@ void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
-std::vector<String> Pump_Time_Constant{};
+std::vector<char> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
