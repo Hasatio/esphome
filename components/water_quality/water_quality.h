@@ -407,7 +407,6 @@ void pump_total(std::vector<uint16_t> &ptot)
         }
         ESP_LOGD(TAG,"Pump_Total[%d] = %d", i, ptot[i]);
     }
-    this->Pump_Circulation = pcirc;
 }
 void pump_reset(std::vector<bool> &pres)
 {
