@@ -156,5 +156,5 @@ async def to_code(config):
     if CONF_DIGITAL in config:
         conf = config[CONF_DIGITAL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.DigIn_Status(sens))
+        cg.add(parent.Digital_In(sens))
         

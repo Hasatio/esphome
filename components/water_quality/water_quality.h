@@ -480,7 +480,7 @@ void AnInLvl_Perc       (sensor::Sensor *level)  { AnInLvl_Perc_ = level; }
 void AnInGlob_Val       (sensor::Sensor *a)      { AnInGlob_Val_ = a; }
 void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
-void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
+void Digital_In       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
@@ -504,6 +504,7 @@ uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
+std::vector<bool> DigIn_Status{0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:
