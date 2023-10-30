@@ -145,8 +145,7 @@ water_quality:
   id: water
   address: 0x70
   i2c_id: i2c0
-  pump_time_constant: 
-      - "1234"
+  pump_time_constant: "1234"
   pump1: 
     pump_type: 1
     pump_calibration:
