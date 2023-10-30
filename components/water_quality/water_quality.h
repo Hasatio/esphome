@@ -380,7 +380,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     }
 
     this->Pump_Dose = pdose;
-    this->pump_total(this->pdose);
+    this->pump_total(this->Pump_Dose);
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
@@ -488,7 +488,7 @@ std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
