@@ -182,8 +182,8 @@ void mcp23008()
 
     for(size_t i = 0; i < 4; i++)
     {
-        DigIn_Status[i] = mcp.digitalRead(i);
-        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Status[i]);
+        DigIn_Read[i] = mcp.digitalRead(i);
+        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
     }
 
     for(size_t i = 0; i < 4; i++)
@@ -400,12 +400,9 @@ void pump_total(std::vector<uint16_t> &ptot)
     if (Pump_Total[1] != ptot)
     for (size_t i = 0; i < (dose + circ); i++)
     {
-        if ((Pump_Total[1][i] + ptot[i]) > 999)
-        {
-            Pump_Total[0][i] += (int)(Pump_Total[0][i] + ptot[i])/1000;
-            Pump_Total[1][i] = (int)(Pump_Total[1][i] + ptot[i])%1000;
-        }
-        ESP_LOGD(TAG,"Pump_Total[%d] = %d", i, ptot[i]);
+        Pump_Total[0][i] += (int)(Pump_Total[0][i] + ptot[i])/1000;
+        Pump_Total[1][i] = (int)(Pump_Total[1][i] + ptot[i])%1000;
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
 }
 void pump_reset(std::vector<bool> &pres)
@@ -484,7 +481,7 @@ void AnInLvl_Perc       (sensor::Sensor *level)  { AnInLvl_Perc_ = level; }
 void AnInGlob_Val       (sensor::Sensor *a)      { AnInGlob_Val_ = a; }
 void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
-void Digital_In         (sensor::Sensor *din)    { DigIn_Status_ = din; }
+void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
@@ -508,7 +505,7 @@ uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
-std::vector<bool> DigIn_Status{0,0,0,0};
+std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:

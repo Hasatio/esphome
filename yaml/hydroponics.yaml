@@ -236,7 +236,7 @@ switch:
     id: pump_reset1
     name: "Pump_Reset1"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
@@ -254,7 +254,7 @@ switch:
     id: pump_reset2
     name: "Pump_Reset2"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
@@ -272,7 +272,7 @@ switch:
     id: pump_reset3
     name: "Pump_Reset3"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
@@ -290,7 +290,7 @@ switch:
     id: pump_reset4
     name: "Pump_Reset4"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
@@ -308,7 +308,7 @@ switch:
     id: pump_reset5
     name: "Pump_Reset5"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
@@ -326,7 +326,7 @@ switch:
     id: pump_reset6
     name: "Pump_Reset6"
     optimistic: true
-    assumed_state: true
+    restore_mode: ALWAYS_ON
     turn_on_action:
       then:
         - water_quality.pump_reset:
