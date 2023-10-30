@@ -405,7 +405,7 @@ void pump_mode(std::vector<uint8_t> &pmode)
     for (size_t i = 0; i < (dose + circ); i++)
     {
         if (pmode[i] == 1)
-        this->pump_total(Pump_Dose);
+        this->pump_total(this->Pump_Dose);
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
 
