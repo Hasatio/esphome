@@ -346,9 +346,9 @@ void update() override
 }
 
 
-void Pump_TimeConstant(const std::vector<String> &ptc)
+void pump_time_constant(const std::vector<String> &ptc)
 {
-    this->Pump_TimeConstant = ptc;
+    this->Pump_Time_Constant = ptc;
 }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
 { 
@@ -476,7 +476,6 @@ void digital_out(std::vector<bool> &dout)
     this->DigOut_Status = dout;
 }
 
-void Pump_TimeConstant  (sensor::Sensor *ptc)    { Pump_TimeConstant_ = ptc; }
 void Pump_Total_ml      (sensor::Sensor *ptot)   { Pump_Total_ml_ = ptot; }
 void Pump_Total_l       (sensor::Sensor *ptot)   { Pump_Total_l_ = ptot; }
 void Pump_Status        (sensor::Sensor *pstat)  { Pump_Status_ = pstat; }
@@ -489,7 +488,7 @@ void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
-std::vector<String> Pump_TimeConstant{};
+std::vector<String> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;

@@ -167,7 +167,7 @@ async def to_code(config):
     await i2c.register_i2c_device(var, config)
     
     for conf in config[CONF_PUMP_TIME_CONSTANT]:
-        cg.add(var.PPump_TimeConstant(conf))
+        cg.add(var.pump_time_constant(conf))
     
     type = []
     calib = []
