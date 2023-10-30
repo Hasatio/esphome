@@ -364,11 +364,13 @@ void pump_mode(std::vector<uint8_t> &pmode)
     if (Pump_Mode != pmode)
     for (size_t i = 0; i < (dose + circ); i++)
     {
+        if (pmode == 1)
+        this->pump_total(Pump_Dose);
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
 
     this->Pump_Mode = pmode;
-}
+    }
 void pump_dose(std::vector<uint8_t> &pdose)
 {
     pdose.resize(dose);
@@ -380,7 +382,7 @@ void pump_dose(std::vector<uint8_t> &pdose)
     }
 
     this->Pump_Dose = pdose;
-    this->pump_total(this->Pump_Dose);
+    this->pump_total(*Pump_Dose);
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
