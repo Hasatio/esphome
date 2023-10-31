@@ -347,8 +347,14 @@ void dump_config() override
     ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
     ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
-void update() override;
-
+void update() override
+{
+    ads1115();
+    mcp23008();
+    pca9685();
+    // pump_total();
+    // sensor();
+}
 
 void pump_time_constant(const std::vector<std::string> &ptc)
 {
@@ -401,18 +407,35 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
-                    Pump_Dose[i] /= 2;
                     Pump_Total[i][1] += Pump_Dose[i]%2;
-                    Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
-                    Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
+                    else
+                    {
+                        Pump_Dose[i] /= 2;
+                        Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
+                        Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
+                    }
                 }
                 Pump_Mode[i] = 0;
             }
-                Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
-                Pump_Total[1][i] = Pump_Circulation[i];
+            {
+                while (Pump_Circulation[i] >= 1)
+                {
+                    ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
+                    Pump_Total[i][1] += Pump_Circulation[i]%2;
+                    if (Pump_Circulation[i] == 1)
+                    Pump_Circulation[i] = 0;
+                    else
+                    {
+                        Pump_Circulation[i] /= 2;
+                        Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Circulation[i]) / 1000;
+                        Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Circulation[i]) % 1000;
+                    }
+                }
+                Pump_Mode[i] = 0;
+            }
             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, Pump_Total[i][0], Pump_Total[i][1]);
         }
     }
