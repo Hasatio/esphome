@@ -386,14 +386,17 @@ void pump_total()
         if (Pump_Mode[i] == 1)
         {
             if (Pump_Type[i] == 1)
-            while (Pump_Dose[i] >= 1)
             {
-                Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
-                Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
-                if (Pump_Dose[i] == 1)
-                Pump_Dose[i] = 0;
-                else
-                Pump_Dose[i] /= 2;
+                while (Pump_Dose[i] >= 1)
+                {
+                    Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
+                    Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
+                    if (Pump_Dose[i] == 1)
+                    Pump_Dose[i] = 0;
+                    else
+                    Pump_Dose[i] /= 2;
+                }
+                Pump_Mode[i] = 1;
             }
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
