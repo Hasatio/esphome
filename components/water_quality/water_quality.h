@@ -322,14 +322,11 @@ void dump_config() override
     {
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[2*i][j]);
+            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i+1, Pump_Calib[2*i][j]);
         }
-    }
-    for (size_t i = 0; i < 3; i++)
-    {
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", j, Pump_Calib[2*i+1][j]);
+            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i+1, Pump_Calib[2*i+1][j]);
         }
     }
 
