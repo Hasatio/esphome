@@ -333,7 +333,7 @@ void dump_config() override
     for (size_t i = 0; i < 6; i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+        // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
@@ -400,10 +400,10 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
-                    Pump_Total[0][i] = 1;
-                    Pump_Total[1][i] = 1;
-                    Pump_Total[1][i] = Pump_Dose[i]%2;
-                    Pump_Total[1][i] += (int)Pump_Dose[i];
+                    // Pump_Total[0][i] = 1;
+                    // Pump_Total[1][i] = 1;
+                    // Pump_Total[1][i] = Pump_Dose[i]%2;
+                    // Pump_Total[1][i] += (int)Pump_Dose[i];
                     Pump_Total_ml[i] = 1;
                     // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
                     // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
