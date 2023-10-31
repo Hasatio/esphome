@@ -366,7 +366,7 @@ void pump_dose(std::vector<uint16_t> &pdose)
     // pdose.resize(dose);
 
     if (Pump_Dose != pdose)
-    for (size_t i = 0; i < (dose + circ); i++)
+    for (size_t i = 0; i < (6); i++)
     {
         ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose[i]);
     }
@@ -378,7 +378,7 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
     // pcirc.resize(circ);
 
     if (Pump_Circulation != pcirc)
-    for (size_t i = 0; i < (dose + circ); i++)
+    for (size_t i = 0; i < (6); i++)
     {
         ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
     }
@@ -397,7 +397,8 @@ void pump_total()
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
                     Pump_Total[1][i] = Pump_Dose[i]%2;
-                    Pump_Total[1][i] = (int)Pump_Dose[i];
+                    Pump_Total[1][i] += 1;
+                    Pump_Total[1][i] += (int)Pump_Dose[i];
                     // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
                     // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
                     if (Pump_Dose[i] == 1)
