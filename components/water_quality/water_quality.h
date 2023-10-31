@@ -404,6 +404,7 @@ void pump_total()
                     Pump_Total[1][i] = 1;
                     Pump_Total[1][i] = Pump_Dose[i]%2;
                     Pump_Total[1][i] += (int)Pump_Dose[i];
+                    Pump_Total_ml[i] = 1;
                     // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
                     // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
                     if (Pump_Dose[i] == 1)
@@ -417,12 +418,13 @@ void pump_total()
             if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
             // ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
-            ESP_LOGD(TAG,"Pump_Total[0] = %d.%d",Pump_Total[0][0], Pump_Total[1][0]);
-            ESP_LOGD(TAG,"Pump_Total[1] = %d.%d",Pump_Total[0][1], Pump_Total[1][1]);
-            ESP_LOGD(TAG,"Pump_Total[2] = %d.%d",Pump_Total[0][2], Pump_Total[1][2]);
-            ESP_LOGD(TAG,"Pump_Total[3] = %d.%d",Pump_Total[0][3], Pump_Total[1][3]);
-            ESP_LOGD(TAG,"Pump_Total[4] = %d.%d",Pump_Total[0][4], Pump_Total[1][4]);
-            ESP_LOGD(TAG,"Pump_Total[5] = %d.%d",Pump_Total[0][5], Pump_Total[1][5]);
+            // ESP_LOGD(TAG,"Pump_Total[0] = %d.%d",Pump_Total[0][0], Pump_Total[1][0]);
+            // ESP_LOGD(TAG,"Pump_Total[1] = %d.%d",Pump_Total[0][1], Pump_Total[1][1]);
+            // ESP_LOGD(TAG,"Pump_Total[2] = %d.%d",Pump_Total[0][2], Pump_Total[1][2]);
+            // ESP_LOGD(TAG,"Pump_Total[3] = %d.%d",Pump_Total[0][3], Pump_Total[1][3]);
+            // ESP_LOGD(TAG,"Pump_Total[4] = %d.%d",Pump_Total[0][4], Pump_Total[1][4]);
+            // ESP_LOGD(TAG,"Pump_Total[5] = %d.%d",Pump_Total[0][5], Pump_Total[1][5]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d", i, Pump_Total_ml[i]);
         }
     }
 }
@@ -521,7 +523,7 @@ std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Total{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Total_ml{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,1},{2,3},{4,5},{6,7},{8,9},{10,11}};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
