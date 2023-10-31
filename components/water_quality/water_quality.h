@@ -400,9 +400,9 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
-                    Pump_Total[i][1] = Pump_Dose[i]%2;
-                    Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i])/1000;
-                    Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i])%1000;
+                    Pump_Total[i][1] += Pump_Dose[i]%2;
+                    Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
+                    Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
                     else
@@ -436,7 +436,8 @@ void pump_reset(std::vector<bool> &pres)
             Pump_Total[i][0] = 0;
             Pump_Total[i][1] = 0;
         }
-
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+        
         ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pres[i]);
     }
 
@@ -509,7 +510,7 @@ std::vector<uint8_t> Pump_Mode{0, 0, 0, 0, 0, 0};
 std::vector<bool> Pump_Reset{0, 0, 0, 0, 0, 0};
 std::vector<uint16_t> Pump_Dose{0, 0, 0, 0, 0, 0};
 std::vector<uint16_t> Pump_Circulation{0, 0, 0, 0, 0, 0};
-std::vector<std::vector<uint16_t>> Pump_Total{{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}};
+std::vector<std::vector<uint16_t>> Pump_Total{};
 std::vector<bool> Servo_Mode{0, 0, 0, 0, 0, 0, 0, 0};
 std::vector<uint8_t> Servo_Position{0, 0, 0, 0, 0, 0, 0, 0};
 float VPow, WT, WT_Res;
