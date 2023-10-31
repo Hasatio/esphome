@@ -322,11 +322,11 @@ void dump_config() override
     {
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i+1, Pump_Calib[2*i][j]);
+            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[2*i][j]);
         }
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i+1, Pump_Calib[2*i+1][j]);
+            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i, Pump_Calib[2*i+1][j]);
         }
     }
 
@@ -500,8 +500,8 @@ void digital_out(std::vector<bool> &dout)
     this->DigOut_Status = dout;
 }
 
-void Pump_Total_ml      (sensor::Sensor *ptot)   { Pump_Total_ml_ = ptot; }
-void Pump_Total_l       (sensor::Sensor *ptot)   { Pump_Total_l_ = ptot; }
+void Pump_Total_ML      (sensor::Sensor *ptot)   { Pump_Total_ml_ = ptot; }
+void Pump_Total_L       (sensor::Sensor *ptot)   { Pump_Total_l_ = ptot; }
 void Pump_Status        (sensor::Sensor *pstat)  { Pump_Status_ = pstat; }
 void Servo_Status       (sensor::Sensor *servo)  { Servo_Status_ = servo; }
 void AnInWT_Val         (sensor::Sensor *wtemp)  { AnInWT_Val_ = wtemp; }
@@ -521,6 +521,7 @@ std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Total{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,1},{2,3},{4,5},{6,7},{8,9},{10,11}};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};

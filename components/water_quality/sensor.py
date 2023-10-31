@@ -96,12 +96,12 @@ async def to_code(config):
     if CONF_PUMP_TOTAL_ML in config:
         conf = config[CONF_PUMP_TOTAL_ML]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_Total_ml(sens))
+        cg.add(parent.PPump_Total_ML(sens))
         
     if CONF_PUMP_TOTAL_L in config:
         conf = config[CONF_PUMP_TOTAL_L]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_Total_l(sens))
+        cg.add(parent.PPump_Total_L(sens))
         
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
