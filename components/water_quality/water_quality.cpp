@@ -13,6 +13,7 @@ void MyComponent::update()
     ads1115();
     mcp23008();
     pca9685();
+    pump_total();
     // sensor();
 }
 
