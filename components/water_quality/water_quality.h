@@ -417,7 +417,7 @@ void pump_total()
 void pump_mode(std::vector<uint8_t> &pmode)
 {
     if (Pump_Mode != pmode)
-    for (size_t i = 0; i < (dose + circ); i++)
+    for (size_t i = 0; i < (6); i++)
     {
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
