@@ -398,8 +398,6 @@ void pump_total()
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
-            Pump_Total[0][i] += (int)(Pump_Total[0][i])/1000;
-            Pump_Total[1][i] = (int)(Pump_Total[1][i])%1000;
             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
         }
     }
