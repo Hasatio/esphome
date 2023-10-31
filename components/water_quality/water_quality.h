@@ -355,7 +355,7 @@ void pump_time_constant(const std::vector<std::string> &ptc)
     this->Pump_Time_Constant = ptc;
 }
 void pump_calibration(const std::vector<std::vector<uint8_t>> &pcalib)
-{ 
+{
     this->Pump_Calib = pcalib;
 }
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
@@ -516,7 +516,7 @@ void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 protected:
 std::vector<std::string> Pump_Time_Constant{};
-std::vector<std::vector<uint8_t>> Pump_Calib{0};
+std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
