@@ -499,7 +499,7 @@ std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Dose{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
@@ -556,12 +556,12 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     
     void play(Ts... x) 
     {
-    std::vector<uint8_t> data = this->val_.value(x...);
+    std::vector<uint16_t> data = this->val_.value(x...);
 
     this->parent_->pump_dose(data);
     }
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+    TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
     protected:
     MyComponent *parent_;
