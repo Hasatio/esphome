@@ -318,7 +318,7 @@ void dump_config() override
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < sizeof(Pump_Type); i++)
+    for (size_t i = 0; i < 4; i++)
     {
         for (size_t j = 0; j < 8; j++)
         {
