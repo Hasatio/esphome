@@ -406,7 +406,6 @@ void pump_total()
             {
                 while (Pump_Dose[i] >= 1)
                 {
-                    ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
                     Pump_Total[i][1] += Pump_Dose[i]%2;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
