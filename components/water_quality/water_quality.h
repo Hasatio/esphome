@@ -413,7 +413,7 @@ void pump_total()
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+            // ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
         }
     }
 }
