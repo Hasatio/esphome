@@ -396,7 +396,7 @@ void pump_total()
                     else
                     Pump_Dose[i] /= 2;
                 }
-                Pump_Mode[i] = 1;
+                Pump_Mode[i] = 0;
             }
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
