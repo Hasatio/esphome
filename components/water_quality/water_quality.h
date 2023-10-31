@@ -389,8 +389,9 @@ void pump_total()
             {
                 while (Pump_Dose[i] >= 1)
                 {
-                    Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
-                    Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
+                    Pump_Total[1][i] = Pump_Dose[i];
+                    // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
+                    // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
                     else
