@@ -396,7 +396,8 @@ void pump_total()
                 Pump_Dose[i] /= 2;
             }
                 Pump_Total[1][i] = Pump_Dose[i];
-            else if (Pump_Type[i] == 2)
+            else 
+            if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
             Pump_Total[0][i] += (int)(Pump_Total[0][i])/1000;
             Pump_Total[1][i] = (int)(Pump_Total[1][i])%1000;
