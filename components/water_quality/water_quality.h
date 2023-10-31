@@ -318,7 +318,7 @@ void dump_config() override
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < 3; i++)
+    for (size_t i = 0; i < (6*2); i++)
     {
         for (size_t j = 0; j < 8; j++)
         {
@@ -333,7 +333,7 @@ void dump_config() override
     for (size_t i = 0; i < 6; i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+        ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
@@ -400,17 +400,18 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
-                    this->Pump_Total[1][i] = Pump_Dose[i]%2;
-                    this->Pump_Total[1][i] += 1;
-                    this->Pump_Total[1][i] += (int)Pump_Dose[i];
+                    Pump_Total[0][i] = 1;
+                    Pump_Total[1][i] = 1;
+                    Pump_Total[1][i] = Pump_Dose[i]%2;
+                    Pump_Total[1][i] += (int)Pump_Dose[i];
                     // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
                     // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
                     if (Pump_Dose[i] == 1)
-                    this->Pump_Dose[i] = 0;
+                    Pump_Dose[i] = 0;
                     else
-                    this->Pump_Dose[i] /= 2;
+                    Pump_Dose[i] /= 2;
                 }
-                this->Pump_Mode[i] = 0;
+                Pump_Mode[i] = 0;
             }
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
