@@ -326,6 +326,11 @@ void dump_config() override
         }
     }
 
+    for (size_t i = 0; i < 6; j++)
+    {
+        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
+    }
+
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
@@ -355,7 +360,7 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
     
     this->Pump_Type = ptype;
 }
-void pump_dose(std::vector<uint8_t> &pdose)
+void pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
 
