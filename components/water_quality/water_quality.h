@@ -411,7 +411,13 @@ void pump_total()
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+            // ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][0], Pump_Total[1][0]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][1], Pump_Total[1][1]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][2], Pump_Total[1][2]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][3], Pump_Total[1][3]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][4], Pump_Total[1][4]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][5], Pump_Total[1][5]);
         }
     }
 }
@@ -501,6 +507,7 @@ void AnInEC_Val         (sensor::Sensor *ec)     { AnInEC_Val_ = ec; }
 void AnInPH_Val         (sensor::Sensor *ph)     { AnInPH_Val_ = ph; }
 void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
+protected:
 std::vector<std::string> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{};
 std::vector<uint8_t> Pump_Type{};
@@ -527,7 +534,6 @@ std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
 std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
-protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
 sensor::Sensor *Pump_Status_{nullptr};
