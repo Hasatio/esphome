@@ -391,6 +391,7 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void pump_total()
 {
+    ESP_LOGD(TAG,"Pump_Total:");
     for (size_t i = 0; i < Pump_Type.size(); i++)
     {
         if (Pump_Mode[i] == 1)
@@ -400,20 +401,19 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
+                    Pump_Dose[i] /= 2;
                     Pump_Total[i][1] += Pump_Dose[i]%2;
                     Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
                     Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
-                    else
-                    Pump_Dose[i] /= 2;
                 }
                 Pump_Mode[i] = 0;
             }
                 Pump_Total[1][i] = Pump_Dose[i];
             if (Pump_Type[i] == 2)
                 Pump_Total[1][i] = Pump_Circulation[i];
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, Pump_Total[i][0], Pump_Total[i][1]);
         }
     }
 }
@@ -425,13 +425,14 @@ void pump_mode(std::vector<uint8_t> &pmode)
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
     }
     this->Pump_Mode = pmode;
+    pump_total();
 }
 void pump_reset(std::vector<bool> &pres)
 {
     if (Pump_Reset != pres)
     for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        if (!pres[i])
+        if (pres[i])
         {
             Pump_Total[i][0] = 0;
             Pump_Total[i][1] = 0;
