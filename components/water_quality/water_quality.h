@@ -322,7 +322,8 @@ void dump_config() override
     {
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib[%d]-[%d] = %d", i, j, Pump_Calib[i][j]);
+            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[i][j]);
+            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", j, Pump_Calib[i][j]);
         }
     }
 
@@ -394,6 +395,7 @@ void pump_total()
             {
                 while (Pump_Dose[i] >= 1)
                 {
+                ESP_LOGD(TAG,"Pump_Dose[%d] = %d.%d", i, Pump_Dose[i]);
                     Pump_Total[1][i] = Pump_Dose[i];
                     // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
                     // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
