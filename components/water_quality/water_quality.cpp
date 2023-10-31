@@ -5,11 +5,6 @@ namespace water_quality {
 
 void MyComponent::loop() 
 {
-    for (size_t i = 0; i < (dose + circ); i++)
-    {
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
-        
-    }
     // delay(1000);
 }
 
