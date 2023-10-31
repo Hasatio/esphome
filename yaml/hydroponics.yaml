@@ -16,6 +16,8 @@ esp32:
 
 # Enable logging
 logger:
+  logs:
+    component: ERROR
 
 # Enable Home Assistant API
 api:
@@ -85,6 +87,7 @@ i2c:
   sda: GPIO16
   scl: GPIO32
   scan: True
+  frequency: 800kHz
 
 
 # tca9548a:
@@ -145,7 +148,10 @@ water_quality:
   id: water
   address: 0x70
   i2c_id: i2c0
-  pump_time_constant: "1234"
+  pump_time_constant: 
+    - a
+    - b
+    - c
   pump1: 
     pump_type: 1
     pump_calibration:
