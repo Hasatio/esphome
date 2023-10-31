@@ -333,7 +333,7 @@ void dump_config() override
     for (size_t i = 0; i < Pump_Type.size(); i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+        // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
     }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
@@ -505,8 +505,8 @@ void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 protected:
 std::vector<std::string> Pump_Time_Constant{};
-std::vector<std::vector<uint8_t>> Pump_Calib{0};
-std::vector<uint8_t> Pump_Type{0, 0, 0, 0, 0, 0};
+std::vector<std::vector<uint8_t>> Pump_Calib{};
+std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0, 0, 0, 0, 0, 0};
 std::vector<bool> Pump_Reset{0, 0, 0, 0, 0, 0};
