@@ -326,7 +326,7 @@ void dump_config() override
         }
     }
 
-    for (size_t i = 0; i < 6; j++)
+    for (size_t i = 0; i < 6; i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
     }
