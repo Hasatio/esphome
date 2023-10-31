@@ -322,18 +322,18 @@ void dump_config() override
     {
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[2*i][j]);
+            ESP_LOGI(TAG,"Pump_Calib_X[%d]-[%d] = %d", i, j, Pump_Calib[2*i][j]);
         }
         for (size_t j = 0; j < 8; j++)
         {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i, Pump_Calib[2*i+1][j]);
+            ESP_LOGI(TAG,"Pump_Calib_Y[%d]-[%d] = %d", i, j, Pump_Calib[2*i+1][j]);
         }
     }
 
     for (size_t i = 0; i < sizeof(Pump_Type); i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+        ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
@@ -516,8 +516,8 @@ void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 
 protected:
 std::vector<std::string> Pump_Time_Constant{};
-std::vector<std::vector<uint8_t>> Pump_Calib{};
-std::vector<uint8_t> Pump_Type{};
+std::vector<std::vector<uint8_t>> Pump_Calib{0};
+std::vector<uint8_t> Pump_Type{0};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
@@ -531,14 +531,14 @@ float VPow, WT, WT_Res;
 uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 uint16_t adc[8], PwmFreq = 1000;
 float volts[8];
-std::vector<uint16_t> AnInLvl_ResMin{};
-std::vector<uint16_t> AnInLvl_ResMax{};
+std::vector<uint16_t> AnInLvl_ResMin{0};
+std::vector<uint16_t> AnInLvl_ResMax{0};
 std::vector<float> LvlPerc{0};
 uint8_t AnInEC_Ch;
 uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
-std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{};
+std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
 std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
