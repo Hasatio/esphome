@@ -318,11 +318,17 @@ void dump_config() override
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < (dose + circ)*2; i++)
+    for (size_t i = 0; i < 3; 2*i)
     {
         for (size_t j = 0; j < 8; j++)
         {
             ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[i][j]);
+        }
+    }
+    for (size_t i = 0; i < 3; 2*i+1)
+    {
+        for (size_t j = 0; j < 8; j++)
+        {
             ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", j, Pump_Calib[i][j]);
         }
     }
@@ -330,6 +336,7 @@ void dump_config() override
     for (size_t i = 0; i < 6; i++)
     {
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
     }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
