@@ -400,13 +400,9 @@ void pump_total()
                 while (Pump_Dose[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
-                    // Pump_Total[0][i] = 1;
-                    // Pump_Total[1][i] = 1;
-                    // Pump_Total[1][i] = Pump_Dose[i]%2;
-                    // Pump_Total[1][i] += (int)Pump_Dose[i];
-                    Pump_Total_ml[i] = 1;
-                    // Pump_Total[0][i] += (int)(Pump_Total[0][i] + Pump_Dose[i])/1000;
-                    // Pump_Total[1][i] = (int)(Pump_Total[1][i] + Pump_Dose[i])%1000;
+                    Pump_Total[i][1] = Pump_Dose[i]%2;
+                    Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i])/1000;
+                    Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i])%1000;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
                     else
@@ -519,14 +515,13 @@ std::vector<std::string> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{0};
 std::vector<uint8_t> Pump_Type{0};
 uint8_t dose, circ;
-std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
-std::vector<bool> Pump_Reset{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint16_t> Pump_Total_ml{0,0,0,0,0,0};
-std::vector<std::vector<uint16_t>> Pump_Total{{0,1},{2,3},{4,5},{6,7},{8,9},{10,11}};
-std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
-std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Mode{0};
+std::vector<bool> Pump_Reset{0};
+std::vector<uint16_t> Pump_Dose{0};
+std::vector<uint16_t> Pump_Circulation{0};
+std::vector<std::vector<uint16_t>> Pump_Total{0};
+std::vector<bool> Servo_Mode{0};
+std::vector<uint8_t> Servo_Position{0};
 float VPow, WT, WT_Res;
 uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 uint16_t adc[8], PwmFreq = 1000;
@@ -539,8 +534,8 @@ uint8_t AnInEC_Type;
 uint8_t AnInPH_Ch;
 uint8_t AnInPH_Type;
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
-std::vector<bool> DigIn_Read{0,0,0,0};
-std::vector<bool> DigOut_Status{0,0,0,0};
+std::vector<bool> DigIn_Read{0};
+std::vector<bool> DigOut_Status{0};
 
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
