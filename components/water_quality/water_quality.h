@@ -387,7 +387,7 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void pump_total()
 {
-    for (size_t i = 0; i < (dose + circ); i++)
+    for (size_t i = 0; i < 6; i++)
     {
         if (Pump_Mode[i] == 1)
         {
