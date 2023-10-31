@@ -506,7 +506,7 @@ void DigIn_Status       (sensor::Sensor *din)    { DigIn_Status_ = din; }
 protected:
 std::vector<std::string> Pump_Time_Constant{};
 std::vector<std::vector<uint8_t>> Pump_Calib{0};
-std::vector<uint8_t> Pump_Type{0};
+std::vector<uint8_t> Pump_Type{0, 0, 0, 0, 0, 0};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Mode{0, 0, 0, 0, 0, 0};
 std::vector<bool> Pump_Reset{0, 0, 0, 0, 0, 0};
