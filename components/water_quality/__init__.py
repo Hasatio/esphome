@@ -165,6 +165,7 @@ async def to_code(config):
     # for conf in config[CONF_PUMP_TIME_CONSTANT]:
     #     cg.add(var.pump_time_constant(conf))
     
+    empty = [0, 0, 0, 0, 0, 0, 0, 0]
     type = []
     calib = []
     dose = 0
@@ -181,8 +182,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
             
     con = config[CONF_PUMP2][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -195,8 +196,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
         
     con = config[CONF_PUMP3][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -209,8 +210,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
         
     con = config[CONF_PUMP4][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -223,8 +224,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
         
     con = config[CONF_PUMP5][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -237,8 +238,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
         
     con = config[CONF_PUMP6][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -251,8 +252,8 @@ async def to_code(config):
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
     else:
-        calib.append(0)
-        calib.append(0)
+        calib.append(empty)
+        calib.append(empty)
         
     cg.add(var.pump_calibration(calib))
     cg.add(var.pump_type(type, dose, circ))
