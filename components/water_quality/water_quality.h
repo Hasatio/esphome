@@ -318,23 +318,23 @@ void dump_config() override
     ESP_LOGI(TAG,"Pump_dose = %d", dose);
     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < (4*2); i++)
-    {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[2*i][j]);
-        }
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i, Pump_Calib[2*i+1][j]);
-        }
-    }
+    // for (size_t i = 0; i < (4*2); i++)
+    // {
+    //     for (size_t j = 0; j < 8; j++)
+    //     {
+    //         ESP_LOGI(TAG,"Pump_Calib_X[%d] = %d", i, Pump_Calib[2*i][j]);
+    //     }
+    //     for (size_t j = 0; j < 8; j++)
+    //     {
+    //         ESP_LOGI(TAG,"Pump_Calib_Y[%d] = %d", i, Pump_Calib[2*i+1][j]);
+    //     }
+    // }
 
-    for (size_t i = 0; i < sizeof(Pump_Type); i++)
-    {
-        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
-    }
+    // for (size_t i = 0; i < sizeof(Pump_Type); i++)
+    // {
+    //     ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
+    //     // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[0][i], Pump_Total[1][i]);
+    // }
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {

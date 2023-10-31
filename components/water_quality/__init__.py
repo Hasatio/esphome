@@ -165,7 +165,7 @@ async def to_code(config):
     # for conf in config[CONF_PUMP_TIME_CONSTANT]:
     #     cg.add(var.pump_time_constant(conf))
     
-    empty = [0, 0, 0, 0, 0, 0, 0, 0]
+    empty = [0] * 8
     type = []
     calib = []
     dose = 0
