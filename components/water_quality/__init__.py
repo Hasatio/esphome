@@ -308,7 +308,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(MyComponent),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.uint8_t)
+                cv.ensure_list(cv.uint16_t)
             ),
         ),
     }
