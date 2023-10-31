@@ -194,6 +194,9 @@ async def to_code(config):
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
+    else:
+        calib.append(0)
+        calib.append(0)
         
     con = config[CONF_PUMP3][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -205,6 +208,9 @@ async def to_code(config):
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
+    else:
+        calib.append(0)
+        calib.append(0)
         
     con = config[CONF_PUMP4][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -216,6 +222,9 @@ async def to_code(config):
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
+    else:
+        calib.append(0)
+        calib.append(0)
         
     con = config[CONF_PUMP5][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -227,6 +236,9 @@ async def to_code(config):
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
+    else:
+        calib.append(0)
+        calib.append(0)
         
     con = config[CONF_PUMP6][0]
     type.append(con[CONF_PUMP_TYPE])
@@ -238,6 +250,9 @@ async def to_code(config):
         for conf in con[CONF_PUMP_CALIBRATION]:
             calib.append(conf[CONF_X])
             calib.append(conf[CONF_Y])
+    else:
+        calib.append(0)
+        calib.append(0)
         
     cg.add(var.pump_calibration(calib))
     cg.add(var.pump_type(type, dose, circ))
