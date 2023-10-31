@@ -241,109 +241,109 @@ switch:
     id: pump_reset1
     name: "Pump_Reset1"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset1
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset1
 
   - platform: template
     id: pump_reset2
     name: "Pump_Reset2"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset2
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset2
 
   - platform: template
     id: pump_reset3
     name: "Pump_Reset3"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset3
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset3
 
   - platform: template
     id: pump_reset4
     name: "Pump_Reset4"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset4
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset4
 
   - platform: template
     id: pump_reset5
     name: "Pump_Reset5"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset5
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset5
 
   - platform: template
     id: pump_reset6
     name: "Pump_Reset6"
     optimistic: true
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     turn_on_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
+        - delay: 0s
+        - switch.turn_off: pump_reset6
     turn_off_action:
       then:
         - water_quality.pump_reset:
             pump_reset: !lambda |-
               return {(bool)id(pump_reset1).state, (bool)id(pump_reset2).state, (bool)id(pump_reset3).state, (bool)id(pump_reset4).state, (bool)id(pump_reset5).state, (bool)id(pump_reset6).state};
-        - delay: 0s
-        - switch.turn_on: pump_reset6
 
   - platform: template
     id: digital_out1
