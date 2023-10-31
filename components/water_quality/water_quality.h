@@ -290,63 +290,63 @@ void setup() override
     pca9685_set();
 }
 void loop() override;
-void dump_config() override
-{
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
+// void dump_config() override
+// {
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  TCA9548
 
-    Wire.begin(SDA,SCL,freq);
+//     Wire.begin(SDA,SCL,freq);
 
-    for (uint8_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
+//     for (uint8_t t=0; t<8; t++) 
+//     {
+//       tcaselect(t);
+//       ESP_LOGI(TAG,"TCA Port %d", t);
 
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
+//       for (uint8_t addr = 0; addr<=127; addr++) 
+//       {
+//         if (addr == TCA9548_ADDRESS) continue;
 
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//         Wire.beginTransmission(addr);
+//         if (!Wire.endTransmission()) 
+//         {
+//           ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+//         }
+//       }
+//     }
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+//     ESP_LOGI(TAG,"Pump_dose = %d", dose);
+//     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < Pump_Type.size(); i++)
-    {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d]-[%d] = %d", i, j, Pump_Calib[2*i][j]);
-        }
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d]-[%d] = %d", i, j, Pump_Calib[2*i+1][j]);
-        }
-    }
+//     for (size_t i = 0; i < Pump_Type.size(); i++)
+//     {
+//         for (size_t j = 0; j < 8; j++)
+//         {
+//             ESP_LOGI(TAG,"Pump_Calib_X[%d]-[%d] = %d", i, j, Pump_Calib[2*i][j]);
+//         }
+//         for (size_t j = 0; j < 8; j++)
+//         {
+//             ESP_LOGI(TAG,"Pump_Calib_Y[%d]-[%d] = %d", i, j, Pump_Calib[2*i+1][j]);
+//         }
+//     }
 
-    for (size_t i = 0; i < Pump_Type.size(); i++)
-    {
-        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
-        // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
-    }
+//     for (size_t i = 0; i < Pump_Type.size(); i++)
+//     {
+//         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
+//         // ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+//     }
 
-    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
-    {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
-    }
+//     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
+//     {
+//         ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+//         ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
+//     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
-}
+//     ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+//     ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+//     ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+//     ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
+// }
 void update() override;
 
 
