@@ -19,7 +19,7 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "component";
+static const char *const TAG = "mycomponent";
 
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
