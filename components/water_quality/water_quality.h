@@ -376,51 +376,63 @@ void pump_dose(std::vector<uint16_t> &pdose)
     // pdose.resize(dose);
 
     if (Pump_Dose != pdose)
-    for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose[i]);
+        if (Pump_Status != 1)
+            this->Pump_Dose = pdose;
+        else
+            this->Pump_Dose += pdose;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
+        }
     }
-
-    this->Pump_Dose = pdose;
 }
 void pump_circulation(std::vector<uint16_t> &pcirc)
 {
     // pcirc.resize(circ);
 
     if (Pump_Circulation != pcirc)
-    for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc[i]);
+        this->Pump_Circulation = pcirc;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
+        }
     }
-
-    this->Pump_Circulation = pcirc;
 }
 void pump_total()
 {
-    ESP_LOGD(TAG,"Pump_Total:");
     for (size_t i = 0; i < Pump_Type.size(); i++)
     {
         if (Pump_Mode[i] == 1)
         {
             if (Pump_Type[i] == 1)
             {
-                while (Pump_Dose[i] >= 1)
+                Pump_Status[i] = 1;
+                if (Pump_Dose[i] >= 1)
                 {
                     Pump_Total[i][1] += Pump_Dose[i]%2;
                     if (Pump_Dose[i] == 1)
                     Pump_Dose[i] = 0;
                     else
                     {
+                        if (Pump_Mode[i] == 2)
+                        {
+                            Pump_Status[i] = 3;
+                            break;
+                        }
                         Pump_Dose[i] /= 2;
                         Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
                         Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
                     }
                 }
                 Pump_Mode[i] = 0;
+                Pump_Status[i] = 2;
             }
             if (Pump_Type[i] == 2)
             {
-                while (Pump_Circulation[i] >= 1)
+                Pump_Status[i] = 1;
+                if (Pump_Circulation[i] >= 1)
                 {
                     ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
                     Pump_Total[i][1] += Pump_Circulation[i]%2;
@@ -428,12 +440,18 @@ void pump_total()
                     Pump_Circulation[i] = 0;
                     else
                     {
+                        if (Pump_Mode[i] == 2)
+                        {
+                            Pump_Status[i] = 3;
+                            break;
+                        }
                         Pump_Circulation[i] /= 2;
                         Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Circulation[i]) / 1000;
                         Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Circulation[i]) % 1000;
                     }
                 }
                 Pump_Mode[i] = 0;
+                Pump_Status[i] = 2;
             }
             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, Pump_Total[i][0], Pump_Total[i][1]);
         }
@@ -442,49 +460,59 @@ void pump_total()
 void pump_mode(std::vector<uint8_t> &pmode)
 {
     if (Pump_Mode != pmode)
-    for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode[i]);
+        this->Pump_Mode = pmode;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
+        
+            if (pmode[i] == 1)
+            {
+                
+                Pump_Status[i] = 1;
+            }
+        }
+        pump_total();
     }
-    this->Pump_Mode = pmode;
-    pump_total();
 }
 void pump_reset(std::vector<bool> &pres)
 {
     if (Pump_Reset != pres)
-    for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        if (pres[i])
+        this->Pump_Reset = pres;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
         {
-            Pump_Total[i][0] = 0;
-            Pump_Total[i][1] = 0;
+            if (Pump_Reset[i])
+            {
+                Pump_Total[i][0] = 0;
+                Pump_Total[i][1] = 0;
+            }
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)Pump_Reset[i]);
         }
-        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
-        
-        ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pres[i]);
     }
-
-    this->Pump_Reset = pres;
 }
 void servo_mode(std::vector<bool> &smode)
 {
     if (Servo_Mode != smode)
-    for (size_t i = 0; i < smode.size(); i++)
     {
-        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, (int)smode[i]);
+        this->Servo_Mode = smode;
+        for (size_t i = 0; i < Servo_Mode.size(); i++)
+        {
+            ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, (int)Servo_Mode[i]);
+        }
     }
-
-    this->Servo_Mode = smode;
 }
 void servo_position(std::vector<uint8_t> &spos)
 {
     if (Servo_Position != spos)
-    for (size_t i = 0; i < spos.size(); i++)
     {
-        ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos[i]);
+        this->Servo_Position = spos;
+        for (size_t i = 0; i < Servo_Position.size(); i++)
+        {
+            ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, Servo_Position[i]);
+        }
     }
-    
-    this->Servo_Position = spos;
 }
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
@@ -504,12 +532,13 @@ void ph(const uint8_t ch, const uint8_t type)
 void digital_out(std::vector<bool> &dout)
 {
     if (DigOut_Status != dout)
-    for (size_t i = 0; i < dout.size(); i++)
     {
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)dout[i]);
+        this->DigOut_Status = dout;
+        for (size_t i = 0; i < DigOut_Status.size(); i++)
+        {
+            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)DigOut_Status[i]);
+        }
     }
-    
-    this->DigOut_Status = dout;
 }
 
 void Pump_Total_ML      (sensor::Sensor *ptot)   { Pump_Total_ml_ = ptot; }
