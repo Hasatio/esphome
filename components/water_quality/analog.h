@@ -285,26 +285,26 @@ void ec_ph2()
 
 void analog_sens()
 {
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
-    if (this->AnInLvl_Perc_ != nullptr) 
-    { 
-        // for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++) 
-        // this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
-        this->AnInLvl_Perc_->publish_state(LvlPerc);
-    }
-    if (this->AnInEC_Val_ != nullptr) 
-    {
-        this->AnInEC_Val_->publish_state(EC);
-    }
-    if (this->AnInPH_Val_ != nullptr) 
-    {
-        this->AnInPh_Val_->publish_state(PH);
-    }
-    if (this->AnInGen_Val_ != nullptr) 
-    {
-        this->AnInGen_Val_->publish_state(AnGen);
-    } 
+    // if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
+    // if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
+    // if (this->AnInLvl_Perc_ != nullptr) 
+    // { 
+    //     // for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++) 
+    //     // this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
+    //     this->AnInLvl_Perc_->publish_state(LvlPerc);
+    // }
+    // if (this->AnInEC_Val_ != nullptr) 
+    // {
+    //     this->AnInEC_Val_->publish_state(ecValue);
+    // }
+    // if (this->AnInPH_Val_ != nullptr) 
+    // {
+    //     this->AnInPh_Val_->publish_state(phValue);
+    // }
+    // if (this->AnInGen_Val_ != nullptr) 
+    // {
+    //     this->AnInGen_Val_->publish_state(AnGen);
+    // } 
 }
 
 protected:

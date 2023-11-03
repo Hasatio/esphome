@@ -184,15 +184,7 @@ void sensor()
 void setup() override;
 void loop() override;
 void dump_config() override;
-void update() override
-{
-    ads1115();
-    mcp23008();
-    pca9685();
-    // pump_total();
-    // sensor();
-    Analog_Input_Driver();
-}
+void update() override;
 
 void pump_calib_gain(const std::vector<float> &pcg)
 {
