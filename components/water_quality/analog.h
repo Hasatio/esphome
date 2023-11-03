@@ -14,9 +14,9 @@ namespace water_quality {
 
 static const char *const TAG = "analog";
 
-class ADS1115
-{
-public:
+// class ADS1115
+// {
+// public:
     DFRobot_EC10 ec;
     DFRobot_PH ph;
 
@@ -312,7 +312,7 @@ protected:
     static unsigned long timepoint = millis();
     uint8_t top, AnInGen_Ch[2], rnd;
 
-};
+// };
 
 }  // namespace water_quality
 }  // namespace esphome

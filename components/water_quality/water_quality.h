@@ -181,7 +181,7 @@ void sensor()
 
 void setup() override
 {
-    void ADS1115::ads1115_set();
+    ads1115_set();
     mcp23008_set();
     pca9685_set();
 }
@@ -195,7 +195,7 @@ void dump_config() override
 
     for (uint8_t t=0; t<8; t++) 
     {
-      void TCA9548::tcaselect(t);
+      tcaselect(t);
       ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
