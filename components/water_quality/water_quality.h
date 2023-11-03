@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i2c.h"
+#include "mux.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
