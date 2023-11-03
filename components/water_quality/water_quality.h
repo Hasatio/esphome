@@ -36,7 +36,7 @@ float get_setup_priority() const override { return esphome::setup_priority::PROC
 //  MCP23008
 void mcp23008_set()
 {
-    tcaselect(0);
+    // tcaselect(0);
     
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
@@ -76,7 +76,7 @@ void mcp23008_set()
 }
 void mcp23008()
 {
-    tcaselect(0);
+    // tcaselect(0);
     mcp.digitalWrite(4,LOW);
     mcp.digitalWrite(5,LOW);
     mcp.digitalWrite(6,LOW);
@@ -134,7 +134,7 @@ void pca9685_set()
 }
 void pca9685()
 {
-    tcaselect(0);
+    // tcaselect(0);
     // for (uint8_t pin=0; pin<16; pin++) 
     // {
     // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
@@ -195,7 +195,7 @@ void dump_config() override
 
     for (uint8_t t=0; t<8; t++) 
     {
-      tcaselect(t);
+    //   tcaselect(t);
       ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
