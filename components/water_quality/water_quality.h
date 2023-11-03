@@ -442,7 +442,7 @@ void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; 
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
 protected:
-std::vector<std::float> Pump_Calib_Gain{};
+std::vector<float> Pump_Calib_Gain{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 uint16_t PwmFreq = 1000;
