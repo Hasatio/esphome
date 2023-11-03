@@ -105,7 +105,7 @@ void mcp23008()
 //  PCA9685
 void pca9685_set()
 {
-    tcaselect(0);
+    // tcaselect(0);
     Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
     
     if (!pwm.begin()) 
