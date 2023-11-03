@@ -18,10 +18,7 @@ CONF_PUMP3 = "pump3"
 CONF_PUMP4 = "pump4"
 CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
-CONF_X = "x"
-CONF_Y = "y"
-CONF_PUMP_TIME_CONSTANT = "pump_time_constant"
-CONF_PUMP_CALIBRATION = "pump_calibration"
+CONF_PUMP_CALIB_GAIN = "pump_calib_gain"
 CONF_PUMP_TYPE = "pump_type"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
@@ -42,27 +39,13 @@ CONF_DIGITAL_OUT = "digital_out"
 PUMP_TYPE_NULL = 0
 PUMP_TYPE_DOSE = 1
 PUMP_TYPE_CIRCULATION = 2
-# PUMP_TYPES_SUPPORTED = [PUMP_TYPE_NULL, PUMP_TYPE_DOSE, PUMP_TYPE_CIRCULATION]
 
 
 PUMP_CALIBRATION_SCHEMA = cv.Schema(
     {
-        # cv.GenerateID(): cv.use_id(MyComponent),
-        cv.Required(CONF_PUMP_CALIBRATION): cv.All(
-            cv.ensure_list(
-                cv.Schema(
-                    {
-                        cv.Required(CONF_X): cv.All(
-                            cv.ensure_list(cv.uint8_t),
-                            cv.Length(min = 8, max = 8),
-                        ),
-                        cv.Required(CONF_Y): cv.All(
-                            cv.ensure_list(cv.uint8_t),
-                            cv.Length(min = 8, max = 8),
-                        ),
-                    }
-                )
-            )
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.All(
+            cv.float_,
+            cv.Length(min = 1, max = 1)
         ),
     }
 )
@@ -86,10 +69,6 @@ CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
-            cv.Required(CONF_PUMP_TIME_CONSTANT): cv.All(
-                cv.ensure_list(cv.string_strict),
-                cv.Length(min = 1)
-            ),
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
@@ -162,100 +141,79 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
     
-    # for conf in config[CONF_PUMP_TIME_CONSTANT]:
-    #     cg.add(var.pump_time_constant(conf))
-    
     empty = [0] * 8
     type = []
     calib = []
     dose = 0
     circ = 0
     
-    con = config[CONF_PUMP1][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP1][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
-        calib.append(empty)
         calib.append(empty)
             
-    con = config[CONF_PUMP2][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP2][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
-        calib.append(empty)
         
-    con = config[CONF_PUMP3][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP3][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
-        calib.append(empty)
         
-    con = config[CONF_PUMP4][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP4][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
-        calib.append(empty)
         
-    con = config[CONF_PUMP5][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP5][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
-        calib.append(empty)
         
-    con = config[CONF_PUMP6][0]
-    type.append(con[CONF_PUMP_TYPE])
-    if con[CONF_PUMP_TYPE] != 0:
-        if con[CONF_PUMP_TYPE] == 1:
+    conf = config[CONF_PUMP6][0]
+    type.append(conf[CONF_PUMP_TYPE])
+    if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
             dose += 1
         else:
             circ += 1
-        for conf in con[CONF_PUMP_CALIBRATION]:
-            calib.append(conf[CONF_X])
-            calib.append(conf[CONF_Y])
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
-        calib.append(empty)
         
-    cg.add(var.pump_calibration(calib))
+    cg.add(var.pump_calib_gain(calib))
     cg.add(var.pump_type(type, dose, circ))
     
         
@@ -280,6 +238,8 @@ async def to_code(config):
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit MCP23017 Arduino Library", None)
     cg.add_library("Adafruit PWM Servo Driver Library", None)
+    cg.add_library("DFRobot_EC Library", None)
+    cg.add_library("DFRobot_PH", None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)

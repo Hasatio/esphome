@@ -106,45 +106,45 @@ async def to_code(config):
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_Status(sens))
+        cg.add(parent.PPump_Stat(sens))
         
     if CONF_SERVO_STATUS in config:
         conf = config[CONF_SERVO_STATUS]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.Servo_Status(sens))
+        cg.add(parent.Servo_Stat(sens))
         
     if CONF_WATER_TEMP in config:
         conf = config[CONF_WATER_TEMP]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInWT_Val(sens))
+        cg.add(parent.WaterTemp_Sensor_Driver(sens))
         
     if CONF_VOLTAGE in config:
         conf = config[CONF_VOLTAGE]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInVPow_Val(sens))
+        cg.add(parent.VPow_Sensor_Driver(sens))
         
     if CONF_LEVEL in config:
         conf = config[CONF_LEVEL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInLvl_Perc(sens))
+        cg.add(parent.AnLevel_Sensor_Driver(sens))
         
     if CONF_ANALOG in config:
         conf = config[CONF_ANALOG]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInGlob_Val(sens))
+        cg.add(parent.AnGen_Input_Driver(sens))
         
     if CONF_EC in config:
         conf = config[CONF_EC]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInEC_Val(sens))
+        cg.add(parent.WaterEC_Sensor_Driver(sens))
         
     if CONF_PH in config:
         conf = config[CONF_PH]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.AnInPH_Val(sens))
+        cg.add(parent.WaterPH_Sensor_Driver(sens))
         
     if CONF_DIGITAL in config:
         conf = config[CONF_DIGITAL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.DigIn_Status(sens))
+        cg.add(parent.DigIn_Stat(sens))
         
