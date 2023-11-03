@@ -43,10 +43,7 @@ PUMP_TYPE_CIRCULATION = 2
 
 PUMP_CALIBRATION_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.All(
-            cv.float,
-            cv.Length(min = 1, max = 1)
-        ),
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float
     }
 )
                     
