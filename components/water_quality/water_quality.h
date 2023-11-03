@@ -1,5 +1,6 @@
 #pragma once
 
+#include "i2c.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
@@ -215,14 +216,7 @@ void dump_config() override
 
     for (size_t i = 0; i < Pump_Type.size(); i++)
     {
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_X[%d]-[%d] = %d", i, j, Pump_Calib[2*i][j]);
-        }
-        for (size_t j = 0; j < 8; j++)
-        {
-            ESP_LOGI(TAG,"Pump_Calib_Y[%d]-[%d] = %d", i, j, Pump_Calib[2*i+1][j]);
-        }
+        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %d", i, Pump_Calib_Gain[i]);
     }
 
     for (size_t i = 0; i < Pump_Type.size(); i++)
@@ -450,7 +444,7 @@ std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
 std::vector<bool> Pump_Reset{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Stat{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Status{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
@@ -463,7 +457,7 @@ uint8_t AnInEC_Ch,AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
 std::vector<bool> DigIn_Read{0,0,0,0};
-std::vector<bool> DigOut_Status{1,1,1,1};
+std::vector<bool> DigIn_Status{1,1,1,1};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 sensor::Sensor *Pump_Total_ml_{nullptr};
