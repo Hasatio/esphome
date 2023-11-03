@@ -181,12 +181,7 @@ void sensor()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void setup() override
-{
-    ads1115_set();
-    mcp23008_set();
-    pca9685_set();
-}
+void setup() override;
 void loop() override;
 void dump_config() override;
 void update() override
@@ -403,10 +398,6 @@ std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
-
-std::vector<uint16_t> AnInLvl_ResMin{0};
-std::vector<uint16_t> AnInLvl_ResMax{0};
-uint8_t AnInEC_Ch,AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
 std::vector<bool> DigIn_Read{0,0,0,0};

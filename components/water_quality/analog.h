@@ -100,7 +100,7 @@ void ads1115_set()
 }
 void ads1115()
 {
-    tcaselect(0);
+    // tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
@@ -117,8 +117,8 @@ void ads1115()
 void Analog_Input_Driver()
 {
     top = AnInEC_Ch + AnInEC_Ch;
-    rnd = round((6-top)/2);
-    AnInGen_Ch[0] = 6 - top - yu - 1;
+    rnd = round((6 - top) / 2);
+    AnInGen_Ch[0] = 6 - top - rnd - 1;
     AnInGen_Ch[1] = 6 - top - AnInGen_Ch[0];
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
     AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
@@ -139,8 +139,8 @@ float getWaterTemperature()
     WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
-	sensors.requestTemperatures(); // Send the command to get temperatures
-	float WT = sensors.getTempCByIndex(0);
+	// sensors.requestTemperatures(); // Send the command to get temperatures
+	// float WT = sensors.getTempCByIndex(0);
 
 	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
 	{
@@ -177,6 +177,7 @@ bool readSerial(char result[])
 	}
 	return false;
 }
+float ecVoltage,phVoltage,temperature;
 void ec_ph()
 {
 	unsigned long now = millis();
@@ -189,7 +190,7 @@ void ec_ph()
 			//water temperature
 			temperature = getWaterTemperature();
 			//EC
-			ecVoltage = ads.readADC_SingleEnded(0) / 10;
+			ecVoltage = ads2.readADC_SingleEnded(0) / 10;
 			Serial.print(F("[EC Voltage]... ecVoltage: "));
 			Serial.println(ecVoltage);
 			ecValue = ec.readEC(ecVoltage, temperature); // convert voltage to EC with temperature compensation
@@ -197,7 +198,7 @@ void ec_ph()
 			Serial.print(ecValue);
 			Serial.println(F("ms/cm"));
 			//pH
-			phVoltage = ads.readADC_SingleEnded(1) / 10;
+			phVoltage = ads2.readADC_SingleEnded(1) / 10;
 			Serial.print(F("[pH Voltage]... phVoltage: "));
 			Serial.println(phVoltage);
 			phValue = ph.readPH(phVoltage, temperature);
@@ -307,12 +308,16 @@ void analog_sens()
 }
 
 protected:
-    uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-    float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
-    float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
-    char cmd[10];
-    static unsigned long timepoint = millis();
-    uint8_t top, AnInGen_Ch[2], rnd;
+uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
+char cmd[10];
+static unsigned long timepoint = millis();
+uint8_t top, AnInGen_Ch[2], rnd;
+
+std::vector<uint16_t> AnInLvl_ResMin{0};
+std::vector<uint16_t> AnInLvl_ResMax{0};
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 };
 
