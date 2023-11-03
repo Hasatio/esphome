@@ -200,15 +200,21 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
 void pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
+bool ps[Pump_Type.size()] = {false};
 
     if (Pump_Dose != pdose)
     {
-        if (Pump_Status != 1)
-            this->Pump_Dose = pdose;
-        else
-            this->Pump_Dose += pdose;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
+            if (Pump_Status[i] != 1)
+                ps[i] = true;
+            if (Pump_Status[i] == 1 && ps)
+            {
+                this->Pump_Dose = pdose;
+                ps[i] = false;
+            }
+            else
+                this->Pump_Dose += pdose;
             ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
         }
     }
