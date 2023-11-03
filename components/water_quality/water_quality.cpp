@@ -5,7 +5,14 @@
 namespace esphome {
 namespace water_quality {
 
-void MyComponent::dump_config() override
+void MyComponent::setup()
+{
+    ads1115_set();
+    mcp23008_set();
+    pca9685_set();
+}
+
+void MyComponent::dump_config()
 {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
