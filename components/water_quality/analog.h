@@ -14,7 +14,7 @@ namespace water_quality {
 #define ADS1X15_ADDRESS1 0x48
 #define ADS1X15_ADDRESS2 0x49
 
-static const char *const TAG = "analog";
+static const char *const analog = "analog";
 
 class ADS1115
 {
@@ -29,6 +29,7 @@ public:
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
     
+static unsigned long timepoint = millis();
 unsigned long intervals[] = {
 	1000U,      //0
 	2000U,	    //1
@@ -123,8 +124,8 @@ void Analog_Input_Driver()
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
     AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
-        ESP_LOGD(TAG,"ads = %f", volts[3+4]);
-        ESP_LOGD(TAG,"ads = %f", (ads2.readADC_SingleEnded(3)/10));
+        ESP_LOGD(analog,"ads = %f", volts[3+4]);
+        ESP_LOGD(analog,"ads = %f", (ads2.readADC_SingleEnded(3)/10));
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -190,7 +191,7 @@ void ec_ph()
 			//water temperature
 			temperature = getWaterTemperature();
 			//EC
-			ecVoltage = ads2.readADC_SingleEnded(0) / 10;
+			ecVoltage = ads2.readADC_SingleEnded(3) / 10;
 			Serial.print(F("[EC Voltage]... ecVoltage: "));
 			Serial.println(ecVoltage);
 			ecValue = ec.readEC(ecVoltage, temperature); // convert voltage to EC with temperature compensation
@@ -238,7 +239,7 @@ void ec_ph()
 			Serial.print(temperature, 1);
 			Serial.println("^C");
 
-			ecVoltage = ads.readADC_SingleEnded(0) / 10;
+			ecVoltage = ads2.readADC_SingleEnded(3) / 10;
 			Serial.print("ecVoltage:");
 			Serial.println(ecVoltage, 4);
 
@@ -247,7 +248,7 @@ void ec_ph()
 			Serial.print(ecValue, 4);
 			Serial.println("ms/cm");
 
-			phVoltage = ads.readADC_SingleEnded(1) / 10; // read the voltage
+			phVoltage = ads2.readADC_SingleEnded(1) / 10; // read the voltage
 			Serial.print("phVoltage:");
 			Serial.println(phVoltage, 4);
 			phValue = ph.readPH(phVoltage, temperature); // convert voltage to pH with temperature compensation
@@ -262,12 +263,12 @@ void ec_ph2()
     {
         timepoint = millis();
         //temperature = readTemperature();                   // read your temperature sensor to execute temperature compensation
-        voltagePH = analogRead(PH_PIN)/1024.0*5000;          // read the ph voltage
-        phValue    = ph.readPH(voltagePH,WT);       // convert voltage to pH with temperature compensation
+        // voltagePH = analogRead(PH_PIN)/1024.0*5000;          // read the ph voltage
+        // phValue    = ph.readPH(voltagePH,WT);       // convert voltage to pH with temperature compensation
         Serial.print("pH:");
         Serial.print(phValue,2);
-        voltageEC = analogRead(EC_PIN)/1024.0*5000;
-        ecValue    = ec.readEC(voltageEC,WT);       // convert voltage to EC with temperature compensation
+        // voltageEC = analogRead(EC_PIN)/1024.0*5000;
+        // ecValue    = ec.readEC(voltageEC,WT);       // convert voltage to EC with temperature compensation
         Serial.print(", EC:");
         Serial.print(ecValue,2);
         Serial.println("ms/cm");
@@ -312,7 +313,6 @@ uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its re
 float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
 char cmd[10];
-static unsigned long timepoint = millis();
 uint8_t top, AnInGen_Ch[2], rnd;
 
 std::vector<uint16_t> AnInLvl_ResMin{0};
