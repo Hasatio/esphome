@@ -8,8 +8,6 @@
 namespace esphome {
 namespace water_quality {
 
-class TCA9548
-{
     // i2c ayarları
     #define SDA 16 
     #define SCL 32
@@ -21,6 +19,9 @@ class TCA9548
     #define ADS1X15_ADDRESS2 0x49
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
+    
+class TCA9548
+{
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
