@@ -1,6 +1,5 @@
 #pragma once
 
-#include "mux.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
@@ -12,11 +11,14 @@
 namespace esphome {
 namespace water_quality {
 
+#define ADS1X15_ADDRESS1 0x48
+#define ADS1X15_ADDRESS2 0x49
+
 static const char *const TAG = "analog";
 
-// class ADS1115
-// {
-// public:
+class ADS1115
+{
+public:
     DFRobot_EC10 ec;
     DFRobot_PH ph;
 
@@ -312,7 +314,7 @@ protected:
     static unsigned long timepoint = millis();
     uint8_t top, AnInGen_Ch[2], rnd;
 
-// };
+};
 
 }  // namespace water_quality
 }  // namespace esphome
