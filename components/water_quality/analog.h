@@ -6,7 +6,7 @@
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>
-#include "DFRobot_EC.h"
+#include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
 
 namespace esphome {
@@ -17,7 +17,7 @@ static const char *const TAG = "analog";
 class ADS1115
 {
 public:
-    DFRobot_EC ec;
+    DFRobot_EC10 ec;
     DFRobot_PH ph;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
