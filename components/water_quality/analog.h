@@ -18,7 +18,7 @@ public:
 static const char *const TAG;
 
 static unsigned long timepoint;
-unsigned long intervals[] = {
+unsigned long intervals[10] = {
 	1000U,      //0
 	2000U,	    //1
 	3000U,	    //2
