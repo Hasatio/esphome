@@ -1,5 +1,6 @@
 #include "mux.h"
 #include "analog.h"
+#include "digital.h"
 #include "water_quality.h"
 
 namespace esphome {
@@ -7,6 +8,7 @@ namespace water_quality {
 
 TCA9548 mux;
 ADS1115 ads;
+MCP23008 mcp;
 
 void MyComponent::setup()
 {
@@ -75,7 +77,7 @@ void MyComponent::loop()
 void MyComponent::update()
 {
     ads.ads1115();
-    mcp23008();
+    mcp.mcp23008();
     pca9685();
     // pump_total();
     // sensor();
