@@ -119,6 +119,7 @@ void Analog::Analog_Input_Driver()
     AnGen[1] = volts[AnInGen_Ch[1] + 4];
 }
 
+bool calibrationIsRunning = false;
 void Analog::ec_ph()
 {
 	unsigned long now = millis();
@@ -225,6 +226,49 @@ void Analog::ec_ph2()
     }
 }
 
+float Analog::getWaterTemperature()
+{
+    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+
+	// sensors.requestTemperatures(); // Send the command to get temperatures
+	// float WT = sensors.getTempCByIndex(0);
+
+	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
+	{
+		WT = lastTemperature;
+	}
+	else
+	{
+		lastTemperature = WT;
+	}
+
+    ESP_LOGD(TAG,"WaterTemperature = %d", WT);
+	return WT;
+}
+
+int i = 0;
+bool Analog::readSerial(char result[])
+{
+	while (Serial.available() > 0)
+	{
+		char inChar = Serial.read();
+		if (inChar == '\n')
+		{
+			result[i] = '\0';
+			Serial.flush();
+			i = 0;
+			return true;
+		}
+		if (inChar != '\r')
+		{
+			result[i] = inChar;
+			i++;
+		}
+		delay(1);
+	}
+	return false;
+}
 
 }  // namespace water_quality
 }  // namespace esphome

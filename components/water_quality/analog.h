@@ -54,55 +54,14 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
     DFRobot_EC10 ec;
     DFRobot_PH ph;
 
-bool calibrationIsRunning = false;
-
 void ads1115_set();
 void ads1115();
 
 void Analog_Input_Driver();
-float getWaterTemperature()
-{
-    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+float getWaterTemperature();
 
-	// sensors.requestTemperatures(); // Send the command to get temperatures
-	// float WT = sensors.getTempCByIndex(0);
+bool readSerial(char result[]);
 
-	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
-	{
-		WT = lastTemperature;
-	}
-	else
-	{
-		lastTemperature = WT;
-	}
-
-    ESP_LOGD(analog,"WaterTemperature = %d", WT);
-	return WT;
-}
-
-int i = 0;
-bool readSerial(char result[])
-{
-	while (Serial.available() > 0)
-	{
-		char inChar = Serial.read();
-		if (inChar == '\n')
-		{
-			result[i] = '\0';
-			Serial.flush();
-			i = 0;
-			return true;
-		}
-		if (inChar != '\r')
-		{
-			result[i] = inChar;
-			i++;
-		}
-		delay(1);
-	}
-	return false;
-}
 void ec_ph();
 void ec_ph2();
 
