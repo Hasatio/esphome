@@ -21,7 +21,7 @@ void MyComponent::ph(const uint8_t ch, const uint8_t type)
     AnInPH_Type = type;
 }
 
-void MyComponent::ads1115_set()
+void ADS1115::ads1115_set()
 { 
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -75,7 +75,7 @@ void MyComponent::ads1115_set()
     ec.begin();
     ph.begin();
 }
-void MyComponent::ads1115()
+void ADS1115::ads1115()
 {
     // tcaselect(0);
     for(size_t i = 0; i < 4; i++)
