@@ -127,28 +127,8 @@ void pump_dose(std::vector<uint16_t> &pdose);
 void pump_circulation(std::vector<uint16_t> &pcirc);
 void pump_mode(std::vector<uint8_t> &pmode);
 void pump_reset(std::vector<bool> &pres);
-void servo_mode(std::vector<bool> &smode)
-{
-    if (Servo_Mode != smode)
-    {
-        this->Servo_Mode = smode;
-        for (size_t i = 0; i < Servo_Mode.size(); i++)
-        {
-            ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, (int)Servo_Mode[i]);
-        }
-    }
-}
-void servo_position(std::vector<uint8_t> &spos)
-{
-    if (Servo_Position != spos)
-    {
-        this->Servo_Position = spos;
-        for (size_t i = 0; i < Servo_Position.size(); i++)
-        {
-            ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, Servo_Position[i]);
-        }
-    }
-}
+void servo_mode(std::vector<bool> &smode);
+void servo_position(std::vector<uint8_t> &spos);
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
 void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
