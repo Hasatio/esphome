@@ -159,7 +159,6 @@ bool readSerial(char result[])
 	}
 	return false;
 }
-float ecVoltage,phVoltage,temperature;
 void ec_ph();
 void ec_ph2();
 
@@ -193,6 +192,8 @@ float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
 char cmd[10];
 uint8_t top, AnInGen_Ch[2], rnd;
+
+float ecVoltage,phVoltage,temperature;
 
 std::vector<uint16_t> AnInLvl_ResMin{0};
 std::vector<uint16_t> AnInLvl_ResMax{0};
