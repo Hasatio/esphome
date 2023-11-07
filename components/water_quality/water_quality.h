@@ -94,6 +94,8 @@ void pca9685()
     //     }
 }
 
+void sensor();
+
 void setup() override;
 void loop() override;
 void dump_config() override;
