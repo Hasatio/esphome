@@ -8,8 +8,6 @@ namespace water_quality {
 
 static const char *const pump = "pump";
 
-uint16_t PwmFreq = 1000;
-
 class Pump
 {
 public:

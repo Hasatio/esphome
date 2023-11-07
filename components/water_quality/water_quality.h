@@ -27,6 +27,8 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
+uint16_t PwmFreq = 1000;
+
     Adafruit_PWMServoDriver pwm;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
