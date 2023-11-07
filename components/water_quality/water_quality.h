@@ -130,8 +130,8 @@ void Servo_Stat                 (sensor::Sensor *servo)     { Servo_Stat_ = serv
 void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)     { AnInWT_Val_ = wtemp; }
 void VPow_Sensor_Driver         (sensor::Sensor *vpow)      { AnInVPow_Val_ = vpow; }
 void AnLevel_Sensor_Driver      (sensor::Sensor *level)     { AnInLvl_Perc_ = level; }
-void WaterEC_Sens_Driver        (sensor::Sensor *ec)        { AnInEC_Val_ = ec; }
-void WaterPH_Sens_Driver        (sensor::Sensor *ph)        { AnInPH_Val_ = ph; }
+void WaterEC_Sensor_Driver      (sensor::Sensor *ec)        { AnInEC_Val_ = ec; }
+void WaterPH_Sensor_Driver      (sensor::Sensor *ph)        { AnInPH_Val_ = ph; }
 void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
