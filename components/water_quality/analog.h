@@ -53,7 +53,12 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    DFRobot_EC10 ec;
+    if (AnInEC_Type == 1)
+        DFRobot_EC ec;
+    else 
+        if (AnInEC_Type == 10)
+            DFRobot_EC10 ec;
+
     DFRobot_PH ph;
 
 void ads1115_set();
