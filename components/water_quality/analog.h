@@ -53,9 +53,10 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void EC10() {/*DFRobot_EC10 ec;*/}
-void EC() {DFRobot_EC ec;}
-
+// void EC10() {/*DFRobot_EC10 ec;*/}
+// void EC() {DFRobot_EC ec;}
+    
+    DFRobot_EC ec;
     DFRobot_PH ph;
 
 void ads1115_set();

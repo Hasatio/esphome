@@ -64,8 +64,8 @@ void Analog::ads1115_set()
     // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
     // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
 
-    AnInEC_Type == 1? EC():EC10();
-    // AnInEC_Type == 10? EC10();
+    // AnInEC_Type == 1? EC():EC10();
+    // // AnInEC_Type == 10? EC10();
 
 
     ec.begin();
