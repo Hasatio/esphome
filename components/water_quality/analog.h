@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mux.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
@@ -7,12 +8,6 @@
 #include <Adafruit_ADS1X15.h>
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
-
-namespace esphome {
-namespace water_quality {
-
-#define ADS1X15_ADDRESS1 0x48
-#define ADS1X15_ADDRESS2 0x49
 
 static const char *const analog = "analog";
 
@@ -42,6 +37,9 @@ float ecVoltage,phVoltage,temperature;
 std::vector<uint16_t> AnInLvl_ResMin{0};
 std::vector<uint16_t> AnInLvl_ResMax{0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+
+namespace esphome {
+namespace water_quality {
 
 class ADS1115
 {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mux.h"
 #include "analog.h"
 #include "pump.h"
 #include "esphome.h"
@@ -20,11 +21,8 @@
 namespace esphome {
 namespace water_quality {
 
-#define MCP23008_ADDRESS 0x20
-#define PCA9685_I2C_ADDRESS 0x40
-
 static const char *const TAG = "mycomponent";
-class ADS1115;
+
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
 public:

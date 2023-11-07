@@ -5,6 +5,7 @@
 namespace esphome {
 namespace water_quality {
 
+TCA9548 mux;
 ADS1115 ads;
 
 void MyComponent::setup()
@@ -23,7 +24,7 @@ void MyComponent::dump_config()
 
     for (uint8_t t=0; t<8; t++) 
     {
-      tcaselect(t);
+      mux.tcaselect(t);
       ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
