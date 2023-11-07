@@ -97,7 +97,7 @@ void Analog::Analog_Input_Driver()
     AnGen[1] = volts[AnInGen_Ch[1] + 4];
 }
 
-void Analog::void ec_ph()
+void Analog::ec_ph()
 {
 	unsigned long now = millis();
 	if (now - last[0] >= intervals[0]) //1000ms interval
@@ -176,7 +176,7 @@ void Analog::void ec_ph()
 	}
 }
 
-void Analog::void ec_ph2()
+void Analog::ec_ph2()
 {
     if(millis()-timepoint>1000U)                             //time interval: 1s
     {
