@@ -9,8 +9,6 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const servo = "servo";
-
 class Servo
 {
 public:

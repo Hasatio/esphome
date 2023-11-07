@@ -11,8 +11,6 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const digital = "digital";
-
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
 std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigIn_Status{1,1,1,1};
