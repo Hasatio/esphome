@@ -5,6 +5,7 @@ namespace esphome {
 namespace water_quality {
 
     Pump pump;
+    MyComponent comp;
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
@@ -141,6 +142,18 @@ void Pump::pump_total()
     
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sensor
+void Pump::sensor()
+{
+    if (this->comp.Pump_Tot_ != nullptr) { 
+        for (size_t i = 0; i < sizeof(comp.Pump_Tot_); i++)
+        this->Pump_Tot_->publish_state(Pump_Total[0][i]);
+    }
+
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }  // namespace water_quality
 }  // namespace esphome

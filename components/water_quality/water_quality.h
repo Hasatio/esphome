@@ -91,21 +91,6 @@ void pca9685()
     //         Pump_Total[1][i] += i;
     //     }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Sensor
-void sensor()
-{
-    if (this->Pump_Total_l_ != nullptr) { 
-        for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++)
-        this->Pump_Total_l_->publish_state(Pump_Total[0][i]);
-    }
-    if (this->Pump_Total_ml_ != nullptr) { 
-        for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++)
-        this->Pump_Total_ml_->publish_state(Pump_Total[1][i]);
-    }
-
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void setup() override;
 void loop() override;
@@ -147,8 +132,7 @@ void digital_out(std::vector<bool> &dout)
     }
 }
 
-void Pump_Total_ML              (sensor::Sensor *ptot)      { Pump_Total_ml_ = ptot; }
-void Pump_Total_L               (sensor::Sensor *ptot)      { Pump_Total_l_ = ptot; }
+void Pump_Tot                   (sensor::Sensor *ptot)      { Pump_Tot_ = ptot; }
 void Pump_Stat                  (sensor::Sensor *pstat)     { Pump_Stat_ = pstat; }
 void Servo_Stat                 (sensor::Sensor *servo)     { Servo_Stat_ = servo; }
 void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)     { AnInWT_Val_ = wtemp; }
@@ -168,8 +152,7 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:
-sensor::Sensor *Pump_Total_ml_{nullptr};
-sensor::Sensor *Pump_Total_l_{nullptr};
+sensor::Sensor *Pump_Tot_{nullptr};
 sensor::Sensor *Pump_Stat_{nullptr};
 sensor::Sensor *Servo_Stat_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};

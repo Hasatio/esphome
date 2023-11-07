@@ -24,7 +24,7 @@ std::vector<uint8_t> Pump_Status{0,0,0,0,0,0};
 std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 
 void pump_total();
-
+void sensor();
 };
 
 }  // namespace water_quality
