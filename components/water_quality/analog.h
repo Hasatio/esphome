@@ -53,11 +53,8 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if (AnInEC_Type == 1)
-        DFRobot_EC ec;
-    else 
-        if (AnInEC_Type == 10)
-            DFRobot_EC10 ec;
+    AnInEC_Type == 1? DFRobot_EC ec;
+    AnInEC_Type == 10? DFRobot_EC10 ec;
 
     DFRobot_PH ph;
 
