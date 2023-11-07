@@ -11,14 +11,14 @@ const char *const TAG = "pump";
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
-    this->pump.Pump_Calib_Gain = pcg;
+    pump.Pump_Calib_Gain = pcg;
 }
 void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     pump.dose = d;
     pump.circ = c;
     
-    this->pump.Pump_Type = ptype;
+    pump.Pump_Type = ptype;
 }
 void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
@@ -48,7 +48,7 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 
     if (pump.Pump_Circulation != pcirc)
     {
-        this->pump.Pump_Circulation = pcirc;
+        pump.Pump_Circulation = pcirc;
         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
@@ -59,7 +59,7 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
 {
     if (pump.Pump_Mode != pmode)
     {
-        this->pump.Pump_Mode = pmode;
+        pump.Pump_Mode = pmode;
         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pump.Pump_Mode[i]);
@@ -77,7 +77,7 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
 {
     if (pump.Pump_Reset != pres)
     {
-        this->pump.Pump_Reset = pres;
+        pump.Pump_Reset = pres;
         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
         {
             if (pump.Pump_Reset[i])
