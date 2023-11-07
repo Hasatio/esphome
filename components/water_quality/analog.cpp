@@ -11,7 +11,7 @@ const char *const TAG = "analog";
     Analog an;
     MyComponent comp;
 
-an.timepoint = millis();
+static unsigned long timepoint = millis();
 
 void Analog::ads1115_set()
 { 
