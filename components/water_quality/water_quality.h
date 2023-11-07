@@ -22,8 +22,6 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
-std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
@@ -39,6 +37,9 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+
+std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
 
     Adafruit_PWMServoDriver pwm;
 
