@@ -21,8 +21,7 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
-CONF_PUMP_TOTAL_ML = "pump_total_ml"
-CONF_PUMP_TOTAL_L = "pump_total_l"
+CONF_PUMP_TOTAL = "pump_total"
 CONF_PUMP_STATUS = "pump_status"
 CONF_SERVO_STATUS = "servo_status"
 CONF_WATER_TEMP = "water_temp"
@@ -43,13 +42,9 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(MyComponent),
-            cv.Optional(CONF_PUMP_TOTAL_ML): sensor.sensor_schema(
+            cv.Optional(CONF_PUMP_TOTAL): sensor.sensor_schema(
                 unit_of_measurement = UNIT_MILILITER,
-                accuracy_decimals = 0,
-            ),
-            cv.Optional(CONF_PUMP_TOTAL_L): sensor.sensor_schema(
-                unit_of_measurement = UNIT_LITER,
-                accuracy_decimals = 2,
+                accuracy_decimals = 3,
             )
             # .extend(cv.polling_component_schema("1ms"))
             ,
@@ -93,15 +88,10 @@ CONFIG_SCHEMA = (
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_ID])
 
-    if CONF_PUMP_TOTAL_ML in config:
-        conf = config[CONF_PUMP_TOTAL_ML]
+    if CONF_PUMP_TOTAL in config:
+        conf = config[CONF_PUMP_TOTAL]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_Total_ML(sens))
-        
-    if CONF_PUMP_TOTAL_L in config:
-        conf = config[CONF_PUMP_TOTAL_L]
-        sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPump_Total_L(sens))
+        cg.add(parent.PPump_Tot(sens))
         
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
