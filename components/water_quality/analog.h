@@ -50,12 +50,12 @@ void ads1115_set()
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
-      ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
+      ESP_LOGE(analog,"Failed to initialize ADS1115_1.");
     //   while (1);
     }
     if (!ads2.begin(ADS1X15_ADDRESS2))
     {
-      ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
+      ESP_LOGE(analog,"Failed to initialize ADS1115_2.");
     //   while (1);
     }
 
