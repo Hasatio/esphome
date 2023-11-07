@@ -8,8 +8,6 @@ namespace water_quality {
 
 static const char *const pump = "pump";
 
-std::vector<float> Pump_Calib_Gain{};
-std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
 uint16_t PwmFreq = 1000;
 std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};

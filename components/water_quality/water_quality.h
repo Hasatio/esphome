@@ -129,9 +129,22 @@ void pump_mode(std::vector<uint8_t> &pmode);
 void pump_reset(std::vector<bool> &pres);
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
-void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
-void ec(const uint8_t ch, const uint8_t type);
-void ph(const uint8_t ch, const uint8_t type);
+void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
+{
+    this->AnInLvl_ResMin = rmin;
+    this->AnInLvl_ResMax = rmax;
+}
+void ec(const uint8_t ch, const uint8_t type)
+{
+    AnInEC_Ch = ch;
+    AnInEC_Type = type;
+}
+void ph(const uint8_t ch, const uint8_t type)
+{
+    AnInPH_Ch = ch;
+    AnInPH_Type = type;
+}
+
 void digital_out(std::vector<bool> &dout);
 
 void Pump_Total_ML              (sensor::Sensor *ptot)      { Pump_Total_ml_ = ptot; }
@@ -147,6 +160,12 @@ void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; 
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
 protected:
+std::vector<float> Pump_Calib_Gain{};
+std::vector<uint8_t> Pump_Type{};
+std::vector<uint16_t> AnInLvl_ResMin{0};
+std::vector<uint16_t> AnInLvl_ResMax{0};
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
 sensor::Sensor *Pump_Stat_{nullptr};
