@@ -297,11 +297,6 @@ std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
 
-std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
-std::vector<bool> DigIn_Read{0,0,0,0};
-std::vector<bool> DigIn_Status{1,1,1,1};
-std::vector<bool> DigOut_Status{0,0,0,0};
-
 protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};

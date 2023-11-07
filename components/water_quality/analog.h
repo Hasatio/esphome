@@ -9,6 +9,9 @@
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
 
+namespace esphome {
+namespace water_quality {
+
 static const char *const analog = "analog";
 
 static unsigned long timepoint = millis();
@@ -38,15 +41,9 @@ std::vector<uint16_t> AnInLvl_ResMin{0};
 std::vector<uint16_t> AnInLvl_ResMax{0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
-namespace esphome {
-namespace water_quality {
-
 class ADS1115
 {
 public:
-    DFRobot_EC10 ec;
-    DFRobot_PH ph;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -54,6 +51,11 @@ public:
     Adafruit_ADS1115 ads1;
     Adafruit_ADS1115 ads2;
     
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    DFRobot_EC10 ec;
+    DFRobot_PH ph;
+
 bool calibrationIsRunning = false;
 
 void ads1115_set();
