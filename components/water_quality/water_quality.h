@@ -342,21 +342,9 @@ void servo_position(std::vector<uint8_t> &spos)
         }
     }
 }
-void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
-{
-    this->AnInLvl_ResMin = rmin;
-    this->AnInLvl_ResMax = rmax;
-}
-void ec(const uint8_t ch, const uint8_t type)
-{
-    AnInEC_Ch = ch;
-    AnInEC_Type = type;
-}
-void ph(const uint8_t ch, const uint8_t type)
-{
-    AnInPH_Ch = ch;
-    AnInPH_Type = type;
-}
+void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
+void ec(const uint8_t ch, const uint8_t type);
+void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout)
 {
     if (DigOut_Status != dout)
