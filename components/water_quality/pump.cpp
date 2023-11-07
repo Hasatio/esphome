@@ -3,7 +3,8 @@
 
 namespace esphome {
 namespace water_quality {
-
+ Pump::TAG = "pump";
+ 
     Pump pump;
     MyComponent comp;
 
