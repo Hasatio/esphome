@@ -16,19 +16,6 @@ namespace water_quality {
 
 static const char *const analog = "analog";
 
-class ADS1115
-{
-public:
-    DFRobot_EC10 ec;
-    DFRobot_PH ph;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  ADS1115
-
-    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    Adafruit_ADS1115 ads1;
-    Adafruit_ADS1115 ads2;
-    
 static unsigned long timepoint = millis();
 unsigned long intervals[] = {
 	1000U,      //0
@@ -43,6 +30,20 @@ unsigned long intervals[] = {
 	1800000U,   //9
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
+
+class ADS1115
+{
+public:
+    DFRobot_EC10 ec;
+    DFRobot_PH ph;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+
+    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
+    Adafruit_ADS1115 ads1;
+    Adafruit_ADS1115 ads2;
+    
 bool calibrationIsRunning = false;
 
 void ads1115_set()
