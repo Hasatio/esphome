@@ -123,10 +123,76 @@ void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t
     
     this->Pump_Type = ptype;
 }
-void pump_dose(std::vector<uint16_t> &pdose);
-void pump_circulation(std::vector<uint16_t> &pcirc);
-void pump_mode(std::vector<uint8_t> &pmode);
-void pump_reset(std::vector<bool> &pres);
+void pump_dose(std::vector<uint16_t> &pdose)
+{
+    // pdose.resize(dose);
+bool ps[Pump_Type.size()] = {false};
+
+    if (Pump_Dose != pdose)
+    {
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            if (Pump_Status[i] != 1)
+                ps[i] = true;
+            if (Pump_Status[i] == 1 && ps)
+            {
+                Pump_Dose[i] = pdose[i];
+                ps[i] = false;
+            }
+            else
+                Pump_Dose[i] += pdose[i];
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
+        }
+    }
+}
+void pump_circulation(std::vector<uint16_t> &pcirc)
+{
+    // pcirc.resize(circ);
+
+    if (Pump_Circulation != pcirc)
+    {
+        this->Pump_Circulation = pcirc;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
+        }
+    }
+}
+void pump_mode(std::vector<uint8_t> &pmode)
+{
+    if (Pump_Mode != pmode)
+    {
+        this->Pump_Mode = pmode;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
+        
+            if (pmode[i] == 1)
+            {
+                
+                Pump_Status[i] = 1;
+                pump_total();
+            }
+        }
+    }
+}
+void pump_reset(std::vector<bool> &pres)
+{
+    if (Pump_Reset != pres)
+    {
+        this->Pump_Reset = pres;
+        for (size_t i = 0; i < Pump_Type.size(); i++)
+        {
+            if (Pump_Reset[i])
+            {
+                Pump_Total[i][0] = 0;
+                Pump_Total[i][1] = 0;
+            }
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)Pump_Reset[i]);
+        }
+    }
+}
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
@@ -169,7 +235,14 @@ void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; 
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
+uint8_t dose, circ;
 std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
+std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
+std::vector<bool> Pump_Reset{0,0,0,0,0,0};
+std::vector<uint8_t> Pump_Status{0,0,0,0,0,0};
+std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
