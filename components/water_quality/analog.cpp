@@ -65,10 +65,10 @@ void Analog::ads1115_set()
     // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
 
     AnInEC_Type == 1? EC();
-    AnInEC_Type == 10? EC10();
+    // AnInEC_Type == 10? EC10();
 
     DFRobot_PH ph;
-    
+
     ec.begin();
     ph.begin();
 }
