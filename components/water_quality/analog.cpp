@@ -6,7 +6,6 @@ namespace esphome {
 namespace water_quality {
 
 Mux mux;
-MyComponent comp;
 
 void Analog::ads1115_set()
 { 
