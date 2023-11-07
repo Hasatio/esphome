@@ -9,6 +9,8 @@ namespace water_quality {
     Analog an;
     MyComponent comp;
 
+static const char *const TAG = "analog";
+
 void Analog::ads1115_set()
 { 
     // tcaselect(0);
@@ -70,12 +72,12 @@ void Analog::ads1115()
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
         volts[i] = ads1.computeVolts(adc[i]);
-        // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
         adc[i] = ads2.readADC_SingleEnded(i%4);
         volts[i] = ads2.computeVolts(adc[i]);
-        // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
 }
 
@@ -105,8 +107,8 @@ void Analog::Analog_Input_Driver()
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
     AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
-        ESP_LOGD(analog,"ads = %f", volts[3+4]);
-        ESP_LOGD(analog,"ads = %f", (ads2.readADC_SingleEnded(3)/10));
+        ESP_LOGD(TAG,"ads = %f", volts[3+4]);
+        ESP_LOGD(TAG,"ads = %f", (ads2.readADC_SingleEnded(3)/10));
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k

@@ -7,6 +7,8 @@ namespace water_quality {
     Pump pump;
     MyComponent comp;
 
+static const char *const TAG = "pump";
+
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
     this->pump.Pump_Calib_Gain = pcg;

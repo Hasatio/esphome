@@ -12,8 +12,6 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const analog = "analog";
-
 static unsigned long timepoint = millis();
 unsigned long intervals[] = {
 	1000U,      //0

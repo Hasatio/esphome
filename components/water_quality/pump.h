@@ -6,8 +6,6 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "pump";
-
 class Pump
 {
 public:

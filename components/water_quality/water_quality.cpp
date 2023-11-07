@@ -11,6 +11,8 @@ Analog an;
 Digital dig;
 Pump pump;
 
+static const char *const TAG = "mycomponent";
+
 void MyComponent::setup()
 {
     an.ads1115_set();
