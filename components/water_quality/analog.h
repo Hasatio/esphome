@@ -187,7 +187,6 @@ void analog_sens()
     // } 
 }
 
-protected:
 uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
@@ -200,6 +199,7 @@ std::vector<uint16_t> AnInLvl_ResMin{0};
 std::vector<uint16_t> AnInLvl_ResMax{0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
+protected:
 };
 
 }  // namespace water_quality
