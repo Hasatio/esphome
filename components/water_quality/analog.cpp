@@ -6,6 +6,7 @@ namespace esphome {
 namespace water_quality {
 
 const char *const TAG = "analog";
+unsigned long timepoint = millis();
 
     Mux mux;
     Analog an;

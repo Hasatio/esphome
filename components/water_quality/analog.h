@@ -17,7 +17,7 @@ class Analog
 public:
 static const char *const TAG;
 
-static unsigned long timepoint = millis();
+static unsigned long timepoint;
 unsigned long intervals[] = {
 	1000U,      //0
 	2000U,	    //1
