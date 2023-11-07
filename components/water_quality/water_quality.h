@@ -20,10 +20,6 @@
 namespace esphome {
 namespace water_quality {
 
-    Mux mux;
-    Analog an;
-    Digital dig;
-    
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
 public:
