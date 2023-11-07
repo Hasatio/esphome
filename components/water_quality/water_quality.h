@@ -210,11 +210,11 @@ bool ps[Pump_Type.size()] = {false};
                 ps[i] = true;
             if (Pump_Status[i] == 1 && ps)
             {
-                this->Pump_Dose = pdose;
+                Pump_Dose[i] = pdose[i];
                 ps[i] = false;
             }
             else
-                this->Pump_Dose += pdose;
+                Pump_Dose[i] += pdose[i];
             ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
         }
     }
