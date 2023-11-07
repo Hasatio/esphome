@@ -11,14 +11,14 @@
 namespace esphome {
 namespace water_quality {
 
-std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
-std::vector<bool> DigIn_Read{0,0,0,0};
-std::vector<bool> DigIn_Status{1,1,1,1};
-
 class Digital
 {
 public:
 static const char *const TAG;
+
+std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
+std::vector<bool> DigIn_Read{0,0,0,0};
+std::vector<bool> DigIn_Status{1,1,1,1};
 
 void mcp23008_set();
 void mcp23008();
