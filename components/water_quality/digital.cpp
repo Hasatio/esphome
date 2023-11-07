@@ -6,7 +6,6 @@ namespace esphome {
 namespace water_quality {
 
     Mux mux;
-    Digital dig;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -80,18 +79,6 @@ void Digital::mcp23008()
             mcp.digitalWrite(i + 4, LOW);
         }
         // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
-    }
-}
-
-void MyComponent::digital_out(std::vector<bool> &dout)
-{
-    if (dig.DigOut_Status != dout)
-    {
-        this->DigOut_Status = dout;
-        for (size_t i = 0; i < dig.DigOut_Status.size(); i++)
-        {
-            ESP_LOGD(digital,"DigOut_Status[%d] = %d", i, (int)dig.DigOut_Status[i]);
-        }
     }
 }
 

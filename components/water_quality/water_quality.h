@@ -144,7 +144,17 @@ void ph(const uint8_t ch, const uint8_t type)
     AnInPH_Ch = ch;
     AnInPH_Type = type;
 }
-void digital_out(std::vector<bool> &dout);
+void digital_out(std::vector<bool> &dout)
+{
+    if (DigOut_Status != dout)
+    {
+        this->DigOut_Status = dout;
+        for (size_t i = 0; i < DigOut_Status.size(); i++)
+        {
+            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)DigOut_Status[i]);
+        }
+    }
+}
 
 void Pump_Total_ML              (sensor::Sensor *ptot)      { Pump_Total_ml_ = ptot; }
 void Pump_Total_L               (sensor::Sensor *ptot)      { Pump_Total_l_ = ptot; }
