@@ -176,6 +176,7 @@ std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
