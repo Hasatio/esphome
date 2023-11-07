@@ -82,5 +82,17 @@ void Digital::mcp23008()
     }
 }
 
+void MyComponent::digital_out(std::vector<bool> &dout)
+{
+    if (DigOut_Status != dout)
+    {
+        this->DigOut_Status = dout;
+        for (size_t i = 0; i < DigOut_Status.size(); i++)
+        {
+            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)DigOut_Status[i]);
+        }
+    }
+}
+
 }  // namespace water_quality
 }  // namespace esphome

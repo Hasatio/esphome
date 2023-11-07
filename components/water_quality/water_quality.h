@@ -137,17 +137,7 @@ void servo_position(std::vector<uint8_t> &spos)
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
 void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
-void digital_out(std::vector<bool> &dout)
-{
-    if (DigOut_Status != dout)
-    {
-        this->DigOut_Status = dout;
-        for (size_t i = 0; i < DigOut_Status.size(); i++)
-        {
-            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)DigOut_Status[i]);
-        }
-    }
-}
+void digital_out(std::vector<bool> &dout);
 
 void Pump_Total_ML              (sensor::Sensor *ptot)      { Pump_Total_ml_ = ptot; }
 void Pump_Total_L               (sensor::Sensor *ptot)      { Pump_Total_l_ = ptot; }
