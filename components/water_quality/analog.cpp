@@ -5,6 +5,8 @@
 namespace esphome {
 namespace water_quality {
 
+Mux mux;
+
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     this->AnInLvl_ResMin = rmin;

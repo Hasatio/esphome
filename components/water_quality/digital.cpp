@@ -5,6 +5,8 @@
 namespace esphome {
 namespace water_quality {
 
+Mux mux;
+
 void MCP23008::mcp23008_set()
 {
     // tcaselect(0);

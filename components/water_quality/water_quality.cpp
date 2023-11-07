@@ -6,9 +6,9 @@
 namespace esphome {
 namespace water_quality {
 
-TCA9548 mux;
-ADS1115 ads;
-MCP23008 mcp;
+Mux mux;
+Analog ana;
+Digital dig;
 
 void MyComponent::setup()
 {
@@ -76,12 +76,12 @@ void MyComponent::loop()
 
 void MyComponent::update()
 {
-    ads.ads1115();
-    mcp.mcp23008();
+    ana.ads1115();
+    dig.mcp23008();
     pca9685();
     // pump_total();
     // sensor();
-    ads.Analog_Input_Driver();
+    ana.Analog_Input_Driver();
 }
 
 }  // namespace water_quality
