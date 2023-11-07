@@ -12,6 +12,11 @@
 namespace esphome {
 namespace water_quality {
 
+class Analog
+{
+public:
+static const char *const TAG;
+
 static unsigned long timepoint = millis();
 unsigned long intervals[] = {
 	1000U,      //0
@@ -34,11 +39,6 @@ char cmd[10];
 uint8_t tot, AnInGen_Ch[2], rnd;
 
 float ecVoltage,phVoltage,temperature;
-
-class Analog
-{
-public:
-static const char *const TAG;
 
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
