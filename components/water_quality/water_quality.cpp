@@ -76,7 +76,7 @@ void MyComponent::update()
     pca9685();
     // pump_total();
     // sensor();
-    Analog_Input_Driver();
+    ADS1115::Analog_Input_Driver();
 }
 
 }  // namespace water_quality
