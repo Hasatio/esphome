@@ -6,6 +6,7 @@ namespace esphome {
 namespace water_quality {
 
 Mux mux;
+MyComponent comp;
 
 void Analog::ads1115_set()
 { 
@@ -78,10 +79,10 @@ void Analog::ads1115()
 }
 void Analog::Analog_Input_Driver()
 {
-    top = AnInEC_Ch + AnInEC_Ch;
-    rnd = round((6 - top) / 2);
-    AnInGen_Ch[0] = 6 - top - rnd - 1;
-    AnInGen_Ch[1] = 6 - top - AnInGen_Ch[0];
+    tot = AnInEC_Ch + AnInEC_Ch;
+    rnd = round((6 - tot) / 2);
+    AnInGen_Ch[0] = 6 - tot - rnd - 1;
+    AnInGen_Ch[1] = 6 - tot - AnInGen_Ch[0];
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
     AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
