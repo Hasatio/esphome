@@ -117,11 +117,7 @@ void ec(const uint8_t ch, const uint8_t type)
     AnInEC_Ch = ch;
     AnInEC_Type = type;
 }
-void ph(const uint8_t ch, const uint8_t type)
-{
-    AnInPH_Ch = ch;
-    AnInPH_Type = type;
-}
+void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout)
 {
     if (DigOut_Status != dout)
@@ -148,9 +144,6 @@ void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din;
 std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
 std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
-std::vector<uint16_t> AnInLvl_ResMin{0,0};
-std::vector<uint16_t> AnInLvl_ResMax{0,0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:

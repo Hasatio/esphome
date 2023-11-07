@@ -6,6 +6,7 @@ namespace esphome {
 namespace water_quality {
 
     Mux mux;
+    Analog an;
     MyComponent comp;
 
 void Analog::ads1115_set()
@@ -77,6 +78,24 @@ void Analog::ads1115()
         // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
     }
 }
+
+
+void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
+{
+    this->an.AnInLvl_ResMin = rmin;
+    this->an.AnInLvl_ResMax = rmax;
+}
+void MyComponent::ec(const uint8_t ch, const uint8_t type)
+{
+    an.AnInEC_Ch = ch;
+    an.AnInEC_Type = type;
+}
+void MyComponent::ph(const uint8_t ch, const uint8_t type)
+{
+    an.AnInPH_Ch = ch;
+    an.AnInPH_Type = type;
+}
+
 void Analog::Analog_Input_Driver()
 {
     tot = comp.AnInEC_Ch + comp.AnInEC_Ch;
