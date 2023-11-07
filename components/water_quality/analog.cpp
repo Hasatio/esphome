@@ -105,7 +105,7 @@ void ADS1115::void ec_ph()
 	}
 }
 
-void ec_ph2()
+void ADS1115::void ec_ph2()
 {
     if(millis()-timepoint>1000U)                             //time interval: 1s
     {
