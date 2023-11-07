@@ -4,18 +4,18 @@
 namespace esphome {
 namespace water_quality {
 
-void Pump::pump_calib_gain(const std::vector<float> &pcg)
+void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
     this->Pump_Calib_Gain = pcg;
 }
-void Pump::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
+void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     dose = d;
     circ = c;
     
     this->Pump_Type = ptype;
 }
-void Pump::pump_dose(std::vector<uint16_t> &pdose)
+void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
 bool ps[Pump_Type.size()] = {false};
@@ -37,7 +37,7 @@ bool ps[Pump_Type.size()] = {false};
         }
     }
 }
-void Pump::pump_circulation(std::vector<uint16_t> &pcirc)
+void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 {
     // pcirc.resize(circ);
 
@@ -103,7 +103,7 @@ void Pump::pump_total()
     
     }
 }
-void Pump::pump_mode(std::vector<uint8_t> &pmode)
+void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
 {
     if (Pump_Mode != pmode)
     {
@@ -121,7 +121,7 @@ void Pump::pump_mode(std::vector<uint8_t> &pmode)
         }
     }
 }
-void Pump::pump_reset(std::vector<bool> &pres)
+void MyComponent::pump_reset(std::vector<bool> &pres)
 {
     if (Pump_Reset != pres)
     {

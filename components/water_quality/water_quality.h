@@ -112,6 +112,12 @@ void loop() override;
 void dump_config() override;
 void update() override;
 
+void pump_calib_gain(const std::vector<float> &pcg);
+void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c);
+void pump_dose(std::vector<uint16_t> &pdose);
+void pump_circulation(std::vector<uint16_t> &pcirc);
+void pump_mode(std::vector<uint8_t> &pmode);
+void pump_reset(std::vector<bool> &pres);
 void servo_mode(std::vector<bool> &smode)
 {
     if (Servo_Mode != smode)
