@@ -14,7 +14,7 @@ namespace water_quality {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void MCP23008::mcp23008_set()
+void Digital::mcp23008_set()
 {
     // tcaselect(0);
     
@@ -54,7 +54,7 @@ void MCP23008::mcp23008_set()
     mcp.digitalWrite(6,LOW);
     mcp.digitalWrite(7,LOW);
 }
-void MCP23008::mcp23008()
+void Digital::mcp23008()
 {
     // tcaselect(0);
     mcp.digitalWrite(4,LOW);

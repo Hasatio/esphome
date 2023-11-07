@@ -23,7 +23,7 @@ void MyComponent::ph(const uint8_t ch, const uint8_t type)
     AnInPH_Type = type;
 }
 
-void ADS1115::ads1115_set()
+void Analog::ads1115_set()
 { 
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -77,7 +77,7 @@ void ADS1115::ads1115_set()
     ec.begin();
     ph.begin();
 }
-void ADS1115::ads1115()
+void Analog::ads1115()
 {
     // tcaselect(0);
     for(size_t i = 0; i < 4; i++)
@@ -92,7 +92,7 @@ void ADS1115::ads1115()
         // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
     }
 }
-void ADS1115::Analog_Input_Driver()
+void Analog::Analog_Input_Driver()
 {
     top = AnInEC_Ch + AnInEC_Ch;
     rnd = round((6 - top) / 2);
@@ -113,7 +113,7 @@ void ADS1115::Analog_Input_Driver()
     AnGen[1] = volts[AnInGen_Ch[1] + 4];
 }
 
-void ADS1115::void ec_ph()
+void Analog::void ec_ph()
 {
 	unsigned long now = millis();
 	if (now - last[0] >= intervals[0]) //1000ms interval
@@ -192,7 +192,7 @@ void ADS1115::void ec_ph()
 	}
 }
 
-void ADS1115::void ec_ph2()
+void Analog::void ec_ph2()
 {
     if(millis()-timepoint>1000U)                             //time interval: 1s
     {
