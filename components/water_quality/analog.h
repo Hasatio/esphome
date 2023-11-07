@@ -31,6 +31,18 @@ unsigned long intervals[] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
+uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
+char cmd[10];
+uint8_t top, AnInGen_Ch[2], rnd;
+
+float ecVoltage,phVoltage,temperature;
+
+std::vector<uint16_t> AnInLvl_ResMin{0};
+std::vector<uint16_t> AnInLvl_ResMax{0};
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+
 class ADS1115
 {
 public:
@@ -186,18 +198,6 @@ void analog_sens()
     //     this->AnInGen_Val_->publish_state(AnGen);
     // } 
 }
-
-uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
-float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
-char cmd[10];
-uint8_t top, AnInGen_Ch[2], rnd;
-
-float ecVoltage,phVoltage,temperature;
-
-std::vector<uint16_t> AnInLvl_ResMin{0};
-std::vector<uint16_t> AnInLvl_ResMax{0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 protected:
 };

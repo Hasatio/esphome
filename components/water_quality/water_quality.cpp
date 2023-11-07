@@ -9,7 +9,7 @@ ADS1115 ads;
 
 void MyComponent::setup()
 {
-    ads1115_set();
+    ads.ads1115_set();
     mcp23008_set();
     pca9685_set();
 }
