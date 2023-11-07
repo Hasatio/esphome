@@ -1,5 +1,6 @@
 #pragma once
 
+#include "analog.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
@@ -22,7 +23,7 @@ namespace water_quality {
 #define PCA9685_I2C_ADDRESS 0x40
 
 static const char *const TAG = "mycomponent";
-
+class ADS1115;
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
 public:
