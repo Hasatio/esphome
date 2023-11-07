@@ -93,7 +93,7 @@ void MyComponent::sensor()
 {
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < sizeof(Pump_Tot_); i++)
-        this->Pump_Tot_->publish_state(pumpPump_Total[0][i]);
+        this->Pump_Tot_->publish_state(pump.Pump_Total[0][i]);
     }
 
 }
