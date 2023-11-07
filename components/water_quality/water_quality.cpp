@@ -5,8 +5,6 @@
 namespace esphome {
 namespace water_quality {
 
-ADS1115 analog
-
 void MyComponent::setup()
 {
     ads1115_set();
@@ -73,12 +71,12 @@ void MyComponent::loop()
 
 void MyComponent::update()
 {
-    analog.ads1115();
+    ADS1115.ads1115();
     mcp23008();
     pca9685();
     // pump_total();
     // sensor();
-    analog.Analog_Input_Driver();
+    ADS1115.Analog_Input_Driver();
 }
 
 }  // namespace water_quality
