@@ -370,7 +370,6 @@ void WaterPH_Sens_Driver        (sensor::Sensor *ph)        { AnInPH_Val_ = ph; 
 void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
-protected:
 std::vector<float> Pump_Calib_Gain{};
 std::vector<uint8_t> Pump_Type{};
 uint8_t dose, circ;
@@ -391,6 +390,7 @@ std::vector<bool> DigIn_Read{0,0,0,0};
 std::vector<bool> DigIn_Status{1,1,1,1};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
+protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
 sensor::Sensor *Pump_Total_l_{nullptr};
 sensor::Sensor *Pump_Stat_{nullptr};
@@ -421,7 +421,6 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
     PumpDoseAction(MyComponent *parent) : parent_(parent){};
@@ -438,7 +437,6 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
     public:
     PumpCirculationAction(MyComponent *parent) : parent_(parent){};
@@ -455,7 +453,6 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class PumpResetAction : public Action<Ts...> {
     public:
     PumpResetAction(MyComponent *parent) : parent_(parent){};
@@ -472,7 +469,6 @@ template<typename... Ts> class PumpResetAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class ServoModeAction : public Action<Ts...> {
     public:
     ServoModeAction(MyComponent *parent) : parent_(parent){};
@@ -489,7 +485,6 @@ template<typename... Ts> class ServoModeAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
     public:
     ServoPositionAction(MyComponent *parent) : parent_(parent){};
@@ -506,7 +501,6 @@ template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
     protected:
     MyComponent *parent_;
 };
-
 template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     public:
     DigitalOutAction(MyComponent *parent) : parent_(parent){};
