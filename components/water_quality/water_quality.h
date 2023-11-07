@@ -144,7 +144,6 @@ void ph(const uint8_t ch, const uint8_t type)
     AnInPH_Ch = ch;
     AnInPH_Type = type;
 }
-
 void digital_out(std::vector<bool> &dout);
 
 void Pump_Total_ML              (sensor::Sensor *ptot)      { Pump_Total_ml_ = ptot; }
@@ -167,10 +166,6 @@ std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
-std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
-std::vector<bool> DigIn_Read{0,0,0,0};
-std::vector<bool> DigIn_Status{1,1,1,1};
-std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:
 sensor::Sensor *Pump_Total_ml_{nullptr};
