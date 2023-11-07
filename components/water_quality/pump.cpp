@@ -4,10 +4,10 @@
 namespace esphome {
 namespace water_quality {
 
+const char *const TAG = "pump";
+
     Pump pump;
     MyComponent comp;
-
-static const char *const TAG = "pump";
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {

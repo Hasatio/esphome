@@ -9,6 +9,7 @@ namespace water_quality {
 class Pump
 {
 public:
+static const char *const TAG;
 
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
 uint8_t dose, circ;

@@ -6,6 +6,8 @@
 namespace esphome {
 namespace water_quality {
 
+const char *const MyComponent::TAG = "mycomponent";
+
 Mux mux;
 Analog an;
 Digital dig;

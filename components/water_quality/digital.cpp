@@ -5,10 +5,10 @@
 namespace esphome {
 namespace water_quality {
 
+const char *const digital = "digital";
+
     Mux mux;
     MyComponent comp;
-
-static const char *const digital = "digital";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008

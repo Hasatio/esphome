@@ -20,11 +20,11 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "mycomponent";
-
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
 public:
+static const char *const TAG;
+
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 uint16_t PwmFreq = 1000;

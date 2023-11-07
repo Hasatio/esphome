@@ -18,6 +18,8 @@ std::vector<bool> DigIn_Status{1,1,1,1};
 class Digital
 {
 public:
+static const char *const TAG;
+
 void mcp23008_set();
 void mcp23008();
 

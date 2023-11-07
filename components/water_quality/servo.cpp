@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const servo = "servo";
+const char *const servo = "servo";
 
 void MyComponent::servo_mode(std::vector<bool> &smode)
 {

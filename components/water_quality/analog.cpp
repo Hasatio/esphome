@@ -5,11 +5,11 @@
 namespace esphome {
 namespace water_quality {
 
+const char *const TAG = "analog";
+
     Mux mux;
     Analog an;
     MyComponent comp;
-
-static const char *const TAG = "analog";
 
 void Analog::ads1115_set()
 { 
