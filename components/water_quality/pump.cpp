@@ -4,17 +4,6 @@
 namespace esphome {
 namespace water_quality {
 
-void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
-{
-    this->Pump_Calib_Gain = pcg;
-}
-void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
-{
-    dose = d;
-    circ = c;
-    
-    this->Pump_Type = ptype;
-}
 void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
