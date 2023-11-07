@@ -200,6 +200,7 @@ void analog_sens()
 }
 
 protected:
+
 };
 
 }  // namespace water_quality
