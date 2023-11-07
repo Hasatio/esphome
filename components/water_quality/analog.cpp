@@ -67,7 +67,6 @@ void Analog::ads1115_set()
     AnInEC_Type == 1? EC();
     // AnInEC_Type == 10? EC10();
 
-    DFRobot_PH ph;
 
     ec.begin();
     ph.begin();
