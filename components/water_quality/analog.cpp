@@ -98,21 +98,21 @@ void MyComponent::ph(const uint8_t ch, const uint8_t type)
 
 void Analog::Analog_Input_Driver()
 {
-    tot = comp.AnInEC_Ch + comp.AnInEC_Ch;
+    tot = AnInEC_Ch + AnInEC_Ch;
     rnd = round((6 - tot) / 2);
     AnInGen_Ch[0] = 6 - tot - rnd - 1;
     AnInGen_Ch[1] = 6 - tot - AnInGen_Ch[0];
-    AnInGen_Ch[0] = (AnInGen_Ch[0] == comp.AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
-    AnInGen_Ch[1] = (AnInGen_Ch[1] == comp.AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
+    AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
+    AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
         ESP_LOGD(analog,"ads = %f", volts[3+4]);
         ESP_LOGD(analog,"ads = %f", (ads2.readADC_SingleEnded(3)/10));
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    LvlPerc[0] = (float)volts[2] * 100 / 5 * comp.AnInLvl_ResMax[0] / (1000 + comp.AnInLvl_ResMax[0]) - 5 * comp.AnInLvl_ResMin[0] / (1000 + comp.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    LvlPerc[1] = (float)volts[3] * 100 / 5 * comp.AnInLvl_ResMax[1] / (1000 + comp.AnInLvl_ResMax[1]) - 5 * comp.AnInLvl_ResMin[1] / (1000 + comp.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 
-    ecValue = volts[comp.AnInEC_Ch];
-    phValue = volts[comp.AnInPH_Ch];
+    ecValue = volts[AnInEC_Ch];
+    phValue = volts[AnInPH_Ch];
     AnGen[0] = volts[AnInGen_Ch[0] + 4];
     AnGen[1] = volts[AnInGen_Ch[1] + 4];
 }
