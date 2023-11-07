@@ -6,11 +6,12 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const pump = "pump";
 
 class Pump
 {
 public:
+static const char *const TAG = "pump";
+
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
