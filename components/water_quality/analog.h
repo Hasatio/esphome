@@ -14,7 +14,7 @@ namespace water_quality {
 #define ADS1X15_ADDRESS1 0x48
 #define ADS1X15_ADDRESS2 0x49
 
-static const char *const analog = "analog";
+static const char *const TAG = "analog";
 
 class ADS1115
 {
