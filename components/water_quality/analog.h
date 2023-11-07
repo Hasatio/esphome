@@ -14,7 +14,7 @@ namespace water_quality {
 #define ADS1X15_ADDRESS1 0x48
 #define ADS1X15_ADDRESS2 0x49
 
-static const char *const TAG = "analog";
+static const char *const analog = "analog";
 
 class ADS1115
 {
@@ -106,12 +106,12 @@ void ads1115()
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
         volts[i] = ads1.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
         adc[i] = ads2.readADC_SingleEnded(i%4);
         volts[i] = ads2.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        // ESP_LOGD(analog,"ads%d = %f", i+1, volts[i]);
     }
 }
 
@@ -133,7 +133,7 @@ float getWaterTemperature()
 		lastTemperature = WT;
 	}
 
-    ESP_LOGD(TAG,"WaterTemperature = %d", WT);
+    ESP_LOGD(analog,"WaterTemperature = %d", WT);
 	return WT;
 }
 
