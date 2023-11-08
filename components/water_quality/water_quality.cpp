@@ -74,7 +74,30 @@ void MyComponent::dump_config()
 void MyComponent::loop() 
 {
     delay(1000);
-    dump_config();
+    ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
+    ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
+
+    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+    {
+        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %.2f", i, pump.Pump_Calib_Gain[i]);
+    }
+
+    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+    {
+        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, pump.Pump_Type[i]);
+        ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
+    }
+
+    for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
+    {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
+    }
+
+    ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
 }
 
 void MyComponent::update()
