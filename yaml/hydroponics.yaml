@@ -148,34 +148,22 @@ water_quality:
   id: water
   address: 0x70
   i2c_id: i2c0
-  pump_time_constant: 
-    - a
-    - b
-    - c
   pump1: 
     pump_type: 1
-    pump_calibration:
-      x: [11,21,31,41,51,61,71,81]
-      y: [15,25,35,45,55,65,75,85]
+    pump_calib_gain: 1
   pump2: 
     pump_type: 2
-    pump_calibration:
-      x: [12,22,32,42,52,62,72,82]
-      y: [16,26,36,46,56,66,76,86]
+    pump_calib_gain: 2
   pump3: 
     pump_type: 0
   pump4: 
     pump_type: 0
   pump5: 
     pump_type: 2
-    pump_calibration:
-      x: [13,23,33,43,53,63,73,83]
-      y: [17,27,37,47,57,67,77,87]
+    pump_calib_gain: 3
   pump6: 
     pump_type: 1
-    pump_calibration:
-      x: [14,24,34,44,54,64,74,84]
-      y: [18,28,38,48,58,68,78,88]
+    pump_calib_gain: 4
   level:
     res_min: [150]
     res_max: [250]
@@ -191,10 +179,8 @@ sensor:
     name: "Internal Temperature"
 
   - platform: water_quality
-    pump_total_ml:
-      id: pump_total_ml
-    pump_total_l:
-      id: pump_total_l
+    pump_total:
+      id: pump_total
     pump_status:
       id: pump_status
     servo_status:

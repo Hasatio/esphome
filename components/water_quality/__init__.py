@@ -138,7 +138,7 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
     
-    empty = [0] * 1
+    empty = [0] * 8
     type = []
     calib = []
     dose = 0
