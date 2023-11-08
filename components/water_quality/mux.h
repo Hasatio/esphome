@@ -1,12 +1,12 @@
 #pragma once
 
+#ifndef MUX_H
+#define MUX_H
+
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
-
-#ifndef MUX_H
-#define MUX_H
 
 namespace esphome {
 namespace water_quality {

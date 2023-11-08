@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef PUMP_H
+#define PUMP_H
+
 #include "esphome.h"
 #include "esphome/core/log.h"
 
@@ -26,3 +29,5 @@ void sensor();
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // PUMP_H

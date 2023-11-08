@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WATER_QUALITY_H
+#define WATER_QUALITY_H
+
 #include "mux.h"
 #include "analog.h"
 #include "digital.h"
@@ -16,9 +19,6 @@
 #include <iterator>
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
-
-#ifndef WATER_QUALITY_H
-#define WATER_QUALITY_H
 
 static const char *const TAG = "mycomponent";
 

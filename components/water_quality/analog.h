@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ANALOG_H
+#define ANALOG_H
+
 #include "mux.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -99,3 +102,5 @@ protected:
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // ANALOG_H
