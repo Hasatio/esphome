@@ -1,41 +1,41 @@
-#include "pump.h"
+#include "pum.h"
 #include "water_quality.h"
 
 namespace esphome {
 namespace water_quality {
 
-    Pump pump;
+    Pump pum;
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
-    pump.Pump_Calib_Gain = pcg;
+    pum.Pump_Calib_Gain = pcg;
 }
 void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
-    pump.dose = d;
-    pump.circ = c;
+    pum.dose = d;
+    pum.circ = c;
     
-    pump.Pump_Type = ptype;
+    pum.Pump_Type = ptype;
 }
 void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
-bool ps[pump.Pump_Type.size()] = {false};
+bool ps[pum.Pump_Type.size()] = {false};
 
-    if (pump.Pump_Dose != pdose)
+    if (pum.Pump_Dose != pdose)
     {
-        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        for (size_t i = 0; i < pum.Pump_Type.size(); i++)
         {
-            if (pump.Pump_Status[i] != 1)
+            if (pum.Pump_Status[i] != 1)
                 ps[i] = true;
-            if (pump.Pump_Status[i] == 1 && ps)
+            if (pum.Pump_Status[i] == 1 && ps)
             {
-                pump.Pump_Dose[i] = pdose[i];
+                pum.Pump_Dose[i] = pdose[i];
                 ps[i] = false;
             }
             else
-                pump.Pump_Dose[i] += pdose[i];
-            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pump.Pump_Dose[i]);
+                pum.Pump_Dose[i] += pdose[i];
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pum.Pump_Dose[i]);
         }
     }
 }
@@ -43,47 +43,47 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 {
     // pcirc.resize(circ);
 
-    if (pump.Pump_Circulation != pcirc)
+    if (pum.Pump_Circulation != pcirc)
     {
-        pump.Pump_Circulation = pcirc;
-        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        pum.Pump_Circulation = pcirc;
+        for (size_t i = 0; i < pum.Pump_Type.size(); i++)
         {
-            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pum.Pump_Circulation[i]);
         }
     }
 }
 void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
 {
-    if (pump.Pump_Mode != pmode)
+    if (pum.Pump_Mode != pmode)
     {
-        pump.Pump_Mode = pmode;
-        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        pum.Pump_Mode = pmode;
+        for (size_t i = 0; i < pum.Pump_Type.size(); i++)
         {
-            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pump.Pump_Mode[i]);
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pum.Pump_Mode[i]);
         
             if (pmode[i] == 1)
             {
                 
-                pump.Pump_Status[i] = 1;
-                pump.pump_total();
+                pum.Pump_Status[i] = 1;
+                pum.pump_total();
             }
         }
     }
 }
 void MyComponent::pump_reset(std::vector<bool> &pres)
 {
-    if (pump.Pump_Reset != pres)
+    if (pum.Pump_Reset != pres)
     {
-        pump.Pump_Reset = pres;
-        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        pum.Pump_Reset = pres;
+        for (size_t i = 0; i < pum.Pump_Type.size(); i++)
         {
-            if (pump.Pump_Reset[i])
+            if (pum.Pump_Reset[i])
             {
-                pump.Pump_Total[i][0] = 0;
-                pump.Pump_Total[i][1] = 0;
+                pum.Pump_Total[i][0] = 0;
+                pum.Pump_Total[i][1] = 0;
             }
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
-            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pump.Pump_Reset[i]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pum.Pump_Total[i][0], pum.Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pum.Pump_Reset[i]);
         }
     }
 }
