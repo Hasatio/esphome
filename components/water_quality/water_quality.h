@@ -220,7 +220,7 @@ void WaterEC_Sensor_Driver      (sensor::Sensor *ec)        { AnInEC_Val_ = ec; 
 void WaterPH_Sensor_Driver      (sensor::Sensor *ph)        { AnInPH_Val_ = ph; }
 void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
-
+private:
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
