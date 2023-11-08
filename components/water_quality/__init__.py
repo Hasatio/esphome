@@ -238,6 +238,7 @@ async def to_code(config):
     cg.add_library("EEPROM", None)
     if conf[CONF_EC_TYPE] == 1:
         cg.add_library("DFRobot_EC Library", None, "https://github.com/DFRobot/DFRobot_EC/")
+        cg.add_library("DFRobot_EC10", None)
     else:
         if conf[CONF_EC_TYPE] == 10:
             cg.add_library("DFRobot_EC10", None)
