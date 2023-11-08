@@ -4,9 +4,8 @@
 namespace esphome {
 namespace water_quality {
 
-    Analog an;
-    Mux mux;
-    MyComponent comp;
+    Mux muxe;
+    Analog ana;
 
 static unsigned long timepoint = millis();
 
@@ -87,18 +86,18 @@ void Analog::ads1115()
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    an.AnInLvl_ResMin = rmin;
-    an.AnInLvl_ResMax = rmax;
+    ana.AnInLvl_ResMin = rmin;
+    ana.AnInLvl_ResMax = rmax;
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    an.AnInEC_Ch = ch;
-    an.AnInEC_Type = type;
+    ana.AnInEC_Ch = ch;
+    ana.AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    an.AnInPH_Ch = ch;
-    an.AnInPH_Type = type;
+    ana.AnInPH_Ch = ch;
+    ana.AnInPH_Type = type;
 }
 
 void Analog::Analog_Input_Driver()
