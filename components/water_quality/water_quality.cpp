@@ -6,7 +6,7 @@
 namespace esphome {
 namespace water_quality {
 
-MyComponent::TAG = "mycomponent";
+// MyComponent::TAG = "mycomponent";
 
 Mux mux;
 Analog an;
