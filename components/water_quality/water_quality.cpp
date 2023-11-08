@@ -8,10 +8,10 @@ namespace water_quality {
 
 // MyComponent::TAG = "mycomponent";
 
-    esphome::water_quality::Mux mux;
-    esphome::water_quality::Analog an;
-    esphome::water_quality::Digital dig;
-    esphome::water_quality::Pump pump;
+    Mux mux;
+    Analog an;
+    Digital dig;
+    Pump pump;
 
 void MyComponent::setup()
 {

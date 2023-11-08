@@ -4,8 +4,8 @@
 namespace esphome {
 namespace water_quality {
 
-    esphome::water_quality::Mux mux;
-    esphome::water_quality::MyComponent comp;
+    Mux mux;
+    MyComponent comp;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008

@@ -4,9 +4,9 @@
 namespace esphome {
 namespace water_quality {
 
-    esphome::water_quality::Mux mux;
-    esphome::water_quality::Analog an;
-    esphome::water_quality::MyComponent comp;
+    Mux mux;
+    Analog an;
+    MyComponent comp;
 
 static unsigned long timepoint = millis();
 
