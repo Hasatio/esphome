@@ -8,9 +8,6 @@
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 
-namespace esphome {
-namespace water_quality {
-
     // i2c ayarları
     #define SDA 16 
     #define SCL 32
@@ -22,6 +19,9 @@ namespace water_quality {
     #define ADS1X15_ADDRESS2 0x49
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
+
+namespace esphome {
+namespace water_quality {
 
 class Mux
 {
