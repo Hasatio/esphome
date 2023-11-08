@@ -88,59 +88,59 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
     }
 }
 
-// void Pump::pump_total()
-// {
-//     for (size_t i = 0; i < Pump_Type.size(); i++)
-//     {
-//         if (Pump_Type[i] == 1)
-//         {
-//             if (Pump_Dose[i] >= 1)
-//             {
-//                 Pump_Total[i][1] += Pump_Dose[i]%2;
-//                 if (Pump_Dose[i] == 1)
-//                 Pump_Dose[i] = 0;
-//                 else
-//                 {
-//                     if (Pump_Mode[i] == 2)
-//                     {
-//                         Pump_Status[i] = 3;
-//                         break;
-//                     }
-//                     Pump_Dose[i] /= 2;
-//                     Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Dose[i]) / 1000;
-//                     Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Dose[i]) % 1000;
-//                 }
-//             }
-//             Pump_Mode[i] = 0;
-//             Pump_Status[i] = 2;
-//         }
-//         if (Pump_Type[i] == 2)
-//         {
-//             if (Pump_Circulation[i] >= 1)
-//             {
-//                 ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
-//                 Pump_Total[i][1] += Pump_Circulation[i]%2;
-//                 if (Pump_Circulation[i] == 1)
-//                 Pump_Circulation[i] = 0;
-//                 else
-//                 {
-//                     if (Pump_Mode[i] == 2)
-//                     {
-//                         Pump_Status[i] = 3;
-//                         Pump_Circulation[i] = 0;
-//                     }
-//                     Pump_Circulation[i] /= 2;
-//                     Pump_Total[i][0] += (int)(Pump_Total[i][0] + Pump_Circulation[i]) / 1000;
-//                     Pump_Total[i][1] = (int)(Pump_Total[i][1] + Pump_Circulation[i]) % 1000;
-//                 }
-//             }
-//             Pump_Mode[i] = 0;
-//             Pump_Status[i] = 2;
-//         }
-//         ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, Pump_Total[i][0], Pump_Total[i][1]);
+void Pump::pump_total()
+{
+    for (size_t i = 0; i < Pump_Type.size(); i++)
+    {
+        if (pum.Pump_Type[i] == 1)
+        {
+            if (pum.Pump_Dose[i] >= 1)
+            {
+                pum.Pump_Total[i][1] += pum.Pump_Dose[i]%2;
+                if (pum.Pump_Dose[i] == 1)
+                pum.Pump_Dose[i] = 0;
+                else
+                {
+                    if (pum.Pump_Mode[i] == 2)
+                    {
+                        pum.Pump_Status[i] = 3;
+                        break;
+                    }
+                    pum.Pump_Dose[i] /= 2;
+                    pum.Pump_Total[i][0] += (int)(pum.Pump_Total[i][0] + pum.Pump_Dose[i]) / 1000;
+                    pum.Pump_Total[i][1] = (int)(pum.Pump_Total[i][1] + pum.Pump_Dose[i]) % 1000;
+                }
+            }
+            pum.Pump_Mode[i] = 0;
+            pum.Pump_Status[i] = 2;
+        }
+        if (pum.Pump_Type[i] == 2)
+        {
+            if (pum.Pump_Circulation[i] >= 1)
+            {
+                ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pum.Pump_Circulation[i]);
+                pum.Pump_Total[i][1] += pum.Pump_Circulation[i]%2;
+                if (pum.Pump_Circulation[i] == 1)
+                pum.Pump_Circulation[i] = 0;
+                else
+                {
+                    if (pum.Pump_Mode[i] == 2)
+                    {
+                        pum.Pump_Status[i] = 3;
+                        pum.Pump_Circulation[i] = 0;
+                    }
+                    pum.Pump_Circulation[i] /= 2;
+                    pum.Pump_Total[i][0] += (int)(pum.Pump_Total[i][0] + pum.Pump_Circulation[i]) / 1000;
+                    pum.Pump_Total[i][1] = (int)(pum.Pump_Total[i][1] + pum.Pump_Circulation[i]) % 1000;
+                }
+            }
+            pum.Pump_Mode[i] = 0;
+            pum.Pump_Status[i] = 2;
+        }
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, pum.Pump_Total[i][0], pum.Pump_Total[i][1]);
     
-//     }
-// }
+    }
+}
 
 }  // namespace water_quality
 }  // namespace esphome
