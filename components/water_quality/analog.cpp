@@ -115,8 +115,8 @@ void Analog::Analog_Input_Driver()
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 
-    ecValue = volts[AnInEC_Ch];
-    phValue = volts[AnInPH_Ch];
+    // ecValue = volts[AnInEC_Ch];
+    // phValue = volts[AnInPH_Ch];
     AnGen[0] = volts[AnInGen_Ch[0] + 4];
     AnGen[1] = volts[AnInGen_Ch[1] + 4];
 }
