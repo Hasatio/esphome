@@ -4,6 +4,7 @@
 namespace esphome {
 namespace water_quality {
 
+    Pump pu;
     MyComponent pum;
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
@@ -65,7 +66,7 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
             {
                 
                 pum.Pump_Status[i] = 1;
-                pum.pump_total();
+                pu.pump_total();
             }
         }
     }
