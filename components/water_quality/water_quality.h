@@ -22,10 +22,10 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace water_quality {
 
-Mux mux;
-Analog an;
-Digital dig;
-Pump pump;
+static Mux mux;
+static Analog an;
+static Digital dig;
+static Pump pump;
 
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
