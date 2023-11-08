@@ -221,6 +221,7 @@ void WaterPH_Sensor_Driver      (sensor::Sensor *ph)        { AnInPH_Val_ = ph; 
 void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
+protected:
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
 uint8_t dose, circ;
 std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
@@ -236,7 +237,6 @@ std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
 std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
 std::vector<bool> DigOut_Status{0,0,0,0};
 
-protected:
 sensor::Sensor *Pump_Tot_{nullptr};
 sensor::Sensor *Pump_Stat_{nullptr};
 sensor::Sensor *Servo_Stat_{nullptr};
