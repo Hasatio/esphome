@@ -4,6 +4,9 @@
 namespace esphome {
 namespace water_quality {
 
+    MyComponent::Pump pump;
+    MyComponent::MyComponent comp;
+
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
     pump.Pump_Calib_Gain = pcg;

@@ -8,6 +8,11 @@ namespace water_quality {
 
 // MyComponent::TAG = "mycomponent";
 
+    MyComponent::Mux mux;
+    MyComponent::Analog an;
+    MyComponent::Digital dig;
+    MyComponent::Pump pump;
+
 void MyComponent::setup()
 {
     an.ads1115_set();
