@@ -17,6 +17,9 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
+#ifndef WATER_QUALITY_H
+#define WATER_QUALITY_H
+
 static const char *const TAG = "mycomponent";
 
 namespace esphome {
@@ -270,3 +273,5 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // WATER_QUALITY_H
