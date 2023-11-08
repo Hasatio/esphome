@@ -46,21 +46,6 @@ std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  ADS1115
-
-    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    Adafruit_ADS1115 ads1;
-    Adafruit_ADS1115 ads2;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// void EC10() {/*DFRobot_EC10 ec;*/}
-// void EC() {DFRobot_EC ec;}
-    
-    DFRobot_EC ec;
-    DFRobot_PH ph;
-
 void ads1115_set();
 void ads1115();
 

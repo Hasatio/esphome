@@ -7,6 +7,21 @@ namespace water_quality {
     Mux muxe;
     Analog ana;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+
+    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
+    Adafruit_ADS1115 ads1;
+    Adafruit_ADS1115 ads2;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// void EC10() {/*DFRobot_EC10 ec;*/}
+// void EC() {DFRobot_EC ec;}
+    
+    DFRobot_EC ec;
+    DFRobot_PH ph;
+
 static unsigned long timepoint = millis();
 
 void Analog::ads1115_set()
