@@ -68,8 +68,7 @@ void MyComponent::dump_config()
     ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
     ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
     ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
-    // ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
-    ESP_LOGCONFIG(TAG,"PH_type = %d", an.AnInPH_Type);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
 
 void MyComponent::loop() 
