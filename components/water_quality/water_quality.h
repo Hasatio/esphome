@@ -19,6 +19,11 @@
 
 static const char *const TAG = "mycomponent";
 
+Mux mux;
+Analog an;
+Digital dig;
+Pump pump;
+
 namespace esphome {
 namespace water_quality {
 
