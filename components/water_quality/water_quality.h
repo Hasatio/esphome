@@ -3,11 +3,6 @@
 #ifndef WATER_QUALITY_H
 #define WATER_QUALITY_H
 
-#include "mux.h"
-#include "analog.h"
-#include "digital.h"
-#include "pump.h"
-#include "servo.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
@@ -113,21 +108,21 @@ void update() override;
 // void pump_reset(std::vector<bool> &pres);
 void pump_calib_gain(const std::vector<float> &pcg)
 {
-    Pump_Calib_Gain = pcg;
+    this->Pump_Calib_Gain = pcg;
 }
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     dose = d;
     circ = c;
     
-    Pump_Type = ptype;
+    this->Pump_Type = ptype;
 }
 void pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
 bool ps[Pump_Type.size()] = {false};
 
-    if (Pump_Dose != pdose)
+    if (this->Pump_Dose != pdose)
     {
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
@@ -148,9 +143,9 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 {
     // pcirc.resize(circ);
 
-    if (Pump_Circulation != pcirc)
+    if (this->Pump_Circulation != pcirc)
     {
-        Pump_Circulation = pcirc;
+        this->Pump_Circulation = pcirc;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
@@ -159,9 +154,9 @@ void pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void pump_mode(std::vector<uint8_t> &pmode)
 {
-    if (Pump_Mode != pmode)
+    if (this->Pump_Mode != pmode)
     {
-        Pump_Mode = pmode;
+        this->Pump_Mode = pmode;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
@@ -177,9 +172,9 @@ void pump_mode(std::vector<uint8_t> &pmode)
 }
 void pump_reset(std::vector<bool> &pres)
 {
-    if (Pump_Reset != pres)
+    if (this->Pump_Reset != pres)
     {
-        Pump_Reset = pres;
+        this->Pump_Reset = pres;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             if (Pump_Reset[i])
