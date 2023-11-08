@@ -73,7 +73,8 @@ void MyComponent::dump_config()
 
 void MyComponent::loop() 
 {
-    // delay(1000);
+    delay(1000);
+    dump_config();
 }
 
 void MyComponent::update()
