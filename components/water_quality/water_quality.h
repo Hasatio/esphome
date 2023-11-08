@@ -19,13 +19,13 @@
 
 static const char *const TAG = "mycomponent";
 
+namespace esphome {
+namespace water_quality {
+
 Mux mux;
 Analog an;
 Digital dig;
 Pump pump;
-
-namespace esphome {
-namespace water_quality {
 
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
