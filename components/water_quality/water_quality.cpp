@@ -50,7 +50,7 @@ void MyComponent::dump_config()
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
     {
-        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %d", i, pump.Pump_Calib_Gain[i]);
+        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %f", i, pump.Pump_Calib_Gain[i]);
     }
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
