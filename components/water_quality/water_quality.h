@@ -17,13 +17,14 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
+static const char *const TAG;
+
 namespace esphome {
 namespace water_quality {
 
 class MyComponent : public PollingComponent, public i2c::I2CDevice 
 {
 public:
-static const char *const TAG;
 
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 

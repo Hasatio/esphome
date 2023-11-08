@@ -4,8 +4,6 @@
 namespace esphome {
 namespace water_quality {
 
-const char *const TAG = "pump";
-
     Pump pump;
     MyComponent comp;
 

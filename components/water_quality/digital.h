@@ -14,7 +14,6 @@ namespace water_quality {
 class Digital
 {
 public:
-static const char *const TAG;
 
 std::vector<std::vector<uint8_t>> DigIn_FilterCoeff{0};
 std::vector<bool> DigIn_Read{0,0,0,0};

@@ -12,7 +12,6 @@ namespace water_quality {
 class Servo
 {
 public:
-static const char *const TAG;
 
 protected:
 

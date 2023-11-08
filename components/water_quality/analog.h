@@ -16,7 +16,6 @@ namespace water_quality {
 class Analog
 {
 public:
-static const char *const TAG;
 
 unsigned long intervals[10] = {
 	1000U,      //0

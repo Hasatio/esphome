@@ -1,11 +1,8 @@
-#include "mux.h"
 #include "analog.h"
 #include "water_quality.h"
 
 namespace esphome {
 namespace water_quality {
-
-const char *const TAG = "analog";
 
     Mux mux;
     Analog an;

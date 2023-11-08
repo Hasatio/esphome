@@ -1,11 +1,8 @@
-#include "mux.h"
 #include "digital.h"
 #include "water_quality.h"
 
 namespace esphome {
 namespace water_quality {
-
-const char *const digital = "digital";
 
     Mux mux;
     MyComponent comp;
