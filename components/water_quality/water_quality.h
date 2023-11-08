@@ -105,93 +105,93 @@ void loop() override;
 void dump_config() override;
 void update() override;
 
-void pump_calib_gain(const std::vector<float> &pcg);
-void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c);
-void pump_dose(std::vector<uint16_t> &pdose);
-void pump_circulation(std::vector<uint16_t> &pcirc);
-void pump_mode(std::vector<uint8_t> &pmode);
-void pump_reset(std::vector<bool> &pres);
-// void pump_calib_gain(const std::vector<float> &pcg)
-// {
-//     pump.Pump_Calib_Gain = pcg;
-// }
-// void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
-// {
-//     pump.dose = d;
-//     pump.circ = c;
+// void pump_calib_gain(const std::vector<float> &pcg);
+// void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c);
+// void pump_dose(std::vector<uint16_t> &pdose);
+// void pump_circulation(std::vector<uint16_t> &pcirc);
+// void pump_mode(std::vector<uint8_t> &pmode);
+// void pump_reset(std::vector<bool> &pres);
+void pump_calib_gain(const std::vector<float> &pcg)
+{
+    pump.Pump_Calib_Gain = pcg;
+}
+void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
+{
+    pump.dose = d;
+    pump.circ = c;
     
-//     pump.Pump_Type = ptype;
-// }
-// void pump_dose(std::vector<uint16_t> &pdose)
-// {
-//     // pdose.resize(dose);
-// bool ps[pump.Pump_Type.size()] = {false};
+    pump.Pump_Type = ptype;
+}
+void pump_dose(std::vector<uint16_t> &pdose)
+{
+    // pdose.resize(dose);
+bool ps[pump.Pump_Type.size()] = {false};
 
-//     if (pump.Pump_Dose != pdose)
-//     {
-//         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
-//         {
-//             if (pump.Pump_Status[i] != 1)
-//                 ps[i] = true;
-//             if (pump.Pump_Status[i] == 1 && ps)
-//             {
-//                 pump.Pump_Dose[i] = pdose[i];
-//                 ps[i] = false;
-//             }
-//             else
-//                 pump.Pump_Dose[i] += pdose[i];
-//             ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pump.Pump_Dose[i]);
-//         }
-//     }
-// }
-// void pump_circulation(std::vector<uint16_t> &pcirc)
-// {
-//     // pcirc.resize(circ);
+    if (pump.Pump_Dose != pdose)
+    {
+        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        {
+            if (pump.Pump_Status[i] != 1)
+                ps[i] = true;
+            if (pump.Pump_Status[i] == 1 && ps)
+            {
+                pump.Pump_Dose[i] = pdose[i];
+                ps[i] = false;
+            }
+            else
+                pump.Pump_Dose[i] += pdose[i];
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pump.Pump_Dose[i]);
+        }
+    }
+}
+void pump_circulation(std::vector<uint16_t> &pcirc)
+{
+    // pcirc.resize(circ);
 
-//     if (pump.Pump_Circulation != pcirc)
-//     {
-//         pump.Pump_Circulation = pcirc;
-//         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
-//         {
-//             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
-//         }
-//     }
-// }
-// void pump_mode(std::vector<uint8_t> &pmode)
-// {
-//     if (pump.Pump_Mode != pmode)
-//     {
-//         pump.Pump_Mode = pmode;
-//         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
-//         {
-//             ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pump.Pump_Mode[i]);
+    if (pump.Pump_Circulation != pcirc)
+    {
+        pump.Pump_Circulation = pcirc;
+        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
+        }
+    }
+}
+void pump_mode(std::vector<uint8_t> &pmode)
+{
+    if (pump.Pump_Mode != pmode)
+    {
+        pump.Pump_Mode = pmode;
+        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        {
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pump.Pump_Mode[i]);
         
-//             if (pmode[i] == 1)
-//             {
+            if (pmode[i] == 1)
+            {
                 
-//                 pump.Pump_Status[i] = 1;
-//                 pump.pump_total();
-//             }
-//         }
-//     }
-// }
-// void pump_reset(std::vector<bool> &pres)
-// {
-//     if (pump.Pump_Reset != pres)
-//     {
-//         pump.Pump_Reset = pres;
-//         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
-//         {
-//             if (pump.Pump_Reset[i])
-//             {
-//                 pump.Pump_Total[i][0] = 0;
-//                 pump.Pump_Total[i][1] = 0;
-//             }
-//             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
-//             ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pump.Pump_Reset[i]);
-//         }
-//     }
-// }
+                pump.Pump_Status[i] = 1;
+                pump.pump_total();
+            }
+        }
+    }
+}
+void pump_reset(std::vector<bool> &pres)
+{
+    if (pump.Pump_Reset != pres)
+    {
+        pump.Pump_Reset = pres;
+        for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+        {
+            if (pump.Pump_Reset[i])
+            {
+                pump.Pump_Total[i][0] = 0;
+                pump.Pump_Total[i][1] = 0;
+            }
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pump.Pump_Reset[i]);
+        }
+    }
+}
 
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
