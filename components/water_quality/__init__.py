@@ -235,6 +235,7 @@ async def to_code(config):
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit MCP23017 Arduino Library", None)
     cg.add_library("Adafruit PWM Servo Driver Library", None)
+    cg.add_library("EEPROM", None)
     if conf[CONF_EC_TYPE] == 1:
         cg.add_library("DFRobot_EC Library", None, "https://github.com/DFRobot/DFRobot_EC/")
     else:
