@@ -170,7 +170,7 @@ void pump_mode(std::vector<uint8_t> &pmode)
             {
                 
                 Pump_Status[i] = 1;
-                pump_total();
+                // pump_total();
             }
         }
     }
