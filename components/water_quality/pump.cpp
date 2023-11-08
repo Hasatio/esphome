@@ -91,7 +91,7 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
 
 void Pump::pump_total()
 {
-    for (size_t i = 0; i < Pump_Type.size(); i++)
+    for (size_t i = 0; i < pum.Pump_Type.size(); i++)
     {
         if (pum.Pump_Type[i] == 1)
         {
