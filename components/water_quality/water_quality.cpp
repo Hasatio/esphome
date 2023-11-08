@@ -8,10 +8,10 @@ namespace water_quality {
 
 // MyComponent::TAG = "mycomponent";
 
-    MyComponent::Mux mux;
-    MyComponent::Analog an;
-    MyComponent::Digital dig;
-    MyComponent::Pump pump;
+    Mux mux;
+    Analog an;
+    Digital dig;
+    Pump pump;
 
 void MyComponent::setup()
 {
