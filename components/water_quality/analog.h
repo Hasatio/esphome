@@ -35,7 +35,7 @@ unsigned long intervals[10] = {
 unsigned long last[10] = {0};
 
 uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-float volts[8]={0}*8, WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+float volts[8]={0}, WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
 char cmd[10];
 uint8_t tot, AnInGen_Ch[2], rnd;
