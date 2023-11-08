@@ -11,7 +11,7 @@ namespace water_quality {
     Mux mux;
     Analog an;
     Digital dig;
-    Pump pump;
+    MyComponent pump;
 
 void MyComponent::setup()
 {
