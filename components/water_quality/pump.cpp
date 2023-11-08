@@ -1,4 +1,4 @@
-#include "pum.h"
+#include "pump.h"
 #include "water_quality.h"
 
 namespace esphome {
