@@ -78,7 +78,7 @@ void MyComponent::loop()
 
 void MyComponent::update()
 {
-    an.ads1115();
+    // an.ads1115();
     dig.mcp23008();
     pca9685();
     // pump_total();
