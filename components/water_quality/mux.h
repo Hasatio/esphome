@@ -5,6 +5,9 @@
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 
+#ifndef MUX_H
+#define MUX_H
+
 namespace esphome {
 namespace water_quality {
 
@@ -36,3 +39,5 @@ void tcaselect(uint8_t bus){
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // MUX_H
