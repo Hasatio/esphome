@@ -5,6 +5,7 @@ namespace esphome {
 namespace water_quality {
 
     Mux muxes;
+    MyComponent comp;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -69,7 +70,7 @@ void Digital::mcp23008()
 
     for(size_t i = 0; i < 4; i++)
     {
-        if (dcomp.DigOut_Status[i] == 1)
+        if (comp.DigOut_Status[i] == 1)
         {
             mcp.digitalWrite(i + 4, HIGH);
         }
