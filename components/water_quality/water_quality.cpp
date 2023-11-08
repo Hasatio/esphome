@@ -79,11 +79,11 @@ void MyComponent::loop()
 void MyComponent::update()
 {
     // an.ads1115();
-    // dig.mcp23008();
+    dig.mcp23008();
     pca9685();
     // pump_total();
     // sensor();
-    // an.Analog_Input_Driver();
+    an.Analog_Input_Driver();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
