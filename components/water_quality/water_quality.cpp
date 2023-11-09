@@ -231,7 +231,7 @@ void MyComponent::sensor()
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
-        for (size_t i = 0; i < 6; i++) 
+        for (size_t i = 0; i < 2; i++) 
         this->AnInGen_Val_->publish_state(an.AnGen[i]);
     } 
 
