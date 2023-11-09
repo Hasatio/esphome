@@ -3,7 +3,7 @@
 #ifndef WATER_QUALITY_H
 #define WATER_QUALITY_H
 
-#include "mux.h"
+#include "../water_quality/mux.h"
 #include "analog/analog.h"
 #include "digital/digital.h"
 #include "pump/pump.h"
