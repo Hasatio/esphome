@@ -61,10 +61,9 @@ std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
-void setup() override;
-void loop() override;
-void dump_config() override;
-void update() override;
+void setup();
+void loop();
+void dump_config();
 
 void ads1115();
 
