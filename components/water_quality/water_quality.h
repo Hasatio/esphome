@@ -3,6 +3,10 @@
 #ifndef WATER_QUALITY_H
 #define WATER_QUALITY_H
 
+#include "mux.h"
+#include "analog.h"
+#include "digital.h"
+#include "pump.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"

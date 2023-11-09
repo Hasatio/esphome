@@ -6,7 +6,7 @@ namespace esphome {
 namespace water_quality {
 
     Mux muxe;
-    Analog ana;
+    // Analog ana;
 
     // Analog* ana = new Analog();
 
@@ -104,18 +104,18 @@ void Analog::ads1115()
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    ana.AnInLvl_ResMin[0] = rmin[0];
-    ana.AnInLvl_ResMax[0] = rmax[0];
+    AnInLvl_ResMin[0] = rmin[0];
+    AnInLvl_ResMax[0] = rmax[0];
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    ana.AnInEC_Ch = ch;
-    ana.AnInEC_Type = type;
+    AnInEC_Ch = ch;
+    AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    ana.AnInPH_Ch = ch;
-    ana.AnInPH_Type = type;
+    AnInPH_Ch = ch;
+    AnInPH_Type = type;
 }
 
 void Analog::Analog_Input_Driver()
