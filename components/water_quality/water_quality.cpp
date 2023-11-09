@@ -243,6 +243,26 @@ void MyComponent::sensor()
         for (size_t i = 0; i < sizeof(Pump_Tot_); i++)
         this->Pump_Tot_->publish_state(pump.Pump_Total[0][i]);
     }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
+    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
+    if (this->AnInLvl_Perc_ != nullptr) 
+    { 
+        // for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++) 
+        // this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
+        this->AnInLvl_Perc_->publish_state(an.LvlPerc);
+    }
+    if (this->AnInEC_Val_ != nullptr) 
+    {
+        this->AnInEC_Val_->publish_state(an.ecValue);
+    }
+    if (this->AnInPH_Val_ != nullptr) 
+    {
+        this->AnInPh_Val_->publish_state(an.phValue);
+    }
+    if (this->AnInGen_Val_ != nullptr) 
+    {
+        this->AnInGen_Val_->publish_state(an.AnGen);
+    } 
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
