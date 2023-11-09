@@ -217,7 +217,7 @@ void MyComponent::sensor()
 {
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < 6; i++)
-        this->Pump_Tot_->publish_state(pump.Pump_Total[0][i]);
+        this->Pump_Tot_->publish_state(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
     }
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
