@@ -24,7 +24,7 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace water_quality {
 
-class MyComponent : public PollingComponent, public i2c::I2CDevice, public Analog, public Digital, public Pump, public Servo
+class MyComponent : public PollingComponent, public i2c::I2CDevice, public Analog, public Digital, public Servo
 {
 public:
 
