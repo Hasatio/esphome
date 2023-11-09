@@ -61,10 +61,7 @@ std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
-void setup();
-void loop();
-void dump_config();
-
+void ads1115_set();
 void ads1115();
 
 void Analog_Input_Driver();
