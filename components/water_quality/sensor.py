@@ -9,7 +9,6 @@ from esphome.const import (
     UNIT_VOLT,
     UNIT_PERCENT,
     UNIT_SECOND,
-    UNIT_MILLISIEMENS_PER_CENTIMETER,
     UNIT_PH,
 )
 
@@ -35,6 +34,7 @@ CONF_DIGITAL = "digital"
 UNIT_LITER = "l"
 UNIT_MILILITER = "ml"
 UNIT_MILILITERS_PER_MINUTE = "ml/min"
+UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 
 # MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice)
 
@@ -71,7 +71,7 @@ CONFIG_SCHEMA = (
                 accuracy_decimals = 2,
             ),
             cv.Optional(CONF_EC): sensor.sensor_schema(
-                unit_of_measurement = UNIT_MILLISIEMENS_PER_CENTIMETER,
+                unit_of_measurement = UNIT_MICROSIEMENS_PER_CENTIMETER,
                 accuracy_decimals = 0,
             ),
             cv.Optional(CONF_PH): sensor.sensor_schema(

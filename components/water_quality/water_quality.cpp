@@ -81,6 +81,9 @@ void MyComponent::update()
     an.Analog_Input_Driver();
 }
 
+    bool pd[pump.Pump_Type.size()] = {false} * 6;
+    bool pc[pump.Pump_Type.size()] = {false} * 6;
+    
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
     pump.Pump_Calib_Gain = pcg;
@@ -94,19 +97,16 @@ void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, 
 }
 void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
-    // pdose.resize(dose);
-bool ps[Pump_Type.size()] = {false};
-
     if (pump.Pump_Dose != pdose)
     {
         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
         {
             if (pump.Pump_Status[i] != 1)
-                ps[i] = true;
-            if (pump.Pump_Status[i] == 1 && ps)
+                pd[i] = true;
+            if (pump.Pump_Status[i] == 1 && pd)
             {
                 pump.Pump_Dose[i] = pdose[i];
-                ps[i] = false;
+                pd[i] = false;
             }
             else
                 Pump_Dose[i] += pdose[i];
@@ -116,13 +116,19 @@ bool ps[Pump_Type.size()] = {false};
 }
 void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 {
-    // pcirc.resize(circ);
-
     if (pump.Pump_Circulation != pcirc)
     {
-        pump.Pump_Circulation = pcirc;
         for (size_t i = 0; i < pump.Pump_Type.size(); i++)
         {
+            if (pump.Pump_Status[i] != 1)
+                pc[i] = true;
+            if (pump.Pump_Status[i] == 1 && pc)
+            {
+                pump.Pump_Dose[i] = pcirc[i];
+                pc[i] = false;
+            }
+            else
+                Pump_Circulation[i] += pcirc[i];
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
         }
     }

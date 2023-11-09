@@ -118,16 +118,16 @@ void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout);
 
-void Pump_Tot                   (sensor::Sensor *ptot)      { Pump_Tot_ = ptot; }
-void Pump_Stat                  (sensor::Sensor *pstat)     { Pump_Stat_ = pstat; }
-void Servo_Stat                 (sensor::Sensor *servo)     { Servo_Stat_ = servo; }
-void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)     { AnInWT_Val_ = wtemp; }
-void VPow_Sensor_Driver         (sensor::Sensor *vpow)      { AnInVPow_Val_ = vpow; }
-void AnLevel_Sensor_Driver      (sensor::Sensor *level)     { AnInLvl_Perc_ = level; }
-void WaterEC_Sensor_Driver      (sensor::Sensor *ec)        { AnInEC_Val_ = ec; }
-void WaterPH_Sensor_Driver      (sensor::Sensor *ph)        { AnInPH_Val_ = ph; }
-void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
-void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
+void Pump_Tot                   (sensor::Sensor *ptot)     { Pump_Tot_ = ptot; }
+void Pump_Stat                  (sensor::Sensor *pstat)    { Pump_Stat_ = pstat; }
+void Servo_Stat                 (sensor::Sensor *servo)    { Servo_Stat_ = servo; }
+void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)    { AnInWT_Val_ = wtemp; }
+void VPow_Sensor_Driver         (sensor::Sensor *vpow)     { AnInVPow_Val_ = vpow; }
+void AnLevel_Sensor_Driver      (sensor::Sensor *level)    { AnInLvl_Perc_ = level; }
+void WaterEC_Sensor_Driver      (sensor::Sensor *ec)       { AnInEC_Val_ = ec; }
+void WaterPH_Sensor_Driver      (sensor::Sensor *ph)       { AnInPH_Val_ = ph; }
+void AnGen_Input_Driver         (sensor::Sensor *a)        { AnInGen_Val_ = a; }
+void DigIn_Stat                 (sensor::Sensor *din)      { DigIn_Stat_ = din; }
 
 protected:
 sensor::Sensor *Pump_Tot_{nullptr};
