@@ -5,13 +5,13 @@ namespace esphome {
 namespace water_quality {
 
     Mux muxe;
-    // Analog ana;
+    Analog ana;
 
     // Analog* ana = new Analog();
 
 static unsigned long timepoint = millis();
 
-void ads1115_set()
+void Analog::ads1115_set()
 { 
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -69,7 +69,7 @@ void ads1115_set()
     ec.begin();
     ph.begin();
 }
-void ads1115()
+void Analog::ads1115()
 {
     // tcaselect(0);
     for(size_t i = 0; i < 4; i++)
@@ -87,21 +87,21 @@ void ads1115()
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    AnInLvl_ResMin[0] = rmin[0];
-    AnInLvl_ResMax = rmax;
+    ana.AnInLvl_ResMin = rmin;
+    ana.AnInLvl_ResMax = rmax;
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    AnInEC_Ch = ch;
-    AnInEC_Type = type;
+    ana.AnInEC_Ch = ch;
+    ana.AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    AnInPH_Ch = ch;
-    AnInPH_Type = type;
+    ana.AnInPH_Ch = ch;
+    ana.AnInPH_Type = type;
 }
 
-void Analog_Input_Driver()
+void Analog::Analog_Input_Driver()
 {
     tot = AnInEC_Ch + AnInEC_Ch;
     rnd = round((6 - tot) / 2);
@@ -123,7 +123,7 @@ void Analog_Input_Driver()
 }
 
 bool calibrationIsRunning = false;
-void ec_ph()
+void Analog::ec_ph()
 {
 	unsigned long now = millis();
 	if (now - last[0] >= intervals[0]) //1000ms interval
@@ -202,7 +202,7 @@ void ec_ph()
 	}
 }
 
-void ec_ph2()
+void Analog::ec_ph2()
 {
     if(millis()-timepoint>1000U)                             //time interval: 1s
     {
@@ -229,7 +229,7 @@ void ec_ph2()
     }
 }
 
-float getWaterTemperature()
+float Analog::getWaterTemperature()
 {
     WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
@@ -251,7 +251,7 @@ float getWaterTemperature()
 }
 
 int i = 0;
-bool readSerial(char result[])
+bool Analog::readSerial(char result[])
 {
 	while (Serial.available() > 0)
 	{
