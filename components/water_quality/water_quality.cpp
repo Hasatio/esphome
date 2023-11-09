@@ -6,13 +6,13 @@ namespace water_quality {
 // MyComponent::TAG = "mycomponent";
 
     Mux mux;
-    Analog an;
+    // Analog an;
     Digital dig;
     MyComponent pump;
 
 void MyComponent::setup()
 {
-    an.ads1115_set();
+    // an.ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
@@ -55,17 +55,17 @@ void MyComponent::dump_config()
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, Pump_Type[i]);
         ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
     }
-
-    for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
+    
+    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
+    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
 
 void MyComponent::loop() 

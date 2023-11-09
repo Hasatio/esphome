@@ -17,9 +17,9 @@
 namespace esphome {
 namespace water_quality {
 
-class Analog
-{
-public:
+// class Analog
+// {
+// public:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -97,9 +97,9 @@ void analog_sens()
 }
 
 // extern Analog ana;
-protected:
+// protected:
 
-};
+// };
 
 }  // namespace water_quality
 }  // namespace esphome
