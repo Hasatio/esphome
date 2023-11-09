@@ -11,7 +11,7 @@ namespace water_quality {
 
 static unsigned long timepoint = millis();
 
-void Analog::ads1115_set()
+void Analog::setup()
 { 
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -84,7 +84,19 @@ void Analog::ads1115()
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
 }
+void Analog::dump_config()
+{
+    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
+    {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
+    }
 
+    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
+}
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
