@@ -27,16 +27,16 @@ bool ps[Pump_Type.size()] = {false};
     {
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
-            if (Pump_Status[i] != 1)
+            if (pum.Pump_Status[i] != 1)
                 ps[i] = true;
-            if (Pump_Status[i] == 1 && ps)
+            if (pum.Pump_Status[i] == 1 && ps)
             {
-                Pump_Dose[i] = pdose[i];
+                pum.Pump_Dose[i] = pdose[i];
                 ps[i] = false;
             }
             else
                 Pump_Dose[i] += pdose[i];
-            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, Pump_Dose[i]);
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pum.Pump_Dose[i]);
         }
     }
 }
@@ -49,7 +49,7 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
         this->Pump_Circulation = pcirc;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
-            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, Pump_Circulation[i]);
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pum.Pump_Circulation[i]);
         }
     }
 }
@@ -60,12 +60,12 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
         this->Pump_Mode = pmode;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
-            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, Pump_Mode[i]);
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pum.Pump_Mode[i]);
         
             if (pmode[i] == 1)
             {
                 
-                Pump_Status[i] = 1;
+                pum.Pump_Status[i] = 1;
                 pu.pump_total();
             }
         }
@@ -78,13 +78,13 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
         this->Pump_Reset = pres;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
-            if (Pump_Reset[i])
+            if (pum.Pump_Reset[i])
             {
-                Pump_Total[i][0] = 0;
-                Pump_Total[i][1] = 0;
+                pum.Pump_Total[i][0] = 0;
+                pum.Pump_Total[i][1] = 0;
             }
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, Pump_Total[i][0], Pump_Total[i][1]);
-            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)Pump_Reset[i]);
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pum.Pump_Total[i][0], pum.Pump_Total[i][1]);
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pum.Pump_Reset[i]);
         }
     }
 }
