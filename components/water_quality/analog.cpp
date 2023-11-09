@@ -79,9 +79,8 @@ void Analog::ads1115_set()
     // AnInEC_Type == 1? EC():EC10();
     // // AnInEC_Type == 10? EC10();
 
-
-    ec.begin();
-    ph.begin();
+    // ec.begin();
+    // ph.begin();
 }
 void Analog::ads1115()
 {
