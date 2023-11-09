@@ -42,9 +42,9 @@ uint8_t tot, AnInGen_Ch[2], rnd;
 
 float ecVoltage,phVoltage,temperature;
 
-std::vector<uint16_t> AnInLvl_ResMin{0,0};
-std::vector<uint16_t> AnInLvl_ResMax{0,0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+static std::vector<uint16_t> AnInLvl_ResMin{0,0};
+static std::vector<uint16_t> AnInLvl_ResMax{0,0};
+static uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 void ads1115_set();
 void ads1115();
