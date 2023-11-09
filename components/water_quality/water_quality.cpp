@@ -77,7 +77,7 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    // sensor();
+    sensor();
     an.Analog_Input_Driver();
 }
 
