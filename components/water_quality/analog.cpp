@@ -9,7 +9,7 @@ namespace water_quality {
     // Analog ana;
 
     Analog* ana = new Analog();
-    
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -105,17 +105,17 @@ void Analog::ads1115()
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     ana->AnInLvl_ResMin = rmin;
-    this->AnInLvl_ResMax = rmax;
+    ana->AnInLvl_ResMax = rmax;
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    ana.AnInEC_Ch = ch;
-    ana.AnInEC_Type = type;
+    ana->AnInEC_Ch = ch;
+    ana->AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    ana.AnInPH_Ch = ch;
-    ana.AnInPH_Type = type;
+    ana->AnInPH_Ch = ch;
+    ana->AnInPH_Type = type;
 }
 
 void Analog::Analog_Input_Driver()
