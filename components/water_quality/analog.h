@@ -4,7 +4,6 @@
 #define ANALOG_H
 
 #include "mux.h"
-#include "water_quality.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
