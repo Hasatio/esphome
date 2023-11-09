@@ -16,9 +16,6 @@
 namespace esphome {
 namespace water_quality {
 
-class Analog
-{
-public:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -33,6 +30,10 @@ public:
     
     DFRobot_EC ec;
     DFRobot_PH ph;
+    
+class Analog
+{
+public:
 
 unsigned long intervals[10] = {
 	1000U,      //0
