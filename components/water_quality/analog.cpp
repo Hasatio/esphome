@@ -1,12 +1,12 @@
 #include "analog.h"
 #include "water_quality.h"
 
-    Mux muxe;
-    Analog ana;
 
 namespace esphome {
 namespace water_quality {
 
+    Mux muxe;
+    Analog ana;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
