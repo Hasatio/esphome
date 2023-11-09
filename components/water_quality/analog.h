@@ -48,19 +48,6 @@ unsigned long intervals[10] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
-uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-float volts[8]={0}, WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
-float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
-char cmd[10];
-uint8_t tot, AnInGen_Ch[2], rnd;
-
-float ecVoltage,phVoltage,temperature;
-
-std::vector<uint16_t> AnInLvl_ResMin{0,0};
-std::vector<uint16_t> AnInLvl_ResMax{0,0};
-// static uint16_t AnInLvl_ResMin[2]={0,0}, AnInLvl_ResMax[2]={0,0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
-
 void ads1115_set();
 void ads1115();
 
@@ -97,6 +84,23 @@ void analog_sens()
 }
 
 // extern Analog ana;
+
+void setAnInLvl_ResMin(std::vector<uint16_t> set)    {this->AnInLvl_ResMin = set;}
+std::vector<uint16_t> getAnInLvl_ResMin()   {return AnInLvl_ResMin;}
+
+uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+float volts[8]={0}, WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
+char cmd[10];
+uint8_t tot, AnInGen_Ch[2], rnd;
+
+float ecVoltage,phVoltage,temperature;
+
+std::vector<uint16_t> AnInLvl_ResMin{0,0};
+std::vector<uint16_t> AnInLvl_ResMax{0,0};
+// static uint16_t AnInLvl_ResMin[2]={0,0}, AnInLvl_ResMax[2]={0,0};
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+
 protected:
 
 };
