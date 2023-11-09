@@ -12,7 +12,7 @@ namespace water_quality {
 class Pump
 {
 public:
-void setdose(uint8_t set)   {dose = set;}
+void setdose(uint8_t set)   {dose = set; ESP_LOGI("dose","Pump_dose = %d", dose);}
 uint8_t getdose()   {return dose;}
 
 void pump_total();
