@@ -22,30 +22,30 @@ void MyComponent::dump_config()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
-    // Wire.begin(SDA,SCL,frq);
+    Wire.begin(SDA,SCL,frq);
 
-    // for (uint8_t t=0; t<8; t++) 
-    // {
-    //   mux.tcaselect(t);
-    //   ESP_LOGI(TAG,"TCA Port %d", t);
+    for (uint8_t t=0; t<8; t++) 
+    {
+      mux.tcaselect(t);
+      ESP_LOGI(TAG,"TCA Port %d", t);
 
-    //   for (uint8_t addr = 0; addr<=127; addr++) 
-    //   {
-    //     if (addr == TCA9548_ADDRESS) continue;
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
 
-    //     Wire.beginTransmission(addr);
-    //     if (!Wire.endTransmission()) 
-    //     {
-    //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-    //     }
-    //   }
-    // }
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+        }
+      }
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
-    for (size_t i = 0; i < Pump_Type.size(); i++)
+    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
     {
         ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %.2f", i, pump.Pump_Calib_Gain[i]);
     }
