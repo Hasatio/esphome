@@ -253,11 +253,11 @@ void MyComponent::sensor()
     }
     if (this->AnInEC_Val_ != nullptr) 
     {
-        this->AnInEC_Val_->publish_state(an.ecValue);
+        this->AnInEC_Val_->publish_state(an.EC);
     }
     if (this->AnInPH_Val_ != nullptr) 
     {
-        this->AnInPh_Val_->publish_state(an.phValue);
+        this->AnInPH_Val_->publish_state(an.PH);
     }
     if (this->AnInGen_Val_ != nullptr) 
     {
