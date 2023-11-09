@@ -102,13 +102,11 @@ void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
         {
             if (pump.Pump_Status[i] != 1)
                 pd[i] = true;
-            if (pump.Pump_Status[i] == 1 && pd)
+            if (pump.Pump_Status[i] == 1 && pd[i])
             {
                 pump.Pump_Dose[i] = pdose[i];
                 pd[i] = false;
             }
-            else
-                Pump_Dose[i] += pdose[i];
             ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pump.Pump_Dose[i]);
         }
     }
@@ -121,13 +119,11 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
         {
             if (pump.Pump_Status[i] != 1)
                 pc[i] = true;
-            if (pump.Pump_Status[i] == 1 && pc)
+            if (pump.Pump_Status[i] == 1 && pc[i])
             {
                 pump.Pump_Dose[i] = pcirc[i];
                 pc[i] = false;
             }
-            else
-                Pump_Circulation[i] += pcirc[i];
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
         }
     }
