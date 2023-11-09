@@ -4,9 +4,9 @@
 #define WATER_QUALITY_H
 
 #include "mux.h"
-#include "analog.h"
-#include "digital.h"
-#include "pump.h"
+#include "analog/analog.h"
+#include "digital/digital.h"
+#include "pump/pump.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"

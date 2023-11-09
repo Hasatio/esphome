@@ -1,5 +1,5 @@
 #include "pump.h"
-#include "water_quality.h"
+#include "../water_quality.h"
 
 namespace esphome {
 namespace water_quality {

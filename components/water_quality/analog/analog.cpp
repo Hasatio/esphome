@@ -1,5 +1,5 @@
 #include "analog.h"
-#include "water_quality.h"
+#include "../water_quality.h"
 
 
 namespace esphome {

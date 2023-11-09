@@ -1,6 +1,6 @@
 #include "mux.h"
-#include "analog.h"
-#include "digital.h"
+#include "analog/analog.h"
+#include "digital/digital.h"
 #include "water_quality.h"
 
 namespace esphome {
