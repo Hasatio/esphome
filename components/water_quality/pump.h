@@ -1,22 +1,24 @@
 #pragma once
 
-#include "../mux.h"
-#include "../water_quality.h"
+#ifndef PUMP_H
+#define PUMP_H
+
+#include "water_quality.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
-#include "esphome/components/i2c/i2c.h"
-#include <Wire.h>
 
 namespace esphome {
 namespace water_quality {
 
-class Servo
+class Pump
 {
 public:
 
-protected:
-
+void pump_total();
+void sensor();
 };
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // PUMP_H
