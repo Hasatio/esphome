@@ -81,8 +81,7 @@ void MyComponent::update()
     an.Analog_Input_Driver();
 }
 
-    bool pd[] = {false} * 6;
-    bool pc[] = {false} * 6;
+    bool pd[6], pc[6];
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
