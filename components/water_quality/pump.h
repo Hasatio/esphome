@@ -9,7 +9,7 @@
 namespace esphome {
 namespace water_quality {
 
-class Pump
+class Pump : public MyComponent
 {
 public:
 void setdose(uint8_t set)   {dose = set;}
