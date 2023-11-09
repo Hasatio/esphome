@@ -3,7 +3,6 @@
 #ifndef PUMP_H
 #define PUMP_H
 
-#include "water_quality.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 
