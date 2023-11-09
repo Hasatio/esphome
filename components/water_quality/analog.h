@@ -16,7 +16,7 @@
 namespace esphome {
 namespace water_quality {
 
-class Analog, public MyComponent
+class Analog
 {
 public:
 
