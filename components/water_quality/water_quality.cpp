@@ -43,6 +43,7 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    p.setdose(16);
     ESP_LOGI(TAG,"Pump_dose = %d", p.getdose());
     p.ddose();
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
