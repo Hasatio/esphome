@@ -87,18 +87,18 @@ void Analog::ads1115()
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    Analog::AnInLvl_ResMin[0] = rmin[0];
-    Analog::AnInLvl_ResMax[0] = rmax[0];
+    ana.AnInLvl_ResMin[0] = rmin[0];
+    ana.AnInLvl_ResMax[0] = rmax[0];
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    Analog::AnInEC_Ch = ch;
-    Analog::AnInEC_Type = type;
+    ana.AnInEC_Ch = ch;
+    ana.AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    Analog::AnInPH_Ch = ch;
-    Analog::AnInPH_Type = type;
+    ana.AnInPH_Ch = ch;
+    ana.AnInPH_Type = type;
 }
 
 void Analog::Analog_Input_Driver()
