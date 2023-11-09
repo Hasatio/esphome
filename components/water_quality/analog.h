@@ -57,7 +57,6 @@ float ecVoltage,phVoltage,temperature;
 
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
-// static uint16_t AnInLvl_ResMin[2]={0,0}, AnInLvl_ResMax[2]={0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 
 protected:

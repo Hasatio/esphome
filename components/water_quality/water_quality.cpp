@@ -247,9 +247,9 @@ void MyComponent::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     { 
-        // for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++) 
-        // this->AnInLvl_Perc_->publish_state(LvlPerc[i]);
-        this->AnInLvl_Perc_->publish_state(an.LvlPerc);
+        for (size_t i = 0; i < sizeof(AnInLvl_Perc_); i++) 
+        this->AnInLvl_Perc_->publish_state(an.LvlPerc[i]);
+        // this->AnInLvl_Perc_->publish_state(an.LvlPerc);
     }
     if (this->AnInEC_Val_ != nullptr) 
     {
