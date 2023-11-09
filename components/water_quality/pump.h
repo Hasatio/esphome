@@ -13,10 +13,13 @@ namespace water_quality {
 class Pump
 {
 public:
+void setdose(uint8_t set)   {dose = set;}
+uint8_t getdose()   {return dose;}
 
 void pump_total();
 void sensor();
 
+uint8_t dose, circ;
 };
 
 }  // namespace water_quality

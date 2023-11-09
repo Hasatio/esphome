@@ -12,8 +12,8 @@ void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 }
 void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
-    dose = d;
-    circ = c;
+    pu.dose = d;
+    pu.circ = c;
     
     this->Pump_Type = ptype;
 }

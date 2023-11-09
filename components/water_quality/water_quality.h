@@ -24,7 +24,7 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace water_quality {
 
-class MyComponent : public PollingComponent, public i2c::I2CDevice, public Analog
+class MyComponent : public PollingComponent, public i2c::I2CDevice, public Analog, public Digital, public Pump, public Servo
 {
 public:
 
@@ -221,7 +221,6 @@ void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; 
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
 
 std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
-uint8_t dose, circ;
 std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Dose{0,0,0,0,0,0};
 std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
