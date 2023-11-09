@@ -114,14 +114,14 @@ void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, 
     pump.dose = d;
     pump.circ = c;
     
-    this->Pump_Type = ptype;
+    pump.Pump_Type = ptype;
 }
 void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
 {
     // pdose.resize(dose);
 bool ps[Pump_Type.size()] = {false};
 
-    if (this->Pump_Dose != pdose)
+    if (pump.Pump_Dose != pdose)
     {
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
@@ -142,9 +142,9 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 {
     // pcirc.resize(circ);
 
-    if (this->Pump_Circulation != pcirc)
+    if (pump.Pump_Circulation != pcirc)
     {
-        this->Pump_Circulation = pcirc;
+        pump.Pump_Circulation = pcirc;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pump.Pump_Circulation[i]);
@@ -153,9 +153,9 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
 {
-    if (this->Pump_Mode != pmode)
+    if (pump.Pump_Mode != pmode)
     {
-        this->Pump_Mode = pmode;
+        pump.Pump_Mode = pmode;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pump.Pump_Mode[i]);
@@ -171,9 +171,9 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
 }
 void MyComponent::pump_reset(std::vector<bool> &pres)
 {
-    if (this->Pump_Reset != pres)
+    if (pump.Pump_Reset != pres)
     {
-        this->Pump_Reset = pres;
+        pump.Pump_Reset = pres;
         for (size_t i = 0; i < Pump_Type.size(); i++)
         {
             if (pump.Pump_Reset[i])
