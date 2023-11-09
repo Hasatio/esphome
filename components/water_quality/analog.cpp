@@ -87,8 +87,8 @@ void Analog::ads1115()
 
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    Analog::AnInLvl_ResMin = rmin;
-    Analog::AnInLvl_ResMax = rmax;
+    Analog::AnInLvl_ResMin[0] = rmin[0];
+    Analog::AnInLvl_ResMax[0] = rmax[0];
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
