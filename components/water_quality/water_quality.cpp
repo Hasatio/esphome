@@ -43,8 +43,6 @@ void MyComponent::dump_config()
 
     // pump.setdose(16);
     ESP_LOGI(TAG,"Pump_dose = %d", pump.getdose());
-    ESP_LOGI(TAG,"dose = %d", pump.dose);
-    pump.ddose();
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
@@ -109,7 +107,7 @@ void MyComponent::update()
 
 void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
 {
-    this->Pump_Calib_Gain = pcg;
+    pump.Pump_Calib_Gain = pcg;
 }
 void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
