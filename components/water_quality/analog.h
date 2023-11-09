@@ -81,6 +81,7 @@ void analog_sens()
     // } 
 }
 
+extern Analog ana;
 protected:
 
 };

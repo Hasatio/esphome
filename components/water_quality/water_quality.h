@@ -1,7 +1,7 @@
 #pragma once
 
-// #ifndef WATER_QUALITY_H
-// #define WATER_QUALITY_H
+#ifndef WATER_QUALITY_H
+#define WATER_QUALITY_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -361,4 +361,4 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
 }  // namespace water_quality
 }  // namespace esphome
 
-// #endif  // WATER_QUALITY_H
+#endif  // WATER_QUALITY_H
