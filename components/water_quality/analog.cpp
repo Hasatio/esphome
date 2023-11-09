@@ -5,7 +5,7 @@ namespace esphome {
 namespace water_quality {
 
     Mux muxe;
-    // Analog ana;
+    Analog ana;
 
     // Analog* ana = new Analog();
 
