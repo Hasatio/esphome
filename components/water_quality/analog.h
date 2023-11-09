@@ -71,9 +71,6 @@ void analog_sens()
 
 // extern Analog ana;
 
-void setAnInLvl_ResMin(std::vector<uint16_t> set)    {this->AnInLvl_ResMin = set;}
-std::vector<uint16_t> getAnInLvl_ResMin()   {return AnInLvl_ResMin;}
-
 uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float volts[8]={0}, WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float  voltagePH, voltageEC, phValue, ecValue, lastTemperature;
