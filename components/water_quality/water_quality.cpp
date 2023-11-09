@@ -42,8 +42,7 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // pump.setdose(16);
-    ESP_LOGI(TAG,"Pump_dose = %d", pump.getdose());
+    ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
@@ -57,9 +56,9 @@ void MyComponent::dump_config()
         ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
     }
 
-        ESP_LOGI(TAG,"ResMin = %d", an.getAnInLvl_ResMin());
     for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
     {
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
     }
 
