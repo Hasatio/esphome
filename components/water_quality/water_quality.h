@@ -4,7 +4,7 @@
 #define WATER_QUALITY_H
 
 #include "../water_quality/mux.h"
-#include "water_quality/analog/analog.h"
+#include "../water_quality/analog/analog.h"
 #include "digital/digital.h"
 #include "pump/pump.h"
 #include "esphome.h"
