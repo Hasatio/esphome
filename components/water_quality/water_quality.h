@@ -7,6 +7,7 @@
 #include "analog.h"
 #include "digital.h"
 #include "pump.h"
+#include "servo.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
@@ -110,23 +111,12 @@ void pump_dose(std::vector<uint16_t> &pdose);
 void pump_circulation(std::vector<uint16_t> &pcirc);
 void pump_mode(std::vector<uint8_t> &pmode);
 void pump_reset(std::vector<bool> &pres);
-
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
 void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
-void digital_out(std::vector<bool> &dout)
-{
-    if (DigOut_Status != dout)
-    {
-        this->DigOut_Status = dout;
-        for (size_t i = 0; i < DigOut_Status.size(); i++)
-        {
-            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)DigOut_Status[i]);
-        }
-    }
-}
+void digital_out(std::vector<bool> &dout);
 
 void Pump_Tot                   (sensor::Sensor *ptot)      { Pump_Tot_ = ptot; }
 void Pump_Stat                  (sensor::Sensor *pstat)     { Pump_Stat_ = pstat; }
@@ -138,11 +128,6 @@ void WaterEC_Sensor_Driver      (sensor::Sensor *ec)        { AnInEC_Val_ = ec; 
 void WaterPH_Sensor_Driver      (sensor::Sensor *ph)        { AnInPH_Val_ = ph; }
 void AnGen_Input_Driver         (sensor::Sensor *a)         { AnInGen_Val_ = a; }
 void DigIn_Stat                 (sensor::Sensor *din)       { DigIn_Stat_ = din; }
-
-std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
-std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
-std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
-std::vector<bool> DigOut_Status{0,0,0,0};
 
 protected:
 sensor::Sensor *Pump_Tot_{nullptr};

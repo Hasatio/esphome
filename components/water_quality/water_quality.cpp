@@ -9,6 +9,7 @@ namespace water_quality {
     Analog an;
     Digital dig;
     Pump pump;
+    Servo ser;
 
 void MyComponent::setup()
 {
@@ -183,6 +184,54 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
             }
             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
             ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, (int)pump.Pump_Reset[i]);
+        }
+    }
+}
+void MyComponent::servo_mode(std::vector<bool> &smode)
+{
+    if (ser.Servo_Mode != smode)
+    {
+        ser.Servo_Mode = smode;
+        for (size_t i = 0; i < ser.Servo_Mode.size(); i++)
+        {
+            ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, (int)ser.Servo_Mode[i]);
+        }
+    }
+}
+void MyComponent::servo_position(std::vector<uint8_t> &spos)
+{
+    if (ser.Servo_Position != spos)
+    {
+        ser.Servo_Position = spos;
+        for (size_t i = 0; i < ser.Servo_Position.size(); i++)
+        {
+            ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, ser.Servo_Position[i]);
+        }
+    }
+}
+void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
+{
+    an.setAnInLvl_ResMin(rmin);
+    an.AnInLvl_ResMax = rmax;
+}
+void MyComponent::ec(const uint8_t ch, const uint8_t type)
+{
+    an.AnInEC_Ch = ch;
+    an.AnInEC_Type = type;
+}
+void MyComponent::ph(const uint8_t ch, const uint8_t type)
+{
+    an.AnInPH_Ch = ch;
+    an.AnInPH_Type = type;
+}
+void MyComponent::digital_out(std::vector<bool> &dout)
+{
+    if (dig.DigOut_Status != dout)
+    {
+        dig.DigOut_Status = dout;
+        for (size_t i = 0; i < dig.DigOut_Status.size(); i++)
+        {
+            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)dig.DigOut_Status[i]);
         }
     }
 }
