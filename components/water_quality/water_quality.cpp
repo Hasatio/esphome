@@ -261,7 +261,8 @@ void MyComponent::sensor()
     }
     if (this->AnInGen_Val_ != nullptr) 
     {
-        this->AnInGen_Val_->publish_state(an.AnGen);
+        for (size_t i = 0; i < sizeof(AnInGen_Val_); i++) 
+        this->AnInGen_Val_->publish_state(an.AnGen[i]);
     } 
 
 }
