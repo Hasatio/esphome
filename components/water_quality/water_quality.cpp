@@ -8,8 +8,7 @@ namespace water_quality {
     Mux mux;
     Analog an;
     Digital dig;
-    MyComponent pump;
-    Pump p;
+    Pump pump;
 
 void MyComponent::setup()
 {
@@ -43,10 +42,10 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    p.setdose(16);
-    ESP_LOGI(TAG,"Pump_dose = %d", p.getdose());
-    ESP_LOGI(TAG,"dose = %d", p.dose);
-    p.ddose();
+    pump.setdose(16);
+    ESP_LOGI(TAG,"Pump_dose = %d", pump.getdose());
+    ESP_LOGI(TAG,"dose = %d", pump.dose);
+    pump.ddose();
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
