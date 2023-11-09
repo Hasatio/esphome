@@ -65,7 +65,7 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
             {
                 
                 pum.Pump_Status[i] = 1;
-                pu.pump_total();
+                pum.pump_total();
             }
         }
     }
