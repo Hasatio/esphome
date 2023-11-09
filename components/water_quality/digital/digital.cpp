@@ -1,5 +1,4 @@
 #include "digital.h"
-#include "../water_quality.h"
 
 namespace esphome {
 namespace water_quality {
