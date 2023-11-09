@@ -42,9 +42,8 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    pump.setdose(16);
+    // pump.setdose(16);
     ESP_LOGI(TAG,"Pump_dose = %d", pump.getdose());
-    pump.dose = 2;
     ESP_LOGI(TAG,"dose = %d", pump.dose);
     pump.ddose();
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
