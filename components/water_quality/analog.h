@@ -64,6 +64,8 @@ uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
 void setup() override;
 void loop() override;
 void dump_config() override;
+void update() override;
+
 void ads1115();
 
 void Analog_Input_Driver();
