@@ -43,7 +43,7 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ESP_LOGI(TAG,"Pump_dose = %d", getdose());
+    ESP_LOGI(TAG,"Pump_dose = %d", p.getdose());
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
     for (size_t i = 0; i < pump.Pump_Type.size(); i++)
