@@ -218,8 +218,7 @@ void MyComponent::sensor()
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
-    { 
-        x[0] = '\0';
+    {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
         // lvl += sprintf(x + strlen(x), ",%.2f", an.LvlPerc[i]);
