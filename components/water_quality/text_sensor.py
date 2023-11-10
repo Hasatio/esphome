@@ -38,7 +38,7 @@ UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 
 # MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice)
 
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.use_id(MyComponent),
