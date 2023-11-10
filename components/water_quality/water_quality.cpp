@@ -88,7 +88,7 @@ void MyComponent::ads1115_set()
 }
 void MyComponent::ads1115()
 {
-    // muxe.tcaselect(0);
+    muxe.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
