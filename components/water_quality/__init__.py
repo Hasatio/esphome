@@ -62,7 +62,7 @@ component_ns = cg.esphome_ns.namespace("water_quality")
 MyComponent = component_ns.class_("MyComponent", cg.PollingComponent, i2c.I2CDevice)
 
                     
-CONFIG_SCHEMA = cv.All(
+CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(MyComponent),
