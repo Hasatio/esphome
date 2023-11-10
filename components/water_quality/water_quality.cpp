@@ -217,7 +217,7 @@ void MyComponent::sensor()
         else
         pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
     }
-    this->Pump_Tot_->publish_state(pt);
+    this->Pump_Tot_->publish_state(pt.str());
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
@@ -239,7 +239,7 @@ void MyComponent::sensor()
         else
         gen << std::fixed << std::setprecision(2) << an.AnGen[i];
     } 
-    this->AnInGen_Val_->publish_state(gen);
+    this->AnInGen_Val_->publish_state(gen.str());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
