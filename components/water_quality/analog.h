@@ -49,7 +49,7 @@ uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance
 // float adc[8], volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float voltagePH, voltageEC, PH, EC, lastTemperature;
 char cmd[10];
-uint8_t tot, AnInGen_Ch[2], rnd;
+uint8_t AnInGen_Ch[2];
 
 float ecVoltage,phVoltage,temperature;
 
