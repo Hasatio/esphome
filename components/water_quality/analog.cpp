@@ -43,7 +43,7 @@ void Analog::ec_ph()
 			//water temperature
 			temperature = getWaterTemperature();
 			//EC
-			ecVoltage = ads2.readADC_SingleEnded(3) / 10;
+			// ecVoltage = ads2.readADC_SingleEnded(3) / 10;
 			Serial.print(F("[EC Voltage]... ecVoltage: "));
 			Serial.println(ecVoltage);
 			EC = ec.readEC(ecVoltage, temperature); // convert voltage to EC with temperature compensation
@@ -51,7 +51,7 @@ void Analog::ec_ph()
 			Serial.print(EC);
 			Serial.println(F("ms/cm"));
 			//pH
-			phVoltage = ads2.readADC_SingleEnded(1) / 10;
+			// phVoltage = ads2.readADC_SingleEnded(1) / 10;
 			Serial.print(F("[pH Voltage]... phVoltage: "));
 			Serial.println(phVoltage);
 			PH = ph.readPH(phVoltage, temperature);
@@ -91,7 +91,7 @@ void Analog::ec_ph()
 			Serial.print(temperature, 1);
 			Serial.println("^C");
 
-			ecVoltage = ads2.readADC_SingleEnded(3) / 10;
+			// ecVoltage = ads2.readADC_SingleEnded(3) / 10;
 			Serial.print("ecVoltage:");
 			Serial.println(ecVoltage, 4);
 
@@ -100,7 +100,7 @@ void Analog::ec_ph()
 			Serial.print(EC, 4);
 			Serial.println("ms/cm");
 
-			phVoltage = ads2.readADC_SingleEnded(1) / 10; // read the voltage
+			// phVoltage = ads2.readADC_SingleEnded(1) / 10; // read the voltage
 			Serial.print("phVoltage:");
 			Serial.println(phVoltage, 4);
 			PH = ph.readPH(phVoltage, temperature); // convert voltage to pH with temperature compensation
