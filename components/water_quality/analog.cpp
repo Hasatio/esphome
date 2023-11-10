@@ -12,6 +12,7 @@ void MyComponent::Analog_Input_Driver()
     // ads1115();
     uint8_t tot = AnInEC_Ch + AnInEC_Ch;
     uint8_t rnd = round((6 - tot) / 2);
+    uint8_t AnInGen_Ch[2];
     AnInGen_Ch[0] = 6 - tot - rnd - 1;
     AnInGen_Ch[1] = 6 - tot - AnInGen_Ch[0];
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
