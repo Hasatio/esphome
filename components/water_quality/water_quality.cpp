@@ -78,7 +78,8 @@ void MyComponent::ads1115_set()
     // ADS1X15_REG_CONFIG_MUX_SINGLE_1 (0x5000) ///< Single-ended AIN1
     // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
     // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
-    // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
+    ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
+    ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
 
     // AnInEC_Type == 1? EC():EC10();
     // // AnInEC_Type == 10? EC10();

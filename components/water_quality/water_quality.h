@@ -102,7 +102,8 @@ void pca9685()
     //     }
 }
 
-float adc[8], volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+uint16_t adc[8], AnInWT_Res = 1000;
+float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
