@@ -153,8 +153,8 @@ void MyComponent::dump_config()
 
     for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
     }
 
     ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
