@@ -229,9 +229,9 @@ void MyComponent::sensor()
     {
         for (size_t i = 0; i < 2; i++)
         if (i == 0)
-        sprintf(gen + strlen(gen), "%.2f", an.AnGen[i]);
-        else
-        sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
+        // sprintf(gen + strlen(gen), "%.2f", an.AnGen[i]);
+        // else
+        // sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
     } 
     this->AnInGen_Val_->publish_state(gen);
 }
