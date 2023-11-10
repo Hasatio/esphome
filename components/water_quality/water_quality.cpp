@@ -205,12 +205,13 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 // Sensor
 void MyComponent::sensor()
 {
-    std::stringstream pt = {};
-    std::stringstream lvl = {};
-    std::stringstream gen = {};
+    std::stringstream pt;
+    std::stringstream lvl;
+    std::stringstream gen;
     char x[60] = {};
 
-    if (this->Pump_Tot_ != nullptr) { 
+    if (this->Pump_Tot_ != nullptr)
+    { 
         for (size_t i = 0; i < 6; i++)
         // pt += std::to_string(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
     }
