@@ -9,7 +9,7 @@ from esphome.const import (
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["sensor"]
+AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
 CONF_PUMP1 = "pump1"
@@ -236,12 +236,8 @@ async def to_code(config):
     cg.add_library("Adafruit MCP23017 Arduino Library", None)
     cg.add_library("Adafruit PWM Servo Driver Library", None)
     cg.add_library("EEPROM", None)
-    if conf[CONF_EC_TYPE] == 1:
-        cg.add_library("DFRobot_EC Library", None, "https://github.com/DFRobot/DFRobot_EC/")
-        cg.add_library("DFRobot_EC10", None)
-    else:
-        if conf[CONF_EC_TYPE] == 10:
-            cg.add_library("DFRobot_EC10", None)
+    cg.add_library("DFRobot_EC Library", None, "https://github.com/DFRobot/DFRobot_EC/")
+    cg.add_library("DFRobot_EC10", None)
     cg.add_library("DFRobot_PH", None)
 
 
