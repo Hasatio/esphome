@@ -26,7 +26,7 @@ static unsigned long timepoint = millis();
 
 void Analog::ads1115_set()
 { 
-    Wire.bagin();
+    Wire.begin();
     // tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
