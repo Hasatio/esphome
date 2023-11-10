@@ -220,7 +220,7 @@ void MyComponent::sensor()
     { 
         // for (size_t i = 0; i < 2; i++) 
         // lvl += std::to_string(an.LvlPerc[i]);
-        this->AnInLvl_Perc_->publish_state(an.LvlPerc);
+        this->AnInLvl_Perc_->publish_state(std::to_string(an.LvlPerc));
     }
     // this->AnInLvl_Perc_->publish_state(lvl);
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
