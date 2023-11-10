@@ -11,7 +11,7 @@ void Digital::mcp23008_set()
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
         ESP_LOGE(TAG,"Failed to initialize MCP23008.");
-        while (1);
+        // while (1);
     }
 
     // mcp.pinMode(0, INPUT);
