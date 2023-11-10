@@ -30,9 +30,6 @@ static unsigned long timepoint = millis();
 
 void MyComponent::ads1115_set()
 {
-      LOG_I2C_DEVICE(this);
-    if (this->is_failed())
-    ESP_LOGE(TAG, "Communication with ADS1115 failed!");
 
     // muxe.tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -113,27 +110,30 @@ void MyComponent::setup()
 }
 void MyComponent::dump_config()
 {
+    LOG_I2C_DEVICE(this);
+    if (this->is_failed())
+    ESP_LOGE(TAG, "Communication with ADS1115 failed!");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
-    Wire.begin(SDA,SCL,frq);
+    // Wire.begin(SDA,SCL,frq);
 
-    for (uint8_t t=0; t<8; t++) 
-    {
-      mux.tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
+    // for (uint8_t t=0; t<8; t++) 
+    // {
+    //   mux.tcaselect(t);
+    //   ESP_LOGI(TAG,"TCA Port %d", t);
 
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
+    //   for (uint8_t addr = 0; addr<=127; addr++) 
+    //   {
+    //     if (addr == TCA9548_ADDRESS) continue;
 
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
+    //     Wire.beginTransmission(addr);
+    //     if (!Wire.endTransmission()) 
+    //     {
+    //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+    //     }
+    //   }
+    // }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
