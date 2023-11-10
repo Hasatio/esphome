@@ -7,6 +7,15 @@ namespace water_quality {
 
     Mux muxe;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+
+    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
+    Adafruit_ADS1115 ads1;
+    Adafruit_ADS1115 ads2;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // void EC10() {/*DFRobot_EC10 ec;*/}
 // void EC() {DFRobot_EC ec;}
     
@@ -15,10 +24,9 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-void Analog::ads1115_set()
+void MyComponent::ads1115_set()
 { 
-    Wire.begin();
-    muxe.tcaselect(0);
+    // muxe.tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
@@ -75,7 +83,7 @@ void Analog::ads1115_set()
 }
 void Analog::ads1115()
 {
-    muxe.tcaselect(0);
+    // muxe.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);

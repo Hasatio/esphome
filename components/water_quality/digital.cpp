@@ -1,12 +1,9 @@
-#include "water_quality.h"
 #include "digital.h"
 
 namespace esphome {
 namespace water_quality {
 
     Mux muxes;
-    MyComponent comp;
-
 void Digital::mcp23008_set()
 {
     // tcaselect(0);
