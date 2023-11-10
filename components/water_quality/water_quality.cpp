@@ -207,8 +207,7 @@ void MyComponent::sensor()
 {
     std::stringstream pt;
     std::stringstream lvl;
-    std::stringstream gen;
-    char x[60] = "";
+    char gen[8] = "";
 
     if (this->Pump_Tot_ != nullptr)
     { 
@@ -234,19 +233,18 @@ void MyComponent::sensor()
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
-        x[0] = '\0';
         for (size_t i = 0; i < 2; i++)
-        // if (i == 0)
-        // gen += sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
-        // else
-        // gen += sprintf(x + strlen(x), ",%.2f", an.AnGen[i]);
-        {
-            sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
-            if (i < 5)
-            strcat(x, ",");
-        }
+        if (i > 0)
+        sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
+        else
+        sprintf(gen + strlen(gen), "%.2f", an.AnGen[i]);
+        // {
+        //     sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
+        //     if (i < 5)
+        //     strcat(x, ",");
+        // }
     } 
-    this->AnInGen_Val_->publish_state(x);
+    this->AnInGen_Val_->publish_state(gen);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
