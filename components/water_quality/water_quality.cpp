@@ -104,13 +104,13 @@ void MyComponent::ads1115()
 
 void MyComponent::setup()
 {
-    Wire.begin();
     ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
 void MyComponent::dump_config()
 {
+    Wire.begin();
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
     ESP_LOGE(TAG, "Communication with ADS1115 failed!");
@@ -171,7 +171,7 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    ads1115();
+    // ads1115();
     sensor();
     an.Analog_Input_Driver();
 }
