@@ -205,26 +205,32 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 // Sensor
 void MyComponent::sensor()
 {
+    std::string pt = {};
+    std::string lvl = {};
+    std::string gen = {};
+
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < 6; i++)
-        this->Pump_Tot_->publish_state(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
+        pt += std::to_string(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
     }
+    this->Pump_Tot_->publish_state(pt);
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     { 
         for (size_t i = 0; i < 2; i++) 
-        this->AnInLvl_Perc_->publish_state(an.LvlPerc[i]);
+        lvl += std::to_string(an.LvlPerc[i]);
         // this->AnInLvl_Perc_->publish_state(an.LvlPerc);
     }
+    this->AnInLvl_Perc_->publish_state(lvl);
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++) 
-        this->AnInGen_Val_->publish_state(an.AnGen[i]);
+        gen += std::to_string(an.AnGen[i]);
     } 
-
+    this->AnInGen_Val_->publish_state(gen);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
