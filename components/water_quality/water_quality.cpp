@@ -226,19 +226,19 @@ void MyComponent::sensor()
     { 
         for (size_t i = 0; i < 6; i++)
         if (i > 0)
-        ps << "," << std::fixed << std::setprecision(0) << pump.Pump_Status[i];
+        ps << "," << std::fixed << std::setprecision(0) << (int)pump.Pump_Status[i];
         else
-        ps << std::fixed << std::setprecision(0) << pump.Pump_Status[i];
+        ps << std::fixed << std::setprecision(0) << (int)pump.Pump_Status[i];
 
         this->Pump_Stat_->publish_state(ps.str());
     }
     if (this->Servo_Stat_ != nullptr)
     { 
-        for (size_t i = 0; i < 6; i++)
+        for (size_t i = 0; i < 8; i++)
         if (i > 0)
-        ss << "," << std::fixed << std::setprecision(0) << ser.Servo_Status[i];
+        ss << "," << std::fixed << std::setprecision(0) << (int)ser.Servo_Status[i];
         else
-        ss << std::fixed << std::setprecision(0) << ser.Servo_Status[i];
+        ss << std::fixed << std::setprecision(0) << (int)ser.Servo_Status[i];
 
         this->Servo_Stat_->publish_state(ss.str());
     }
@@ -270,9 +270,9 @@ void MyComponent::sensor()
     {
         for (size_t i = 0; i < 4; i++)
         if (i > 0)
-        ds << "," << std::fixed << std::setprecision(2) << dig.DigIn_Status[i];
+        ds << "," << std::fixed << std::setprecision(2) << (int)dig.DigIn_Status[i];
         else
-        ds << std::fixed << std::setprecision(2) << dig.DigIn_Status[i];
+        ds << std::fixed << std::setprecision(2) << (int)dig.DigIn_Status[i];
 
         this->DigIn_Stat_->publish_state(ds.str());
     }
