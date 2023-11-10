@@ -7,6 +7,12 @@ namespace water_quality {
 
     Mux muxe;
 
+// void EC10() {/*DFRobot_EC10 ec;*/}
+// void EC() {DFRobot_EC ec;}
+    
+    DFRobot_EC ec;
+    DFRobot_PH ph;
+    
 static unsigned long timepoint = millis();
 
 void Analog::ads1115_set()
