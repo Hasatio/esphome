@@ -206,8 +206,11 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 void MyComponent::sensor()
 {
     std::stringstream pt;
-    std::stringstream lvl;
-    std::stringstream gen;
+    std::stringstream ps;
+    std::stringstream ss;
+    std::stringstream ap;
+    std::stringstream av;
+    std::stringstream ds;
 
     if (this->Pump_Tot_ != nullptr)
     { 
@@ -215,31 +218,64 @@ void MyComponent::sensor()
         if (i > 0)
         pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
         else
-        pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
+        pt << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
+    
+        this->Pump_Tot_->publish_state(pt.str());
     }
-    this->Pump_Tot_->publish_state(pt.str());
+    if (this->Pump_Stat_ != nullptr)
+    { 
+        for (size_t i = 0; i < 6; i++)
+        if (i > 0)
+        ps << "," << std::fixed << std::setprecision(0) << pump.Pump_Status[i];
+        else
+        ps << std::fixed << std::setprecision(0) << pump.Pump_Status[i];
+
+        this->Pump_Stat_->publish_state(ps.str());
+    }
+    if (this->Servo_Stat_ != nullptr)
+    { 
+        for (size_t i = 0; i < 6; i++)
+        if (i > 0)
+        ss << "," << std::fixed << std::setprecision(0) << ser.Servo_Status[i];
+        else
+        ss << std::fixed << std::setprecision(0) << ser.Servo_Status[i];
+
+        this->Servo_Stat_->publish_state(ss.str());
+    }
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        lvl << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
         else
-        lvl << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+
+        this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    this->AnInLvl_Perc_->publish_state(lvl.str());
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        gen << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
+        av << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
         else
-        gen << std::fixed << std::setprecision(2) << an.AnGen[i];
-    } 
-    this->AnInGen_Val_->publish_state(gen.str());
+        av << std::fixed << std::setprecision(2) << an.AnGen[i];
+    
+        this->AnInGen_Val_->publish_state(av.str());
+    }
+    if (this->DigIn_Stat_ != nullptr) 
+    {
+        for (size_t i = 0; i < 4; i++)
+        if (i > 0)
+        ds << "," << std::fixed << std::setprecision(2) << dig.DigIn_Status[i];
+        else
+        ds << std::fixed << std::setprecision(2) << dig.DigIn_Status[i];
+
+        this->DigIn_Stat_->publish_state(ds.str());
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
