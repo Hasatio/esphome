@@ -27,7 +27,7 @@ static unsigned long timepoint = millis();
 void Analog::ads1115_set()
 { 
     Wire.begin();
-    // tcaselect(0);
+    tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
