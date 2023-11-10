@@ -235,7 +235,7 @@ void MyComponent::sensor()
     if (this->AnInGen_Val_ != nullptr) 
     {
         x[0] = '\0';
-        for (size_t i = 0; i < 2; i++)
+        // for (size_t i = 0; i < 2; i++)
         // if (i == 0)
         // gen += sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
         // else
