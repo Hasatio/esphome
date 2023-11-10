@@ -207,7 +207,7 @@ void MyComponent::sensor()
 {
     std::string pt = {};
     std::string lvl = {};
-    std::string gen = "\0";
+    std::string gen = {};
 
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < 6; i++)
@@ -229,9 +229,9 @@ void MyComponent::sensor()
     {
         for (size_t i = 0; i < 2; i++)
         if (i == 0)
-        sprintf(gen + strlen(gen), "%.2f", an.AnGen[i]);
+        lvl += std::to_string(an.AnGen[i]);
         else
-        sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
+        lvl += "," + std::to_string(an.AnGen[i]);
     } 
     this->AnInGen_Val_->publish_state(gen);
 }
