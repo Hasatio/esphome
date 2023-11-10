@@ -83,7 +83,7 @@ void Analog::ads1115_set()
 }
 void Analog::ads1115()
 {
-    muxe.tcaselect(0);
+    // muxe.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
@@ -99,6 +99,7 @@ void Analog::ads1115()
 
 void Analog::Analog_Input_Driver()
 {
+    ads1115();
     tot = AnInEC_Ch + AnInEC_Ch;
     rnd = round((6 - tot) / 2);
     AnInGen_Ch[0] = 6 - tot - rnd - 1;
