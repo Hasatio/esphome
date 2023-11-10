@@ -43,7 +43,7 @@ CONFIG_SCHEMA = (
         {
             cv.GenerateID(): cv.use_id(MyComponent),
             cv.Optional(CONF_PUMP_TOTAL): text_sensor.text_sensor_schema(
-                unit_of_measurement = UNIT_MILILITER,
+                # unit_of_measurement = UNIT_MILILITER,
                 accuracy_decimals = 3,
             )
             # .extend(cv.polling_component_schema("1ms"))
@@ -55,11 +55,11 @@ CONFIG_SCHEMA = (
                 accuracy_decimals = 0,
             ),
             cv.Optional(CONF_LEVEL): text_sensor.text_sensor_schema(
-                unit_of_measurement = UNIT_PERCENT,
+                # unit_of_measurement = UNIT_PERCENT,
                 accuracy_decimals = 0,
             ),
             cv.Optional(CONF_ANALOG): text_sensor.text_sensor_schema(
-                unit_of_measurement = UNIT_VOLT,
+                # unit_of_measurement = UNIT_VOLT,
                 accuracy_decimals = 2,
             ),
             cv.Optional(CONF_DIGITAL): text_sensor.text_sensor_schema(
