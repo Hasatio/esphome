@@ -104,6 +104,7 @@ void MyComponent::ads1115()
 
 void MyComponent::setup()
 {
+    Wire.begin();
     ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
