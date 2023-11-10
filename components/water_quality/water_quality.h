@@ -18,6 +18,7 @@
 #include <array>
 #include <vector>
 #include <iterator>
+#include <iomanip>
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
