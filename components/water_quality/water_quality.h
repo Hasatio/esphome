@@ -118,28 +118,28 @@ void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout);
 
-void Pump_Tot                   (sensor::Sensor *ptot)     { Pump_Tot_ = ptot; }
-void Pump_Stat                  (sensor::Sensor *pstat)    { Pump_Stat_ = pstat; }
-void Servo_Stat                 (sensor::Sensor *servo)    { Servo_Stat_ = servo; }
-void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)    { AnInWT_Val_ = wtemp; }
-void VPow_Sensor_Driver         (sensor::Sensor *vpow)     { AnInVPow_Val_ = vpow; }
-void AnLevel_Sensor_Driver      (sensor::Sensor *level)    { AnInLvl_Perc_ = level; }
-void WaterEC_Sensor_Driver      (sensor::Sensor *ec)       { AnInEC_Val_ = ec; }
-void WaterPH_Sensor_Driver      (sensor::Sensor *ph)       { AnInPH_Val_ = ph; }
-void AnGen_Input_Driver         (sensor::Sensor *a)        { AnInGen_Val_ = a; }
-void DigIn_Stat                 (sensor::Sensor *din)      { DigIn_Stat_ = din; }
+void Pump_Tot                   (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
+void Pump_Stat                  (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
+void Servo_Stat                 (text_sensor::TextSensor *servo)    { Servo_Stat_ = servo; }
+void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)             { AnInWT_Val_ = wtemp; }
+void VPow_Sensor_Driver         (sensor::Sensor *vpow)              { AnInVPow_Val_ = vpow; }
+void AnLevel_Sensor_Driver      (text_sensor::TextSensor *level)    { AnInLvl_Perc_ = level; }
+void WaterEC_Sensor_Driver      (sensor::Sensor *ec)                { AnInEC_Val_ = ec; }
+void WaterPH_Sensor_Driver      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; }
+void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Val_ = a; }
+void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
-sensor::Sensor *Pump_Tot_{nullptr};
-sensor::Sensor *Pump_Stat_{nullptr};
-sensor::Sensor *Servo_Stat_{nullptr};
+text_sensor::TextSensor *Pump_Tot_{nullptr};
+text_sensor::TextSensor *Pump_Stat_{nullptr};
+text_sensor::TextSensor *Servo_Stat_{nullptr};
 sensor::Sensor *AnInWT_Val_{nullptr};
 sensor::Sensor *AnInVPow_Val_{nullptr};
-sensor::Sensor *AnInLvl_Perc_{nullptr};
-sensor::Sensor *AnInGen_Val_{nullptr};
+text_sensor::TextSensor *AnInLvl_Perc_{nullptr};
 sensor::Sensor *AnInEC_Val_{nullptr};
 sensor::Sensor *AnInPH_Val_{nullptr};
-sensor::Sensor *DigIn_Stat_{nullptr};
+text_sensor::TextSensor *AnInGen_Val_{nullptr};
+text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 };
 
