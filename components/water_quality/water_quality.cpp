@@ -205,9 +205,9 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 // Sensor
 void MyComponent::sensor()
 {
-    std::string pt = {};
-    std::string lvl = {};
-    std::string gen = {};
+    std::stringstream pt = {};
+    std::stringstream lvl = {};
+    std::stringstream gen = {};
     char x[60] = {};
 
     if (this->Pump_Tot_ != nullptr) { 
@@ -221,12 +221,14 @@ void MyComponent::sensor()
     { 
         x[0] = '\0';
         for (size_t i = 0; i < 2; i++)
-        if (i == 0)
-        lvl += sprintf(x + strlen(x), "%.2f", an.LvlPerc[i]);
+        if (i > 0)
+        // lvl += sprintf(x + strlen(x), ",%.2f", an.LvlPerc[i]);
+        lvl << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
         else
-        lvl += sprintf(x + strlen(x), ",%.2f", an.LvlPerc[i]);
+        // lvl += sprintf(x + strlen(x), "%.2f", an.LvlPerc[i]);
+        lvl << std::fixed << std::setprecision(2) << an.LvlPerc[i];
     }
-    this->AnInLvl_Perc_->publish_state(lvl);
+    this->AnInLvl_Perc_->publish_state(lvl.str());
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
