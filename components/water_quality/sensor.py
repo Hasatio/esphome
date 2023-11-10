@@ -60,7 +60,6 @@ CONFIG_SCHEMA = cv.All(
             ),
         }
     )
-    .extend(i2c.i2c_device_schema(0x70))
 )
 
 async def to_code(config):
