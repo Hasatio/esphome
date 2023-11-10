@@ -239,6 +239,8 @@ async def to_code(config):
     cg.add_library("DFRobot_EC Library", None, "https://github.com/DFRobot/DFRobot_EC/")
     cg.add_library("DFRobot_EC10", None)
     cg.add_library("DFRobot_PH", None)
+    cg.add_library("DFRobot_PH", None)
+    cg.add_library("SD", None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
