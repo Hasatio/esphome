@@ -16,7 +16,7 @@
 namespace esphome {
 namespace water_quality {
 
-class Analog : public i2c::I2CDevice
+class Analog
 {
 public:
 
