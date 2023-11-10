@@ -207,24 +207,25 @@ void MyComponent::sensor()
 {
     std::stringstream pt;
     std::stringstream lvl;
-    char gen[8] = "";
+    std::stringstream gen;
 
     if (this->Pump_Tot_ != nullptr)
     { 
-        // for (size_t i = 0; i < 6; i++)
-        // pt += std::to_string(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
+        for (size_t i = 0; i < 6; i++)
+        if (i > 0)
+        pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
+        else
+        pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
     }
-    // this->Pump_Tot_->publish_state(pt);
+    this->Pump_Tot_->publish_state(pt);
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        // lvl += sprintf(x + strlen(x), ",%.2f", an.LvlPerc[i]);
         lvl << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
         else
-        // lvl += sprintf(x + strlen(x), "%.2f", an.LvlPerc[i]);
         lvl << std::fixed << std::setprecision(2) << an.LvlPerc[i];
     }
     this->AnInLvl_Perc_->publish_state(lvl.str());
@@ -234,14 +235,9 @@ void MyComponent::sensor()
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
+        gen << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
         else
-        sprintf(gen + strlen(gen), "%.2f", an.AnGen[i]);
-        // {
-        //     sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
-        //     if (i < 5)
-        //     strcat(x, ",");
-        // }
+        gen << std::fixed << std::setprecision(2) << an.AnGen[i];
     } 
     this->AnInGen_Val_->publish_state(gen);
 }
