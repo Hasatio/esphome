@@ -14,7 +14,7 @@ void Digital::mcp23008_set()
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
         ESP_LOGE(TAG,"Failed to initialize MCP23008.");
-        // while (1);
+        while (1);
     }
 
     // mcp.pinMode(0, INPUT);
@@ -63,7 +63,7 @@ void Digital::mcp23008()
 
     for(size_t i = 0; i < 4; i++)
     {
-        if (comp.DigOut_Status[i] == 1)
+        if (DigOut_Status[i] == 1)
         {
             mcp.digitalWrite(i + 4, HIGH);
         }
