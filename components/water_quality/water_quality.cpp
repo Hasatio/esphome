@@ -157,10 +157,10 @@ void MyComponent::dump_config()
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
+    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
 }
 void MyComponent::loop() 
 {
@@ -349,8 +349,8 @@ void MyComponent::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(EC); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(PH); }
+    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
+    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
