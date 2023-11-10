@@ -103,6 +103,7 @@ void pca9685()
 }
 
 void ads1115_set();
+void ads1115();
 void sensor();
 
 void setup() override;
