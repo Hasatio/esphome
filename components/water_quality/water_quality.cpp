@@ -208,7 +208,7 @@ void MyComponent::sensor()
     std::string pt = {};
     std::string lvl = {};
     std::string gen = {};
-    char x[uint8_t] = {};
+    char x[6] = {};
 
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < 6; i++)
