@@ -205,8 +205,8 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 // Sensor
 void MyComponent::sensor()
 {
-    std::string pt = {};
-    std::string lvl = {};
+    char pt[] = {};
+    char lvl[] = {};
     char gen[] = {};
 
     if (this->Pump_Tot_ != nullptr) { 
@@ -218,11 +218,11 @@ void MyComponent::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     { 
-        for (size_t i = 0; i < 2; i++) 
-        lvl += std::to_string(an.LvlPerc[i]);
-        // this->AnInLvl_Perc_->publish_state(an.LvlPerc);
+        // for (size_t i = 0; i < 2; i++) 
+        // lvl += std::to_string(an.LvlPerc[i]);
+        this->AnInLvl_Perc_->publish_state(an.LvlPerc);
     }
-    this->AnInLvl_Perc_->publish_state(lvl);
+    // this->AnInLvl_Perc_->publish_state(lvl);
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
