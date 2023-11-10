@@ -235,9 +235,9 @@ void MyComponent::sensor()
     {
         x[0] = '\0';
         for (size_t i = 0; i < 2; i++)
-        if (i == 0)
+        // if (i == 0)
         // gen += sprintf(x + strlen(x), "%.2f", an.AnGen[i]);
-        else
+        // else
         // gen += sprintf(x + strlen(x), ",%.2f", an.AnGen[i]);
     } 
     // this->AnInGen_Val_->publish_state(gen);
