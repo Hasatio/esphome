@@ -13,7 +13,7 @@ namespace water_quality {
 
 void MyComponent::setup()
 {
-    an.ads1115_set();
+    ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
