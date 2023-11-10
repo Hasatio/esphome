@@ -211,9 +211,9 @@ void MyComponent::sensor()
 
     if (this->Pump_Tot_ != nullptr) { 
         for (size_t i = 0; i < 6; i++)
-        pt += std::to_string(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
+        // pt += std::to_string(pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000);
     }
-    this->Pump_Tot_->publish_state(pt);
+    // this->Pump_Tot_->publish_state(pt);
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
@@ -233,7 +233,7 @@ void MyComponent::sensor()
         // else
         // sprintf(gen + strlen(gen), ",%.2f", an.AnGen[i]);
     } 
-    this->AnInGen_Val_->publish_state(gen);
+    // this->AnInGen_Val_->publish_state(gen);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
