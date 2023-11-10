@@ -219,8 +219,12 @@ void MyComponent::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     { 
-        for (size_t i = 0; i < 2; i++) 
-        lvl += std::to_string(an.LvlPerc[i]);
+        x[0] = '\0';
+        for (size_t i = 0; i < 2; i++)
+        if (i == 0)
+        lvl += sprintf(x + strlen(x), "%.2f", an.LvlPerc[i]);
+        else
+        lvl += sprintf(x + strlen(x), ",%.2f", an.LvlPerc[i]);
     }
     this->AnInLvl_Perc_->publish_state(lvl);
     if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
