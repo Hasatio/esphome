@@ -216,9 +216,9 @@ void MyComponent::sensor()
     { 
         for (size_t i = 0; i < 6; i++)
         if (i > 0)
-        pt << "," << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
+        pt << "," << std::fixed << std::setprecision(3) << (float)pump.Pump_Total[i][0] + (float)pump.Pump_Total[i][1]/1000;
         else
-        pt << std::fixed << std::setprecision(3) << pump.Pump_Total[i][0] + pump.Pump_Total[i][1]/1000;
+        pt << std::fixed << std::setprecision(3) << (float)pump.Pump_Total[i][0] + (float)pump.Pump_Total[i][1]/1000;
     
         this->Pump_Tot_->publish_state(pt.str());
     }
