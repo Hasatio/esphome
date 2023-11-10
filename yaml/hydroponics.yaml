@@ -18,6 +18,8 @@ esp32:
 logger:
   logs:
     component: ERROR
+    sensor: ERROR
+    text_sensor: ERROR
 
 # Enable Home Assistant API
 api:
@@ -140,7 +142,7 @@ i2c:
 
 
 external_components:
-  - source: github://Hasatio/esphome
+  - source: github://Hasatio/esphome@main
     components: [water_quality]
     refresh: always
 
@@ -179,26 +181,18 @@ sensor:
     name: "Internal Temperature"
 
   - platform: water_quality
-    pump_total:
-      id: pump_total
-    pump_status:
-      id: pump_status
-    servo_status:
-      id: servo_status
     water_temp:
       id: water_temp
+      name: water_temp
     voltage:
       id: voltage
-    level:
-      id: level
-    analog:
-      id: analog
+      name: voltage
     ec:
       id: ec
+      name: ec
     ph:
       id: ph
-    digital:
-      id: digital
+      name: ph
 
   # - platform: ads1115
   #   multiplexer: A0_GND
@@ -207,6 +201,28 @@ sensor:
   #   name: "ADS1115 1"
   #   id: "ADS1115_1"
   #   update_interval: 0ms
+
+
+text_sensor:
+  - platform: water_quality
+    pump_total:
+      id: pump_total
+      name: pump_total
+    pump_status:
+      id: pump_status
+      name: pump_status
+    servo_status:
+      id: servo_status
+      name: servo_status
+    level:
+      id: level
+      name: level
+    analog:
+      id: analog
+      name: analog
+    digital:
+      id: digital
+      name: digital
 
 
 button:
@@ -420,13 +436,15 @@ light:
           colors:
             - state: true
               brightness: 100%
-              duration: 100ms
+              duration: 50ms
             - state: false
+              brightness: 0%
               duration: 50ms
             - state: true
               brightness: 100%
-              duration: 100ms
+              duration: 50ms
             - state: false
+              brightness: 0%
               duration: 200ms
     # on_state:
     #   if:
@@ -756,17 +774,6 @@ number:
   #   min_value: 0
   #   max_value: 10000
   #   step: 0.01
-
-
-# text_sensor:
-  # - platform: ezo_pmp
-  #   dosing_mode:
-  #     id: dosing_mode
-  #     name: Dosing Mode
-  # - platform: ezo_pmp
-  #   calibration_status:
-  #     id: calibration_status
-  #     name: Calibration Status
 
 
 # binary_sensor:
