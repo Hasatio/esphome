@@ -271,18 +271,18 @@ void MyComponent::servo_position(std::vector<uint8_t> &spos)
 }
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    an.AnInLvl_ResMin = rmin;
-    an.AnInLvl_ResMax = rmax;
+    this->AnInLvl_ResMin = rmin;
+    this->AnInLvl_ResMax = rmax;
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    an.AnInEC_Ch = ch;
-    an.AnInEC_Type = type;
+    AnInEC_Ch = ch;
+    AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    an.AnInPH_Ch = ch;
-    an.AnInPH_Type = type;
+    AnInPH_Ch = ch;
+    AnInPH_Type = type;
 }
 void MyComponent::digital_out(std::vector<bool> &dout)
 {
@@ -337,27 +337,27 @@ void MyComponent::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
+    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        ap << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << "," << std::fixed << std::setprecision(2) << LvlPerc[i];
         else
-        ap << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << std::fixed << std::setprecision(2) << LvlPerc[i];
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
+    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(EC); }
+    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        av << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
+        av << "," << std::fixed << std::setprecision(2) << AnGen[i];
         else
-        av << std::fixed << std::setprecision(2) << an.AnGen[i];
+        av << std::fixed << std::setprecision(2) << AnGen[i];
     
         this->AnInGen_Val_->publish_state(av.str());
     }
