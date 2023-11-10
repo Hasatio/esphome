@@ -6,6 +6,7 @@ namespace esphome {
 namespace water_quality {
 
     Mux muxe;
+    Analog an;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
@@ -86,13 +87,13 @@ void MyComponent::ads1115()
     // muxe.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
-        adc[i] = ads1.readADC_SingleEnded(i%4);
-        volts[i] = ads1.computeVolts(adc[i]);
+        an.adc[i] = ads1.readADC_SingleEnded(i%4);
+        an.volts[i] = ads1.computeVolts(an.adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
-        adc[i] = ads2.readADC_SingleEnded(i%4);
-        volts[i] = ads2.computeVolts(adc[i]);
+        an.adc[i] = ads2.readADC_SingleEnded(i%4);
+        an.volts[i] = ads2.computeVolts(an.adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
 }
