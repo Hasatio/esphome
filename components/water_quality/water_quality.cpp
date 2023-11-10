@@ -91,13 +91,13 @@ void MyComponent::ads1115()
     // muxe.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
-        an.adc[i] = ads1.readADC_SingleEnded(i%4);
-        an.volts[i] = ads1.computeVolts(an.adc[i]);
+        adc[i] = ads1.readADC_SingleEnded(i%4);
+        volts[i] = ads1.computeVolts(adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
-        an.adc[i] = ads2.readADC_SingleEnded(i%4);
-        an.volts[i] = ads2.computeVolts(an.adc[i]);
+        adc[i] = ads2.readADC_SingleEnded(i%4);
+        volts[i] = ads2.computeVolts(adc[i]);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
 }
@@ -171,7 +171,7 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    // ads1115();
+    ads1115();
     sensor();
     an.Analog_Input_Driver();
 }

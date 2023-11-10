@@ -102,6 +102,7 @@ void pca9685()
     //     }
 }
 
+float adc[8], volts[8];
 void ads1115_set();
 void ads1115();
 void sensor();
