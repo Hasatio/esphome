@@ -35,7 +35,7 @@ unsigned long intervals[10] = {
 unsigned long last[10] = {0};
 
 
-void Analog_Input_Driver();
+// void Analog_Input_Driver();
 float getWaterTemperature();
 
 bool readSerial(char result[]);
