@@ -33,7 +33,7 @@ void MyComponent::ads1115_set()
       LOG_I2C_DEVICE(this);
     if (this->is_failed())
     ESP_LOGE(TAG, "Communication with ADS1115 failed!");
-    
+
     // muxe.tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
@@ -170,7 +170,7 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    // ads1115();
+    ads1115();
     sensor();
     an.Analog_Input_Driver();
 }
