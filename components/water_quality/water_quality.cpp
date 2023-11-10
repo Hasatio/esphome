@@ -151,7 +151,7 @@ void MyComponent::dump_config()
         ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
     }
 
-    for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
+    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
