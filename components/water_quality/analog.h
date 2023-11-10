@@ -46,8 +46,7 @@ void ec_ph2();
 // extern Analog ana;
 
 uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-// float adc[8], volts[8];
-float WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
+// float adc[8], volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 float voltagePH, voltageEC, PH, EC, lastTemperature;
 char cmd[10];
 uint8_t tot, AnInGen_Ch[2], rnd;

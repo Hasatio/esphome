@@ -102,9 +102,10 @@ void pca9685()
     //     }
 }
 
-float adc[8], volts[8];
+float adc[8], volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 void ads1115_set();
 void ads1115();
+void Analog_Input_Driver();
 void sensor();
 
 void setup() override;

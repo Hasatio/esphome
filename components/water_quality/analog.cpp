@@ -7,7 +7,7 @@ namespace water_quality {
 
     Mux muxe;
 
-void Analog::Analog_Input_Driver()
+void MyComponent::Analog_Input_Driver()
 {
     // ads1115();
     tot = AnInEC_Ch + AnInEC_Ch;
