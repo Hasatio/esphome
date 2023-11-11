@@ -4,7 +4,7 @@
 #define WATER_QUALITY_H
 
 #include "mux.h"
-// #include "analog.h"
+#include "analog.h"
 #include "digital.h"
 #include "pump.h"
 #include "servo.h"
@@ -133,9 +133,6 @@ void WaterEC_Sensor_Driver      (sensor::Sensor *ec)                { AnInEC_Val
 void WaterPH_Sensor_Driver      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; }
 void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Val_ = a; }
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
-
-std::vector<uint16_t> AnInLvl_ResMin{0,0};
-std::vector<uint16_t> AnInLvl_ResMax{0,0};
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};

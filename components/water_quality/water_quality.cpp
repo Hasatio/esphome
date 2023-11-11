@@ -1,12 +1,11 @@
 #include "water_quality.h"
-#include "analog.h"
 
 namespace esphome {
 namespace water_quality {
 
 // MyComponent::TAG = "mycomponent";
 
-    // Analog an;
+    Analog an;
     Digital dig;
     Pump pump;
     Servo ser;
@@ -28,7 +27,7 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-void ads1115_set()
+void Analog::ads1115_set()
 {
 
     // muxe.tcaselect(0);
@@ -87,7 +86,7 @@ void ads1115_set()
     // ec.begin();
     // ph.begin();
 }
-void ads1115()
+void Analog::ads1115()
 {
     // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
@@ -107,7 +106,7 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    ads1115_set();
+    an.ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
@@ -360,8 +359,8 @@ void MyComponent::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(EC); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(PH); }
+    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
+    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
