@@ -89,7 +89,7 @@ void MyComponent::ads1115_set()
 }
 void MyComponent::ads1115()
 {
-    mux.tcaselect(0);
+    // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
@@ -106,6 +106,7 @@ void MyComponent::ads1115()
 void MyComponent::setup()
 {
     Wire.begin();
+
     ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
