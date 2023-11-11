@@ -94,7 +94,7 @@ void MyComponent::ads1115()
     {
         adc[i] = ads1.readADC_SingleEnded(i%4);
         // volts[i] = ads1.computeVolts(adc[i]);
-        volts[i] = adc[i] * (6.5536 / (65536 >> 0)*2);
+        volts[i] = adc[i] * (6.144 / (65536 >> 0)*2);
         // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
