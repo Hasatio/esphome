@@ -1,4 +1,5 @@
 #include "water_quality.h"
+#include "analog.h"
 
 namespace esphome {
 namespace water_quality {
@@ -27,7 +28,7 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-void MyComponent::ads1115_set()
+void ads1115_set()
 {
 
     // muxe.tcaselect(0);
@@ -86,7 +87,7 @@ void MyComponent::ads1115_set()
     // ec.begin();
     // ph.begin();
 }
-void MyComponent::ads1115()
+void ads1115()
 {
     // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
