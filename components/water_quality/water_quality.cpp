@@ -360,8 +360,8 @@ void MyComponent::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
+    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(EC); }
+    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(PH); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)

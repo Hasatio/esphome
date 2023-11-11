@@ -134,6 +134,9 @@ void WaterPH_Sensor_Driver      (sensor::Sensor *ph)                { AnInPH_Val
 void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Val_ = a; }
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
+std::vector<uint16_t> AnInLvl_ResMin{0,0};
+std::vector<uint16_t> AnInLvl_ResMax{0,0};
+
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
