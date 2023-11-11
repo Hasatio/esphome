@@ -117,7 +117,7 @@ void MyComponent::dump_config()
     ESP_LOGE(TAG, "Communication with ADS1115 failed!");
     
         ESP_LOGD(TAG,"ads = %f", volts[1]);
-        ESP_LOGD(TAG,"ads1 = %f", ads1.readADC_SingleEnded(1));
+        ESP_LOGD(TAG,"ads1 = %f", ads1.readADC_SingleEnded(1)*10);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
