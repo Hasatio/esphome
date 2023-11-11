@@ -56,7 +56,7 @@ void MyComponent::ads1115_set()
     // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
     // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
     // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-    ads1.setGain(GAIN_TWOTHIRDS);
+    ads1.setGain(GAIN_ONE);
     ads2.setGain(GAIN_TWOTHIRDS);
     
     // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
@@ -78,8 +78,8 @@ void MyComponent::ads1115_set()
     // ADS1X15_REG_CONFIG_MUX_SINGLE_1 (0x5000) ///< Single-ended AIN1
     // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
     // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
-    ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_SINGLE_1, true);
-    ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_SINGLE_1, true);
+    // ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
+    // ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
 
     // AnInEC_Type == 1? EC():EC10();
     // // AnInEC_Type == 10? EC10();
