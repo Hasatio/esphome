@@ -15,7 +15,7 @@ void MyComponent::Analog_Input_Driver()
     AnInGen_Ch[0] = 10 - tot - rnd - 1;
     AnInGen_Ch[1] = 10 - tot - AnInGen_Ch[0];
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
-    AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
+    AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInPH_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
