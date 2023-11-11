@@ -10,7 +10,7 @@ namespace water_quality {
 void MyComponent::Analog_Input_Driver()
 {
     // ads1115();
-    tot = AnInEC_Ch + AnInEC_Ch;
+    tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 10 - tot - rnd - 1;
     AnInGen_Ch[1] = 10 - tot - AnInGen_Ch[0];
