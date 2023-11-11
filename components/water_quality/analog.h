@@ -54,8 +54,6 @@ bool readSerial(char result[]);
 void ec_ph();
 void ec_ph2();
 
-protected:
-
 }  // namespace water_quality
 }  // namespace esphome
 
