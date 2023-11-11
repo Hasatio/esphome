@@ -5,7 +5,7 @@ namespace water_quality {
 
 // MyComponent::TAG = "mycomponent";
 
-    Analog an;
+    // Analog an;
     Digital dig;
     Pump pump;
     Servo ser;
