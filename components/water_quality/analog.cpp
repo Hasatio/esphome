@@ -158,7 +158,7 @@ bool calibrationIsRunning = false;
 // }
 
 int i = 0;
-bool Analog::readSerial(char result[])
+bool readSerial(char result[])
 {
 	while (Serial.available() > 0)
 	{
