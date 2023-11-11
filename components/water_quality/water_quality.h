@@ -4,7 +4,7 @@
 #define WATER_QUALITY_H
 
 #include "mux.h"
-#include "analog.h"
+// #include "analog.h"
 #include "digital.h"
 #include "pump.h"
 #include "servo.h"
