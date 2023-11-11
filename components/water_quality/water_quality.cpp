@@ -56,7 +56,7 @@ void MyComponent::ads1115_set()
     // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
     // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
     // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-    ads1.setGain(GAIN_ONE);
+    ads1.setGain(GAIN_TWOTHIRDS);
     ads2.setGain(GAIN_TWOTHIRDS);
     
     // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
