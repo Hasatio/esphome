@@ -3,7 +3,6 @@
 namespace esphome {
 namespace water_quality {
 
-    Mux muxes;
 void Digital::mcp23008_set()
 {
     // tcaselect(0);

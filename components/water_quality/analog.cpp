@@ -5,7 +5,6 @@
 namespace esphome {
 namespace water_quality {
 
-    Mux muxe;
 
 void MyComponent::Analog_Input_Driver()
 {
