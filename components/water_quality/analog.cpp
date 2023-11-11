@@ -10,11 +10,10 @@ namespace water_quality {
 void MyComponent::Analog_Input_Driver()
 {
     // ads1115();
-    uint8_t tot = AnInEC_Ch + AnInEC_Ch;
-    uint8_t rnd = round((6 - tot) / 2);
-    uint8_t AnInGen_Ch[2];
-    AnInGen_Ch[0] = 6 - tot - rnd - 1;
-    AnInGen_Ch[1] = 6 - tot - AnInGen_Ch[0];
+    tot = AnInEC_Ch + AnInEC_Ch;
+    rnd = round((10 - tot) / 2);
+    AnInGen_Ch[0] = 10 - tot - rnd - 1;
+    AnInGen_Ch[1] = 10 - tot - AnInGen_Ch[0];
     AnInGen_Ch[0] = (AnInGen_Ch[0] == AnInEC_Ch)? AnInGen_Ch[0] - 1 : AnInGen_Ch[0];
     AnInGen_Ch[1] = (AnInGen_Ch[1] == AnInEC_Ch)? AnInGen_Ch[1] + 1 : AnInGen_Ch[1];
 
@@ -27,8 +26,8 @@ void MyComponent::Analog_Input_Driver()
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
-    AnGen[0] = volts[AnInGen_Ch[0] + 4];
-    AnGen[1] = volts[AnInGen_Ch[1] + 4];
+    AnGen[0] = volts[AnInGen_Ch[0] + 3];
+    AnGen[1] = volts[AnInGen_Ch[1] + 3];
 }
 
 bool calibrationIsRunning = false;
