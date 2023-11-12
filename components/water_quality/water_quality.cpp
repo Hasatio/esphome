@@ -205,7 +205,7 @@ void MyComponent::update()
     // pump_total();
     an.ads1115();
     sensor();
-    an.Analog_Input_Driver();
+    Analog_Input_Driver();
 }
 
     bool pd[6], pc[6];
