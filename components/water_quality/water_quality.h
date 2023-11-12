@@ -102,7 +102,6 @@ void pca9685()
     //     }
 }
 
-void Analog_Input_Driver();
 void sensor();
 
 void setup() override;

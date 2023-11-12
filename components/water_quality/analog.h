@@ -37,7 +37,7 @@ unsigned long last[10] = {0};
 void ads1115_set();
 void ads1115();
 
-// void Analog_Input_Driver();
+void Analog_Input_Driver();
 float getWaterTemperature();
 
 bool readSerial(char result[]);
