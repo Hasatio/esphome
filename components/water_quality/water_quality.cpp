@@ -105,7 +105,7 @@ void MyComponent::Analog_Input_Driver()
 {
     // ads1115();
     uint8_t tot, rnd, AnInGen_Ch[2];
-    tot = AnInEC_Ch + AnInPH_Ch;
+    tot = an.AnInEC_Ch + an.AnInPH_Ch;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 10 - tot - rnd - 1;
     AnInGen_Ch[1] = 10 - tot - AnInGen_Ch[0];
@@ -116,8 +116,8 @@ void MyComponent::Analog_Input_Driver()
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
         // delay(1000);
     an.VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[0] = (float)volts[2] * 100 / 5 * an.AnInLvl_ResMax[0] / (1000 + an.AnInLvl_ResMax[0]) - 5 * an.AnInLvl_ResMin[0] / (1000 + an.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[1] = (float)volts[3] * 100 / 5 * an.AnInLvl_ResMax[1] / (1000 + an.AnInLvl_ResMax[1]) - 5 * an.AnInLvl_ResMin[1] / (1000 + an.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
