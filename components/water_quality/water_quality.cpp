@@ -115,14 +115,14 @@ void MyComponent::Analog_Input_Driver()
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
         // delay(1000);
-    an.VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    LvlPerc[0] = (float)volts[2] * 100 / 5 * an.AnInLvl_ResMax[0] / (1000 + an.AnInLvl_ResMax[0]) - 5 * an.AnInLvl_ResMin[0] / (1000 + an.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    LvlPerc[1] = (float)volts[3] * 100 / 5 * an.AnInLvl_ResMax[1] / (1000 + an.AnInLvl_ResMax[1]) - 5 * an.AnInLvl_ResMin[1] / (1000 + an.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    an.VPow = (float)an.volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    LvlPerc[0] = (float)an.volts[2] * 100 / 5 * an.AnInLvl_ResMax[0] / (1000 + an.AnInLvl_ResMax[0]) - 5 * an.AnInLvl_ResMin[0] / (1000 + an.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    LvlPerc[1] = (float)an.volts[3] * 100 / 5 * an.AnInLvl_ResMax[1] / (1000 + an.AnInLvl_ResMax[1]) - 5 * an.AnInLvl_ResMin[1] / (1000 + an.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
-    AnGen[0] = volts[AnInGen_Ch[0] + 3];
-    AnGen[1] = volts[AnInGen_Ch[1] + 3];
+    an.AnGen[0] = an.volts[AnInGen_Ch[0] + 3];
+    an.AnGen[1] = an.volts[AnInGen_Ch[1] + 3];
 }
 void MyComponent::setup()
 {
@@ -185,14 +185,14 @@ void MyComponent::dump_config()
 
     for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, AnInLvl_ResMax[i]);
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", AnInPH_Type);
+    ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
+    ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
+    ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
+    ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
 }
 void MyComponent::loop() 
 {
