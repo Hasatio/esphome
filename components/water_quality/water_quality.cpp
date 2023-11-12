@@ -136,16 +136,16 @@ void MyComponent::dump_config()
 {
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
-    ESP_LOGE(TAG, "Communication with ADS1115 failed!");
+    ESP_LOGE(TAG, "Communication failed!");
     
-        ESP_LOGD(TAG,"ads0 = %f", volts[0]);
-        ESP_LOGD(TAG,"ads1 = %f", volts[1]);
-        ESP_LOGD(TAG,"ads2 = %f", volts[2]);
-        ESP_LOGD(TAG,"ads3 = %f", volts[3]);
-        ESP_LOGD(TAG,"ads4 = %f", volts[4]);
-        ESP_LOGD(TAG,"ads5 = %f", volts[5]);
-        ESP_LOGD(TAG,"ads6 = %f", volts[6]);
-        ESP_LOGD(TAG,"ads7 = %f", volts[7]);
+        ESP_LOGD(TAG,"ads0 = %f", an.volts[0]);
+        ESP_LOGD(TAG,"ads1 = %f", an.volts[1]);
+        ESP_LOGD(TAG,"ads2 = %f", an.volts[2]);
+        ESP_LOGD(TAG,"ads3 = %f", an.volts[3]);
+        ESP_LOGD(TAG,"ads4 = %f", an.volts[4]);
+        ESP_LOGD(TAG,"ads5 = %f", an.volts[5]);
+        ESP_LOGD(TAG,"ads6 = %f", an.volts[6]);
+        ESP_LOGD(TAG,"ads7 = %f", an.volts[7]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -183,7 +183,7 @@ void MyComponent::dump_config()
         ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
     }
 
-    for (size_t i = 0; i < AnInLvl_ResMin.size(); i++)
+    for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
     {
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
@@ -203,9 +203,9 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    ads1115();
+    an.ads1115();
     sensor();
-    Analog_Input_Driver();
+    an.Analog_Input_Driver();
 }
 
     bool pd[6], pc[6];
@@ -303,18 +303,18 @@ void MyComponent::servo_position(std::vector<uint8_t> &spos)
 }
 void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    this->AnInLvl_ResMin = rmin;
-    this->AnInLvl_ResMax = rmax;
+    an.AnInLvl_ResMin = rmin;
+    an.AnInLvl_ResMax = rmax;
 }
 void MyComponent::ec(const uint8_t ch, const uint8_t type)
 {
-    AnInEC_Ch = ch;
-    AnInEC_Type = type;
+    an.AnInEC_Ch = ch;
+    an.AnInEC_Type = type;
 }
 void MyComponent::ph(const uint8_t ch, const uint8_t type)
 {
-    AnInPH_Ch = ch;
-    AnInPH_Type = type;
+    an.AnInPH_Ch = ch;
+    an.AnInPH_Type = type;
 }
 void MyComponent::digital_out(std::vector<bool> &dout)
 {
