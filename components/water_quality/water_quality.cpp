@@ -369,15 +369,15 @@ void MyComponent::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(WT); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(VPow); }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
+    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        ap << "," << std::fixed << std::setprecision(2) << LvlPerc[i];
+        ap << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
         else
-        ap << std::fixed << std::setprecision(2) << LvlPerc[i];
+        ap << std::fixed << std::setprecision(2) << an.LvlPerc[i];
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
@@ -387,9 +387,9 @@ void MyComponent::sensor()
     {
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        av << "," << std::fixed << std::setprecision(2) << AnGen[i];
+        av << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
         else
-        av << std::fixed << std::setprecision(2) << AnGen[i];
+        av << std::fixed << std::setprecision(2) << an.AnGen[i];
     
         this->AnInGen_Val_->publish_state(av.str());
     }
