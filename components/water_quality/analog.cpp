@@ -9,10 +9,7 @@ namespace water_quality {
 
 void Analog::Analog_Input_Driver()
 {
-    // data.ads1115(volts);
-    // ads1115(volts);
-for(size_t i = 0; i < 8; i++) ESP_LOGD("","ads%d = %f", i+1, volts[i]);
-    uint8_t tot, rnd, AnInGen_Ch[2];
+    uint8_t tot, rnd;
     tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 10 - tot - rnd - 1;
@@ -140,26 +137,26 @@ bool calibrationIsRunning = false;
 //     }
 // }
 
-// float Analog::getWaterTemperature()
-// {
-//     WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-//     WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+float Analog::getWaterTemperature()
+{
+    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
-// 	// sensors.requestTemperatures(); // Send the command to get temperatures
-// 	// float WT = sensors.getTempCByIndex(0);
+	// sensors.requestTemperatures(); // Send the command to get temperatures
+	// float WT = sensors.getTempCByIndex(0);
 
-// 	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
-// 	{
-// 		WT = lastTemperature;
-// 	}
-// 	else
-// 	{
-// 		lastTemperature = WT;
-// 	}
+	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
+	{
+		WT = lastTemperature;
+	}
+	else
+	{
+		lastTemperature = WT;
+	}
 
-//     ESP_LOGD(TAG,"WaterTemperature = %d", WT);
-// 	return WT;
-// }
+    ESP_LOGD(TAG,"WaterTemperature = %d", WT);
+	return WT;
+}
 
 int i = 0;
 bool readSerial(char result[])

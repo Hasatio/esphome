@@ -49,7 +49,7 @@ uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance
 float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
 float voltagePH, voltageEC, PH, EC, lastTemperature;
 char cmd[10];
 
