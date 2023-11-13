@@ -153,7 +153,7 @@ float Analog::getWaterTemperature()
 	{
 		lastTemperature = WT;
 	}
-
+    ESP_LOGD(TAG,"WaterRes = %d", WT_Res);
     ESP_LOGD(TAG,"WaterTemperature = %d", WT);
 	return WT;
 }
