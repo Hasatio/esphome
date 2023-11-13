@@ -90,7 +90,7 @@ void MyComponent::update()
     dig.mcp23008();
     pca9685();
     // pump_total();
-    an.ads1115();
+    i2c.ads1115();
     sensor();
     an.Analog_Input_Driver();
 }

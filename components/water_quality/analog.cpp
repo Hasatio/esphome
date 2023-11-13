@@ -5,21 +5,6 @@
 namespace esphome {
 namespace water_quality {
 
-void ANALOG::ads1115()
-{
-    // mux.tcaselect(0);
-    for(size_t i = 0; i < 4; i++)
-    {
-        adc[i] = ads1.readADC_SingleEnded(i%4);
-        volts[i] = ads1.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
-    }
-    for(size_t i = 4; i < 8; i++){
-        adc[i] = ads2.readADC_SingleEnded(i%4);
-        volts[i] = ads2.computeVolts(adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
-    }
-}
 void Analog::Analog_Input_Driver()
 {
     // ads1115();
