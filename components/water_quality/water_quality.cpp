@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-    I2C i2c;
+    // I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
