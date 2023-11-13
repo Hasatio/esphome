@@ -3,6 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
+    I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
@@ -14,7 +15,7 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    an.ads1115_set();
+    i2c.ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
