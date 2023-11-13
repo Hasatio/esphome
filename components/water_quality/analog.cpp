@@ -41,7 +41,7 @@ void Analog::Analog_Input_Driver(float volts[])
     // PH = volts[AnInPH_Ch];
     AnGen[0] = volts[AnInGen_Ch[0] + 3];
     AnGen[1] = volts[AnInGen_Ch[1] + 3];
-    ESP_LOGD(TAG,"VPow = %f", VPow);
+    get_VPow();
 }
 
 bool calibrationIsRunning = false;
@@ -157,6 +157,7 @@ float Analog::get_WT()
 }
 float Analog::get_VPow()
 {
+    ESP_LOGD(TAG,"VPow = %f", VPow);
     return VPow;
 }
 
