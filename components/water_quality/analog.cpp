@@ -11,7 +11,7 @@ void Analog::Analog_Input_Driver()
 {
     // data.ads1115(volts);
     // ads1115(volts);
-
+for(size_t i = 0; i < 8; i++) ESP_LOGD("","ads%d = %f", i+1, volts[i]);
     uint8_t tot, rnd, AnInGen_Ch[2];
     tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
