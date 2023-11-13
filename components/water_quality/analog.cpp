@@ -157,7 +157,7 @@ float Analog::get_WT()
 }
 float Analog::get_VPow()
 {
-    ESP_LOGD(TAG,"VPow = %f", VPow);
+    ESP_LOGD(TAG,"VPoww = %f", VPow);
     return VPow;
 }
 
