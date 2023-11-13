@@ -88,12 +88,12 @@ void I2C::ads1115()
     {
         ana.adc[i] = ads1.readADC_SingleEnded(i%4);
         ana.volts[i] = ads1.computeVolts(ana.adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        ESP_LOGD(TAG,"ads%d = %f", i+1, ana.volts[i]);
     }
     for(size_t i = 4; i < 8; i++){
         ana.adc[i] = ads2.readADC_SingleEnded(i%4);
         ana.volts[i] = ads2.computeVolts(ana.adc[i]);
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, volts[i]);
+        ESP_LOGD(TAG,"ads%d = %f", i+1, ana.volts[i]);
     }
 }
 
