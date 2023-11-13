@@ -120,9 +120,9 @@ void MCP23008_Setup()
 
 
 // void I2C::ads1115(float analog_voltage[])
-void ADS1115_Driver(float analog_voltage[])
+void ADS1115_Driver()
 {
-    // mux.tcaselect(0);
+    float analog_voltage[];
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = ads1.computeVolts(ads1.readADC_SingleEnded(i%4));
@@ -134,6 +134,7 @@ void ADS1115_Driver(float analog_voltage[])
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
     ana.setvoltage(analog_voltage);
+    ana.Analog_Input_Driver();
 }
 
 }  // namespace water_quality

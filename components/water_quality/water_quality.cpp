@@ -86,7 +86,7 @@ void MyComponent::update()
     pca9685();
     // pump_total();
     sensor();
-    an.Analog_Input_Driver();
+    // an.Analog_Input_Driver();
 }
 
     bool pd[6], pc[6];

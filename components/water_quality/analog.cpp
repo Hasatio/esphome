@@ -10,7 +10,7 @@ namespace water_quality {
 void Analog::Analog_Input_Driver()
 {
     // data.ads1115(volts);
-    ads1115(volts);
+    // ads1115(volts);
 
     uint8_t tot, rnd, AnInGen_Ch[2];
     tot = AnInEC_Ch + AnInPH_Ch;
