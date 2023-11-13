@@ -81,7 +81,7 @@ void I2C::ads1115_set()
     ec.begin();
     ph.begin();
 }
-void I2C::ads1115(float &analog_voltage[])
+void I2C::ads1115(float &analog_voltage)
 {
     // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
