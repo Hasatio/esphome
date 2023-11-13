@@ -34,7 +34,7 @@ unsigned long intervals[10] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
-void setvoltage(float a[]) {this->volts = a;}
+void setvoltage(float a[]) {volts = a;}
 void Analog_Input_Driver();
 float getWaterTemperature();
 
@@ -45,7 +45,7 @@ void ec_ph2();
 
 // extern Analog ana;
 
-uint16_t adc[8], AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float volts[8], WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
