@@ -15,7 +15,7 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    i2c.ads1115_set();
+    ads1115_set();
     dig.mcp23008_set();
     pca9685_set();
 }
