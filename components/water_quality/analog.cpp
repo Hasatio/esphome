@@ -5,8 +5,8 @@
 namespace esphome {
 namespace water_quality {
 
-    // I2C data;
-    
+    // I2C i2c;
+
 void Analog::Analog_Input_Driver(float volts[])
 {
     uint8_t tot, rnd;
