@@ -81,7 +81,7 @@ void MyComponent::loop()
 void MyComponent::update()
 {
     ADS1115_Driver();
-    dig.MCP23008_Driver();
+    MCP23008_Driver();
     pca9685();
     // pump_total();
     sensor();
