@@ -34,7 +34,7 @@ unsigned long intervals[10] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
-void setvoltage(float a[]) {this->adc = this->a;}
+void setvoltage(float a[]) {adc = a;}
 void Analog_Input_Driver();
 float getWaterTemperature();
 
