@@ -26,8 +26,10 @@ namespace water_quality {
 // class I2C
 // {
 // public:
-void ads1115_set();
-void ads1115(float analog_voltage[]);
+void ADS1115_Setup();
+void ADS1115_Driver();
+void MCP23008_Setup();
+void MCP23008_Driver();
 
 // };
 

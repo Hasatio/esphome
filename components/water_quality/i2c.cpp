@@ -143,6 +143,32 @@ void ADS1115_Driver()
     ana.setvoltage(analog_voltage);
     ana.Analog_Input_Driver();
 }
+void Digital::MCP23008_Driver()
+{
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
+
+    for(size_t i = 0; i < 4; i++)
+    {
+        DigIn_Read[i] = mcp.digitalRead(i);
+        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
+    }
+
+    for(size_t i = 0; i < 4; i++)
+    {
+        if (DigOut_Status[i] == 1)
+        {
+            mcp.digitalWrite(i + 4, HIGH);
+        }
+        else
+        { 
+            mcp.digitalWrite(i + 4, LOW);
+        }
+        // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+    }
+}
 
 }  // namespace water_quality
 }  // namespace esphome
