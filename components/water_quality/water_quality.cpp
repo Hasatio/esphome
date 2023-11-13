@@ -18,7 +18,6 @@ void MyComponent::setup()
     ADS1115_Setup();
     MCP23008_Setup();
 
-    dig.mcp23008_set();
     pca9685_set();
 }
 void MyComponent::dump_config()
@@ -82,7 +81,7 @@ void MyComponent::loop()
 void MyComponent::update()
 {
     ADS1115_Driver();
-    dig.mcp23008();
+    dig.MCP23008_Driver();
     pca9685();
     // pump_total();
     sensor();
