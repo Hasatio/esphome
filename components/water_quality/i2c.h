@@ -27,7 +27,7 @@ class I2C
 {
 public:
 void ads1115_set();
-float ads1115();
+void ads1115();
 
 };
 
