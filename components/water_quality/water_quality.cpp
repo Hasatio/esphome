@@ -250,7 +250,7 @@ void MyComponent::sensor()
         this->Servo_Stat_->publish_state(ss.str());
     }
     if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.get_WT()); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow()); }
+    // if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
