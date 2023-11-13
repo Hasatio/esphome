@@ -143,7 +143,7 @@ void ADS1115_Driver()
     ana.setvoltage(analog_voltage);
     ana.Analog_Input_Driver();
 }
-void Digital::MCP23008_Driver()
+void MCP23008_Driver()
 {
     mcp.digitalWrite(4,LOW);
     mcp.digitalWrite(5,LOW);
