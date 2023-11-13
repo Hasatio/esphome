@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MUX_H
-#define MUX_H
+#ifndef I2C_H
+#define I2C_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -23,8 +23,15 @@
 namespace esphome {
 namespace water_quality {
 
+class I2C
+{
+public:
+void ads1115_set();
+void ads1115();
+
+};
 
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // MUX_H
+#endif  // I2C_H

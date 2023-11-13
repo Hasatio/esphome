@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef SERVO_H
+#define SERVO_H
+
 #include "mux.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -22,3 +25,5 @@ protected:
 
 }  // namespace water_quality
 }  // namespace esphome
+
+#endif  // SERVO_H
