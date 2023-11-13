@@ -36,7 +36,8 @@ unsigned long last[10] = {0};
 
 void Analog_Input_Driver();
 void setvoltage(float v[]) {for(size_t i = 0; i < 8; i++)	volts[i] = v[i];}
-float getWaterTemperature();
+float get_WT();
+float get_VPow();
 
 bool readSerial(char result[]);
 

@@ -137,7 +137,7 @@ bool calibrationIsRunning = false;
 //     }
 // }
 
-float Analog::getWaterTemperature()
+float Analog::get_WT()
 {
     WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
@@ -153,9 +153,11 @@ float Analog::getWaterTemperature()
 	{
 		lastTemperature = WT;
 	}
-    ESP_LOGD(TAG,"WaterRes = %d", volts[0]);
-    ESP_LOGD(TAG,"WaterTemperature = %d", WT);
 	return WT;
+}
+float Analog::get_VPow()
+{
+    return VPow;
 }
 
 int i = 0;
