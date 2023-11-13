@@ -35,7 +35,7 @@ unsigned long intervals[10] = {
 unsigned long last[10] = {0};
 
 void Analog_Input_Driver();
-void setvoltage(float v[]) {for(size_t i = 0; i < 8; i++){	volts[i] = v[i];ESP_LOGD("","ads%d = %f", i+1, v[i]);}}
+void setvoltage(float v[]) {for(size_t i = 0; i < 8; i++){	volts[i] = v[i];ESP_LOGD("","ads%d = %f", i+1, volts[i]);}}
 float getWaterTemperature();
 
 bool readSerial(char result[]);
