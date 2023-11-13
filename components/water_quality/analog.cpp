@@ -5,8 +5,6 @@
 namespace esphome {
 namespace water_quality {
 
-    // I2C i2c;
-
 void Analog::Analog_Input_Driver(float volts[])
 {
     uint8_t tot, rnd;
@@ -34,6 +32,7 @@ void Analog::Analog_Input_Driver(float volts[])
 	{
 		lastTemperature = WT;
 	}
+
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -42,6 +41,7 @@ void Analog::Analog_Input_Driver(float volts[])
     // PH = volts[AnInPH_Ch];
     AnGen[0] = volts[AnInGen_Ch[0] + 3];
     AnGen[1] = volts[AnInGen_Ch[1] + 3];
+    ESP_LOGD(TAG,"VPow = %f", VPow);
 }
 
 bool calibrationIsRunning = false;
@@ -157,7 +157,6 @@ float Analog::get_WT()
 }
 float Analog::get_VPow()
 {
-    ESP_LOGD(TAG,"VPow = %f", VPow);
     return VPow;
 }
 

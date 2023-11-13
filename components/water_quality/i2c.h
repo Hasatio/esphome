@@ -8,11 +8,6 @@
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 
-    // i2c ayarları
-    #define SDA 16 
-    #define SCL 32
-    #define frq 800000
-
     // i2c adres ayarları
     #define TCA9548_ADDRESS 0x70
     #define ADS1X15_ADDRESS1 0x48
