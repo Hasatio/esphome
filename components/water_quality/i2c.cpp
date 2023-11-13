@@ -22,11 +22,8 @@ namespace water_quality {
     DFRobot_EC ec;
     DFRobot_PH ph;
 
-// void I2C::ads1115_set()
-void ads1115_set()
+void ADS1115_Setup()
 {
-
-    // muxe.tcaselect(0);
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
@@ -82,8 +79,48 @@ void ads1115_set()
     ec.begin();
     ph.begin();
 }
+void MCP23008_Setup()
+{
+    if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
+    {
+        ESP_LOGE(TAG,"Failed to initialize MCP23008.");
+        while (1);
+    }
+
+    // mcp.pinMode(0, INPUT);
+    // mcp.pinMode(1, INPUT);
+    // mcp.pinMode(2, INPUT);
+    // mcp.pinMode(3, INPUT);
+    // mcp.pullUp(0, HIGH);
+    // mcp.pullUp(1, HIGH);
+    // mcp.pullUp(2, HIGH);
+    // mcp.pullUp(3, HIGH);
+    // mcp.pinMode(4, OUTPUT);
+    // mcp.pinMode(5, OUTPUT);
+    // mcp.pinMode(6, OUTPUT);
+    // mcp.pinMode(7, OUTPUT);
+    // mcp.digitalWrite(4,LOW);
+    // mcp.digitalWrite(5,LOW);
+    // mcp.digitalWrite(6,LOW);
+    // mcp.digitalWrite(7,LOW);
+    
+    mcp.pinMode(0, INPUT_PULLUP);
+    mcp.pinMode(1, INPUT_PULLUP);
+    mcp.pinMode(2, INPUT_PULLUP);
+    mcp.pinMode(3, INPUT_PULLUP);
+    mcp.pinMode(4, OUTPUT);
+    mcp.pinMode(5, OUTPUT);
+    mcp.pinMode(6, OUTPUT);
+    mcp.pinMode(7, OUTPUT);
+    mcp.digitalWrite(4,LOW);
+    mcp.digitalWrite(5,LOW);
+    mcp.digitalWrite(6,LOW);
+    mcp.digitalWrite(7,LOW);
+}
+
+
 // void I2C::ads1115(float analog_voltage[])
-void ads1115(float analog_voltage[])
+void ADS1115_Driver(float analog_voltage[])
 {
     // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
@@ -96,7 +133,7 @@ void ads1115(float analog_voltage[])
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    // return analog_voltage;
+    ana.setvoltage(analog_voltage);
 }
 
 }  // namespace water_quality

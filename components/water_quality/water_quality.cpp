@@ -15,7 +15,9 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    ads1115_set();
+    ADS1115_Setup();
+    MCP23008_Setup();
+
     dig.mcp23008_set();
     pca9685_set();
 }
@@ -25,14 +27,6 @@ void MyComponent::dump_config()
     if (this->is_failed())
     ESP_LOGE(TAG, "Communication failed!");
     
-        ESP_LOGD(TAG,"ads0 = %f", an.volts[0]);
-        ESP_LOGD(TAG,"ads1 = %f", an.volts[1]);
-        ESP_LOGD(TAG,"ads2 = %f", an.volts[2]);
-        ESP_LOGD(TAG,"ads3 = %f", an.volts[3]);
-        ESP_LOGD(TAG,"ads4 = %f", an.volts[4]);
-        ESP_LOGD(TAG,"ads5 = %f", an.volts[5]);
-        ESP_LOGD(TAG,"ads6 = %f", an.volts[6]);
-        ESP_LOGD(TAG,"ads7 = %f", an.volts[7]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -87,6 +81,7 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
+    ADS1115_Driver();
     dig.mcp23008();
     pca9685();
     // pump_total();
