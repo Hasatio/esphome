@@ -23,13 +23,13 @@
 namespace esphome {
 namespace water_quality {
 
-class I2C
-{
-public:
+// class I2C
+// {
+// public:
 void ads1115_set();
 void ads1115(float analog_voltage[]);
 
-};
+// };
 
 }  // namespace water_quality
 }  // namespace esphome

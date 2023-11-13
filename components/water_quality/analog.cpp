@@ -5,11 +5,13 @@
 namespace esphome {
 namespace water_quality {
 
-    I2C data;
+    // I2C data;
 
 void Analog::Analog_Input_Driver()
 {
-    data.ads1115(volts);
+    // data.ads1115(volts);
+    ads1115(volts);
+
     uint8_t tot, rnd, AnInGen_Ch[2];
     tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);

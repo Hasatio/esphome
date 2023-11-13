@@ -81,17 +81,19 @@ void I2C::ads1115_set()
     ec.begin();
     ph.begin();
 }
-void I2C::ads1115(float analog_voltage[])
+// void I2C::ads1115(float analog_voltage[])
+void ads1115(float analog_voltage[])
 {
     // mux.tcaselect(0);
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = ads1.computeVolts(ads1.readADC_SingleEnded(i%4));
-        ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    for(size_t i = 4; i < 8; i++){
+    for(size_t i = 4; i < 8; i++)
+    {
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
-        ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
     // return analog_voltage;
 }
