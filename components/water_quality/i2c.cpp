@@ -94,7 +94,7 @@ float I2C::ads1115()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    return this->analog_voltage;
+    return analog_voltage;
 }
 
 }  // namespace water_quality
