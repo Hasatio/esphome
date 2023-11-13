@@ -3,7 +3,7 @@
 #ifndef DIGITAL_H
 #define DIGITAL_H
 
-#include "mux.h"
+#include "i2c.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
