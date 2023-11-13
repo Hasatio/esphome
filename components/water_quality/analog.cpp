@@ -7,7 +7,7 @@ namespace water_quality {
 
     // I2C data;
 void Analog::setvoltage(float v[]) {for(size_t i = 0; i < 8; i++)	volts[i] = v[i];}
-void Analog::Analog_Input_Driver()
+void Analog::Analog_Input_Driver(float volts[])
 {
     uint8_t tot, rnd;
     tot = AnInEC_Ch + AnInPH_Ch;
@@ -20,6 +20,20 @@ void Analog::Analog_Input_Driver()
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
         // delay(1000);
+    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+
+	// sensors.requestTemperatures(); // Send the command to get temperatures
+	// float WT = sensors.getTempCByIndex(0);
+
+	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
+	{
+		WT = lastTemperature;
+	}
+	else
+	{
+		lastTemperature = WT;
+	}
     VPow = (float)volts[1] * 6; //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     LvlPerc[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     LvlPerc[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -139,20 +153,6 @@ bool calibrationIsRunning = false;
 
 float Analog::get_WT()
 {
-    WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (AnInWT_Res / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    WT = (float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)  ; //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-
-	// sensors.requestTemperatures(); // Send the command to get temperatures
-	// float WT = sensors.getTempCByIndex(0);
-
-	if (WT == 85.00 || WT == -127.00) //take the last correct temperature value if getting 85 or -127 value
-	{
-		WT = lastTemperature;
-	}
-	else
-	{
-		lastTemperature = WT;
-	}
 	return WT;
 }
 float Analog::get_VPow()
