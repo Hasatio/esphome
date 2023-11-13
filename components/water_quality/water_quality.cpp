@@ -249,7 +249,7 @@ void MyComponent::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.WT); }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.getWaterTemperature()); }
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
