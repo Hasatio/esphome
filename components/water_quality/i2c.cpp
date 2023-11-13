@@ -133,12 +133,12 @@ void ADS1115_Driver()
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = ads1.computeVolts(ads1.readADC_SingleEnded(i%4));
-        ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
     for(size_t i = 4; i < 8; i++)
     {
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
-        ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
+        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
     ana.setvoltage(analog_voltage);
     ana.Analog_Input_Driver();
