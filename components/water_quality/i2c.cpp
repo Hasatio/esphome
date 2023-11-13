@@ -22,7 +22,8 @@ namespace water_quality {
     DFRobot_EC ec;
     DFRobot_PH ph;
 
-void I2C::ads1115_set()
+// void I2C::ads1115_set()
+void ads1115_set()
 {
 
     // muxe.tcaselect(0);
