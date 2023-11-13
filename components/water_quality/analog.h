@@ -45,6 +45,7 @@ void ec_ph2();
 
 // extern Analog ana;
 
+protected:
 uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float WT_Res, WT, VPow, LvlPerc[2], AnGen[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
@@ -54,9 +55,6 @@ float voltagePH, voltageEC, PH, EC, lastTemperature;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
-
-
-protected:
 
 };
 
