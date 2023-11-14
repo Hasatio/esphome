@@ -25,17 +25,15 @@ static unsigned long timepoint = millis();
 
 void MyComponent::ADS1115_Setup()
 {
-    bool status1 = ads1.begin(ADS1X15_ADDRESS1);
-    if (!status1)
+    if (ads1.begin(ADS1X15_ADDRESS1))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
-    //   while (1);
+      while (1);
     }
-    bool status2 = ads2.begin(ADS1X15_ADDRESS2);
-    if (!status2)
+    if (ads2.begin(ADS1X15_ADDRESS2))
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
-    //   while (1);
+      while (1);
     }
 
     // The ADC input range (or gain) can be changed via the following
