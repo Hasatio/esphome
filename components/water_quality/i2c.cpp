@@ -99,7 +99,7 @@ void ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    ana.Analog_Input_Driver(analog_voltage);
+    // ana.Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
