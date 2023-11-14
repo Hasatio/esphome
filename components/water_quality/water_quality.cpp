@@ -26,12 +26,14 @@ static unsigned long timepoint = millis();
 void MyComponent::ADS1115_Setup()
 {
     if (!ads1.begin(ADS1X15_ADDRESS1))
-        do: ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
+        do
+            ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
         while (1);
     else    ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
 
     if (!ads2.begin(ADS1X15_ADDRESS2))
-        do: ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
+        do
+            ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
         while (1);
     else    ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
 
