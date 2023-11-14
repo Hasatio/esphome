@@ -116,7 +116,7 @@ void MyComponent::dump_config()
 
     for (uint8_t t=0; t<8; t++) 
     {
-      mux.tcaselect(t);
+      tcaselect(t);
       ESP_LOGI(TAG,"TCA Port %d", t);
 
       for (uint8_t addr = 0; addr<=127; addr++) 
