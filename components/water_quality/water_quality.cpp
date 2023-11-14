@@ -83,8 +83,8 @@ void MyComponent::ADS1115_Setup()
     // AnInEC_Type == 1? EC():EC10();
     // // AnInEC_Type == 10? EC10();
 
-    ec.begin();
-    ph.begin();
+    // ec.begin();
+    // ph.begin();
 }
 void MyComponent::ADS1115_Driver()
 {
@@ -99,7 +99,7 @@ void MyComponent::ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    ana.Analog_Input_Driver(analog_voltage);
+    an.Analog_Input_Driver(analog_voltage);
 }
 void MyComponent::dump_config()
 {
