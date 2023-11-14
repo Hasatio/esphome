@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-    I2C i2c;
+    // I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
@@ -15,8 +15,8 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    i2c.ADS1115_Setup();
-    // i2c.MCP23008_Setup();
+    ADS1115_Setup();
+    // MCP23008_Setup();
 
     pca9685_set();
 }
@@ -80,8 +80,8 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    // i2c.ADS1115_Driver();
-    // i2c.MCP23008_Driver();
+    // ADS1115_Driver();
+    // MCP23008_Driver();
     pca9685();
     // pump_total();
     sensor();

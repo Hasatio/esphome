@@ -29,7 +29,7 @@ namespace water_quality {
     DFRobot_EC ec;
     DFRobot_PH ph;
 
-void I2C::ADS1115_Setup()
+void ADS1115_Setup()
 {
     if (!ads1.begin(ADS1X15_ADDRESS1))
     {
@@ -86,7 +86,7 @@ void I2C::ADS1115_Setup()
     ec.begin();
     ph.begin();
 }
-void I2C::MCP23008_Setup()
+void MCP23008_Setup()
 {
     if (!mcp.begin_I2C(MCP23008_ADDRESS, &Wire)) 
     {
@@ -125,7 +125,7 @@ void I2C::MCP23008_Setup()
     mcp.digitalWrite(7,LOW);
 }
 
-void I2C::ADS1115_Driver()
+void ADS1115_Driver()
 {
     float analog_voltage[8];
     for(size_t i = 0; i < 4; i++)
@@ -140,7 +140,7 @@ void I2C::ADS1115_Driver()
     }
     ana.Analog_Input_Driver(analog_voltage);
 }
-void I2C::MCP23008_Driver()
+void MCP23008_Driver()
 {
     mcp.digitalWrite(4,LOW);
     mcp.digitalWrite(5,LOW);

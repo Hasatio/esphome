@@ -18,15 +18,15 @@
 namespace esphome {
 namespace water_quality {
 
-class I2C
-{
-public:
+// class I2C
+// {
+// public:
 void ADS1115_Setup();
 void ADS1115_Driver();
 void MCP23008_Setup();
 void MCP23008_Driver();
 
-};
+// };
 
 }  // namespace water_quality
 }  // namespace esphome
