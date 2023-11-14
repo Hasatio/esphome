@@ -3,7 +3,7 @@
 #ifndef WATER_QUALITY_H
 #define WATER_QUALITY_H
 
-// #include "i2c.h"
+#include "i2c.h"
 #include "analog.h"
 #include "digital.h"
 #include "pump.h"
