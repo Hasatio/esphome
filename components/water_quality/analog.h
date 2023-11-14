@@ -8,7 +8,6 @@
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
-#include <Adafruit_ADS1X15.h>
 #include "DFRobot_EC.h"
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
