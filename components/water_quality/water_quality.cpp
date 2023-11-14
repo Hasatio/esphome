@@ -25,6 +25,7 @@ static unsigned long timepoint = millis();
 
 void MyComponent::ADS1115_Setup()
 {
+    ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
     if (!ads1.begin(ADS1X15_ADDRESS1))
         // do
             ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
