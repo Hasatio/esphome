@@ -1,5 +1,5 @@
-#include "water_quality.h"
 #include "i2c.h"
+#include "water_quality.h"
 
 namespace esphome {
 namespace water_quality {
