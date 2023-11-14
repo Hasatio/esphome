@@ -3,11 +3,6 @@
 #ifndef WATER_QUALITY_H
 #define WATER_QUALITY_H
 
-#include "i2c.h"
-#include "analog.h"
-#include "digital.h"
-#include "pump.h"
-#include "servo.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"

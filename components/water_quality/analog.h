@@ -3,11 +3,9 @@
 #ifndef ANALOG_H
 #define ANALOG_H
 
-#include "i2c.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/components/i2c/i2c.h"
-#include <Wire.h>
 #include "DFRobot_EC.h"
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
