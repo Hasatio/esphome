@@ -108,6 +108,8 @@ void MyComponent::dump_config()
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
     ESP_LOGE(TAG, "Communication failed!");
+    if (!this->is_failed())
+    ESP_LOGE(TAG, "Communication successful!");
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
