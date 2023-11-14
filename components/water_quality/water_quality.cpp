@@ -4,7 +4,7 @@
 namespace esphome {
 namespace water_quality {
 
-    // I2C i2c;
+    I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
@@ -28,7 +28,7 @@ void MyComponent::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
     
-    ADS1115_Setup();
+    i2c.ADS1115_Setup();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
