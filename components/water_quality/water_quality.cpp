@@ -25,16 +25,15 @@ static unsigned long timepoint = millis();
 
 void MyComponent::ADS1115_Setup()
 {
-    if (ads1.begin(ADS1X15_ADDRESS1))
-    {
-      ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
-      while (1);
-    }
-    if (ads2.begin(ADS1X15_ADDRESS2))
-    {
-      ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
-      while (1);
-    }
+    if (!ads1.begin(ADS1X15_ADDRESS1))
+        do: ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
+        while (1);
+    else    ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
+
+    if (!ads2.begin(ADS1X15_ADDRESS2))
+        do: ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
+        while (1);
+    else    ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
 
     // The ADC input range (or gain) can be changed via the following
     // functions, but be careful never to exceed VDD +0.3V max, or to
@@ -100,7 +99,7 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    ADS1115_Setup();
+    MyComponent::ADS1115_Setup();
     // MCP23008_Setup();
 
     // PCA9685_Setup();
@@ -109,9 +108,9 @@ void MyComponent::dump_config()
 {
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
-    ESP_LOGE(TAG, "Communication failed!");
-    if (!this->is_failed())
-    ESP_LOGI(TAG, "Communication successful!");
+        ESP_LOGE(TAG, "Communication failed!");
+    else
+        ESP_LOGI(TAG, "Communication Successfulled!");
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
