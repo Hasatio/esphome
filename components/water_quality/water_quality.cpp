@@ -13,9 +13,9 @@ static unsigned long timepoint = millis();
 
 void MyComponent::setup()
 {
-    Wire.begin();
+    // Wire.begin();
 
-    ADS1115_Setup();
+    // ADS1115_Setup();
     // MCP23008_Setup();
 
     pca9685_set();
