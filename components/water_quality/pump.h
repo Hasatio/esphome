@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PUMP_H
-#define PUMP_H
+// #ifndef PUMP_H
+// #define PUMP_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -33,4 +33,4 @@ std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // PUMP_H
+// #endif  // PUMP_H

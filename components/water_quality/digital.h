@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef DIGITAL_H
-#define DIGITAL_H
+// #ifndef DIGITAL_H
+// #define DIGITAL_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -24,4 +24,4 @@ protected:
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // DIGITAL_H
+// #endif  // DIGITAL_H

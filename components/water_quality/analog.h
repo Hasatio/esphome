@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ANALOG_H
-#define ANALOG_H
+// #ifndef ANALOG_H
+// #define ANALOG_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -59,4 +59,4 @@ protected:
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // ANALOG_H
+// #endif  // ANALOG_H
