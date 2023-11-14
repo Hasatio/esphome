@@ -104,7 +104,6 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    ADS1115_Setup();
     // MCP23008_Setup();
 
     // PCA9685_Setup();
@@ -117,6 +116,7 @@ void MyComponent::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
     
+    ADS1115_Setup();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
