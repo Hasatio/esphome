@@ -51,7 +51,7 @@ web_server:
   version: 2
 
 interval:
-  - interval: 100ms
+  - interval: 1000ms
     then:
       if:
         condition:
@@ -83,7 +83,6 @@ interval:
               id: led
 
 
-
 i2c:
   id: i2c0
   sda: GPIO16
@@ -92,27 +91,27 @@ i2c:
   frequency: 800kHz
 
 
-# tca9548a:
-#   - address: 0x70
-#     id: multiplex0
-#     i2c_id: i2c0
-#     channels:
-#       - bus_id: multiplex0channel0
-#         channel: 0
-#       - bus_id: multiplex0channel1
-#         channel: 1
-#       - bus_id: multiplex0channel2
-#         channel: 2
-#       - bus_id: multiplex0channel3
-#         channel: 3
-#       - bus_id: multiplex0channel4
-#         channel: 4
-#       - bus_id: multiplex0channel5
-#         channel: 5
-#       - bus_id: multiplex0channel6
-#         channel: 6
-#       - bus_id: multiplex0channel7
-#         channel: 7
+tca9548a:
+  - address: 0x70
+    id: multiplex0
+    i2c_id: i2c0
+    channels:
+      - bus_id: multiplex0channel0
+        channel: 0
+      - bus_id: multiplex0channel1
+        channel: 1
+      - bus_id: multiplex0channel2
+        channel: 2
+      - bus_id: multiplex0channel3
+        channel: 3
+      - bus_id: multiplex0channel4
+        channel: 4
+      - bus_id: multiplex0channel5
+        channel: 5
+      - bus_id: multiplex0channel6
+        channel: 6
+      - bus_id: multiplex0channel7
+        channel: 7
 
 
 # ezo_pmp:
@@ -134,22 +133,22 @@ i2c:
 #     frequency: 1500
 
 
-# # pca9685custom:
-# #   - id: pca9685custom_hub0
-# #     address: 0x40
-# #     i2c_id: multiplex0channel0
-# #     frequency: 1500
+# pca9685custom:
+#   - id: pca9685custom_hub0
+#     address: 0x40
+#     i2c_id: multiplex0channel0
+#     frequency: 1500
 
 
 external_components:
-  - source: github://Hasatio/esphome@main
+  - source: github://Hasatio/esphome
     components: [water_quality]
     refresh: always
 
 water_quality:
   id: water
-  address: 0x70
-  i2c_id: i2c0
+  address: 0x00
+  i2c_id: multiplex0channel0
   pump1: 
     pump_type: 1
     pump_calib_gain: 1
@@ -406,64 +405,6 @@ switch:
         - water_quality.digital_out:
             digital_out: !lambda |-
               return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
-
-
-# status_led:
-#     pin: 
-#       number: GPIO33
-#       mode: 
-#         output: True
-      # inverted: False
-
-
-light:
-  # - platform: status_led
-  #   name: "status led"
-  #   id: status
-  #   pin: 
-  #     number: GPIO33
-  #     mode:
-  #       output: True
-  #     inverted: False
-
-  - platform: binary
-    name: "led"
-    id: led
-    output: out
-    effects:
-      - strobe:
-          name: strobe
-          colors:
-            - state: true
-              brightness: 100%
-              duration: 50ms
-            - state: false
-              brightness: 0%
-              duration: 50ms
-            - state: true
-              brightness: 100%
-              duration: 50ms
-            - state: false
-              brightness: 0%
-              duration: 200ms
-    # on_state:
-    #   if:
-    #     condition:
-    #       wifi.connected:
-    #     then:
-    #     - light.turn_on: 
-    #         id: led
-    #         # effect: strobe
-
-
-output:
-  - platform: gpio
-    id: out
-    pin: 
-      number: GPIO33
-      mode:
-        output: True
-      inverted: False
 
 
 number:
@@ -786,3 +727,62 @@ number:
   #   pump_state:
   #     id: pump_state
   #     name: Pump State    
+
+
+# status_led:
+#     pin: 
+#       number: GPIO33
+#       mode: 
+#         output: True
+      # inverted: False
+
+
+light:
+  # - platform: status_led
+  #   name: "status led"
+  #   id: status
+  #   pin: 
+  #     number: GPIO33
+  #     mode:
+  #       output: True
+  #     inverted: False
+
+  - platform: binary
+    name: "led"
+    id: led
+    output: out
+    effects:
+      - strobe:
+          name: strobe
+          colors:
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              brightness: 0%
+              duration: 100ms
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              brightness: 0%
+              duration: 200ms
+    # on_state:
+    #   if:
+    #     condition:
+    #       wifi.connected:
+    #     then:
+    #     - light.turn_on: 
+    #         id: led
+    #         # effect: strobe
+
+
+output:
+  - platform: gpio
+    id: out
+    pin: 
+      number: GPIO33
+      mode:
+        output: True
+      inverted: False
+

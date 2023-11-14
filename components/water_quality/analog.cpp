@@ -1,7 +1,6 @@
 #include "water_quality.h"
 #include "analog.h"
 
-
 namespace esphome {
 namespace water_quality {
 
