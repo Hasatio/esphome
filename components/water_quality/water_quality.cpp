@@ -1,6 +1,8 @@
 #include "water_quality.h"
 #include "water_quality_i2c.h"
 
+    #define ADS1X15_ADDRESS1 0x48
+    #define ADS1X15_ADDRESS2 0x49
 namespace esphome {
 namespace water_quality {
 
