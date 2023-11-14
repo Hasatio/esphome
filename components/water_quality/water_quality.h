@@ -102,8 +102,6 @@ void pca9685()
     //     }
 }
 
-void ADS1115_Setup();
-void ADS1115_Driver();
 void sensor();
 
 void setup() override;
