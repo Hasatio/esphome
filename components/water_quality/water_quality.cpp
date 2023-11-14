@@ -80,8 +80,8 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    i2c.ADS1115_Driver();
-    i2c.MCP23008_Driver();
+    // i2c.ADS1115_Driver();
+    // i2c.MCP23008_Driver();
     pca9685();
     // pump_total();
     sensor();
