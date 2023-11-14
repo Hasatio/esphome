@@ -23,12 +23,14 @@ static unsigned long timepoint = millis();
 
 void MyComponent::ADS1115_Setup()
 {
-    if (!ads1.begin(ADS1X15_ADDRESS1))
+    bool status1 = ads1.begin(ADS1X15_ADDRESS1);
+    if (!status1)
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
       while (1);
     }
-    if (!ads2.begin(ADS1X15_ADDRESS2))
+    bool status2 = ads2.begin(ADS1X15_ADDRESS2);
+    if (!status2)
     {
       ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
       while (1);
@@ -101,7 +103,7 @@ void MyComponent::setup()
     ADS1115_Setup();
     // MCP23008_Setup();
 
-    pca9685_set();
+    // PCA9685_Setup();
 }
 void MyComponent::dump_config()
 {
