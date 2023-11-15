@@ -33,21 +33,21 @@ unsigned long intervals[10] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
-void set_WT_Res(uint16_t set)		{WT_Res = set;}
-void set_WT(float set)				{WT = set;}
-void set_VPow(float set)			{VPow = set;}
-void set_AnInLvl_Perc(float set[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = set[i];}
-void set_AnInPH_Val(float set)		{AnInPH_Val = set;}
-void set_AnInEC_Val(float set)		{AnInEC_Val = set;}
-void set_AnInGen_Val(float set[])	{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = set[i];}
+void set_WT_Res(uint16_t set)	{AnInWT_Res = set;}
+void set_WT_Val(float set)		{AnInWT_Val = set;}
+void set_VPow_Val(float set)	{AnInVPow_Val = set;}
+void set_Lvl_Perc(float set[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = set[i];}
+void set_PH_Val(float set)		{AnInPH_Val = set;}
+void set_EC_Val(float set)		{AnInEC_Val = set;}
+void set_Gen_Val(float set[])	{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = set[i];}
 
-uint16_t get_WT_Res()		{return WT_Res;}
-float get_WT()				{return WT;}
-float get_VPow()			{return VPow;}
-float get_AnInLvl_Perc()	{return AnInLvl_Perc;}
-float get_AnInPH_Val()		{return AnInPH_Val;}
-float get_AnInEC_Val()		{return AnInEC_Val;}
-float get_AnInGen_Val()		{return AnInGen_Val;}
+uint16_t get_WT_Res()	{return AnInWT_Res;}
+float get_WT_Val()		{return AnInWT_Val;}
+float get_VPow_Val()	{return AnInVPow_Val;}
+float get_Lvl_Perc()	{return AnInLvl_Perc;}
+float get_PH_Val()		{return AnInPH_Val;}
+float get_EC_Val()		{return AnInEC_Val;}
+float get_Gen_Val()		{return AnInGen_Val;}
 
 bool readSerial(char result[]);
 
@@ -56,7 +56,7 @@ void ec_ph2();
 
 // extern Analog ana;
 
-uint16_t WT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
 float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInPH_Val, AnInEC_Val, AnInGen_Val[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
