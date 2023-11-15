@@ -15,6 +15,9 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
+    tcaselect(0);
+    ADS1115_Setup();
+    MCP23008_Setup();
 
     // PCA9685_Setup();
 }
@@ -49,7 +52,6 @@ void MyComponent::dump_config()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    tcaselect(0);
     ADS1115_Setup();
     MCP23008_Setup();
 
