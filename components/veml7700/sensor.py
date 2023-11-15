@@ -11,7 +11,8 @@ from esphome.const import (
 
 from . import (
     component_ns, 
-    VEML7700
+    VEML7700,
+    CONF_COMP_ID
 )
 
 CODEOWNERS = ["@hasatio"]
@@ -27,7 +28,7 @@ UNIT_RAW = "raw"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(VEML7700),
+            cv.GenerateID(CONF_COMP_ID): cv.use_id(VEML7700),
             cv.Optional(CONF_LUX): sensor.sensor_schema(
                 unit_of_measurement = UNIT_LUX,
                 accuracy_decimals = 1,
@@ -48,7 +49,7 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    parent = await cg.get_variable(config[CONF_ID])
+    parent = await cg.get_variable(config[CONF_COMP_ID])
 
     if CONF_LUX in config:
         conf = config[CONF_LUX]
