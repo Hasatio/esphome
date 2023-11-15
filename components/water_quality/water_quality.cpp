@@ -84,6 +84,7 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
+    tcaselect(0);
     ADS1115_Driver();
     // MCP23008_Driver();
     pca9685();
