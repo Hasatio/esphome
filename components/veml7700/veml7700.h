@@ -20,7 +20,8 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace veml7700 {
 
-class VEML7700 : public PollingComponent, public i2c::I2CDevice, public Sensor {
+class VEML7700 : public PollingComponent, public i2c::I2CDevice, public Sensor
+{
 public:
 
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
