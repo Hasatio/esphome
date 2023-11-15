@@ -99,7 +99,6 @@ void ADS1115_Setup()
 }
 void ADS1115_Driver()
 {
-    tcaselect(0);
     float analog_voltage[8];
     for(size_t i = 0; i < 4; i++)
     {
