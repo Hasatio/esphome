@@ -15,20 +15,17 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    // MCP23008_Setup();
 
     // PCA9685_Setup();
 }
 void MyComponent::dump_config()
 {
-    tcaselect(0);
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
         ESP_LOGE(TAG, "Communication failed!");
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
     
-    ADS1115_Setup();
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -51,6 +48,10 @@ void MyComponent::dump_config()
       }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    tcaselect(0);
+    ADS1115_Setup();
+    MCP23008_Setup();
 
     ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
