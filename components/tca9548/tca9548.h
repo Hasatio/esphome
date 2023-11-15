@@ -6,9 +6,10 @@
 #define sda 16
 #define scl 32
 
+// Wire.begin(sda,scl);
+
 void tcaselect(uint8_t bus){
     if (bus > 7) return;
-    Wire.begin(sda,scl);
     Wire.beginTransmission(MUX_Address);  // TCA9548A address
     Wire.write(1 << bus);          // send byte to select bus
     Wire.endTransmission();
