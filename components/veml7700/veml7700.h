@@ -27,8 +27,9 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 void setup() override;
-void update() override;
+void dump_config() override;
 void loop() override;
+void update() override;
 
 void Lux      (sensor::Sensor *l)    { Lux_ = l; }
 void White    (sensor::Sensor *w)    { White_ = w; }

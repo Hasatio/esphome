@@ -99,8 +99,8 @@ void pca9685()
 void sensor();
 
 void setup() override;
-void loop() override;
 void dump_config() override;
+void loop() override;
 void update() override;
 
 void pump_calib_gain(const std::vector<float> &pcg);
