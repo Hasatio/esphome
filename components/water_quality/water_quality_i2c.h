@@ -23,15 +23,10 @@ namespace water_quality {
 
 void tcaselect(uint8_t bus);
 
-// class I2C
-// {
-// public:
 void ADS1115_Setup();
 void ADS1115_Driver();
 void MCP23008_Setup();
 void MCP23008_Driver();
-
-// };
 
 }  // namespace water_quality
 }  // namespace esphome

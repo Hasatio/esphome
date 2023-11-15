@@ -43,6 +43,7 @@ void tcaselect(uint8_t bus)
 
 void ADS1115_Setup()
 {
+    tcaselect(0);
     if (!ads1.begin())
         // do
             ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
