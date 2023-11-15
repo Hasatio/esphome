@@ -21,6 +21,7 @@ void MyComponent::setup()
 }
 void MyComponent::dump_config()
 {
+    tcaselect(0);
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
         ESP_LOGE(TAG, "Communication failed!");
