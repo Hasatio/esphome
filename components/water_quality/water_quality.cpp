@@ -256,7 +256,7 @@ void MyComponent::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
-        float* lvl[2]; 
+        float* lvl; 
         lvl = an.get_Lvl_Perc();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
@@ -270,7 +270,7 @@ void MyComponent::sensor()
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.get_PH_Val()); }
     if (this->AnInGen_Val_ != nullptr) 
     {
-        float* gen[2];
+        float* gen;
         gen = an.get_Gen_Val();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
