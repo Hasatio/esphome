@@ -33,9 +33,11 @@ void Analog_Input_Driver(float volts[])
 		ana.lastTemperature = ana.get_WT_Val();
 	}
 
-    ana.set_VPow((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    ana.LvlPerc[0] = (float)volts[2] * 100 / 5 * ana.AnInLvl_ResMax[0] / (1000 + ana.AnInLvl_ResMax[0]) - 5 * ana.AnInLvl_ResMin[0] / (1000 + ana.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    ana.LvlPerc[1] = (float)volts[3] * 100 / 5 * ana.AnInLvl_ResMax[1] / (1000 + ana.AnInLvl_ResMax[1]) - 5 * ana.AnInLvl_ResMin[1] / (1000 + ana.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    ana.set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    float lvl[2];
+    lvl[0] = (float)volts[2] * 100 / 5 * ana.AnInLvl_ResMax[0] / (1000 + ana.AnInLvl_ResMax[0]) - 5 * ana.AnInLvl_ResMin[0] / (1000 + ana.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    lvl[1] = (float)volts[3] * 100 / 5 * ana.AnInLvl_ResMax[1] / (1000 + ana.AnInLvl_ResMax[1]) - 5 * ana.AnInLvl_ResMin[1] / (1000 + ana.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    ana.set_Lvl_Perc(lvl);
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
