@@ -7,6 +7,7 @@ from esphome.const import (
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
+MULTI_CONF = True
 
 component_ns = cg.esphome_ns.namespace("veml7700")
 VEML7700 = component_ns.class_("VEML7700", cg.PollingComponent, i2c.I2CDevice)
