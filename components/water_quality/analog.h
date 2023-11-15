@@ -44,10 +44,10 @@ void set_Gen_Val(float set[])	{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = s
 uint16_t get_WT_Res()	{return AnInWT_Res;}
 float get_WT_Val()		{return AnInWT_Val;}
 float get_VPow_Val()	{return AnInVPow_Val;}
-float get_Lvl_Perc()	{return *AnInLvl_Perc;}
+float* get_Lvl_Perc()	{return AnInLvl_Perc;}
 float get_EC_Val()		{return AnInEC_Val;}
 float get_PH_Val()		{return AnInPH_Val;}
-float get_Gen_Val()		{return *AnInGen_Val;}
+float* get_Gen_Val()	{return AnInGen_Val;}
 
 bool readSerial(char result[]);
 
