@@ -256,7 +256,7 @@ void MyComponent::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
-        float lvl[] = get_Lvl_Perc();
+        float lvl[] = an.get_Lvl_Perc();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
         ap << "," << std::fixed << std::setprecision(2) << lvl[i];
@@ -269,7 +269,7 @@ void MyComponent::sensor()
     if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.get_PH_Val); }
     if (this->AnInGen_Val_ != nullptr) 
     {
-        float gen[] = get_Gen_Val();
+        float gen[] = an.get_Gen_Val();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
         av << "," << std::fixed << std::setprecision(2) << gen[i];
