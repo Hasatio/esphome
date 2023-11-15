@@ -3,12 +3,8 @@ import esphome.config_validation as cv
 from esphome.components import i2c, sensor
 from esphome.const import (
     CONF_ID, 
-    CONF_STATUS, 
-    CONF_TOTAL,
     UNIT_CELSIUS,
     UNIT_VOLT,
-    UNIT_PERCENT,
-    UNIT_SECOND,
     UNIT_PH,
 )
 
@@ -20,20 +16,11 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
-CONF_PUMP_TOTAL = "pump_total"
-CONF_PUMP_STATUS = "pump_status"
-CONF_SERVO_STATUS = "servo_status"
 CONF_WATER_TEMP = "water_temp"
 CONF_VOLTAGE = "voltage"
-CONF_LEVEL = "level"
-CONF_ANALOG = "analog"
 CONF_EC = "ec"
 CONF_PH = "ph"
-CONF_DIGITAL = "digital"
 
-UNIT_LITER = "l"
-UNIT_MILILITER = "ml"
-UNIT_MILILITERS_PER_MINUTE = "ml/min"
 UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 
 # MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice)

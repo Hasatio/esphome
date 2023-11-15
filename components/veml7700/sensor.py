@@ -9,7 +9,10 @@ from esphome.const import (
     UNIT_LUX,
 )
 
-from . import component_ns, VEML7700
+from . import (
+    component_ns, 
+    VEML7700
+)
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["veml7700"]
