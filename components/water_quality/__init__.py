@@ -9,7 +9,7 @@ from esphome.const import (
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["sensor", "text_sensor"]
+AUTO_LOAD = ["i2c", "sensor", "text_sensor"]
 MULTI_CONF = True
 
 CONF_PUMP1 = "pump1"
