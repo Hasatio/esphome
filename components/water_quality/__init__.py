@@ -9,7 +9,7 @@ from esphome.const import (
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
-AUTO_LOAD = ["i2c", "sensor", "text_sensor"]
+AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
 CONF_PUMP1 = "pump1"
@@ -129,7 +129,7 @@ CONFIG_SCHEMA = (
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
-    .extend(i2c.i2c_device_schema(0x70))
+    .extend(i2c.i2c_device_schema(None))
 )
 
 
