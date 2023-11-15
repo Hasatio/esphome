@@ -7,6 +7,7 @@ from esphome.const import (
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
+AUTO_LOAD = ["sensor"]
 MULTI_CONF = True
 
 component_ns = cg.esphome_ns.namespace("veml7700")
