@@ -4,46 +4,44 @@
 namespace esphome {
 namespace water_quality {
 
-    Analog ana;
-
-void Analog_Input_Driver(float volts[])
+void Analog::Analog_Input_Driver(float volts[])
 {
     uint8_t tot, rnd;
-    tot = ana.AnInEC_Ch + ana.AnInPH_Ch;
+    tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
-    ana.AnInGen_Ch[0] = (10 - tot - rnd - 1) == ana.AnInEC_Ch? 10 - tot - rnd - 2 : 10 - tot - rnd - 1;
-    ana.AnInGen_Ch[1] = (10 - tot - ana.AnInGen_Ch[0]) == ana.AnInPH_Ch? 10 - tot - ana.AnInGen_Ch[0] + 1 : 10 - tot - ana.AnInGen_Ch[0];
+    AnInGen_Ch[0] = (10 - tot - rnd - 1) == AnInEC_Ch? 10 - tot - rnd - 2 : 10 - tot - rnd - 1;
+    AnInGen_Ch[1] = (10 - tot - AnInGen_Ch[0]) == AnInPH_Ch? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0];
     
     
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
         // delay(1000);
-    float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (ana.get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    ana.set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
 	// sensors.requestTemperatures(); // Send the command to get temperatures
 	// float WT = sensors.getTempCByIndex(0);
 
-	if (ana.get_WT_Val() == 85.00 || ana.get_WT_Val() == -127.00) //take the last correct temperature value if getting 85 or -127 value
+	if (get_WT_Val() == 85.00 || get_WT_Val() == -127.00) //take the last correct temperature value if getting 85 or -127 value
 	{
-		ana.set_WT_Val(ana.lastTemperature);
+		set_WT_Val(lastTemperature);
 	}
 	else
 	{
-		ana.lastTemperature = ana.get_WT_Val();
+		lastTemperature = get_WT_Val();
 	}
 
-    ana.set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     float lvl[2];
-    lvl[0] = (float)volts[2] * 100 / 5 * ana.AnInLvl_ResMax[0] / (1000 + ana.AnInLvl_ResMax[0]) - 5 * ana.AnInLvl_ResMin[0] / (1000 + ana.AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    lvl[1] = (float)volts[3] * 100 / 5 * ana.AnInLvl_ResMax[1] / (1000 + ana.AnInLvl_ResMax[1]) - 5 * ana.AnInLvl_ResMin[1] / (1000 + ana.AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    ana.set_Lvl_Perc(lvl);
+    lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    set_Lvl_Perc(lvl);
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
-    ana.AnInGen_Val[0] = volts[ana.AnInGen_Ch[0] + 3];
-    ana.AnInGen_Val[1] = volts[ana.AnInGen_Ch[1] + 3];
-    // ESP_LOGD(TAG,"VPow = %f", ana.get_VPow_Val());
+    AnInGen_Val[0] = volts[AnInGen_Ch[0] + 3];
+    AnInGen_Val[1] = volts[AnInGen_Ch[1] + 3];
+    // ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     // get_VPow();
 }
 

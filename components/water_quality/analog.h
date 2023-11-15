@@ -13,7 +13,6 @@
 namespace esphome {
 namespace water_quality {
 
-void Analog_Input_Driver(float volts[]);
 
 class Analog
 {
@@ -32,6 +31,8 @@ unsigned long intervals[10] = {
 	1800000U,   //9
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
+
+void Analog_Input_Driver(float volts[]);
 
 void set_WT_Res(uint16_t set)	{AnInWT_Res = set;}
 void set_WT_Val(float set)		{AnInWT_Val = set;}
@@ -54,19 +55,17 @@ bool readSerial(char result[]);
 void ec_ph();
 void ec_ph2();
 
-// extern Analog ana;
-
-uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInEC_Val, AnInPH_Val, AnInGen_Val[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
 float voltagePH, voltageEC, lastTemperature;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
 
 protected:
+uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInEC_Val, AnInPH_Val, AnInGen_Val[2];
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
 
 };
 
