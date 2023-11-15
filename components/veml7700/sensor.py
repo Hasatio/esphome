@@ -9,11 +9,10 @@ from esphome.const import (
     UNIT_LUX,
 )
 
-CODEOWNERS = ["@hasatio"]
-DEPENDENCIES = ["i2c"]
+from . import component_ns, VEML7700
 
-component_ns = cg.esphome_ns.namespace("veml7700")
-VEML7700 = component_ns.class_("VEML7700", cg.PollingComponent, i2c.I2CDevice)
+CODEOWNERS = ["@hasatio"]
+DEPENDENCIES = ["veml7700"]
 
 CONF_INTETGRATION = "intetgration"
 CONF_PERS = "persisance"
@@ -42,7 +41,7 @@ CONFIG_SCHEMA = (
     )
     # .extend(cv.COMPONENT_SCHEMA)
     # .extend(cv.polling_component_schema("60s"))
-    .extend(i2c.i2c_device_schema(0x76))
+    # .extend(i2c.i2c_device_schema(0x76))
 )
 
 async def to_code(config):
@@ -63,5 +62,8 @@ async def to_code(config):
         sens = await sensor.new_sensor(conf)
         cg.add(parent.Als(sens))
         
+    cg.add_library("Wire", None)
+    cg.add_library("SPI", None)
+    cg.add_library("Adafruit BusIO", None)
     cg.add_library("Adafruit_VEML7700", None)
         
