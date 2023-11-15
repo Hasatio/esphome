@@ -252,27 +252,29 @@ void MyComponent::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.get_WT()); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.VPow); }
+    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.get_WT_Val()); }
+    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
+        float lvl[] = get_Lvl_Perc();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        ap << "," << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << "," << std::fixed << std::setprecision(2) << lvl[i];
         else
-        ap << std::fixed << std::setprecision(2) << an.LvlPerc[i];
+        ap << std::fixed << std::setprecision(2) << lvl[i];
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.EC); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.PH); }
+    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.get_EC_Val); }
+    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.get_PH_Val); }
     if (this->AnInGen_Val_ != nullptr) 
     {
+        float gen[] = get_Gen_Val();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
-        av << "," << std::fixed << std::setprecision(2) << an.AnGen[i];
+        av << "," << std::fixed << std::setprecision(2) << gen[i];
         else
-        av << std::fixed << std::setprecision(2) << an.AnGen[i];
+        av << std::fixed << std::setprecision(2) << gen[i];
     
         this->AnInGen_Val_->publish_state(av.str());
     }
