@@ -66,8 +66,4 @@ async def to_code(config):
         sens = await sensor.new_sensor(conf)
         cg.add(parent.Als(sens))
         
-    cg.add_library("Wire", None)
-    cg.add_library("SPI", None)
-    cg.add_library("Adafruit BusIO", None)
-    cg.add_library("Adafruit_VEML7700", None)
         
