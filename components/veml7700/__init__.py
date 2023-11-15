@@ -16,7 +16,7 @@ VEML7700 = component_ns.class_("VEML7700", cg.PollingComponent, i2c.I2CDevice)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(VEML7700),
+            cv.GenerateID(): cv.declare_id(VEML7700),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
