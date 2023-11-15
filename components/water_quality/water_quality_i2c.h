@@ -11,7 +11,7 @@
 #include <Adafruit_MCP23X17.h>
 #include <Adafruit_MCP23X08.h>
 
-    // i2c adres ayarları
+    // I2C Address
     #define TCA9548_ADDRESS 0x70
     #define ADS1X15_ADDRESS1 0x48
     #define ADS1X15_ADDRESS2 0x49
