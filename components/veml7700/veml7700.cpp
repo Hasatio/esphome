@@ -1,4 +1,5 @@
 #include "veml7700.h"
+#include "tca9548.h"
 
 namespace esphome {
 namespace veml7700 {
