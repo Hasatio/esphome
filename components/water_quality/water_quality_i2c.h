@@ -9,7 +9,7 @@
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_MCP23X17.h>
-#include "Adafruit_MCP23X08.h"
+#include <Adafruit_MCP23X08.h>
 
     // i2c adres ayarları
     #define TCA9548_ADDRESS 0x70
