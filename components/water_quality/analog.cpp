@@ -152,15 +152,6 @@ bool calibrationIsRunning = false;
 //     }
 // }
 
-float Analog::get_WT()
-{
-	return WT;
-}
-float Analog::get_VPow()
-{
-    return VPow;
-}
-
 int i = 0;
 bool readSerial(char result[])
 {
