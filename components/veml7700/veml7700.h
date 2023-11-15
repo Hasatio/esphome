@@ -1,5 +1,9 @@
+#pragma once
+
 #include "esphome.h"
 #include "esphome/core/log.h"
+#include "esphome/core/component.h"
+#include "esphome/components/sensor/sensor.h"
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 #include <Adafruit_VEML7700.h>
@@ -16,7 +20,7 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace veml7700 {
 
-class VEML7700 : public PollingComponent, public Sensor {
+class VEML7700 : public PollingComponent, public i2c::I2CDevice, public Sensor {
 public:
 
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
