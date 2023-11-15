@@ -19,14 +19,14 @@ void Analog_Input_Driver(float volts[])
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
         // delay(1000);
     float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (ana.get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    set_WT((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    ana.set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
 	// sensors.requestTemperatures(); // Send the command to get temperatures
 	// float WT = sensors.getTempCByIndex(0);
 
-	if (get_WT_Val() == 85.00 || get_WT_Val() == -127.00) //take the last correct temperature value if getting 85 or -127 value
+	if (ana.get_WT_Val() == 85.00 || ana.get_WT_Val() == -127.00) //take the last correct temperature value if getting 85 or -127 value
 	{
-		ana.set_WT(ana.lastTemperature);
+		ana.set_WT_Val(ana.lastTemperature);
 	}
 	else
 	{
@@ -39,9 +39,9 @@ void Analog_Input_Driver(float volts[])
 
     // EC = volts[AnInEC_Ch];
     // PH = volts[AnInPH_Ch];
-    ana.AnInGen_Val[0] = volts[AnInGen_Ch[0] + 3];
-    ana.AnInGen_Val[1] = volts[AnInGen_Ch[1] + 3];
-    ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
+    ana.AnInGen_Val[0] = volts[ana.AnInGen_Ch[0] + 3];
+    ana.AnInGen_Val[1] = volts[ana.AnInGen_Ch[1] + 3];
+    ESP_LOGD(TAG,"VPow = %f", ana.get_VPow_Val());
     // get_VPow();
 }
 
