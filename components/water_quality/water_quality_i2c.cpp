@@ -42,6 +42,7 @@ void tcaselect(uint8_t bus)
 
 void ADS1115_Setup()
 {
+    tcaselect(0);
     if (!ads1.begin())
         ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
     else
@@ -98,6 +99,7 @@ void ADS1115_Setup()
 }
 void ADS1115_Driver()
 {
+    tcaselect(0);
     float analog_voltage[8];
     for(size_t i = 0; i < 4; i++)
     {
@@ -109,7 +111,7 @@ void ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    Analog_Input_Driver(analog_voltage);
+    // Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
