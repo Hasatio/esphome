@@ -31,7 +31,7 @@ void MyComponent::dump_config()
 
     // Wire.begin(SDA,SCL,frq);
 
-    for (uint8_t t=0; t<8; t++) 
+    for (size_t t=0; t<8; t++) 
     {
       tcaselect(t);
       ESP_LOGI(TAG,"TCA Port %d", t);

@@ -4,7 +4,6 @@
 namespace esphome {
 namespace water_quality {
 
-    Analog ana;
     Digital digi;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,16 +43,12 @@ void tcaselect(uint8_t bus)
 void ADS1115_Setup()
 {
     if (!ads1.begin())
-        do
-            ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
-        while (1);
+        ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
 
     if (!ads2.begin(ADS1X15_ADDRESS2))
-        do
-            ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
-        while (1);
+        ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
 
@@ -114,15 +109,13 @@ void ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    // ana.Analog_Input_Driver(analog_voltage);
+    Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
 {
     if (!mcp.begin_I2C(MCP23008_ADDRESS))
-        do
-            ESP_LOGE(TAG,"Failed to initialize MCP23008.");
-        while (1);
+        ESP_LOGE(TAG,"Failed to initialize MCP23008.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize MCP23008.");
 
