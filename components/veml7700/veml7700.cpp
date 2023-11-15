@@ -24,6 +24,7 @@ void VEML7700::setup()
     veml.setIntegrationTime(VEML_IT); // in example is VEML7700_IT_800MS
     //veml.readLux(); // fetch the first entry, but discard it - it will be wrong
 }
+void VEML7700::dump_config() {} 
 void VEML7700::loop() {} 
 void VEML7700::update() 
 {
