@@ -43,7 +43,7 @@ void Analog_Input_Driver(float volts[])
     // PH = volts[AnInPH_Ch];
     ana.AnInGen_Val[0] = volts[ana.AnInGen_Ch[0] + 3];
     ana.AnInGen_Val[1] = volts[ana.AnInGen_Ch[1] + 3];
-    ESP_LOGD(TAG,"VPow = %f", ana.get_VPow_Val());
+    // ESP_LOGD(TAG,"VPow = %f", ana.get_VPow_Val());
     // get_VPow();
 }
 
