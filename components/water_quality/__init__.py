@@ -12,6 +12,7 @@ DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
+CONF_COMP_ID = "comp_id"
 CONF_PUMP1 = "pump1"
 CONF_PUMP2 = "pump2"
 CONF_PUMP3 = "pump3"

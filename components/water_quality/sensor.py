@@ -11,6 +11,7 @@ from esphome.const import (
 from . import (
     component_ns, 
     MyComponent,
+    CONF_COMP_ID
 )
 
 CODEOWNERS = ["@hasatio"]
@@ -28,7 +29,7 @@ UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMP_ID): cv.use_id(MyComponent),
             cv.Optional(CONF_WATER_TEMP): sensor.sensor_schema(
                 unit_of_measurement = UNIT_CELSIUS,
                 accuracy_decimals = 2,
@@ -50,7 +51,7 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    parent = await cg.get_variable(config[CONF_ID])
+    parent = await cg.get_variable(config[CONF_COMP_ID])
 
     if CONF_WATER_TEMP in config:
         conf = config[CONF_WATER_TEMP]
