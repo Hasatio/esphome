@@ -8,22 +8,25 @@ namespace veml7700 {
 
 void VEML7700::setup()
 {
-/*    if (veml.begin()) {
-      VEML7700Present = true;
-    } else {
-      return;
-    }*/
-    
-    // tcaselect(4);
-    //Wire.beginTransmission(0x10);
-    if (!veml.begin())
-        ESP_LOGE(TAG,"Failed to initialize VEML7700.");
-    else
-        ESP_LOGI(TAG,"Successfulled to initialize VEML7700.");
+  Wire.begin();
+/*
+  if (veml.begin()) {
+  VEML7700Present = true;
+  } else {
+    return;
+  }
+*/
+  
+  // tcaselect(4);
+  //Wire.beginTransmission(0x10);
+  if (!veml.begin())
+      ESP_LOGE(TAG,"Failed to initialize VEML7700.");
+  else
+      ESP_LOGI(TAG,"Successfulled to initialize VEML7700.");
 
-    veml.setGain(VEML_GAIN); // in example is VEML7700_GAIN_1
-    veml.setIntegrationTime(VEML_IT); // in example is VEML7700_IT_800MS
-    //veml.readLux(); // fetch the first entry, but discard it - it will be wrong
+  veml.setGain(VEML_GAIN); // in example is VEML7700_GAIN_1
+  veml.setIntegrationTime(VEML_IT); // in example is VEML7700_IT_800MS
+  //veml.readLux(); // fetch the first entry, but discard it - it will be wrong
 }
 void VEML7700::dump_config() {} 
 void VEML7700::loop() {} 
