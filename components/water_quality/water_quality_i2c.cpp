@@ -1,11 +1,12 @@
 #include "water_quality_i2c.h"
 #include "analog.h"
+#include "digital.h"
 
 namespace esphome {
 namespace water_quality {
 
-    Analog ana;
-    Digital digi;
+    Analog an;
+    Digital dig;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
