@@ -8,14 +8,11 @@ namespace water_quality {
 void Analog::Analog_Input_Driver(float* volts)
 {
 	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    // set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
     set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     
-    AnInVPow_Val = volts[1] * 6;
-    ESP_LOGD(TAG,"VPow1 = %f", AnInVPow_Val);
-
 	float lvl[2];
     lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
