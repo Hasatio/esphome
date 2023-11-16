@@ -34,13 +34,13 @@ unsigned long last[10] = {0};
 
 void Analog_Input_Driver(float* volts);
 
-void set_WT_Res(uint16_t set)	{AnInWT_Res = set;}
-void set_WT_Val(float set)		{AnInWT_Val = set;}
-void set_VPow_Val(float set)	{AnInVPow_Val = set;}
-void set_Lvl_Perc(float set[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = set[i];}
-void set_EC_Val(float set)		{AnInEC_Val = set;}
-void set_PH_Val(float set)		{AnInPH_Val = set;}
-void set_Gen_Val(float set[])	{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = set[i];}
+void set_WT_Res(uint16_t wtr)	{AnInWT_Res = wtr;}
+void set_WT_Val(float wt)		{AnInWT_Val = wt;}
+void set_VPow_Val(float vpow)	{AnInVPow_Val = vpow;}
+void set_Lvl_Perc(float lvl[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = lvl[i];}
+void set_EC_Val(float ec)		{AnInEC_Val = ec;}
+void set_PH_Val(float ph)		{AnInPH_Val = ph;}
+void set_Gen_Val(float gen[])	{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = gen[i];}
 
 uint16_t get_WT_Res()	{return AnInWT_Res;}
 float get_WT_Val()		{return AnInWT_Val;}
