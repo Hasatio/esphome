@@ -15,7 +15,7 @@ void MyComponent::setup()
 {
     // Wire.begin();
 
-    tcaselect(0);
+    // tcaselect(0);
     ADS1115_Setup();
     MCP23008_Setup();
 
@@ -34,22 +34,22 @@ void MyComponent::dump_config()
 
     // Wire.begin(SDA,SCL,frq);
 
-    for (size_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG,"TCA Port %d", t);
+    // for (size_t t=0; t<8; t++) 
+    // {
+    //   tcaselect(t);
+    //   ESP_LOGI(TAG,"TCA Port %d", t);
 
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
+    //   for (uint8_t addr = 0; addr<=127; addr++) 
+    //   {
+    //     if (addr == TCA9548_ADDRESS) continue;
 
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-        }
-      }
-    }
+    //     Wire.beginTransmission(addr);
+    //     if (!Wire.endTransmission()) 
+    //     {
+    //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+    //     }
+    //   }
+    // }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ADS1115_Setup();
@@ -86,7 +86,7 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    tcaselect(0);
+    // tcaselect(0);
     ADS1115_Driver();
     // MCP23008_Driver();
     pca9685();
