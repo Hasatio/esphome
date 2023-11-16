@@ -11,7 +11,7 @@ from esphome.const import (
 from . import (
     component_ns, 
     MyComponent,
-    CONF_COMP_ID
+    CONF_COMPONENT_ID
 )
 
 CODEOWNERS = ["@hasatio"]
@@ -24,25 +24,29 @@ CONF_PH = "ph"
 
 UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 
-# MyComponent = component_ns.class_("MyComponent", sensor.Sensor, cg.PollingComponent, i2c.I2CDevice)
+MySensor = component_ns.class_("MySensor", sensor.Sensor, cg.PollingComponent)
 
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_COMP_ID): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(MyComponent),
             cv.Optional(CONF_WATER_TEMP): sensor.sensor_schema(
+                # MySensor,
                 unit_of_measurement = UNIT_CELSIUS,
                 accuracy_decimals = 2,
             ),
             cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
+                # MySensor,
                 unit_of_measurement = UNIT_VOLT,
                 accuracy_decimals = 2,
             ),
             cv.Optional(CONF_EC): sensor.sensor_schema(
+                # MySensor,
                 unit_of_measurement = UNIT_MICROSIEMENS_PER_CENTIMETER,
                 accuracy_decimals = 0,
             ),
             cv.Optional(CONF_PH): sensor.sensor_schema(
+                # MySensor,
                 unit_of_measurement = UNIT_PH,
                 accuracy_decimals = 0,
             ),
@@ -51,7 +55,7 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    parent = await cg.get_variable(config[CONF_COMP_ID])
+    parent = await cg.get_variable(config[CONF_COMPONENT_ID])
 
     if CONF_WATER_TEMP in config:
         conf = config[CONF_WATER_TEMP]

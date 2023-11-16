@@ -26,8 +26,9 @@ namespace water_quality {
 class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
-
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
+
+// void register_sensor(MySensor *obj) { this->sensors_.push_back(obj); }
 
 uint16_t PwmFreq = 1000;
 
@@ -116,6 +117,16 @@ void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout);
 
+// protected:
+// std::vector<ADS1115Sensor *> sensors_;
+
+// class MySensor : public PollingComponent, public sensor::Sensor
+// {
+// public:
+// MySensor(MyComponent *parent) : parent_(parent) {}
+
+// void update() override;
+
 void Pump_Tot                   (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
 void Pump_Stat                  (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
 void Servo_Stat                 (text_sensor::TextSensor *servo)    { Servo_Stat_ = servo; }
@@ -128,6 +139,8 @@ void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Va
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
+MyComponent *parent_;
+
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
 text_sensor::TextSensor *Servo_Stat_{nullptr};
