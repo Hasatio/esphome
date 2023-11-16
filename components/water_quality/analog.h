@@ -14,7 +14,7 @@ namespace esphome {
 namespace water_quality {
 
 
-class Analog
+static class Analog
 {
 public:
 
