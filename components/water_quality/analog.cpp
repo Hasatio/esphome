@@ -10,7 +10,10 @@ void Analog::Analog_Input_Driver(float* volts)
     set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
     set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     
+    ESP_LOGD(TAG,"VPow1 = %f", AnInVPow_Val);
+
 	float lvl[2];
     lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -28,9 +31,6 @@ void Analog::Analog_Input_Driver(float* volts)
     AnInGen_Ch[1] = (10 - tot - AnInGen_Ch[0]) == AnInPH_Ch? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0];
     AnInGen_Val[0] = volts[AnInGen_Ch[0] + 3];
     AnInGen_Val[1] = volts[AnInGen_Ch[1] + 3];
-
-    ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
-    ESP_LOGD(TAG,"VPow1 = %f", AnInVPow_Val);
 }
 
 bool calibrationIsRunning = false;
