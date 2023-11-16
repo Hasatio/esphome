@@ -5,8 +5,8 @@
 namespace esphome {
 namespace water_quality {
 
-    Analog an;
-    Digital dig;
+    Analog ana;
+    Digital digi;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
@@ -111,7 +111,7 @@ void ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    an.Analog_Input_Driver(analog_voltage);
+    ana.Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
@@ -160,13 +160,13 @@ void MCP23008_Driver()
 
     for(size_t i = 0; i < 4; i++)
     {
-        dig.DigIn_Read[i] = mcp.digitalRead(i);
+        digi.DigIn_Read[i] = mcp.digitalRead(i);
         // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
     }
 
     for(size_t i = 0; i < 4; i++)
     {
-        if (dig.DigOut_Status[i] == 1)
+        if (digi.DigOut_Status[i] == 1)
         {
             mcp.digitalWrite(i + 4, HIGH);
         }
