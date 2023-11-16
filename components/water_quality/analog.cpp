@@ -4,43 +4,31 @@
 namespace esphome {
 namespace water_quality {
 
-void Analog::Analog_Input_Driver(float *volts)
+void Analog::Analog_Input_Driver(float* volts)
 {
+	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+
+    set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    
+	float lvl[2];
+    lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    set_Lvl_Perc(lvl);
+	
+    // EC = volts[AnInEC_Ch];
+    // PH = volts[AnInPH_Ch];
+        // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
+        // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
+
     uint8_t tot, rnd;
     tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = (10 - tot - rnd - 1) == AnInEC_Ch? 10 - tot - rnd - 2 : 10 - tot - rnd - 1;
     AnInGen_Ch[1] = (10 - tot - AnInGen_Ch[0]) == AnInPH_Ch? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0];
-    
-    
-        // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
-        // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
-        // delay(1000);
-    float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-
-	// sensors.requestTemperatures(); // Send the command to get temperatures
-	// float WT = sensors.getTempCByIndex(0);
-
-	if (get_WT_Val() == 85.00 || get_WT_Val() == -127.00) //take the last correct temperature value if getting 85 or -127 value
-	{
-		set_WT_Val(lastTemperature);
-	}
-	else
-	{
-		lastTemperature = get_WT_Val();
-	}
-
-    set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    float lvl[2];
-    lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    set_Lvl_Perc(lvl);
-
-    // EC = volts[AnInEC_Ch];
-    // PH = volts[AnInPH_Ch];
     AnInGen_Val[0] = volts[AnInGen_Ch[0] + 3];
     AnInGen_Val[1] = volts[AnInGen_Ch[1] + 3];
+
     ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     ESP_LOGD(TAG,"VPow1 = %f", AnInVPow_Val);
 }
@@ -152,28 +140,28 @@ bool calibrationIsRunning = false;
 //     }
 // }
 
-int i = 0;
-bool readSerial(char result[])
-{
-	while (Serial.available() > 0)
-	{
-		char inChar = Serial.read();
-		if (inChar == '\n')
-		{
-			result[i] = '\0';
-			Serial.flush();
-			i = 0;
-			return true;
-		}
-		if (inChar != '\r')
-		{
-			result[i] = inChar;
-			i++;
-		}
-		delay(1);
-	}
-	return false;
-}
+// int i = 0;
+// bool readSerial(char result[])
+// {
+// 	while (Serial.available() > 0)
+// 	{
+// 		char inChar = Serial.read();
+// 		if (inChar == '\n')
+// 		{
+// 			result[i] = '\0';
+// 			Serial.flush();
+// 			i = 0;
+// 			return true;
+// 		}
+// 		if (inChar != '\r')
+// 		{
+// 			result[i] = inChar;
+// 			i++;
+// 		}
+// 		delay(1);
+// 	}
+// 	return false;
+// }
 
 }  // namespace water_quality
 }  // namespace esphome

@@ -60,7 +60,7 @@ float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInEC_Val, AnInPH_Val, AnInGen
 uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
 std::vector<uint16_t> AnInLvl_ResMin{0,0};
 std::vector<uint16_t> AnInLvl_ResMax{0,0};
-float voltagePH, voltageEC, lastTemperature;
+float voltagePH, voltageEC;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
