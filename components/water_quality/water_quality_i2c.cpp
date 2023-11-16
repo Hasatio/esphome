@@ -1,5 +1,5 @@
-#include "water_quality.h"
 #include "water_quality_i2c.h"
+#include "analog.h"
 
 namespace esphome {
 namespace water_quality {
@@ -97,7 +97,7 @@ void ADS1115_Setup()
     // ec.begin();
     // ph.begin();
 }
-void ADS1115_Driver()
+void ADS1115_Driver(Analog &obj)
 {
     float analog_voltage[8];
     for(size_t i = 0; i < 4; i++)
@@ -110,7 +110,7 @@ void ADS1115_Driver()
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    ana.Analog_Input_Driver(analog_voltage);
+    obj.Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
