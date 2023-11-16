@@ -49,8 +49,8 @@ void MyComponent::dump_config()
     // }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ADS1115_Setup();
-    MCP23008_Setup();
+    // ADS1115_Setup();
+    // MCP23008_Setup();
 
     ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);

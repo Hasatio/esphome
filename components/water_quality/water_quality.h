@@ -27,7 +27,7 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sen
 {
 public:
 
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
+float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 uint16_t PwmFreq = 1000;
 
