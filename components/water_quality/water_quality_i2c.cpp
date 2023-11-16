@@ -160,13 +160,13 @@ void MCP23008_Driver()
 
     for(size_t i = 0; i < 4; i++)
     {
-        digi.DigIn_Read[i] = mcp.digitalRead(i);
+        dig.DigIn_Read[i] = mcp.digitalRead(i);
         // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
     }
 
     for(size_t i = 0; i < 4; i++)
     {
-        if (digi.DigOut_Status[i] == 1)
+        if (dig.DigOut_Status[i] == 1)
         {
             mcp.digitalWrite(i + 4, HIGH);
         }
