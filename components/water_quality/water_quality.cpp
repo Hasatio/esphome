@@ -1,5 +1,6 @@
 #include "water_quality.h"
 #include "water_quality_i2c.h"
+#include "analog.h"
 
 namespace esphome {
 namespace water_quality {
@@ -83,7 +84,7 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    ADS1115_Driver(an);
+    ADS1115_Driver();
     // MCP23008_Driver();
     pca9685();
     // pump_total();

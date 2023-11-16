@@ -97,7 +97,7 @@ void ADS1115_Setup()
     // ec.begin();
     // ph.begin();
 }
-void ADS1115_Driver(Analog &obj)
+void ADS1115_Driver()
 {
     float analog_voltage[8];
     for(size_t i = 0; i < 4; i++)
@@ -110,7 +110,7 @@ void ADS1115_Driver(Analog &obj)
         analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
         // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
     }
-    obj.Analog_Input_Driver(analog_voltage);
+    an.Analog_Input_Driver(analog_voltage);
 }
 
 void MCP23008_Setup()
