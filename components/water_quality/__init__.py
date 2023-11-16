@@ -232,7 +232,7 @@ async def to_code(config):
 
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)
-    cg.add_library("Adafruit BusIO",None)
+    # cg.add_library("Adafruit BusIO",None)
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit MCP23017 Arduino Library", None)
     cg.add_library("Adafruit PWM Servo Driver Library", None)
@@ -242,6 +242,7 @@ async def to_code(config):
     cg.add_library("DFRobot_PH", None)
     cg.add_library("DFRobot_PH", None)
     cg.add_library("SD", None)
+    cg.add_library("Time", None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)

@@ -9,7 +9,7 @@
 #include <Adafruit_VEML7700.h>
 
 // I2C Address
-#define VEML7700_I2CADDR_DEFAULT 0x10
+#define VEML7700_ADDRESS 0x10
 
 #define VEML_GAIN VEML7700_GAIN_1 // GAIN_1 is 'default'
 #define VEML_IT VEML7700_IT_100MS // 100MS is 'default'

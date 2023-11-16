@@ -1,5 +1,5 @@
 #include "veml7700.h"
-#include "tca9548.h"
+// #include "tca9548.h"
 
 namespace esphome {
 namespace veml7700 {
@@ -14,9 +14,9 @@ void VEML7700::setup()
       return;
     }*/
     
-    tcaselect(4);
+    // tcaselect(4);
     //Wire.beginTransmission(0x10);
-    if (!veml.begin())
+    if (!veml.begin(VEML7700_ADDRESS))
         ESP_LOGE(TAG,"Failed to initialize VEML7700.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize VEML7700.");
@@ -31,7 +31,7 @@ void VEML7700::update()
 {
 //  if (VEML7700Present) {
 
-  tcaselect(4);
+  // tcaselect(4);
   if (this->Lux_ != nullptr) { this->Lux_->publish_state(veml.readLux()); }
   if (this->White_ != nullptr) { this->White_->publish_state(veml.readWhite()); }
   if (this->Als_ != nullptr) { this->Als_->publish_state(veml.readALS()); }
