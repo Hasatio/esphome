@@ -8,7 +8,7 @@ namespace veml7700 {
 
 void VEML7700::setup()
 {
-  // Wire.begin();
+  Wire.begin();
 /*
   if (veml.begin()) {
   VEML7700Present = true;
