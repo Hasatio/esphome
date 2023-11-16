@@ -4,7 +4,7 @@
 namespace esphome {
 namespace water_quality {
 
-float Analog::Analog_Input_Driver(float volts[])
+void Analog::Analog_Input_Driver(float volts[])
 {
     uint8_t tot, rnd;
     tot = AnInEC_Ch + AnInPH_Ch;
