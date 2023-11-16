@@ -42,7 +42,7 @@ void Analog::Analog_Input_Driver(float volts[])
     AnInGen_Val[0] = volts[AnInGen_Ch[0] + 3];
     AnInGen_Val[1] = volts[AnInGen_Ch[1] + 3];
     ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
-    // get_VPow();
+    ESP_LOGD(TAG,"VPow1 = %f", AnInVPow_Val);
 }
 
 bool calibrationIsRunning = false;

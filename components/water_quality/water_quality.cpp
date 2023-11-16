@@ -93,7 +93,7 @@ void MyComponent::update()
     // pump_total();
     sensor();
     // an.set_VPow_Val(1.23);
-    ESP_LOGD(TAG,"VPow = %f", an.get_VPow_Val());
+    ESP_LOGD(TAG,"VPow2 = %f", an.get_VPow_Val());
 }
 
     bool pd[6], pc[6];
