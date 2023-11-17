@@ -21,8 +21,8 @@ void Analog::Analog_Input_Driver()
     lvl[1] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     set_Lvl_Perc(lvl);
 	
-    EC = volts[AnInEC_Ch - 1];
-    PH = volts[AnInPH_Ch - 1];
+    set_EC_Val(volts[AnInEC_Ch - 1]);
+    set_PH_Val(volts[AnInPH_Ch - 1]);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
