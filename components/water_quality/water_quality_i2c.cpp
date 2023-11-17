@@ -152,31 +152,31 @@ void tcaselect(uint8_t bus)
 //     mcp.digitalWrite(7,LOW);
 // }
 // void MCP23008_Driver()
-{
-    mcp.digitalWrite(4,LOW);
-    mcp.digitalWrite(5,LOW);
-    mcp.digitalWrite(6,LOW);
-    mcp.digitalWrite(7,LOW);
+// {
+//     mcp.digitalWrite(4,LOW);
+//     mcp.digitalWrite(5,LOW);
+//     mcp.digitalWrite(6,LOW);
+//     mcp.digitalWrite(7,LOW);
 
-    for(size_t i = 0; i < 4; i++)
-    {
-        digi.DigIn_Read[i] = mcp.digitalRead(i);
-        // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
-    }
+//     for(size_t i = 0; i < 4; i++)
+//     {
+//         digi.DigIn_Read[i] = mcp.digitalRead(i);
+//         // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
+//     }
 
-    for(size_t i = 0; i < 4; i++)
-    {
-        if (digi.DigOut_Status[i] == 1)
-        {
-            mcp.digitalWrite(i + 4, HIGH);
-        }
-        else
-        { 
-            mcp.digitalWrite(i + 4, LOW);
-        }
-        // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
-    }
-}
+//     for(size_t i = 0; i < 4; i++)
+//     {
+//         if (digi.DigOut_Status[i] == 1)
+//         {
+//             mcp.digitalWrite(i + 4, HIGH);
+//         }
+//         else
+//         { 
+//             mcp.digitalWrite(i + 4, LOW);
+//         }
+//         // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
+//     }
+// }
 
 }  // namespace water_quality
 }  // namespace esphome
