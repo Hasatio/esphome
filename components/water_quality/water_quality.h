@@ -16,7 +16,7 @@
 #include <sstream>
 #include <iomanip>
 #include <Wire.h>
-// #include <Adafruit_PWMServoDriver.h>
+#include <Adafruit_PWMServoDriver.h>
 
 static const char *const TAG = "mycomponent";
 
