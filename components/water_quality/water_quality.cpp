@@ -15,7 +15,7 @@ static unsigned long timepoint = millis();
 void MyComponent::setup()
 {
     ADS1115_Setup();
-    MCP23008_Setup();
+    // MCP23008_Setup();
 
     // PCA9685_Setup();
 }
@@ -50,9 +50,6 @@ void MyComponent::dump_config()
     // }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // ADS1115_Setup();
-    // MCP23008_Setup();
-
     ESP_LOGI(TAG,"Pump_dose = %d", pump.dose);
     ESP_LOGI(TAG,"Pump_circ = %d", pump.circ);
 
@@ -84,14 +81,15 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    ADS1115_Driver();
+    // ADS1115_Driver();
+    an.Analog_Input_Driver();
     // MCP23008_Driver();
-    pca9685();
+    // pca9685();
     // pump_total();
     sensor();
-    an.set_WT_Val(1.23);
-    ESP_LOGD(TAG,"wt test = %f", an.get_WT_Val());
-    ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
+    // an.set_WT_Val(1.23);
+    // ESP_LOGD(TAG,"wt test = %f", an.get_WT_Val());
+    // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
 }
 
     bool pd[6], pc[6];
