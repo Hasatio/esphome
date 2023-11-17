@@ -10,8 +10,8 @@
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
 // #include <Adafruit_ADS1X15.h>
-#include <Adafruit_MCP23X17.h>
-#include <Adafruit_MCP23X08.h>
+// #include <Adafruit_MCP23X17.h>
+// #include <Adafruit_MCP23X08.h>
 #include <vector>
 
     // I2C Address
