@@ -14,7 +14,7 @@ void Analog::Analog_Input_Driver()
 
     set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
 
-    ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
+    // ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     
 	float lvl[2];
     lvl[0] = (float)volts[2] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
