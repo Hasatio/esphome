@@ -63,10 +63,8 @@ class ADS1115Component
 public:
 void register_sensor(ADS1115Sensor *obj) { this->sensors_.push_back(obj); }
 /// Set up the internal sensor array.
-void setup() override;
-void dump_config() override;
-/// HARDWARE_LATE setup priority
-float get_setup_priority() const override { return setup_priority::DATA; }
+void setup();
+void dump_config();
 void set_continuous_mode(bool continuous_mode) { continuous_mode_ = continuous_mode; }
 
 /// Helper method to request a measurement from a sensor.
@@ -83,11 +81,11 @@ class ADS1115Sensor
 {
 public:
 ADS1115Sensor(ADS1115Component *parent) : parent_(parent) {}
-void update() override;
+void update();
 void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = multiplexer; }
 void set_gain(ADS1115Gain gain) { gain_ = gain; }
 void set_resolution(ADS1115Resolution resolution) { resolution_ = resolution; }
-float sample() override;
+float sample();
 uint8_t get_multiplexer() const { return multiplexer_; }
 uint8_t get_gain() const { return gain_; }
 uint8_t get_resolution() const { return resolution_; }

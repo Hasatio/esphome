@@ -12,8 +12,8 @@ namespace water_quality {
 //  ADS1115
 
     //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    Adafruit_ADS1115 ads1;
-    Adafruit_ADS1115 ads2;
+    // Adafruit_ADS1115 ads1;
+    // Adafruit_ADS1115 ads2;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
