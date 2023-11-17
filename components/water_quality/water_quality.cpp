@@ -27,6 +27,17 @@ void MyComponent::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
     
+ESP_LOGI(TAG, "ads1: %f", get_WT_Val());
+ESP_LOGI(TAG, "ads2: %f", get_VPow_Val());
+float lvl[] = get_Lvl_Perc();
+ESP_LOGI(TAG, "ads3: %f", lvl[0]);
+ESP_LOGI(TAG, "ads4: %f", lvl[1]);
+ESP_LOGI(TAG, "ads5: %f", get_EC_Val());
+ESP_LOGI(TAG, "ads6: %f", get_PH_Val());
+float gen[] = get_Lvl_Perc();
+ESP_LOGI(TAG, "ads7: %f", gen[0]);
+ESP_LOGI(TAG, "ads8: %f", gen[1]);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
