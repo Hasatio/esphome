@@ -51,7 +51,7 @@ enum ADS1115Resolution {
 
 class ADS1115Sensor;
 
-class ADS1115Component
+class ADS1115Component : public i2c::I2CDevice
 {
 public:
 void register_sensor(ADS1115Sensor *obj) { this->sensors_.push_back(obj); }
