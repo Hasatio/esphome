@@ -10,10 +10,10 @@ void Analog::Analog_Input_Driver()
     float volts[8];
     ADS1115_Driver(volts);
 	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    // set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
-    // set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
-    set_VPow_Val(3.21);
+    set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+
     ESP_LOGD(TAG,"VPow = %f", get_VPow_Val());
     
 	float lvl[2];
