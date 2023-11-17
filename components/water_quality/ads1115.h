@@ -51,7 +51,7 @@ enum ADS1115Resolution {
 
 class ADS1115Sensor;
 
-class ADS1115Component : public i2c::I2CDevice
+class ADS1115Component : public Component, public i2c::I2CDevice
 {
 public:
 void register_sensor(ADS1115Sensor *obj) { this->sensors_.push_back(obj); }
@@ -70,7 +70,7 @@ bool continuous_mode_;
 };
 
 /// Internal holder class that is in instance of Sensor so that the hub can create individual sensors.
-class ADS1115Sensor
+class ADS1115Sensor : public PollingComponent, public sensor::Sensor
 {
 public:
 ADS1115Sensor(ADS1115Component *parent) : parent_(parent) {}
