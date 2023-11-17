@@ -6,9 +6,9 @@ namespace esphome {
 namespace water_quality {
 
     Analog an;
-    // Digital dig;
-    // Pump pump;
-    // Servo ser;
+    Digital dig;
+    Pump pump;
+    Servo ser;
     
 static unsigned long timepoint = millis();
 
