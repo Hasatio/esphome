@@ -31,7 +31,7 @@ unsigned long intervals[10] = {
 };			    //this defines the interval for each task in milliseconds
 unsigned long last[10] = {0};
 
-void Analog_Input_Driver(float* volts);
+void Analog_Input_Driver();
 
 void set_WT_Res(uint16_t wtr)	{AnInWT_Res = wtr;}
 void set_WT_Val(float wt)		{AnInWT_Val = wt;}
