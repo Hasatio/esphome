@@ -71,7 +71,8 @@ void ADS1115Component::setup() {
   }
   this->prev_config_ = config;
 }
-void ADS1115Component::dump_config() {
+void ADS1115Component::dump_config() 
+{
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   LOG_I2C_DEVICE(this);
   if (this->is_failed()) {
@@ -133,7 +134,22 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
     // this->status_set_warning();
     return NAN;
   }
-}
+  
+  if (sensor->get_resolution() == ADS1015_12_BITS) {
+    bool negative = (raw_conversion >> 15) == 1;
+
+    // shift raw_conversion as it's only 12-bits, left justified
+    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+
+    // check if number was negative in order to keep the sign
+    if (negative) {
+      // the number was negative
+      // 1) set the negative bit back
+      raw_conversion |= 0x8000;
+      // 2) reset the former (shifted) negative bit
+      raw_conversion &= 0xF7FF;
+    }
+  }
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
