@@ -44,15 +44,15 @@ void tcaselect(uint8_t bus)
 
 void ADS1115_Setup()
 {
-    if (!ads1.begin(ADS1X15_ADDRESS1))
-        ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
-    else
-        ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
+    // if (!ads1.begin(ADS1X15_ADDRESS1))
+    //     ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
+    // else
+    //     ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
 
-    if (!ads2.begin(ADS1X15_ADDRESS2))
-        ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
-    else
-        ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
+    // if (!ads2.begin(ADS1X15_ADDRESS2))
+    //     ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
+    // else
+    //     ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
 
     // The ADC input range (or gain) can be changed via the following
     // functions, but be careful never to exceed VDD +0.3V max, or to
