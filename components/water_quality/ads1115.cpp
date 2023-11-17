@@ -12,9 +12,7 @@ static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
 static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
 
 static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
-void ADS1115Component::set_continuous_mode(true);
-void ADS1115Sensor::set_gain("ADS1115_GAIN_6P144");
-void ADS1115Sensor::set_resolution("ADS1115_16_BITS");
+
 void ADS1115Component::setup() {
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
