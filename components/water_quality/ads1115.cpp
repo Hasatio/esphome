@@ -7,6 +7,7 @@ namespace esphome {
 namespace water_quality {
 
     Analog ana;
+    Water_Quality wq;
 
 static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
 static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
@@ -16,8 +17,8 @@ static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
 void ADS1115Component::setup() {
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    this->mark_failed();
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
+    wq.mark_failed();
     return;
   }
 
@@ -65,8 +66,8 @@ void ADS1115Component::setup() {
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
-  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->mark_failed();
+  if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    wq.mark_failed();
     return;
   }
   this->prev_config_ = config;
@@ -75,7 +76,7 @@ void ADS1115Component::dump_config()
 {
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   LOG_I2C_DEVICE(this);
-  if (this->is_failed()) {
+  if (wq.is_failed()) {
     ESP_LOGE(TAG, "Communication with ADS1115 failed!");
   }
 
@@ -104,8 +105,8 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
   }
 
   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-      this->status_set_warning();
+    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+      wq.status_set_warning();
       return NAN;
     }
     this->prev_config_ = config;
@@ -118,10 +119,10 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
     // can we use the rdy pin to trigger when a conversion is done?
     if (!this->continuous_mode_) {
       uint32_t start = millis();
-      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+      while (wq.read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
         if (millis() - start > 100) {
           ESP_LOGW(TAG, "Reading ADS1115 timed out");
-        //   this->status_set_warning();
+          wq.status_set_warning();
           return NAN;
         }
         yield();
@@ -130,8 +131,8 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
   }
 
   uint16_t raw_conversion;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    // this->status_set_warning();
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+    wq.status_set_warning();
     return NAN;
   }
   
@@ -178,7 +179,7 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
       millivolts = NAN;
   }
 
-//   this->status_clear_warning();
+  wq.status_clear_warning();
   return millivolts / 1e3f;
 }
 
