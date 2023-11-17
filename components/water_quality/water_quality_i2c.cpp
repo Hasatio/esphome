@@ -44,12 +44,12 @@ void tcaselect(uint8_t bus)
 
 void ADS1115_Setup()
 {
-    if (!ads1.begin(ADS1X15_ADDRESS1, Wire))
+    if (!ads1.begin(ADS1X15_ADDRESS1, &TwoWire ))
         ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
 
-    if (!ads2.begin(ADS1X15_ADDRESS2, Wire))
+    if (!ads2.begin(ADS1X15_ADDRESS2, &TwoWire ))
         ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
     else
         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
