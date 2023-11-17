@@ -12,7 +12,7 @@ static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
 static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
 
 static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
-void ADS1115Component::set_continuous_mode(1);
+void ADS1115Component::set_continuous_mode(true);
 void ADS1115Sensor::set_gain("ADS1115_GAIN_6P144");
 void ADS1115Sensor::set_resolution("ADS1115_16_BITS");
 void ADS1115Component::setup() {
@@ -122,7 +122,7 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
         if (millis() - start > 100) {
           ESP_LOGW(TAG, "Reading ADS1115 timed out");
-          this->status_set_warning();
+        //   this->status_set_warning();
           return NAN;
         }
         yield();
@@ -132,30 +132,15 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
 
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    this->status_set_warning();
+    // this->status_set_warning();
     return NAN;
   }
-
-  if (sensor->get_resolution() == ADS1015_12_BITS) {
-    bool negative = (raw_conversion >> 15) == 1;
-
-    // shift raw_conversion as it's only 12-bits, left justified
-    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
-
-    // check if number was negative in order to keep the sign
-    if (negative) {
-      // the number was negative
-      // 1) set the negative bit back
-      raw_conversion |= 0x8000;
-      // 2) reset the former (shifted) negative bit
-      raw_conversion &= 0xF7FF;
-    }
-  }
+}
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
   float millivolts;
-  float divider = (sensor->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
+  float divider = 32768.0f;
   switch (sensor->get_gain()) {
     case ADS1115_GAIN_6P144:
       millivolts = (signed_conversion * 6144) / divider;
@@ -179,7 +164,7 @@ float ADS1115Component::request_measurement(ADS1115Sensor *sensor) {
       millivolts = NAN;
   }
 
-  this->status_clear_warning();
+//   this->status_clear_warning();
   return millivolts / 1e3f;
 }
 
