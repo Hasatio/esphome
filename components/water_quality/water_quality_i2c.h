@@ -24,7 +24,7 @@ namespace water_quality {
 void tcaselect(uint8_t bus);
 
 void ADS1115_Setup();
-void ADS1115_Driver();
+void ADS1115_Driver(float analog_voltage[]);
 void MCP23008_Setup();
 void MCP23008_Driver();
 
