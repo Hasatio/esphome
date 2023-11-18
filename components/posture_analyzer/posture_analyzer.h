@@ -40,6 +40,13 @@
   #define ADXL345_ADDRESS 0x53
   #define MAX17048_ADDRESS 0x36
 
+extern "C" { uint8_t temprature_sens_read(); }
+
+static const char *const TAG = "mysensor";
+
+namespace esphome {
+namespace posture_analyzer {
+
   // TwoWire I2C_1 = TwoWire(0);
   // TwoWire I2C_2 = TwoWire(1);
   
@@ -59,14 +66,7 @@
   Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345); // adx345 ayarı
   
   Adafruit_MAX17048 maxlipo; // max17048 yeni adlandırması
-
-extern "C" { uint8_t temprature_sens_read(); }
-
-static const char *const TAG = "mysensor";
-
-namespace esphome {
-namespace posture_analyzer {
-
+  
 class MyComponent : public PollingComponent // ana sınıf
 {
 public:
