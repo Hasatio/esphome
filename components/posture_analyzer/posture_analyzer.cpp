@@ -72,22 +72,22 @@ void MyComponent::ads1115_set()
     //bool status3 = ads3.begin(address3);
     //bool status4 = ads4.begin(address4);
 
-    if (!ads1.begin(ADS1X15_ADDRESS1,&Wire))
+    if (!ads1.begin(ADS1X15_ADDRESS1, &Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_1.");
       // while (1);
     }
-    if (!ads2.begin(ADS1X15_ADDRESS2,&Wire))
+    if (!ads2.begin(ADS1X15_ADDRESS2, &Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_2.");
       // while (1);
     }
-    if (!ads3.begin(ADS1X15_ADDRESS3,&Wire))
+    if (!ads3.begin(ADS1X15_ADDRESS3, &Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_3.");
       // while (1);
     }
-    if (!ads4.begin(ADS1X15_ADDRESS4,&Wire))
+    if (!ads4.begin(ADS1X15_ADDRESS4, &Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_4.");
       // while (1);

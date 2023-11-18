@@ -9,6 +9,7 @@
 #include <Adafruit_ADXL345_U.h>
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
+#include <Wire.h>
 
   // i2c ayarları
   #define SDA 21 
