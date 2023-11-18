@@ -41,7 +41,7 @@ void MyComponent::bt_set()
 void MyComponent::bt()
 {
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
-    ESP_LOGI("data", "data: %s", data);
+    // ESP_LOGI("data", "data: %s", data);
 
     SerialBT.println(data);
     data = "";
