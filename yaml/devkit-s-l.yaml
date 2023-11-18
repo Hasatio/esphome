@@ -5,13 +5,6 @@ esphome:
   name: $devicename
   friendly_name: $devicename
 
-  libraries:
-    # - "Grove 3-Axis Digital Gyro"
-    - "Wire"
-    - "SPI"
-    - "Adafruit BusIO"
-    - "Adafruit Unified Sensor"
-
 esp32:
   board: esp32dev
   framework:
@@ -22,8 +15,6 @@ logger:
 
 # Enable Home Assistant API
 api:
-  # encryption:
-  #   key: "O5RwEA6uQr7bO6Y2BRDxK9AKg+przdEtgECJXmjZfrE="
 
 ota:
 
@@ -51,64 +42,46 @@ web_server:
 
 
 external_components:
-    - source: github://Hasatio/esphome@main
+    - source: github://Hasatio/esphome
       components: [posture_analyzer]
       refresh: always
 
 
 posture_analyzer:
-  id: my
   gain: 1.0
   bluetooth: $devicename
 
 
 sensor:
-  # - platform: myi2c
+  # - platform: posture_analyzer
   #   sample:
-  #     id: s
   #     name: sample
       
   - platform: posture_analyzer
     sample_sec:
-      id: ss
       name: sample_sec
 
-  - platform: internal_temperature
-    name: "Internal Temperature"
-    update_interval: 1s
-    # internal: true
-    # disabled_by_default: true
-    on_value:
-      if:
-        condition:
-          wifi.connected:
-        then:
-        - light.turn_on: 
-            id: led
-            # effect: strobe
+  # - platform: internal_temperature
+  #   name: "Internal Temperature"
+  #   update_interval: 1s
+  #   # internal: true
+  #   # disabled_by_default: true
+  #   on_value:
+  #     if:
+  #       condition:
+  #         wifi.connected:
+  #       then:
+  #         - light.turn_on: 
+  #             id: led
+  #       else:
+  #         - light.turn_on: 
+  #             id: led
+  #             effect: strobe
 
 
 button:
   - platform: restart
     name: "Restart"
-
-
-# switch:
-#   - platform: gpio
-#     name: "Led"
-#     pin: 
-#       number: GPIO13
-#       mode:
-#         output: True
-#       inverted: False
-
-
-# status_led:
-#     pin: 
-#       number: GPIO13
-#       mode:
-#         output: True
-#       inverted: False
 
 
 light:
@@ -120,14 +93,6 @@ light:
       mode:
         output: True
       inverted: False
-    # on_state:
-    #   if:
-    #     condition:
-    #       wifi.connected:
-    #     then:
-    #     - light.turn_on: 
-    #         id: status
-    #         # effect: strobe
 
   - platform: binary
     name: "led"
@@ -146,7 +111,7 @@ light:
               brightness: 100%
               duration: 100ms
             - state: false
-              duration: 200ms
+              duration: 250ms
 
 
 output:    
@@ -157,4 +122,3 @@ output:
       mode:
         output: True
       inverted: False
-
