@@ -88,7 +88,7 @@ void sample_sec(sensor::Sensor *sample_sec);
 protected:
 String btname = "ESP32";
 uint16_t adc[16];
-uint8_t sayac = 0;
+uint64_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
 double adxlmultiplier;
 String data = "";
