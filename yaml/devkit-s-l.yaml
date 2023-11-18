@@ -61,23 +61,23 @@ sensor:
     sample_sec:
       name: sample_sec
 
-  # - platform: internal_temperature
-  #   name: "Internal Temperature"
-  #   update_interval: 1s
-  #   # internal: true
-  #   # disabled_by_default: true
-  #   on_value:
-  #     if:
-  #       condition:
-  #         wifi.connected:
-  #       then:
-  #         - light.turn_on: 
-  #             id: led
-  #             effect: none
-  #       else:
-  #         - light.turn_on: 
-  #             id: led
-  #             effect: strobe
+  - platform: internal_temperature
+    name: "Internal Temperature"
+    update_interval: 1s
+    # internal: true
+    # disabled_by_default: true
+    on_value:
+      if:
+        condition:
+          wifi.connected:
+        then:
+          - light.turn_on: 
+              id: led
+              effect: none
+        else:
+          - light.turn_on: 
+              id: led
+              effect: strobe
 
 
 button:
