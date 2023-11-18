@@ -3,6 +3,17 @@
 namespace esphome {
 namespace posture_analyzer {
 
+  BluetoothSerial SerialBT;
+  
+  Adafruit_ADS1115 ads1;
+  Adafruit_ADS1115 ads2;
+  Adafruit_ADS1115 ads3;
+  Adafruit_ADS1115 ads4;
+  
+  Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
+  
+  Adafruit_MAX17048 maxlipo;
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
 void MyComponent::internal_temp()
@@ -216,7 +227,7 @@ void MyComponent::sensor()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void MyComponent::setup() // ayar fonksiyonu
+void MyComponent::setup()
 {
     bt_set();
     i2c_set();
@@ -224,35 +235,36 @@ void MyComponent::setup() // ayar fonksiyonu
     adxl345();
     max17048_set();
 }    
-void MyComponent::loop() // döngü fonksiyonu
+void MyComponent::loop()
 {
 
 }
 void MyComponent::update()
 {
-    internal_temp();
-    ads1115();
-    adxl345();
-    max17048();
-    bt();
+    // internal_temp();
+    // ads1115();
+    // adxl345();
+    // max17048();
+    // bt();
     sensor();
 }
 
-void MyComponent::bluetooth(String b) // bluetooth fonksiyonu
+void MyComponent::bluetooth(String b)
 {
     btname = b;
 }
-void MyComponent::gain(float g) // kazanç fonksiyonu
+void MyComponent::gain(float g)
 {
     mygain = g;
 }
-void MyComponent::sample(sensor::Sensor *sample) // sayaç sensörü fonksiyonu
+void MyComponent::sample(sensor::Sensor *sample)
 { 
     sample_ = sample;
 }
-void MyComponent::sample_sec(sensor::Sensor *sample_sec) // sayaç sensörü fonksiyonu
+void MyComponent::sample_sec(sensor::Sensor *sample_sec)
 { 
     sample_sec_ = sample_sec;
 }
+
 } //namespace posture_analyzer
 } //namespace esphome
