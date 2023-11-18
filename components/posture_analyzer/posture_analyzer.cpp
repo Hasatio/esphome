@@ -13,7 +13,7 @@ namespace posture_analyzer {
   Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
   
   Adafruit_MAX17048 maxlipo;
-  
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
 void MyComponent::internal_temp()
@@ -229,11 +229,11 @@ void MyComponent::sensor()
 
 void MyComponent::setup()
 {
-    bt_set();
-    i2c_set();
-    ads1115_set();
-    adxl345();
-    max17048_set();
+    // bt_set();
+    // i2c_set();
+    // ads1115_set();
+    // adxl345();
+    // max17048_set();
 }    
 void MyComponent::loop()
 {
