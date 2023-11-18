@@ -1,8 +1,5 @@
 #include "posture_analyzer.h"
 
-namespace esphome {
-namespace posture_analyzer {
-
   BluetoothSerial SerialBT;
   
   Adafruit_ADS1115 ads1;
@@ -13,6 +10,9 @@ namespace posture_analyzer {
   Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
   
   Adafruit_MAX17048 maxlipo;
+
+namespace esphome {
+namespace posture_analyzer {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
