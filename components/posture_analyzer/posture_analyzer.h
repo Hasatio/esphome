@@ -12,6 +12,8 @@
 
 extern "C" { uint8_t temprature_sens_read(); }
 
+static const char *const TAG = "mysensor";
+
 namespace esphome {
 namespace posture_analyzer {
 
@@ -20,7 +22,6 @@ class MyComponent : public PollingComponent // ana sınıf
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; } // çalışma önceliği
 
-static const char *TAG = "mysensor";
 
     BluetoothSerial SerialBT; // bluetooth yeni adlandırması
     
