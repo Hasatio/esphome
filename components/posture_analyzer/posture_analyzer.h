@@ -50,29 +50,14 @@ namespace posture_analyzer {
   // TwoWire I2C_1 = TwoWire(0);
   // TwoWire I2C_2 = TwoWire(1);
   
-  BluetoothSerial SerialBT; // bluetooth yeni adlandırması
-  
   #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
   #error Bluetooth off--Run `make menuconfig` to enable it 
   #endif
 
-  //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-  Adafruit_ADS1115 ads1; // ads1115 yeni adlandırması
-  Adafruit_ADS1115 ads2;
-  Adafruit_ADS1115 ads3;
-  Adafruit_ADS1115 ads4;
-  //Adafruit_ADS1015 ads;     /* Use this for the 12-bit version */
-  
-  Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345); // adx345 ayarı
-  
-  Adafruit_MAX17048 maxlipo; // max17048 yeni adlandırması
-  
-class MyComponent : public PollingComponent // ana sınıf
+class MyComponent : public PollingComponent
 {
 public:
-float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; } // çalışma önceliği
-
-
+float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void internal_temp();
 void bt_set();
@@ -87,7 +72,7 @@ void max17048();
 void sensor();
 
 void setup() override;
-void loop() override; // döngü fonksiyonu
+void loop() override;
 void dump_config() override
 {
     ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
@@ -100,7 +85,7 @@ void sample(sensor::Sensor *sample);
 void sample_sec(sensor::Sensor *sample_sec);
 
 protected:
-String btname = "ESP32"; // bt standart adı
+String btname = "ESP32";
 uint16_t adc[16];
 uint64_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
@@ -108,8 +93,8 @@ double adxlmultiplier;
 String data = "";
 bool success = false;
 
-sensor::Sensor *sample_{nullptr}; // sensör değişkeni
-sensor::Sensor *sample_sec_{nullptr}; // sensör değişkeni
+sensor::Sensor *sample_{nullptr};
+sensor::Sensor *sample_sec_{nullptr};
 
 }; // class MyComponent
 
