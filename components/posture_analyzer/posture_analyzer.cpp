@@ -232,8 +232,8 @@ void MyComponent::setup()
     bt_set();
     i2c_set();
     ads1115_set();
-    adxl345();
-    max17048_set();
+    // adxl345();
+    // max17048_set();
 }    
 void MyComponent::loop()
 {
