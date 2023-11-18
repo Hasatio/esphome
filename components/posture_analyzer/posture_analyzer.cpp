@@ -229,7 +229,7 @@ void MyComponent::sensor()
 
 void MyComponent::setup()
 {
-    // bt_set();
+    bt_set();
     // i2c_set();
     // ads1115_set();
     // adxl345();
@@ -241,11 +241,11 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    // internal_temp();
+    internal_temp();
     // ads1115();
     // adxl345();
     // max17048();
-    // bt();
+    bt();
     sensor();
 }
 
