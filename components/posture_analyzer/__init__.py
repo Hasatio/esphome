@@ -11,6 +11,7 @@ MULTI_CONF = True
 #DEPENDENCIES = ["i2c"]
 
 # kişisel değişkenler
+CONF_COMPONENT_ID = "component_id"
 CONF_MY_GAIN = "gain" # esphome da kullanılan komponent değişkeni "gain"
 CONF_MY_BLUETOOTH = "bluetooth" # esphome da kullanılan komponent değişkeni "bluetooth"
 CONF_MY_SAMPLE = "sample" # esphome da kullanılan sensor "sample"

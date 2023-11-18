@@ -8,6 +8,7 @@ from esphome.const import (
 from . import (
     component_ns, 
     MyComponent, 
+    CONF_COMPONENT_ID,
     CONF_MY_SAMPLE, 
     CONF_MY_SAMPLE_SEC, 
     UNIT_SAMPLE, 
@@ -19,7 +20,7 @@ DEPENDENCIES = ["posture_analyzer"] # gerekli olan komponent, bu olmadan tanıml
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(MyComponent),
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli
@@ -37,7 +38,7 @@ CONFIG_SCHEMA = (
 )
 
 async def to_code(config):
-    parent = await cg.get_variable(config[CONF_ID])
+    parent = await cg.get_variable(config[CONF_COMPONENT_ID])
 
     if CONF_MY_SAMPLE in config:
         conf = config[CONF_MY_SAMPLE]

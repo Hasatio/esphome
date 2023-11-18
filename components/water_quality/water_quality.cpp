@@ -1,6 +1,7 @@
 #include "water_quality.h"
 #include "water_quality_i2c.h"
 #include "analog.h"
+#include "esphome/components/ads1115/ads1115.h"
 
 namespace esphome {
 namespace water_quality {

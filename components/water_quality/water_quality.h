@@ -9,6 +9,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/components/i2c/i2c.h"
+#include "esphome/components/ads1115/ads1115.h"
 #include "esphome/core/automation.h"
 #include <array>
 #include <vector>

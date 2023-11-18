@@ -42,7 +42,7 @@ static const char *TAG = "mysensor";
     // i2c ayarları
     #define SDA 21 
     #define SCL 22
-    #define freq 800000
+    #define frq 800000
     /*
     #define SDA_1 32
     #define SCL_1 33
@@ -107,7 +107,8 @@ void bt_set()
 void bt()
 {
     data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
-    
+    // ESP_LOGI("data", "data: %s", data);
+
     SerialBT.println(data);
     data = "";
  
@@ -116,14 +117,14 @@ void bt()
     if(SerialBT.available())
       {
         mygain = float(SerialBT.read());
-        ESP_LOGD("data", "data: %f",mygain);
+        ESP_LOGD("data", "data: %f", mygain);
       }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
 void i2c_set()
 {
-    Wire.begin(SDA,SCL,freq);
+    Wire.begin(SDA,SCL,frq);
     //Wire1.begin(SDA_1, SCL_1, freq_1);
     //I2C_1.begin(SDA_1, SCL_1, freq_1);
     //I2C_2.begin(SDA_2, SCL_2, freq_2);
@@ -136,27 +137,23 @@ void ads1115_set()
     //bool status2 = ads2.begin(address2);
     //bool status3 = ads3.begin(address3);
     //bool status4 = ads4.begin(address4);
-    bool status1 = ads1.begin(ADS1X15_ADDRESS1,&Wire);
-    bool status2 = ads2.begin(ADS1X15_ADDRESS2,&Wire);
-    bool status3 = ads3.begin(ADS1X15_ADDRESS3,&Wire);
-    bool status4 = ads4.begin(ADS1X15_ADDRESS4,&Wire);
 
-    if (!status1)
+    if (!ads1.begin(ADS1X15_ADDRESS1,&Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_1.");
       while (1);
     }
-    if (!status2)
+    if (!ads2.begin(ADS1X15_ADDRESS2,&Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_2.");
       while (1);
     }
-    if (!status3)
+    if (!ads3.begin(ADS1X15_ADDRESS3,&Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_3.");
       while (1);
     }
-    if (!status4)
+    if (!ads4.begin(ADS1X15_ADDRESS4,&Wire))
     {
       SerialBT.println("Failed to initialize ADS1115_4.");
       while (1);
@@ -234,9 +231,7 @@ void ads1115()
 //  ADXL345
 void adxl345_set()
 {
-    bool status5 = accel.begin(ADXL345_ADDRESS);
-
-    if (!status5)
+    if (!accel.begin(ADXL345_ADDRESS))
     {
       Serial.println("Failed to initialize ADXL345.");
       while (1);
@@ -278,9 +273,7 @@ void adxl345()
 //  MAX17048
 void max17048_set()
 {
-    bool status6 = maxlipo.begin(&Wire);
-
-    if (!status6)
+    if (!maxlipo.begin(&Wire))
     {
       Serial.println("Failed to initialize MAX17048.");
       while (1);
