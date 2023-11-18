@@ -233,7 +233,7 @@ void MyComponent::setup()
     i2c_set();
     ads1115_set();
     adxl345_set();
-    // max17048_set();
+    max17048_set();
 }    
 void MyComponent::loop()
 {
@@ -243,8 +243,8 @@ void MyComponent::update()
 {
     internal_temp();
     ads1115();
-    // adxl345();
-    // max17048();
+    adxl345();
+    max17048();
     bt();
     sensor();
 }
