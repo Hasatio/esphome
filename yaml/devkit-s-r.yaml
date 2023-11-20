@@ -84,24 +84,6 @@ button:
     name: "Restart"
 
 
-# switch:
-#   - platform: gpio
-#     name: "Led"
-#     pin: 
-#       number: GPIO13
-#       mode:
-#         output: True
-#       inverted: False
-
-
-# status_led:
-#     pin: 
-#       number: GPIO13
-#       mode:
-#         output: True
-#       inverted: False
-
-
 light:
   - platform: status_led
     name: "status led"
