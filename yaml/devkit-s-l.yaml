@@ -28,7 +28,6 @@ wifi:
     password: $devicename
   reboot_timeout: 0s
   fast_connect: true
-  # power_save_mode: none
 
 captive_portal:
 
