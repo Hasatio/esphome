@@ -55,10 +55,10 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 float request_measurement();
-void set_continuous_mode(bool continuous_mode) { continuous_mode_ = true; /*continuous_mode;*/ }
-void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = multiplexer; }
-void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144; /*gain;*/ }
-void set_resolution(ADS1115Resolution resolution) { resolution_ = ADS1115_16_BITS; /*resolution;*/ }
+void set_continuous_mode(bool continuous_mode) { continuous_mode_ = true /*continuous_mode*/; }
+void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = ADS1115_MULTIPLEXER_P1_NG /*multiplexer*/; }
+void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144 /*gain*/; }
+void set_resolution(ADS1115Resolution resolution) { resolution_ = ADS1115_16_BITS /*resolution*/; }
 float sample();
 uint8_t get_multiplexer() const { return multiplexer_; }
 uint8_t get_gain() const { return gain_; }
@@ -192,7 +192,7 @@ text_sensor::TextSensor *AnInGen_Val_{nullptr};
 text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 uint16_t prev_config_{0};
-bool continuous_mode_ = true;
+bool continuous_mode_;
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
