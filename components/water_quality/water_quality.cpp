@@ -481,7 +481,7 @@ ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
   }
 
     this->status_clear_warning();
-    millivolts =/ 1e3f;
+    millivolts /= 1e3f;
     ESP_LOGI(TAG, "config: %x", millivolts);
     return millivolts / 1e3f;
 }
