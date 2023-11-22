@@ -175,7 +175,7 @@ void MyComponent::update()
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
-    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+    for (size_t i = 4; i < 8; i++)
     {
         float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
