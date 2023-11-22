@@ -480,9 +480,10 @@ ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
       millivolts = NAN;
   }
 
-ESP_LOGI(TAG, "config: %x", config);
-  this->status_clear_warning();
-  return millivolts / 1e3f;
+    this->status_clear_warning();
+    millivolts =/ 1e3f;
+    ESP_LOGI(TAG, "config: %x", millivolts);
+    return millivolts / 1e3f;
 }
 }  // namespace water_quality
 }  // namespace esphome
