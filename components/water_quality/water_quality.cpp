@@ -391,7 +391,7 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
 //   config |= (this->get_multiplexer() & 0b111) << 12;
-  config |= (this->multi & 0b111) << 12;
+  config |= multi << 12;
 
   // Gain
   //        0bxxxxBBBxxxxxxxxx
