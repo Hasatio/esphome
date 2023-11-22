@@ -173,8 +173,13 @@ void MyComponent::update()
     // pump_total();
     sensor();
     // an.set_WT_Val(1.23);
-    ESP_LOGD(TAG,"test = %f", request_measurement());
+    // ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
+    float v = this->request_measurement();
+    if (!std::isnan(v)) {
+        ESP_LOGD(TAG, "'%s': Got Voltage=%fV", this->get_name().c_str(), v);
+        this->publish_state(v);
+    }
 }
 
     bool pd[6], pc[6];
