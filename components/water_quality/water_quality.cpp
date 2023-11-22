@@ -394,37 +394,36 @@ float MyComponent::request_measurement() {
   config &= 0b1111000111111111;
   config |= (this->get_gain() & 0b111) << 9;
 
-  if (!this->continuous_mode_) {
-    // Start conversion
-    config |= 0b1000000000000000;
-  }
+//   if (!this->continuous_mode_) {
+//     // Start conversion
+//     config |= 0b1000000000000000;
+//   }
 
-  if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-      this->status_set_warning();
-      return NAN;
-    }
-    this->prev_config_ = config;
+//   if (!this->continuous_mode_ || this->prev_config_ != config) {
+//     if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+//       this->status_set_warning();
+//       return NAN;
+//     }
+//     this->prev_config_ = config;
 
-    // about 1.2 ms with 860 samples per second
-    delay(2);
+//     // about 1.2 ms with 860 samples per second
+//     delay(2);
 
-    // in continuous mode, conversion will always be running, rely on the delay
-    // to ensure conversion is taking place with the correct settings
-    // can we use the rdy pin to trigger when a conversion is done?
-    ESP_LOGI(TAG, "config: %x", config);
-    if (!this->continuous_mode_) {
-      uint32_t start = millis();
-      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
-        if (millis() - start > 100) {
-          ESP_LOGW(TAG, "Reading ADS1115 timed out");
-          this->status_set_warning();
-          return NAN;
-        }
-        yield();
-      }
-    }
-  }
+//     // in continuous mode, conversion will always be running, rely on the delay
+//     // to ensure conversion is taking place with the correct settings
+//     // can we use the rdy pin to trigger when a conversion is done?
+//     if (!this->continuous_mode_) {
+//       uint32_t start = millis();
+//       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+//         if (millis() - start > 100) {
+//           ESP_LOGW(TAG, "Reading ADS1115 timed out");
+//           this->status_set_warning();
+//           return NAN;
+//         }
+//         yield();
+//       }
+//     }
+//   }
 
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
@@ -432,21 +431,21 @@ float MyComponent::request_measurement() {
     return NAN;
   }
   
-  if (this->get_resolution() == ADS1015_12_BITS) {
-    bool negative = (raw_conversion >> 15) == 1;
+//   if (this->get_resolution() == ADS1015_12_BITS) {
+//     bool negative = (raw_conversion >> 15) == 1;
 
-    // shift raw_conversion as it's only 12-bits, left justified
-    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+//     // shift raw_conversion as it's only 12-bits, left justified
+//     raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
 
-    // check if number was negative in order to keep the sign
-    if (negative) {
-      // the number was negative
-      // 1) set the negative bit back
-      raw_conversion |= 0x8000;
-      // 2) reset the former (shifted) negative bit
-      raw_conversion &= 0xF7FF;
-    }
-  }
+//     // check if number was negative in order to keep the sign
+//     if (negative) {
+//       // the number was negative
+//       // 1) set the negative bit back
+//       raw_conversion |= 0x8000;
+//       // 2) reset the former (shifted) negative bit
+//       raw_conversion &= 0xF7FF;
+//     }
+//   }
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
@@ -475,6 +474,7 @@ float MyComponent::request_measurement() {
       millivolts = NAN;
   }
 
+ESP_LOGI(TAG, "config: %x", config);
   this->status_clear_warning();
   return millivolts / 1e3f;
 }
