@@ -173,7 +173,7 @@ void MyComponent::update()
     // pump_total();
     sensor();
     // an.set_WT_Val(1.23);
-    // ESP_LOGD(TAG,"wt test = %f", an.get_WT_Val());
+    ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
 }
 
