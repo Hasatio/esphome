@@ -25,14 +25,14 @@ void MyComponent::setup()
     // PCA9685_Setup();
     
   this->set_i2c_address(ADS1X15_ADDRESS2);
-  ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
+  ESP_LOGI(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
     this->mark_failed();
     return;
   }
 
-  ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
+  ESP_LOGI(TAG, "Configuring ADS1115...");
 
   uint16_t config = 0;
   // Clear single-shot bit
@@ -101,16 +101,16 @@ ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
 ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
 ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 // }
-ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
-ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
-float* lvl = an.get_Lvl_Perc();
-ESP_LOGI(TAG, "ads3: %f", lvl[0]);
-ESP_LOGI(TAG, "ads4: %f", lvl[1]);
-ESP_LOGI(TAG, "ads5: %f", an.get_EC_Val());
-ESP_LOGI(TAG, "ads6: %f", an.get_PH_Val());
-float* gen = an.get_Gen_Val();
-ESP_LOGI(TAG, "ads7: %f", gen[0]);
-ESP_LOGI(TAG, "ads8: %f", gen[1]);
+// ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
+// ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
+// float* lvl = an.get_Lvl_Perc();
+// ESP_LOGI(TAG, "ads3: %f", lvl[0]);
+// ESP_LOGI(TAG, "ads4: %f", lvl[1]);
+// ESP_LOGI(TAG, "ads5: %f", an.get_EC_Val());
+// ESP_LOGI(TAG, "ads6: %f", an.get_PH_Val());
+// float* gen = an.get_Gen_Val();
+// ESP_LOGI(TAG, "ads7: %f", gen[0]);
+// ESP_LOGI(TAG, "ads8: %f", gen[1]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
