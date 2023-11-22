@@ -398,36 +398,37 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   config &= 0b1111000111111111;
   config |= (this->get_gain() & 0b111) << 9;
 
-//   if (!this->continuous_mode_) {
-//     // Start conversion
-//     config |= 0b1000000000000000;
-//   }
+ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
+  if (!this->continuous_mode_) {
+    // Start conversion
+    config |= 0b1000000000000000;
+  }
 
-//   if (!this->continuous_mode_ || this->prev_config_ != config) {
-//     if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-//       this->status_set_warning();
-//       return NAN;
-//     }
-//     this->prev_config_ = config;
+  if (!this->continuous_mode_ || this->prev_config_ != config) {
+    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+      this->status_set_warning();
+      return NAN;
+    }
+    this->prev_config_ = config;
 
-//     // about 1.2 ms with 860 samples per second
-//     delay(2);
+    // about 1.2 ms with 860 samples per second
+    delay(2);
 
-//     // in continuous mode, conversion will always be running, rely on the delay
-//     // to ensure conversion is taking place with the correct settings
-//     // can we use the rdy pin to trigger when a conversion is done?
-//     if (!this->continuous_mode_) {
-//       uint32_t start = millis();
-//       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
-//         if (millis() - start > 100) {
-//           ESP_LOGW(TAG, "Reading ADS1115 timed out");
-//           this->status_set_warning();
-//           return NAN;
-//         }
-//         yield();
-//       }
-//     }
-//   }
+    // in continuous mode, conversion will always be running, rely on the delay
+    // to ensure conversion is taking place with the correct settings
+    // can we use the rdy pin to trigger when a conversion is done?
+    if (!this->continuous_mode_) {
+      uint32_t start = millis();
+      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+        if (millis() - start > 100) {
+          ESP_LOGW(TAG, "Reading ADS1115 timed out");
+          this->status_set_warning();
+          return NAN;
+        }
+        yield();
+      }
+    }
+  }
 
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
