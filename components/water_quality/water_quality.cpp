@@ -180,7 +180,7 @@ void MyComponent::update()
     {
         float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage%d: %f",i, v);
+            // ESP_LOGD(TAG, "Voltage%d: %f",i, v);
             // this->publish_state(v);
         }
     }
@@ -482,7 +482,7 @@ ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
 
     this->status_clear_warning();
     millivolts /= 1e3f;
-    ESP_LOGI(TAG, "config: %x", millivolts);
+    // ESP_LOGI(TAG, "config: %x", millivolts);
     return millivolts / 1e3f;
 }
 }  // namespace water_quality
