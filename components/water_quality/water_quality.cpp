@@ -175,10 +175,13 @@ void MyComponent::update()
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
-    float v = this->request_measurement();
-    if (!std::isnan(v)) {
-        ESP_LOGD(TAG, "Voltage: %f", v);
-        // this->publish_state(v);
+    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+    {
+        float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
+        if (!std::isnan(v)) {
+            ESP_LOGD(TAG, "Voltage%d: %f",i, v);
+            // this->publish_state(v);
+        }
     }
 }
 
@@ -382,12 +385,13 @@ void MyComponent::sensor()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-float MyComponent::request_measurement() {
+float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   uint16_t config = this->prev_config_;
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
-  config |= (this->get_multiplexer() & 0b111) << 12;
+//   config |= (this->get_multiplexer() & 0b111) << 12;
+  config |= (this->multi & 0b111) << 12;
 
   // Gain
   //        0bxxxxBBBxxxxxxxxx

@@ -54,7 +54,7 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sen
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-float request_measurement();
+float request_measurement(ADS1115Multiplexer multi);
 void set_continuous_mode(bool continuous_mode) { continuous_mode_ = true /*continuous_mode*/; }
 void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = ADS1115_MULTIPLEXER_P1_NG /*multiplexer*/; }
 void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144 /*gain*/; }
