@@ -54,7 +54,15 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sen
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
+float request_measurement();
 void set_continuous_mode(bool continuous_mode) { continuous_mode_ = true; /*continuous_mode;*/ }
+void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = multiplexer; }
+void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144; /*gain;*/ }
+void set_resolution(ADS1115Resolution resolution) { resolution_ = ADS1115_16_BITS; /*resolution;*/ }
+float sample();
+uint8_t get_multiplexer() const { return multiplexer_; }
+uint8_t get_gain() const { return gain_; }
+uint8_t get_resolution() const { return resolution_; }
 
 // void register_sensor(MySensor *obj) { this->sensors_.push_back(obj); }
 
@@ -168,6 +176,9 @@ void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat
 
 protected:
 MyComponent *parent_;
+ADS1115Multiplexer multiplexer_;
+ADS1115Gain gain_;
+ADS1115Resolution resolution_;
 
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
