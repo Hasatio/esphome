@@ -412,6 +412,7 @@ float MyComponent::request_measurement() {
     // in continuous mode, conversion will always be running, rely on the delay
     // to ensure conversion is taking place with the correct settings
     // can we use the rdy pin to trigger when a conversion is done?
+    ESP_LOGI(TAG, "config: %b", config);
     if (!this->continuous_mode_) {
       uint32_t start = millis();
       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
