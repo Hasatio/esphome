@@ -180,6 +180,8 @@ sensor::Sensor *AnInPH_Val_{nullptr};
 text_sensor::TextSensor *AnInGen_Val_{nullptr};
 text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
+uint16_t prev_config_{0};
+bool continuous_mode_;
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
