@@ -26,8 +26,8 @@ void MyComponent::setup()
     
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
-  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    wq.mark_failed();
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
+    this->mark_failed();
     return;
   }
 
@@ -75,8 +75,8 @@ void MyComponent::setup()
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
-  if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    wq.mark_failed();
+  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    this->mark_failed();
     return;
   }
   this->prev_config_ = config;
@@ -91,16 +91,16 @@ void MyComponent::dump_config()
     ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
 
 LOG_I2C_DEVICE(this);
-if (wq.is_failed()) {
+if (this->is_failed()) {
 ESP_LOGE(TAG, "Communication with ADS1115 failed!");
 }
 
-for (auto *sensor : this->sensors_) {
-LOG_SENSOR("  ", "Sensor", sensor);
+// for (auto *sensor : this->sensors_) {
+// LOG_SENSOR("  ", "Sensor", sensor);
 ESP_LOGCONFIG(TAG, "    Multiplexer: %u", sensor->get_multiplexer());
 ESP_LOGCONFIG(TAG, "    Gain: %u", sensor->get_gain());
 ESP_LOGCONFIG(TAG, "    Resolution: %u", sensor->get_resolution());
-}
+// }
 ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
 ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
 float* lvl = an.get_Lvl_Perc();
@@ -382,12 +382,12 @@ float MyComponent::request_measurement() {
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
-  config |= (sensor->get_multiplexer() & 0b111) << 12;
+  config |= (this->get_multiplexer() & 0b111) << 12;
 
   // Gain
   //        0bxxxxBBBxxxxxxxxx
   config &= 0b1111000111111111;
-  config |= (sensor->get_gain() & 0b111) << 9;
+  config |= (this->get_gain() & 0b111) << 9;
 
   if (!this->continuous_mode_) {
     // Start conversion
@@ -395,8 +395,8 @@ float MyComponent::request_measurement() {
   }
 
   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-      wq.status_set_warning();
+    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+      this->status_set_warning();
       return NAN;
     }
     this->prev_config_ = config;
@@ -409,10 +409,10 @@ float MyComponent::request_measurement() {
     // can we use the rdy pin to trigger when a conversion is done?
     if (!this->continuous_mode_) {
       uint32_t start = millis();
-      while (wq.read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
         if (millis() - start > 100) {
           ESP_LOGW(TAG, "Reading ADS1115 timed out");
-          wq.status_set_warning();
+          this->status_set_warning();
           return NAN;
         }
         yield();
@@ -421,12 +421,12 @@ float MyComponent::request_measurement() {
   }
 
   uint16_t raw_conversion;
-  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    wq.status_set_warning();
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+    this->status_set_warning();
     return NAN;
   }
   
-  if (sensor->get_resolution() == ADS1015_12_BITS) {
+  if (this->get_resolution() == ADS1015_12_BITS) {
     bool negative = (raw_conversion >> 15) == 1;
 
     // shift raw_conversion as it's only 12-bits, left justified
@@ -446,7 +446,7 @@ float MyComponent::request_measurement() {
 
   float millivolts;
   float divider = 32768.0f;
-  switch (sensor->get_gain()) {
+  switch (this->get_gain()) {
     case ADS1115_GAIN_6P144:
       millivolts = (signed_conversion * 6144) / divider;
       break;
@@ -469,7 +469,7 @@ float MyComponent::request_measurement() {
       millivolts = NAN;
   }
 
-  wq.status_clear_warning();
+  this->status_clear_warning();
   return millivolts / 1e3f;
 }
 }  // namespace water_quality
