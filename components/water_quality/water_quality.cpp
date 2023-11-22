@@ -97,9 +97,9 @@ ESP_LOGE(TAG, "Communication with ADS1115 failed!");
 
 // for (auto *sensor : this->sensors_) {
 // LOG_SENSOR("  ", "Sensor", sensor);
-ESP_LOGCONFIG(TAG, "    Multiplexer: %u", sensor->get_multiplexer());
-ESP_LOGCONFIG(TAG, "    Gain: %u", sensor->get_gain());
-ESP_LOGCONFIG(TAG, "    Resolution: %u", sensor->get_resolution());
+ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
+ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
+ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 // }
 ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
 ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
