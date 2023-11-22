@@ -177,8 +177,8 @@ void MyComponent::update()
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
     float v = this->request_measurement();
     if (!std::isnan(v)) {
-        ESP_LOGD(TAG, "'%s': Got Voltage=%fV", this->get_name().c_str(), v);
-        this->publish_state(v);
+        ESP_LOGD(TAG, "Voltage: %f", v);
+        // this->publish_state(v);
     }
 }
 
