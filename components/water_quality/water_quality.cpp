@@ -89,7 +89,6 @@ void MyComponent::dump_config()
         ESP_LOGE(TAG, "Communication failed!");
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
-    ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
 
 LOG_I2C_DEVICE(this);
 if (this->is_failed()) {
