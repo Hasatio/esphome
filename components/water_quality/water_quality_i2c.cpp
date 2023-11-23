@@ -7,6 +7,107 @@ namespace water_quality {
 
     // Analog ana;
     // Digital digi;
+    MyComponent wq;
+
+float request_measurement(ADS1115Multiplexer multi) {
+    uint16_t config;
+//   uint16_t config = this->prev_config_;
+  // Multiplexer
+  //        0bxBBBxxxxxxxxxxxx
+  config &= 0b1000111111111111;
+//   config |= (this->get_multiplexer() & 0b111) << 12;
+  config |= multi << 12;
+
+  // Gain
+  //        0bxxxxBBBxxxxxxxxx
+  config &= 0b1111000111111111;
+//   config |= (this->get_gain() & 0b111) << 9;
+  config |= (ADS1115_GAIN_6P144) << 9;
+  
+//   if (!this->continuous_mode_) {
+//     // Start conversion
+//     config |= 0b1000000000000000;
+//   }
+
+//   if (!this->continuous_mode_ || this->prev_config_ != config) {
+    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    //   this->status_set_warning();
+      return NAN;
+    }
+//     this->prev_config_ = config;
+
+//     // about 1.2 ms with 860 samples per second
+//     delay(2);
+
+//     // in continuous mode, conversion will always be running, rely on the delay
+//     // to ensure conversion is taking place with the correct settings
+//     // can we use the rdy pin to trigger when a conversion is done?
+//     if (!this->continuous_mode_) {
+//       uint32_t start = millis();
+//       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+//         if (millis() - start > 100) {
+//           ESP_LOGW(TAG, "Reading ADS1115 timed out");
+//           this->status_set_warning();
+//           return NAN;
+//         }
+//         yield();
+//       }
+//     }
+//   }
+
+  uint16_t raw_conversion;
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+    // this->status_set_warning();
+    return NAN;
+  }
+  
+//   if (this->get_resolution() == ADS1015_12_BITS) {
+//     bool negative = (raw_conversion >> 15) == 1;
+
+//     // shift raw_conversion as it's only 12-bits, left justified
+//     raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+
+//     // check if number was negative in order to keep the sign
+//     if (negative) {
+//       // the number was negative
+//       // 1) set the negative bit back
+//       raw_conversion |= 0x8000;
+//       // 2) reset the former (shifted) negative bit
+//       raw_conversion &= 0xF7FF;
+//     }
+//   }
+
+  auto signed_conversion = static_cast<int16_t>(raw_conversion);
+
+  float millivolts;
+  float divider = 32768.0f;
+//   switch (this->get_gain()) {
+//     case ADS1115_GAIN_6P144:
+      millivolts = (signed_conversion * 6144) / divider;
+//       break;
+//     case ADS1115_GAIN_4P096:
+//       millivolts = (signed_conversion * 4096) / divider;
+//       break;
+//     case ADS1115_GAIN_2P048:
+//       millivolts = (signed_conversion * 2048) / divider;
+//       break;
+//     case ADS1115_GAIN_1P024:
+//       millivolts = (signed_conversion * 1024) / divider;
+//       break;
+//     case ADS1115_GAIN_0P512:
+//       millivolts = (signed_conversion * 512) / divider;
+//       break;
+//     case ADS1115_GAIN_0P256:
+//       millivolts = (signed_conversion * 256) / divider;
+//       break;
+//     default:
+//       millivolts = NAN;
+//   }
+
+    // this->status_clear_warning();
+    millivolts /= 1e3f;
+    return millivolts;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
