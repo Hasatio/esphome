@@ -141,9 +141,9 @@ void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat
 
 protected:
 MyComponent *parent_;
-ADS1115Multiplexer multiplexer_;
-ADS1115Gain gain_;
-ADS1115Resolution resolution_;
+// ADS1115Multiplexer multiplexer_;
+// ADS1115Gain gain_;
+// ADS1115Resolution resolution_;
 
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
