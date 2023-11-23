@@ -182,7 +182,7 @@ void MyComponent::update()
   this->set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 4; i < 8; i++)
     {
-        float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
             ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
             // this->publish_state(v);
@@ -402,7 +402,8 @@ float request_measurement(ADS1115Multiplexer multi) {
   // Gain
   //        0bxxxxBBBxxxxxxxxx
   config &= 0b1111000111111111;
-  config |= (this->get_gain() & 0b111) << 9;
+//   config |= (this->get_gain() & 0b111) << 9;
+  config |= (ADS1115_GAIN_6P144) << 9;
   
 //   if (!this->continuous_mode_) {
 //     // Start conversion
@@ -411,7 +412,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 
 //   if (!this->continuous_mode_ || this->prev_config_ != config) {
     if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-      this->status_set_warning();
+    //   this->status_set_warning();
       return NAN;
     }
 //     this->prev_config_ = config;
@@ -437,7 +438,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    this->status_set_warning();
+    // this->status_set_warning();
     return NAN;
   }
   
@@ -484,7 +485,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //       millivolts = NAN;
 //   }
 
-    this->status_clear_warning();
+    // this->status_clear_warning();
     millivolts /= 1e3f;
     return millivolts;
 }
