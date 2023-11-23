@@ -411,7 +411,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //   }
 
 //   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    if (!MyComponent::write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     //   this->status_set_warning();
       return NAN;
     }
