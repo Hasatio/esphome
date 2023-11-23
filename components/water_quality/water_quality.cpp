@@ -433,11 +433,8 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     this->status_set_warning();
-    ESP_LOGI(TAG, "raw_conversion: NAN");
     return NAN;
   }
-    ESP_LOGI(TAG, "config: %x", config);
-    ESP_LOGI(TAG, "raw_conversion: %f", raw_conversion);
   
   if (this->get_resolution() == ADS1015_12_BITS) {
     bool negative = (raw_conversion >> 15) == 1;
