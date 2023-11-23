@@ -25,6 +25,7 @@ void MyComponent::setup()
     // PCA9685_Setup();
     
 
+  this->set_i2c_address(ADS1X15_ADDRESS1);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
@@ -77,18 +78,14 @@ set_continuous_mode(true);
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
-  this->set_i2c_address(ADS1X15_ADDRESS1);
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     this->mark_failed();
-ESP_LOGE(TAG, "Communication with ADS1 failed!");
     return;
   }
   this->prev_config_ = config;
 
-  this->set_i2c_address(ADS1X15_ADDRESS2);
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     this->mark_failed();
-ESP_LOGE(TAG, "Communication with ADS2 failed!");
     return;
   }
   this->prev_config_ = config;
@@ -193,15 +190,6 @@ void MyComponent::update()
         float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
             ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
-            // this->publish_state(v);
-        }
-    }
-  this->set_i2c_address(ADS1X15_ADDRESS2);
-    for (size_t i = 4; i < 8; i++)
-    {
-        float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
-        if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage2%d: %f",i, v);
             // this->publish_state(v);
         }
     }
