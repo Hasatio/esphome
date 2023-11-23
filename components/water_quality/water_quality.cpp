@@ -24,7 +24,6 @@ void MyComponent::setup()
 
     // PCA9685_Setup();
     
-  this->set_i2c_address(ADS1X15_ADDRESS1);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
@@ -176,11 +175,22 @@ void MyComponent::update()
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
+    
+  this->set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 4; i < 8; i++)
     {
         float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage%d: %f",i, v);
+            ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
+            // this->publish_state(v);
+        }
+    }
+  this->set_i2c_address(ADS1X15_ADDRESS2);
+    for (size_t i = 4; i < 8; i++)
+    {
+        float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
+        if (!std::isnan(v)) {
+            ESP_LOGD(TAG, "Voltage2%d: %f",i, v);
             // this->publish_state(v);
         }
     }
