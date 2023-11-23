@@ -24,7 +24,7 @@ void MyComponent::setup()
 
     // PCA9685_Setup();
     
-  this->set_i2c_address(ADS1X15_ADDRESS2);
+  this->set_i2c_address(ADS1X15_ADDRESS1);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
