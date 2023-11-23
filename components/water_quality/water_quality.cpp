@@ -40,7 +40,7 @@ void MyComponent::setup()
   config |= 0b0000000000000000;
   // Setup multiplexer
   //        0bx000xxxxxxxxxxxx
-  config |= ADS1115_MULTIPLEXER_P0_NG << 12;
+  config |= ADS1115_MULTIPLEXER_P0_N1 << 12;
 
   // Setup Gain
   //        0bxxxx000xxxxxxxxx
