@@ -12,11 +12,6 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
-static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
-
-static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
-
 void MyComponent::setup()
 {
     // ADS1115_Setup();
