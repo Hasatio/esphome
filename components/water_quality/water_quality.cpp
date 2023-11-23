@@ -435,6 +435,8 @@ set_continuous_mode(true);
     this->status_set_warning();
     return NAN;
   }
+    ESP_LOGI(TAG, "config: %x", config);
+    ESP_LOGI(TAG, "raw_conversion: %f", raw_conversion);
   
   if (this->get_resolution() == ADS1015_12_BITS) {
     bool negative = (raw_conversion >> 15) == 1;
@@ -479,10 +481,8 @@ set_continuous_mode(true);
       millivolts = NAN;
   }
 
-    ESP_LOGI(TAG, "config: %x", config);
     this->status_clear_warning();
     millivolts /= 1e3f;
-    ESP_LOGI(TAG, "millivolts: %f", millivolts);
     return millivolts;
 }
 }  // namespace water_quality
