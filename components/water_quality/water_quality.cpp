@@ -35,7 +35,7 @@ void MyComponent::setup()
 
   ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
 
-set_continuous_mode(true);
+// set_continuous_mode(true);
   uint16_t config = 0;
   // Clear single-shot bit
   //        0b0xxxxxxxxxxxxxxx
@@ -48,15 +48,15 @@ set_continuous_mode(true);
   //        0bxxxx000xxxxxxxxx
   config |= ADS1115_GAIN_6P144 << 9;
 
-  if (this->continuous_mode_) {
+//   if (this->continuous_mode_) {
     // Set continuous mode
     //        0bxxxxxxx0xxxxxxxx
     config |= 0b0000000000000000;
-  } else {
-    // Set singleshot mode
-    //        0bxxxxxxx1xxxxxxxx
-    config |= 0b0000000100000000;
-  }
+//   } else {
+    // // Set singleshot mode
+    // //        0bxxxxxxx1xxxxxxxx
+    // config |= 0b0000000100000000;
+//   }
 
   // Set data rate - 860 samples per second (we're in singleshot mode)
   //        0bxxxxxxxx100xxxxx
@@ -82,13 +82,8 @@ set_continuous_mode(true);
     this->mark_failed();
     return;
   }
-  this->prev_config_ = config;
+//   this->prev_config_ = config;
 
-  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->mark_failed();
-    return;
-  }
-  this->prev_config_ = config;
 }
 void MyComponent::dump_config()
 {
@@ -105,9 +100,9 @@ ESP_LOGE(TAG, "Communication with ADS1115 failed!");
 
 // for (auto *sensor : this->sensors_) {
 // LOG_SENSOR("  ", "Sensor", sensor);
-ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
-ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
-ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
+// ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
+// ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
+// ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 // }
 // ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
 // ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
@@ -395,8 +390,9 @@ void MyComponent::sensor()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-float MyComponent::request_measurement(ADS1115Multiplexer multi) {
-  uint16_t config = this->prev_config_;
+float request_measurement(ADS1115Multiplexer multi) {
+    uint16_t config;
+//   uint16_t config = this->prev_config_;
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
@@ -407,37 +403,37 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   //        0bxxxxBBBxxxxxxxxx
   config &= 0b1111000111111111;
   config |= (this->get_gain() & 0b111) << 9;
-// ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
-  if (!this->continuous_mode_) {
-    // Start conversion
-    config |= 0b1000000000000000;
-  }
+  
+//   if (!this->continuous_mode_) {
+//     // Start conversion
+//     config |= 0b1000000000000000;
+//   }
 
-  if (!this->continuous_mode_ || this->prev_config_ != config) {
+//   if (!this->continuous_mode_ || this->prev_config_ != config) {
     if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
       this->status_set_warning();
       return NAN;
     }
-    this->prev_config_ = config;
+//     this->prev_config_ = config;
 
-    // about 1.2 ms with 860 samples per second
-    delay(2);
+//     // about 1.2 ms with 860 samples per second
+//     delay(2);
 
-    // in continuous mode, conversion will always be running, rely on the delay
-    // to ensure conversion is taking place with the correct settings
-    // can we use the rdy pin to trigger when a conversion is done?
-    if (!this->continuous_mode_) {
-      uint32_t start = millis();
-      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
-        if (millis() - start > 100) {
-          ESP_LOGW(TAG, "Reading ADS1115 timed out");
-          this->status_set_warning();
-          return NAN;
-        }
-        yield();
-      }
-    }
-  }
+//     // in continuous mode, conversion will always be running, rely on the delay
+//     // to ensure conversion is taking place with the correct settings
+//     // can we use the rdy pin to trigger when a conversion is done?
+//     if (!this->continuous_mode_) {
+//       uint32_t start = millis();
+//       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+//         if (millis() - start > 100) {
+//           ESP_LOGW(TAG, "Reading ADS1115 timed out");
+//           this->status_set_warning();
+//           return NAN;
+//         }
+//         yield();
+//       }
+//     }
+//   }
 
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
@@ -445,48 +441,48 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
     return NAN;
   }
   
-  if (this->get_resolution() == ADS1015_12_BITS) {
-    bool negative = (raw_conversion >> 15) == 1;
+//   if (this->get_resolution() == ADS1015_12_BITS) {
+//     bool negative = (raw_conversion >> 15) == 1;
 
-    // shift raw_conversion as it's only 12-bits, left justified
-    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+//     // shift raw_conversion as it's only 12-bits, left justified
+//     raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
 
-    // check if number was negative in order to keep the sign
-    if (negative) {
-      // the number was negative
-      // 1) set the negative bit back
-      raw_conversion |= 0x8000;
-      // 2) reset the former (shifted) negative bit
-      raw_conversion &= 0xF7FF;
-    }
-  }
+//     // check if number was negative in order to keep the sign
+//     if (negative) {
+//       // the number was negative
+//       // 1) set the negative bit back
+//       raw_conversion |= 0x8000;
+//       // 2) reset the former (shifted) negative bit
+//       raw_conversion &= 0xF7FF;
+//     }
+//   }
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
   float millivolts;
   float divider = 32768.0f;
-  switch (this->get_gain()) {
-    case ADS1115_GAIN_6P144:
+//   switch (this->get_gain()) {
+//     case ADS1115_GAIN_6P144:
       millivolts = (signed_conversion * 6144) / divider;
-      break;
-    case ADS1115_GAIN_4P096:
-      millivolts = (signed_conversion * 4096) / divider;
-      break;
-    case ADS1115_GAIN_2P048:
-      millivolts = (signed_conversion * 2048) / divider;
-      break;
-    case ADS1115_GAIN_1P024:
-      millivolts = (signed_conversion * 1024) / divider;
-      break;
-    case ADS1115_GAIN_0P512:
-      millivolts = (signed_conversion * 512) / divider;
-      break;
-    case ADS1115_GAIN_0P256:
-      millivolts = (signed_conversion * 256) / divider;
-      break;
-    default:
-      millivolts = NAN;
-  }
+//       break;
+//     case ADS1115_GAIN_4P096:
+//       millivolts = (signed_conversion * 4096) / divider;
+//       break;
+//     case ADS1115_GAIN_2P048:
+//       millivolts = (signed_conversion * 2048) / divider;
+//       break;
+//     case ADS1115_GAIN_1P024:
+//       millivolts = (signed_conversion * 1024) / divider;
+//       break;
+//     case ADS1115_GAIN_0P512:
+//       millivolts = (signed_conversion * 512) / divider;
+//       break;
+//     case ADS1115_GAIN_0P256:
+//       millivolts = (signed_conversion * 256) / divider;
+//       break;
+//     default:
+//       millivolts = NAN;
+//   }
 
     this->status_clear_warning();
     millivolts /= 1e3f;
