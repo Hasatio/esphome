@@ -40,7 +40,7 @@ void MyComponent::setup()
   config |= 0b0000000000000000;
   // Setup multiplexer
   //        0bx000xxxxxxxxxxxx
-  config |= ADS1115_MULTIPLEXER_P0_N1 << 12;
+  config |= ADS1115_MULTIPLEXER_P0_NG << 12;
 
   // Setup Gain
   //        0bxxxx000xxxxxxxxx
@@ -175,7 +175,7 @@ void MyComponent::update()
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
-    for (size_t i = 0; i < 8; i++)
+    for (size_t i = 4; i < 8; i++)
     {
         float v = this->request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
@@ -433,6 +433,7 @@ set_continuous_mode(true);
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     this->status_set_warning();
+    ESP_LOGI(TAG, "raw_conversion: NAN");
     return NAN;
   }
     ESP_LOGI(TAG, "config: %x", config);
