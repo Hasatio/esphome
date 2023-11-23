@@ -483,7 +483,7 @@ set_continuous_mode(true);
     this->status_clear_warning();
     millivolts /= 1e3f;
     ESP_LOGI(TAG, "millivolts: %d", millivolts);
-    return millivolts / 1e3f;
+    return millivolts;
 }
 }  // namespace water_quality
 }  // namespace esphome
