@@ -1,3 +1,4 @@
+#include "water_quality.h"
 #include "water_quality_i2c.h"
 #include "analog.h"
 #include "digital.h"
