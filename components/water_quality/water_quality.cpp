@@ -34,6 +34,7 @@ void MyComponent::setup()
 
   ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
 
+set_continuous_mode(true);
   uint16_t config = 0;
   // Clear single-shot bit
   //        0b0xxxxxxxxxxxxxxx
@@ -397,7 +398,6 @@ float MyComponent::request_measurement(ADS1115Multiplexer multi) {
   //        0bxxxxBBBxxxxxxxxx
   config &= 0b1111000111111111;
   config |= (this->get_gain() & 0b111) << 9;
-set_continuous_mode(true);
 // ESP_LOGD(TAG, "continuous_mode: %d", get_continuous_mode());
   if (!this->continuous_mode_) {
     // Start conversion
