@@ -24,6 +24,7 @@ void MyComponent::setup()
 
     // PCA9685_Setup();
     
+
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
@@ -76,6 +77,14 @@ set_continuous_mode(true);
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
+  this->set_i2c_address(ADS1X15_ADDRESS1);
+  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    this->mark_failed();
+    return;
+  }
+  this->prev_config_ = config;
+
+  this->set_i2c_address(ADS1X15_ADDRESS2);
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     this->mark_failed();
     return;
