@@ -80,6 +80,7 @@ set_continuous_mode(true);
   this->set_i2c_address(ADS1X15_ADDRESS1);
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     this->mark_failed();
+ESP_LOGE(TAG, "Communication with ADS1 failed!");
     return;
   }
   this->prev_config_ = config;
@@ -87,6 +88,7 @@ set_continuous_mode(true);
   this->set_i2c_address(ADS1X15_ADDRESS2);
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     this->mark_failed();
+ESP_LOGE(TAG, "Communication with ADS2 failed!");
     return;
   }
   this->prev_config_ = config;
