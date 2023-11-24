@@ -31,7 +31,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //   }
 
 //   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     //   this->status_set_warning();
       return NAN;
     }
@@ -57,7 +57,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //   }
 
   uint16_t raw_conversion;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     // this->status_set_warning();
     return NAN;
   }
