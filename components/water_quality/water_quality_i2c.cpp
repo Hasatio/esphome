@@ -31,7 +31,7 @@ uint16_t config = 0b0000000011100011;
 //   }
 
 //   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     //   this->status_set_warning();
       return NAN;
     }
@@ -57,7 +57,7 @@ uint16_t config = 0b0000000011100011;
 //   }
 
   uint16_t raw_conversion;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     // this->status_set_warning();
     return NAN;
   }
@@ -198,11 +198,11 @@ void MyComponent::ADS1115_Setup(uint8_t address)
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
-  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->mark_failed();
+  if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    wq.mark_failed();
     return;
   }
-  this->prev_config_ = config;
+  wq.prev_config_ = config;
 
 
 //     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -262,7 +262,7 @@ void MyComponent::ADS1115_Setup(uint8_t address)
 void MyComponent::ADS1115_Driver(float analog_voltage[])
 {
     
-    this->set_i2c_address(ADS1X15_ADDRESS1);
+    wq.set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 4; i < 8; i++)
     {
         float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
