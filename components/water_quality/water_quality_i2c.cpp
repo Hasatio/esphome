@@ -13,7 +13,6 @@ namespace water_quality {
 float MyComponent::request_measurement(ADS1115Multiplexer multi) {
 uint16_t config = 0b0000000011100011;
 //   uint16_t config = this->prev_config_;
-ESP_LOGI(TAG, "config: %x", config);
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
