@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef I2C_H
-#define I2C_H
+#ifndef WATER_QUALITY_I2C_H
+#define WATER_QUALITY_I2C_H
 
 #include "esphome.h"
 #include "esphome/core/component.h"
@@ -78,4 +78,4 @@ void MCP23008_Driver();
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // I2C_H
+#endif  // WATER_QUALITY_I2C_H
