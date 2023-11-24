@@ -3,7 +3,6 @@
 // #ifndef WATER_QUALITY_H
 // #define WATER_QUALITY_H
 
-#include "water_quality_i2c.h"
 #include "esphome.h"
 #include "esphome/core/log.h"
 #include "esphome/core/component.h"
@@ -21,6 +20,31 @@
 // #include <Adafruit_PWMServoDriver.h>
 
 static const char *const TAG = "mycomponent";
+
+enum ADS1115Multiplexer {
+  ADS1115_MULTIPLEXER_P0_N1 = 0b000,
+  ADS1115_MULTIPLEXER_P0_N3 = 0b001,
+  ADS1115_MULTIPLEXER_P1_N3 = 0b010,
+  ADS1115_MULTIPLEXER_P2_N3 = 0b011,
+  ADS1115_MULTIPLEXER_P0_NG = 0b100,
+  ADS1115_MULTIPLEXER_P1_NG = 0b101,
+  ADS1115_MULTIPLEXER_P2_NG = 0b110,
+  ADS1115_MULTIPLEXER_P3_NG = 0b111,
+};
+
+enum ADS1115Gain {
+  ADS1115_GAIN_6P144 = 0b000,
+  ADS1115_GAIN_4P096 = 0b001,
+  ADS1115_GAIN_2P048 = 0b010,
+  ADS1115_GAIN_1P024 = 0b011,
+  ADS1115_GAIN_0P512 = 0b100,
+  ADS1115_GAIN_0P256 = 0b101,
+};
+
+enum ADS1115Resolution {
+  ADS1115_16_BITS = 16,
+  ADS1015_12_BITS = 12,
+};
 
 namespace esphome {
 namespace water_quality {
