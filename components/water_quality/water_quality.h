@@ -21,6 +21,9 @@
 
 static const char *const TAG = "mycomponent";
 
+namespace esphome {
+namespace water_quality {
+
 enum ADS1115Multiplexer {
   ADS1115_MULTIPLEXER_P0_N1 = 0b000,
   ADS1115_MULTIPLEXER_P0_N3 = 0b001,
@@ -45,9 +48,6 @@ enum ADS1115Resolution {
   ADS1115_16_BITS = 16,
   ADS1015_12_BITS = 12,
 };
-
-namespace esphome {
-namespace water_quality {
 
 class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
