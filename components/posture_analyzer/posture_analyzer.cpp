@@ -237,16 +237,15 @@ void MyComponent::setup()
 }    
 void MyComponent::loop()
 {
-
-}
-void MyComponent::update()
-{
     internal_temp();
     ads1115();
     adxl345();
     max17048();
     bt();
     sensor();
+}
+void MyComponent::update()
+{
 }
 
 void MyComponent::bluetooth(String b)
