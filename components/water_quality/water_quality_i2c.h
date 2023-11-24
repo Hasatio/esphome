@@ -32,13 +32,13 @@ namespace water_quality {
 
 void tcaselect(uint8_t bus);
 
-void ADS1115_Setup(uint8_t address);
-void ADS1115_Driver(float analog_voltage[]);
+// void ADS1115_Setup(uint8_t address);
+// void ADS1115_Driver(float analog_voltage[]);
 void MCP23008_Setup();
 void MCP23008_Driver();
 
 
-float request_measurement(ADS1115Multiplexer multi);
+// float request_measurement(ADS1115Multiplexer multi);
 // void set_continuous_mode(bool continuous_mode) { continuous_mode_ = continuous_mode; }
 // void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = ADS1115_MULTIPLEXER_P1_NG /*multiplexer*/; }
 // void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144 /*gain*/; }
