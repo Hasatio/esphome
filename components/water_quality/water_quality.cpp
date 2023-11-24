@@ -104,7 +104,7 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    // ADS1115_Driver();
+    ADS1115_Driver();
     an.Analog_Input_Driver();
     // MCP23008_Driver();
     // pca9685();
