@@ -29,6 +29,10 @@ class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sen
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
+void ADS1115_Setup(uint8_t address);
+void ADS1115_Driver(float analog_voltage[]);
+float request_measurement(ADS1115Multiplexer multi);
+
 // void register_sensor(MySensor *obj) { this->sensors_.push_back(obj); }
 
 uint16_t PwmFreq = 1000;
