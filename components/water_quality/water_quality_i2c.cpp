@@ -31,7 +31,7 @@ uint16_t config = 0b0000000011100011;
 //   }
 
 //   if (!wq.continuous_mode_ || wq.prev_config_ != config) {
-    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    if (!this->wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
       wq.status_set_warning();
       return NAN;
     }
