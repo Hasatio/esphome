@@ -199,8 +199,8 @@ void MyComponent::ADS1115_Setup(uint8_t address)
   //        0bxxxxxxxxxxxxxx11
   config |= 0b0000000000000011;
 
-  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->mark_failed();
+  if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    wq.mark_failed();
     return;
   }
 //   this->prev_config_ = config;
