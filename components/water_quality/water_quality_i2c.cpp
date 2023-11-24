@@ -11,7 +11,7 @@ namespace water_quality {
     MyComponent wq;
 
 float request_measurement(ADS1115Multiplexer multi) {
-    uint16_t config;
+    uint16_t config = 0b0000000011100011;
 //   uint16_t config = this->prev_config_;
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
