@@ -10,9 +10,10 @@ namespace water_quality {
     // Digital digi;
     MyComponent wq;
 
-float request_measurement(ADS1115Multiplexer multi) {
-    uint16_t config = 0b0000000011100011;
-//   uint16_t config = this->prev_config_;
+float MyComponent::request_measurement(ADS1115Multiplexer multi) {
+    // uint16_t config = 0b0000000011100011;
+  uint16_t config = this->prev_config_;
+ESP_LOGI(TAG, "config: %x", config);
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
@@ -31,7 +32,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //   }
 
 //   if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
     //   this->status_set_warning();
       return NAN;
     }
@@ -57,7 +58,7 @@ float request_measurement(ADS1115Multiplexer multi) {
 //   }
 
   uint16_t raw_conversion;
-  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     // this->status_set_warning();
     return NAN;
   }
@@ -143,13 +144,13 @@ void tcaselect(uint8_t bus)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ADS1115_Setup(uint8_t address)
+void MyComponent::ADS1115_Setup(uint8_t address)
 {
-  wq.set_i2c_address(address);
+  this->set_i2c_address(address);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
-  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    wq.mark_failed();
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
+    this->mark_failed();
     return;
   }
 
@@ -259,18 +260,18 @@ void ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-void ADS1115_Driver(float analog_voltage[])
+void MyComponent::ADS1115_Driver(float analog_voltage[])
 {
     
-//   wq.set_i2c_address(ADS1X15_ADDRESS1);
-    // for (size_t i = 4; i < 8; i++)
-    // {
-    //     float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
-    //     if (!std::isnan(v)) {
-    //         ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
-    //         // this->publish_state(v);
-    //     }
-    // }
+    this->set_i2c_address(ADS1X15_ADDRESS1);
+    for (size_t i = 4; i < 8; i++)
+    {
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
+        if (!std::isnan(v)) {
+            ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
+            // this->publish_state(v);
+        }
+    }
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = i;

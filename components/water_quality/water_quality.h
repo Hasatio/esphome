@@ -98,6 +98,10 @@ void pca9685()
     //     }
 }
 
+void ADS1115_Setup(uint8_t address);
+void ADS1115_Driver(float analog_voltage[]);
+float request_measurement(ADS1115Multiplexer multi);
+
 void sensor();
 
 void setup() override;
