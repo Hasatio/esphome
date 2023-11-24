@@ -12,30 +12,30 @@ namespace water_quality {
 
 float MyComponent::request_measurement(ADS1115Multiplexer multi) {
 uint16_t config = 0b0000000011100011;
-//   uint16_t config = this->prev_config_;
+//   uint16_t config = wq.prev_config_;
   // Multiplexer
   //        0bxBBBxxxxxxxxxxxx
   config &= 0b1000111111111111;
-//   config |= (this->get_multiplexer() & 0b111) << 12;
+//   config |= (wq.get_multiplexer() & 0b111) << 12;
   config |= multi << 12;
 
   // Gain
   //        0bxxxxBBBxxxxxxxxx
   config &= 0b1111000111111111;
-//   config |= (this->get_gain() & 0b111) << 9;
+//   config |= (wq.get_gain() & 0b111) << 9;
   config |= (ADS1115_GAIN_6P144) << 9;
   
-//   if (!this->continuous_mode_) {
+//   if (!wq.continuous_mode_) {
 //     // Start conversion
 //     config |= 0b1000000000000000;
 //   }
 
-//   if (!this->continuous_mode_ || this->prev_config_ != config) {
+//   if (!wq.continuous_mode_ || wq.prev_config_ != config) {
     if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    //   this->status_set_warning();
+    //   wq.status_set_warning();
       return NAN;
     }
-//     this->prev_config_ = config;
+//     wq.prev_config_ = config;
 
 //     // about 1.2 ms with 860 samples per second
 //     delay(2);
@@ -43,12 +43,12 @@ uint16_t config = 0b0000000011100011;
 //     // in continuous mode, conversion will always be running, rely on the delay
 //     // to ensure conversion is taking place with the correct settings
 //     // can we use the rdy pin to trigger when a conversion is done?
-//     if (!this->continuous_mode_) {
+//     if (!wq.continuous_mode_) {
 //       uint32_t start = millis();
-//       while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+//       while (wq.read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
 //         if (millis() - start > 100) {
 //           ESP_LOGW(TAG, "Reading ADS1115 timed out");
-//           this->status_set_warning();
+//           wq.status_set_warning();
 //           return NAN;
 //         }
 //         yield();
@@ -58,11 +58,11 @@ uint16_t config = 0b0000000011100011;
 
   uint16_t raw_conversion;
   if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    // this->status_set_warning();
+    // wq.status_set_warning();
     return NAN;
   }
   
-//   if (this->get_resolution() == ADS1015_12_BITS) {
+//   if (wq.get_resolution() == ADS1015_12_BITS) {
 //     bool negative = (raw_conversion >> 15) == 1;
 
 //     // shift raw_conversion as it's only 12-bits, left justified
@@ -82,7 +82,7 @@ uint16_t config = 0b0000000011100011;
 
   float millivolts;
   float divider = 32768.0f;
-//   switch (this->get_gain()) {
+//   switch (wq.get_gain()) {
 //     case ADS1115_GAIN_6P144:
       millivolts = (signed_conversion * 6144) / divider;
 //       break;
@@ -105,7 +105,7 @@ uint16_t config = 0b0000000011100011;
 //       millivolts = NAN;
 //   }
 
-    // this->status_clear_warning();
+    // wq.status_clear_warning();
     millivolts /= 1e3f;
     return millivolts;
 }
@@ -145,11 +145,11 @@ void tcaselect(uint8_t bus)
 
 void MyComponent::ADS1115_Setup(uint8_t address)
 {
-  this->set_i2c_address(address);
+  wq.set_i2c_address(address);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    this->mark_failed();
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
+    wq.mark_failed();
     return;
   }
 
@@ -168,7 +168,7 @@ void MyComponent::ADS1115_Setup(uint8_t address)
   //        0bxxxx000xxxxxxxxx
   config |= ADS1115_GAIN_6P144 << 9;
 
-//   if (this->continuous_mode_) {
+//   if (wq.continuous_mode_) {
     // Set continuous mode
     //        0bxxxxxxx0xxxxxxxx
     config |= 0b0000000000000000;
@@ -268,7 +268,7 @@ void MyComponent::ADS1115_Driver(float analog_voltage[])
         float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
             ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
-            // this->publish_state(v);
+            // wq.publish_state(v);
         }
     }
     for(size_t i = 0; i < 4; i++)
