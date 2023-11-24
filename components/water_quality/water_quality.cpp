@@ -9,7 +9,6 @@ namespace water_quality {
     Digital dig;
     Pump pump;
     Servo ser;
-    I2C i2c;
     
 static unsigned long timepoint = millis();
 

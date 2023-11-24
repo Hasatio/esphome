@@ -56,9 +56,6 @@ static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
 
 void tcaselect(uint8_t bus);
 
-class I2C : public i2c::I2CDevice
-{
-public:
 void ADS1115_Setup(uint8_t address);
 void ADS1115_Driver(float analog_voltage[]);
 float request_measurement(ADS1115Multiplexer multi);
@@ -77,9 +74,6 @@ void MCP23008_Driver();
 // uint8_t get_multiplexer() const { return multiplexer_; }
 // uint8_t get_gain() const { return gain_; }
 // uint8_t get_resolution() const { return resolution_; }
-protected:
-uint16_t prev_config_{0};
-};
 
 }  // namespace water_quality
 }  // namespace esphome
