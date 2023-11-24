@@ -202,7 +202,7 @@ void ADS1115_Setup(uint8_t address)
     // wq.mark_failed();
     return;
   }
-  wq.prev_config_ = config;
+//   wq.prev_config_ = config;
 
 
 //     if (!ads1.begin(ADS1X15_ADDRESS1))
