@@ -24,16 +24,16 @@ void MyComponent::setup()
 }
 void MyComponent::dump_config()
 {
-    LOG_I2C_DEVICE(this);
-    if (this->is_failed())
-        ESP_LOGE(TAG, "Communication failed!");
-    else
-        ESP_LOGI(TAG, "Communication Successfulled!");
+//     LOG_I2C_DEVICE(this);
+//     if (this->is_failed())
+//         ESP_LOGE(TAG, "Communication failed!");
+//     else
+//         ESP_LOGI(TAG, "Communication Successfulled!");
 
-LOG_I2C_DEVICE(this);
-if (this->is_failed()) {
-ESP_LOGE(TAG, "Communication with ADS1115 failed!");
-}
+// LOG_I2C_DEVICE(this);
+// if (this->is_failed()) {
+// ESP_LOGE(TAG, "Communication with ADS1115 failed!");
+// }
 
 ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
 ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
