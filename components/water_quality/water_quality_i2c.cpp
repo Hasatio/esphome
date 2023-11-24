@@ -266,10 +266,20 @@ void MyComponent::ADS1115_Driver(float analog_voltage[])
     {
         float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
         if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
+            ESP_LOGD(TAG, "Voltage%d: %f",i-3, v);
             // this->publish_state(v);
         }
     }
+    this->set_i2c_address(ADS1X15_ADDRESS2);
+    for (size_t i = 4; i < 8; i++)
+    {
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
+        if (!std::isnan(v)) {
+            ESP_LOGD(TAG, "Voltage%d: %f",i+1, v);
+            // this->publish_state(v);
+        }
+    }
+
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = i;
