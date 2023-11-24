@@ -143,9 +143,9 @@ void tcaselect(uint8_t bus)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ADS1115_Setup()
+void ADS1115_Setup(uint8_t address)
 {
-  wq.set_i2c_address(ADS1X15_ADDRESS1);
+  wq.set_i2c_address(address);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
@@ -263,14 +263,14 @@ void ADS1115_Driver(float analog_voltage[])
 {
     
 //   wq.set_i2c_address(ADS1X15_ADDRESS1);
-    for (size_t i = 4; i < 8; i++)
-    {
-        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
-        if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
-            // this->publish_state(v);
-        }
-    }
+    // for (size_t i = 4; i < 8; i++)
+    // {
+    //     float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
+    //     if (!std::isnan(v)) {
+    //         ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
+    //         // this->publish_state(v);
+    //     }
+    // }
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = i;
