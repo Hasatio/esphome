@@ -20,7 +20,7 @@ UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
 
 component_ns = cg.esphome_ns.namespace("posture_analyzer") # esphome komponent adı "myi2c"
-MyComponent = component_ns.class_("MyComponent", cg.Component) # sınıf tanımlaması
+MyComponent = component_ns.class_("MyComponent", cg.PollingComponent) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
     cv.Schema(
