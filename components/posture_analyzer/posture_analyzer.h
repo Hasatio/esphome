@@ -78,7 +78,7 @@ void dump_config() override
 {
     ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
 }
-void update() override;
+void update();
 
 void bluetooth(String b);
 void gain(float g);
