@@ -21,14 +21,13 @@
     #define MCP23008_ADDRESS 0x20
     #define PCA9685_I2C_ADDRESS 0x40
 
+namespace esphome {
+namespace water_quality {
 
 static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
 static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
 
 static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;  // 3300_SPS for ADS1015
-
-namespace esphome {
-namespace water_quality {
 
 void tcaselect(uint8_t bus);
 
