@@ -100,8 +100,8 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    // float f[8];
-    // ADS1115_Driver(f);
+    float f[8];
+    ADS1115_Driver(f);
     an.Analog_Input_Driver();
     // MCP23008_Driver();
     // pca9685();
