@@ -14,8 +14,8 @@ static unsigned long timepoint = millis();
 
 void MyComponent::setup()
 {
-    i2c.ADS1115_Setup(ADS1X15_ADDRESS1);
-    i2c.ADS1115_Setup(ADS1X15_ADDRESS2);
+    ADS1115_Setup(ADS1X15_ADDRESS1);
+    ADS1115_Setup(ADS1X15_ADDRESS2);
     // MCP23008_Setup();
 
     // PCA9685_Setup();
@@ -106,7 +106,7 @@ void MyComponent::loop()
 void MyComponent::update()
 {
     float f[8];
-    i2c.ADS1115_Driver(f);
+    ADS1115_Driver(f);
     an.Analog_Input_Driver();
     // MCP23008_Driver();
     // pca9685();
