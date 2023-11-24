@@ -143,8 +143,68 @@ void tcaselect(uint8_t bus)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// void ADS1115_Setup()
-// {
+void ADS1115_Setup()
+{
+  wq.set_i2c_address(ADS1X15_ADDRESS1);
+  ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
+  uint16_t value;
+  if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
+    wq.mark_failed();
+    return;
+  }
+
+  ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
+
+// set_continuous_mode(true);
+  uint16_t config = 0;
+  // Clear single-shot bit
+  //        0b0xxxxxxxxxxxxxxx
+  config |= 0b0000000000000000;
+  // Setup multiplexer
+  //        0bx000xxxxxxxxxxxx
+  config |= ADS1115_MULTIPLEXER_P0_N1 << 12;
+
+  // Setup Gain
+  //        0bxxxx000xxxxxxxxx
+  config |= ADS1115_GAIN_6P144 << 9;
+
+//   if (this->continuous_mode_) {
+    // Set continuous mode
+    //        0bxxxxxxx0xxxxxxxx
+    config |= 0b0000000000000000;
+//   } else {
+    // // Set singleshot mode
+    // //        0bxxxxxxx1xxxxxxxx
+    // config |= 0b0000000100000000;
+//   }
+
+  // Set data rate - 860 samples per second (we're in singleshot mode)
+  //        0bxxxxxxxx100xxxxx
+  config |= ADS1115_DATA_RATE_860_SPS << 5;
+
+  // Set comparator mode - hysteresis
+  //        0bxxxxxxxxxxx0xxxx
+  config |= 0b0000000000000000;
+
+  // Set comparator polarity - active low
+  //        0bxxxxxxxxxxxx0xxx
+  config |= 0b0000000000000000;
+
+  // Set comparator latch enabled - false
+  //        0bxxxxxxxxxxxxx0xx
+  config |= 0b0000000000000000;
+
+  // Set comparator que mode - disabled
+  //        0bxxxxxxxxxxxxxx11
+  config |= 0b0000000000000011;
+
+  if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+    wq.mark_failed();
+    return;
+  }
+//   this->prev_config_ = config;
+
+
 //     if (!ads1.begin(ADS1X15_ADDRESS1))
 //         ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
 //     else
@@ -198,9 +258,19 @@ void tcaselect(uint8_t bus)
 
 //     // ec.begin();
 //     // ph.begin();
-// }
+}
 void ADS1115_Driver(float analog_voltage[])
 {
+    
+  wq.set_i2c_address(ADS1X15_ADDRESS1);
+    for (size_t i = 4; i < 8; i++)
+    {
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
+        if (!std::isnan(v)) {
+            ESP_LOGD(TAG, "Voltage1%d: %f",i, v);
+            // this->publish_state(v);
+        }
+    }
     for(size_t i = 0; i < 4; i++)
     {
         analog_voltage[i] = i;
