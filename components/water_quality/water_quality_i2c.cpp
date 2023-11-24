@@ -149,7 +149,7 @@ void I2C::ADS1115_Setup(uint8_t address)
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    this->mark_failed();
+    // this->mark_failed();
     return;
   }
 
@@ -199,7 +199,7 @@ void I2C::ADS1115_Setup(uint8_t address)
   config |= 0b0000000000000011;
 
   if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->mark_failed();
+    // this->mark_failed();
     return;
   }
   this->prev_config_ = config;
