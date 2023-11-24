@@ -32,7 +32,7 @@ uint16_t config = 0b0000000011100011;
 
 //   if (!wq.continuous_mode_ || wq.prev_config_ != config) {
     if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    //   wq.status_set_warning();
+      wq.status_set_warning();
       return NAN;
     }
 //     wq.prev_config_ = config;
@@ -58,7 +58,7 @@ uint16_t config = 0b0000000011100011;
 
   uint16_t raw_conversion;
   if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    // wq.status_set_warning();
+    wq.status_set_warning();
     return NAN;
   }
   
@@ -105,7 +105,7 @@ uint16_t config = 0b0000000011100011;
 //       millivolts = NAN;
 //   }
 
-    // wq.status_clear_warning();
+    wq.status_clear_warning();
     return millivolts / 1e3f;
 }
 
@@ -148,7 +148,7 @@ void ADS1115_Setup(uint8_t address)
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!wq.read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
-    // wq.mark_failed();
+    wq.mark_failed();
     return;
   }
 
@@ -198,7 +198,7 @@ void ADS1115_Setup(uint8_t address)
   config |= 0b0000000000000011;
 
   if (!wq.write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    // wq.mark_failed();
+    wq.mark_failed();
     return;
   }
 //   wq.prev_config_ = config;
