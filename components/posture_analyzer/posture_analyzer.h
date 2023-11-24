@@ -55,7 +55,7 @@ namespace posture_analyzer {
   #error Bluetooth off--Run `make menuconfig` to enable it 
   #endif
 
-class MyComponent : public Component
+class MyComponent : public PollingComponent
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
