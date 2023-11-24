@@ -262,7 +262,7 @@ void ADS1115_Setup()
 void ADS1115_Driver(float analog_voltage[])
 {
     
-  wq.set_i2c_address(ADS1X15_ADDRESS1);
+//   wq.set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 4; i < 8; i++)
     {
         float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
