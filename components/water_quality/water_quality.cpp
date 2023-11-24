@@ -24,33 +24,27 @@ void MyComponent::setup()
 }
 void MyComponent::dump_config()
 {
-//     LOG_I2C_DEVICE(this);
-//     if (this->is_failed())
-//         ESP_LOGE(TAG, "Communication failed!");
-//     else
-//         ESP_LOGI(TAG, "Communication Successfulled!");
+    LOG_I2C_DEVICE(this);
+    if (this->is_failed())
+        ESP_LOGE(TAG, "Communication failed!");
+    else
+        ESP_LOGI(TAG, "Communication Successfulled!");
 
-// LOG_I2C_DEVICE(this);
-// if (this->is_failed()) {
-// ESP_LOGE(TAG, "Communication with ADS1115 failed!");
-// }
+LOG_I2C_DEVICE(this);
+if (this->is_failed()) {
+ESP_LOGE(TAG, "Communication with ADS1115 failed!");
+}
 
-// for (auto *sensor : this->sensors_) {
-// LOG_SENSOR("  ", "Sensor", sensor);
-// ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
-// ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
-// ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
-// }
-// ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
-// ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
-// float* lvl = an.get_Lvl_Perc();
-// ESP_LOGI(TAG, "ads3: %f", lvl[0]);
-// ESP_LOGI(TAG, "ads4: %f", lvl[1]);
-// ESP_LOGI(TAG, "ads5: %f", an.get_EC_Val());
-// ESP_LOGI(TAG, "ads6: %f", an.get_PH_Val());
-// float* gen = an.get_Gen_Val();
-// ESP_LOGI(TAG, "ads7: %f", gen[0]);
-// ESP_LOGI(TAG, "ads8: %f", gen[1]);
+ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
+ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
+float* lvl = an.get_Lvl_Perc();
+ESP_LOGI(TAG, "ads3: %f", lvl[0]);
+ESP_LOGI(TAG, "ads4: %f", lvl[1]);
+ESP_LOGI(TAG, "ads5: %f", an.get_EC_Val());
+ESP_LOGI(TAG, "ads6: %f", an.get_PH_Val());
+float* gen = an.get_Gen_Val();
+ESP_LOGI(TAG, "ads7: %f", gen[0]);
+ESP_LOGI(TAG, "ads8: %f", gen[1]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
@@ -106,8 +100,8 @@ void MyComponent::loop()
 }
 void MyComponent::update()
 {
-    float f[8];
-    ADS1115_Driver(f);
+    // float f[8];
+    // ADS1115_Driver(f);
     an.Analog_Input_Driver();
     // MCP23008_Driver();
     // pca9685();

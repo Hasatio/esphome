@@ -262,36 +262,28 @@ void MyComponent::ADS1115_Driver(float analog_voltage[])
 {
     
     this->set_i2c_address(ADS1X15_ADDRESS1);
-    for (size_t i = 4; i < 8; i++)
+    for (size_t i = 0; i < 4; i++)
     {
-        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
-        if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage%d: %f",i-3, v);
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
+        if (!std::isnan(v)) 
+        {
+            analog_voltage[i] = v;
+            ESP_LOGD(TAG, "Voltage%d: %f",i, v);
             // this->publish_state(v);
         }
     }
     this->set_i2c_address(ADS1X15_ADDRESS2);
-    for (size_t i = 4; i < 8; i++)
+    for (size_t i = 0; i < 4; i++)
     {
-        float v = request_measurement(static_cast<ADS1115Multiplexer>(i));
-        if (!std::isnan(v)) {
-            ESP_LOGD(TAG, "Voltage%d: %f",i+1, v);
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
+        if (!std::isnan(v)) 
+        {
+            analog_voltage[i + 4] = v;
+            ESP_LOGD(TAG, "Voltage%d: %f",i + 4, v);
             // this->publish_state(v);
         }
     }
 
-    for(size_t i = 0; i < 4; i++)
-    {
-        analog_voltage[i] = i;
-        // analog_voltage[i] = ads1.computeVolts(ads1.readADC_SingleEnded(i%4));
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
-    }
-    for(size_t i = 4; i < 8; i++)
-    {
-        analog_voltage[i] = i;
-        // analog_voltage[i] = ads2.computeVolts(ads2.readADC_SingleEnded(i%4));
-        // ESP_LOGD(TAG,"ads%d = %f", i+1, analog_voltage[i]);
-    }
     // ana.Analog_Input_Driver(analog_voltage);
 }
 
