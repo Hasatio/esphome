@@ -283,7 +283,6 @@ void MyComponent::ADS1115_Driver(float analog_voltage[])
             // this->publish_state(v);
         }
     }
-delay(500);
     // ana.Analog_Input_Driver(analog_voltage);
 }
 
