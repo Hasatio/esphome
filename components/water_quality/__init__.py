@@ -60,13 +60,13 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
 )
 
 component_ns = cg.esphome_ns.namespace("water_quality")
-MyComponent = component_ns.class_("MyComponent", cg.PollingComponent, i2c.I2CDevice)
+WaterQuality = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
 
                     
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(MyComponent),
+            cv.GenerateID(): cv.declare_id(WaterQuality),
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
@@ -244,7 +244,7 @@ PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
 
 PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_MODE): (
             cv.All(
                 # [cv.Any(cv.uint8_t)],
@@ -282,7 +282,7 @@ PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
 
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.uint16_t)
@@ -313,7 +313,7 @@ PumpCirculationAction = component_ns.class_("PumpCirculationAction", automation.
 
 PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_CIRCULATION): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.uint16_t)
@@ -344,7 +344,7 @@ PumpResetAction = component_ns.class_("PumpResetAction", automation.Action)
 
 PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_RESET): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.boolean)
@@ -375,7 +375,7 @@ ServoModeAction = component_ns.class_("ServoModeAction", automation.Action)
 
 SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_SERVO_MODE): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.boolean)
@@ -406,7 +406,7 @@ ServoPositionAction = component_ns.class_("ServoModeAction", automation.Action)
 
 SERVO_POSITION_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_SERVO_POSITION): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.uint8_t)
@@ -437,7 +437,7 @@ DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
 
 DIGITAL_OUT_ACTION_SCHEMA = cv.All(
     {
-        cv.GenerateID(): cv.use_id(MyComponent),
+        cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_DIGITAL_OUT): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.boolean)

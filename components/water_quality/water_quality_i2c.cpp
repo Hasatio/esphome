@@ -8,9 +8,9 @@ namespace water_quality {
 
     // Analog ana;
     // Digital digi;
-    MyComponent wq;
+    WaterQuality wq;
 
-float MyComponent::request_measurement(ADS1115Multiplexer multi) {
+float WaterQuality::request_measurement(ADS1115Multiplexer multi) {
 uint16_t config = 0b0000000011100011;
 //   uint16_t config = this->prev_config_;
   // Multiplexer
@@ -142,7 +142,7 @@ void tcaselect(uint8_t bus)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void MyComponent::ADS1115_Setup(uint8_t address)
+void WaterQuality::ADS1115_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
@@ -258,7 +258,7 @@ void MyComponent::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-void MyComponent::ADS1115_Driver(float analog_voltage[])
+void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
     
     this->set_i2c_address(ADS1X15_ADDRESS1);

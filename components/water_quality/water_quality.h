@@ -19,7 +19,7 @@
 // #include <Wire.h>
 // #include <Adafruit_PWMServoDriver.h>
 
-static const char *const TAG = "mycomponent";
+static const char *const TAG = "WaterQuality";
 
 namespace esphome {
 namespace water_quality {
@@ -49,7 +49,7 @@ enum ADS1115Resolution {
   ADS1015_12_BITS = 12,
 };
 
-class MyComponent : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
+class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
@@ -153,7 +153,7 @@ void digital_out(std::vector<bool> &dout);
 // class MySensor : public PollingComponent, public sensor::Sensor
 // {
 // public:
-// MySensor(MyComponent *parent) : parent_(parent) {}
+// MySensor(WaterQuality *parent) : parent_(parent) {}
 
 // void update() override;
 
@@ -169,7 +169,7 @@ void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Va
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
-MyComponent *parent_;
+WaterQuality *parent_;
 // ADS1115Multiplexer multiplexer_;
 // ADS1115Gain gain_;
 // ADS1115Resolution resolution_;
@@ -191,7 +191,7 @@ bool continuous_mode_;
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     public:
-    PumpModeAction(MyComponent *parent) : parent_(parent){};
+    PumpModeAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -203,11 +203,11 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     public:
-    PumpDoseAction(MyComponent *parent) : parent_(parent){};
+    PumpDoseAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -219,11 +219,11 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
     public:
-    PumpCirculationAction(MyComponent *parent) : parent_(parent){};
+    PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -235,11 +235,11 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class PumpResetAction : public Action<Ts...> {
     public:
-    PumpResetAction(MyComponent *parent) : parent_(parent){};
+    PumpResetAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -251,11 +251,11 @@ template<typename... Ts> class PumpResetAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class ServoModeAction : public Action<Ts...> {
     public:
-    ServoModeAction(MyComponent *parent) : parent_(parent){};
+    ServoModeAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -267,11 +267,11 @@ template<typename... Ts> class ServoModeAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
     public:
-    ServoPositionAction(MyComponent *parent) : parent_(parent){};
+    ServoPositionAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -283,11 +283,11 @@ template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     public:
-    DigitalOutAction(MyComponent *parent) : parent_(parent){};
+    DigitalOutAction(WaterQuality *parent) : parent_(parent){};
     
     void play(Ts... x) 
     {
@@ -299,7 +299,7 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
     TEMPLATABLE_VALUE(std::vector<bool>, val);
 
     protected:
-    MyComponent *parent_;
+    WaterQuality *parent_;
 };
 
 }  // namespace water_quality
