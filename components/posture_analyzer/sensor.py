@@ -7,7 +7,7 @@ from esphome.const import (
 
 from . import (
     component_ns, 
-    MyComponent, 
+    Posture_Analyzer, 
     CONF_COMPONENT_ID,
     CONF_MY_SAMPLE, 
     CONF_MY_SAMPLE_SEC, 
@@ -20,7 +20,7 @@ DEPENDENCIES = ["posture_analyzer"] # gerekli olan komponent, bu olmadan tanıml
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(Posture_Analyzer),
             cv.Optional(CONF_MY_SAMPLE): sensor.sensor_schema( # sayaç sensör tanımlaması
                 unit_of_measurement=UNIT_SAMPLE, # sensörün birimi
                 accuracy_decimals=0, # sensörün sayısal gösterim şekli

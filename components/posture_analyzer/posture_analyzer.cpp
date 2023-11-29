@@ -18,7 +18,7 @@ namespace posture_analyzer {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
-void MyComponent::internal_temp()
+void Posture_Analyzer::internal_temp()
 {
   uint8_t raw = temprature_sens_read();
   // ESP_LOGV(TAG, "Raw temperature value: %d", raw);
@@ -34,13 +34,42 @@ void MyComponent::internal_temp()
   //   }
   // }
 }
+void Posture_Analyzer::uudi_set()
+{
+  uint32_t seed1 = random(999999999);
+  uint32_t seed2 = random(999999999);
+  uuid.seed(seed1, seed2);
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
-void MyComponent::bt_set()
+void Posture_Analyzer::bt_set()
 {
+  BLEDevice::init("esp");  
+  BLEServer *pServer = BLEDevice::createServer();
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+                                         CHARACTERISTIC_UUID,
+                                         BLECharacteristic::PROPERTY_READ |
+                                         BLECharacteristic::PROPERTY_WRITE
+                                       );
+  uuid.generate();
+  SERVICE_UUID = uuid.toCharArray();
+  uuid.generate();
+  CHARACTERISTIC_UUID = uuid.toCharArray();
+
+  pCharacteristic->setValue("Hello World!");
+  pService->start();
+  // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+  pAdvertising->setMinPreferred(0x12);
+  BLEDevice::startAdvertising();
+
   SerialBT.begin(btname);
 }
-void MyComponent::bt()
+void Posture_Analyzer::bt()
 {
   data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
@@ -58,7 +87,7 @@ void MyComponent::bt()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
-void MyComponent::i2c_set()
+void Posture_Analyzer::i2c_set()
 {
   Wire.begin(SDA,SCL,frq);
   //Wire1.begin(SDA_1, SCL_1, freq_1);
@@ -67,7 +96,7 @@ void MyComponent::i2c_set()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-void MyComponent::ads1115_set()
+void Posture_Analyzer::ads1115_set()
 {  
   //bool status1 = ads.begin(address1,&I2C);
   //bool status2 = ads2.begin(address2);
@@ -136,7 +165,7 @@ void MyComponent::ads1115_set()
   // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
   // ads.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1);
 }
-void MyComponent::ads1115()
+void Posture_Analyzer::ads1115()
 {
   for(int i=0;i<4;i++)
   {
@@ -165,7 +194,7 @@ void MyComponent::ads1115()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADXL345
-void MyComponent::adxl345_set()
+void Posture_Analyzer::adxl345_set()
 {
   if (!accel.begin(ADXL345_ADDRESS))
   {
@@ -198,7 +227,7 @@ void MyComponent::adxl345_set()
   //  ADXL345_DATARATE_0_10_HZ ///< 0.05Hz Bandwidth    23�A IDD (default value)
   accel.setDataRate(ADXL345_DATARATE_100_HZ);
 }
-void MyComponent::adxl345()
+void Posture_Analyzer::adxl345()
 {
   adxlmultiplier = ADXL345_MG2G_MULTIPLIER * SENSORS_GRAVITY_STANDARD;
   x = accel.getX() * adxlmultiplier;
@@ -207,7 +236,7 @@ void MyComponent::adxl345()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MAX17048
-void MyComponent::max17048_set()
+void Posture_Analyzer::max17048_set()
 {
   if (!maxlipo.begin(&Wire))
   {
@@ -215,44 +244,38 @@ void MyComponent::max17048_set()
     // while (1);
   }
 }
-void MyComponent::max17048()
+void Posture_Analyzer::max17048()
 {
   voltage = maxlipo.cellVoltage();
   percentage = maxlipo.cellPercent();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
-void MyComponent::sensor()
+void Posture_Analyzer::sensor()
 {
   if (this->sample_ != nullptr) this->sample_->publish_state(sayac);
   if (this->sample_sec_ != nullptr) this->sample_sec_->publish_state(sayac*1000/millis());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void MyComponent::setup()
+void Posture_Analyzer::setup()
 {
-  uint32_t seed1 = random(999999999);
-  uint32_t seed2 = random(999999999);
-  uuid.seed(seed1, seed2);
-  uuid.generate();
-  uuid.toCharArray();
-
+  uuid_set();
   bt_set();
   i2c_set();
   ads1115_set();
   adxl345_set();
   max17048_set();
 }    
-void MyComponent::dump_config()
+void Posture_Analyzer::dump_config()
 {
-  uuid.generate();
   ESP_LOGI(TAG, "UUID: %s",uuid);
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname);
 }
-void MyComponent::loop()
+void Posture_Analyzer::loop()
 {
 }
-void MyComponent::update()
+void Posture_Analyzer::update()
 {
   internal_temp();
   ads1115();
@@ -262,19 +285,19 @@ void MyComponent::update()
   sensor();
 }
 
-void MyComponent::bluetooth(String b)
+void Posture_Analyzer::bluetooth(String b)
 {
   btname = b;
 }
-void MyComponent::gain(float g)
+void Posture_Analyzer::gain(float g)
 {
   mygain = g;
 }
-void MyComponent::sample(sensor::Sensor *sample)
+void Posture_Analyzer::sample(sensor::Sensor *sample)
 { 
   sample_ = sample;
 }
-void MyComponent::sample_sec(sensor::Sensor *sample_sec)
+void Posture_Analyzer::sample_sec(sensor::Sensor *sample_sec)
 { 
   sample_sec_ = sample_sec;
 }

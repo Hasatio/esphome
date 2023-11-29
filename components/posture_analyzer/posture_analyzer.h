@@ -10,6 +10,9 @@
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
 #include <Wire.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
 #include "UUID.h"
 
   // i2c ayarları
@@ -56,12 +59,13 @@ namespace posture_analyzer {
   #error Bluetooth off--Run `make menuconfig` to enable it 
   #endif
 
-class MyComponent : public PollingComponent
+class Posture_Analyzer : public PollingComponent
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::PROCESSOR; }
 
 void internal_temp();
+void uuid_set();
 void bt_set();
 void bt();
 void i2c_set();
@@ -85,6 +89,8 @@ void sample_sec(sensor::Sensor *sample_sec);
 
 protected:
 String btname = "ESP32";
+String SERVICE_UUID;
+String CHARACTERISTIC_UUID;
 uint16_t adc[16];
 uint32_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
@@ -95,7 +101,7 @@ bool success = false;
 sensor::Sensor *sample_{nullptr};
 sensor::Sensor *sample_sec_{nullptr};
 
-}; // class MyComponent
+}; // class Posture_Analyzer
 
 } //namespace posture_analyzer
 } //namespace esphome

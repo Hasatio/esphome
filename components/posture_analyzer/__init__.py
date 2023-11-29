@@ -20,12 +20,12 @@ UNIT_SAMPLE = "data"
 UNIT_SAMPLE_SEC = "data/sec"
 
 component_ns = cg.esphome_ns.namespace("posture_analyzer") # esphome komponent adı "myi2c"
-MyComponent = component_ns.class_("MyComponent", cg.PollingComponent) # sınıf tanımlaması
+Posture_Analyzer = component_ns.class_("Posture_Analyzer", cg.PollingComponent) # sınıf tanımlaması
 
 CONFIG_SCHEMA = ( # komponent içindekiler
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(MyComponent), # id tanımlaması
+            cv.GenerateID(): cv.declare_id(Posture_Analyzer), # id tanımlaması
             cv.Optional(CONF_MY_GAIN): cv.float_, # gain tanımlaması
             cv.Optional(CONF_MY_BLUETOOTH): cv.string, # bluetooth tanımlaması
         }
@@ -51,4 +51,5 @@ async def to_code(config): # fonksiyon tanımlaması
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit ADXL345", None)
     cg.add_library("Adafruit MAX1704X", None)
+    cg.add_library("ArduinoBLE", None)
     cg.add_library("UUID", None)
