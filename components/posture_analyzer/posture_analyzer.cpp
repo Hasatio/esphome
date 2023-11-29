@@ -234,6 +234,7 @@ void MyComponent::setup()
   uint32_t seed1 = random(999999999);
   uint32_t seed2 = random(999999999);
   uuid.seed(seed1, seed2);
+  uuid.generate();
   uuid.toCharArray();
 
   bt_set();
@@ -245,10 +246,6 @@ void MyComponent::setup()
 void MyComponent::dump_config()
 {
   uuid.generate();
-  
-  ESP_LOGI(TAG, "UUID: %s",uuid);
-  uuid.generate();
-  
   ESP_LOGI(TAG, "UUID: %s",uuid);
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname);
 }
