@@ -75,7 +75,7 @@ void Posture_Analyzer::bt_set()
   pAdvertising->setMinPreferred(0x00);
   BLEDevice::startAdvertising();
 
-  SerialBT.begin(btname);
+  SerialBT.begin(btname.c_str());
 }
 void Posture_Analyzer::bt()
 {
