@@ -79,7 +79,7 @@ void Posture_Analyzer::bt_set()
 }
 void Posture_Analyzer::bt()
 {
-  data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
+  data = data + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + "," + std::to_string(voltage) + "," + std::to_string(percentage) + "," + std::to_string(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
 
   pCharacteristic->setValue(data.c_str());
@@ -182,25 +182,25 @@ void Posture_Analyzer::ads1115()
   {
     adc[i] = ads1.readADC_SingleEnded(i%4);
     volts[i] = ads1.computeVolts(adc[i]) * mygain;
-    data = data + String(volts[i]) + ",";
+    data = data + std::to_string(volts[i]) + ",";
   }
   for(int i=4;i<8;i++)
   {
     adc[i] = ads2.readADC_SingleEnded(i%4);
     volts[i] = ads2.computeVolts(adc[i]) * mygain;
-    data = data + String(volts[i]) + ",";
+    data = data + std::to_string(volts[i]) + ",";
   }
   for(int i=8;i<12;i++)
   {
     adc[i] = ads3.readADC_SingleEnded(i%4);
     volts[i] = ads3.computeVolts(adc[i]) * mygain;
-    data = data + String(volts[i]) + ",";
+    data = data + std::to_string(volts[i]) + ",";
   }
   for(int i=12;i<16;i++)
   {
     adc[i] = ads4.readADC_SingleEnded(i%4);
     volts[i] = ads4.computeVolts(adc[i]) * mygain;
-    data = data + String(volts[i]) + ",";
+    data = data + std::to_string(volts[i]) + ",";
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
