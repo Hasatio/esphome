@@ -51,12 +51,12 @@ void Posture_Analyzer::bt_set()
   SERVICE_UUID = uuid.toCharArray();
   uuid.generate();
   CHARACTERISTIC_UUID = uuid.toCharArray();
-  
+
   BLEDevice::init("esp");  
   BLEServer *pServer = BLEDevice::createServer();
-  BLEService *pService = pServer->createService(SERVICE_UUID);
+  BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
   BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-                                         CHARACTERISTIC_UUID,
+                                         CHARACTERISTIC_UUID.c_str(),
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE
                                        );
@@ -64,7 +64,7 @@ void Posture_Analyzer::bt_set()
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
   pAdvertising->setScanResponse(true);
   pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   pAdvertising->setMinPreferred(0x12);
