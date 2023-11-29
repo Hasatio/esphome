@@ -83,7 +83,7 @@ void dump_config() override;
 void loop() override;
 void update() override;
 
-void bluetooth(String b);
+void bluetooth(std::string b);
 void gain(float g);
 void sample(sensor::Sensor *sample);
 void sample_sec(sensor::Sensor *sample_sec);

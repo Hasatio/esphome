@@ -85,7 +85,7 @@ void Posture_Analyzer::bt()
   pCharacteristic->setValue(data.c_str());
   pCharacteristic->notify();
 
-  SerialBT.println(data);
+  SerialBT.println(data.c_str());
   data = "";
 
   sayac += 1;
@@ -296,7 +296,7 @@ void Posture_Analyzer::update()
   sensor();
 }
 
-void Posture_Analyzer::bluetooth(String b)
+void Posture_Analyzer::bluetooth(std::string b)
 {
   btname = b;
 }
