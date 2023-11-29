@@ -14,6 +14,7 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 #include "UUID.h"
+#include <string>
 
   // i2c ayarları
   #define SDA 21 
