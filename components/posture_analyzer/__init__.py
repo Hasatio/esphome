@@ -51,5 +51,5 @@ async def to_code(config): # fonksiyon tanımlaması
     cg.add_library("Adafruit ADS1X15", None)
     cg.add_library("Adafruit ADXL345", None)
     cg.add_library("Adafruit MAX1704X", None)
-    cg.add_library("ArduinoBLE", None)
+    cg.add_library("ESP32 BLE Arduino", None)
     cg.add_library("UUID", None)

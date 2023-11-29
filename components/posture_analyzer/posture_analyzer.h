@@ -12,7 +12,7 @@
 #include <Wire.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
-// #include <BLEUtils.h>
+#include <BLEUtils.h>
 #include "UUID.h"
 
   // i2c ayarları
