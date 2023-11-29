@@ -49,9 +49,9 @@ void Posture_Analyzer::uuid_set()
 void Posture_Analyzer::bt_set()
 {
   uuid.generate();
-  SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"//uuid.toCharArray();
+  SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"/*uuid.toCharArray()*/;
   uuid.generate();
-  CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"//uuid.toCharArray();
+  CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"/*uuid.toCharArray()*/;
 
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
