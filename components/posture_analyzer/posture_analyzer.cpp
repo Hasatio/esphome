@@ -247,6 +247,9 @@ void MyComponent::dump_config()
   uuid.generate();
   
   ESP_LOGI(TAG, "UUID: %s",uuid);
+  uuid.generate();
+  
+  ESP_LOGI(TAG, "UUID: %s",uuid);
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname);
 }
 void MyComponent::loop()
