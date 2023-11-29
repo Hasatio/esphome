@@ -47,6 +47,11 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
+  uuid.generate();
+  SERVICE_UUID = uuid.toCharArray();
+  uuid.generate();
+  CHARACTERISTIC_UUID = uuid.toCharArray();
+  
   BLEDevice::init("esp");  
   BLEServer *pServer = BLEDevice::createServer();
   BLEService *pService = pServer->createService(SERVICE_UUID);
@@ -55,11 +60,6 @@ void Posture_Analyzer::bt_set()
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE
                                        );
-  uuid.generate();
-  SERVICE_UUID = uuid.toCharArray();
-  uuid.generate();
-  CHARACTERISTIC_UUID = uuid.toCharArray();
-
   pCharacteristic->setValue("Hello World!");
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
