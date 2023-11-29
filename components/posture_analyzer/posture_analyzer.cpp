@@ -79,7 +79,7 @@ void Posture_Analyzer::bt()
   data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
 
-  pCharacteristic->setValue(data);
+  pCharacteristic->setValue(data.c_str());
   pCharacteristic->notify();
 
   SerialBT.println(data);
