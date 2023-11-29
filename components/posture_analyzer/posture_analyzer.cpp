@@ -53,7 +53,7 @@ void Posture_Analyzer::bt_set()
   uuid.generate();
   CHARACTERISTIC_UUID = uuid.toCharArray();
 
-  BLEDevice::init(btname);  
+  BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
   BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
   pCharacteristic = pService->createCharacteristic(
