@@ -58,8 +58,8 @@ void Posture_Analyzer::bt_set()
   BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
   pCharacteristic = pService->createCharacteristic(
                                          CHARACTERISTIC_UUID.c_str(),
-                                        //  BLECharacteristic::PROPERTY_READ |
-                                        //  BLECharacteristic::PROPERTY_WRITE |
+                                         BLECharacteristic::PROPERTY_READ |
+                                         BLECharacteristic::PROPERTY_WRITE |
                                          BLECharacteristic::PROPERTY_NOTIFY
                                        );
   pCharacteristic->setValue("Hello World!");
