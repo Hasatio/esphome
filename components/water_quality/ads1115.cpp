@@ -1,7 +1,7 @@
 #include "ads1115.h"
 #include "water_quality.h"
-#include "analog.h"
-#include "digital.h"
+#include "wq_analog.h"
+#include "wq_digital.h"
 
 namespace esphome {
 namespace water_quality {

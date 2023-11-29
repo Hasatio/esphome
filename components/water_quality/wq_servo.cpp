@@ -1,5 +1,5 @@
 // #include "water_quality.h"
-#include "servo.h"
+#include "wq_servo.h"
 
 namespace esphome {
 namespace water_quality {

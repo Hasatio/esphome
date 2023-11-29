@@ -1,5 +1,5 @@
 // #include "water_quality.h"
-#include "digital.h"
+#include "wq_digital.h"
 
 namespace esphome {
 namespace water_quality {
