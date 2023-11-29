@@ -10,6 +10,9 @@
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
 #include <Wire.h>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 
   // i2c ayarları
   #define SDA 21 
@@ -73,11 +76,8 @@ void max17048();
 void sensor();
 
 void setup() override;
+void dump_config() override;
 void loop() override;
-void dump_config() override
-{
-    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
-}
 void update() override;
 
 void bluetooth(String b);

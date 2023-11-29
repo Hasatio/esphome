@@ -1,5 +1,8 @@
 #include "posture_analyzer.h"
 
+namespace esphome {
+namespace posture_analyzer {
+
   BluetoothSerial SerialBT;
   
   Adafruit_ADS1115 ads1;
@@ -11,8 +14,8 @@
   
   Adafruit_MAX17048 maxlipo;
 
-namespace esphome {
-namespace posture_analyzer {
+  boost::uuids::random_generator generator;
+  boost::uuids::uuid uuid = generator();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
@@ -235,6 +238,14 @@ void MyComponent::setup()
     adxl345_set();
     max17048_set();
 }    
+void MyComponent::dump_config()
+{
+    boost::uuids::random_generator generator;
+    boost::uuids::uuid uuid = generator();
+    
+    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",uuid);
+    ESP_LOGI("data", "Bluetooth is ready to pair\nDevice name: %s",btname);
+}
 void MyComponent::loop()
 {
 }
