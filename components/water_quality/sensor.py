@@ -29,7 +29,7 @@ MySensor = component_ns.class_("MySensor", sensor.Sensor, cg.PollingComponent)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(WaterQuality),
             cv.Optional(CONF_WATER_TEMP): sensor.sensor_schema(
                 # MySensor,
                 unit_of_measurement = UNIT_CELSIUS,

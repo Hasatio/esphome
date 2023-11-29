@@ -30,7 +30,7 @@ UNIT_MILILITERS_PER_MINUTE = "ml/min"
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(MyComponent),
+            cv.GenerateID(CONF_COMPONENT_ID): cv.use_id(WaterQuality),
             cv.Optional(CONF_PUMP_TOTAL): text_sensor.text_sensor_schema(),
             cv.Optional(CONF_PUMP_STATUS): text_sensor.text_sensor_schema(),
             cv.Optional(CONF_SERVO_STATUS): text_sensor.text_sensor_schema(),
