@@ -7,7 +7,7 @@ namespace esphome {
 namespace water_quality {
 
 //     Analog ana;
-//     MyComponent wq;
+//     WaterQuality wq;
 
 // static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
 // static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;

@@ -7,7 +7,7 @@ from esphome.const import (
 
 from . import (
     component_ns, 
-    MyComponent,
+    WaterQuality,
     CONF_COMPONENT_ID
 )
 

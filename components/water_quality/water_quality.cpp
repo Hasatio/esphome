@@ -12,7 +12,7 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-void MyComponent::setup()
+void WaterQuality::setup()
 {
     
     ADS1115_Setup(ADS1X15_ADDRESS1);
@@ -22,7 +22,7 @@ void MyComponent::setup()
     // PCA9685_Setup();
     
 }
-void MyComponent::dump_config()
+void WaterQuality::dump_config()
 {
     LOG_I2C_DEVICE(this);
     if (this->is_failed())
@@ -94,11 +94,11 @@ ESP_LOGI(TAG, "ads8: %f", gen[1]);
     ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
     ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
 }
-void MyComponent::loop() 
+void WaterQuality::loop() 
 {
     // delay(1000);
 }
-void MyComponent::update()
+void WaterQuality::update()
 {
     float f[8];
     ADS1115_Driver(f);
@@ -115,18 +115,18 @@ void MyComponent::update()
 
     bool pd[6], pc[6];
 
-void MyComponent::pump_calib_gain(const std::vector<float> &pcg)
+void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
 {
     pump.Pump_Calib_Gain = pcg;
 }
-void MyComponent::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
+void WaterQuality::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c)
 {
     pump.dose = d;
     pump.circ = c;
     
     pump.Pump_Type = ptype;
 }
-void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
+void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
     if (pump.Pump_Dose != pdose)
     {
@@ -138,7 +138,7 @@ void MyComponent::pump_dose(std::vector<uint16_t> &pdose)
         }
     }
 }
-void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
+void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
     if (pump.Pump_Circulation != pcirc)
     {
@@ -150,7 +150,7 @@ void MyComponent::pump_circulation(std::vector<uint16_t> &pcirc)
         }
     }
 }
-void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
+void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
     if (pump.Pump_Mode != pmode)
     {
@@ -167,7 +167,7 @@ void MyComponent::pump_mode(std::vector<uint8_t> &pmode)
         }
     }
 }
-void MyComponent::pump_reset(std::vector<bool> &pres)
+void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
     if (pump.Pump_Reset != pres)
     {
@@ -184,7 +184,7 @@ void MyComponent::pump_reset(std::vector<bool> &pres)
         }
     }
 }
-void MyComponent::servo_mode(std::vector<bool> &smode)
+void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
     if (ser.Servo_Mode != smode)
     {
@@ -195,7 +195,7 @@ void MyComponent::servo_mode(std::vector<bool> &smode)
         }
     }
 }
-void MyComponent::servo_position(std::vector<uint8_t> &spos)
+void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
     if (ser.Servo_Position != spos)
     {
@@ -206,22 +206,22 @@ void MyComponent::servo_position(std::vector<uint8_t> &spos)
         }
     }
 }
-void MyComponent::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
+void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
     an.AnInLvl_ResMin = rmin;
     an.AnInLvl_ResMax = rmax;
 }
-void MyComponent::ec(const uint8_t ch, const uint8_t type)
+void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
     an.AnInEC_Ch = ch;
     an.AnInEC_Type = type;
 }
-void MyComponent::ph(const uint8_t ch, const uint8_t type)
+void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
     an.AnInPH_Ch = ch;
     an.AnInPH_Type = type;
 }
-void MyComponent::digital_out(std::vector<bool> &dout)
+void WaterQuality::digital_out(std::vector<bool> &dout)
 {
     if (dig.DigOut_Status != dout)
     {
@@ -235,7 +235,7 @@ void MyComponent::digital_out(std::vector<bool> &dout)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
-void MyComponent::sensor()
+void WaterQuality::sensor()
 {
     std::stringstream pt;
     std::stringstream ps;
