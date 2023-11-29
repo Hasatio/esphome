@@ -88,14 +88,14 @@ void sample(sensor::Sensor *sample);
 void sample_sec(sensor::Sensor *sample_sec);
 
 protected:
-String btname = "ESP32";
-String SERVICE_UUID;
-String CHARACTERISTIC_UUID;
+std::string btname = "ESP32";
+std::string SERVICE_UUID;
+std::string CHARACTERISTIC_UUID;
 uint16_t adc[16];
 uint32_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
 double adxlmultiplier;
-String data = "";
+std::string data = "";
 bool success = false;
 
 sensor::Sensor *sample_{nullptr};
