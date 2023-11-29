@@ -15,6 +15,10 @@ namespace posture_analyzer {
   Adafruit_MAX17048 maxlipo;
 
   UUID uuid;
+BLEServer *pServer;
+BLEService *pService;
+BLECharacteristic *pCharacteristic;
+BLEAdvertising *pAdvertising;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
@@ -53,9 +57,9 @@ void Posture_Analyzer::bt_set()
   CHARACTERISTIC_UUID = uuid.toCharArray();
 
   BLEDevice::init("esp");  
-  BLEServer *pServer = BLEDevice::createServer();
-  BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
-  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+  *pServer = BLEDevice::createServer();
+  *pService = pServer->createService(SERVICE_UUID.c_str());
+  *pCharacteristic = pService->createCharacteristic(
                                          CHARACTERISTIC_UUID.c_str(),
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE
@@ -63,7 +67,7 @@ void Posture_Analyzer::bt_set()
   pCharacteristic->setValue("Hello World!");
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  *pAdvertising = BLEDevice::getAdvertising();
   pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
   pAdvertising->setScanResponse(true);
   pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
