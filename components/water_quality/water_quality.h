@@ -19,7 +19,7 @@
 // #include <Wire.h>
 // #include <Adafruit_PWMServoDriver.h>
 
-static const char *const TAG = "WaterQuality";
+static const char *const TAG = "mycomponent";
 
 namespace esphome {
 namespace water_quality {

@@ -10,9 +10,7 @@
 #include <Adafruit_MAX1704X.h>
 #include <BluetoothSerial.h>
 #include <Wire.h>
-#include <boost/uuid/uuid.hpp>
-#include <boost/uuid/uuid_generators.hpp>
-#include <boost/uuid/uuid_io.hpp>
+#include "UUID.h"
 
   // i2c ayarları
   #define SDA 21 
@@ -46,7 +44,7 @@
 
 extern "C" { uint8_t temprature_sens_read(); }
 
-static const char *const TAG = "mysensor";
+static const char *const TAG = "mycomponent";
 
 namespace esphome {
 namespace posture_analyzer {
