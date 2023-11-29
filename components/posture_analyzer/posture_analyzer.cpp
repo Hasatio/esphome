@@ -37,7 +37,7 @@ void Posture_Analyzer::internal_temp()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  UUID
-void Posture_Analyzer::uudi_set()
+void Posture_Analyzer::uuid_set()
 {
   uint32_t seed1 = random(999999999);
   uint32_t seed2 = random(999999999);
