@@ -55,9 +55,9 @@ void Posture_Analyzer::bt_set()
 
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
-  BLEService *pService = pServer->createService(SERVICE_UUID.toString().c_str());
+  BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
   pCharacteristic = pService->createCharacteristic(
-                                         CHARACTERISTIC_UUID.toString().c_str(),
+                                         CHARACTERISTIC_UUID.c_str(),
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE |
                                          BLECharacteristic::PROPERTY_NOTIFY |
@@ -67,7 +67,7 @@ void Posture_Analyzer::bt_set()
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID(SERVICE_UUID.toString().c_str());
+  pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
   // pAdvertising->setScanResponse(true);
   // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // pAdvertising->setMinPreferred(0x12);
@@ -82,7 +82,7 @@ void Posture_Analyzer::bt()
   data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
 
-  pCharacteristic->setValue(data.toString().c_str());
+  pCharacteristic->setValue(data.c_str());
   pCharacteristic->notify();
 
   SerialBT.println(data);
