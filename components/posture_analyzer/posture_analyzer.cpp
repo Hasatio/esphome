@@ -281,7 +281,7 @@ void Posture_Analyzer::setup()
 void Posture_Analyzer::dump_config()
 {
   ESP_LOGI(TAG, "UUID: %s",uuid);
-  ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname);
+  ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname.c_str());
 }
 void Posture_Analyzer::loop()
 {
