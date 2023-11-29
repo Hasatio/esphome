@@ -34,6 +34,9 @@ void Posture_Analyzer::internal_temp()
   //   }
   // }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  UUID
 void Posture_Analyzer::uudi_set()
 {
   uint32_t seed1 = random(999999999);
@@ -73,6 +76,9 @@ void Posture_Analyzer::bt()
 {
   data = data + String(x) + "," + String(y) + "," + String(z) + "," + String(voltage) + "," + String(percentage) + "," + String(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
+
+  pCharacteristic->setValue(data);
+  pCharacteristic->notify();
 
   SerialBT.println(data);
   data = "";
