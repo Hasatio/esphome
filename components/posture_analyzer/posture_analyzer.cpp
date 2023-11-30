@@ -6,7 +6,7 @@ namespace posture_analyzer {
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-  BluetoothSerial SerialBT;
+  // BluetoothSerial SerialBT;
   
   Adafruit_ADS1115 ads1;
   Adafruit_ADS1115 ads2;
@@ -115,7 +115,7 @@ void Posture_Analyzer::bt_set()
   // pAdvertising->setMinPreferred(0x00);
   // BLEDevice::startAdvertising();
 
-  SerialBT.begin(btname.c_str());
+  // SerialBT.begin(btname.c_str());
 }
 void Posture_Analyzer::bt()
 {
@@ -125,16 +125,16 @@ void Posture_Analyzer::bt()
   // pCharacteristic->setValue(data.c_str());
   // pCharacteristic->notify();
 
-  SerialBT.println(data.c_str());
+  // SerialBT.println(data.c_str());
   data = "";
 
   sayac += 1;
   
-  if(SerialBT.available())
-    {
-      mygain = float(SerialBT.read());
-      ESP_LOGD(TAG, "data: %f", mygain);
-    }
+  // if(SerialBT.available())
+  //   {
+  //     mygain = float(SerialBT.read());
+  //     ESP_LOGD(TAG, "data: %f", mygain);
+  //   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  i2c
@@ -156,22 +156,22 @@ void Posture_Analyzer::ads1115_set()
 
   if (!ads1.begin(ADS1X15_ADDRESS1, &Wire))
   {
-    SerialBT.println("Failed to initialize ADS1115_1.");
+    // SerialBT.println("Failed to initialize ADS1115_1.");
     while (1);
   }
   if (!ads2.begin(ADS1X15_ADDRESS2, &Wire))
   {
-    SerialBT.println("Failed to initialize ADS1115_2.");
+    // SerialBT.println("Failed to initialize ADS1115_2.");
     while (1);
   }
   if (!ads3.begin(ADS1X15_ADDRESS3, &Wire))
   {
-    SerialBT.println("Failed to initialize ADS1115_3.");
+    // SerialBT.println("Failed to initialize ADS1115_3.");
     while (1);
   }
   if (!ads4.begin(ADS1X15_ADDRESS4, &Wire))
   {
-    SerialBT.println("Failed to initialize ADS1115_4.");
+    // SerialBT.println("Failed to initialize ADS1115_4.");
     while (1);
   }
 
@@ -249,7 +249,7 @@ void Posture_Analyzer::adxl345_set()
 {
   if (!accel.begin(ADXL345_ADDRESS))
   {
-    SerialBT.println("Failed to initialize ADXL345.");
+    // SerialBT.println("Failed to initialize ADXL345.");
     while (1);
   }
 
@@ -291,7 +291,7 @@ void Posture_Analyzer::max17048_set()
 {
   if (!maxlipo.begin(&Wire))
   {
-    SerialBT.println("Failed to initialize MAX17048.");
+    // SerialBT.println("Failed to initialize MAX17048.");
     // while (1);
   }
 }
