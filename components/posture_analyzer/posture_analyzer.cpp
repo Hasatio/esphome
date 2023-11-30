@@ -3,6 +3,9 @@
 namespace esphome {
 namespace posture_analyzer {
 
+#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+
   BluetoothSerial SerialBT;
   
   Adafruit_ADS1115 ads1;
@@ -15,8 +18,27 @@ namespace posture_analyzer {
   Adafruit_MAX17048 maxlipo;
 
   UUID uuid;
-BLEServer *pServer;
-BLECharacteristic *pCharacteristic;
+
+// BLEServer *pServer;
+// BLECharacteristic *pCharacteristic;
+
+
+class MyCallbacks: public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      std::string value = pCharacteristic->getValue();
+
+      if (value.length() > 0) {
+        Serial.println("*********");
+        Serial.print("New value: ");
+        for (int i = 0; i < value.length(); i++)
+          Serial.print(value[i]);
+
+        Serial.println();
+        Serial.println("*********");
+      }
+    }
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Internal Temp
 void Posture_Analyzer::internal_temp()
@@ -48,32 +70,50 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  uuid.generate();
-  SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"/*uuid.toCharArray()*/;
-  uuid.generate();
-  CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"/*uuid.toCharArray()*/;
+  // uuid.generate();
+  // SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"/*uuid.toCharArray()*/;
+  // uuid.generate();
+  // CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"/*uuid.toCharArray()*/;
 
   BLEDevice::init(btname.c_str());  
-  pServer = BLEDevice::createServer();
-  BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
-  pCharacteristic = pService->createCharacteristic(
-                                         CHARACTERISTIC_UUID.c_str(),
+  BLEServer *pServer = BLEDevice::createServer();
+
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+
+  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+                                         CHARACTERISTIC_UUID,
                                          BLECharacteristic::PROPERTY_READ |
-                                         BLECharacteristic::PROPERTY_WRITE |
-                                         BLECharacteristic::PROPERTY_NOTIFY |
-                                         BLECharacteristic::PROPERTY_INDICATE
+                                         BLECharacteristic::PROPERTY_WRITE
                                        );
-  pCharacteristic->setValue("Hello World!");
+
+  pCharacteristic->setCallbacks(new MyCallbacks());
+
+  pCharacteristic->setValue("Hello World");
   pService->start();
-  // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
-  // pAdvertising->setScanResponse(true);
-  // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-  // pAdvertising->setMinPreferred(0x12);
-  pAdvertising->setScanResponse(false);
-  pAdvertising->setMinPreferred(0x00);
-  BLEDevice::startAdvertising();
+
+  BLEAdvertising *pAdvertising = pServer->getAdvertising();
+  pAdvertising->start();
+  
+  // pServer = BLEDevice::createServer();
+  // BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
+  // pCharacteristic = pService->createCharacteristic(
+  //                                        CHARACTERISTIC_UUID.c_str(),
+  //                                        BLECharacteristic::PROPERTY_READ |
+  //                                        BLECharacteristic::PROPERTY_WRITE |
+  //                                        BLECharacteristic::PROPERTY_NOTIFY |
+  //                                        BLECharacteristic::PROPERTY_INDICATE
+  //                                      );
+  // pCharacteristic->setValue("Hello World!");
+  // pService->start();
+  // // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
+  // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  // pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
+  // // pAdvertising->setScanResponse(true);
+  // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+  // // pAdvertising->setMinPreferred(0x12);
+  // pAdvertising->setScanResponse(false);
+  // pAdvertising->setMinPreferred(0x00);
+  // BLEDevice::startAdvertising();
 
   SerialBT.begin(btname.c_str());
 }
