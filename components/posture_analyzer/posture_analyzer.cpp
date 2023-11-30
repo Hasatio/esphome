@@ -96,7 +96,7 @@ void Posture_Analyzer::bt_set()
   BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   // pAdvertising->start();
-  // pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
+  pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
   // // pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // pAdvertising->setMinPreferred(0x12);
