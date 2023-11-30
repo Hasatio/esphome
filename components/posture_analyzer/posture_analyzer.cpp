@@ -100,9 +100,9 @@ void Posture_Analyzer::bt_set()
   // // pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // pAdvertising->setMinPreferred(0x12);
-  // pAdvertising->setScanResponse(false);
-  // pAdvertising->setMinPreferred(0x00);
-  // BLEDevice::startAdvertising();
+  pAdvertising->setScanResponse(false);
+  pAdvertising->setMinPreferred(0x00);
+  BLEDevice::startAdvertising();
 
   // SerialBT.begin(btname.c_str());
 }
