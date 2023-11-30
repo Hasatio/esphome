@@ -84,9 +84,9 @@ void Posture_Analyzer::bt_set()
   pCharacteristic = pService->createCharacteristic(
                                          CHARACTERISTIC_UUID,
                                          BLECharacteristic::PROPERTY_READ |
-                                         BLECharacteristic::PROPERTY_WRITE
-                                        //  BLECharacteristic::PROPERTY_NOTIFY |
-                                        //  BLECharacteristic::PROPERTY_INDICATE
+                                         BLECharacteristic::PROPERTY_WRITE |
+                                         BLECharacteristic::PROPERTY_NOTIFY |
+                                         BLECharacteristic::PROPERTY_INDICATE
                                        );
   // BLECharacteristic *pCharacteristic = pService->createCharacteristic(
   //                                        CHARACTERISTIC_UUID,
