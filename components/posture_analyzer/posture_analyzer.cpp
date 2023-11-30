@@ -93,7 +93,7 @@ void Posture_Analyzer::bt_set()
 
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
-  
+
   // pServer = BLEDevice::createServer();
   // BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
   // pCharacteristic = pService->createCharacteristic(
@@ -122,8 +122,8 @@ void Posture_Analyzer::bt()
   data = data + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + "," + std::to_string(voltage) + "," + std::to_string(percentage) + "," + std::to_string(temperature);
   // ESP_LOGI(TAG, "data: %s", data);
 
-  pCharacteristic->setValue(data.c_str());
-  pCharacteristic->notify();
+  // pCharacteristic->setValue(data.c_str());
+  // pCharacteristic->notify();
 
   SerialBT.println(data.c_str());
   data = "";
