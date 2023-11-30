@@ -6,7 +6,7 @@ namespace posture_analyzer {
 #define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-  // BluetoothSerial SerialBT;
+  BluetoothSerial SerialBT;
   
   Adafruit_ADS1115 ads1;
   Adafruit_ADS1115 ads2;
@@ -77,7 +77,6 @@ void Posture_Analyzer::bt_set()
 
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
-  // BLEServer *pServer = BLEDevice::createServer();
 
   BLEService *pService = pServer->createService(SERVICE_UUID);
 
@@ -88,11 +87,6 @@ void Posture_Analyzer::bt_set()
                                          BLECharacteristic::PROPERTY_NOTIFY |
                                          BLECharacteristic::PROPERTY_INDICATE
                                        );
-  // BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-  //                                        CHARACTERISTIC_UUID,
-  //                                        BLECharacteristic::PROPERTY_READ |
-  //                                        BLECharacteristic::PROPERTY_WRITE
-  //                                      );
 
   pCharacteristic->setCallbacks(new MyCallbacks());
 
@@ -102,9 +96,6 @@ void Posture_Analyzer::bt_set()
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
 
-  // BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
-  // pCharacteristic->setValue("Hello World!");
-  // pService->start();
   // // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   // pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
@@ -115,7 +106,7 @@ void Posture_Analyzer::bt_set()
   // pAdvertising->setMinPreferred(0x00);
   // BLEDevice::startAdvertising();
 
-  // SerialBT.begin(btname.c_str());
+  SerialBT.begin(btname.c_str());
 }
 void Posture_Analyzer::bt()
 {
@@ -125,7 +116,7 @@ void Posture_Analyzer::bt()
   // pCharacteristic->setValue(data.c_str());
   // pCharacteristic->notify();
 
-  // SerialBT.println(data.c_str());
+  SerialBT.println(data.c_str());
   data = "";
 
   sayac += 1;
