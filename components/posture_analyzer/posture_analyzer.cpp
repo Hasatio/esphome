@@ -93,11 +93,9 @@ void Posture_Analyzer::bt_set()
   pCharacteristic->setValue("Hello World");
   pService->start();
 
-  BLEAdvertising *pAdvertising = pServer->getAdvertising();
-  pAdvertising->start();
-
-  // // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
+  BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  // pAdvertising->start();
   // pAdvertising->addServiceUUID(SERVICE_UUID.c_str());
   // // pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
