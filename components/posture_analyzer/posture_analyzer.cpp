@@ -147,22 +147,22 @@ void Posture_Analyzer::ads1115_set()
 
   if (!ads1.begin(ADS1X15_ADDRESS1, &Wire))
   {
-    ESP_LOGE("Failed to initialize ADS1115_1.");
+    ESP_LOGE(TAG, "Failed to initialize ADS1115_1.");
     while (1);
   }
   if (!ads2.begin(ADS1X15_ADDRESS2, &Wire))
   {
-    ESP_LOGE("Failed to initialize ADS1115_2.");
+    ESP_LOGE(TAG, "Failed to initialize ADS1115_2.");
     while (1);
   }
   if (!ads3.begin(ADS1X15_ADDRESS3, &Wire))
   {
-    ESP_LOGE("Failed to initialize ADS1115_3.");
+    ESP_LOGE(TAG, "Failed to initialize ADS1115_3.");
     while (1);
   }
   if (!ads4.begin(ADS1X15_ADDRESS4, &Wire))
   {
-    ESP_LOGE("Failed to initialize ADS1115_4.");
+    ESP_LOGE(TAG, "Failed to initialize ADS1115_4.");
     while (1);
   }
 
@@ -240,7 +240,7 @@ void Posture_Analyzer::adxl345_set()
 {
   if (!accel.begin(ADXL345_ADDRESS))
   {
-    ESP_LOGE("Failed to initialize ADXL345.");
+    ESP_LOGE(TAG, "Failed to initialize ADXL345.");
     while (1);
   }
 
@@ -282,7 +282,7 @@ void Posture_Analyzer::max17048_set()
 {
   if (!maxlipo.begin(&Wire))
   {
-    ESP_LOGE("Failed to initialize MAX17048.");
+    ESP_LOGE(TAG, "Failed to initialize MAX17048.");
     while (1);
   }
 }
