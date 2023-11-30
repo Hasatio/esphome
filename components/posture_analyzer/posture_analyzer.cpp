@@ -19,8 +19,8 @@ namespace posture_analyzer {
 
   UUID uuid;
 
-// BLEServer *pServer;
-// BLECharacteristic *pCharacteristic;
+BLEServer *pServer;
+BLECharacteristic *pCharacteristic;
 
 
 class MyCallbacks: public BLECharacteristicCallbacks {
@@ -76,15 +76,23 @@ void Posture_Analyzer::bt_set()
   // CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"/*uuid.toCharArray()*/;
 
   BLEDevice::init(btname.c_str());  
-  BLEServer *pServer = BLEDevice::createServer();
+  pServer = BLEDevice::createServer();
+  // BLEServer *pServer = BLEDevice::createServer();
 
   BLEService *pService = pServer->createService(SERVICE_UUID);
 
-  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-                                         CHARACTERISTIC_UUID,
+  pCharacteristic = pService->createCharacteristic(
+                                         CHARACTERISTIC_UUID.c_str(),
                                          BLECharacteristic::PROPERTY_READ |
-                                         BLECharacteristic::PROPERTY_WRITE
+                                         BLECharacteristic::PROPERTY_WRITE |
+                                        //  BLECharacteristic::PROPERTY_NOTIFY |
+                                        //  BLECharacteristic::PROPERTY_INDICATE
                                        );
+  // BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+  //                                        CHARACTERISTIC_UUID,
+  //                                        BLECharacteristic::PROPERTY_READ |
+  //                                        BLECharacteristic::PROPERTY_WRITE
+  //                                      );
 
   pCharacteristic->setCallbacks(new MyCallbacks());
 
@@ -94,15 +102,7 @@ void Posture_Analyzer::bt_set()
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
 
-  // pServer = BLEDevice::createServer();
   // BLEService *pService = pServer->createService(SERVICE_UUID.c_str());
-  // pCharacteristic = pService->createCharacteristic(
-  //                                        CHARACTERISTIC_UUID.c_str(),
-  //                                        BLECharacteristic::PROPERTY_READ |
-  //                                        BLECharacteristic::PROPERTY_WRITE |
-  //                                        BLECharacteristic::PROPERTY_NOTIFY |
-  //                                        BLECharacteristic::PROPERTY_INDICATE
-  //                                      );
   // pCharacteristic->setValue("Hello World!");
   // pService->start();
   // // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
