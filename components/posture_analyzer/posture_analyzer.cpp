@@ -52,7 +52,7 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  BLEDevice::init(btname);  
+  BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
 
   BLEService *pService = pServer->createService(uuid.toCharArray());
@@ -80,16 +80,16 @@ void Posture_Analyzer::bt_set()
   pAdvertising->setMinPreferred(0x00);
   BLEDevice::startAdvertising();
 
-  // SerialBT.begin(btname);
+  // SerialBT.begin(btname.c_str());
 }
 void Posture_Analyzer::bt()
 {
   // ESP_LOGI(TAG, "data: %s", data);
 
-  pCharacteristic->setValue(data);
+  pCharacteristic->setValue(data.c_str());
   pCharacteristic->notify();
 
-  // SerialBT.println(data);
+  // SerialBT.println(data.c_str());
   data = "";
 
   sayac += 1;
