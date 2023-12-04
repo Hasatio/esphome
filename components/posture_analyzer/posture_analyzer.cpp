@@ -56,14 +56,14 @@ void Posture_Analyzer::bt_set()
 
   pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  // pAdvertising->start();
+  pAdvertising->start();
   // pAdvertising->addServiceUUID(uuid.toCharArray());
   // pAdvertising->setScanResponse(true);
   // // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // // pAdvertising->setMinPreferred(0x12);
   // // pAdvertising->setScanResponse(false);
   // pAdvertising->setMinPreferred(0x00);
-  BLEDevice::startAdvertising();
+  // BLEDevice::startAdvertising();
 
   // SerialBT.begin(btname.c_str());
 }
