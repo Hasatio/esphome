@@ -83,13 +83,13 @@ void dump_config() override;
 void loop() override;
 void update() override;
 
-void bluetooth(std::string b);
+void bluetooth(String b);
 void gain(float g);
 void sample(sensor::Sensor *sample);
 void sample_sec(sensor::Sensor *sample_sec);
 
 protected:
-std::string btname = "ESP32";
+String btname = "ESP32";
 uint16_t adc[16];
 uint32_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;

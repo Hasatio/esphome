@@ -322,7 +322,7 @@ void Posture_Analyzer::update()
   sensor();
 }
 
-void Posture_Analyzer::bluetooth(std::string b)
+void Posture_Analyzer::bluetooth(String b)
 {
   btname = b;
 }
