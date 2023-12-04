@@ -13,6 +13,7 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
+#include <BLEUUID.h>
 #include "UUID.h"
 #include <string>
 
