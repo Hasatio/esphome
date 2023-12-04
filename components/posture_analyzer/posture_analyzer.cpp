@@ -67,7 +67,6 @@ void Posture_Analyzer::uuid_set()
   uuid.seed(seed1, seed2);
   uuid.generate();
   uuid.toCharArray();
-  myuuid = uuid.toString();
   ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
