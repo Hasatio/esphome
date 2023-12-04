@@ -17,7 +17,7 @@ namespace posture_analyzer {
   
   Adafruit_MAX17048 maxlipo;
 
-  UUID uuid = UUIDrandom();
+  UUID uuid;
 
 BLEServer *pServer;
 BLECharacteristic *pCharacteristic;
@@ -65,6 +65,8 @@ void Posture_Analyzer::uuid_set()
   uint32_t seed1 = random(999999999);
   uint32_t seed2 = random(999999999);
   uuid.seed(seed1, seed2);
+  uuid.generate();
+  uuid.toCharArray();
   ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,10 +81,10 @@ void Posture_Analyzer::bt_set()
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
 
-  BLEService *pService = pServer->createService(uuid.toString());
+  BLEService *pService = pServer->createService(uuid.toString().c_str());
 
   pCharacteristic = pService->createCharacteristic(
-                                         uuid.toString(),
+                                         uuid.toString().c_str(),
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE |
                                          BLECharacteristic::PROPERTY_NOTIFY
@@ -96,7 +98,7 @@ void Posture_Analyzer::bt_set()
   BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   // pAdvertising->start();
-  pAdvertising->addServiceUUID(uuid.toString());
+  pAdvertising->addServiceUUID(uuid.toString().c_str());
   pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // pAdvertising->setMinPreferred(0x12);
