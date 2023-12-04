@@ -314,10 +314,10 @@ void Posture_Analyzer::loop()
 }
 void Posture_Analyzer::update()
 {
-  internal_temp();
   ads1115();
   adxl345();
   max17048();
+  internal_temp();
   bt();
   sensor();
 }
