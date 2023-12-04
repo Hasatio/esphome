@@ -19,26 +19,11 @@ namespace posture_analyzer {
 
   UUID uuid;
 
-BLEServer *pServer;
-BLECharacteristic *pCharacteristic;
-BLEService *pService;
+  BLEServer *pServer;
+  BLECharacteristic *pCharacteristic;
+  BLEService *pService;
+  BLEAdvertising *pAdvertising;
 
-
-// class MyCallbacks: public BLECharacteristicCallbacks {
-//     void onWrite(BLECharacteristic *pCharacteristic) {
-//       std::string value = pCharacteristic->getValue();
-
-//       if (value.length() > 0) {
-//         Serial.println("*********");
-//         Serial.print("New value: ");
-//         for (int i = 0; i < value.length(); i++)
-//           Serial.print(value[i]);
-
-//         Serial.println();
-//         Serial.println("*********");
-//       }
-//     }
-// };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  UUID
@@ -54,6 +39,7 @@ void Posture_Analyzer::uuid_set()
 void Posture_Analyzer::bt_set()
 {
   BLEDevice::init(btname.c_str());  
+
   pServer = BLEDevice::createServer();
 
   pService = pServer->createService(uuid.toCharArray());
@@ -65,21 +51,19 @@ void Posture_Analyzer::bt_set()
                                          BLECharacteristic::PROPERTY_NOTIFY
                                        );
 
-  // pCharacteristic->setCallbacks(new MyCallbacks());
-
   pCharacteristic->setValue("Hello World");
   pService->start();
 
-  BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
-  // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  // pAdvertising->start();
-  pAdvertising->addServiceUUID(uuid.toCharArray());
-  pAdvertising->setScanResponse(true);
-  // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-  // // pAdvertising->setMinPreferred(0x12);
-  // pAdvertising->setScanResponse(false);
-  pAdvertising->setMinPreferred(0x00);
-  BLEDevice::startAdvertising();
+  // pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
+  // // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  // // pAdvertising->start();
+  // pAdvertising->addServiceUUID(uuid.toCharArray());
+  // pAdvertising->setScanResponse(true);
+  // // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+  // // // pAdvertising->setMinPreferred(0x12);
+  // // pAdvertising->setScanResponse(false);
+  // pAdvertising->setMinPreferred(0x00);
+  // BLEDevice::startAdvertising();
 
   // SerialBT.begin(btname.c_str());
 }
@@ -308,7 +292,7 @@ void Posture_Analyzer::setup()
 void Posture_Analyzer::dump_config()
 {
   ESP_LOGI(TAG, "UUID: %s", uuid.toCharArray());
-  ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname);
+  ESP_LOGI(TAG, "Bluetooth Device name ready to pair: %s",btname);
 }
 void Posture_Analyzer::loop()
 {
