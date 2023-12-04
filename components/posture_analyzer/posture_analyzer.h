@@ -13,7 +13,6 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
-#include <BLEUUID.h>
 #include "UUID.h"
 #include <string>
 
@@ -93,6 +92,7 @@ protected:
 std::string btname = "ESP32";
 std::string SERVICE_UUID;
 std::string CHARACTERISTIC_UUID;
+std::string myuuid;
 uint16_t adc[16];
 uint32_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
