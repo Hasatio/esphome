@@ -66,6 +66,7 @@ void Posture_Analyzer::uuid_set()
   uint32_t seed2 = random(999999999);
   uuid.seed(seed1, seed2);
   uuid.generate();
+  ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
   uuid.toCharArray();
   ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
 }
