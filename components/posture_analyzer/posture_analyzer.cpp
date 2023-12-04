@@ -96,7 +96,7 @@ void Posture_Analyzer::bt_set()
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   // pAdvertising->start();
   pAdvertising->addServiceUUID(SERVICE_UUID);
-  // pAdvertising->setScanResponse(true);
+  pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // pAdvertising->setMinPreferred(0x12);
   // pAdvertising->setScanResponse(false);
