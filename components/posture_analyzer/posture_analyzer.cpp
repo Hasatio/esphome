@@ -67,8 +67,8 @@ void Posture_Analyzer::uuid_set()
   uuid.seed(seed1, seed2);
   uuid.generate();
   ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
-  uuid.toCharArray();
-  ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
+  
+  ESP_LOGCONFIG(TAG, "uuid: %s", uuid.toCharArray());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
