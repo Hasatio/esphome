@@ -66,9 +66,6 @@ void Posture_Analyzer::uuid_set()
   uint32_t seed2 = random(999999999);
   uuid.seed(seed1, seed2);
   uuid.generate();
-  ESP_LOGCONFIG(TAG, "uuid: %s", uuid);
-  
-  ESP_LOGCONFIG(TAG, "uuid: %s", uuid.toCharArray());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
@@ -298,6 +295,7 @@ void Posture_Analyzer::sensor()
 
 void Posture_Analyzer::setup()
 {
+  uuid_set();
   bt_set();
   i2c_set();
   ads1115_set();
@@ -306,8 +304,7 @@ void Posture_Analyzer::setup()
 }    
 void Posture_Analyzer::dump_config()
 {
-  uuid_set();
-  ESP_LOGI(TAG, "UUID: %s", uuid);
+  ESP_LOGI(TAG, "UUID: %s", uuid.toCharArray());
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname.c_str());
 }
 void Posture_Analyzer::loop()
