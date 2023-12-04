@@ -74,18 +74,13 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  // uuid.generate();
-  // SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b"/*uuid.toCharArray()*/;
-  // uuid.generate();
-  // CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8"/*uuid.toCharArray()*/;
-
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
 
-  BLEService *pService = pServer->createService(SERVICE_UUID);
+  BLEService *pService = pServer->createService(uuid.toCharArray());
 
   pCharacteristic = pService->createCharacteristic(
-                                         SERVICE_UUID,
+                                         uuid.toCharArray(),
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE |
                                          BLECharacteristic::PROPERTY_NOTIFY
@@ -99,7 +94,7 @@ void Posture_Analyzer::bt_set()
   BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   // BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   // pAdvertising->start();
-  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->addServiceUUID(uuid.toCharArray());
   pAdvertising->setScanResponse(true);
   // // pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
   // // pAdvertising->setMinPreferred(0x12);
