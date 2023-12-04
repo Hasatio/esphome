@@ -65,6 +65,8 @@ void Posture_Analyzer::uuid_set()
   uint32_t seed1 = random(999999999);
   uint32_t seed2 = random(999999999);
   uuid.seed(seed1, seed2);
+  BLEUUID randomUUID = BLEUUID::createRandom();
+  ESP_LOGD(TAG, "uuid: %s", randomUUID.toString());
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Bluetooth
@@ -308,7 +310,7 @@ void Posture_Analyzer::setup()
 }    
 void Posture_Analyzer::dump_config()
 {
-  ESP_LOGI(TAG, "UUID: %s",uuid);
+  ESP_LOGI(TAG, "UUID: %s", randomUUID.toString());
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname.c_str());
 }
 void Posture_Analyzer::loop()
