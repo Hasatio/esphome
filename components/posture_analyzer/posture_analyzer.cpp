@@ -302,7 +302,6 @@ void Posture_Analyzer::sensor()
 
 void Posture_Analyzer::setup()
 {
-  uuid_set();
   bt_set();
   i2c_set();
   ads1115_set();
@@ -311,6 +310,7 @@ void Posture_Analyzer::setup()
 }    
 void Posture_Analyzer::dump_config()
 {
+  uuid_set();
   ESP_LOGI(TAG, "UUID: %s", uuid);
   ESP_LOGI(TAG, "Bluetooth is ready to pair\nDevice name: %s",btname.c_str());
 }
