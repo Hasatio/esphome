@@ -186,25 +186,25 @@ void Posture_Analyzer::ads1115()
   {
     adc[i] = ads1.readADC_SingleEnded(i%4);
     volts[i] = ads1.computeVolts(adc[i]) * mygain;
-    data += std::to_string(volts[i]) + ",";
+    data += String(volts[i]) + ",";
   }
   for(int i=4;i<8;i++)
   {
     adc[i] = ads2.readADC_SingleEnded(i%4);
     volts[i] = ads2.computeVolts(adc[i]) * mygain;
-    data += std::to_string(volts[i]) + ",";
+    data += String(volts[i]) + ",";
   }
   for(int i=8;i<12;i++)
   {
     adc[i] = ads3.readADC_SingleEnded(i%4);
     volts[i] = ads3.computeVolts(adc[i]) * mygain;
-    data += std::to_string(volts[i]) + ",";
+    data += String(volts[i]) + ",";
   }
   for(int i=12;i<16;i++)
   {
     adc[i] = ads4.readADC_SingleEnded(i%4);
     volts[i] = ads4.computeVolts(adc[i]) * mygain;
-    data += std::to_string(volts[i]) + ",";
+    data += String(volts[i]) + ",";
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,7 +248,7 @@ void Posture_Analyzer::adxl345()
   x = accel.getX() * adxlmultiplier;
   y = accel.getY() * adxlmultiplier;
   z = accel.getZ() * adxlmultiplier;
-  data += std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + ",";
+  data += String(x) + "," + String(y) + "," + String(z) + ",";
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MAX17048
@@ -264,7 +264,7 @@ void Posture_Analyzer::max17048()
 {
   voltage = maxlipo.cellVoltage();
   percentage = maxlipo.cellPercent();
-  data += std::to_string(voltage) + "," + std::to_string(percentage) + ",";
+  data += String(voltage) + "," + String(percentage) + ",";
   
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -284,7 +284,7 @@ void Posture_Analyzer::internal_temp()
   //     this->publish_state(NAN);
   //   }
   // }
-  data += std::to_string(temperature);
+  data += String(temperature);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Sensor
