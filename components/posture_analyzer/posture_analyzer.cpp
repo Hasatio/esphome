@@ -21,6 +21,7 @@ namespace posture_analyzer {
 
 BLEServer *pServer;
 BLECharacteristic *pCharacteristic;
+BLEService *pService;
 
 
 // class MyCallbacks: public BLECharacteristicCallbacks {
@@ -55,7 +56,7 @@ void Posture_Analyzer::bt_set()
   BLEDevice::init(btname.c_str());  
   pServer = BLEDevice::createServer();
 
-  BLEService *pService = pServer->createService(uuid.toCharArray());
+  pService = pServer->createService(uuid.toCharArray());
 
   pCharacteristic = pService->createCharacteristic(
                                          uuid.toCharArray(),
