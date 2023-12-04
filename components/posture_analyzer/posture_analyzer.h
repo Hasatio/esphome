@@ -94,7 +94,7 @@ uint16_t adc[16];
 uint32_t sayac = 0;
 float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
 double adxlmultiplier;
-std::string data = "";
+String data = "";
 bool success = false;
 
 sensor::Sensor *sample_{nullptr};
