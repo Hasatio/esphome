@@ -70,7 +70,7 @@ void Posture_Analyzer::bt_set()
 void Posture_Analyzer::bt()
 {
   // ESP_LOGI(TAG, "data: %s", data);
-
+data += data;
   pCharacteristic->setValue(data.c_str());
   pCharacteristic->notify();
 
