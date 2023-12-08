@@ -221,8 +221,8 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {
-    an.set_ResMin(rmin);
-    an.set_ResMax(rmax);
+    an.set_ResMin(rmin.data());
+    an.set_ResMax(rmax.data());
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {

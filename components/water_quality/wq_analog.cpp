@@ -21,8 +21,8 @@ void Analog::Analog_Input_Driver(float volts[])
     lvl[1] = (float)volts[0] * 100 / 5 * resmax[1] / (1000 + resmax[1]) - 5 * resmin[1] / (1000 + resmin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     set_Lvl_Perc(lvl);
 	
-    set_EC_Ch() = get_EC_Ch() > 7 ? 4 : get_EC_Ch();
-    set_PH_Ch() = get_PH_Ch() > 7 ? 4 : get_PH_Ch();
+    set_EC_Ch(get_EC_Ch() > 7 ? 4 : get_EC_Ch());
+    set_PH_Ch(get_PH_Ch() > 7 ? 4 : get_PH_Ch());
     set_EC_Val(volts[get_EC_Ch()]);
     set_PH_Val(volts[get_PH_Ch()]);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
