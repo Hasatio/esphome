@@ -37,6 +37,7 @@ void Analog::Analog_Input_Driver(float volts[])
     AnInGen_Ch[0] = 4 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
     AnInGen_Ch[1] = 4 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
     AnInGen_Ch[0] = AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0];
+    AnInGen_Ch[1] = AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1];
     AnInGen_Val[0] = volts[AnInGen_Ch[0]];
         ESP_LOGD(TAG,"t3 = %f", AnInGen_Val[0]);
         ESP_LOGD(TAG,"c3 = %d", AnInGen_Ch[0]);
