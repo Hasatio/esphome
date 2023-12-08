@@ -32,10 +32,10 @@ void Analog::Analog_Input_Driver(float volts[])
     AnInGen_Ch[1] = 4 + ((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
     AnInGen_Val[0] = volts[AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0]];
         ESP_LOGD(TAG,"t1 = %f", AnInGen_Val[0]);
-        ESP_LOGD(TAG,"c1 = %f", AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0]);
+        ESP_LOGD(TAG,"c1 = %d", (AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0]));
     AnInGen_Val[1] = volts[AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1]];
         ESP_LOGD(TAG,"t2 = %f", AnInGen_Val[0]);
-        ESP_LOGD(TAG,"c2 = %f", AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1]);
+        ESP_LOGD(TAG,"c2 = %d", (AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1]));
 }
 
 bool calibrationIsRunning = false;
