@@ -264,7 +264,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     this->set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 0; i < 8; i++)
     {
-        float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
+        float v = request_measurement(static_cast<ADS1115Multiplexer>(i ));
         if (!std::isnan(v)) 
         {
             analog_voltage[i] = v;
