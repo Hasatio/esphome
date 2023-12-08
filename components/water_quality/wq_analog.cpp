@@ -32,7 +32,7 @@ void Analog::Analog_Input_Driver(float volts[])
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
     uint8_t tot, rnd;
-    tot = AnInEC_Ch + AnInPH_Ch;
+    tot = AnInEC_Ch + AnInPH_Ch - 8;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 4 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
     AnInGen_Ch[1] = 4 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
