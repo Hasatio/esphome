@@ -15,27 +15,29 @@ void Analog::Analog_Input_Driver(float volts[])
 
     set_VPow_Val((float)volts[2] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
-	float lvl[2];
-    lvl[0] = (float)volts[3] * 100 / 5 * AnInLvl_ResMax[0] / (1000 + AnInLvl_ResMax[0]) - 5 * AnInLvl_ResMin[0] / (1000 + AnInLvl_ResMin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    lvl[1] = (float)volts[0] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+	float lvl[2], resmin[] = get_ResMin(), resmax[] = get_ResMax();
+    lvl[0] = (float)volts[3] * 100 / 5 * resmax[0] / (1000 + resmax[0]) - 5 * resmin[0] / (1000 + resmin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    lvl[1] = (float)volts[0] * 100 / 5 * resmax[1] / (1000 + resmax[1]) - 5 * resmin[1] / (1000 + resmin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     set_Lvl_Perc(lvl);
 	
-    AnInEC_Ch = AnInEC_Ch > 7 ? 4 : AnInEC_Ch;
-    AnInPH_Ch = AnInPH_Ch > 7 ? 4 : AnInPH_Ch;
-    set_EC_Val(volts[AnInEC_Ch]);
-    set_PH_Val(volts[AnInPH_Ch]);
+    set_EC_Ch() = get_EC_Ch() > 7 ? 4 : get_EC_Ch();
+    set_PH_Ch() = get_PH_Ch() > 7 ? 4 : get_PH_Ch();
+    set_EC_Val(volts[get_EC_Ch()]);
+    set_PH_Val(volts[get_PH_Ch()]);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
-    uint8_t tot, rnd;
-    tot = AnInEC_Ch + AnInPH_Ch - 8;
+    float gen[2];
+    uint8_t tot, rnd, AnInGen_Ch[2];
+    tot = get_EC_Ch() + get_PH_Ch() - 8;
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 4 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
     AnInGen_Ch[1] = 4 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
     AnInGen_Ch[0] = AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0];
     AnInGen_Ch[1] = AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1];
-    AnInGen_Val[0] = volts[AnInGen_Ch[0]];
-    AnInGen_Val[1] = volts[AnInGen_Ch[1]];
+    gen[0] = volts[AnInGen_Ch[0]];
+    gen[1] = volts[AnInGen_Ch[1]];
+    set_Gen_Val(gen);
 }
 
 bool calibrationIsRunning = false;
