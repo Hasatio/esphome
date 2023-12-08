@@ -260,7 +260,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
-    delay(1000);
     this->set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 0; i < 4; i++)
     {
