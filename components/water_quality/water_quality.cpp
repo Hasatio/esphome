@@ -97,14 +97,15 @@ ESP_LOGI(TAG, "Gen2: %f", gen[1]);
 
     for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.AnInLvl_ResMin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.AnInLvl_ResMax[i]);
+        uint16_t resmin[] = get_ResMin(), resmax[] = get_ResMax();
+        ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.resmin[i]);
+        ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.resmax[i]);
     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", an.AnInEC_Ch);
-    ESP_LOGI(TAG,"EC_type = %d", an.AnInEC_Type);
-    ESP_LOGI(TAG,"PH_ch = %d", an.AnInPH_Ch);
-    ESP_LOGI(TAG,"PH_type = %d", an.AnInPH_Type);
+    ESP_LOGI(TAG,"EC_ch = %d", an.get_EC_Ch());
+    ESP_LOGI(TAG,"EC_type = %d", an.get_EC_Type());
+    ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
+    ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
 }
 void WaterQuality::loop() 
 {
@@ -225,13 +226,13 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
-    an.AnInEC_Ch = ch + 4;
-    an.AnInEC_Type = type;
+    an.set_EC_Ch(ch + 4);
+    an.set_EC_Type(type);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
-    an.AnInPH_Ch = ch + 4;
-    an.AnInPH_Type = type;
+    an.set_PH_Ch(ch + 4);
+    an.set_PH_Type(type);
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
