@@ -55,16 +55,16 @@ ESP_LOGI(TAG, "ads6: %f", f[5]);
 ESP_LOGI(TAG, "ads7: %f", f[6]);
 ESP_LOGI(TAG, "ads8: %f", f[7]);
 
-ESP_LOGI(TAG, "ads1: %f", an.get_WT_Val());
-ESP_LOGI(TAG, "ads2: %f", an.get_VPow_Val());
+ESP_LOGI(TAG, "WT: %f", an.get_WT_Val());
+ESP_LOGI(TAG, "VPow: %f", an.get_VPow_Val());
 float* lvl = an.get_Lvl_Perc();
-ESP_LOGI(TAG, "ads3: %f", lvl[0]);
-ESP_LOGI(TAG, "ads4: %f", lvl[1]);
-ESP_LOGI(TAG, "ads5: %f", an.get_EC_Val());
-ESP_LOGI(TAG, "ads6: %f", an.get_PH_Val());
+ESP_LOGI(TAG, "Lvl1: %f", lvl[0]);
+ESP_LOGI(TAG, "Lvl2: %f", lvl[1]);
+ESP_LOGI(TAG, "EC: %f", an.get_EC_Val());
+ESP_LOGI(TAG, "PH: %f", an.get_PH_Val());
 float* gen = an.get_Gen_Val();
-ESP_LOGI(TAG, "ads7: %f", gen[0]);
-ESP_LOGI(TAG, "ads8: %f", gen[1]);
+ESP_LOGI(TAG, "Gen1: %f", gen[0]);
+ESP_LOGI(TAG, "Gen2: %f", gen[1]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
