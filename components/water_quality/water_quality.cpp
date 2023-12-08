@@ -225,12 +225,12 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
-    an.AnInEC_Ch = ch;
+    an.AnInEC_Ch = ch + 4;
     an.AnInEC_Type = type;
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
-    an.AnInPH_Ch = ch;
+    an.AnInPH_Ch = ch + 4;
     an.AnInPH_Type = type;
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
