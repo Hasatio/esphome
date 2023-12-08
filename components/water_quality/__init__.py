@@ -95,11 +95,11 @@ CONFIG_SCHEMA = (
                 cv.ensure_list(
                     cv.Schema(
                         {
-                            cv.Required(CONF_RES_MIN): cv.All(
+                            cv.Required(CONF_RES_MIN, default=0): cv.All(
                                 cv.ensure_list(cv.uint16_t),
                                 cv.Length(min = 1, max = 2)
                             ),
-                            cv.Required(CONF_RES_MAX): cv.All(
+                            cv.Required(CONF_RES_MAX, default=0): cv.All(
                                 cv.ensure_list(cv.uint16_t),
                                 cv.Length(min = 1, max = 2)
                             ),  
