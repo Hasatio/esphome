@@ -272,17 +272,17 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
             // this->publish_state(v);
         }
     }
-    this->set_i2c_address(ADS1X15_ADDRESS2);
-    for (size_t i = 0; i < 4; i++)
-    {
-        float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
-        if (!std::isnan(v)) 
-        {
-            analog_voltage[i + 4] = v;
-            // ESP_LOGD(TAG, "Voltage%d: %f",i + 4, v);
-            // this->publish_state(v);
-        }
-    }
+    // this->set_i2c_address(ADS1X15_ADDRESS2);
+    // for (size_t i = 0; i < 4; i++)
+    // {
+    //     float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
+    //     if (!std::isnan(v)) 
+    //     {
+    //         analog_voltage[i + 4] = v;
+    //         // ESP_LOGD(TAG, "Voltage%d: %f",i + 4, v);
+    //         // this->publish_state(v);
+    //     }
+    // }
     // ana.Analog_Input_Driver(analog_voltage);
 }
 
