@@ -268,7 +268,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
         if (!std::isnan(v)) 
         {
             analog_voltage[i] = v;
-            ESP_LOGD(TAG, "Voltage%d: %f",i, v);
+            // ESP_LOGD(TAG, "Voltage%d: %f",i, v);
             // this->publish_state(v);
         }
     }
@@ -279,7 +279,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
         if (!std::isnan(v)) 
         {
             analog_voltage[i + 4] = v;
-            ESP_LOGD(TAG, "Voltage%d: %f",i + 4, v);
+            // ESP_LOGD(TAG, "Voltage%d: %f",i + 4, v);
             // this->publish_state(v);
         }
     }
