@@ -260,15 +260,16 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
-    
+    delay(1000);
     this->set_i2c_address(ADS1X15_ADDRESS1);
     for (size_t i = 0; i < 4; i++)
     {
+      ESP_LOGD(TAG, "multi: %d", static_cast<ADS1115Multiplexer>(i + 4));
         float v = request_measurement(static_cast<ADS1115Multiplexer>(i + 4));
         if (!std::isnan(v)) 
         {
             analog_voltage[i] = v;
-            // ESP_LOGD(TAG, "Voltage%d: %f", i, v);
+            ESP_LOGD(TAG, "Voltage%d: %f", i, v);
             // this->publish_state(v);
         }
     }
