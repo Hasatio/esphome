@@ -113,8 +113,8 @@ void WaterQuality::loop()
 void WaterQuality::update()
 {
     float f[8];
-    // ADS1115_Driver(f);
-    // an.Analog_Input_Driver(f);
+    ADS1115_Driver(f);
+    an.Analog_Input_Driver(f);
     // MCP23008_Driver();
     // pca9685();
     // pump_total();
