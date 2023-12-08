@@ -20,18 +20,18 @@ void Analog::Analog_Input_Driver(float volts[])
     lvl[1] = (float)volts[0] * 100 / 5 * AnInLvl_ResMax[1] / (1000 + AnInLvl_ResMax[1]) - 5 * AnInLvl_ResMin[1] / (1000 + AnInLvl_ResMin[1]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     set_Lvl_Perc(lvl);
 	
-    set_EC_Val(volts[AnInEC_Ch % 8]);
-    set_PH_Val(volts[AnInPH_Ch % 8]);
+    set_EC_Val(volts[AnInEC_Ch > 7 ? 4 : AnInEC_Ch]);
+    set_PH_Val(volts[AnInPH_Ch > 7 ? 4 : AnInPH_Ch]);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
     uint8_t tot, rnd;
     tot = AnInEC_Ch + AnInPH_Ch;
     rnd = round((10 - tot) / 2);
-    AnInGen_Ch[0] = (10 - tot - rnd - 1) == AnInEC_Ch? 10 - tot - rnd - 2 : 10 - tot - rnd - 1;
-    AnInGen_Ch[1] = (10 - tot - AnInGen_Ch[0]) == AnInPH_Ch? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0];
-    AnInGen_Val[0] = volts[(AnInGen_Ch[0] + 4) % 8];
-    AnInGen_Val[1] = volts[(AnInGen_Ch[1] + 4) % 8];
+    AnInGen_Ch[0] = 4 + ((10 - tot - rnd - 1) == AnInEC_Ch ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
+    AnInGen_Ch[1] = 4 + ((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
+    AnInGen_Val[0] = volts[AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0]];
+    AnInGen_Val[1] = volts[AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1]];
 }
 
 bool calibrationIsRunning = false;
