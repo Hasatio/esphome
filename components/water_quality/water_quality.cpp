@@ -46,14 +46,6 @@ ESP_LOGI(TAG, "ads6: %f", f[5]);
 ESP_LOGI(TAG, "ads7: %f", f[6]);
 ESP_LOGI(TAG, "ads8: %f\n", f[7]);
     an.Analog_Input_Driver(f);
-ESP_LOGI(TAG, "ads1: %f", f[0]);
-ESP_LOGI(TAG, "ads2: %f", f[1]);
-ESP_LOGI(TAG, "ads3: %f", f[2]);
-ESP_LOGI(TAG, "ads4: %f", f[3]);
-ESP_LOGI(TAG, "ads5: %f", f[4]);
-ESP_LOGI(TAG, "ads6: %f", f[5]);
-ESP_LOGI(TAG, "ads7: %f", f[6]);
-ESP_LOGI(TAG, "ads8: %f", f[7]);
 
 ESP_LOGI(TAG, "WT: %f", an.get_WT_Val());
 ESP_LOGI(TAG, "VPow: %f", an.get_VPow_Val());
