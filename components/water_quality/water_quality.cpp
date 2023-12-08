@@ -95,9 +95,9 @@ ESP_LOGI(TAG, "Gen2: %f", gen[1]);
         ESP_LOGI(TAG,"Pump_Total[%d] = %d.%d", i, pump.Pump_Total[i][0], pump.Pump_Total[i][1]);
     }
 
-    for (size_t i = 0; i < an.AnInLvl_ResMin.size(); i++)
+    uint16_t resmin[] = get_ResMin(), resmax[] = get_ResMax();
+    for (size_t i = 0; i < an.resmin.size(); i++)
     {
-        uint16_t resmin[] = get_ResMin(), resmax[] = get_ResMax();
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, an.resmin[i]);
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, an.resmax[i]);
     }
