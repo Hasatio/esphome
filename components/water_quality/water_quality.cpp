@@ -96,7 +96,7 @@ ESP_LOGI(TAG, "Gen2: %f", gen[1]);
     }
 
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
-    for (size_t i = 0; i < resmin.size(); i++)
+    for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
     {
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, resmin[i]);
         ESP_LOGI(TAG,"ResMax[%d] = %d", i, resmax[i]);
