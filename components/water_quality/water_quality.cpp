@@ -108,7 +108,7 @@ ESP_LOGI(TAG, "Gen2: %f", gen[1]);
 }
 void WaterQuality::loop() 
 {
-    // delay(1000);
+    delay(1000);
 }
 void WaterQuality::update()
 {
