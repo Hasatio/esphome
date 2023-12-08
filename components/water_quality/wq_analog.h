@@ -53,18 +53,17 @@ bool readSerial(char result[]);
 void ec_ph();
 void ec_ph2();
 
-uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
-std::vector<uint16_t> AnInLvl_ResMin{0,0};
-std::vector<uint16_t> AnInLvl_ResMax{0,0};
 float voltagePH, voltageEC;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
 
 protected:
+uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInGen_Ch[2];
 float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInEC_Val, AnInPH_Val, AnInGen_Val[2];
-
+uint16_t AnInLvl_ResMin[] = {0,0};
+uint16_t AnInLvl_ResMax[] = {0,0};
 };
 
 }  // namespace water_quality

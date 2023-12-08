@@ -24,10 +24,6 @@ void Analog::Analog_Input_Driver(float volts[])
     AnInPH_Ch = AnInPH_Ch > 7 ? 4 : AnInPH_Ch;
     set_EC_Val(volts[AnInEC_Ch]);
     set_PH_Val(volts[AnInPH_Ch]);
-        ESP_LOGD(TAG,"t1 = %f", get_EC_Val());
-        ESP_LOGD(TAG,"c1 = %d", AnInEC_Ch);
-        ESP_LOGD(TAG,"t2 = %f", get_PH_Val());
-        ESP_LOGD(TAG,"c2 = %d", AnInPH_Ch);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
@@ -39,11 +35,7 @@ void Analog::Analog_Input_Driver(float volts[])
     AnInGen_Ch[0] = AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0];
     AnInGen_Ch[1] = AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1];
     AnInGen_Val[0] = volts[AnInGen_Ch[0]];
-        ESP_LOGD(TAG,"t3 = %f", AnInGen_Val[0]);
-        ESP_LOGD(TAG,"c3 = %d", AnInGen_Ch[0]);
     AnInGen_Val[1] = volts[AnInGen_Ch[1]];
-        ESP_LOGD(TAG,"t4 = %f", AnInGen_Val[0]);
-        ESP_LOGD(TAG,"c4 = %d", AnInGen_Ch[1]);
 }
 
 bool calibrationIsRunning = false;
