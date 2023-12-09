@@ -35,7 +35,7 @@ enum ADS1115Multiplexer {
   ADS1115_MULTIPLEXER_P3_NG = 0b111,
 };
 
-class WaterQuality : public PollingComponent, public i2c::I2CDevice, public I2C//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
+class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
