@@ -193,9 +193,8 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-float WaterQuality::ADS1115_Driver()
+float WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
-  float analog_voltage[8];
   this->set_i2c_address(ADS1X15_ADDRESS1);
   for (size_t i = 0; i < 4; i++)
   {
@@ -219,7 +218,6 @@ float WaterQuality::ADS1115_Driver()
       }
   }
   // ana.Analog_Input_Driver(analog_voltage);
-  return analog_voltage;
 }
 
 // void MCP23008_Setup()

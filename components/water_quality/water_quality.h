@@ -55,7 +55,7 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 void ADS1115_Setup(uint8_t address);
-float ADS1115_Driver();
+float ADS1115_Driver(float analog_voltage[]);
 float ADS1115_Read(ADS1115Multiplexer multi);
 
 // void register_sensor(MySensor *obj) { this->sensors_.push_back(obj); }
