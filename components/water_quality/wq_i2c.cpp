@@ -225,7 +225,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
   return millivolts / 1e3f;
 }
 
-void I2C::test()
+void Data::test()
 {
   WaterQuality *wq;
     LOG_I2C_DEVICE(wq);
