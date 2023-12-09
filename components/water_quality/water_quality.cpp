@@ -204,7 +204,7 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
-    uint16_t rminArray, rmaxArray;
+    uint16_t rminArray[2], rmaxArray[2];
     for (size_t i = 0; i < rmin.size(); i++)
     {
         rminArray[i] = rmin[i];
