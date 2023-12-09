@@ -207,8 +207,8 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
     uint16_t rminArray, rmaxArray;
     for (size_t i = 0; i < rmin.size(); i++)
     {
-        rminArray = rmin[i];
-        rmaxArray = rmax[i];
+        rminArray[i] = rmin[i];
+        rmaxArray[i] = rmax[i];
     }
     an.set_ResMin(rminArray);
     an.set_ResMax(rmaxArray);
