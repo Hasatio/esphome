@@ -27,8 +27,8 @@ void Analog::Analog_Input_Driver(float volts[])
 	
     set_EC_Ch((get_EC_Ch() + 3) > 7 ? 4 : get_EC_Ch());
     set_PH_Ch((get_PH_Ch() + 3) > 7 ? 4 : get_PH_Ch());
-    set_EC_Val(volts[get_EC_Ch() + 4]);
-    set_PH_Val(volts[get_PH_Ch() + 4]);
+    set_EC_Val(volts[get_EC_Ch() + 3]);
+    set_PH_Val(volts[get_PH_Ch() + 3]);
     // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
     // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
