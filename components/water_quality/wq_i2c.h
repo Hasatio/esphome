@@ -45,7 +45,7 @@ enum ADS1115Resolution {
 
 void tcaselect(uint8_t bus);
 
-class I2C : public i2c::I2CDevice
+class Data : public i2c::I2CDevice
 {
 public:
 void test();
