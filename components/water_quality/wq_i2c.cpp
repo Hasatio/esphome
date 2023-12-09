@@ -228,7 +228,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
 void Data::test()
 {
   WaterQuality *wq;
-    LOG_I2C_DEVICE(wq);
+    LOG_I2C_DEVICE(wq->get_address());
     if (wq->is_failed())
         ESP_LOGE(TAG, "var");
     else

@@ -50,6 +50,9 @@ class Data : public i2c::I2CDevice
 public:
 void test();
 
+void set_water_quality(WaterQuality *wq) {
+wq_ = wq;
+}
 // float request_measurement(ADS1115Multiplexer multi);
 // void set_continuous_mode(bool continuous_mode) { continuous_mode_ = continuous_mode; }
 // void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = ADS1115_MULTIPLEXER_P1_NG /*multiplexer*/; }
@@ -60,6 +63,9 @@ void test();
 // uint8_t get_multiplexer() const { return multiplexer_; }
 // uint8_t get_gain() const { return gain_; }
 // uint8_t get_resolution() const { return resolution_; }
+
+protected:
+  WaterQuality *wq_;
 };
 
 }  // namespace water_quality
