@@ -15,8 +15,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
     set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
-    uint8_t lvl[2];
-	float Vmin[2], Vmax[2];
+    float lvl[2], Vmin[2], Vmax[2];
     uint16_t *resmin = get_ResMin(), *resmax = get_ResMax();
     Vmin[0] = (float)5 * resmin[0] / (1000 + resmin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     Vmin[1] = (float)5 * resmin[1] / (1000 + resmin[1]);

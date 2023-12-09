@@ -269,7 +269,7 @@ void WaterQuality::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
-        uint8_t* lvl = an.get_Lvl_Perc();
+        float* lvl = an.get_Lvl_Perc();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
         ap << "," << std::fixed << std::setprecision(2) << lvl[i];
