@@ -28,6 +28,9 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     return NAN;
   }
 
+  // about 1.2 ms with 860 samples per second
+  delay(1.2);
+
   uint16_t raw_conversion;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
     this->status_set_warning();
@@ -89,7 +92,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 
   ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
 
-// set_continuous_mode(true);
   uint16_t config = 0;
   // Clear single-shot bit
   //        0b0xxxxxxxxxxxxxxx
