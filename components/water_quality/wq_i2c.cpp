@@ -207,7 +207,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     this->prev_config_ = config;
 
     // about 1.2 ms with 860 samples per second
-    delay(1.2);
+    delay(2);
   }
 
   uint16_t raw_conversion;
