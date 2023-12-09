@@ -26,8 +26,6 @@ void Analog::Analog_Input_Driver(float volts[])
     lvl[1] = (float)100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
     set_Lvl_Perc(lvl);
 	
-    set_EC_Ch((get_EC_Ch() + 3) > 7 ? 4 : get_EC_Ch());
-    set_PH_Ch((get_PH_Ch() + 3) > 7 ? 4 : get_PH_Ch());
     set_EC_Val(volts[get_EC_Ch() + 3]);
     set_PH_Val(volts[get_PH_Ch() + 3]);
 
@@ -37,10 +35,8 @@ void Analog::Analog_Input_Driver(float volts[])
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = (((10 - tot - rnd - 1) == AnInEC_Ch) ? (10 - tot - rnd - 2) : (10 - tot - rnd - 1));
     AnInGen_Ch[1] = (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? (10 - tot - AnInGen_Ch[0] + 1) : (10 - tot - AnInGen_Ch[0]));
-    AnInGen_Ch[0] = (AnInGen_Ch[0] + 3) > 7 ? 4 : (AnInGen_Ch[0] + 3);
-    AnInGen_Ch[1] = (AnInGen_Ch[1] + 3) > 7 ? 4 : (AnInGen_Ch[1] + 3);
-    gen[0] = volts[AnInGen_Ch[0]];
-    gen[1] = volts[AnInGen_Ch[1]];
+    gen[0] = volts[AnInGen_Ch[0] + 3];
+    gen[1] = volts[AnInGen_Ch[1] + 3];
     set_Gen_Val(gen);
 }
 
