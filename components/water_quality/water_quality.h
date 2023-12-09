@@ -120,6 +120,7 @@ void dump_config() override;
 void loop() override;
 void update() override;
 
+void version(const uint8_t v);
 void pump_calib_gain(const std::vector<float> &pcg);
 void pump_type(const std::vector<uint8_t> &ptype, const uint8_t d, const uint8_t c);
 void pump_dose(std::vector<uint16_t> &pdose);

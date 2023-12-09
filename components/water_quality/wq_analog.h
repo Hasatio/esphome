@@ -65,6 +65,7 @@ bool readSerial(char result[]);
 void ec_ph();
 void ec_ph2();
 
+uint8_t ver;
 float voltagePH, voltageEC;
 char cmd[10];
 

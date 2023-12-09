@@ -13,6 +13,7 @@ AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
 CONF_COMPONENT_ID = "component_id"
+CONF_VERSION = "version"
 CONF_PUMP1 = "pump1"
 CONF_PUMP2 = "pump2"
 CONF_PUMP3 = "pump3"
@@ -67,6 +68,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(WaterQuality),
+            cv.Optional(CONF_VERSION, default = 0): cv.uint8_t,  
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
                 cv.Length(min = 1)
@@ -139,6 +141,9 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
     
+    if CONF_VERSION in config:
+        cg.add(var.version(config[CONF_VERSION]))
+        
     empty = [0] * 1
     type = []
     calib = []

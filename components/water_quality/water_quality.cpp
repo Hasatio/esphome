@@ -100,6 +100,10 @@ void WaterQuality::update()
 
     bool pd[6], pc[6];
 
+void WaterQuality::version(const uint8_t v)
+{
+    an.ver = v;
+}
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
 {
     pump.Pump_Calib_Gain = pcg;

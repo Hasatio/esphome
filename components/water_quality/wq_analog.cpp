@@ -10,17 +10,19 @@ WaterQuality my;
 void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
-	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[1]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[0]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
     set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
     float lvl[2], Vmin[2], Vmax[2];
-    uint16_t *resmin = get_ResMin(), *resmax = get_ResMax();
-    Vmin[0] = (float)5 * resmin[0] / (1000 + resmin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    Vmin[1] = (float)5 * resmin[1] / (1000 + resmin[1]);
-    Vmax[0] = (float)5 * resmax[0] / (1000 + resmax[0]);
-    Vmax[1] = (float)5 * resmax[1] / (1000 + resmax[1]);
+    uint16_t res, volt, *resmin = get_ResMin(), *resmax = get_ResMax();
+    if(ver == 0) {res = 1000; volt = get_VPow_Val();}
+    if(ver == 1) {res = 270; volt = 5;}
+    Vmin[0] = (float)volt * resmin[0] / (res + resmin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
+    Vmin[1] = (float)volt * resmin[1] / (res + resmin[1]);
+    Vmax[0] = (float)volt * resmax[0] / (res + resmax[0]);
+    Vmax[1] = (float)volt * resmax[1] / (res + resmax[1]);
     lvl[0] = (float)100 * (volts[2] - Vmin[0]) / (Vmax[0] - Vmin[0]);
     lvl[1] = (float)100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
     set_Lvl_Perc(lvl);
