@@ -30,33 +30,16 @@ void WaterQuality::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
 
-LOG_I2C_DEVICE(this);
-if (this->is_failed()) {
-ESP_LOGE(TAG, "Communication with ADS1115 failed!");
-}
-
-    float f[8];
-    ADS1115_Driver(f);
-ESP_LOGI(TAG, "ads1: %f", f[0]);
-ESP_LOGI(TAG, "ads2: %f", f[1]);
-ESP_LOGI(TAG, "ads3: %f", f[2]);
-ESP_LOGI(TAG, "ads4: %f", f[3]);
-ESP_LOGI(TAG, "ads5: %f", f[4]);
-ESP_LOGI(TAG, "ads6: %f", f[5]);
-ESP_LOGI(TAG, "ads7: %f", f[6]);
-ESP_LOGI(TAG, "ads8: %f\n", f[7]);
-    an.Analog_Input_Driver(f);
-
-ESP_LOGI(TAG, "WT: %f", an.get_WT_Val());
-ESP_LOGI(TAG, "VPow: %f", an.get_VPow_Val());
-float* lvl = an.get_Lvl_Perc();
-ESP_LOGI(TAG, "Lvl1: %f", lvl[0]);
-ESP_LOGI(TAG, "Lvl2: %f", lvl[1]);
-ESP_LOGI(TAG, "EC: %f", an.get_EC_Val());
-ESP_LOGI(TAG, "PH: %f", an.get_PH_Val());
-float* gen = an.get_Gen_Val();
-ESP_LOGI(TAG, "Gen1: %f", gen[0]);
-ESP_LOGI(TAG, "Gen2: %f", gen[1]);
+    ESP_LOGI(TAG, "WT: %f", an.get_WT_Val());
+    ESP_LOGI(TAG, "VPow: %f", an.get_VPow_Val());
+    float* lvl = an.get_Lvl_Perc();
+    ESP_LOGI(TAG, "Lvl1: %f", lvl[0]);
+    ESP_LOGI(TAG, "Lvl2: %f", lvl[1]);
+    ESP_LOGI(TAG, "EC: %f", an.get_EC_Val());
+    ESP_LOGI(TAG, "PH: %f", an.get_PH_Val());
+    float* gen = an.get_Gen_Val();
+    ESP_LOGI(TAG, "Gen1: %f", gen[0]);
+    ESP_LOGI(TAG, "Gen2: %f", gen[1]);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
@@ -114,8 +97,7 @@ void WaterQuality::loop()
 void WaterQuality::update()
 {
     float f[8];
-    ADS1115_Driver(f);
-    an.Analog_Input_Driver(f);
+    an.Analog_Input_Driver(ADS1115_Driver());
     // MCP23008_Driver();
     // pca9685();
     // pump_total();
@@ -221,6 +203,11 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
+    for (size_t i = 0; i < rmin.size(); i++)
+    {
+    ESP_LOGD(TAG,"rmin = %f", rmin[i]);
+    ESP_LOGD(TAG,"rmax = %f", rmax[i]);
+    }
     uint16_t* rminArray = const_cast<uint16_t*>(rmin.data());
     uint16_t* rmaxArray = const_cast<uint16_t*>(rmax.data());
     an.set_ResMin(rminArray);
