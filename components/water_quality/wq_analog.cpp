@@ -10,10 +10,10 @@ WaterQuality my;
 void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
-	float WT_Res = (float)(volts[1] * 1000) / (5 - volts[1]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+	float WT_Res = (float)(volts[0] * 1000) / (5 - volts[1]) * (get_WT_Res() / 1000); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     set_WT_Val((float)(sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
-    set_VPow_Val((float)volts[2] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    set_VPow_Val((float)volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
 	float lvl[2], Vmin[2], Vmax[2];
     uint16_t *resmin = get_ResMin(), *resmax = get_ResMax();
@@ -21,12 +21,12 @@ void Analog::Analog_Input_Driver(float volts[])
     Vmin[1] = (float)5 * resmin[1] / (1000 + resmin[1]);
     Vmax[0] = (float)5 * resmax[0] / (1000 + resmax[0]);
     Vmax[1] = (float)5 * resmax[1] / (1000 + resmax[1]);
-    lvl[0] = (float)100 * (volts[3] - Vmin[0]) / (Vmax[0] - Vmin[0]);
-    lvl[1] = (float)100 * (volts[0] - Vmin[1]) / (Vmax[1] - Vmin[1]);
+    lvl[0] = (float)100 * (volts[2] - Vmin[0]) / (Vmax[0] - Vmin[0]);
+    lvl[1] = (float)100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
     set_Lvl_Perc(lvl);
 	
-    set_EC_Ch((get_EC_Ch() + 4) > 7 ? 4 : get_EC_Ch());
-    set_PH_Ch((get_PH_Ch() + 4) > 7 ? 4 : get_PH_Ch());
+    set_EC_Ch((get_EC_Ch() + 3) > 7 ? 4 : get_EC_Ch());
+    set_PH_Ch((get_PH_Ch() + 3) > 7 ? 4 : get_PH_Ch());
     set_EC_Val(volts[get_EC_Ch() + 4]);
     set_PH_Val(volts[get_PH_Ch() + 4]);
     // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
@@ -36,8 +36,8 @@ void Analog::Analog_Input_Driver(float volts[])
     uint8_t tot, rnd, AnInGen_Ch[2];
     tot = get_EC_Ch() + get_PH_Ch();
     rnd = round((10 - tot) / 2);
-    AnInGen_Ch[0] = 4 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
-    AnInGen_Ch[1] = 4 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
+    AnInGen_Ch[0] = 3 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
+    AnInGen_Ch[1] = 3 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
     AnInGen_Ch[0] = AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0];
     AnInGen_Ch[1] = AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1];
     gen[0] = volts[AnInGen_Ch[0]];
