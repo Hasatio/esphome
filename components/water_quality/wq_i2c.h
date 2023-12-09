@@ -48,7 +48,7 @@ void tcaselect(uint8_t bus);
 class I2C : public i2c::I2CDevice
 {
 public:
-
+void test();
 
 // float request_measurement(ADS1115Multiplexer multi);
 // void set_continuous_mode(bool continuous_mode) { continuous_mode_ = continuous_mode; }

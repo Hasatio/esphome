@@ -225,6 +225,14 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
   return millivolts / 1e3f;
 }
 
+void I2C::test()
+{
+    LOG_I2C_DEVICE(this);
+    if (this->is_failed())
+        ESP_LOGE(TAG, "var");
+    else
+        ESP_LOGI(TAG, "yok");
+}
 
 void WaterQuality::MCP23008_Setup()
 {
@@ -263,7 +271,7 @@ void WaterQuality::MCP23008_Setup()
     // mcp.digitalWrite(6,LOW);
     // mcp.digitalWrite(7,LOW);
 }
-void WaterQuality::MCP23008_Driver()
+void WaterQuality::MCP23008_Driver(float digital[])
 {
     // mcp.digitalWrite(4,LOW);
     // mcp.digitalWrite(5,LOW);
