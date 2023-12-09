@@ -43,8 +43,6 @@ void Analog::Analog_Input_Driver(float volts[])
     gen[0] = volts[AnInGen_Ch[0]];
     gen[1] = volts[AnInGen_Ch[1]];
     set_Gen_Val(gen);
-    ESP_LOGD(TAG,"v_gen = %f", volts[AnInGen_Ch[0]]);
-    ESP_LOGD(TAG,"gen = %f", gen[0]);
 }
 
 bool calibrationIsRunning = false;
