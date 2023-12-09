@@ -43,7 +43,7 @@ void Analog::Analog_Input_Driver(float volts[])
     gen[1] = volts[AnInGen_Ch[1]];
     set_Gen_Val(gen);
     for (size_t i = 0; i < 8; i++)
-    ESP_LOGD(TAG,"ec_ch = %d", volts[i]);
+    ESP_LOGD(TAG,"volt = %d", volts[i]);
     ESP_LOGD(TAG,"ec_ch = %d", get_EC_Ch() + 3);
     ESP_LOGD(TAG,"ph_ch = %d", get_PH_Ch() + 3);
     ESP_LOGD(TAG,"gen_ch1 = %d", AnInGen_Ch[0]);
