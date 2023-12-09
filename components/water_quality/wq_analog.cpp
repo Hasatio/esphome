@@ -36,10 +36,10 @@ void Analog::Analog_Input_Driver(float volts[])
     uint8_t tot, rnd, AnInGen_Ch[2];
     tot = get_EC_Ch() + get_PH_Ch();
     rnd = round((10 - tot) / 2);
-    AnInGen_Ch[0] = 3 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
-    AnInGen_Ch[1] = 3 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
-    AnInGen_Ch[0] = AnInGen_Ch[0] > 7 ? 4 : AnInGen_Ch[0];
-    AnInGen_Ch[1] = AnInGen_Ch[1] > 7 ? 4 : AnInGen_Ch[1];
+    AnInGen_Ch[0] = (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
+    AnInGen_Ch[1] = (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
+    AnInGen_Ch[0] = (AnInGen_Ch[0] + 3) > 7 ? 4 : AnInGen_Ch[0] + 3;
+    AnInGen_Ch[1] = (AnInGen_Ch[1] + 3) > 7 ? 4 : AnInGen_Ch[1] + 3;
     gen[0] = volts[AnInGen_Ch[0]];
     gen[1] = volts[AnInGen_Ch[1]];
     set_Gen_Val(gen);
