@@ -217,7 +217,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   //         // this->publish_state(v);
   //     }
   // }
-  ESP_LOGD(TAG,"volt = %f", analog_voltage[0]);
+  ESP_LOGD(TAG,"volt = %f", analog_voltage[1]);
   // ana.Analog_Input_Driver(analog_voltage);
 }
 
