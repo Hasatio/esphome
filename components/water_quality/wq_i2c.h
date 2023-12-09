@@ -45,6 +45,9 @@ enum ADS1115Resolution {
 
 void tcaselect(uint8_t bus);
 
+class I2C : public i2c::I2CDevice
+{
+public:
 
 
 // float request_measurement(ADS1115Multiplexer multi);
@@ -57,6 +60,7 @@ void tcaselect(uint8_t bus);
 // uint8_t get_multiplexer() const { return multiplexer_; }
 // uint8_t get_gain() const { return gain_; }
 // uint8_t get_resolution() const { return resolution_; }
+};
 
 }  // namespace water_quality
 }  // namespace esphome

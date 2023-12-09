@@ -5,7 +5,6 @@
 
 #include "esphome.h"
 #include "esphome/core/log.h"
-#include "esphome/components/mcp23xxx_base/mcp23xxx_base.h"
 
 namespace esphome {
 namespace water_quality {
