@@ -39,8 +39,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
-  float millivolts;
-  float divider = 32768.0f;
+  float millivolts, divider = 32768.0f;
   millivolts = (signed_conversion * 6144) / divider;
 
   this->status_clear_warning();

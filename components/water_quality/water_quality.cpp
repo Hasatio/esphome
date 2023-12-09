@@ -16,7 +16,7 @@ void WaterQuality::setup()
 {
     
     ADS1115_Setup(ADS1X15_ADDRESS1);
-    ADS1115_Setup(ADS1X15_ADDRESS2);
+    // ADS1115_Setup(ADS1X15_ADDRESS2);
     // MCP23008_Setup();
 
     // PCA9685_Setup();
@@ -204,7 +204,7 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
-    uint16_t rminArray[2], rmaxArray[2];
+    uint16_t rminArray[2] = {0,0}, rmaxArray[2] = {0,0};
     for (size_t i = 0; i < rmin.size(); i++)
     {
         rminArray[i] = rmin[i];
