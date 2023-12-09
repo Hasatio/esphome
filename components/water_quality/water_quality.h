@@ -40,12 +40,6 @@ class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public se
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-void ADS1115_Setup(uint8_t address);
-void ADS1115_Driver(float analog_voltage[]);
-float ADS1115_Read(ADS1115Multiplexer multi);
-
-// void register_sensor(MySensor *obj) { this->sensors_.push_back(obj); }
-
 uint16_t PwmFreq = 1000;
 
     // Adafruit_PWMServoDriver pwm;
@@ -113,6 +107,12 @@ void pca9685()
     //     }
 }
 
+void ADS1115_Setup(uint8_t address);
+void ADS1115_Driver(float analog_voltage[]);
+float ADS1115_Read(ADS1115Multiplexer multi);
+void MCP23008_Setup();
+void MCP23008_Driver(float digital[]);
+
 void sensor();
 
 void setup() override;
@@ -156,10 +156,6 @@ void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Va
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
-WaterQuality *parent_;
-// ADS1115Multiplexer multiplexer_;
-// ADS1115Gain gain_;
-// ADS1115Resolution resolution_;
 
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};

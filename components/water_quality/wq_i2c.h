@@ -45,8 +45,6 @@ enum ADS1115Resolution {
 
 void tcaselect(uint8_t bus);
 
-void MCP23008_Setup();
-void MCP23008_Driver();
 
 
 // float request_measurement(ADS1115Multiplexer multi);
