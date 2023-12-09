@@ -72,8 +72,8 @@ float ecVoltage,phVoltage,temperature;
 
 protected:
 uint16_t AnInWT_Res = 1000; //temperature sensor model pt1000 and its resistance is 1k
-uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type;
-float AnInWT_Val, AnInVPow_Val, AnInLvl_Perc[2], AnInEC_Val, AnInPH_Val, AnInGen_Val[2];
+uint8_t AnInEC_Ch, AnInEC_Type, AnInPH_Ch, AnInPH_Type, AnInLvl_Perc[2];
+float AnInWT_Val, AnInVPow_Val, AnInEC_Val, AnInPH_Val, AnInGen_Val[2];
 uint16_t AnInLvl_ResMin[2], AnInLvl_ResMax[2];
 };
 

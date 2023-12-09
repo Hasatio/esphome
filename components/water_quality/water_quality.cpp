@@ -32,7 +32,7 @@ void WaterQuality::dump_config()
 
     ESP_LOGI(TAG, "WT: %f", an.get_WT_Val());
     ESP_LOGI(TAG, "VPow: %f", an.get_VPow_Val());
-    float* lvl = an.get_Lvl_Perc();
+    uint8_t* lvl = an.get_Lvl_Perc();
     ESP_LOGI(TAG, "Lvl1: %f", lvl[0]);
     ESP_LOGI(TAG, "Lvl2: %f", lvl[1]);
     ESP_LOGI(TAG, "EC: %f", an.get_EC_Val());
@@ -280,7 +280,7 @@ void WaterQuality::sensor()
     if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
-        float* lvl = an.get_Lvl_Perc();
+        uint8_t* lvl = an.get_Lvl_Perc();
         for (size_t i = 0; i < 2; i++)
         if (i > 0)
         ap << "," << std::fixed << std::setprecision(2) << lvl[i];
