@@ -229,7 +229,7 @@ void I2C::test()
 {
   WaterQuality wq;
     LOG_I2C_DEVICE(this);
-    if (this->is_failed())
+    if (wq.is_failed())
         ESP_LOGE(TAG, "var");
     else
         ESP_LOGI(TAG, "yok");
