@@ -204,24 +204,23 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
+    uint16_t rminArray, rmaxArray;
     for (size_t i = 0; i < rmin.size(); i++)
     {
-    ESP_LOGD(TAG,"rmin = %f", rmin[i]);
-    ESP_LOGD(TAG,"rmax = %f", rmax[i]);
+        rminArray = rmin[i];
+        rmaxArray = rmax[i];
     }
-    uint16_t* rminArray = const_cast<uint16_t*>(rmin.data());
-    uint16_t* rmaxArray = const_cast<uint16_t*>(rmax.data());
     an.set_ResMin(rminArray);
     an.set_ResMax(rmaxArray);
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
-    an.set_EC_Ch(ch + 4);
+    an.set_EC_Ch(ch);
     an.set_EC_Type(type);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
-    an.set_PH_Ch(ch + 4);
+    an.set_PH_Ch(ch);
     an.set_PH_Type(type);
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)

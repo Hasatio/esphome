@@ -25,16 +25,16 @@ void Analog::Analog_Input_Driver(float volts[])
     lvl[1] = (float)100 * (volts[0] - Vmin[1]) / (Vmax[1] - Vmin[1]);
     set_Lvl_Perc(lvl);
 	
-    set_EC_Ch(get_EC_Ch() > 7 ? 4 : get_EC_Ch());
-    set_PH_Ch(get_PH_Ch() > 7 ? 4 : get_PH_Ch());
-    set_EC_Val(volts[get_EC_Ch()]);
-    set_PH_Val(volts[get_PH_Ch()]);
+    set_EC_Ch((get_EC_Ch() + 4) > 7 ? 4 : get_EC_Ch());
+    set_PH_Ch((get_PH_Ch() + 4) > 7 ? 4 : get_PH_Ch());
+    set_EC_Val(volts[get_EC_Ch() + 4]);
+    set_PH_Val(volts[get_PH_Ch() + 4]);
         // ESP_LOGD(TAG,"ads = %f", volts[3+4]);
         // ESP_LOGD(TAG,"ads1 = %f", (ads2.readADC_SingleEnded(3)/10));
 
     float gen[2];
     uint8_t tot, rnd, AnInGen_Ch[2];
-    tot = get_EC_Ch() + get_PH_Ch() - 8;
+    tot = get_EC_Ch() + get_PH_Ch();
     rnd = round((10 - tot) / 2);
     AnInGen_Ch[0] = 4 + (((10 - tot - rnd - 1) == AnInEC_Ch) ? 10 - tot - rnd - 2 : 10 - tot - rnd - 1);
     AnInGen_Ch[1] = 4 + (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? 10 - tot - AnInGen_Ch[0] + 1 : 10 - tot - AnInGen_Ch[0]);
