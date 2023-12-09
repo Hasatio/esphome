@@ -10,42 +10,6 @@ namespace water_quality {
     // Digital digi;
     WaterQuality wq;
 
-float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
-{
-  uint16_t config = 0b0000000011100011;
-  // Multiplexer
-  //        0bxBBBxxxxxxxxxxxx
-  config &= 0b1000111111111111;
-  config |= multi << 12;
-
-  // Gain
-  //        0bxxxxBBBxxxxxxxxx
-  config &= 0b1111000111111111;
-  config |= (ADS1115_GAIN_6P144) << 9;
-
-  if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-    this->status_set_warning();
-    return NAN;
-  }
-
-  // about 1.2 ms with 860 samples per second
-  delay(1.2);
-
-  uint16_t raw_conversion;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    this->status_set_warning();
-    return NAN;
-  }
-
-  auto signed_conversion = static_cast<int16_t>(raw_conversion);
-
-  float millivolts, divider = 32768.0f;
-  millivolts = (signed_conversion * 6144) / divider;
-
-  this->status_clear_warning();
-  return millivolts / 1e3f;
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
@@ -137,7 +101,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
     this->mark_failed();
     return;
   }
-//   this->prev_config_ = config;
+  this->prev_config_ = config;
 
 
 //     if (!ads1.begin(ADS1X15_ADDRESS1))
@@ -221,6 +185,46 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   ESP_LOGD(TAG,"volt = %f", analog_voltage[1]);
   // ana.Analog_Input_Driver(analog_voltage);
 }
+float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
+{
+  uint16_t config = this->prev_config_;
+  // uint16_t config = 0b0000000011100011;
+  // Multiplexer
+  //        0bxBBBxxxxxxxxxxxx
+  config &= 0b1000111111111111;
+  config |= multi << 12;
+
+  // Gain
+  //        0bxxxxBBBxxxxxxxxx
+  config &= 0b1111000111111111;
+  config |= (ADS1115_GAIN_6P144) << 9;
+
+  if (!this->continuous_mode_ || this->prev_config_ != config) {
+    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+      this->status_set_warning();
+      return NAN;
+    }
+    this->prev_config_ = config;
+
+    // about 1.2 ms with 860 samples per second
+    delay(2);
+  }
+
+  uint16_t raw_conversion;
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+    this->status_set_warning();
+    return NAN;
+  }
+
+  auto signed_conversion = static_cast<int16_t>(raw_conversion);
+
+  float millivolts, divider = 32768.0f;
+  millivolts = (signed_conversion * 6144) / divider;
+
+  this->status_clear_warning();
+  return millivolts / 1e3f;
+}
+
 
 // void MCP23008_Setup()
 // {
