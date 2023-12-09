@@ -24,11 +24,11 @@ void WaterQuality::setup()
 }
 void WaterQuality::dump_config()
 {
-    LOG_I2C_DEVICE(this);
-    if (this->is_failed())
-        ESP_LOGE(TAG, "Communication failed!");
-    else
-        ESP_LOGI(TAG, "Communication Successfulled!");
+    // LOG_I2C_DEVICE(this);
+    // if (this->is_failed())
+    //     ESP_LOGE(TAG, "Communication failed!");
+    // else
+    //     ESP_LOGI(TAG, "Communication Successfulled!");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
