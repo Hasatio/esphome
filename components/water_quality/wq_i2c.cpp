@@ -271,7 +271,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
 void Data::test()
 {
   WaterQuality *wq;
-    LOG_I2C_DEVICE(wq->get_address());
+    LOG_I2C_DEVICE(wq);
     if (wq->is_failed())
         ESP_LOGE(TAG, "var");
     else
