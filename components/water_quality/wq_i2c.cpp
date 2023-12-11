@@ -327,15 +327,14 @@ bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value) {
 
 bool WaterQuality::MCP23008_digital_read(uint8_t pin) {
   uint8_t bit = pin % 8;
-  uint8_t reg_addr = MCP23008_GPIO;
   uint8_t value = 0;
-  this->MCP23008_read_reg(reg_addr, &value);
+  this->MCP23008_read_reg(MCP23008_GPIO, &value);
   return value & (1 << bit);
 }
 
-void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) {
-  uint8_t reg_addr = MCP23008_OLAT;
-  this->MCP23008_update_reg(pin, value, reg_addr);
+void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) 
+{
+  this->MCP23008_update_reg(pin, value, MCP23008_OLAT);
 }
 
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
