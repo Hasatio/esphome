@@ -13,9 +13,6 @@ namespace water_quality {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 
-    //Adafruit_ADS1115 ads;  /* Use this for the 16-bit version */
-    // Adafruit_ADS1115 ads1;
-    // Adafruit_ADS1115 ads2;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -375,9 +372,7 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
     this->MCP23008_read_reg(reg_addr, &reg_value);
 
   if (pin_value)
-  {
     reg_value |= 1 << bit;
-  }
   else
     reg_value &= ~(1 << bit);
 

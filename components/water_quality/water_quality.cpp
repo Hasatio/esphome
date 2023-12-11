@@ -36,7 +36,12 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Resolution: %d", this->get_resolution());
 
     ESP_LOGI(TAG, "Digital status: %x", this->olat_);
-    
+      uint8_t iocon;
+    if (!this->MCP23008_read_reg(MCP23008_IOCON, &iocon)) 
+    {
+        ESP_LOGI(TAG, "iocon: %x", iocon);
+        return;
+    }
     for (size_t i = 0; i < 8; i++)
     {  
         uint8_t value = 0;
