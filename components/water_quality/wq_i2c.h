@@ -3,6 +3,7 @@
 #ifndef WATER_QUALITY_I2C_H
 #define WATER_QUALITY_I2C_H
 
+#include "water_quality.h"
 #include "esphome.h"
 #include "esphome/core/component.h"
 #include "esphome/core/log.h"
@@ -31,12 +32,13 @@ class Data : public i2c::I2CDevice, public WaterQuality
 public:
 void test();
 
-void set_water_quality(WaterQuality *wq) {
+void set_water_quality(WaterQuality *wq)
+{
 wq_ = wq;
 }
 
 protected:
-  WaterQuality *wq_;
+WaterQuality *wq_;
 };
 
 }  // namespace water_quality
