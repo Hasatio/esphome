@@ -40,7 +40,7 @@ void WaterQuality::dump_config()
     for (size_t i = 0; i < 8; i++)
     {
         uint8_t value = 0;
-        ESP_LOGI(TAG, "Digital pin(%d): %d", i, MCP23008_read_reg(MCP23008_IODIR,value));
+        ESP_LOGI(TAG, "Digital pin(%d): %d", i, MCP23008_read_reg(MCP23008_IODIR, %value));
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
