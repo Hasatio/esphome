@@ -22,7 +22,7 @@ namespace water_quality {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 
-    // Adafruit_MCP23X08 mcp;
+    // Adafruit_MCP23008 mcp;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -286,17 +286,17 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
 
   ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
   uint8_t iocon;
-  if (!this->MCP23008_read_reg(MCP23X08_IOCON, &iocon)) {
+  if (!this->MCP23008_read_reg(MCP23008_IOCON, &iocon)) {
     this->mark_failed();
     return;
   }
 
   // Read current output register state
-  this->MCP23008_read_reg(MCP23X08_OLAT, &this->olat_);
+  this->MCP23008_read_reg(MCP23008_OLAT, &this->olat_);
 
   if (this->open_drain_ints_) {
     // enable open-drain interrupt pins, 3.3V-safe
-    this->MCP23008_write_reg(MCP23X08_IOCON, 0x04);
+    this->MCP23008_write_reg(MCP23008_IOCON, 0x04);
   }
 
     // if (!mcp.begin_I2C(MCP23008_ADDRESS))
@@ -350,51 +350,53 @@ bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value) {
 
 bool WaterQuality::MCP23008_digital_read(uint8_t pin) {
   uint8_t bit = pin % 8;
-  uint8_t reg_addr = MCP23X08_GPIO;
+  uint8_t reg_addr = MCP23008_GPIO;
   uint8_t value = 0;
   this->MCP23008_read_reg(reg_addr, &value);
   return value & (1 << bit);
 }
 
 void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) {
-  uint8_t reg_addr = MCP23X08_OLAT;
+  uint8_t reg_addr = MCP23008_OLAT;
   this->MCP23008_update_reg(pin, value, reg_addr);
 }
 
-void WaterQuality::MCP23008_pin_mode(uint8_t pin, gpio::Flags flags) {
-  uint8_t iodir = MCP23X08_IODIR;
-  uint8_t gppu = MCP23X08_GPPU;
-  if (flags == gpio::FLAG_INPUT) {
+void WaterQuality::MCP23008_pin_mode(uint8_t pin, MCP23008_PinMode mode)
+{
+  uint8_t iodir = MCP23008_IODIR;
+  uint8_t gppu = MCP23008_GPPU;
+  if (mode == FLAG_INPUT)
     this->MCP23008_update_reg(pin, true, iodir);
-  } else if (flags == (gpio::FLAG_INPUT | gpio::FLAG_PULLUP)) {
+  else if (mode == FLAG_PULLUP)
+  {
     this->MCP23008_update_reg(pin, true, iodir);
     this->MCP23008_update_reg(pin, true, gppu);
-  } else if (flags == gpio::FLAG_OUTPUT) {
+  } 
+  else if (mode == FLAG_OUTPUT)
     this->MCP23008_update_reg(pin, false, iodir);
-  }
 }
 
-void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23XXXInterruptMode interrupt_mode) {
-  uint8_t gpinten = MCP23X08_GPINTEN;
-  uint8_t intcon = MCP23X08_INTCON;
-  uint8_t defval = MCP23X08_DEFVAL;
+void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
+  uint8_t gpinten = MCP23008_GPINTEN;
+  uint8_t intcon = MCP23008_INTCON;
+  uint8_t defval = MCP23008_DEFVAL;
 
   switch (interrupt_mode) {
-    case MCP23XXX_CHANGE:
+    case CHANGE:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, false, intcon);
       break;
-    case MCP23XXX_RISING:
+    case RISING:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, true, intcon);
       this->MCP23008_update_reg(pin, true, defval);
       break;
-    case MCP23XXX_FALLING:
+    case FALLING:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, true, intcon);
       this->MCP23008_update_reg(pin, false, defval);
       break;
-    case MCP23XXX_NO_INTERRUPT:
+    case NO_INTERRUPT:
       this->MCP23008_update_reg(pin, false, gpinten);
       break;
   }
@@ -403,7 +405,7 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23XXXInterruptMod
 void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_addr) {
   uint8_t bit = pin % 8;
   uint8_t reg_value = 0;
-  if (reg_addr == MCP23X08_OLAT) {
+  if (reg_addr == MCP23008_OLAT) {
     reg_value = this->olat_;
   } else {
     this->MCP23008_read_reg(reg_addr, &reg_value);
@@ -417,7 +419,7 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
 
   this->MCP23008_write_reg(reg_addr, reg_value);
 
-  if (reg_addr == MCP23X08_OLAT) {
+  if (reg_addr == MCP23008_OLAT) {
     this->olat_ = reg_value;
   }
 }

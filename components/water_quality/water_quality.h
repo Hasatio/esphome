@@ -29,7 +29,7 @@ enum ADS1115Registers
     ADS1115_REGISTER_CONVERSION = 0x00,
     ADS1115_REGISTER_CONFIG = 0x01,
 };
-enum ADS1115Multiplexer
+enum ADS1115_Multiplexer
 {
   ADS1115_MULTIPLEXER_P0_N1 = 0b000,
   ADS1115_MULTIPLEXER_P0_N3 = 0b001,
@@ -40,7 +40,7 @@ enum ADS1115Multiplexer
   ADS1115_MULTIPLEXER_P2_NG = 0b110,
   ADS1115_MULTIPLEXER_P3_NG = 0b111,
 };
-enum ADS1115Gain
+enum ADS1115_Gain
 {
   ADS1115_GAIN_6P144 = 0b000,
   ADS1115_GAIN_4P096 = 0b001,
@@ -49,7 +49,7 @@ enum ADS1115Gain
   ADS1115_GAIN_0P512 = 0b100,
   ADS1115_GAIN_0P256 = 0b101,
 };
-enum ADS1115DataRate
+enum ADS1115_DataRate
 {
   ADS1115_DATA_RATE_8_SPS = 0b000,
   ADS1115_DATA_RATE_16_SPS = 0b001,
@@ -60,30 +60,39 @@ enum ADS1115DataRate
   ADS1115_DATA_RATE_475_SPS = 0b110,
   ADS1115_DATA_RATE_860_SPS = 0b111,
 };
-enum ADS1115Resolution
+enum ADS1115_Resolution
 {
   ADS1115_16_BITS = 16,
   ADS1015_12_BITS = 12,
 };
 
-enum MCP23S08GPIORegisters 
+enum MCP23008_PinMode
 {
-  MCP23X08_IODIR = 0x00,
-  MCP23X08_IPOL = 0x01,
-  MCP23X08_GPINTEN = 0x02,
-  MCP23X08_DEFVAL = 0x03,
-  MCP23X08_INTCON = 0x04,
-  MCP23X08_IOCON = 0x05,
-  MCP23X08_GPPU = 0x06,
-  MCP23X08_INTF = 0x07,
-  MCP23X08_INTCAP = 0x08,
-  MCP23X08_GPIO = 0x09,
-  MCP23X08_OLAT = 0x0A,
+  FLAG_NONE,
+  FLAG_INPUT,
+  FLAG_OUTPUT,
+  FLAG_OPEN_DRAIN,
+  FLAG_PULLUP,
+  FLAG_PULLDOWN,
 };
-enum MCP23XXXInterruptMode : uint8_t { MCP23XXX_NO_INTERRUPT = 0, MCP23XXX_CHANGE, MCP23XXX_RISING, MCP23XXX_FALLING };
+enum MCP23008_Registers 
+{
+  MCP23008_IODIR = 0x00,
+  MCP23008_IPOL = 0x01,
+  MCP23008_GPINTEN = 0x02,
+  MCP23008_DEFVAL = 0x03,
+  MCP23008_INTCON = 0x04,
+  MCP23008_IOCON = 0x05,
+  MCP23008_GPPU = 0x06,
+  MCP23008_INTF = 0x07,
+  MCP23008_INTCAP = 0x08,
+  MCP23008_GPIO = 0x09,
+  MCP23008_OLAT = 0x0A,
+};
+enum MCP23008_InterruptMode : uint8_t { NO_INTERRUPT = 0, CHANGE, RISING, FALLING };
 
 
-class WaterQuality : public PollingComponent, public i2c::I2CDevice, public GPIOPin//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
+class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
@@ -176,8 +185,8 @@ void MCP23008_Driver(float digital[]);
 
 bool MCP23008_digital_read(uint8_t pin);
 void MCP23008_digital_write(uint8_t pin, bool value);
-void MCP23008_pin_mode(uint8_t pin, gpio::Flags flags);
-void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23XXXInterruptMode interrupt_mode);
+void MCP23008_pin_mode(uint8_t pin, MCP23008_PinMode mode);
+void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
 
 void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
 std::string dump_summary() const override;
@@ -185,7 +194,7 @@ std::string dump_summary() const override;
 void set_pin(uint8_t pin) { pin_ = pin; }
 void set_inverted(bool inverted) { inverted_ = inverted; }
 void set_flags(gpio::Flags flags) { flags_ = flags; }
-void set_interrupt_mode(MCP23XXXInterruptMode interrupt_mode) { interrupt_mode_ = interrupt_mode; }
+void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode) { interrupt_mode_ = interrupt_mode; }
 
 
 void sensor();
@@ -256,7 +265,7 @@ uint8_t olat_{0x00};
 uint8_t pin_;
 bool inverted_;
 gpio::Flags flags_;
-MCP23XXXInterruptMode interrupt_mode_;
+MCP23008_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
 };
 
