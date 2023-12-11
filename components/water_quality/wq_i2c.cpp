@@ -271,11 +271,11 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
 void Data::test()
 {
   WaterQuality *wq;
-    LOG_I2C_DEVICE(wq_->get_address());
-    if (wq_->is_failed())
-        ESP_LOGE(TAG, "var");
-    else
-        ESP_LOGI(TAG, "yok");
+    // LOG_I2C_DEVICE(wq->get_address());
+    // if (wq->is_failed())
+    //     ESP_LOGE(TAG, "var");
+    // else
+    //     ESP_LOGI(TAG, "yok");
 }
 
 void WaterQuality::MCP23008_Setup()
