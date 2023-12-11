@@ -424,7 +424,8 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
   }
 }
 
-std::string WaterQuality::dump_summary() const {
+std::string WaterQuality::dump_summary()
+{
   char buffer[32];
   snprintf(buffer, sizeof(buffer), "%u via MCP23XXX", pin_);
   return buffer;
