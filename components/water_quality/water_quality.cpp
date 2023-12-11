@@ -30,12 +30,12 @@ void WaterQuality::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
         
-    ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
-    ESP_LOGCONFIG(TAG, "    Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
-    ESP_LOGCONFIG(TAG, "    Data rate: %u", this->get_data_rate());
-    ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
+    ESP_LOGCONFIG(TAG, "Gain: %d", this->get_gain());
+    ESP_LOGCONFIG(TAG, "Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
+    ESP_LOGCONFIG(TAG, "Data rate: %d", this->get_data_rate());
+    ESP_LOGCONFIG(TAG, "Resolution: %d", this->get_resolution());
 
-    ESP_LOGCONFIG(TAG, "    Digital status: %u", this->olat_);
+    ESP_LOGCONFIG(TAG, "Digital status: %x", this->olat_);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
