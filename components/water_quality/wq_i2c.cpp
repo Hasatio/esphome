@@ -190,7 +190,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     return NAN;
   }
 
-  if (sensor->get_resolution() == ADS1015_12_BITS) {
+  if (this->get_resolution() == ADS1015_12_BITS) {
     bool negative = (raw_conversion >> 15) == 1;
 
     // shift raw_conversion as it's only 12-bits, left justified
@@ -209,8 +209,8 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
   float millivolts;
-  float divider = (sensor->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
-  switch (sensor->get_gain()) {
+  float divider = (this->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
+  switch (this->get_gain()) {
     case ADS1115_GAIN_6P144:
       millivolts = (signed_conversion * 6144) / divider;
       break;
