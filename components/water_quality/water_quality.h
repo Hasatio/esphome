@@ -83,7 +83,7 @@ enum MCP23S08GPIORegisters
 enum MCP23XXXInterruptMode : uint8_t { MCP23XXX_NO_INTERRUPT = 0, MCP23XXX_CHANGE, MCP23XXX_RISING, MCP23XXX_FALLING };
 
 
-class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
+class WaterQuality : public PollingComponent, public i2c::I2CDevice, public GPIOPin//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
@@ -249,9 +249,9 @@ bool continuous_mode_;
 ADS1115DataRate data_rate_;
 ADS1115Resolution resolution_;
 
-bool MCP23008_read_reg(uint8_t reg, uint8_t *value) override;
-bool MCP23008_write_reg(uint8_t reg, uint8_t value) override;
-void MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_a) override;
+bool MCP23008_read_reg(uint8_t reg, uint8_t *value);
+bool MCP23008_write_reg(uint8_t reg, uint8_t value);
+void MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_a);
 uint8_t olat_{0x00};
 uint8_t pin_;
 bool inverted_;
