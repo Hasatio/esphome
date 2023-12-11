@@ -36,6 +36,11 @@ void WaterQuality::dump_config()
     ESP_LOGCONFIG(TAG, "Resolution: %d", this->get_resolution());
 
     ESP_LOGCONFIG(TAG, "Digital status: %x", this->olat_);
+    
+    for (size_t i = 0; i < 8; i++)
+    {
+        ESP_LOGCONFIG(TAG, "Digital pin(%d): %d", i, MCP23008_digital_read(i));
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
