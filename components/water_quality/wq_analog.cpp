@@ -5,7 +5,7 @@
 namespace esphome {
 namespace water_quality {
 
-WaterQuality my;
+// WaterQuality my;
 
 void Analog::Analog_Input_Driver(float volts[])
 {
