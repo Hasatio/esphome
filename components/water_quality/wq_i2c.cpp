@@ -46,6 +46,7 @@ void tcaselect(uint8_t bus)
 void WaterQuality::ADS1115_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
+
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
   if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &value)) {
@@ -54,6 +55,9 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
   }
 
   ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
+  set_continuous_mode(true);
+  set_gain(ADS1115_GAIN_6P144);
+  set_resolution(ADS1115_16_BITS);
 
   uint16_t config = 0;
   // Clear single-shot bit
@@ -190,21 +194,21 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     return NAN;
   }
 
-  if (this->get_resolution() == ADS1015_12_BITS) {
-    bool negative = (raw_conversion >> 15) == 1;
+  // if (this->get_resolution() == ADS1015_12_BITS) {
+  //   bool negative = (raw_conversion >> 15) == 1;
 
-    // shift raw_conversion as it's only 12-bits, left justified
-    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+  //   // shift raw_conversion as it's only 12-bits, left justified
+  //   raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
 
-    // check if number was negative in order to keep the sign
-    if (negative) {
-      // the number was negative
-      // 1) set the negative bit back
-      raw_conversion |= 0x8000;
-      // 2) reset the former (shifted) negative bit
-      raw_conversion &= 0xF7FF;
-    }
-  }
+  //   // check if number was negative in order to keep the sign
+  //   if (negative) {
+  //     // the number was negative
+  //     // 1) set the negative bit back
+  //     raw_conversion |= 0x8000;
+  //     // 2) reset the former (shifted) negative bit
+  //     raw_conversion &= 0xF7FF;
+  //   }
+  // }
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
@@ -239,9 +243,6 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
-  set_continuous_mode(true);
-  set_gain(ADS1115_GAIN_6P144);
-  set_resolution(ADS1115_16_BITS);
   this->set_i2c_address(ADS1X15_ADDRESS1);
   for (size_t i = 0; i < 4; i++)
   {

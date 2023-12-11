@@ -30,7 +30,6 @@ void WaterQuality::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
         
-    ESP_LOGCONFIG(TAG, "    Multiplexer: %u", this->get_multiplexer());
     ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
     ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 
