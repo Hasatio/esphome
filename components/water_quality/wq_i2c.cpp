@@ -234,6 +234,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
   }
 
   this->status_clear_warning();
+  ESP_LOGI(TAG, "config: %x", config);
   return millivolts / 1e3f;
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
