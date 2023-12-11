@@ -299,17 +299,17 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->MCP23008_write_reg(MCP23008_IOCON, 0x04);
   }
 
-  for (size_t i = 0; i < 4; i++)
-  {
-    this->MCP23008_update_reg(i, true, MCP23008_IODIR);
-    this->MCP23008_update_reg(i, true, MCP23008_GPPU);
-    this->MCP23008_update_reg(i, true, MCP23008_OLAT);
-  }
-  for (size_t i = 4; i < 8; i++)
-  {
-    this->MCP23008_update_reg(i, false, MCP23008_IODIR);
-    this->MCP23008_update_reg(i, false, MCP23008_OLAT);
-  }
+  // for (size_t i = 0; i < 4; i++)
+  // {
+  //   this->MCP23008_update_reg(i, true, MCP23008_IODIR);
+  //   this->MCP23008_update_reg(i, true, MCP23008_GPPU);
+  //   this->MCP23008_update_reg(i, true, MCP23008_OLAT);
+  // }
+  // for (size_t i = 4; i < 8; i++)
+  // {
+  //   this->MCP23008_update_reg(i, false, MCP23008_IODIR);
+  //   this->MCP23008_update_reg(i, false, MCP23008_OLAT);
+  // }
 }
 bool WaterQuality::MCP23008_read_reg(uint8_t reg, uint8_t *value) {
   if (this->is_failed())
