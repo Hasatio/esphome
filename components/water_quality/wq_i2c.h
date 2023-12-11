@@ -29,7 +29,7 @@ void tcaselect(uint8_t bus);
 
 class WaterQuality;
 
-class Data : public i2c::I2CDevice, public WaterQuality
+class Data : public WaterQuality, public i2c::I2CDevice
 {
 public:
 void test();
