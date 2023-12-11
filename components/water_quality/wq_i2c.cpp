@@ -67,15 +67,18 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
   //        0bxxxx000xxxxxxxxx
   config |= ADS1115_GAIN_6P144 << 9;
 
-//   if (this->continuous_mode_) {
+  if (this->continuous_mode_) 
+  {
     // Set continuous mode
     //        0bxxxxxxx0xxxxxxxx
     config |= 0b0000000000000000;
-//   } else {
-    // // Set singleshot mode
-    // //        0bxxxxxxx1xxxxxxxx
-    // config |= 0b0000000100000000;
-//   }
+  } 
+  else 
+  {
+    // Set singleshot mode
+    //        0bxxxxxxx1xxxxxxxx
+    config |= 0b0000000100000000;
+  }
 
   // Set data rate - 860 samples per second (we're in singleshot mode)
   //        0bxxxxxxxx100xxxxx
@@ -102,22 +105,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
     return;
   }
   this->prev_config_ = config;
-
-
-//     if (!ads1.begin(ADS1X15_ADDRESS1))
-//         ESP_LOGE(TAG,"Failed to initialize ADS1115_1.");
-//     else
-//         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_1.");
-
-//     if (!ads2.begin(ADS1X15_ADDRESS2))
-//         ESP_LOGE(TAG,"Failed to initialize ADS1115_2.");
-//     else
-//         ESP_LOGI(TAG,"Successfulled to initialize ADS1115_2.");
-
-//     // The ADC input range (or gain) can be changed via the following
-//     // functions, but be careful never to exceed VDD +0.3V max, or to
-//     // exceed the upper and lower limits if you adjust the input range!
-//     // Setting these values incorrectly may destroy your ADC!
     
 //     //                                          ADS1015          ADS1115
 //     //                                          -------          -------
@@ -127,8 +114,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
 //     // GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
 //     // GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-//     ads1.setGain(GAIN_TWOTHIRDS);
-//     ads2.setGain(GAIN_TWOTHIRDS);
     
 //     // RATE_ADS1115_8SPS (0x0000)   ///< 8 samples per second
 //     // RATE_ADS1115_16SPS (0x0020)  ///< 16 samples per second
@@ -138,8 +123,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // RATE_ADS1115_250SPS (0x00A0) ///< 250 samples per second
 //     // RATE_ADS1115_475SPS (0x00C0) ///< 475 samples per second
 //     // RATE_ADS1115_860SPS (0x00E0) ///< 860 samples per second
-//     ads1.setDataRate(RATE_ADS1115_860SPS);
-//     ads2.setDataRate(RATE_ADS1115_860SPS);
     
 //     // ADS1X15_REG_CONFIG_MUX_DIFF_0_1 (0x0000) ///< Differential P = AIN0, N = AIN1 (default)
 //     // ADS1X15_REG_CONFIG_MUX_DIFF_0_3 (0x1000) ///< Differential P = AIN0, N = AIN3
@@ -149,8 +132,6 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ADS1X15_REG_CONFIG_MUX_SINGLE_1 (0x5000) ///< Single-ended AIN1
 //     // ADS1X15_REG_CONFIG_MUX_SINGLE_2 (0x6000) ///< Single-ended AIN2
 //     // ADS1X15_REG_CONFIG_MUX_SINGLE_3 (0x7000) ///< Single-ended AIN3
-//     // ads1.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
-//     // ads2.startADCReading(ADS1X15_REG_CONFIG_MUX_DIFF_0_1, true);
 
 //     // AnInEC_Type == 1? EC():EC10();
 //     // // AnInEC_Type == 10? EC10();
@@ -158,8 +139,108 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
+float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
+{
+  uint16_t config = this->prev_config_;
+  // uint16_t config = 0b0000000011100011;
+  // Multiplexer
+  //        0bxBBBxxxxxxxxxxxx
+  config &= 0b1000111111111111;
+  config |= multi << 12;
+
+  // Gain
+  //        0bxxxxBBBxxxxxxxxx
+  config &= 0b1111000111111111;
+  config |= (ADS1115_GAIN_6P144) << 9;
+
+  if (!this->continuous_mode_) {
+    // Start conversion
+    config |= 0b1000000000000000;
+  }
+
+  if (!this->continuous_mode_ || this->prev_config_ != config) {
+    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
+      this->status_set_warning();
+      return NAN;
+    }
+    this->prev_config_ = config;
+
+    // about 1.2 ms with 860 samples per second
+    delay(2);
+    
+    // in continuous mode, conversion will always be running, rely on the delay
+    // to ensure conversion is taking place with the correct settings
+    // can we use the rdy pin to trigger when a conversion is done?
+    if (!this->continuous_mode_) {
+      uint32_t start = millis();
+      while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
+        if (millis() - start > 100) {
+          ESP_LOGW(TAG, "Reading ADS1115 timed out");
+          this->status_set_warning();
+          return NAN;
+        }
+        yield();
+      }
+    }
+  }
+
+  uint16_t raw_conversion;
+  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
+    this->status_set_warning();
+    return NAN;
+  }
+
+  if (sensor->get_resolution() == ADS1015_12_BITS) {
+    bool negative = (raw_conversion >> 15) == 1;
+
+    // shift raw_conversion as it's only 12-bits, left justified
+    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+
+    // check if number was negative in order to keep the sign
+    if (negative) {
+      // the number was negative
+      // 1) set the negative bit back
+      raw_conversion |= 0x8000;
+      // 2) reset the former (shifted) negative bit
+      raw_conversion &= 0xF7FF;
+    }
+  }
+
+  auto signed_conversion = static_cast<int16_t>(raw_conversion);
+
+  float millivolts;
+  float divider = (sensor->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
+  switch (sensor->get_gain()) {
+    case ADS1115_GAIN_6P144:
+      millivolts = (signed_conversion * 6144) / divider;
+      break;
+    case ADS1115_GAIN_4P096:
+      millivolts = (signed_conversion * 4096) / divider;
+      break;
+    case ADS1115_GAIN_2P048:
+      millivolts = (signed_conversion * 2048) / divider;
+      break;
+    case ADS1115_GAIN_1P024:
+      millivolts = (signed_conversion * 1024) / divider;
+      break;
+    case ADS1115_GAIN_0P512:
+      millivolts = (signed_conversion * 512) / divider;
+      break;
+    case ADS1115_GAIN_0P256:
+      millivolts = (signed_conversion * 256) / divider;
+      break;
+    default:
+      millivolts = NAN;
+  }
+
+  this->status_clear_warning();
+  return millivolts / 1e3f;
+}
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
+  set_continuous_mode(true);
+  set_gain(0);
+  set_resolution(0);
   this->set_i2c_address(ADS1X15_ADDRESS1);
   for (size_t i = 0; i < 4; i++)
   {
@@ -185,45 +266,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   // ESP_LOGD(TAG,"volt = %f", analog_voltage[1]);
   // ana.Analog_Input_Driver(analog_voltage);
 }
-float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
-{
-  uint16_t config = this->prev_config_;
-  // uint16_t config = 0b0000000011100011;
-  // Multiplexer
-  //        0bxBBBxxxxxxxxxxxx
-  config &= 0b1000111111111111;
-  config |= multi << 12;
 
-  // Gain
-  //        0bxxxxBBBxxxxxxxxx
-  config &= 0b1111000111111111;
-  config |= (ADS1115_GAIN_6P144) << 9;
-
-  if (!this->continuous_mode_ || this->prev_config_ != config) {
-    if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-      this->status_set_warning();
-      return NAN;
-    }
-    this->prev_config_ = config;
-
-    // about 1.2 ms with 860 samples per second
-    delay(2);
-  }
-
-  uint16_t raw_conversion;
-  if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-    this->status_set_warning();
-    return NAN;
-  }
-
-  auto signed_conversion = static_cast<int16_t>(raw_conversion);
-
-  float millivolts, divider = 32768.0f;
-  millivolts = (signed_conversion * 6144) / divider;
-
-  this->status_clear_warning();
-  return millivolts / 1e3f;
-}
 
 void Data::test()
 {

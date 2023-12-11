@@ -24,6 +24,11 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
+static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
+static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
+
+static const uint8_t ADS1115_DATA_RATE_860_SPS = 0b111;
+
 enum ADS1115Multiplexer {
   ADS1115_MULTIPLEXER_P0_N1 = 0b000,
   ADS1115_MULTIPLEXER_P0_N3 = 0b001,
@@ -33,6 +38,19 @@ enum ADS1115Multiplexer {
   ADS1115_MULTIPLEXER_P1_NG = 0b101,
   ADS1115_MULTIPLEXER_P2_NG = 0b110,
   ADS1115_MULTIPLEXER_P3_NG = 0b111,
+};
+enum ADS1115Gain {
+  ADS1115_GAIN_6P144 = 0b000,
+  ADS1115_GAIN_4P096 = 0b001,
+  ADS1115_GAIN_2P048 = 0b010,
+  ADS1115_GAIN_1P024 = 0b011,
+  ADS1115_GAIN_0P512 = 0b100,
+  ADS1115_GAIN_0P256 = 0b101,
+};
+
+enum ADS1115Resolution {
+  ADS1115_16_BITS = 16,
+  ADS1015_12_BITS = 12,
 };
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
@@ -110,6 +128,17 @@ void pca9685()
 void ADS1115_Setup(uint8_t address);
 void ADS1115_Driver(float analog_voltage[]);
 float ADS1115_Read(ADS1115Multiplexer multi);
+
+void set_continuous_mode(bool continuous_mode) { continuous_mode_ = continuous_mode; }
+void set_multiplexer(ADS1115Multiplexer multiplexer) { multiplexer_ = ADS1115_MULTIPLEXER_P1_NG /*multiplexer*/; }
+void set_gain(ADS1115Gain gain) { gain_ = ADS1115_GAIN_6P144 /*gain*/; }
+void set_resolution(ADS1115Resolution resolution) { resolution_ = ADS1115_16_BITS /*resolution*/; }
+
+uint8_t get_continuous_mode() const { return continuous_mode_; }
+uint8_t get_multiplexer() const { return multiplexer_; }
+uint8_t get_gain() const { return gain_; }
+uint8_t get_resolution() const { return resolution_; }
+
 void MCP23008_Setup();
 void MCP23008_Driver(float digital[]);
 
@@ -170,6 +199,9 @@ text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 uint16_t prev_config_{0};
 bool continuous_mode_;
+ADS1115Multiplexer multiplexer_;
+ADS1115Gain gain_;
+ADS1115Resolution resolution_;
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
