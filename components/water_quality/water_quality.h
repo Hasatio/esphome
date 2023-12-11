@@ -24,8 +24,11 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
-static const uint8_t ADS1115_REGISTER_CONVERSION = 0x00;
-static const uint8_t ADS1115_REGISTER_CONFIG = 0x01;
+enum ADS1115Registers 
+{
+    ADS1115_REGISTER_CONVERSION = 0x00,
+    ADS1115_REGISTER_CONFIG = 0x01,
+};
 
 enum ADS1115Multiplexer
 {
@@ -62,6 +65,21 @@ enum ADS1115Resolution
 {
   ADS1115_16_BITS = 16,
   ADS1015_12_BITS = 12,
+};
+
+enum MCP23S08GPIORegisters 
+{
+  MCP23X08_IODIR = 0x00,
+  MCP23X08_IPOL = 0x01,
+  MCP23X08_GPINTEN = 0x02,
+  MCP23X08_DEFVAL = 0x03,
+  MCP23X08_INTCON = 0x04,
+  MCP23X08_IOCON = 0x05,
+  MCP23X08_GPPU = 0x06,
+  MCP23X08_INTF = 0x07,
+  MCP23X08_INTCAP = 0x08,
+  MCP23X08_GPIO = 0x09,
+  MCP23X08_OLAT = 0x0A,
 };
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
