@@ -24,7 +24,7 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
-enum ADS1115Registers
+enum ADS1115_Registers
 {
     ADS1115_REGISTER_CONVERSION = 0x00,
     ADS1115_REGISTER_CONFIG = 0x01,
