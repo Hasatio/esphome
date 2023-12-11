@@ -382,21 +382,21 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMo
   uint8_t defval = MCP23008_DEFVAL;
 
   switch (interrupt_mode) {
-    case CHANGE:
+    case MCP23008_CHANGE:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, false, intcon);
       break;
-    case RISING:
+    case MCP23008_RISING:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, true, intcon);
       this->MCP23008_update_reg(pin, true, defval);
       break;
-    case FALLING:
+    case MCP23008_FALLING:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, true, intcon);
       this->MCP23008_update_reg(pin, false, defval);
       break;
-    case NO_INTERRUPT:
+    case MCP23008_NO_INTERRUPT:
       this->MCP23008_update_reg(pin, false, gpinten);
       break;
   }

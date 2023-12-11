@@ -89,7 +89,7 @@ enum MCP23008_Registers
   MCP23008_GPIO = 0x09,
   MCP23008_OLAT = 0x0A,
 };
-enum MCP23008_InterruptMode : uint8_t { NO_INTERRUPT = 0, CHANGE, RISING, FALLING };
+enum MCP23008_InterruptMode : uint8_t { MCP23008_NO_INTERRUPT = 0, MCP23008_CHANGE, MCP23008_RISING, MCP23008_FALLING };
 
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
