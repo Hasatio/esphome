@@ -31,6 +31,8 @@ void WaterQuality::dump_config()
         ESP_LOGI(TAG, "Communication Successfulled!");
         
     ESP_LOGCONFIG(TAG, "    Gain: %u", this->get_gain());
+    ESP_LOGCONFIG(TAG, "    Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
+    ESP_LOGCONFIG(TAG, "    Data rate: %u", this->get_data_rate());
     ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

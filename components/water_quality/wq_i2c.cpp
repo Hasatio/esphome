@@ -55,8 +55,9 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
   }
 
   ESP_LOGCONFIG(TAG, "Configuring ADS1115...");
-  set_continuous_mode(true);
   set_gain(ADS1115_GAIN_6P144);
+  set_continuous_mode(true);
+  set_data_rate(ADS1115_DATA_RATE_860_SPS);
   set_resolution(ADS1115_16_BITS);
 
   uint16_t config = 0;
@@ -170,7 +171,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     this->prev_config_ = config;
 
     // about 1.2 ms with 860 samples per second
-    delay(1.2);
+    delay(1.5);
     
     // in continuous mode, conversion will always be running, rely on the delay
     // to ensure conversion is taking place with the correct settings
