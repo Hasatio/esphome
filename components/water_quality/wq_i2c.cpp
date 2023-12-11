@@ -299,40 +299,17 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->MCP23008_write_reg(MCP23008_IOCON, 0x04);
   }
 
-    // if (!mcp.begin_I2C(MCP23008_ADDRESS))
-    //     ESP_LOGE(TAG,"Failed to initialize MCP23008.");
-    // else
-    //     ESP_LOGI(TAG,"Successfulled to initialize MCP23008.");
-
-    // // mcp.pinMode(0, INPUT);
-    // // mcp.pinMode(1, INPUT);
-    // // mcp.pinMode(2, INPUT);
-    // // mcp.pinMode(3, INPUT);
-    // // mcp.pullUp(0, HIGH);
-    // // mcp.pullUp(1, HIGH);
-    // // mcp.pullUp(2, HIGH);
-    // // mcp.pullUp(3, HIGH);
-    // // mcp.pinMode(4, OUTPUT);
-    // // mcp.pinMode(5, OUTPUT);
-    // // mcp.pinMode(6, OUTPUT);
-    // // mcp.pinMode(7, OUTPUT);
-    // // mcp.digitalWrite(4,LOW);
-    // // mcp.digitalWrite(5,LOW);
-    // // mcp.digitalWrite(6,LOW);
-    // // mcp.digitalWrite(7,LOW);
-    
-    // mcp.pinMode(0, INPUT_PULLUP);
-    // mcp.pinMode(1, INPUT_PULLUP);
-    // mcp.pinMode(2, INPUT_PULLUP);
-    // mcp.pinMode(3, INPUT_PULLUP);
-    // mcp.pinMode(4, OUTPUT);
-    // mcp.pinMode(5, OUTPUT);
-    // mcp.pinMode(6, OUTPUT);
-    // mcp.pinMode(7, OUTPUT);
-    // mcp.digitalWrite(4,LOW);
-    // mcp.digitalWrite(5,LOW);
-    // mcp.digitalWrite(6,LOW);
-    // mcp.digitalWrite(7,LOW);
+  for (size_t i = 0; i < 4; i++)
+  {
+    this->MCP23008_update_reg(pins[i], true, MCP23008_IODIR);
+    this->MCP23008_update_reg(pins[i], true, MCP23008_GPPU);
+    this->MCP23008_update_reg(pins[i], true, MCP23008_OLAT);
+  }
+  for (size_t i = 4; i < 8; i++)
+  {
+    this->MCP23008_update_reg(pins[i], false, MCP23008_IODIR);
+    this->MCP23008_update_reg(pins[i], false, MCP23008_OLAT);
+  }
 }
 bool WaterQuality::MCP23008_read_reg(uint8_t reg, uint8_t *value) {
   if (this->is_failed())
@@ -361,27 +338,13 @@ void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) {
   this->MCP23008_update_reg(pin, value, reg_addr);
 }
 
-void WaterQuality::MCP23008_pin_mode(uint8_t pin, MCP23008_PinMode mode)
-{
-  uint8_t iodir = MCP23008_IODIR;
-  uint8_t gppu = MCP23008_GPPU;
-  if (mode == FLAG_INPUT)
-    this->MCP23008_update_reg(pin, true, iodir);
-  else if (mode == FLAG_PULLUP)
-  {
-    this->MCP23008_update_reg(pin, true, iodir);
-    this->MCP23008_update_reg(pin, true, gppu);
-  } 
-  else if (mode == FLAG_OUTPUT)
-    this->MCP23008_update_reg(pin, false, iodir);
-}
-
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
   uint8_t gpinten = MCP23008_GPINTEN;
   uint8_t intcon = MCP23008_INTCON;
   uint8_t defval = MCP23008_DEFVAL;
 
-  switch (interrupt_mode) {
+  switch (interrupt_mode)
+  {
     case MCP23008_CHANGE:
       this->MCP23008_update_reg(pin, true, gpinten);
       this->MCP23008_update_reg(pin, false, intcon);
@@ -405,30 +368,24 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMo
 void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_addr) {
   uint8_t bit = pin % 8;
   uint8_t reg_value = 0;
-  if (reg_addr == MCP23008_OLAT) {
+  if (reg_addr == MCP23008_OLAT)
+  {
     reg_value = this->olat_;
-  } else {
+  } 
+  else
     this->MCP23008_read_reg(reg_addr, &reg_value);
-  }
 
-  if (pin_value) {
+  if (pin_value)
+  {
     reg_value |= 1 << bit;
-  } else {
-    reg_value &= ~(1 << bit);
   }
+  else
+    reg_value &= ~(1 << bit);
 
   this->MCP23008_write_reg(reg_addr, reg_value);
 
-  if (reg_addr == MCP23008_OLAT) {
+  if (reg_addr == MCP23008_OLAT)
     this->olat_ = reg_value;
-  }
-}
-
-std::string WaterQuality::dump_summary()
-{
-  char buffer[32];
-  snprintf(buffer, sizeof(buffer), "%u via MCP23XXX", pin_);
-  return buffer;
 }
 
 

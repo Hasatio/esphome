@@ -35,6 +35,8 @@ void WaterQuality::dump_config()
     ESP_LOGCONFIG(TAG, "    Data rate: %u", this->get_data_rate());
     ESP_LOGCONFIG(TAG, "    Resolution: %u", this->get_resolution());
 
+    ESP_LOGCONFIG(TAG, "    Digital status: %u", this->olat_);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 

@@ -185,7 +185,6 @@ void MCP23008_Driver(float digital[]);
 
 bool MCP23008_digital_read(uint8_t pin);
 void MCP23008_digital_write(uint8_t pin, bool value);
-void MCP23008_pin_mode(uint8_t pin, MCP23008_PinMode mode);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
 
 void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
