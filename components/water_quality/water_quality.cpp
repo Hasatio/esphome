@@ -30,16 +30,16 @@ void WaterQuality::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
         
-    ESP_LOGCONFIG(TAG, "Gain: %d", this->get_gain());
-    ESP_LOGCONFIG(TAG, "Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
-    ESP_LOGCONFIG(TAG, "Data rate: %d", this->get_data_rate());
-    ESP_LOGCONFIG(TAG, "Resolution: %d", this->get_resolution());
+    ESP_LOGI(TAG, "Gain: %d", this->get_gain());
+    ESP_LOGI(TAG, "Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
+    ESP_LOGI(TAG, "Data rate: %d", this->get_data_rate());
+    ESP_LOGI(TAG, "Resolution: %d", this->get_resolution());
 
-    ESP_LOGCONFIG(TAG, "Digital status: %x", this->olat_);
+    ESP_LOGI(TAG, "Digital status: %x", this->olat_);
     
     for (size_t i = 0; i < 8; i++)
     {
-        ESP_LOGCONFIG(TAG, "Digital pin(%d): %d", i, MCP23008_digital_read(i));
+        ESP_LOGI(TAG, "Digital pin(%d): %d", i, MCP23008_digital_read(i));
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
