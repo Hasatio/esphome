@@ -189,7 +189,7 @@ void MCP23008_pin_mode(uint8_t pin, MCP23008_PinMode mode);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
 
 void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
-std::string dump_summary() const override;
+std::string dump_summary();
 
 void set_pin(uint8_t pin) { pin_ = pin; }
 void set_inverted(bool inverted) { inverted_ = inverted; }
