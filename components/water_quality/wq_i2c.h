@@ -29,7 +29,7 @@ void tcaselect(uint8_t bus);
 
 class WaterQuality;
 
-class Data : public WaterQuality
+class Data
 {
 public:
 void test();
