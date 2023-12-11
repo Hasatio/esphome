@@ -194,21 +194,21 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     return NAN;
   }
 
-  // if (this->get_resolution() == ADS1015_12_BITS) {
-  //   bool negative = (raw_conversion >> 15) == 1;
+  if (this->get_resolution() == ADS1015_12_BITS) {
+    bool negative = (raw_conversion >> 15) == 1;
 
-  //   // shift raw_conversion as it's only 12-bits, left justified
-  //   raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+    // shift raw_conversion as it's only 12-bits, left justified
+    raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
 
-  //   // check if number was negative in order to keep the sign
-  //   if (negative) {
-  //     // the number was negative
-  //     // 1) set the negative bit back
-  //     raw_conversion |= 0x8000;
-  //     // 2) reset the former (shifted) negative bit
-  //     raw_conversion &= 0xF7FF;
-  //   }
-  // }
+    // check if number was negative in order to keep the sign
+    if (negative) {
+      // the number was negative
+      // 1) set the negative bit back
+      raw_conversion |= 0x8000;
+      // 2) reset the former (shifted) negative bit
+      raw_conversion &= 0xF7FF;
+    }
+  }
 
   auto signed_conversion = static_cast<int16_t>(raw_conversion);
 
@@ -238,7 +238,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
   }
 
   this->status_clear_warning();
-  ESP_LOGI(TAG, "config: %x", config);
+  // ESP_LOGI(TAG, "config: %x", config);
   return millivolts / 1e3f;
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
@@ -250,7 +250,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
       if (!std::isnan(v)) 
       {
           analog_voltage[i] = v;
-          ESP_LOGD(TAG, "Voltage%d: %f", i, v);
+          // ESP_LOGD(TAG, "Voltage%d: %f", i, v);
           // this->publish_state(v);
       }
   }
@@ -261,7 +261,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
       if (!std::isnan(v)) 
       {
           analog_voltage[i + 4] = v;
-          ESP_LOGD(TAG, "Voltage%d: %f", i + 4, v);
+          // ESP_LOGD(TAG, "Voltage%d: %f", i + 4, v);
           // this->publish_state(v);
       }
   }
