@@ -39,9 +39,9 @@ void WaterQuality::dump_config()
       uint8_t iocon;
     if (!this->MCP23008_read_reg(MCP23008_IOCON, &iocon)) 
     {
-        ESP_LOGI(TAG, "iocon: %x", iocon);
         return;
     }
+        ESP_LOGI(TAG, "iocon: %x", iocon);
     for (size_t i = 0; i < 8; i++)
     {  
         uint8_t value = 0;
