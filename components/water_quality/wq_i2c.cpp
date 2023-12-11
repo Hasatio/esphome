@@ -144,7 +144,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
+float WaterQuality::ADS1115_Read(ADS1115_Multiplexer multi)
 {
   uint16_t config = this->prev_config_;
   // uint16_t config = 0b0000000011100011;
@@ -247,7 +247,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   this->set_i2c_address(ADS1X15_ADDRESS1);
   for (size_t i = 0; i < 4; i++)
   {
-      float v = ADS1115_Read(static_cast<ADS1115Multiplexer>(i + 4));
+      float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
       if (!std::isnan(v)) 
       {
           analog_voltage[i] = v;
@@ -258,7 +258,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   this->set_i2c_address(ADS1X15_ADDRESS2);
   for (size_t i = 0; i < 4; i++)
   {
-      float v = ADS1115_Read(static_cast<ADS1115Multiplexer>(i + 4));
+      float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
       if (!std::isnan(v)) 
       {
           analog_voltage[i + 4] = v;
