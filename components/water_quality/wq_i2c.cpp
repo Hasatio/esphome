@@ -239,8 +239,8 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
   set_continuous_mode(true);
-  set_gain(0);
-  set_resolution(0);
+  set_gain(ADS1115_GAIN_6P144);
+  set_resolution(ADS1115_16_BITS);
   this->set_i2c_address(ADS1X15_ADDRESS1);
   for (size_t i = 0; i < 4; i++)
   {
