@@ -24,12 +24,11 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
-enum ADS1115Registers 
+enum ADS1115Registers
 {
     ADS1115_REGISTER_CONVERSION = 0x00,
     ADS1115_REGISTER_CONFIG = 0x01,
 };
-
 enum ADS1115Multiplexer
 {
   ADS1115_MULTIPLEXER_P0_N1 = 0b000,
@@ -81,6 +80,8 @@ enum MCP23S08GPIORegisters
   MCP23X08_GPIO = 0x09,
   MCP23X08_OLAT = 0x0A,
 };
+enum MCP23XXXInterruptMode : uint8_t { MCP23XXX_NO_INTERRUPT = 0, MCP23XXX_CHANGE, MCP23XXX_RISING, MCP23XXX_FALLING };
+
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
@@ -173,6 +174,20 @@ uint8_t get_resolution() const { return resolution_; }
 void MCP23008_Setup();
 void MCP23008_Driver(float digital[]);
 
+bool MCP23008_digital_read(uint8_t pin) override;
+void MCP23008_digital_write(uint8_t pin, bool value) override;
+void MCP23008_pin_mode(uint8_t pin, gpio::Flags flags) override;
+void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23XXXInterruptMode interrupt_mode) override;
+
+void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
+std::string dump_summary() const override;
+
+void set_pin(uint8_t pin) { pin_ = pin; }
+void set_inverted(bool inverted) { inverted_ = inverted; }
+void set_flags(gpio::Flags flags) { flags_ = flags; }
+void set_interrupt_mode(MCP23XXXInterruptMode interrupt_mode) { interrupt_mode_ = interrupt_mode; }
+
+
 void sensor();
 
 void setup() override;
@@ -216,7 +231,6 @@ void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Va
 void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
-
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
 text_sensor::TextSensor *Servo_Stat_{nullptr};
@@ -234,6 +248,16 @@ ADS1115Gain gain_;
 bool continuous_mode_;
 ADS1115DataRate data_rate_;
 ADS1115Resolution resolution_;
+
+bool MCP23008_read_reg(uint8_t reg, uint8_t *value) override;
+bool MCP23008_write_reg(uint8_t reg, uint8_t value) override;
+void MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_a) override;
+uint8_t olat_{0x00};
+uint8_t pin_;
+bool inverted_;
+gpio::Flags flags_;
+MCP23XXXInterruptMode interrupt_mode_;
+bool open_drain_ints_;
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
