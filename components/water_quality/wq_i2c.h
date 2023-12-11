@@ -37,6 +37,9 @@ void set_water_quality(WaterQuality *wq)
 wq_ = wq;
 }
 
+private:
+friend class WaterQuality;
+
 protected:
 WaterQuality *wq_;
 };
