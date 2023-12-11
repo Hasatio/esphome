@@ -26,7 +26,7 @@ namespace water_quality {
 
 void tcaselect(uint8_t bus);
 
-class Data : public i2c::I2CDevice
+class Data : public i2c::I2CDevice, public WaterQuality
 {
 public:
 void test();
