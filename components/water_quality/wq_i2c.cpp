@@ -170,7 +170,7 @@ float WaterQuality::ADS1115_Read(ADS1115Multiplexer multi)
     this->prev_config_ = config;
 
     // about 1.2 ms with 860 samples per second
-    delay(2);
+    delay(1.2);
     
     // in continuous mode, conversion will always be running, rely on the delay
     // to ensure conversion is taking place with the correct settings
