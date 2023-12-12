@@ -284,7 +284,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
-  std::vector<bool> dout_ = dig.get_Digital_Out();
+  std::vector<bool> dout_(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
   if (dout_ != dout)
   {
     set_Digital_Out(dout);
@@ -364,7 +364,7 @@ void WaterQuality::sensor()
     }
     if (this->DigIn_Stat_ != nullptr) 
     {
-        bool* in = an.get_Digital_In();
+        bool* in = dig.get_Digital_In();
         for (size_t i = 0; i < 4; i++)
         if (i > 0)
         ds << "," << std::fixed << std::setprecision(2) << (int)in[i];
