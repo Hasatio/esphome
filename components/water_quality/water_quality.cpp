@@ -147,32 +147,6 @@ unsigned long previousMillis = 0;
 void WaterQuality::loop() 
 {
     // delay(1000);
-    
-    unsigned long currentMillis = millis();
-        
-    if (millis() / 100 <= 1)
-    {
-        this->MCP23008_update_reg(5, false, MCP23008_GPIO);
-        this->MCP23008_update_reg(4, true, MCP23008_GPIO);
-    }
-    if (1 < millis() / 100 <= 4)
-    {
-        for (size_t i = 1; i < 4; i++)
-        {
-            this->MCP23008_update_reg(i + 3, false, MCP23008_GPIO);
-            this->MCP23008_update_reg(i + 4, true, MCP23008_GPIO);
-            yield();
-        }
-    }
-    if (4 < millis() / 100 <= 6)
-    {
-        for (size_t i = 3; i > 1; i--)
-        {
-            this->MCP23008_update_reg(i + 4, false, MCP23008_GPIO);
-            this->MCP23008_update_reg(i + 3, true, MCP23008_GPIO);
-            yield();
-        }
-    }
 }
 void WaterQuality::update()
 {
