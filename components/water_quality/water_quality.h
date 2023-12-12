@@ -370,9 +370,9 @@ TEMPLATABLE_VALUE(std::vector<bool>, val);
 
 void play(Ts... x) 
 {
-  std::vector<bool> data = this->val_.value(x...);
+  // std::vector<bool> data = this->val_.value(x...);
 
-  this->parent_->digital_out(data);
+  this->parent_->digital_out(this->val_.value(x...));
 }
 
 protected:
