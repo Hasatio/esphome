@@ -143,21 +143,22 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
     ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
 }
+unsigned long previousMillis = 0;
 void WaterQuality::loop() 
 {
     // delay(1000);
     
     unsigned long currentMillis = millis();
         
-    if (millis() - currentMillis >= 100)
+    if (millis() - previousMillis  >= 100)
     {
-        currentMillis = millis();
+        previousMillis  = currentMillis;
         this->MCP23008_update_reg(5, false, MCP23008_GPIO);
         this->MCP23008_update_reg(4, true, MCP23008_GPIO);
     }
-    if (millis() - currentMillis >= 100)
+    if (currentMillis - previousMillis  >= 100)
     {
-        currentMillis = millis();
+        previousMillis  = currentMillis;
         for (size_t i = 1; i < 4; i++)
         {
             this->MCP23008_update_reg(i + 3, false, MCP23008_GPIO);
@@ -165,9 +166,9 @@ void WaterQuality::loop()
             yield();
         }
     }
-    if (millis() - currentMillis >= 100)
+    if (currentMillis - previousMillis  >= 100)
     {
-        currentMillis = millis();
+        previousMillis  = currentMillis;
         for (size_t i = 3; i > 1; i--)
         {
             this->MCP23008_update_reg(i + 4, false, MCP23008_GPIO);
