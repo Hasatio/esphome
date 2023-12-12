@@ -462,8 +462,8 @@ async def digital_out_to_code(config, action_id, template_arg, args):
   var = cg.new_Pvariable(action_id, template_arg, paren)
 
   val = config[CONF_DIGITAL_OUT]
-  # if cg.is_template(val):
-  template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
-  cg.add(var.set_dig_out(template_))
+  if cg.is_template(val):
+    template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
+    cg.add(var.set_dig_out(template_))
 
   return var

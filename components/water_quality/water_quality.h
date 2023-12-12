@@ -372,6 +372,7 @@ void play(Ts... x)
 {
   std::vector<bool> data = this->dig_out_.value(x...);
 
+      ESP_LOGI(TAG,"burada");
   this->parent_->digital_out(data);
 }
 
