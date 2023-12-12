@@ -285,7 +285,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
   std::vector<bool> dout_(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
-  bool d[];
+  bool d[4];
   if (dout_ != dout)
   {
     for (size_t i = 0; i < dout.size(); i++)
