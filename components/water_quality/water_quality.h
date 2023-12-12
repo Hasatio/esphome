@@ -180,7 +180,7 @@ uint8_t get_continuous_mode() const { return continuous_mode_; }
 uint8_t get_data_rate() const { return data_rate_; }
 uint8_t get_resolution() const { return resolution_; }
 
-void MCP23008_Setup(uint8_t address);
+void MCP23008_Setup();
 void MCP23008_Driver(float digital[]);
 
 bool MCP23008_digital_read(uint8_t pin);

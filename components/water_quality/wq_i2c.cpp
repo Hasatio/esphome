@@ -277,9 +277,9 @@ void Data::test()
     //     ESP_LOGI(TAG, "yok");
 }
 
-void WaterQuality::MCP23008_Setup(uint8_t address)
+void WaterQuality::MCP23008_Setup()
 {
-  this->set_i2c_address(address);
+  this->set_i2c_address(MCP23008_ADDRESS);
 
   ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
   uint8_t iocon;
@@ -308,13 +308,17 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->MCP23008_update_reg(i, false, MCP23008_OLAT);
   }
 }
-bool WaterQuality::MCP23008_read_reg(uint8_t reg, uint8_t *value) {
+bool WaterQuality::MCP23008_read_reg(uint8_t reg, uint8_t *value)
+{
+  this->set_i2c_address(MCP23008_ADDRESS);
   if (this->is_failed())
     return false;
 
   return this->read_byte(reg, value);
 }
-bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value) {
+bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value)
+{
+  this->set_i2c_address(MCP23008_ADDRESS);
   if (this->is_failed())
     return false;
 
