@@ -364,11 +364,12 @@ void WaterQuality::sensor()
     }
     if (this->DigIn_Stat_ != nullptr) 
     {
+        bool* in = an.get_Digital_In();
         for (size_t i = 0; i < 4; i++)
         if (i > 0)
-        ds << "," << std::fixed << std::setprecision(2) << (int)dig.DigIn_Status[i];
+        ds << "," << std::fixed << std::setprecision(2) << (int)in[i];
         else
-        ds << std::fixed << std::setprecision(2) << (int)dig.DigIn_Status[i];
+        ds << std::fixed << std::setprecision(2) << (int)in[i];
 
         this->DigIn_Stat_->publish_state(ds.str());
     }
