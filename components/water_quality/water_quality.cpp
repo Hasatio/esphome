@@ -89,10 +89,10 @@ void WaterQuality::dump_config()
         this->MCP23008_read_reg(MCP23008_OLAT, &olat);
         ESP_LOGI(TAG, "olat: %x", olat);
         
-    // for (size_t i = 4; i < 8; i++)
-    // {
-    //     this->MCP23008_update_reg(i, false, MCP23008_IODIR);
-    // }
+    for (size_t i = 4; i < 8; i++)
+    {
+        this->MCP23008_update_reg(i, true, MCP23008_GPIO);
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
