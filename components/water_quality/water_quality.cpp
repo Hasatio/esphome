@@ -285,13 +285,15 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
   std::vector<bool> dout_(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
+  bool d[];
   if (dout_ != dout)
   {
-    set_Digital_Out(dout);
     for (size_t i = 0; i < dout.size(); i++)
     {
+      d[i] = dout[i];
       ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)dig.DigOut_Status[i]);
     }
+    dig.set_Digital_Out(dout);
   }
 }
 
