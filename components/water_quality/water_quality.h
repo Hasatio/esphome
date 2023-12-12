@@ -26,8 +26,8 @@ static const char *const TAG = "mycomponent";
 
 enum ADS1115_Registers
 {
-    ADS1115_REGISTER_CONVERSION = 0x00,
-    ADS1115_REGISTER_CONFIG = 0x01,
+  ADS1115_REGISTER_CONVERSION = 0x00,
+  ADS1115_REGISTER_CONFIG = 0x01,
 };
 enum ADS1115_Multiplexer
 {
@@ -99,7 +99,7 @@ float get_setup_priority() const override { return esphome::setup_priority::DATA
 
 uint16_t PwmFreq = 1000;
 
-    // Adafruit_PWMServoDriver pwm;
+  // Adafruit_PWMServoDriver pwm;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
@@ -181,7 +181,7 @@ uint8_t get_data_rate() const { return data_rate_; }
 uint8_t get_resolution() const { return resolution_; }
 
 void MCP23008_Setup();
-void MCP23008_Driver(float digital[]);
+void MCP23008_Driver(bool digital[]);
 
 bool MCP23008_digital_read(uint8_t pin);
 void MCP23008_digital_write(uint8_t pin, bool value);
@@ -226,16 +226,16 @@ void digital_out(std::vector<bool> &dout);
 
 // void update() override;
 
-void Pump_Tot                   (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
-void Pump_Stat                  (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
-void Servo_Stat                 (text_sensor::TextSensor *servo)    { Servo_Stat_ = servo; }
-void WaterTemp_Sensor_Driver    (sensor::Sensor *wtemp)             { AnInWT_Val_ = wtemp; }
-void VPow_Sensor_Driver         (sensor::Sensor *vpow)              { AnInVPow_Val_ = vpow; }
-void AnLevel_Sensor_Driver      (text_sensor::TextSensor *level)    { AnInLvl_Perc_ = level; }
-void WaterEC_Sensor_Driver      (sensor::Sensor *ec)                { AnInEC_Val_ = ec; }
-void WaterPH_Sensor_Driver      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; }
-void AnGen_Input_Driver         (text_sensor::TextSensor *a)        { AnInGen_Val_ = a; }
-void DigIn_Stat                 (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
+void Pump_Tot                 (text_sensor::TextSensor *ptot)   { Pump_Tot_ = ptot; }
+void Pump_Stat                (text_sensor::TextSensor *pstat)  { Pump_Stat_ = pstat; }
+void Servo_Stat               (text_sensor::TextSensor *servo)  { Servo_Stat_ = servo; }
+void WaterTemp_Sensor_Driver  (sensor::Sensor *wtemp)           { AnInWT_Val_ = wtemp; }
+void VPow_Sensor_Driver       (sensor::Sensor *vpow)            { AnInVPow_Val_ = vpow; }
+void AnLevel_Sensor_Driver    (text_sensor::TextSensor *level)  { AnInLvl_Perc_ = level; }
+void WaterEC_Sensor_Driver    (sensor::Sensor *ec)              { AnInEC_Val_ = ec; }
+void WaterPH_Sensor_Driver    (sensor::Sensor *ph)              { AnInPH_Val_ = ph; }
+void AnGen_Input_Driver       (text_sensor::TextSensor *a)      { AnInGen_Val_ = a; }
+void DigIn_Stat               (text_sensor::TextSensor *din)    { DigIn_Stat_ = din; }
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};
@@ -267,116 +267,116 @@ bool open_drain_ints_;
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
-    public:
-    PumpModeAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<uint8_t> data = this->val_.value(x...);
+public:
+PumpModeAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->pump_mode(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<uint8_t> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+  this->parent_->pump_mode(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
-    public:
-    PumpDoseAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<uint16_t> data = this->val_.value(x...);
+public:
+PumpDoseAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->pump_dose(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<uint16_t> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
+  this->parent_->pump_dose(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
-    public:
-    PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<uint16_t> data = this->val_.value(x...);
+public:
+PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->pump_circulation(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<uint16_t> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
+  this->parent_->pump_circulation(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class PumpResetAction : public Action<Ts...> {
-    public:
-    PumpResetAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<bool> data = this->val_.value(x...);
+public:
+PumpResetAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->pump_reset(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<bool> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<bool>, val);
+  this->parent_->pump_reset(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<bool>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class ServoModeAction : public Action<Ts...> {
-    public:
-    ServoModeAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<bool> data = this->val_.value(x...);
+public:
+ServoModeAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->servo_mode(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<bool> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<bool>, val);
+  this->parent_->servo_mode(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<bool>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
-    public:
-    ServoPositionAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<uint8_t> data = this->val_.value(x...);
+public:
+ServoPositionAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->servo_position(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<uint8_t> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+  this->parent_->servo_position(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
+
+protected:
+WaterQuality *parent_;
 };
 template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
-    public:
-    DigitalOutAction(WaterQuality *parent) : parent_(parent){};
-    
-    void play(Ts... x) 
-    {
-    std::vector<bool> data = this->val_.value(x...);
+public:
+DigitalOutAction(WaterQuality *parent) : parent_(parent){};
 
-    this->parent_->digital_out(data);
-    }
+void play(Ts... x) 
+{
+  std::vector<bool> data = this->val_.value(x...);
 
-    TEMPLATABLE_VALUE(std::vector<bool>, val);
+  this->parent_->digital_out(data);
+}
 
-    protected:
-    WaterQuality *parent_;
+TEMPLATABLE_VALUE(std::vector<bool>, val);
+
+protected:
+WaterQuality *parent_;
 };
 
 }  // namespace water_quality

@@ -3,8 +3,8 @@ import esphome.config_validation as cv
 from esphome.components import i2c
 from esphome import automation
 from esphome.const import (
-    CONF_ID,
-    CONF_DATA
+  CONF_ID,
+  CONF_DATA
 ) 
 
 CODEOWNERS = ["@hasatio"]
@@ -44,20 +44,20 @@ PUMP_TYPE_CIRCULATION = 2
 
 
 PUMP_CALIBRATION_SCHEMA = cv.Schema(
-    {
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
-    }
+  {
+    cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
+  }
 )
                     
 PUMP_TYPE_SCHEMA = cv.typed_schema(
-    {
-        PUMP_TYPE_NULL: cv.Any({}),
-        PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA,
-        PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA,
-    },
-    key=CONF_PUMP_TYPE,
-    default_type=PUMP_TYPE_NULL,
-    int=True,
+  {
+    PUMP_TYPE_NULL: cv.Any({}),
+    PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA,
+    PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA,
+  },
+  key=CONF_PUMP_TYPE,
+  default_type=PUMP_TYPE_NULL,
+  int=True,
 )
 
 component_ns = cg.esphome_ns.namespace("water_quality")
@@ -65,184 +65,184 @@ WaterQuality = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CD
 
                     
 CONFIG_SCHEMA = (
-    cv.Schema(
-        {
-            cv.GenerateID(): cv.declare_id(WaterQuality),
-            cv.Optional(CONF_VERSION, default = 0): cv.uint8_t,  
-            cv.Required(CONF_PUMP1): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP2): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP3): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP4): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP5): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_PUMP6): cv.All(
-                cv.ensure_list(PUMP_TYPE_SCHEMA),
-                cv.Length(min = 1)
-            ),
-            cv.Required(CONF_LEVEL): cv.All(
-                cv.ensure_list(
-                    cv.Schema(
-                        {
-                            cv.Required(CONF_RES_MIN): cv.All(
-                                cv.ensure_list(cv.uint16_t),
-                                cv.Length(min = 1, max = 2)
-                            ),
-                            cv.Required(CONF_RES_MAX): cv.All(
-                                cv.ensure_list(cv.uint16_t),
-                                cv.Length(min = 1, max = 2)
-                            ),  
-                        }
-                    )
-                ),
-            ),
-            cv.Required(CONF_SENSORS): cv.All(
-                cv.ensure_list(
-                    cv.Schema(
-                        {
-                            cv.Required(CONF_EC_CHANNEL): cv.All(
-                                cv.int_range(min = 0, max = 4),
-                            ),
-                            cv.Required(CONF_EC_TYPE): cv.All(
-                                cv.int_range(min = 0, max = 2),
-                            ),
-                            cv.Required(CONF_PH_CHANNEL): cv.All(
-                                cv.int_range(min = 0, max = 4),
-                            ),
-                            cv.Required(CONF_PH_TYPE): cv.All(
-                                cv.int_range(min = 0, max = 2),
-                            ),
-                        }
-                    )
-                ),
-            ),
-        }
-    )
-    .extend(cv.COMPONENT_SCHEMA)
-    .extend(i2c.i2c_device_schema(None))
+  cv.Schema(
+    {
+      cv.GenerateID(): cv.declare_id(WaterQuality),
+      cv.Optional(CONF_VERSION, default = 0): cv.uint8_t,  
+      cv.Required(CONF_PUMP1): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_PUMP2): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_PUMP3): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_PUMP4): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_PUMP5): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_PUMP6): cv.All(
+        cv.ensure_list(PUMP_TYPE_SCHEMA),
+        cv.Length(min = 1)
+      ),
+      cv.Required(CONF_LEVEL): cv.All(
+        cv.ensure_list(
+          cv.Schema(
+            {
+              cv.Required(CONF_RES_MIN): cv.All(
+                cv.ensure_list(cv.uint16_t),
+                cv.Length(min = 1, max = 2)
+              ),
+              cv.Required(CONF_RES_MAX): cv.All(
+                cv.ensure_list(cv.uint16_t),
+                cv.Length(min = 1, max = 2)
+              ),  
+            }
+          )
+        ),
+      ),
+      cv.Required(CONF_SENSORS): cv.All(
+        cv.ensure_list(
+          cv.Schema(
+            {
+              cv.Required(CONF_EC_CHANNEL): cv.All(
+                cv.int_range(min = 0, max = 4),
+              ),
+              cv.Required(CONF_EC_TYPE): cv.All(
+                cv.int_range(min = 0, max = 2),
+              ),
+              cv.Required(CONF_PH_CHANNEL): cv.All(
+                cv.int_range(min = 0, max = 4),
+              ),
+              cv.Required(CONF_PH_TYPE): cv.All(
+                cv.int_range(min = 0, max = 2),
+              ),
+            }
+          )
+        ),
+      ),
+    }
+  )
+  .extend(cv.COMPONENT_SCHEMA)
+  .extend(i2c.i2c_device_schema(None))
 )
 
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
-    await i2c.register_i2c_device(var, config)
-    
-    if CONF_VERSION in config:
-        cg.add(var.version(config[CONF_VERSION]))
-        
-    empty = [0] * 1
-    type = []
-    calib = []
-    dose = 0
-    circ = 0
-    
-    conf = config[CONF_PUMP1][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  var = cg.new_Pvariable(config[CONF_ID])
+  await cg.register_component(var, config)
+  await i2c.register_i2c_device(var, config)
+  
+  if CONF_VERSION in config:
+    cg.add(var.version(config[CONF_VERSION]))
+      
+  empty = [0] * 1
+  type = []
+  calib = []
+  dose = 0
+  circ = 0
+  
+  conf = config[CONF_PUMP1][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-            
-    conf = config[CONF_PUMP2][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+          
+  conf = config[CONF_PUMP2][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-        
-    conf = config[CONF_PUMP3][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+      
+  conf = config[CONF_PUMP3][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-        
-    conf = config[CONF_PUMP4][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+      
+  conf = config[CONF_PUMP4][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-        
-    conf = config[CONF_PUMP5][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+      
+  conf = config[CONF_PUMP5][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-        
-    conf = config[CONF_PUMP6][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        if conf[CONF_PUMP_TYPE] == 1:
-            dose += 1
-        else:
-            circ += 1
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+      
+  conf = config[CONF_PUMP6][0]
+  type.append(conf[CONF_PUMP_TYPE])
+  if conf[CONF_PUMP_TYPE] != 0:
+    if conf[CONF_PUMP_TYPE] == 1:
+      dose += 1
     else:
-        calib.append(empty)
-        
-    cg.add(var.pump_calib_gain(calib))
-    cg.add(var.pump_type(type, dose, circ))
-    
-        
-    min = []
-    max = []
-    for conf in config[CONF_LEVEL]:
-        min.append(conf[CONF_RES_MIN])
-        max.append(conf[CONF_RES_MAX])
-    cg.add(var.level_res(min, max))
-    
-    conf = config[CONF_SENSORS][0]
-    ch = conf[CONF_EC_CHANNEL]
-    t = conf[CONF_EC_TYPE]
-    cg.add(var.ec(ch, t))
-    ch = conf[CONF_PH_CHANNEL]
-    t = conf[CONF_PH_TYPE]
-    cg.add(var.ph(ch, t))
+      circ += 1
+    calib.append(conf[CONF_PUMP_CALIB_GAIN])
+  else:
+    calib.append(empty)
+      
+  cg.add(var.pump_calib_gain(calib))
+  cg.add(var.pump_type(type, dose, circ))
+  
+      
+  min = []
+  max = []
+  for conf in config[CONF_LEVEL]:
+    min.append(conf[CONF_RES_MIN])
+    max.append(conf[CONF_RES_MAX])
+  cg.add(var.level_res(min, max))
+  
+  conf = config[CONF_SENSORS][0]
+  ch = conf[CONF_EC_CHANNEL]
+  t = conf[CONF_EC_TYPE]
+  cg.add(var.ec(ch, t))
+  ch = conf[CONF_PH_CHANNEL]
+  t = conf[CONF_PH_TYPE]
+  cg.add(var.ph(ch, t))
 
-    cg.add_library("EEPROM", None)
-    cg.add_library("DFRobot_EC", None, "https://github.com/DFRobot/DFRobot_EC/")
-    cg.add_library("DFRobot_EC10", None)
-    cg.add_library("DFRobot_PH", None)
-    cg.add_library("DFRobot_PH", None)
-    cg.add_library("SPI", None)
-    cg.add_library("SD", None)
-    cg.add_library("Time", None)
+  cg.add_library("EEPROM", None)
+  cg.add_library("DFRobot_EC", None, "https://github.com/DFRobot/DFRobot_EC/")
+  cg.add_library("DFRobot_EC10", None)
+  cg.add_library("DFRobot_PH", None)
+  cg.add_library("DFRobot_PH", None)
+  cg.add_library("SPI", None)
+  cg.add_library("SD", None)
+  cg.add_library("Time", None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)

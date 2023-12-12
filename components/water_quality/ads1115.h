@@ -12,12 +12,12 @@
 // #include <Adafruit_MCP23X08.h>
 #include <vector>
 
-    // I2C Address
-    #define TCA9548_ADDRESS 0x70
-    #define ADS1X15_ADDRESS1 0x48
-    #define ADS1X15_ADDRESS2 0x49
-    #define MCP23008_ADDRESS 0x20
-    #define PCA9685_I2C_ADDRESS 0x40
+  // I2C Address
+  #define TCA9548_ADDRESS 0x70
+  #define ADS1X15_ADDRESS1 0x48
+  #define ADS1X15_ADDRESS2 0x49
+  #define MCP23008_ADDRESS 0x20
+  #define PCA9685_I2C_ADDRESS 0x40
 
 namespace esphome {
 namespace water_quality {
