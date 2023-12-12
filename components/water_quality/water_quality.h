@@ -366,14 +366,14 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
 public:
 DigitalOutAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<bool>, val);
+
 void play(Ts... x) 
 {
   std::vector<bool> data = this->val_.value(x...);
 
   this->parent_->digital_out(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<bool>, val);
 
 protected:
 WaterQuality *parent_;
