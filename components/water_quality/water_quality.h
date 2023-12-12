@@ -373,6 +373,10 @@ void play(Ts... x)
   std::vector<bool> data = this->dig_out_.value(x...);
 
   this->parent_->digital_out(data);
+    for (size_t i = 0; i < 4; i++)
+    {
+      ESP_LOGD(TAG,"data[%d] = %d", i, (int)data[i]);
+    }
 }
 
 protected:
