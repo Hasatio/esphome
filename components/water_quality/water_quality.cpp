@@ -146,19 +146,18 @@ void WaterQuality::dump_config()
 void WaterQuality::loop() 
 {
     // delay(1000);
-    
-    this->MCP23008_update_reg(7, false, MCP23008_GPIO);
-    this->MCP23008_update_reg(4, true, MCP23008_GPIO);
-    delay(100);
-    this->MCP23008_update_reg(4, false, MCP23008_GPIO);
-    this->MCP23008_update_reg(5, true, MCP23008_GPIO);
-    delay(100);
-    this->MCP23008_update_reg(5, false, MCP23008_GPIO);
-    this->MCP23008_update_reg(6, true, MCP23008_GPIO);
-    delay(100);
-    this->MCP23008_update_reg(6, false, MCP23008_GPIO);
-    this->MCP23008_update_reg(7, true, MCP23008_GPIO);
-    delay(100);
+    for (size_t i = 0; i < 4; i++)
+    {
+        this->MCP23008_update_reg((i + 3) % 4 + 4, false, MCP23008_GPIO);
+        this->MCP23008_update_reg(i + 4, true, MCP23008_GPIO);
+        delay(100);
+    }
+    for (size_t i = 2; i > 0; i--)
+    {
+        this->MCP23008_update_reg((i + 3) % 4 + 4, false, MCP23008_GPIO);
+        this->MCP23008_update_reg(i + 4, true, MCP23008_GPIO);
+        delay(100);
+    }
 }
 void WaterQuality::update()
 {
