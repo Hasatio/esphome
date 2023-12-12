@@ -153,7 +153,6 @@ void WaterQuality::loop()
     {
         this->MCP23008_update_reg(5, false, MCP23008_GPIO);
         this->MCP23008_update_reg(4, true, MCP23008_GPIO);
-        usleep(100000);
         for (size_t i = 1; i < 4; i++)
         {
             this->MCP23008_update_reg(i + 3, false, MCP23008_GPIO);
