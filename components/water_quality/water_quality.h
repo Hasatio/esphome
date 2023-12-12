@@ -270,14 +270,14 @@ template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 public:
 PumpModeAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<uint8_t>, pump_m);
+
 void play(Ts... x) 
 {
-  std::vector<uint8_t> data = this->val_.value(x...);
+  std::vector<uint8_t> data = this->pump_m_.value(x...);
 
   this->parent_->pump_mode(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
 
 protected:
 WaterQuality *parent_;
@@ -286,14 +286,14 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
 public:
 PumpDoseAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_d);
+
 void play(Ts... x) 
 {
-  std::vector<uint16_t> data = this->val_.value(x...);
+  std::vector<uint16_t> data = this->pump_d_.value(x...);
 
   this->parent_->pump_dose(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
 protected:
 WaterQuality *parent_;
@@ -302,14 +302,14 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
 public:
 PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_circ);
+
 void play(Ts... x) 
 {
-  std::vector<uint16_t> data = this->val_.value(x...);
+  std::vector<uint16_t> data = this->pump_circ_.value(x...);
 
   this->parent_->pump_circulation(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<uint16_t>, val);
 
 protected:
 WaterQuality *parent_;
@@ -318,14 +318,14 @@ template<typename... Ts> class PumpResetAction : public Action<Ts...> {
 public:
 PumpResetAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<bool>, pump_res);
+
 void play(Ts... x) 
 {
-  std::vector<bool> data = this->val_.value(x...);
+  std::vector<bool> data = this->pump_res_.value(x...);
 
   this->parent_->pump_reset(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<bool>, val);
 
 protected:
 WaterQuality *parent_;
@@ -334,14 +334,14 @@ template<typename... Ts> class ServoModeAction : public Action<Ts...> {
 public:
 ServoModeAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<bool>, ser_mode);
+
 void play(Ts... x) 
 {
-  std::vector<bool> data = this->val_.value(x...);
+  std::vector<bool> data = this->ser_mode_.value(x...);
 
   this->parent_->servo_mode(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<bool>, val);
 
 protected:
 WaterQuality *parent_;
@@ -350,14 +350,14 @@ template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
 public:
 ServoPositionAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<uint8_t>, ser_pos);
+
 void play(Ts... x) 
 {
-  std::vector<uint8_t> data = this->val_.value(x...);
+  std::vector<uint8_t> data = this->ser_pos_.value(x...);
 
   this->parent_->servo_position(data);
 }
-
-TEMPLATABLE_VALUE(std::vector<uint8_t>, val);
 
 protected:
 WaterQuality *parent_;
@@ -366,13 +366,13 @@ template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
 public:
 DigitalOutAction(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::vector<bool>, val);
+TEMPLATABLE_VALUE(std::vector<bool>, dig_out);
 
 void play(Ts... x) 
 {
-  // std::vector<bool> data = this->val_.value(x...);
+  std::vector<bool> data = this->dig_out_.value(x...);
 
-  this->parent_->digital_out(this->val_.value(x...));
+  this->parent_->digital_out(data);
 }
 
 protected:
