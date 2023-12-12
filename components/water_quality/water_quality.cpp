@@ -38,17 +38,17 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Digital status: %x", this->olat_);
       uint8_t iocon=0;
         ESP_LOGI(TAG, "iocon: %x", iocon);
-    if (!this->MCP23008_read_reg(MCP23008_IOCON, &iocon)) 
-    {
-        return;
-    }
-        ESP_LOGI(TAG, "iocon: %x", iocon);
+        ESP_LOGI(TAG, "iocon: %x", MCP23008_read_reg(MCP23008_IOCON, &iocon));
     for (size_t i = 0; i < 8; i++)
     {  
         uint8_t value = 0;
         this->MCP23008_read_reg(MCP23008_IODIR, &value);
         ESP_LOGI(TAG, "Digital pin(%d): %d", i, value & (1 << i));
     }
+    // for (size_t i = 4; i < 8; i++)
+    // {
+    //     this->MCP23008_update_reg(i, false, MCP23008_IODIR);
+    // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
