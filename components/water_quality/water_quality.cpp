@@ -286,6 +286,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 {
   std::vector<bool> dout_(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
   bool d[4];
+      ESP_LOGI(TAG,"burada");
   if (dout_ != dout)
   {
     for (size_t i = 0; i < dout.size(); i++)
