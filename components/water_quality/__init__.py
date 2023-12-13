@@ -68,7 +68,7 @@ CONFIG_SCHEMA = (
   cv.Schema(
     {
       cv.GenerateID(): cv.declare_id(WaterQuality),
-      cv.Optional(CONF_VERSION, default = 0): cv.uint8_t,  
+      cv.Optional(CONF_VERSION, default = 1): cv.uint8_t,  
       cv.Required(CONF_PUMP1): cv.All(
         cv.ensure_list(PUMP_TYPE_SCHEMA),
         cv.Length(min = 1)
