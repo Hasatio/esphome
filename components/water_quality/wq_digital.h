@@ -12,8 +12,8 @@ namespace water_quality {
 class Digital
 {
 public:
-void Digital_Input_Driver(float inputs[]);
-void Digital_Output_Driver(float outputs[]);
+void Digital_Input_Driver(bool inputs[]);
+void Digital_Output_Driver(bool outputs[]);
 
 void set_Digital_In(bool in[])      {for (size_t i = 0; i < 4; i++) DigIn_Status[i] = in[i];}
 void set_Digital_Out(bool out[])    {for (size_t i = 0; i < 4; i++) DigOut_Status[i] = out[i];}

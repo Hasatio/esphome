@@ -5,11 +5,11 @@
 namespace esphome {
 namespace water_quality {
 
-void Digital::Digital_Input_Driver(float inputs[])
+void Digital::Digital_Input_Driver(bool inputs[])
 {
   set_Digital_In(inputs);
 }
-void Digital::Digital_Output_Driver(float outputs[])
+void Digital::Digital_Output_Driver(bool outputs[])
 {
   set_Digital_Out(outputs);
 }
