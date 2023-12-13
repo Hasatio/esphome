@@ -156,6 +156,8 @@ void WaterQuality::update()
   an.Analog_Input_Driver(a);
   dig.Digital_Output_Driver(d);
   MCP23008_Driver(d);
+  for (size_t i = 0; i < 4; i++)
+  ESP_LOGD(TAG,"test = %d", d[i]);
   // pca9685();
   // pump_total();
   sensor();
