@@ -181,7 +181,7 @@ uint8_t get_data_rate() const { return data_rate_; }
 uint8_t get_resolution() const { return resolution_; }
 
 void MCP23008_Setup();
-void MCP23008_Driver();
+void MCP23008_Driver(bool digital[]);
 
 bool MCP23008_digital_read(uint8_t pin);
 void MCP23008_digital_write(uint8_t pin, bool value);
