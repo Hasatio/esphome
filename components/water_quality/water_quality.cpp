@@ -154,11 +154,11 @@ void WaterQuality::update()
   bool d[4];
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
-  
+
   dig.Digital_Output_Driver(d);
-  MCP23008_Driver(d);
+  MCP23008_Driver(get_Digital_Out());
   for (size_t i = 0; i < 4; i++)
-  ESP_LOGD(TAG,"test = %d", d[i]);
+  ESP_LOGD(TAG,"test%d = %d", i, d[i]);
   // pca9685();
   // pump_total();
   sensor();
