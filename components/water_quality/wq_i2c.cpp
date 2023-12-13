@@ -394,9 +394,6 @@ void WaterQuality::MCP23008_Driver(bool digital[])
   {
     if(i < 4)
     {
-      // uint8_t value[4];
-      // this->MCP23008_read_reg(MCP23008_GPIO, &value[i]);
-      //   ESP_LOGD(TAG,"value %d = %d  %d", i, value[i], (value[i] & (1 << (i))));
       input[i] = MCP23008_digital_read(i);
         // ESP_LOGD(TAG,"input %d = %d", i, input[i]);
     }
@@ -409,30 +406,6 @@ void WaterQuality::MCP23008_Driver(bool digital[])
       digital[i - 4] = input[i - 4];
     }
   }
-
-    // mcp.digitalWrite(4,LOW);
-    // mcp.digitalWrite(5,LOW);
-    // mcp.digitalWrite(6,LOW);
-    // mcp.digitalWrite(7,LOW);
-
-    // for(size_t i = 0; i < 4; i++)
-    // {
-    //     digi.DigIn_Read[i] = mcp.digitalRead(i);
-    //     // ESP_LOGD(TAG,"dig input %d = %d", i, DigIn_Read[i]);
-    // }
-
-    // for(size_t i = 0; i < 4; i++)
-    // {
-    //     if (digi.DigOut_Status[i] == 1)
-    //     {
-    //         mcp.digitalWrite(i + 4, HIGH);
-    //     }
-    //     else
-    //     { 
-    //         mcp.digitalWrite(i + 4, LOW);
-    //     }
-    //     // ESP_LOGD(TAG,"dig output %d = %d", i, DigOut_Status[i]);
-    // }
 }
 
 }  // namespace water_quality
