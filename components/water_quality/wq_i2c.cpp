@@ -407,6 +407,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
       else
         this->MCP23008_update_reg(i, false, MCP23008_GPIO);
       digital[i - 4] = input[i - 4];
+    ESP_LOGD(TAG,"digital %d = %d", i, digital[i - 4]);
     }
   }
 
