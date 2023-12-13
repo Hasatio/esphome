@@ -11,7 +11,7 @@ void Digital::Digital_Input_Driver(bool inputs[])
 }
 void Digital::Digital_Output_Driver(bool outputs[])
 {
-  set_Digital_Out(outputs);
+  outputs = get_Digital_Out();
 }
 }  // namespace water_quality
 }  // namespace esphome

@@ -144,17 +144,17 @@ void WaterQuality::dump_config()
   ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
   ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
 }
-unsigned long previousMillis = 0;
 void WaterQuality::loop() 
 {
   // delay(1000);
 }
 void WaterQuality::update()
 {
-  float a[8];
+  float a[8], d[4];
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
-  MCP23008_Driver();
+  dig.Digital_Output_Driver(d);
+  MCP23008_Driver(d);
   // pca9685();
   // pump_total();
   sensor();
@@ -293,7 +293,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
       d[i] = dout[i];
       ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)dout[i]);
     }
-    dig.Digital_Output_Driver(d);
+    dig.set_Digital_Out(d);
   }
 }
 
