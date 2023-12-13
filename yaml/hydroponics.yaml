@@ -424,7 +424,7 @@ number:
             # pump_mode: !lambda |- 
             #   return {1, 0, 1, 4};
             pump_mode: !lambda |- 
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_mode2
@@ -439,7 +439,7 @@ number:
       then:
         - water_quality.pump_mode:
             pump_mode: !lambda |-
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_mode3
@@ -454,7 +454,7 @@ number:
       then:
         - water_quality.pump_mode:
             pump_mode: !lambda |-
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_mode4
@@ -469,7 +469,7 @@ number:
       then:
         - water_quality.pump_mode:
             pump_mode: !lambda |-
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_mode5
@@ -484,7 +484,7 @@ number:
       then:
         - water_quality.pump_mode:
             pump_mode: !lambda |-
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_mode6
@@ -499,7 +499,7 @@ number:
       then:
         - water_quality.pump_mode:
             pump_mode: !lambda |-
-              return {(unsigned char)id(pump_mode1), (unsigned char)id(pump_mode2), (unsigned char)id(pump_mode3), (unsigned char)id(pump_mode4), (unsigned char)id(pump_mode5), (unsigned char)id(pump_mode6)};
+              return {(unsigned char)id(pump_mode1).state, (unsigned char)id(pump_mode2).state, (unsigned char)id(pump_mode3).state, (unsigned char)id(pump_mode4).state, (unsigned char)id(pump_mode5).state, (unsigned char)id(pump_mode6).state};
 
   - platform: template
     id: pump_dose1
@@ -514,7 +514,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_dose2
@@ -529,7 +529,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_dose3
@@ -544,7 +544,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_dose4
@@ -559,7 +559,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_dose5
@@ -574,7 +574,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_dose6
@@ -589,7 +589,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {(unsigned char)id(pump_dose1), (unsigned char)id(pump_dose2), (unsigned char)id(pump_dose3), (unsigned char)id(pump_dose4), (unsigned char)id(pump_dose5), (unsigned char)id(pump_dose6)};
+              return {(unsigned char)id(pump_dose1).state, (unsigned char)id(pump_dose2).state, (unsigned char)id(pump_dose3).state, (unsigned char)id(pump_dose4).state, (unsigned char)id(pump_dose5).state, (unsigned char)id(pump_dose6).state};
 
   - platform: template
     id: pump_circulation1
@@ -604,7 +604,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   - platform: template
     id: pump_circulation2
@@ -619,7 +619,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   - platform: template
     id: pump_circulation3
@@ -634,7 +634,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   - platform: template
     id: pump_circulation4
@@ -649,7 +649,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   - platform: template
     id: pump_circulation5
@@ -664,7 +664,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   - platform: template
     id: pump_circulation6
@@ -679,7 +679,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {(unsigned char)id(pump_circulation1), (unsigned char)id(pump_circulation2), (unsigned char)id(pump_circulation3), (unsigned char)id(pump_circulation4), (unsigned char)id(pump_circulation5), (unsigned char)id(pump_circulation6)};
+              return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
 
   # - platform: template
   #   id: duration
