@@ -154,7 +154,7 @@ void WaterQuality::update()
   float a[8];
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
-  MCP23008_Driver(dig.get_Digital_Out());
+  MCP23008_Driver();
   // pca9685();
   // pump_total();
   sensor();
@@ -286,7 +286,6 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 {
   std::vector<bool> dout_(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
   bool d[4];
-      ESP_LOGI(TAG,"burada");
   if (dout_ != dout)
   {
     for (size_t i = 0; i < dout.size(); i++)
@@ -294,7 +293,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
       d[i] = dout[i];
       ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, (int)dout[i]);
     }
-    dig.set_Digital_Out(d);
+    dig.Digital_Output_Driver(d);
   }
 }
 

@@ -387,14 +387,21 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
 }
 
 
-void WaterQuality::MCP23008_Driver(bool digital[])
+void WaterQuality::MCP23008_Driver()
 {
-  for (size_t i = 0; i < 4; i++)
+  bool* digital = get_Digital_Out();
+  for (size_t i = 4; i < 8; i++)
   {
-    if(digital[i])
-      this->MCP23008_update_reg(i + 4, true, MCP23008_GPIO);
+    if(digital[i - 4])
+      this->MCP23008_update_reg(i, true, MCP23008_GPIO);
     else
-      this->MCP23008_update_reg(i + 4, false, MCP23008_GPIO);
+      this->MCP23008_update_reg(i, false, MCP23008_GPIO);
+
+    bool value[8]; 
+    this->MCP23008_read_reg(MCP23008_GPIO, &value[i]);
+      ESP_LOGD(TAG,"value %d = %d", i, value[i]);
+    value[i + 4] = MCP23008_digital_read(i - 4);
+      ESP_LOGD(TAG,"value %d = %d", i, value[i + 4]);
   }
 
     // mcp.digitalWrite(4,LOW);
