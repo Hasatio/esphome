@@ -389,9 +389,9 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
 
 void WaterQuality::MCP23008_Driver(bool digital[])
 {
+  bool input[4];
   for (size_t i = 0; i < 8; i++)
   {
-    bool input[4];
     if(i < 4)
     {
       // uint8_t value[4];
