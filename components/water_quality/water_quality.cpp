@@ -154,6 +154,7 @@ void WaterQuality::update()
   bool d[4];
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
+  
   dig.Digital_Output_Driver(d);
   MCP23008_Driver(d);
   for (size_t i = 0; i < 4; i++)
