@@ -7,7 +7,12 @@ namespace water_quality {
 
 void Digital::Digital_Input_Driver(bool inputs[])
 {
-  set_Digital_In(&inputs);
+  bool digital[4];
+
+  for (size_t i = 0; i < 4; i++)
+    digital[i] = inputs[i];
+
+  set_Digital_In(digital);
 }
 void Digital::Digital_Output_Driver(bool outputs[])
 {
