@@ -12,7 +12,7 @@ void Digital::Digital_Input_Driver(bool inputs[])
   for (size_t i = 0; i < 4; i++)
   {
     digital[i] = inputs[i];
-    ESP_LOGD(TAG,"input %d = %d", i, inputs[i]);
+    // ESP_LOGD(TAG,"input %d = %d", i, inputs[i]);
   }
 
   set_Digital_In(digital);

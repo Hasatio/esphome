@@ -398,7 +398,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
       // this->MCP23008_read_reg(MCP23008_GPIO, &value[i]);
       //   ESP_LOGD(TAG,"value %d = %d  %d", i, value[i], (value[i] & (1 << (i))));
       input[i] = MCP23008_digital_read(i);
-        // ESP_LOGD(TAG,"input %d = %d", i, input[i]);
+        ESP_LOGD(TAG,"input %d = %d", i, input[i]);
     }
     else
     {
@@ -407,7 +407,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
       else
         this->MCP23008_update_reg(i, false, MCP23008_GPIO);
       digital[i - 4] = input[i - 4];
-    ESP_LOGD(TAG,"digital %d = %d", i, input[i - 4]);
+    ESP_LOGD(TAG,"digital %d = %d", i - 4, input[i - 4]);
     }
   }
 
