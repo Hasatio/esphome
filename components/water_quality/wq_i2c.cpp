@@ -391,9 +391,9 @@ void WaterQuality::MCP23008_Driver(bool digital[])
 {
   for (size_t i = 0; i < 8; i++)
   {
+    bool input[4];
     if(i < 4)
     {
-      bool input[4]; 
       // uint8_t value[4];
       // this->MCP23008_read_reg(MCP23008_GPIO, &value[i]);
       //   ESP_LOGD(TAG,"value %d = %d  %d", i, value[i], (value[i] & (1 << (i))));
