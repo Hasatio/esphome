@@ -150,7 +150,8 @@ void WaterQuality::loop()
 }
 void WaterQuality::update()
 {
-  float a[8], d[4];
+  float a[8];
+  bool d[4];
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
   dig.Digital_Output_Driver(d);
