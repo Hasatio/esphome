@@ -20,7 +20,6 @@ void WaterQuality::setup()
   ADS1115_Setup(ADS1X15_ADDRESS2);
   MCP23008_Setup(MCP23008_ADDRESS);
   PCA9685_Setup(PCA9685_I2C_ADDRESS);
-    set_channel_value_(0,4000);
 }
 void WaterQuality::dump_config()
 {
@@ -169,6 +168,7 @@ void WaterQuality::update()
   MCP23008_Driver(d);
   dig.Digital_Input_Driver(d);
 
+    set_channel_value_(8,2000);
   PCA9685_Write();
   // pca9685();
   // pump_total();
