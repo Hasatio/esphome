@@ -107,7 +107,7 @@ void WaterQuality::dump_config()
   
 ESP_LOGD(TAG, "min_channel: %d", this->min_channel_);
 ESP_LOGD(TAG, "max_channel: %d", this->max_channel_);
-ESP_LOGD(TAG, "burada %d", this->update_);
+ESP_LOGD(TAG, "update: %d", this->update_);
 for (size_t i = 0; i < 8; i++)
 {   
   ESP_LOGD(TAG, "pwm_amounts%d: %d", i, this->pwm_amounts_[i]);
@@ -177,7 +177,7 @@ void WaterQuality::update()
 
     set_channel(8);
     register_channel();
-    write_state(2000);
+    write_state(2000.0);
   PCA9685_Write();
   // pca9685();
   // pump_total();

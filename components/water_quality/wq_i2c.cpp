@@ -488,18 +488,21 @@ void WaterQuality::PCA9685_Write()
   this->status_clear_warning();
   this->update_ = false;
 }
-void WaterQuality::register_channel() {
+void WaterQuality::register_channel()
+{
   auto c = this->channel_;
   this->min_channel_ = std::min(this->min_channel_, c);
   this->max_channel_ = std::max(this->max_channel_, c);
   // channel->set_parent(this);
 }
-void WaterQuality::write_state(float state) {
+void WaterQuality::write_state(float state)
+{
+  ESP_LOGD(TAG, "state: %x", state);
   const uint16_t max_duty = 4096;
   const float duty_rounded = roundf(state * max_duty);
   auto duty = static_cast<uint16_t>(duty_rounded);
+  ESP_LOGD(TAG, "duty: %x", duty);
   this->set_channel_value_(this->channel_, duty);
-  ESP_LOGD(TAG, "burada %x", duty);
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
