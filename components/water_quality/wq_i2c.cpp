@@ -488,7 +488,7 @@ void WaterQuality::PCA9685_Write()
   }
 
   this->status_clear_warning();
-  // this->update_ = false;
+  this->update_ = false;
 }
 void WaterQuality::register_channel()
 {
