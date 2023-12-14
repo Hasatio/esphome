@@ -138,7 +138,7 @@ void PCA9685_Driver();
 
 void set_channel(uint8_t channel) { channel_ = channel; }
 
-void register_channel(uint8_t *channel);
+void register_channel(uint8_t channel);
 void set_extclk(bool extclk) { this->extclk_ = extclk; }
 void set_frequency(float frequency) { this->frequency_ = frequency; }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
