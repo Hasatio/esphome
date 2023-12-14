@@ -92,77 +92,14 @@ enum MCP23008_Registers
 enum MCP23008_InterruptMode : uint8_t { MCP23008_NO_INTERRUPT = 0, MCP23008_CHANGE, MCP23008_RISING, MCP23008_FALLING };
 
 
+
 class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-uint16_t PwmFreq = 1000;
-
-  // Adafruit_PWMServoDriver pwm;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  PCA9685
-void pca9685_set()
-{
-    // // tcaselect(0);
-    // Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
-    
-    // if (!pwm.begin()) 
-    // {
-    //   ESP_LOGE(TAG,"Failed to initialize PCA9685.");
-    // //   while (1);
-    // }
-    // /*
-    // * In theory the internal oscillator (clock) is 25MHz but it really isn't
-    // * that precise. You can 'calibrate' this by tweaking this number until
-    // * you get the PWM update frequency you're expecting!
-    // * The int.osc. for the PCA9685 chip is a range between about 23-27MHz and
-    // * is used for calculating things like writeMicroseconds()
-    // * Analog servos run at ~50 Hz updates, It is importaint to use an
-    // * oscilloscope in setting the int.osc frequency for the I2C PCA9685 chip.
-    // * 1) Attach the oscilloscope to one of the PWM signal pins and ground on
-    // *    the I2C PCA9685 chip you are setting the value for.
-    // * 2) Adjust setOscillatorFrequency() until the PWM update frequency is the
-    // *    expected value (50Hz for most ESCs)
-    // * Setting the value here is specific to each individual I2C PCA9685 chip and
-    // * affects the calculations for the PWM update frequency. 
-    // * Failure to correctly set the int.osc value will cause unexpected PWM results
-    // */
-    // pwm.setOscillatorFrequency(27000000);
-    // pwm.setPWMFreq(PwmFreq);
-}
-void pca9685()
-{
-    // tcaselect(0);
-    // for (uint8_t pin=0; pin<16; pin++) 
-    // {
-    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
-    // delay(100);
-    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
-    // }
-    // for (uint16_t i=0; i<4096; i += 8) 
-    // {
-    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-    //     {
-    //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-    //     }
-    // }
-    // for (uint16_t i=0; i<4096; i += 8) 
-    // {
-    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-    //     {
-    //     pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
-    //     }
-        
-    //     ESP_LOGD(TAG,"pwm = %d", i);
-    // }
-
-    // for (uint8_t i = 0; i < Pump_Total[1].size(); i++) 
-    //     {
-    //         Pump_Total[1][i] += i;
-    //     }
-}
+//  ADS1115
 
 void ADS1115_Setup(uint8_t address);
 void ADS1115_Driver(float analog_voltage[]);
@@ -180,20 +117,30 @@ uint8_t get_continuous_mode() const { return continuous_mode_; }
 uint8_t get_data_rate() const { return data_rate_; }
 uint8_t get_resolution() const { return resolution_; }
 
-void MCP23008_Setup();
-void MCP23008_Driver(bool digital[]);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  MCP23008
 
+void MCP23008_Setup(uint8_t address);
+void MCP23008_Driver(bool digital[]);
 bool MCP23008_digital_read(uint8_t pin);
 void MCP23008_digital_write(uint8_t pin, bool value);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
-
 void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
-std::string dump_summary();
-
 void set_pin(uint8_t pin) { pin_ = pin; }
 void set_inverted(bool inverted) { inverted_ = inverted; }
 void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode) { interrupt_mode_ = interrupt_mode; }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  PCA9685
+void PCA9685_Setup(uint8_t address);
+void PCA9685_Driver();
+
+
+void set_channel(uint8_t channel) { channel_ = channel; }
+
+void set_extclk(bool extclk) { this->extclk_ = extclk; }
+void set_frequency(float frequency) { this->frequency_ = frequency; }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void sensor();
 
@@ -256,6 +203,7 @@ bool continuous_mode_;
 ADS1115_DataRate data_rate_;
 ADS1115_Resolution resolution_;
 
+
 bool MCP23008_read_reg(uint8_t reg, uint8_t *value);
 bool MCP23008_write_reg(uint8_t reg, uint8_t value);
 void MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_a);
@@ -264,6 +212,16 @@ uint8_t pin_;
 bool inverted_;
 MCP23008_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
+
+void set_channel_value_(uint8_t channel, uint16_t value);
+uint8_t channel_;
+float frequency_ = 1000;
+uint8_t mode_;
+bool extclk_ = false;
+uint8_t min_channel_{0xFF};
+uint8_t max_channel_{0x00};
+uint16_t pwm_amounts_[16] = {0};
+bool update_{true};
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {

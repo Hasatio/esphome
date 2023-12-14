@@ -29,16 +29,6 @@ namespace water_quality {
     // DFRobot_EC ec;
     // DFRobot_PH ph;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
-void tcaselect(uint8_t bus)
-{
-    if (bus > 7) return;
-    Wire.beginTransmission(TCA9548_ADDRESS);
-    Wire.write(1 << bus);
-    Wire.endTransmission();
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void WaterQuality::ADS1115_Setup(uint8_t address)
 {
@@ -277,9 +267,9 @@ void Data::test()
     //     ESP_LOGI(TAG, "yok");
 }
 
-void WaterQuality::MCP23008_Setup()
+void WaterQuality::MCP23008_Setup(uint8_t address)
 {
-  this->set_i2c_address(MCP23008_ADDRESS);
+  this->set_i2c_address(address);
 
   ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
   uint8_t iocon;
@@ -324,20 +314,16 @@ bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value)
 
   return this->write_byte(reg, value);
 }
-
-
 bool WaterQuality::MCP23008_digital_read(uint8_t pin) {
   uint8_t bit = pin % 8;
   uint8_t value = 0;
   this->MCP23008_read_reg(MCP23008_GPIO, &value);
   return value & (1 << bit);
 }
-
 void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) 
 {
   this->MCP23008_update_reg(pin, value, MCP23008_OLAT);
 }
-
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
   uint8_t gpinten = MCP23008_GPINTEN;
   uint8_t intcon = MCP23008_INTCON;
@@ -364,7 +350,6 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMo
       break;
   }
 }
-
 void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_addr) {
   uint8_t bit = pin % 8;
   uint8_t reg_value = 0;
@@ -385,8 +370,6 @@ void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_
   if (reg_addr == MCP23008_OLAT)
     this->olat_ = reg_value;
 }
-
-
 void WaterQuality::MCP23008_Driver(bool digital[])
 {
   bool input[4];
@@ -406,6 +389,142 @@ void WaterQuality::MCP23008_Driver(bool digital[])
       digital[i - 4] = input[i - 4];
     }
   }
+}
+
+void WaterQuality::PCA9685_Setup(uint8_t address)
+{
+  this->set_i2c_address(address);
+
+  ESP_LOGCONFIG(TAG, "Setting up PCA9685OutputComponent...");
+
+  ESP_LOGV(TAG, "  Resetting devices...");
+  if (!this->write_bytes(PCA9685_REGISTER_SOFTWARE_RESET, nullptr, 0)) {
+    this->mark_failed();
+    return;
+  }
+
+  if (!this->write_byte(PCA9685_REGISTER_MODE1, PCA9685_MODE1_RESTART | PCA9685_MODE1_AUTOINC)) {
+    this->mark_failed();
+    return;
+  }
+  if (!this->write_byte(PCA9685_REGISTER_MODE2, this->mode_)) {
+    this->mark_failed();
+    return;
+  }
+
+  uint8_t mode1;
+  if (!this->read_byte(PCA9685_REGISTER_MODE1, &mode1)) {
+    this->mark_failed();
+    return;
+  }
+  mode1 = (mode1 & ~PCA9685_MODE1_RESTART) | PCA9685_MODE1_SLEEP;
+  if (!this->write_byte(PCA9685_REGISTER_MODE1, mode1)) {
+    this->mark_failed();
+    return;
+  }
+
+  int pre_scaler = 3;
+  if (this->extclk_) {
+    mode1 = mode1 | PCA9685_MODE1_EXTCLK;
+    if (!this->write_byte(PCA9685_REGISTER_MODE1, mode1)) {
+      this->mark_failed();
+      return;
+    }
+  } else {
+    pre_scaler = static_cast<int>((25000000 / (4096 * this->frequency_)) - 1);
+    pre_scaler = clamp(pre_scaler, 3, 255);
+
+    ESP_LOGV(TAG, "  -> Prescaler: %d", pre_scaler);
+  }
+  if (!this->write_byte(PCA9685_REGISTER_PRE_SCALE, pre_scaler)) {
+    this->mark_failed();
+    return;
+  }
+
+  mode1 = (mode1 & ~PCA9685_MODE1_SLEEP) | PCA9685_MODE1_RESTART;
+  if (!this->write_byte(PCA9685_REGISTER_MODE1, mode1)) {
+    this->mark_failed();
+    return;
+  }
+  delayMicroseconds(500);
+
+    // // tcaselect(0);
+    // Adafruit_PWMServoDriver(PCA9685_I2C_ADDRESS, Wire);
+    
+    // if (!pwm.begin()) 
+    // {
+    //   ESP_LOGE(TAG,"Failed to initialize PCA9685.");
+    // //   while (1);
+    // }
+    // /*
+    // * In theory the internal oscillator (clock) is 25MHz but it really isn't
+    // * that precise. You can 'calibrate' this by tweaking this number until
+    // * you get the PWM update frequency you're expecting!
+    // * The int.osc. for the PCA9685 chip is a range between about 23-27MHz and
+    // * is used for calculating things like writeMicroseconds()
+    // * Analog servos run at ~50 Hz updates, It is importaint to use an
+    // * oscilloscope in setting the int.osc frequency for the I2C PCA9685 chip.
+    // * 1) Attach the oscilloscope to one of the PWM signal pins and ground on
+    // *    the I2C PCA9685 chip you are setting the value for.
+    // * 2) Adjust setOscillatorFrequency() until the PWM update frequency is the
+    // *    expected value (50Hz for most ESCs)
+    // * Setting the value here is specific to each individual I2C PCA9685 chip and
+    // * affects the calculations for the PWM update frequency. 
+    // * Failure to correctly set the int.osc value will cause unexpected PWM results
+    // */
+    // pwm.setOscillatorFrequency(27000000);
+    // pwm.setPWMFreq(PwmFreq);
+}
+void WaterQuality::PCA9685_Driver()
+{
+
+
+    // tcaselect(0);
+    // for (uint8_t pin=0; pin<16; pin++) 
+    // {
+    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
+    // delay(100);
+    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+    // }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
+    // }
+    // for (uint16_t i=0; i<4096; i += 8) 
+    // {
+    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
+    //     {
+    //     pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
+    //     }
+        
+    //     ESP_LOGD(TAG,"pwm = %d", i);
+    // }
+
+    // for (uint8_t i = 0; i < Pump_Total[1].size(); i++) 
+    //     {
+    //         Pump_Total[1][i] += i;
+    //     }
+}
+void WaterQuality::register_channel(uint8_t *channel) {
+  auto c = channel->channel_;
+  this->min_channel_ = std::min(this->min_channel_, c);
+  this->max_channel_ = std::max(this->max_channel_, c);
+  channel->set_parent(this);
+}
+void WaterQuality::write_state(float state) {
+  const uint16_t max_duty = 4096;
+  const float duty_rounded = roundf(state * max_duty);
+  auto duty = static_cast<uint16_t>(duty_rounded);
+  this->parent_->set_channel_value_(this->channel_, duty);
+}
+void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
+{
+    if (this->pwm_amounts_[channel] != value)
+      this->update_ = true;
+    this->pwm_amounts_[channel] = value;
 }
 
 }  // namespace water_quality

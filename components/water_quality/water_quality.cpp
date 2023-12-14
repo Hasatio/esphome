@@ -18,9 +18,8 @@ void WaterQuality::setup()
     
   ADS1115_Setup(ADS1X15_ADDRESS1);
   ADS1115_Setup(ADS1X15_ADDRESS2);
-  MCP23008_Setup();
-
-  // PCA9685_Setup();
+  MCP23008_Setup(MCP23008_ADDRESS);
+  PCA9685_Setup(PCA9685_I2C_ADDRESS);
     
 }
 void WaterQuality::dump_config()
@@ -95,6 +94,18 @@ void WaterQuality::dump_config()
     this->MCP23008_update_reg(i, false, MCP23008_GPIO);
   }
 
+  ESP_LOGCONFIG(TAG, "PCA9685:");
+  ESP_LOGCONFIG(TAG, "  Mode: 0x%02X", this->mode_);
+  if (this->extclk_) {
+    ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
+  } else {
+    ESP_LOGCONFIG(TAG, "  EXTCLK: disabled");
+    ESP_LOGCONFIG(TAG, "  Frequency: %.0f Hz", this->frequency_);
+  }
+  if (this->is_failed()) {
+    ESP_LOGE(TAG, "Setting up PCA9685 failed!");
+  }
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
