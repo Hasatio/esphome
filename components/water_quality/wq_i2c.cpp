@@ -548,13 +548,13 @@ void WaterQuality::register_channel(uint8_t *channel) {
   auto c = channel->channel_;
   this->min_channel_ = std::min(this->min_channel_, c);
   this->max_channel_ = std::max(this->max_channel_, c);
-  channel->set_parent(this);
+  // channel->set_parent(this);
 }
 void WaterQuality::write_state(float state) {
   const uint16_t max_duty = 4096;
   const float duty_rounded = roundf(state * max_duty);
   auto duty = static_cast<uint16_t>(duty_rounded);
-  this->parent_->set_channel_value_(this->channel_, duty);
+  this->set_channel_value_(this->channel_, duty);
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
