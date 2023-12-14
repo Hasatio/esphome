@@ -508,8 +508,8 @@ void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
       
-  ESP_LOGD(TAG, "value: %f", this->value);
-  ESP_LOGD(TAG, "duty: %f", duty);
+  ESP_LOGD(TAG, "update: %f", this->update_);
+  ESP_LOGD(TAG, "value: %f", value);
     this->pwm_amounts_[channel] = value;
 }
 void WaterQuality::PCA9685_Driver()
