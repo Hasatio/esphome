@@ -451,6 +451,8 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
 }
 void WaterQuality::PCA9685_Write()
 {
+  this->set_i2c_address(PCA9685_I2C_ADDRESS);
+  
   if (this->min_channel_ == 0xFF || !this->update_)
     return;
   const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
@@ -469,7 +471,7 @@ void WaterQuality::PCA9685_Write()
       if (phase_end >= 4096)
         phase_end -= 4096;
     }
-    
+
     ESP_LOGD(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
 
     uint8_t data[4];
