@@ -396,7 +396,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
   this->set_i2c_address(address);
 
   ESP_LOGCONFIG(TAG, "Setting up PCA9685OutputComponent...");
-  this->mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
+
   ESP_LOGV(TAG, "  Resetting devices...");
   if (!this->write_bytes(PCA9685_REGISTER_SOFTWARE_RESET, nullptr, 0)) {
     this->mark_failed();
@@ -407,6 +407,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
     this->mark_failed();
     return;
   }
+  this->mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
   if (!this->write_byte(PCA9685_REGISTER_MODE2, this->mode_)) {
     this->mark_failed();
     return;
@@ -434,7 +435,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
     pre_scaler = static_cast<int>((25000000 / (4096 * this->frequency_)) - 1);
     pre_scaler = clamp(pre_scaler, 3, 255);
 
-    ESP_LOGV(TAG, "  -> Prescaler: %d", pre_scaler);
+    ESP_LOGV(TAG, "Prescaler: %d", pre_scaler);
   }
   if (!this->write_byte(PCA9685_REGISTER_PRE_SCALE, pre_scaler)) {
     this->mark_failed();
@@ -452,7 +453,7 @@ void WaterQuality::PCA9685_Write()
 {
   if (this->min_channel_ == 0xFF || !this->update_)
     return;
-
+ESP_LOGD(TAG, "burada");
   const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
   for (uint8_t channel = this->min_channel_; channel <= this->max_channel_; channel++)
   {
@@ -470,8 +471,7 @@ void WaterQuality::PCA9685_Write()
         phase_end -= 4096;
     }
 
-    ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin,
-              phase_end);
+    ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
 
     uint8_t data[4];
     data[0] = phase_begin & 0xFF;
@@ -488,35 +488,6 @@ void WaterQuality::PCA9685_Write()
 
   this->status_clear_warning();
   this->update_ = false;
-
-    // tcaselect(0);
-    // for (uint8_t pin=0; pin<16; pin++) 
-    // {
-    // pwm.setPWM(pin, 4096, 0);       // turns pin fully on
-    // delay(100);
-    // pwm.setPWM(pin, 0, 4096);       // turns pin fully off
-    // }
-    // for (uint16_t i=0; i<4096; i += 8) 
-    // {
-    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-    //     {
-    //     pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-    //     }
-    // }
-    // for (uint16_t i=0; i<4096; i += 8) 
-    // {
-    //     for (uint8_t pwmnum=0; pwmnum < 16; pwmnum++) 
-    //     {
-    //     pwm.setPin(pwmnum, (i + (4096/16)*pwmnum) % 4096 );
-    //     }
-        
-    //     ESP_LOGD(TAG,"pwm = %d", i);
-    // }
-
-    // for (uint8_t i = 0; i < Pump_Total[1].size(); i++) 
-    //     {
-    //         Pump_Total[1][i] += i;
-    //     }
 }
 void WaterQuality::register_channel() {
   auto c = this->channel_;
