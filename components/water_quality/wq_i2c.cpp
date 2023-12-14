@@ -505,6 +505,7 @@ void WaterQuality::write_state(float state)
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
   ESP_LOGD(TAG, "update: %d", this->update_);
+  ESP_LOGD(TAG, "channel: %d", channel);
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
       
