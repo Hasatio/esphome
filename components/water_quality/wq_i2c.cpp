@@ -396,7 +396,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
   this->set_i2c_address(address);
 
   ESP_LOGCONFIG(TAG, "Setting up PCA9685OutputComponent...");
-
+  this->mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
   ESP_LOGV(TAG, "  Resetting devices...");
   if (!this->write_bytes(PCA9685_REGISTER_SOFTWARE_RESET, nullptr, 0)) {
     this->mark_failed();
