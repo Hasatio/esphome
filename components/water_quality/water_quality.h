@@ -102,8 +102,8 @@ float get_setup_priority() const override { return esphome::setup_priority::DATA
 //  ADS1115
 
 void ADS1115_Setup(uint8_t address);
-void ADS1115_Driver(float analog_voltage[]);
 float ADS1115_Read(ADS1115_Multiplexer multi);
+void ADS1115_Driver(float analog_voltage[]);
 
 void set_multiplexer(ADS1115_Multiplexer multiplexer) { multiplexer_ = multiplexer; }
 void set_gain(ADS1115_Gain gain) { gain_ = gain; }
@@ -133,6 +133,7 @@ void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode) { interrupt_mode_
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 void PCA9685_Setup(uint8_t address);
+void PCA9685_Write();
 void PCA9685_Driver();
 
 

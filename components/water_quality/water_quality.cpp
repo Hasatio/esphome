@@ -168,6 +168,8 @@ void WaterQuality::update()
   dig.Digital_Output_Driver(d);
   MCP23008_Driver(d);
   dig.Digital_Input_Driver(d);
+
+  PCA9685_Write();
   // pca9685();
   // pump_total();
   sensor();
