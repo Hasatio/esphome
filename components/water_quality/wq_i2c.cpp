@@ -486,7 +486,7 @@ void WaterQuality::PCA9685_Write()
   }
 
   this->status_clear_warning();
-  this->update_ = false;
+  // this->update_ = false;
 }
 void WaterQuality::register_channel()
 {
@@ -509,9 +509,7 @@ void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
       this->update_ = true;
       
   ESP_LOGD(TAG, "update: %d", this->update_);
-  ESP_LOGD(TAG, "value: %d", value);
     this->pwm_amounts_[channel] = value;
-  ESP_LOGD(TAG, "value: %d", this->pwm_amounts_[channel]);
 }
 void WaterQuality::PCA9685_Driver()
 {
