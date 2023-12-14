@@ -499,7 +499,7 @@ void WaterQuality::write_state(float state) {
   const float duty_rounded = roundf(state * max_duty);
   auto duty = static_cast<uint16_t>(duty_rounded);
   this->set_channel_value_(this->channel_, duty);
-  ESP_LOGD(TAG, "burada %x", this->update_);
+  ESP_LOGD(TAG, "burada %x", duty);
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
