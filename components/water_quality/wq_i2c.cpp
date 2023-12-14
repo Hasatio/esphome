@@ -497,23 +497,21 @@ void WaterQuality::register_channel()
 }
 void WaterQuality::write_state(float state)
 {
-  ESP_LOGD(TAG, "state: %f", state);
   const uint16_t max_duty = 4096;
   const float duty_rounded = roundf(state * max_duty);
   auto duty = static_cast<uint16_t>(duty_rounded);
-  ESP_LOGD(TAG, "duty: %d", duty);
   this->set_channel_value_(this->channel_, duty);
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
   ESP_LOGD(TAG, "update: %d", this->update_);
-  ESP_LOGD(TAG, "channel: %d", channel);
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
       
   ESP_LOGD(TAG, "update: %d", this->update_);
   ESP_LOGD(TAG, "value: %d", value);
     this->pwm_amounts_[channel] = value;
+  ESP_LOGD(TAG, "value: %d", this->pwm_amounts_[channel]);
 }
 void WaterQuality::PCA9685_Driver()
 {
