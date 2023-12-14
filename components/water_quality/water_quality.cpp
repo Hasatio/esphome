@@ -105,6 +105,13 @@ void WaterQuality::dump_config()
     ESP_LOGE(TAG, "Setting up PCA9685 failed!");
   }
   
+ESP_LOGD(TAG, "min_channel: %d", this->min_channel_);
+ESP_LOGD(TAG, "max_channel: %d", this->max_channel_);
+ESP_LOGD(TAG, "burada %d", this->update_);
+for (size_t i = 0; i < 8; i++)
+{   
+  ESP_LOGD(TAG, "pwm_amounts%d: %d", i, this->pwm_amounts_[i]);
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -168,7 +175,7 @@ void WaterQuality::update()
   MCP23008_Driver(d);
   dig.Digital_Input_Driver(d);
 
-  this->channel_ = 8;
+    set_channel(8);
     register_channel();
     write_state(2000);
   PCA9685_Write();
