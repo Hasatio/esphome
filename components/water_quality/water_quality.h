@@ -93,7 +93,7 @@ enum MCP23008_InterruptMode : uint8_t { MCP23008_NO_INTERRUPT = 0, MCP23008_CHAN
 
 
 
-class WaterQuality : public PollingComponent, public i2c::I2CDevice//, public sensor::Sensor, public Analog, public Digital, public Pump, public Servo
+class WaterQuality : public PollingComponent, public i2c::I2CDevice
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
