@@ -11,6 +11,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/core/automation.h"
+#include "esphome/components/pca9685/pca9685_output.h"
 #include <array>
 #include <vector>
 #include <iterator>
