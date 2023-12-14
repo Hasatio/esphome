@@ -469,7 +469,7 @@ void WaterQuality::PCA9685_Write()
       if (phase_end >= 4096)
         phase_end -= 4096;
     }
-
+ESP_LOGI(TAG, "here");
     ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
 
     uint8_t data[4];
@@ -504,11 +504,9 @@ void WaterQuality::write_state(float state)
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
-  ESP_LOGD(TAG, "update: %d", this->update_);
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
       
-  ESP_LOGD(TAG, "update: %d", this->update_);
     this->pwm_amounts_[channel] = value;
 }
 void WaterQuality::PCA9685_Driver()
