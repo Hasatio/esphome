@@ -142,6 +142,8 @@ void set_channel(uint8_t channel) { channel_ = channel; }
 void register_channel();
 void set_extclk(bool extclk) { this->extclk_ = extclk; }
 void set_frequency(float frequency) { this->frequency_ = frequency; }
+void set_channel_value_(uint8_t channel, uint16_t value);
+void write_state(float state);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void sensor();
@@ -215,8 +217,7 @@ bool inverted_;
 MCP23008_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
 
-void set_channel_value_(uint8_t channel, uint16_t value);
-void write_state(float state);
+
 uint8_t channel_;
 float frequency_ = 1000;
 uint8_t mode_;
