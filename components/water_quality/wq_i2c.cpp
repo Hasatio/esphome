@@ -451,9 +451,9 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
 }
 void WaterQuality::PCA9685_Write()
 {
+ESP_LOGD(TAG, "burada");
   if (this->min_channel_ == 0xFF || !this->update_)
     return;
-ESP_LOGD(TAG, "burada");
   const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
   for (uint8_t channel = this->min_channel_; channel <= this->max_channel_; channel++)
   {
