@@ -544,8 +544,8 @@ void WaterQuality::PCA9685_Driver()
     //         Pump_Total[1][i] += i;
     //     }
 }
-void WaterQuality::register_channel(uint8_t channel) {
-  auto c = channel->channel_;
+void WaterQuality::register_channel() {
+  auto c = this->channel_;
   this->min_channel_ = std::min(this->min_channel_, c);
   this->max_channel_ = std::max(this->max_channel_, c);
   // channel->set_parent(this);
