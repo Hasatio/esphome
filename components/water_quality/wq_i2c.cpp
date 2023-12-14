@@ -504,12 +504,12 @@ void WaterQuality::write_state(float state)
 }
 void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
 {
-  ESP_LOGD(TAG, "update: %f", this->update_);
+  ESP_LOGD(TAG, "update: %d", this->update_);
     if (this->pwm_amounts_[channel] != value)
       this->update_ = true;
       
-  ESP_LOGD(TAG, "update: %f", this->update_);
-  ESP_LOGD(TAG, "value: %f", value);
+  ESP_LOGD(TAG, "update: %d", this->update_);
+  ESP_LOGD(TAG, "value: %d", value);
     this->pwm_amounts_[channel] = value;
 }
 void WaterQuality::PCA9685_Driver()
