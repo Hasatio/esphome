@@ -487,7 +487,7 @@ ESP_LOGD(TAG, "burada %x", this->update_);
   }
 
   this->status_clear_warning();
-  this->update_ = false;
+  // this->update_ = false;
 }
 void WaterQuality::register_channel() {
   auto c = this->channel_;
