@@ -175,7 +175,7 @@ void WaterQuality::update()
   MCP23008_Driver(d);
   dig.Digital_Input_Driver(d);
 
-    set_channel(8);
+    set_channel(0);
     register_channel();
     write_state(0.50);
   PCA9685_Write();
