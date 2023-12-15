@@ -176,6 +176,7 @@ void WaterQuality::update()
   dig.Digital_Input_Driver(d);
 
     set_channel(0);
+    set_frequency(1000);
     register_channel();
     write_state(0.50);
   PCA9685_Write();
