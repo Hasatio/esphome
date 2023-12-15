@@ -178,7 +178,7 @@ void WaterQuality::update()
     set_channel(0);
     set_frequency(1000);
     register_channel();
-    write_state(0.7);
+    write_state(0);
   PCA9685_Write();
   // pca9685();
   // pump_total();
