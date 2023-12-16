@@ -298,11 +298,11 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
   uint8_t reg_value = 0;
   for (size_t i = 0; i < 4; i++)
   {
-    reg_value &= ~(1 << i);
+    reg_value |= 1 << i;
   }
   for (size_t i = 4; i < 8; i++)
   {
-    reg_value |= 1 << i;
+    reg_value &= ~(1 << i);
   }
   this->write_byte(MCP23008_IODIR, reg_value);
   this->write_byte(MCP23008_GPPU, reg_value);
@@ -312,7 +312,6 @@ bool WaterQuality::MCP23008_Read(uint8_t pin) {
   uint8_t bit = pin % 8;
   uint8_t value = 0;
   this->read_byte(MCP23008_GPIO, &value);
-        ESP_LOGI(TAG, "pin:%d  val:%d", pin, value);
   return value & (1 << bit);
 }
 void WaterQuality::MCP23008_Write(uint8_t pin, bool value) 
