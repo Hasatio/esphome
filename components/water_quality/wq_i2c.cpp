@@ -34,7 +34,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
   if (this->is_failed())
-    return false;
+    return;
 
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
@@ -235,7 +235,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
   this->set_i2c_address(ADS1X15_ADDRESS1);
   if (this->is_failed())
-    return false;
+    return;
   for (size_t i = 0; i < 4; i++)
   {
       float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
@@ -248,7 +248,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
   }
   this->set_i2c_address(ADS1X15_ADDRESS2);
   if (this->is_failed())
-    return false;
+    return;
   for (size_t i = 0; i < 4; i++)
   {
       float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
@@ -277,7 +277,7 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
   if (this->is_failed())
-    return false;
+    return;
 
   ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
   uint8_t iocon;
@@ -335,32 +335,32 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMo
   uint8_t intcon = MCP23008_INTCON;
   uint8_t defval = MCP23008_DEFVAL;
 
-  switch (interrupt_mode)
-  {
-    case MCP23008_CHANGE:
-      this->MCP23008_update_reg(pin, true, gpinten);
-      this->MCP23008_update_reg(pin, false, intcon);
-      break;
-    case MCP23008_RISING:
-      this->MCP23008_update_reg(pin, true, gpinten);
-      this->MCP23008_update_reg(pin, true, intcon);
-      this->MCP23008_update_reg(pin, true, defval);
-      break;
-    case MCP23008_FALLING:
-      this->MCP23008_update_reg(pin, true, gpinten);
-      this->MCP23008_update_reg(pin, true, intcon);
-      this->MCP23008_update_reg(pin, false, defval);
-      break;
-    case MCP23008_NO_INTERRUPT:
-      this->MCP23008_update_reg(pin, false, gpinten);
-      break;
-  }
+  // switch (interrupt_mode)
+  // {
+  //   case MCP23008_CHANGE:
+  //     this->MCP23008_update_reg(pin, true, gpinten);
+  //     this->MCP23008_update_reg(pin, false, intcon);
+  //     break;
+  //   case MCP23008_RISING:
+  //     this->MCP23008_update_reg(pin, true, gpinten);
+  //     this->MCP23008_update_reg(pin, true, intcon);
+  //     this->MCP23008_update_reg(pin, true, defval);
+  //     break;
+  //   case MCP23008_FALLING:
+  //     this->MCP23008_update_reg(pin, true, gpinten);
+  //     this->MCP23008_update_reg(pin, true, intcon);
+  //     this->MCP23008_update_reg(pin, false, defval);
+  //     break;
+  //   case MCP23008_NO_INTERRUPT:
+  //     this->MCP23008_update_reg(pin, false, gpinten);
+  //     break;
+  // }
 }
 void WaterQuality::MCP23008_Driver(bool digital[])
 {
   this->set_i2c_address(MCP23008_ADDRESS);
   if (this->is_failed())
-    return false;
+    return;
 
   for (size_t i = 0; i < 4; i++)
   {
@@ -373,7 +373,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
   if (this->is_failed())
-    return false;
+    return;
 
   ESP_LOGCONFIG(TAG, "Setting up PCA9685OutputComponent...");
 
@@ -485,7 +485,7 @@ void WaterQuality::PCA9685_Driver()
 {
   this->set_i2c_address(PCA9685_I2C_ADDRESS);
   if (this->is_failed())
-    return false;
+    return;
   
   PCA9685_Write();
 
