@@ -327,7 +327,6 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
 
   this->olat_ = reg_value;
 
-        ESP_LOGI(TAG, "pin:%d  val:%d", bit, reg_value);
   this->write_byte(MCP23008_GPIO, reg_value);
   this->write_byte(MCP23008_OLAT, reg_value);
 }
@@ -365,6 +364,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
 
   for (size_t i = 0; i < 4; i++)
   {
+        ESP_LOGI(TAG, "pin:%d  val:%d", i+4, digital[i]);
     MCP23008_Write(i + 4, digital[i]);
     digital[i] = MCP23008_Read(i);
   }
