@@ -325,10 +325,13 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
     reg_value &= ~(1 << bit);
 
         ESP_LOGI(TAG, "pin:%d  val:%d", pin, value);
-  this->olat_ = reg_value;
 
-  this->write_byte(MCP23008_GPIO, reg_value);
-  this->write_byte(MCP23008_OLAT, reg_value);
+  if (reg_value != this->olat_)
+  {
+    this->write_byte(MCP23008_GPIO, reg_value);
+    this->write_byte(MCP23008_OLAT, reg_value);
+    this->olat_ = reg_value;
+  }
 }
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
   uint8_t gpinten = MCP23008_GPINTEN;
