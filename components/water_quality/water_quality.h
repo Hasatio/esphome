@@ -137,8 +137,8 @@ void PCA9685_Mode(uint8_t channel, float state);
 void PCA9685_Write();
 void PCA9685_Driver();
 
-void set_extclk(bool extclk) const { this->extclk_ = extclk; }
-void set_frequency(float frequency) const { this->frequency_ = frequency; }
+void set_extclk(bool extclk) { this->extclk_ = extclk; }
+void set_frequency(float frequency) { this->frequency_ = frequency; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
