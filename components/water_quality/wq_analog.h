@@ -1,7 +1,7 @@
 #pragma once
 
-// #ifndef ANALOG_H
-// #define ANALOG_H
+#ifndef ANALOG_H
+#define ANALOG_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -81,4 +81,4 @@ uint16_t AnInLvl_ResMin[2], AnInLvl_ResMax[2];
 }  // namespace water_quality
 }  // namespace esphome
 
-// #endif  // ANALOG_H
+#endif  // ANALOG_H

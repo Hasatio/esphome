@@ -33,6 +33,8 @@ namespace water_quality {
 void WaterQuality::ADS1115_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
+  if (this->is_failed())
+    return false;
 
   ESP_LOGCONFIG(TAG, "Setting up ADS1115...");
   uint16_t value;
@@ -232,6 +234,8 @@ float WaterQuality::ADS1115_Read(ADS1115_Multiplexer multi)
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
   this->set_i2c_address(ADS1X15_ADDRESS1);
+  if (this->is_failed())
+    return false;
   for (size_t i = 0; i < 4; i++)
   {
       float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
@@ -243,6 +247,8 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
       }
   }
   this->set_i2c_address(ADS1X15_ADDRESS2);
+  if (this->is_failed())
+    return false;
   for (size_t i = 0; i < 4; i++)
   {
       float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
@@ -270,59 +276,59 @@ void Data::test()
 void WaterQuality::MCP23008_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
+  if (this->is_failed())
+    return false;
 
   ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
   uint8_t iocon;
-  if (!this->MCP23008_read_reg(MCP23008_IOCON, &iocon)) {
+  if (!this->read_byte(MCP23008_IOCON, &iocon))
+  {
     this->mark_failed();
     return;
   }
 
   // Read current output register state
-  this->MCP23008_read_reg(MCP23008_OLAT, &this->olat_);
+  this->read_byte(MCP23008_OLAT, &this->olat_);
 
   if (this->open_drain_ints_) {
     // enable open-drain interrupt pins, 3.3V-safe
-    this->MCP23008_write_reg(MCP23008_IOCON, 0x04);
+    this->write_byte(MCP23008_IOCON, 0x04);
   }
 
+  uint8_t reg_value = 0;
   for (size_t i = 0; i < 4; i++)
   {
-    this->MCP23008_update_reg(i, true, MCP23008_IODIR);
-    this->MCP23008_update_reg(i, true, MCP23008_GPPU);
-    this->MCP23008_update_reg(i, true, MCP23008_OLAT);
+    reg_value &= ~(1 << i);
   }
   for (size_t i = 4; i < 8; i++)
   {
-    this->MCP23008_update_reg(i, false, MCP23008_IODIR);
-    this->MCP23008_update_reg(i, false, MCP23008_OLAT);
+    reg_value |= 1 << i;
   }
+  this->write_byte(MCP23008_IODIR, reg_value);
+  this->write_byte(MCP23008_GPPU, reg_value);
+  this->write_byte(MCP23008_OLAT, reg_value);
 }
-bool WaterQuality::MCP23008_read_reg(uint8_t reg, uint8_t *value)
-{
-  this->set_i2c_address(MCP23008_ADDRESS);
-  if (this->is_failed())
-    return false;
-
-  return this->read_byte(reg, value);
-}
-bool WaterQuality::MCP23008_write_reg(uint8_t reg, uint8_t value)
-{
-  this->set_i2c_address(MCP23008_ADDRESS);
-  if (this->is_failed())
-    return false;
-
-  return this->write_byte(reg, value);
-}
-bool WaterQuality::MCP23008_digital_read(uint8_t pin) {
+bool WaterQuality::MCP23008_Read(uint8_t pin) {
   uint8_t bit = pin % 8;
   uint8_t value = 0;
-  this->MCP23008_read_reg(MCP23008_GPIO, &value);
+  this->read_byte(MCP23008_GPIO, &value);
   return value & (1 << bit);
 }
-void WaterQuality::MCP23008_digital_write(uint8_t pin, bool value) 
+void WaterQuality::MCP23008_Write(uint8_t pin, bool value) 
 {
-  this->MCP23008_update_reg(pin, value, MCP23008_OLAT);
+  uint8_t bit = pin % 8;
+  uint8_t reg_value = 0;
+  reg_value = this->olat_;
+
+  if (value)
+    reg_value |= 1 << bit;
+  else
+    reg_value &= ~(1 << bit);
+
+  this->olat_ = reg_value;
+
+  this->write_byte(MCP23008_GPIO, reg_value);
+  this->write_byte(MCP23008_OLAT, reg_value);
 }
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode) {
   uint8_t gpinten = MCP23008_GPINTEN;
@@ -350,50 +356,24 @@ void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMo
       break;
   }
 }
-void WaterQuality::MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_addr) {
-  uint8_t bit = pin % 8;
-  uint8_t reg_value = 0;
-  if (reg_addr == MCP23008_OLAT)
-  {
-    reg_value = this->olat_;
-  } 
-  else
-    this->MCP23008_read_reg(reg_addr, &reg_value);
-
-  if (pin_value)
-    reg_value |= 1 << bit;
-  else
-    reg_value &= ~(1 << bit);
-
-  this->MCP23008_write_reg(reg_addr, reg_value);
-
-  if (reg_addr == MCP23008_OLAT)
-    this->olat_ = reg_value;
-}
 void WaterQuality::MCP23008_Driver(bool digital[])
 {
-  bool input[4];
-  for (size_t i = 0; i < 8; i++)
+  this->set_i2c_address(MCP23008_ADDRESS);
+  if (this->is_failed())
+    return false;
+
+  for (size_t i = 0; i < 4; i++)
   {
-    if(i < 4)
-    {
-      input[i] = MCP23008_digital_read(i);
-        // ESP_LOGD(TAG,"input %d = %d", i, input[i]);
-    }
-    else
-    {
-      if(digital[i - 4])
-        this->MCP23008_update_reg(i, true, MCP23008_GPIO);
-      else
-        this->MCP23008_update_reg(i, false, MCP23008_GPIO);
-      digital[i - 4] = input[i - 4];
-    }
+    MCP23008_Write(i + 4, digital[i]);
+    digital[i] = MCP23008_Read(i);
   }
 }
 
 void WaterQuality::PCA9685_Setup(uint8_t address)
 {
   this->set_i2c_address(address);
+  if (this->is_failed())
+    return false;
 
   ESP_LOGCONFIG(TAG, "Setting up PCA9685OutputComponent...");
 
@@ -449,10 +429,21 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
   }
   delayMicroseconds(500);
 }
+void WaterQuality::PCA9685_Mode(uint8_t channel, float state)
+{
+  this->min_channel_ = std::min(this->min_channel_, channel);
+  this->max_channel_ = std::max(this->max_channel_, channel);
+
+  const uint16_t max_duty = 4096;
+  const float duty_rounded = roundf(state * max_duty);
+  uint16_t duty = static_cast<uint16_t>(duty_rounded);
+  if (this->pwm_amounts_[channel] != duty)
+    this->update_ = true;
+      
+  this->pwm_amounts_[channel] = duty;
+}
 void WaterQuality::PCA9685_Write()
 {
-  this->set_i2c_address(PCA9685_I2C_ADDRESS);
-  
   if (this->min_channel_ == 0xFF || !this->update_)
     return;
   const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
@@ -490,29 +481,13 @@ void WaterQuality::PCA9685_Write()
   this->status_clear_warning();
   this->update_ = false;
 }
-void WaterQuality::register_channel()
-{
-  auto c = this->channel_;
-  this->min_channel_ = std::min(this->min_channel_, c);
-  this->max_channel_ = std::max(this->max_channel_, c);
-  // channel->set_parent(this);
-}
-void WaterQuality::write_state(float state)
-{
-  const uint16_t max_duty = 4096;
-  const float duty_rounded = roundf(state * max_duty);
-  auto duty = static_cast<uint16_t>(duty_rounded);
-  this->set_channel_value_(this->channel_, duty);
-}
-void WaterQuality::set_channel_value_(uint8_t channel, uint16_t value)
-{
-    if (this->pwm_amounts_[channel] != value)
-      this->update_ = true;
-      
-    this->pwm_amounts_[channel] = value;
-}
 void WaterQuality::PCA9685_Driver()
 {
+  this->set_i2c_address(PCA9685_I2C_ADDRESS);
+  if (this->is_failed())
+    return false;
+  
+  PCA9685_Write();
 
 }
 }  // namespace water_quality

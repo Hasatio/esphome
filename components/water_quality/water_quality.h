@@ -121,9 +121,9 @@ uint8_t get_resolution() const { return resolution_; }
 //  MCP23008
 
 void MCP23008_Setup(uint8_t address);
+bool MCP23008_Read(uint8_t pin);
+void MCP23008_Write(uint8_t pin, bool value);
 void MCP23008_Driver(bool digital[]);
-bool MCP23008_digital_read(uint8_t pin);
-void MCP23008_digital_write(uint8_t pin, bool value);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
 void set_open_drain_ints(const bool value) { this->open_drain_ints_ = value; }
 void set_pin(uint8_t pin) { pin_ = pin; }
@@ -133,17 +133,13 @@ void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode) { interrupt_mode_
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 void PCA9685_Setup(uint8_t address);
+void PCA9685_Mode(uint8_t channel, float state);
 void PCA9685_Write();
 void PCA9685_Driver();
 
+void set_extclk(bool extclk) const { this->extclk_ = extclk; }
+void set_frequency(float frequency) const { this->frequency_ = frequency; }
 
-void set_channel(uint8_t channel) { channel_ = channel; }
-
-void register_channel();
-void set_extclk(bool extclk) { this->extclk_ = extclk; }
-void set_frequency(float frequency) { this->frequency_ = frequency; }
-void set_channel_value_(uint8_t channel, uint16_t value);
-void write_state(float state);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void sensor();
@@ -207,16 +203,11 @@ bool continuous_mode_;
 ADS1115_DataRate data_rate_;
 ADS1115_Resolution resolution_;
 
-
-bool MCP23008_read_reg(uint8_t reg, uint8_t *value);
-bool MCP23008_write_reg(uint8_t reg, uint8_t value);
-void MCP23008_update_reg(uint8_t pin, bool pin_value, uint8_t reg_a);
 uint8_t olat_{0x00};
 uint8_t pin_;
 bool inverted_;
 MCP23008_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
-
 
 uint8_t channel_;
 float frequency_ = 1000;
