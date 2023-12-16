@@ -319,12 +319,12 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
   uint8_t bit = pin % 8;
   uint8_t reg_value = this->olat_;
 
-        ESP_LOGI(TAG, "pin:%d  val:%d", pin, value);
   if (value)
     reg_value |= 1 << bit;
   else
     reg_value &= ~(1 << bit);
 
+        ESP_LOGI(TAG, "pin:%d  val:%d", pin, value);
   this->olat_ = reg_value;
 
   this->write_byte(MCP23008_GPIO, reg_value);
