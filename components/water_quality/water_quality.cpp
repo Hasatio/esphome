@@ -203,15 +203,17 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d,
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
-  if (pump.Pump_Dose != pdose)
+  for (size_t i = 0; i < pump.Pump_Type.size(); i++)
   {
-    for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+    uint8_t* ps = pump.get_Pump_Status();
+    uint16_t* pd = pump.get_Pump_Dose();
+    if (ps[i] != 1)
     {
-      if (pump.Pump_Status[i] != 1)
-        pump.Pump_Dose[i] = pdose[i];
-      ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pump.Pump_Dose[i]);
+      pd[i] = pdose[i];
+      ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pd[i]);
     }
   }
+    set_Pump_Dose(pd);
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
