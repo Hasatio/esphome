@@ -213,7 +213,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
       ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pd[i]);
     }
   }
-    set_Pump_Dose(pd);
+    pump.set_Pump_Dose(pd);
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
