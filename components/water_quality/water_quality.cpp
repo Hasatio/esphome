@@ -203,10 +203,10 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype, const uint8_t d,
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
-  for (size_t i = 0; i < pump.Pump_Type.size(); i++)
+  uint8_t* ps = pump.get_Pump_Status();
+  uint16_t* pd = pump.get_Pump_Dose();
+  for (size_t i = 0; i < pdose.size(); i++)
   {
-    uint8_t* ps = pump.get_Pump_Status();
-    uint16_t* pd = pump.get_Pump_Dose();
     if (ps[i] != 1)
     {
       pd[i] = pdose[i];
