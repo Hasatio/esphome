@@ -454,7 +454,7 @@ void WaterQuality::PCA9685_Write()
         phase_end -= 4096;
     }
 
-    ESP_LOGD(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
+    ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
 
     uint8_t data[4];
     data[0] = phase_begin & 0xFF;
