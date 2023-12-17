@@ -166,15 +166,16 @@ void WaterQuality::update()
 {
   float a[8];
   bool d[4];
+
   ADS1115_Driver(a);
   an.Analog_Input_Driver(a);
+
   dig.Digital_Output_Driver(d);
   MCP23008_Driver(d);
   dig.Digital_Input_Driver(d);
 
-  PCA9685_Mode(9, 0.7);
-  PCA9685_Driver();
-  // pca9685();
+  PCA9685_Driver(0, pump.Pump_Dose[i]/100);
+  
   // pump_total();
   sensor();
   // an.set_WT_Val(1.23);

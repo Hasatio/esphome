@@ -133,9 +133,8 @@ void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode) { interrupt_mode_
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 void PCA9685_Setup(uint8_t address);
-void PCA9685_Mode(uint8_t channel, float state);
 void PCA9685_Write();
-void PCA9685_Driver();
+void PCA9685_Driver(uint8_t channel, float state);
 
 void set_extclk(bool extclk) { this->extclk_ = extclk; }
 void set_frequency(float frequency) { this->frequency_ = frequency; }

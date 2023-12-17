@@ -433,19 +433,6 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
   }
   delayMicroseconds(500);
 }
-void WaterQuality::PCA9685_Mode(uint8_t channel, float state)
-{
-  this->min_channel_ = std::min(this->min_channel_, channel);
-  this->max_channel_ = std::max(this->max_channel_, channel);
-
-  const uint16_t max_duty = 4096;
-  const float duty_rounded = roundf(state * max_duty);
-  uint16_t duty = static_cast<uint16_t>(duty_rounded);
-  if (this->pwm_amounts_[channel] != duty)
-    this->update_ = true;
-      
-  this->pwm_amounts_[channel] = duty;
-}
 void WaterQuality::PCA9685_Write()
 {
   if (this->min_channel_ == 0xFF || !this->update_)
@@ -485,12 +472,23 @@ void WaterQuality::PCA9685_Write()
   this->status_clear_warning();
   this->update_ = false;
 }
-void WaterQuality::PCA9685_Driver()
+void WaterQuality::PCA9685_Driver(uint8_t channel, float state)
 {
   this->set_i2c_address(PCA9685_I2C_ADDRESS);
   if (this->is_failed())
     return;
   
+  this->min_channel_ = std::min(this->min_channel_, channel);
+  this->max_channel_ = std::max(this->max_channel_, channel);
+
+  const uint16_t max_duty = 4096;
+  const float duty_rounded = roundf(state * max_duty);
+  uint16_t duty = static_cast<uint16_t>(duty_rounded);
+  if (this->pwm_amounts_[channel] != duty)
+    this->update_ = true;
+      
+  this->pwm_amounts_[channel] = duty;
+
   PCA9685_Write();
 
 }
