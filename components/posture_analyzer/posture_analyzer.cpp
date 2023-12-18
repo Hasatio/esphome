@@ -38,7 +38,7 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  BLEDevice::init(get_bluetooth_name.c_str());  
+  BLEDevice::init(get_bluetooth_name().c_str());  
 
   pServer = BLEDevice::createServer();
 
