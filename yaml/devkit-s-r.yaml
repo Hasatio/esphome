@@ -17,8 +17,8 @@ api:
 ota:
 
 wifi:
-  ssid: !secret wifi_ssid2
-  password: !secret wifi_password2
+  ssid: " "
+  password: ""
 
   ap:
   
@@ -51,9 +51,9 @@ sensor:
   #   sample:
   #     name: sample
 
-  # - platform: posture_analyzer
-  #   sample_sec:
-  #     name: sample_sec
+  - platform: posture_analyzer
+    sample_sec:
+      name: sample_sec
 
 
 button:

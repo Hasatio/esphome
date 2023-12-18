@@ -17,8 +17,8 @@ api:
 ota:
 
 wifi:
-  ssid: !secret wifi_ssid2
-  password: !secret wifi_password2
+  ssid: " "
+  password: ""
 
   ap:
   
