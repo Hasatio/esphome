@@ -38,10 +38,10 @@ async def to_code(config): # fonksiyon tanımlaması
     await cg.register_component(var, config) # komponent tanımlaması
     
     if CONF_MY_GAIN in config:
-        cg.add(var.gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
+        cg.add(var.set_gain(config[CONF_MY_GAIN])) # gain fonksiyonu tanımlaması
     
     if CONF_MY_BLUETOOTH in config:
-        cg.add(var.bluetooth(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
+        cg.add(var.set_bluetooth_name(config[CONF_MY_BLUETOOTH])) # bluetooth fonksiyonu tanımlaması
 
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)

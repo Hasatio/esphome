@@ -83,16 +83,20 @@ void dump_config() override;
 void loop() override;
 void update() override;
 
-void bluetooth(String b);
-void gain(float g);
-void sample(sensor::Sensor *sample);
-void sample_sec(sensor::Sensor *sample_sec);
+void set_bluetooth_name(String b)           { btname = b; } 
+void set_gain(float g)                      { gain = g; }
+
+String get_bluetooth_name()                 { return btname; }
+float get_gain()                            { return gain; }
+
+void sample(sensor::Sensor *sample)         { sample_ = sample; }
+void sample_sec(sensor::Sensor *sample_sec) { sample_sec_ = sample_sec; }
 
 protected:
 String btname = "ESP32";
 uint16_t adc[16];
 uint32_t sayac = 0;
-float volts[16], x, y, z, voltage, percentage, mygain = 1.0, temperature = NAN;
+float volts[16], x, y, z, voltage, percentage, gain = 1.0, temperature = NAN;
 double adxlmultiplier;
 String data = "";
 bool success = false;

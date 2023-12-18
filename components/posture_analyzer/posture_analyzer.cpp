@@ -38,7 +38,7 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  BLEDevice::init(btname.c_str());  
+  BLEDevice::init(get_bluetooth_name);  
 
   pServer = BLEDevice::createServer();
 
@@ -60,7 +60,7 @@ void Posture_Analyzer::bt_set()
   pAdvertising->addServiceUUID(uuid.toCharArray());
   pAdvertising->setScanResponse(true);
   pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-  // pAdvertising->setMinPreferred(0x12);
+  pAdvertising->setMinPreferred(0x12);
   // // pAdvertising->setScanResponse(false);
   // pAdvertising->setMinPreferred(0x00);
   BLEDevice::startAdvertising();
@@ -170,13 +170,13 @@ void Posture_Analyzer::ads1115()
   for(int i=0;i<4;i++)
   {
     adc[i] = ads1.readADC_SingleEnded(i%4);
-    volts[i] = ads1.computeVolts(adc[i]) * mygain;
+    volts[i] = ads1.computeVolts(adc[i]) * get_gain();
     data += String(volts[i]) + ",";
   }
   for(int i=4;i<8;i++)
   {
     adc[i] = ads2.readADC_SingleEnded(i%4);
-    volts[i] = ads2.computeVolts(adc[i]) * mygain;
+    volts[i] = ads2.computeVolts(adc[i]) * get_gain();
     data += String(volts[i]) + ",";
   }
   for(int i=8;i<12;i++)
@@ -292,7 +292,7 @@ void Posture_Analyzer::setup()
 void Posture_Analyzer::dump_config()
 {
   ESP_LOGI(TAG, "UUID: %s", uuid.toCharArray());
-  ESP_LOGI(TAG, "Bluetooth Device name ready to pair: %s",btname);
+  ESP_LOGI(TAG, "Bluetooth Device name ready to pair: %s", get_bluetooth_name());
 }
 void Posture_Analyzer::loop()
 {
@@ -305,23 +305,6 @@ void Posture_Analyzer::update()
   internal_temp();
   bt();
   sensor();
-}
-
-void Posture_Analyzer::bluetooth(String b)
-{
-  btname = b;
-}
-void Posture_Analyzer::gain(float g)
-{
-  mygain = g;
-}
-void Posture_Analyzer::sample(sensor::Sensor *sample)
-{ 
-  sample_ = sample;
-}
-void Posture_Analyzer::sample_sec(sensor::Sensor *sample_sec)
-{ 
-  sample_sec_ = sample_sec;
 }
 
 } //namespace posture_analyzer
