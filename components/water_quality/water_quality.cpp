@@ -175,7 +175,8 @@ void WaterQuality::update()
   dig.Digital_Input_Driver(d);
 
   PCA9685_Driver(0, (float)pump.Pump_Dose[0]/100);
-  PCA9685_Driver(8, (float)pump.Pump_Dose[1]/100);
+  PCA9685_Driver(1, (float)pump.Pump_Dose[1]/100);
+  PCA9685_Driver(8, (float)pump.Pump_Dose[6]/100);
   
   // pump_total();
   sensor();
