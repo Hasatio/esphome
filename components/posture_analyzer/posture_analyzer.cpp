@@ -38,7 +38,7 @@ void Posture_Analyzer::uuid_set()
 //  Bluetooth
 void Posture_Analyzer::bt_set()
 {
-  BLEDevice::init(get_bluetooth_name);  
+  BLEDevice::init(get_bluetooth_name.c_str());  
 
   pServer = BLEDevice::createServer();
 
@@ -182,13 +182,13 @@ void Posture_Analyzer::ads1115()
   for(int i=8;i<12;i++)
   {
     adc[i] = ads3.readADC_SingleEnded(i%4);
-    volts[i] = ads3.computeVolts(adc[i]) * mygain;
+    volts[i] = ads3.computeVolts(adc[i]) * get_gain();
     data += String(volts[i]) + ",";
   }
   for(int i=12;i<16;i++)
   {
     adc[i] = ads4.readADC_SingleEnded(i%4);
-    volts[i] = ads4.computeVolts(adc[i]) * mygain;
+    volts[i] = ads4.computeVolts(adc[i]) * get_gain();
     data += String(volts[i]) + ",";
   }
 }
