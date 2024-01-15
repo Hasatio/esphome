@@ -252,7 +252,7 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     val = config[CONF_PUMP_MODE]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
-        cg.add(var.set_pump_m(template_))
+    #     cg.add(var.set_pump_m(template_))
 
     return var
 
@@ -283,7 +283,7 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     val = config[CONF_PUMP_DOSE]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
-        cg.add(var.set_pump_d(template_))
+    #     cg.add(var.set_pump_d(template_))
 
     return var
 
@@ -314,7 +314,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
     val = config[CONF_PUMP_CIRCULATION]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
-        cg.add(var.set_pump_circ(template_))
+    #     cg.add(var.set_pump_circ(template_))
 
     return var
 
@@ -345,7 +345,7 @@ async def pump_reset_to_code(config, action_id, template_arg, args):
     val = config[CONF_PUMP_RESET]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
-        cg.add(var.set_pump_res(template_))
+        # cg.add(var.set_pump_res(template_))
 
     return var
 
@@ -376,7 +376,7 @@ async def servo_mode_to_code(config, action_id, template_arg, args):
     val = config[CONF_SERVO_MODE]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
-        cg.add(var.set_ser_mode(template_))
+        # cg.add(var.set_ser_mode(template_))
 
     return var
 
@@ -407,7 +407,7 @@ async def servo_position_to_code(config, action_id, template_arg, args):
     val = config[CONF_SERVO_POSITION]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
-        cg.add(var.set_ser_pos(template_))
+        # cg.add(var.set_ser_pos(template_))
 
     return var
 
@@ -438,6 +438,6 @@ async def digital_out_to_code(config, action_id, template_arg, args):
     val = config[CONF_DIGITAL_OUT]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
-        cg.add(var.set_dig_out(template_))
+        # cg.add(var.set_dig_out(template_))
 
     return var
