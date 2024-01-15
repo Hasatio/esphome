@@ -18,10 +18,10 @@ static unsigned long timepoint = millis();
 void WaterQuality::setup()
 {
     
-    ADS1115_Setup(ADS1X15_ADDRESS1);
-    ADS1115_Setup(ADS1X15_ADDRESS2);
-    MCP23008_Setup(MCP23008_ADDRESS);
-    PCA9685_Setup(PCA9685_I2C_ADDRESS);
+    // ADS1115_Setup(ADS1X15_ADDRESS1);
+    // ADS1115_Setup(ADS1X15_ADDRESS2);
+    // MCP23008_Setup(MCP23008_ADDRESS);
+    // PCA9685_Setup(PCA9685_I2C_ADDRESS);
 }
 void WaterQuality::dump_config()
 {
@@ -36,137 +36,137 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Data rate: %d", this->get_data_rate());
     ESP_LOGI(TAG, "Resolution: %d", this->get_resolution());
 
-    ESP_LOGI(TAG, "Digital status: %x", this->olat_);
+//     ESP_LOGI(TAG, "Digital status: %x", this->olat_);
 
-    this->set_i2c_address(MCP23008_ADDRESS);
-    uint8_t iodir, ipol, gpinten, defval, intcon, iocon, gppu, intf, intcap, gpio, olat;
-        ESP_LOGI(TAG, "iodir: %x", iodir);
-        this->read_byte(MCP23008_IODIR, &iodir);
-        ESP_LOGI(TAG, "iodir: %x", iodir);
+//     this->set_i2c_address(MCP23008_ADDRESS);
+//     uint8_t iodir, ipol, gpinten, defval, intcon, iocon, gppu, intf, intcap, gpio, olat;
+//         ESP_LOGI(TAG, "iodir: %x", iodir);
+//         this->read_byte(MCP23008_IODIR, &iodir);
+//         ESP_LOGI(TAG, "iodir: %x", iodir);
         
-        ESP_LOGI(TAG, "ipol: %x", ipol);
-        this->read_byte(MCP23008_IPOL, &ipol);
-        ESP_LOGI(TAG, "ipol: %x", ipol);
+//         ESP_LOGI(TAG, "ipol: %x", ipol);
+//         this->read_byte(MCP23008_IPOL, &ipol);
+//         ESP_LOGI(TAG, "ipol: %x", ipol);
 
-        ESP_LOGI(TAG, "gpinten: %x", gpinten);
-        this->read_byte(MCP23008_GPINTEN, &gpinten);
-        ESP_LOGI(TAG, "gpinten: %x", gpinten);
+//         ESP_LOGI(TAG, "gpinten: %x", gpinten);
+//         this->read_byte(MCP23008_GPINTEN, &gpinten);
+//         ESP_LOGI(TAG, "gpinten: %x", gpinten);
         
-        ESP_LOGI(TAG, "defval: %x", defval);
-        this->read_byte(MCP23008_DEFVAL, &defval);
-        ESP_LOGI(TAG, "defval: %x", defval);
+//         ESP_LOGI(TAG, "defval: %x", defval);
+//         this->read_byte(MCP23008_DEFVAL, &defval);
+//         ESP_LOGI(TAG, "defval: %x", defval);
         
-        ESP_LOGI(TAG, "intcon: %x", intcon);
-        this->read_byte(MCP23008_INTCON, &intcon);
-        ESP_LOGI(TAG, "intcon: %x", intcon);
+//         ESP_LOGI(TAG, "intcon: %x", intcon);
+//         this->read_byte(MCP23008_INTCON, &intcon);
+//         ESP_LOGI(TAG, "intcon: %x", intcon);
         
-        ESP_LOGI(TAG, "iocon: %x", iocon);
-        this->read_byte(MCP23008_IOCON, &iocon);
-        ESP_LOGI(TAG, "iocon: %x", iocon);
-        for (size_t i = 0; i < 8; i++)
-        {  
-            this->read_byte(MCP23008_IODIR, &iodir);
-            ESP_LOGI(TAG, "Digital pin(%d): %d", i, iodir & (1 << i));
-        }
-        this->read_byte(MCP23008_IOCON, &iocon);
-        ESP_LOGI(TAG, "iocon: %x", iocon);
+//         ESP_LOGI(TAG, "iocon: %x", iocon);
+//         this->read_byte(MCP23008_IOCON, &iocon);
+//         ESP_LOGI(TAG, "iocon: %x", iocon);
+//         for (size_t i = 0; i < 8; i++)
+//         {  
+//             this->read_byte(MCP23008_IODIR, &iodir);
+//             ESP_LOGI(TAG, "Digital pin(%d): %d", i, iodir & (1 << i));
+//         }
+//         this->read_byte(MCP23008_IOCON, &iocon);
+//         ESP_LOGI(TAG, "iocon: %x", iocon);
 
-        ESP_LOGI(TAG, "gppu: %x", gppu);
-        this->read_byte(MCP23008_GPPU, &gppu);
-        ESP_LOGI(TAG, "gppu: %x", gppu);
+//         ESP_LOGI(TAG, "gppu: %x", gppu);
+//         this->read_byte(MCP23008_GPPU, &gppu);
+//         ESP_LOGI(TAG, "gppu: %x", gppu);
         
-        ESP_LOGI(TAG, "intf: %x", intf);
-        this->read_byte(MCP23008_INTF, &intf);
-        ESP_LOGI(TAG, "intf: %x", intf);
+//         ESP_LOGI(TAG, "intf: %x", intf);
+//         this->read_byte(MCP23008_INTF, &intf);
+//         ESP_LOGI(TAG, "intf: %x", intf);
         
-        ESP_LOGI(TAG, "intcap: %x", intcap);
-        this->read_byte(MCP23008_INTCAP, &intcap);
-        ESP_LOGI(TAG, "intcap: %x", intcap);
+//         ESP_LOGI(TAG, "intcap: %x", intcap);
+//         this->read_byte(MCP23008_INTCAP, &intcap);
+//         ESP_LOGI(TAG, "intcap: %x", intcap);
         
-        ESP_LOGI(TAG, "gpio: %x", gpio);
-        this->read_byte(MCP23008_GPIO, &gpio);
-        ESP_LOGI(TAG, "gpio: %x", gpio);
+//         ESP_LOGI(TAG, "gpio: %x", gpio);
+//         this->read_byte(MCP23008_GPIO, &gpio);
+//         ESP_LOGI(TAG, "gpio: %x", gpio);
         
-        ESP_LOGI(TAG, "olat: %x", olat);
-        this->read_byte(MCP23008_OLAT, &olat);
-        ESP_LOGI(TAG, "olat: %x", olat);
+//         ESP_LOGI(TAG, "olat: %x", olat);
+//         this->read_byte(MCP23008_OLAT, &olat);
+//         ESP_LOGI(TAG, "olat: %x", olat);
         
 
-    ESP_LOGCONFIG(TAG, "PCA9685:");
-    ESP_LOGCONFIG(TAG, "  Mode: 0x%02X", this->mode_);
-    if (this->extclk_) {
-        ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
-    } else {
-        ESP_LOGCONFIG(TAG, "  EXTCLK: disabled");
-        ESP_LOGCONFIG(TAG, "  Frequency: %.0f Hz", this->frequency_);
-    }
-    if (this->is_failed()) {
-        ESP_LOGE(TAG, "Setting up PCA9685 failed!");
-    }
+//     ESP_LOGCONFIG(TAG, "PCA9685:");
+//     ESP_LOGCONFIG(TAG, "  Mode: 0x%02X", this->mode_);
+//     if (this->extclk_) {
+//         ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
+//     } else {
+//         ESP_LOGCONFIG(TAG, "  EXTCLK: disabled");
+//         ESP_LOGCONFIG(TAG, "  Frequency: %.0f Hz", this->frequency_);
+//     }
+//     if (this->is_failed()) {
+//         ESP_LOGE(TAG, "Setting up PCA9685 failed!");
+//     }
     
-    ESP_LOGD(TAG, "min_channel: %d", this->min_channel_);
-    ESP_LOGD(TAG, "max_channel: %d", this->max_channel_);
-    ESP_LOGD(TAG, "update: %d", this->update_);
-    for (size_t i = 0; i < 8; i++)
-    {   
-    ESP_LOGD(TAG, "pwm_amounts%d: %d", i, this->pwm_amounts_[i]);
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
+//     ESP_LOGD(TAG, "min_channel: %d", this->min_channel_);
+//     ESP_LOGD(TAG, "max_channel: %d", this->max_channel_);
+//     ESP_LOGD(TAG, "update: %d", this->update_);
+//     for (size_t i = 0; i < 8; i++)
+//     {   
+//     ESP_LOGD(TAG, "pwm_amounts%d: %d", i, this->pwm_amounts_[i]);
+//     }
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //  TCA9548
 
-    // Wire.begin(SDA,SCL,frq);
+//     // Wire.begin(SDA,SCL,frq);
 
-    // for (size_t t=0; t<8; t++) 
-    // {
-    //   tcaselect(t);
-    //   ESP_LOGI(TAG,"TCA Port %d", t);
+//     // for (size_t t=0; t<8; t++) 
+//     // {
+//     //   tcaselect(t);
+//     //   ESP_LOGI(TAG,"TCA Port %d", t);
 
-    //   for (uint8_t addr = 0; addr<=127; addr++) 
-    //   {
-    //     if (addr == TCA9548_ADDRESS) continue;
+//     //   for (uint8_t addr = 0; addr<=127; addr++) 
+//     //   {
+//     //     if (addr == TCA9548_ADDRESS) continue;
 
-    //     Wire.beginTransmission(addr);
-    //     if (!Wire.endTransmission()) 
-    //     {
-    //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
-    //     }
-    //   }
-    // }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//     //     Wire.beginTransmission(addr);
+//     //     if (!Wire.endTransmission()) 
+//     //     {
+//     //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+//     //     }
+//     //   }
+//     // }
+//     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    uint8_t dose = 0, circ = 0;
-    uint8_t* calib = pump.get_Pump_Calib_Gain();
-    uint8_t* type = pump.get_Pump_Type();
-    for (size_t i = 0; i < 4; i++)
-        if (type[i] == 1)
-            dose += 1;
-        else if (type[i] == 2)
-            circ += 1;
+//     uint8_t dose = 0, circ = 0;
+//     uint8_t* calib = pump.get_Pump_Calib_Gain();
+//     uint8_t* type = pump.get_Pump_Type();
+//     for (size_t i = 0; i < 4; i++)
+//         if (type[i] == 1)
+//             dose += 1;
+//         else if (type[i] == 2)
+//             circ += 1;
 
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+//     ESP_LOGI(TAG,"Pump_dose = %d", dose);
+//     ESP_LOGI(TAG,"Pump_circ = %d", circ);
 
-    for (size_t i = 0; i < 6; i++)
-    {
-        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
-    }
+//     for (size_t i = 0; i < 6; i++)
+//     {
+//         ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
+//     }
 
-    for (size_t i = 0; i < 6; i++)
-    {
-        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, type[i]);
-    }
+//     for (size_t i = 0; i < 6; i++)
+//     {
+//         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, type[i]);
+//     }
 
-    uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
-    for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
-    {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, resmin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, resmax[i]);
-    }
+//     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
+//     for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
+//     {
+//         ESP_LOGI(TAG,"ResMin[%d] = %d", i, resmin[i]);
+//         ESP_LOGI(TAG,"ResMax[%d] = %d", i, resmax[i]);
+//     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", an.get_EC_Ch());
-    ESP_LOGI(TAG,"EC_type = %d", an.get_EC_Type());
-    ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
-    ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
+//     ESP_LOGI(TAG,"EC_ch = %d", an.get_EC_Ch());
+//     ESP_LOGI(TAG,"EC_type = %d", an.get_EC_Type());
+//     ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
+//     ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
 }
 void WaterQuality::loop() 
 {
