@@ -208,7 +208,7 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
         pcg_[i] = pcg[i];
     }
 
-    pump.set_Pump_Type(pcg_);
+    pump.set_Pump_Calib_Gain(pcg_);
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
@@ -231,7 +231,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
         ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
     }
 
-    pump.set_Pump_Reset(pmode_);
+    pump.set_Pump_Mode(pmode_);
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
