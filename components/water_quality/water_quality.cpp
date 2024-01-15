@@ -274,25 +274,25 @@ void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
     bool* smode_;
     
-    // for (size_t i = 0; i < smode.size(); i++)
-    // {
-    //     smode_[i] = smode[i];
-    //     ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
-    // }
+    for (size_t i = 0; i < smode.size(); i++)
+    {
+        smode_[i] = smode[i];
+        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
+    }
 
-    // ser.set_Servo_Mode(smode_);
+    ser.set_Servo_Mode(smode_);
 }
 void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
     uint8_t* spos_;
     
-    // for (size_t i = 0; i < spos.size(); i++)
-    // {
-    //     spos_[i] = spos[i];
-    //     ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
-    // }
+    for (size_t i = 0; i < spos.size(); i++)
+    {
+        spos_[i] = spos[i];
+        ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
+    }
 
-    // ser.set_Servo_Position(spos_);
+    ser.set_Servo_Position(spos_);
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
