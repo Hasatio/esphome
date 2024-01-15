@@ -202,7 +202,7 @@ void WaterQuality::version(const uint8_t ver)
 }
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
-    std::vector<bool> pc(pump.get_Pump_Calib_Gain(), pump.get_Pump_Calib_Gain() + 6);
+    std::vector<float> pc(pump.get_Pump_Calib_Gain(), pump.get_Pump_Calib_Gain() + 6);
     uint8_t pcal_[6];
 
     if (pc != pcal)
@@ -217,7 +217,7 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
-    std::vector<bool> pt(pump.get_Pump_Type(), pump.get_Pump_Type() + 6);
+    std::vector<uint8_t> pt(pump.get_Pump_Type(), pump.get_Pump_Type() + 6);
     uint8_t ptype_[6];
 
     if (pt != ptype)
@@ -232,7 +232,7 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
-    std::vector<bool> pm(pump.get_Pump_Mode(), pump.get_Pump_Mode() + 6);
+    std::vector<uint8_t> pm(pump.get_Pump_Mode(), pump.get_Pump_Mode() + 6);
     uint8_t pmode_[6];
 
     if (pm != pmode)
@@ -248,7 +248,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
-    std::vector<bool> pd(pump.get_Pump_Dose(), pump.get_Pump_Dose() + 6);
+    std::vector<uint16_t> pd(pump.get_Pump_Dose(), pump.get_Pump_Dose() + 6);
     uint16_t* pdose_ = pump.get_Pump_Dose();
 
     if (pd != pdose)
@@ -264,7 +264,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
-    std::vector<bool> pc(pump.get_Pump_Circulation(), pump.get_Pump_Circulation() + 6);
+    std::vector<uint16_t> pc(pump.get_Pump_Circulation(), pump.get_Pump_Circulation() + 6);
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
 
     if (pc != pcirc)
@@ -312,7 +312,7 @@ void WaterQuality::servo_mode(std::vector<bool> &smode)
 }
 void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
-    std::vector<bool> sp(ser.get_Servo_Position(), ser.get_Servo_Position() + 8);
+    std::vector<uint8_t> sp(ser.get_Servo_Position(), ser.get_Servo_Position() + 8);
     uint8_t spos_[8];
     
     if (sp != spos)

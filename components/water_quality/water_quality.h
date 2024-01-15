@@ -150,7 +150,7 @@ void loop() override;
 void update() override;
 
 void version(const uint8_t ver);
-void pump_calib_gain(const std::vector<float> &pcg);
+void pump_calib_gain(const std::vector<float> &pcal);
 void pump_type(const std::vector<uint8_t> &ptype);
 void pump_mode(std::vector<uint8_t> &pmode);
 void pump_dose(std::vector<uint16_t> &pdose);
