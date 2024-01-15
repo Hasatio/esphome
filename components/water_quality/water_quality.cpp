@@ -197,7 +197,7 @@ void WaterQuality::update()
 void WaterQuality::version(const uint8_t ver)
 {
     an.ver = ver;
-}/*
+}
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
 {
     uint8_t* pcg_;
@@ -327,7 +327,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 
     dig.set_Digital_Out(dout_);
 }
-*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
 void WaterQuality::sensor()
