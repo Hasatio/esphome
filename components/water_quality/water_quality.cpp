@@ -181,7 +181,7 @@ void WaterQuality::update()
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
-    // sensor();
+    sensor();
     
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());
@@ -353,7 +353,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
 void WaterQuality::sensor()
-{
+{/*
     if (this->Pump_Tot_ != nullptr)
     {
         uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
@@ -392,9 +392,9 @@ void WaterQuality::sensor()
                 ss << std::fixed << std::setprecision(0) << static_cast<uint8_t>(sstat[i]);
 
         this->Servo_Stat_->publish_state(ss.str());
-    }
-    if (this->AnInWT_Val_ != nullptr)       { this->AnInWT_Val_->publish_state(an.get_WT_Val()); }
-    if (this->AnInVPow_Val_ != nullptr)     { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
+    }*/
+    if (this->AnInWT_Val_ != nullptr)       {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
+    if (this->AnInVPow_Val_ != nullptr)     {this->AnInVPow_Val_->publish_state(an.get_VPow_Val());}
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         float* lvl = an.get_Lvl_Perc();
@@ -408,8 +408,8 @@ void WaterQuality::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr)       { this->AnInEC_Val_->publish_state(an.get_EC_Val()); }
-    if (this->AnInPH_Val_ != nullptr)       { this->AnInPH_Val_->publish_state(an.get_PH_Val()); }
+    if (this->AnInEC_Val_ != nullptr)       {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
+    if (this->AnInPH_Val_ != nullptr)       {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
     if (this->AnInGen_Val_ != nullptr) 
     {
         float* gen = an.get_Gen_Val();
