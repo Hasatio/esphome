@@ -1,9 +1,5 @@
 #include "water_quality.h"
 #include "wq_i2c.h"
-#include "wq_analog.h"
-#include "wq_digital.h"
-#include "wq_pump.h"
-#include "wq_servo.h"
 
 namespace esphome {
 namespace water_quality {

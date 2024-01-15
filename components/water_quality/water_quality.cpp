@@ -195,7 +195,7 @@ void WaterQuality::update()
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
     
 }
-/*
+
 void WaterQuality::version(const uint8_t ver)
 {
     an.ver = ver;
@@ -204,95 +204,95 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
 {
     uint8_t* pcg_;
 
-    for (size_t i = 0; i < pcg.size(); i++)
-    {
-        pcg_[i] = pcg[i];
-    }
+    // for (size_t i = 0; i < pcg.size(); i++)
+    // {
+    //     pcg_[i] = pcg[i];
+    // }
 
-    pump.set_Pump_Calib_Gain(pcg_);
+    // pump.set_Pump_Calib_Gain(pcg_);
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
     uint8_t* ptype_;
 
-    for (size_t i = 0; i < ptype.size(); i++)
-    {
-        ptype_[i] = ptype[i];
-    }
+    // for (size_t i = 0; i < ptype.size(); i++)
+    // {
+    //     ptype_[i] = ptype[i];
+    // }
 
-    pump.set_Pump_Type(ptype_);
+    // pump.set_Pump_Type(ptype_);
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
     uint8_t* pmode_;
 
-    for (size_t i = 0; i < pmode.size(); i++)
-    {
-        pmode_[i] = pmode[i];
-        ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
-    }
+    // for (size_t i = 0; i < pmode.size(); i++)
+    // {
+    //     pmode_[i] = pmode[i];
+    //     ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
+    // }
 
-    pump.set_Pump_Mode(pmode_);
+    // pump.set_Pump_Mode(pmode_);
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
     uint16_t* pdose_ = pump.get_Pump_Dose();
 
-    for (size_t i = 0; i < pdose.size(); i++)
-    {
-        pdose_[i] += pdose[i];
-        ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
-    }
+    // for (size_t i = 0; i < pdose.size(); i++)
+    // {
+    //     pdose_[i] += pdose[i];
+    //     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
+    // }
 
-    pump.set_Pump_Dose(pdose_);
+    // pump.set_Pump_Dose(pdose_);
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
 
-    for (size_t i = 0; i < pcirc.size(); i++)
-    {
-        pcirc_[i] += pcirc[i];
-        ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
-    }
+    // for (size_t i = 0; i < pcirc.size(); i++)
+    // {
+    //     pcirc_[i] += pcirc[i];
+    //     ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
+    // }
 
-    pump.set_Pump_Circulation(pcirc_);
+    // pump.set_Pump_Circulation(pcirc_);
 }
 void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
     bool* pres_;
 
-    for (size_t i = 0; i < pres.size(); i++)
-    {
-        pres_[i] = pres[i];
-        ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres_[i]);
-    }
+    // for (size_t i = 0; i < pres.size(); i++)
+    // {
+    //     pres_[i] = pres[i];
+    //     ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres_[i]);
+    // }
 
-    pump.set_Pump_Reset(pres_);
+    // pump.set_Pump_Reset(pres_);
 }
 void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
     bool* smode_;
     
-    for (size_t i = 0; i < smode.size(); i++)
-    {
-        smode_[i] = smode[i];
-        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
-    }
+    // for (size_t i = 0; i < smode.size(); i++)
+    // {
+    //     smode_[i] = smode[i];
+    //     ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
+    // }
 
-    ser.set_Servo_Mode(smode_);
+    // ser.set_Servo_Mode(smode_);
 }
 void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
     uint8_t* spos_;
     
-    for (size_t i = 0; i < spos.size(); i++)
-    {
-        spos_[i] = spos[i];
-        ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
-    }
+    // for (size_t i = 0; i < spos.size(); i++)
+    // {
+    //     spos_[i] = spos[i];
+    //     ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
+    // }
 
-    ser.set_Servo_Position(spos_);
+    // ser.set_Servo_Position(spos_);
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
@@ -329,7 +329,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 
     dig.set_Digital_Out(dout_);
 }
-*/
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
 void WaterQuality::sensor()
