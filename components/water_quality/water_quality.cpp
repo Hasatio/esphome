@@ -135,8 +135,8 @@ void WaterQuality::dump_config()
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     uint8_t dose = 0, circ = 0;
-    uint8_t *calib = pump.get_Pump_Calib_Gain();
-    uint8_t *type = pump.get_Pump_Type();
+    uint8_t* calib = pump.get_Pump_Calib_Gain();
+    uint8_t* type = pump.get_Pump_Type();
     for (size_t i = 0; i < 4; i++)
         if (type[i] == 1)
             dose += 1;
@@ -156,7 +156,7 @@ void WaterQuality::dump_config()
         ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, type[i]);
     }
 
-    uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
+    uint16_t* resmin = an.get_ResMin(), resmax = an.get_ResMax();
     for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
     {
         ESP_LOGI(TAG,"ResMin[%d] = %d", i, resmin[i]);
@@ -177,12 +177,12 @@ void WaterQuality::update()
     float a[8], p[16];
     bool d[4];
 
-    ADS1115_Driver(a);
-    an.Analog_Input_Driver(a);
+    // ADS1115_Driver(a);
+    // an.Analog_Input_Driver(a);
 
-    dig.Digital_Output_Driver(d);
-    MCP23008_Driver(d);
-    dig.Digital_Input_Driver(d);
+    // dig.Digital_Output_Driver(d);
+    // MCP23008_Driver(d);
+    // dig.Digital_Input_Driver(d);
 
     // pump.Pump_driver(p);
     // ser.Servo_driver(p);
