@@ -291,7 +291,7 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
         ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
     }
 
-    ser.set_Servo_Mode(smode_);
+    ser.set_Servo_Position(smode_);
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
