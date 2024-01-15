@@ -35,9 +35,9 @@ void VEML7700::update()
 //  if (VEML7700Present) {
 
   tcaselect(4);
-  if (this->Lux_ != nullptr) { this->Lux_->publish_state(veml.readLux()); }
-  if (this->White_ != nullptr) { this->White_->publish_state(veml.readWhite()); }
-  if (this->Als_ != nullptr) { this->Als_->publish_state(veml.readALS()); }
+  if (this->Lux_ != nullptr)    { this->Lux_->publish_state(veml.readLux()); }
+  if (this->White_ != nullptr)  { this->White_->publish_state(veml.readWhite()); }
+  if (this->Als_ != nullptr)    { this->Als_->publish_state(veml.readALS()); }
 
   // veml7700_gain->publish_state(veml.getGain());
   // veml7700_it->publish_state(veml.getIntegrationTime());

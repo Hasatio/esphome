@@ -123,8 +123,8 @@ tca9548a:
 
 # pca9685:
 #   - id: pca9685_hub0
-#     i2c_id: multiplex0channel0
-#     frequency: 1500
+#     i2c_id: multiplex0channel2
+#     frequency: 1000
 
 
 # pca9685custom:
@@ -170,6 +170,10 @@ water_quality:
 
 
 sensor:
+  - platform: uptime
+    name: Uptime Sensor
+    update_interval: 1s
+    
   - platform: internal_temperature
     name: "Internal Temperature"
 
@@ -787,4 +791,3 @@ output:
       mode:
         output: True
       inverted: False
-

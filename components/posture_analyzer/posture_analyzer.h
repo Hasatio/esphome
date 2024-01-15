@@ -16,35 +16,35 @@
 #include "UUID.h"
 #include <string>
 
-  // i2c ayarları
-  #define SDA 21 
-  #define SCL 22
-  #define frq 800000
-  /*
-  #define SDA_1 32
-  #define SCL_1 33
-  #define freq_1 800000
-  
-  #define SDA_2 25
-  #define SCL_2 26
-  #define freq_2 800000
-  
-  #define SDA_3 27
-  #define SCL_3 14
-  #define freq_3 800000
-  
-  #define SDA_4 9
-  #define SCL_4 10
-  #define freq_4 800000
-  */
+// i2c ayarları
+#define SDA 21 
+#define SCL 22
+#define frq 800000
+/*
+#define SDA_1 32
+#define SCL_1 33
+#define freq_1 800000
 
-  // i2c adres ayarları
-  #define ADS1X15_ADDRESS1 0x48
-  #define ADS1X15_ADDRESS2 0x49
-  #define ADS1X15_ADDRESS3 0x4a
-  #define ADS1X15_ADDRESS4 0x4b
-  #define ADXL345_ADDRESS 0x53
-  #define MAX17048_ADDRESS 0x36
+#define SDA_2 25
+#define SCL_2 26
+#define freq_2 800000
+
+#define SDA_3 27
+#define SCL_3 14
+#define freq_3 800000
+
+#define SDA_4 9
+#define SCL_4 10
+#define freq_4 800000
+*/
+
+// i2c adres ayarları
+#define ADS1X15_ADDRESS1 0x48
+#define ADS1X15_ADDRESS2 0x49
+#define ADS1X15_ADDRESS3 0x4a
+#define ADS1X15_ADDRESS4 0x4b
+#define ADXL345_ADDRESS 0x53
+#define MAX17048_ADDRESS 0x36
 
 extern "C" { uint8_t temprature_sens_read(); }
 
@@ -53,12 +53,12 @@ static const char *const TAG = "mycomponent";
 namespace esphome {
 namespace posture_analyzer {
 
-  // TwoWire I2C_1 = TwoWire(0);
-  // TwoWire I2C_2 = TwoWire(1);
-  
-  #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-  #error Bluetooth off--Run `make menuconfig` to enable it 
-  #endif
+// TwoWire I2C_1 = TwoWire(0);
+// TwoWire I2C_2 = TwoWire(1);
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth off--Run `make menuconfig` to enable it 
+#endif
 
 class Posture_Analyzer : public PollingComponent
 {
@@ -83,14 +83,14 @@ void dump_config() override;
 void loop() override;
 void update() override;
 
-void set_bluetooth_name(String b)           { btname = b; } 
-void set_gain(float g)                      { gain = g; }
+void set_bluetooth_name(String b)           {btname = b;} 
+void set_gain(float g)                      {gain = g;}
 
-String get_bluetooth_name()                 { return btname; }
-float get_gain()                            { return gain; }
+String get_bluetooth_name()                 {return btname;}
+float get_gain()                            {return gain;}
 
-void sample(sensor::Sensor *sample)         { sample_ = sample; }
-void sample_sec(sensor::Sensor *sample_sec) { sample_sec_ = sample_sec; }
+void sample(sensor::Sensor *sample)         {sample_ = sample;}
+void sample_sec(sensor::Sensor *sample_sec) {sample_sec_ = sample_sec;}
 
 protected:
 String btname = "ESP32";

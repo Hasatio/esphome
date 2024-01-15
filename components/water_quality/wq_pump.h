@@ -5,6 +5,8 @@
 
 #include "esphome.h"
 #include "esphome/core/log.h"
+#include <array>
+#include <thread>
 
 namespace esphome {
 namespace water_quality {
@@ -12,26 +14,43 @@ namespace water_quality {
 class Pump
 {
 public:
-void set_Pump_Dose(uint16_t pd[])  {for (size_t i = 0; i < 6; i++) Pump_Dose[i] = pd[i];}
-void set_Pump_Status(uint8_t ps[])  {for (size_t i = 0; i < 6; i++) Pump_Status[i] = ps[i];}
+void Pump_driver(float pwm[]);
+void Dosing_Controller(uint16_t dose[]);
+void Circulation_Controller(uint16_t circ[]);
 
-uint16_t* get_Pump_Dose() {return Pump_Dose;}
-uint8_t* get_Pump_Status() {return Pump_Status;}
+void set_Pump_Calib_Gain(uint8_t pcg[])     {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
+void set_Pump_Type(uint8_t pt[])            {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
+void set_Pump_Mode(uint8_t pm[])            {for (size_t i = 0; i < 6; i++) Pump_Mode[i] = pm[i];}
+void set_Pump_Status(uint8_t ps[])          {for (size_t i = 0; i < 6; i++) Pump_Status[i] = ps[i];}
+void set_Pump_Dose(uint16_t pd[])           {for (size_t i = 0; i < 6; i++) Pump_Dose[i] = pd[i];}
+void set_Pump_Circulation(uint16_t pc[])    {for (size_t i = 0; i < 6; i++) Pump_Circulation[i] = pc[i];}
+void set_Pump_Total(uint16_t pt[][2])       {for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j];}
+void set_Pump_Reset(bool pr[])              {for (size_t i = 0; i < 6; i++) Pump_Reset[i] = pr[i];}
+
+uint8_t* get_Pump_Calib_Gain()                              {return Pump_Calib_Gain;}
+uint8_t* get_Pump_Type()                                    {return Pump_Type;}
+uint8_t* get_Pump_Mode()                                    {return Pump_Mode;}
+uint8_t* get_Pump_Status()                                  {return Pump_Status;}
+uint16_t* get_Pump_Dose()                                   {return Pump_Dose;}
+uint16_t* get_Pump_Circulation()                            {return Pump_Circulation;}
+uint16_t (*get_Pump_Total())[6][2]                          {return &Pump_Total;}
+bool* get_Pump_Reset()                                      {return Pump_Reset;}
 
 void ddose()    {ESP_LOGI("dose","Pump_dose = %d", dose);}
 
 void pump_total();
 void sensor();
 
-uint8_t dose, circ;
-std::vector<float> Pump_Calib_Gain{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Type{0,0,0,0,0,0};
-uint16_t Pump_Dose[6] = {0};
-std::vector<uint16_t> Pump_Circulation{0,0,0,0,0,0};
-std::vector<uint8_t> Pump_Mode{0,0,0,0,0,0};
-std::vector<bool> Pump_Reset{0,0,0,0,0,0};
+
+protected:
+uint8_t Pump_Calib_Gain[6] = {0};
+uint8_t Pump_Type[6] = {0};
+uint8_t Pump_Mode[6] = {0};
 uint8_t Pump_Status[6] = {0};
-std::vector<std::vector<uint16_t>> Pump_Total{{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+uint16_t Pump_Dose[6] = {0};
+uint16_t Pump_Circulation[6] = {0};
+uint16_t Pump_Total[6][2] = {{0}};
+bool Pump_Reset[6] = {0};
 };
 
 }  // namespace water_quality

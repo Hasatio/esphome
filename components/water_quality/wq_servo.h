@@ -12,12 +12,21 @@ namespace water_quality {
 class Servo
 {
 public:
+void Servo_driver(float pwm[]);
+void Servo_Controller(float perc[]);
 
-std::vector<bool> Servo_Mode{0,0,0,0,0,0,0,0};
-std::vector<uint8_t> Servo_Position{0,0,0,0,0,0,0,0};
-std::vector<bool> Servo_Status{0,0,0,0,0,0,0,0};
+void set_Servo_Mode(bool sm[])          {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = sm[i];}
+void set_Servo_Position(uint8_t sp[])   {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = sp[i];}
+void set_Servo_Status(bool ss[])        {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = ss[i];}
+
+bool* get_Servo_Mode()          {return Servo_Mode;}
+uint8_t* get_Servo_Position()   {return Servo_Position;}
+bool* get_Servo_Status()        {return Servo_Status;}
+
 protected:
-
+bool Servo_Mode[8] = {0};
+uint8_t Servo_Position[8] = {0};
+bool Servo_Status[8] = {0};
 };
 
 }  // namespace water_quality
