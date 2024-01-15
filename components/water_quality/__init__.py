@@ -381,7 +381,7 @@ async def servo_mode_to_code(config, action_id, template_arg, args):
     return var
 
 
-ServoPositionAction = component_ns.class_("ServoModeAction", automation.Action)
+ServoPositionAction = component_ns.class_("ServoPositionAction", automation.Action)
 
 SERVO_POSITION_ACTION_SCHEMA = cv.All(
     {
