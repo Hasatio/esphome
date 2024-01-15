@@ -182,8 +182,8 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    pump.Pump_driver(p);
-    pump.Servo_driver(p);
+    ser.Pump_driver(p);
+    ser.Servo_driver(p);
 
     // pump_total();
     sensor();
@@ -259,7 +259,7 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
-    uint8_t* pres_;
+    bool* pres_;
 
     for (size_t i = 0; i < pres.size(); i++)
     {
@@ -271,7 +271,7 @@ void WaterQuality::pump_reset(std::vector<bool> &pres)
 }
 void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
-    uint8_t* smode_;
+    bool* smode_;
     
     for (size_t i = 0; i < smode.size(); i++)
     {
