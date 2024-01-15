@@ -182,8 +182,9 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    pump.Pump_driver(p);
+    // pump.Pump_driver(p);
     ser.Servo_driver(p);
+    PCA9685_Driver(p);
 
     // pump_total();
     sensor();
@@ -192,8 +193,6 @@ void WaterQuality::update()
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
     
 }
-
-    bool pd[6], pc[6];
 
 void WaterQuality::version(const uint8_t ver)
 {
@@ -337,7 +336,7 @@ void WaterQuality::sensor()
     {
         uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
         std::stringstream pt;
-        
+
         for (size_t i = 0; i < 6; i++)
             if (i > 0)
                 pt << "," << std::fixed << std::setprecision(3) << static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000;
