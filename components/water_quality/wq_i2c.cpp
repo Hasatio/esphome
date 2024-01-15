@@ -499,7 +499,7 @@ void WaterQuality::PCA9685_Driver(float state[])
     if (this->is_failed())
         return;
 
-    for (size_t i = 0; i < 16; i++)
+    for (uint8_t i = 0; i < 16; i++)
     {
         this->min_channel_ = std::min(this->min_channel_, i);
         this->max_channel_ = std::max(this->max_channel_, i);

@@ -17,10 +17,10 @@ void Pump::Pump_driver(float pwm[])
               
     // std::cout << "Pump_driver\n";
     
-    // uint16_t* dose = get_Pump_Dose();
-    // uint16_t* circ = get_Pump_Circulation();
-    // uint8_t* type = get_Pump_Type();
-    // uint8_t* mode = get_Pump_Mode();
+    uint16_t* dose = get_Pump_Dose();
+    uint16_t* circ = get_Pump_Circulation();
+    uint8_t* type = get_Pump_Type();
+    uint8_t* mode = get_Pump_Mode();
     uint16_t (*tot)[6][2] = get_Pump_Total();
 
     for (size_t i = 0; i < 6; i++)
