@@ -36,10 +36,6 @@ uint16_t* get_Pump_Circulation()                            {return Pump_Circula
 uint16_t (*get_Pump_Total())[6][2]                          {return &Pump_Total;}
 bool* get_Pump_Reset()                                      {return Pump_Reset;}
 
-void pump_total();
-void sensor();
-
-
 protected:
 uint8_t Pump_Calib_Gain[6] = {0};
 uint8_t Pump_Type[6] = {0};

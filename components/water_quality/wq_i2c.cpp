@@ -10,24 +10,6 @@ namespace water_quality {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  MCP23008
-
-    // Adafruit_MCP23008 mcp;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// void EC10() {/*DFRobot_EC10 ec;*/}
-// void EC() {DFRobot_EC ec;}
-    
-    // DFRobot_EC ec;
-    // DFRobot_PH ph;
-
-
 void WaterQuality::ADS1115_Setup(uint8_t address)
 {
     this->set_i2c_address(address);
@@ -273,16 +255,8 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     // ana.Analog_Input_Driver(analog_voltage);
 }
 
-void Data::test()
-{
-    WaterQuality *wq;
-    // LOG_I2C_DEVICE(wq->get_address());
-    // if (wq->is_failed())
-    //     ESP_LOGE(TAG, "var");
-    // else
-    //     ESP_LOGI(TAG, "yok");
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  MCP23008
 void WaterQuality::MCP23008_Setup(uint8_t address)
 {
     this->set_i2c_address(address);
@@ -387,6 +361,8 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  PCA9685
 void WaterQuality::PCA9685_Setup(uint8_t address)
 {
     this->set_i2c_address(address);
@@ -514,5 +490,23 @@ void WaterQuality::PCA9685_Driver(float state[])
         
     }
 }
+
+// void EC10() {/*DFRobot_EC10 ec;*/}
+// void EC() {DFRobot_EC ec;}
+    
+    // DFRobot_EC ec;
+    // DFRobot_PH ph;
+
+
+void Data::test()
+{
+    WaterQuality *wq;
+    // LOG_I2C_DEVICE(wq->get_address());
+    // if (wq->is_failed())
+    //     ESP_LOGE(TAG, "var");
+    // else
+    //     ESP_LOGI(TAG, "yok");
+}
+
 }  // namespace water_quality
 }  // namespace esphome

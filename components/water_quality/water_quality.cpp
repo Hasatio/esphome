@@ -104,13 +104,6 @@ void WaterQuality::dump_config()
         ESP_LOGE(TAG, "Setting up PCA9685 failed!");
     }
     
-    ESP_LOGD(TAG, "min_channel: %d", this->min_channel_);
-    ESP_LOGD(TAG, "max_channel: %d", this->max_channel_);
-    ESP_LOGD(TAG, "update: %d", this->update_);
-    for (size_t i = 0; i < 8; i++)
-    {   
-    ESP_LOGD(TAG, "pwm_amounts%d: %d", i, this->pwm_amounts_[i]);
-    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -184,9 +177,9 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    pump.Pump_driver(p);
-    ser.Servo_driver(p);
-    PCA9685_Driver(p);
+    // pump.Pump_driver(p);
+    // ser.Servo_driver(p);
+    // PCA9685_Driver(p);
 
     sensor();
     
@@ -202,33 +195,25 @@ void WaterQuality::version(const uint8_t ver)
 }
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
-    std::vector<float> pc(pump.get_Pump_Calib_Gain(), pump.get_Pump_Calib_Gain() + 6);
     uint8_t pcal_[6];
 
-    if (pc != pcal)
+    for (size_t i = 0; i < 6; i++)
     {
-        for (size_t i = 0; i < 6; i++)
-        {
-            pcal_[i] = pcal[i];
-        }
-
-        pump.set_Pump_Calib_Gain(pcal_);
+        pcal_[i] = pcal[i];
     }
+
+    pump.set_Pump_Calib_Gain(pcal_);
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
-    std::vector<uint8_t> pt(pump.get_Pump_Type(), pump.get_Pump_Type() + 6);
     uint8_t ptype_[6];
-
-    if (pt != ptype)
+    
+    for (size_t i = 0; i < 6; i++)
     {
-        for (size_t i = 0; i < 6; i++)
-        {
-            ptype_[i] = ptype[i];
-        }
-
-        pump.set_Pump_Type(ptype_);
+        ptype_[i] = ptype[i];
     }
+
+    pump.set_Pump_Type(ptype_);
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
@@ -330,7 +315,7 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 {    
     uint16_t rminArray[2] = {0}, rmaxArray[2] = {0};
 
-    for (size_t i = 0; i < 2; i++)
+    for (size_t i = 0; i < rmin.size(); i++)
     {
         rminArray[i] = rmin[i];
         rmaxArray[i] = rmax[i];
@@ -408,8 +393,8 @@ void WaterQuality::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr) { this->AnInWT_Val_->publish_state(an.get_WT_Val()); }
-    if (this->AnInVPow_Val_ != nullptr) { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
+    if (this->AnInWT_Val_ != nullptr)       { this->AnInWT_Val_->publish_state(an.get_WT_Val()); }
+    if (this->AnInVPow_Val_ != nullptr)     { this->AnInVPow_Val_->publish_state(an.get_VPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         float* lvl = an.get_Lvl_Perc();
@@ -423,8 +408,8 @@ void WaterQuality::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr) { this->AnInEC_Val_->publish_state(an.get_EC_Val()); }
-    if (this->AnInPH_Val_ != nullptr) { this->AnInPH_Val_->publish_state(an.get_PH_Val()); }
+    if (this->AnInEC_Val_ != nullptr)       { this->AnInEC_Val_->publish_state(an.get_EC_Val()); }
+    if (this->AnInPH_Val_ != nullptr)       { this->AnInPH_Val_->publish_state(an.get_PH_Val()); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         float* gen = an.get_Gen_Val();
