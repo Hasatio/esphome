@@ -193,11 +193,11 @@ void WaterQuality::update()
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
     
 }
-/*
+
 void WaterQuality::version(const uint8_t ver)
 {
     an.ver = ver;
-}
+}/*
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
 {
     uint8_t* pcg_;
