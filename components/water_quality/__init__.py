@@ -247,14 +247,14 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
 
 async def pump_mode_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_PUMP_MODE]
+    val = config[CONF_PUMP_MODE]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
 #         cg.add(var.set_pump_m(template_))
 
-#     return var
+    return var
 
 
 PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
@@ -278,14 +278,14 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
 
 async def pump_dose_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_PUMP_DOSE]
+    val = config[CONF_PUMP_DOSE]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
 #         cg.add(var.set_pump_d(template_))
 
-    # return var
+    return var
 
 
 PumpCirculationAction = component_ns.class_("PumpCirculationAction", automation.Action)
@@ -309,14 +309,14 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
 
 async def pump_circulation_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_PUMP_CIRCULATION]
+    val = config[CONF_PUMP_CIRCULATION]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
 #         cg.add(var.set_pump_circ(template_))
 
-#     return var
+    return var
 
 
 PumpResetAction = component_ns.class_("PumpResetAction", automation.Action)
@@ -340,14 +340,14 @@ PUMP_RESET_ACTION_SCHEMA = cv.All(
 
 async def pump_reset_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_PUMP_RESET]
+    val = config[CONF_PUMP_RESET]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
 #         cg.add(var.set_pump_res(template_))
 
-#     return var
+    return var
 
 
 ServoModeAction = component_ns.class_("ServoModeAction", automation.Action)
@@ -371,14 +371,14 @@ SERVO_MODE_ACTION_SCHEMA = cv.All(
 
 async def servo_mode_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_SERVO_MODE]
+    val = config[CONF_SERVO_MODE]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
 #         cg.add(var.set_ser_mode(template_))
 
-#     return var
+    return var
 
 
 ServoPositionAction = component_ns.class_("ServoModeAction", automation.Action)
@@ -402,14 +402,14 @@ SERVO_POSITION_ACTION_SCHEMA = cv.All(
 
 async def servo_position_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_SERVO_POSITION]
+    val = config[CONF_SERVO_POSITION]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
 #         cg.add(var.set_ser_pos(template_))
 
-#     return var
+    return var
 
 
 DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
@@ -433,11 +433,11 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
 
 async def digital_out_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
-#     var = cg.new_Pvariable(action_id, template_arg, paren)
+    var = cg.new_Pvariable(action_id, template_arg, paren)
 
-#     val = config[CONF_DIGITAL_OUT]
+    val = config[CONF_DIGITAL_OUT]
 #     if cg.is_template(val):
 #         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
 #         cg.add(var.set_dig_out(template_))
 
-#     return var
+    return var
