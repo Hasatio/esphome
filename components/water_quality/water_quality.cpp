@@ -200,105 +200,137 @@ void WaterQuality::version(const uint8_t ver)
 {
     an.ver = ver;
 }
-void WaterQuality::pump_calib_gain(const std::vector<float> &pcg)
+void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
-    uint8_t* pcg_;
+    std::vector<bool> pc(pump.get_Pump_Calib_Gain(), pump.get_Pump_Calib_Gain() + 6);
+    uint8_t pcal_[6];
 
-    // for (size_t i = 0; i < pcg.size(); i++)
-    // {
-    //     pcg_[i] = pcg[i];
-    // }
+    if (pc != pcal)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            pcal_[i] = pcal[i];
+        }
 
-    // pump.set_Pump_Calib_Gain(pcg_);
+        pump.set_Pump_Calib_Gain(pcal_);
+    }
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
-    uint8_t* ptype_;
+    std::vector<bool> pt(pump.get_Pump_Type(), pump.get_Pump_Type() + 6);
+    uint8_t ptype_[6];
 
-    // for (size_t i = 0; i < ptype.size(); i++)
-    // {
-    //     ptype_[i] = ptype[i];
-    // }
+    if (pt != ptype)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            ptype_[i] = ptype[i];
+        }
 
-    // pump.set_Pump_Type(ptype_);
+        pump.set_Pump_Type(ptype_);
+    }
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
-    uint8_t* pmode_;
+    std::vector<bool> pm(pump.get_Pump_Mode(), pump.get_Pump_Mode() + 6);
+    uint8_t pmode_[6];
 
-    // for (size_t i = 0; i < pmode.size(); i++)
-    // {
-    //     pmode_[i] = pmode[i];
-    //     ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
-    // }
+    if (pm != pmode)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            pmode_[i] = pmode[i];
+            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
+        }
 
-    // pump.set_Pump_Mode(pmode_);
+        pump.set_Pump_Mode(pmode_);
+    }
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
+    std::vector<bool> pd(pump.get_Pump_Dose(), pump.get_Pump_Dose() + 6);
     uint16_t* pdose_ = pump.get_Pump_Dose();
 
-    // for (size_t i = 0; i < pdose.size(); i++)
-    // {
-    //     pdose_[i] += pdose[i];
-    //     ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
-    // }
+    if (pd != pdose)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            pdose_[i] += pdose[i];
+            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
+        }
 
-    // pump.set_Pump_Dose(pdose_);
+        pump.set_Pump_Dose(pdose_);
+    }
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
+    std::vector<bool> pc(pump.get_Pump_Circulation(), pump.get_Pump_Circulation() + 6);
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
 
-    // for (size_t i = 0; i < pcirc.size(); i++)
-    // {
-    //     pcirc_[i] += pcirc[i];
-    //     ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
-    // }
+    if (pc != pcirc)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            pcirc_[i] += pcirc[i];
+            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
+        }
 
-    // pump.set_Pump_Circulation(pcirc_);
+        pump.set_Pump_Circulation(pcirc_);
+    }
 }
 void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
-    bool* pres_;
+    std::vector<bool> pr(pump.get_Pump_Reset(), pump.get_Pump_Reset() + 6);
+    bool pres_[6];
 
-    // for (size_t i = 0; i < pres.size(); i++)
-    // {
-    //     pres_[i] = pres[i];
-    //     ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres_[i]);
-    // }
+    if (pr != pres)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
+            pres_[i] = pres[i];
+            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres_[i]);
+        }
 
-    // pump.set_Pump_Reset(pres_);
+        pump.set_Pump_Reset(pres_);
+    }
 }
 void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
-    bool* smode_;
+    std::vector<bool> sm(ser.get_Servo_Mode(), ser.get_Servo_Mode() + 8);
+    bool smode_[8];
     
-    for (size_t i = 0; i < smode.size(); i++)
+    if (sm != smode)
     {
-        smode_[i] = smode[i];
-        ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
+        for (size_t i = 0; i < 8; i++)
+        {
+            smode_[i] = smode[i];
+            ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
+        }
+    
+        ser.set_Servo_Mode(smode_);
     }
-
-    ser.set_Servo_Mode(smode_);
 }
 void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
-    uint8_t* spos_;
+    std::vector<bool> sp(ser.get_Servo_Position(), ser.get_Servo_Position() + 8);
+    uint8_t spos_[8];
     
-    for (size_t i = 0; i < spos.size(); i++)
+    if (sp != spos)
     {
-        spos_[i] = spos[i];
-        ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
-    }
+        for (size_t i = 0; i < 8; i++)
+        {
+            spos_[i] = spos[i];
+            ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
+        }
 
-    ser.set_Servo_Position(spos_);
+        ser.set_Servo_Position(spos_);
+    }
 }
 void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax)
 {    
     uint16_t rminArray[2] = {0}, rmaxArray[2] = {0};
 
-    for (size_t i = 0; i < rmin.size(); i++)
+    for (size_t i = 0; i < 2; i++)
     {
         rminArray[i] = rmin[i];
         rmaxArray[i] = rmax[i];
@@ -319,15 +351,18 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
+    std::vector<bool> d(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
     bool dout_[4];
 
-    for (size_t i = 0; i < dout.size(); i++)
+    if (d != dout)
     {
-        dout_[i] = dout[i];
-        ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout_[i]);
+        for (size_t i = 0; i < 4; i++)
+        {
+            dout_[i] = dout[i];
+            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout_[i]);
+        }
+        dig.set_Digital_Out(dout_);
     }
-
-    dig.set_Digital_Out(dout_);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

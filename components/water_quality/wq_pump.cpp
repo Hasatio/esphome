@@ -58,7 +58,7 @@ void Pump::Pump_driver(float pwm[])
 
     // std::cout << "Geçen süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
-    ESP_LOGI(TAG,"Geçen süre: %f saniye", duration.count() / 1000);
+    // ESP_LOGI(TAG,"Geçen süre: %f saniye", duration.count() / 1000);
     
 }
 void Pump::Dosing_Controller(float pump[])
