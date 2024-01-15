@@ -424,6 +424,142 @@ switch:
             digital_out: !lambda |-
               return {(bool)id(digital_out1).state, (bool)id(digital_out2).state, (bool)id(digital_out3).state, (bool)id(digital_out4).state};
 
+  - platform: template
+    id: servo_mode1
+    name: "Servo_mode1"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode2
+    name: "Servo_mode2"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode3
+    name: "Servo_mode3"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode4
+    name: "Servo_mode4"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode5
+    name: "Servo_mode5"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode6
+    name: "Servo_mode6"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode7
+    name: "Servo_mode7"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
+  - platform: template
+    id: servo_mode8
+    name: "Servo_mode8"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {(bool)id(servo_mode1).state, (bool)id(servo_mode2).state, (bool)id(servo_mode3).state, (bool)id(servo_mode4).state, (bool)id(servo_mode5).state, (bool)id(servo_mode6).state, (bool)id(servo_mode7).state, (bool)id(servo_mode8).state};
+
 
 number:
   - platform: template
@@ -704,6 +840,126 @@ number:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
               return {(unsigned char)id(pump_circulation1).state, (unsigned char)id(pump_circulation2).state, (unsigned char)id(pump_circulation3).state, (unsigned char)id(pump_circulation4).state, (unsigned char)id(pump_circulation5).state, (unsigned char)id(pump_circulation6).state};
+
+  - platform: template
+    id: servo_position1
+    name: "Servo_position1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position2
+    name: "Servo_position2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position3
+    name: "Servo_position3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position4
+    name: "Servo_position4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position5
+    name: "Servo_position5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position6
+    name: "Servo_position6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position7
+    name: "Servo_position7"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
+
+  - platform: template
+    id: servo_position8
+    name: "Servo_position8"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {(unsigned char)id(servo_position1).state, (unsigned char)id(servo_position2).state, (unsigned char)id(servo_position3).state, (unsigned char)id(servo_position4).state, (unsigned char)id(servo_position5).state, (unsigned char)id(servo_position6).state, (unsigned char)id(servo_position7).state, (unsigned char)id(servo_position8).state};
 
   # - platform: template
   #   id: duration
