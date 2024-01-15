@@ -15,9 +15,9 @@ public:
 void Servo_driver(float pwm[]);
 void Servo_Controller(float perc[]);
 
-void set_Servo_Mode(bool sm[])          {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = sm[i];}
-void set_Servo_Position(uint8_t sp[])   {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = sp[i];}
-void set_Servo_Status(bool ss[])        {for (size_t i = 0; i < 8; i++) Pump_Calib_Gain[i] = ss[i];}
+void set_Servo_Mode(bool sm[])          {for (size_t i = 0; i < 8; i++) Servo_Mode[i] = sm[i];}
+void set_Servo_Position(uint8_t sp[])   {for (size_t i = 0; i < 8; i++) Servo_Position[i] = sp[i];}
+void set_Servo_Status(bool ss[])        {for (size_t i = 0; i < 8; i++) Servo_Status[i] = ss[i];}
 
 bool* get_Servo_Mode()          {return Servo_Mode;}
 uint8_t* get_Servo_Position()   {return Servo_Position;}
