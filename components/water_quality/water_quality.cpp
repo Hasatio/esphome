@@ -183,8 +183,8 @@ void WaterQuality::update()
     dig.Digital_Input_Driver(d);
 
     // pump.Pump_driver(p);
-    ser.Servo_driver(p);
-    PCA9685_Driver(p);
+    // ser.Servo_driver(p);
+    // PCA9685_Driver(p);
 
     // pump_total();
     sensor();
