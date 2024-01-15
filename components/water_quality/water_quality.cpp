@@ -195,7 +195,7 @@ void WaterQuality::update()
     // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
     
 }
-
+/*
 void WaterQuality::version(const uint8_t ver)
 {
     an.ver = ver;
@@ -329,7 +329,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 
     dig.set_Digital_Out(dout_);
 }
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
 void WaterQuality::sensor()
