@@ -182,7 +182,7 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    ser.Pump_driver(p);
+    pump.Pump_driver(p);
     ser.Servo_driver(p);
 
     // pump_total();
