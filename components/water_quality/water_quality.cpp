@@ -184,11 +184,11 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    // pump.Pump_driver(p);
-    // ser.Servo_driver(p);
-    // PCA9685_Driver(p);
+    pump.Pump_driver(p);
+    ser.Servo_driver(p);
+    PCA9685_Driver(p);
 
-    // sensor();
+    sensor();
     
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG,"test = %f", request_measurement());

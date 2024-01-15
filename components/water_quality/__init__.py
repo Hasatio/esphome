@@ -141,73 +141,73 @@ async def to_code(config):
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
     
-    if CONF_VERSION in config:
-        cg.add(var.version(config[CONF_VERSION]))
+    # if CONF_VERSION in config:
+    #     cg.add(var.version(config[CONF_VERSION]))
         
-    empty = [0] * 1
-    type = []
-    calib = []
+#     empty = [0] * 1
+#     type = []
+#     calib = []
     
-    conf = config[CONF_PUMP1][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP1][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
             
-    conf = config[CONF_PUMP2][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP2][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
         
-    conf = config[CONF_PUMP3][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP3][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
         
-    conf = config[CONF_PUMP4][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP4][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
         
-    conf = config[CONF_PUMP5][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP5][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
         
-    conf = config[CONF_PUMP6][0]
-    type.append(conf[CONF_PUMP_TYPE])
-    if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
-    else:
-        calib.append(empty)
+#     conf = config[CONF_PUMP6][0]
+#     type.append(conf[CONF_PUMP_TYPE])
+#     if conf[CONF_PUMP_TYPE] != 0:
+#         calib.append(conf[CONF_PUMP_CALIB_GAIN])
+#     else:
+#         calib.append(empty)
         
-    cg.add(var.pump_calib_gain(calib))
-    cg.add(var.pump_type(type))
+#     cg.add(var.pump_calib_gain(calib))
+#     cg.add(var.pump_type(type))
     
         
-    min = []
-    max = []
-    for conf in config[CONF_LEVEL]:
-        min.append(conf[CONF_RES_MIN])
-        max.append(conf[CONF_RES_MAX])
-    cg.add(var.level_res(min, max))
+#     min = []
+#     max = []
+#     for conf in config[CONF_LEVEL]:
+#         min.append(conf[CONF_RES_MIN])
+#         max.append(conf[CONF_RES_MAX])
+#     cg.add(var.level_res(min, max))
     
-    conf = config[CONF_SENSORS][0]
-    ch = conf[CONF_EC_CHANNEL]
-    t = conf[CONF_EC_TYPE]
-    cg.add(var.ec(ch, t))
-    ch = conf[CONF_PH_CHANNEL]
-    t = conf[CONF_PH_TYPE]
-    cg.add(var.ph(ch, t))
+#     conf = config[CONF_SENSORS][0]
+#     ch = conf[CONF_EC_CHANNEL]
+#     t = conf[CONF_EC_TYPE]
+#     cg.add(var.ec(ch, t))
+#     ch = conf[CONF_PH_CHANNEL]
+#     t = conf[CONF_PH_TYPE]
+#     cg.add(var.ph(ch, t))
 
     cg.add_library("EEPROM", None)
     cg.add_library("DFRobot_EC", None, "https://github.com/DFRobot/DFRobot_EC/")
