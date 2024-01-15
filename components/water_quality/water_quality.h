@@ -217,7 +217,7 @@ uint8_t max_channel_{0x00};
 uint16_t pwm_amounts_[16] = {0};
 bool update_{true};
 };
-
+/*
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 public:
 PumpModeAction(WaterQuality *parent) : parent_(parent){};
@@ -330,7 +330,7 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-
+*/
 }  // namespace water_quality
 }  // namespace esphome
 
