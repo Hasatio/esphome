@@ -242,7 +242,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            if (pmode == 1)
+            if (pmode[i] == 1)
                 pdose_[i] += pdose[i];
             else
                 pdose_[i] = pdose[i];
@@ -263,7 +263,11 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            pcirc_[i] += pcirc[i];
+            if (pmode[i] == 1)
+                pcirc_[i] += pcirc[i];
+            else
+                pcirc_[i] += pcirc[i];
+            
             ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
         }
 
@@ -343,7 +347,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
-    bool dout_ = dig.get_Digital_Out();
+    bool* dout_ = dig.get_Digital_Out();
     std::vector<bool> d(dout_, dout_ + 4);
 
     if (d != dout)
