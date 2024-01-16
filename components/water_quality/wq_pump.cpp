@@ -76,7 +76,6 @@ void Pump::Dosing_Controller(float pump[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
-    uint8_t pump_[6] = {0};
     uint8_t* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
@@ -134,7 +133,6 @@ void Pump::Dosing_Controller(float pump[])
                     if (dose[i] > 0)
                     {
                         pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
-                        pump_[i] = 1;
                         stat[i] = 1;
                     }
                     else
@@ -244,7 +242,6 @@ void Pump::Circulation_Controller(float pump[])
                     if (circ[i] > 0)
                         {
                             pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
-                            pump_[i] = 1;
                             stat[i] = 1;
                         }
                     else
