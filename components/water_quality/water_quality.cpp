@@ -234,7 +234,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
-    uint8_t* pmode_ = pump.get_Pump_Mode();
+    uint8_t* pmode = pump.get_Pump_Mode();
     uint16_t* pdose_ = pump.get_Pump_Dose();
     std::vector<uint16_t> pd(pdose_, pdose_ + 6);
 
@@ -255,7 +255,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
-    uint8_t* pmode_ = pump.get_Pump_Mode();
+    uint8_t* pmode = pump.get_Pump_Mode();
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
     std::vector<uint16_t> pc(pcirc_, pcirc_ + 6);
 
