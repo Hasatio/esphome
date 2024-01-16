@@ -399,8 +399,8 @@ void WaterQuality::sensor()
         this->Servo_Stat_->publish_state(ss.str());
     }
     if (this->AnInWT_Val_ != nullptr)       {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
-    if (this->AnInVPow_Val_ != nullptr)     {this->AnInVPow_Val_->publish_state(an.get_VPow_Val());}
-    if (this->AnInLvl_Perc_ != nullptr) 
+    */if (this->AnInVPow_Val_ != nullptr)     {this->AnInVPow_Val_->publish_state(an.get_VPow_Val());}
+    /*if (this->AnInLvl_Perc_ != nullptr) 
     {
         for (size_t i = 0; i < 2; i++)
             if (i > 0)
@@ -422,7 +422,7 @@ void WaterQuality::sensor()
     
         this->AnInGen_Val_->publish_state(av.str());
     }
-    */if (this->DigIn_Stat_ != nullptr) 
+    if (this->DigIn_Stat_ != nullptr) 
     {
         for (size_t i = 0; i < 4; i++)
             if (i > 0)
@@ -431,7 +431,7 @@ void WaterQuality::sensor()
                 ds << std::fixed << std::setprecision(2) << static_cast<uint8_t>(din[i]);
 
         this->DigIn_Stat_->publish_state(ds.str());
-    }
+    }*/
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
