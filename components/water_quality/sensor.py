@@ -60,20 +60,20 @@ async def to_code(config):
     if CONF_WATER_TEMP in config:
         conf = config[CONF_WATER_TEMP]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.WaterTemp_Sensor_Driver(sens))
+        cg.add(parent.WT_Val_Sensor(sens))
         
     if CONF_VOLTAGE in config:
         conf = config[CONF_VOLTAGE]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.VPow_Sensor_Driver(sens))
+        cg.add(parent.VPow_Val_Sensor(sens))
         
     if CONF_EC in config:
         conf = config[CONF_EC]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.WaterEC_Sensor_Driver(sens))
+        cg.add(parent.EC_Val_Sensor(sens))
         
     if CONF_PH in config:
         conf = config[CONF_PH]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.WaterPH_Sensor_Driver(sens))
+        cg.add(parent.PH_Val_Sensor(sens))
         

@@ -45,30 +45,30 @@ async def to_code(config):
     if CONF_PUMP_TOTAL in config:
         conf = config[CONF_PUMP_TOTAL]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.PPump_Tot(sens))
+        cg.add(parent.Pump_Tot_Sensor(sens))
         
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.PPump_Stat(sens))
+        cg.add(parent.Pump_Stat_Sensor(sens))
         
     if CONF_SERVO_STATUS in config:
         conf = config[CONF_SERVO_STATUS]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.Servo_Stat(sens))
+        cg.add(parent.Servo_Stat_Sensor(sens))
         
     if CONF_LEVEL in config:
         conf = config[CONF_LEVEL]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.AnLevel_Sensor_Driver(sens))
+        cg.add(parent.AnLvl_Perc_Sensor(sens))
         
     if CONF_ANALOG in config:
         conf = config[CONF_ANALOG]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.AnGen_Input_Driver(sens))
+        cg.add(parent.AnGen_Val_Sensor(sens))
         
     if CONF_DIGITAL in config:
         conf = config[CONF_DIGITAL]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.DigIn_Stat(sens))
+        cg.add(parent.DigIn_Stat_Sensor(sens))
         

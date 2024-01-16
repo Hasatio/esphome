@@ -173,16 +173,16 @@ void digital_out(std::vector<bool> &dout);
 
 // void update() override;
 
-void Pump_Tot                 (text_sensor::TextSensor *ptot)   {Pump_Tot_ = ptot;}
-void Pump_Stat                (text_sensor::TextSensor *pstat)  {Pump_Stat_ = pstat;}
-void Servo_Stat               (text_sensor::TextSensor *servo)  {Servo_Stat_ = servo;}
-void WaterTemp_Sensor_Driver  (sensor::Sensor *wtemp)           {AnInWT_Val_ = wtemp;}
-void VPow_Sensor_Driver       (sensor::Sensor *vpow)            {AnInVPow_Val_ = vpow;}
-void AnLevel_Sensor_Driver    (text_sensor::TextSensor *level)  {AnInLvl_Perc_ = level;}
-void WaterEC_Sensor_Driver    (sensor::Sensor *ec)              {AnInEC_Val_ = ec;}
-void WaterPH_Sensor_Driver    (sensor::Sensor *ph)              {AnInPH_Val_ = ph;}
-void AnGen_Input_Driver       (text_sensor::TextSensor *gen)    {AnInGen_Val_ = gen;}
-void DigIn_Stat               (text_sensor::TextSensor *din)    {DigIn_Stat_ = din;}
+void Pump_Tot_Sensor    (text_sensor::TextSensor *ptot)     {Pump_Tot_ = ptot;}
+void Pump_Stat_Sensor   (text_sensor::TextSensor *pstat)    {Pump_Stat_ = pstat;}
+void Servo_Stat_Sensor  (text_sensor::TextSensor *servo)    {Servo_Stat_ = servo;}
+void WT_Val_Sensor      (sensor::Sensor *wtemp)             {AnInWT_Val_ = wtemp;}
+void VPow_Val_Sensor    (sensor::Sensor *vpow)              {AnInVPow_Val_ = vpow;}
+void AnLvl_Perc_Sensor  (text_sensor::TextSensor *level)    {AnInLvl_Perc_ = level;}
+void EC_Val_Sensor      (sensor::Sensor *ec)                {AnInEC_Val_ = ec;}
+void PH_Val_Sensor      (sensor::Sensor *ph)                {AnInPH_Val_ = ph;}
+void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      {AnInGen_Val_ = gen;}
+void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};
