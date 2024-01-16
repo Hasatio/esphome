@@ -359,14 +359,12 @@ void WaterQuality::sensor()
         bool* sstat = ser.get_Servo_Status();
         float* lvl = an.get_Lvl_Perc();
         float* gen = an.get_Gen_Val();
-        bool* din = dig.get_Digital_In();
 
         std::stringstream pt;
         std::stringstream ps;
         std::stringstream ss;
         std::stringstream ap;
         std::stringstream av;
-        std::stringstream ds;
 /*
     if (this->Pump_Tot_ != nullptr)
     {
@@ -424,6 +422,9 @@ void WaterQuality::sensor()
     }
     if (this->DigIn_Stat_ != nullptr) 
     {
+        bool* din = dig.get_Digital_In();
+        std::stringstream ds;
+        
         for (size_t i = 0; i < 4; i++)
             if (i > 0)
                 ds << "," << std::fixed << std::setprecision(2) << static_cast<uint16_t>(din[i]);
