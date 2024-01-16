@@ -65,7 +65,7 @@ async def to_code(config):
     if CONF_VOLTAGE in config:
         conf = config[CONF_VOLTAGE]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.VPow_Val_Sensor(sens))
+        cg.add(parent.VP_Val_Sensor(sens))
         
     if CONF_EC in config:
         conf = config[CONF_EC]
