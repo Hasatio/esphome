@@ -25,8 +25,10 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* mode = get_Pump_Mode();
     uint16_t (*tot)[6][2] = get_Pump_Total();
 
-    // for (size_t i = 0; i < 6; i++)
-    // {
+    for (size_t i = 0; i < 6; i++)
+    {
+        do
+        {
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
     //         if (mode[i] == 1)
     //         {
@@ -37,7 +39,10 @@ void Pump::Pump_driver(float pwm[])
             
             thread1.join();
             thread2.join();
-            // }
+        } 
+        while (pwm[i]);
+        
+    }
         
     
     // std::thread thread1(&Pump::Dosing_Controller, this, pwm, i);
