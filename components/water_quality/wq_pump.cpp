@@ -116,7 +116,8 @@ void Pump::Dosing_Controller(float pump[])
                 (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
-                
+            }
+            
             if (stat[i] == 1 && !(dose[i] > 0))
             {
                 ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
