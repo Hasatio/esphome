@@ -32,6 +32,7 @@ unsigned long last[10] = {0};
 
 void Analog_Input_Driver(float volts[]);
 
+void set_version(uint8_t v)			{version = v;}
 void set_WT_Res(uint16_t wtres)		{AnInWT_Res = wtres;}
 void set_WT_Val(float wt)			{AnInWT_Val = wt;}
 void set_VP_Val(float vp)			{AnInVP_Val = vp;}
@@ -46,6 +47,7 @@ void set_PH_Ch(uint8_t ph)			{AnInPH_Ch = ph;}
 void set_PH_Type(uint8_t ph)		{AnInPH_Type = ph;}
 void set_Gen_Val(float gen[])		{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = gen[i];}
 
+uint8_t get_version()	{return version;}	
 uint16_t get_WT_Res() 	{return AnInWT_Res;}
 float get_WT_Val()		{return AnInWT_Val;}
 float get_VP_Val()		{return AnInVP_Val;}
@@ -65,13 +67,13 @@ bool readSerial(char result[]);
 void ec_ph();
 void ec_ph2();
 
-uint8_t ver;
 float voltagePH, voltageEC;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
 
 protected:
+uint8_t version;
 float AnInWT_Val;
 float AnInVP_Val;
 float AnInLvl_Perc[2];

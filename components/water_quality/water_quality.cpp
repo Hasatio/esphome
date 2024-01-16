@@ -192,7 +192,7 @@ void WaterQuality::update()
 
 void WaterQuality::version(const uint8_t ver)
 {
-    an.ver = ver;
+    an.set_version(ver);
 }
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
