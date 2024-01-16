@@ -17,7 +17,7 @@ void Servo::Servo_Controller(float perc[])
     {
         if (mode[i] == 1)
         {
-            perc[i + 8] = pos[i] / 100;
+            perc[i + 8] = static_cast<float>(pos[i]) / 100;
             stat[i] = 1;
 
             ESP_LOGI(TAG,"servo[%d]: %f", i, perc[i + 8]);
