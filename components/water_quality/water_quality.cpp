@@ -422,7 +422,7 @@ void WaterQuality::sensor()
     
         this->AnInGen_Val_->publish_state(av.str());
     }
-    /*if (this->DigIn_Stat_ != nullptr) 
+    if (this->DigIn_Stat_ != nullptr) 
     {
         for (size_t i = 0; i < 4; i++)
             if (i > 0)
@@ -431,7 +431,7 @@ void WaterQuality::sensor()
                 ds << std::fixed << std::setprecision(2) << static_cast<uint8_t>(din[i]);
 
         this->DigIn_Stat_->publish_state(ds.str());
-    }*/
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
