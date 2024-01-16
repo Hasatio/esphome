@@ -218,7 +218,7 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
-    uint8_t pmode_ = pump.get_Pump_Mode();
+    uint8_t* pmode_ = pump.get_Pump_Mode();
     std::vector<uint8_t> pm(pmode_, pmode_ + 6);
 
     if (pm != pmode)
@@ -288,8 +288,8 @@ void WaterQuality::pump_reset(std::vector<bool> &pres)
 }
 void WaterQuality::servo_mode(std::vector<bool> &smode)
 {
-    std::vector<bool> sm(ser.get_Servo_Mode(), ser.get_Servo_Mode() + 8);
-    bool smode_[8];
+    bool* smode_ = ser.get_Servo_Mode();
+    std::vector<bool> sm(smode_, smode_ + 8);
     
     if (sm != smode)
     {
@@ -304,8 +304,8 @@ void WaterQuality::servo_mode(std::vector<bool> &smode)
 }
 void WaterQuality::servo_position(std::vector<uint8_t> &spos)
 {
-    std::vector<uint8_t> sp(ser.get_Servo_Position(), ser.get_Servo_Position() + 8);
-    uint8_t spos_[8];
+    uint8_t* spos_ = ser.get_Servo_Position();
+    std::vector<uint8_t> sp(spos_, spos_ + 8);
     
     if (sp != spos)
     {
@@ -343,8 +343,8 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
-    std::vector<bool> d(dig.get_Digital_Out(), dig.get_Digital_Out() + 4);
-    bool dout_[4];
+    bool dout_ = dig.get_Digital_Out();
+    std::vector<bool> d(dout_, dout_ + 4);
 
     if (d != dout)
     {
