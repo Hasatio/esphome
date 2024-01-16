@@ -11,15 +11,13 @@ void Digital::Digital_Input_Driver(bool inputs[])
 
     for (size_t i = 0; i < 4; i++)
     {
-    if (inputs[i] == 0)
-        DigIn_FilterCoeff[i]--;
-    else
-        DigIn_FilterCoeff[i]++;
+        if (inputs[i])
+            DigIn_FilterCoeff[i]++;
+        else
+            DigIn_FilterCoeff[i]--;
 
-    if (DigIn_FilterCoeff[i] == 0)
-        digital[i] = 0;
-    else if (DigIn_FilterCoeff[i] == 4)
-        digital[i] = 1;
+        if (DigIn_FilterCoeff[i] == 0 || DigIn_FilterCoeff[i] == 4)
+            digital[i] = inputs[i];
     }
   
     set_Digital_In(digital);

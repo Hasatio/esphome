@@ -164,7 +164,7 @@ void WaterQuality::dump_config()
 void WaterQuality::loop() 
 {
     // delay(1000);
-    ESP_LOGI(TAG,"WT = %d", an.get_WT_Val());
+    // ESP_LOGI(TAG,"WT = %d", an.get_WT_Val());
 }
 void WaterQuality::update()
 {
@@ -178,7 +178,7 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    // pump.Pump_driver(p);
+    pump.Pump_driver(p);
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
