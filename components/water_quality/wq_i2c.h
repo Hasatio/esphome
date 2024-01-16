@@ -10,7 +10,6 @@
 #include "esphome/core/hal.h"
 #include "esphome/components/i2c/i2c.h"
 // #include <Wire.h>
-#include <vector>
 
 namespace esphome {
 namespace water_quality {

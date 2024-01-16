@@ -5,7 +5,6 @@
 
 #include "esphome.h"
 #include "esphome/core/log.h"
-#include <array>
 #include <thread>
 
 namespace esphome {

@@ -367,7 +367,7 @@ void WaterQuality::sensor()
         std::stringstream ap;
         std::stringstream av;
         std::stringstream ds;
-
+/*
     if (this->Pump_Tot_ != nullptr)
     {
         for (size_t i = 0; i < 6; i++)
@@ -398,7 +398,7 @@ void WaterQuality::sensor()
 
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr)       {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
+ */   if (this->AnInWT_Val_ != nullptr)       {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
     if (this->AnInVPow_Val_ != nullptr)     {this->AnInVPow_Val_->publish_state(an.get_VPow_Val());}
     if (this->AnInLvl_Perc_ != nullptr) 
     {
