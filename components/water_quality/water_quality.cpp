@@ -355,7 +355,6 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 // Sensor
 void WaterQuality::sensor()
 {
-
     if (this->Pump_Tot_ != nullptr)
     {
         uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
@@ -363,9 +362,9 @@ void WaterQuality::sensor()
 
         for (size_t i = 0; i < 6; i++)
             if (i > 0)
-                pt << "," << std::fixed << std::setprecision(3) << static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000;
+                pt << "," << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
             else
-                pt << std::fixed << std::setprecision(3) << static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000;
+                pt << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
     
         this->Pump_Tot_->publish_state(pt.str());
     }
