@@ -15,6 +15,9 @@ void Digital::Digital_Input_Driver(bool inputs[])
             DigIn_FilterCoeff[i]++;
         else
             DigIn_FilterCoeff[i]--;
+            
+        if (DigIn_FilterCoeff[i] > 4)
+            DigIn_FilterCoeff[i] = 4;
 
         if (DigIn_FilterCoeff[i] == 0 || DigIn_FilterCoeff[i] == 4)
             digital[i] = inputs[i];
