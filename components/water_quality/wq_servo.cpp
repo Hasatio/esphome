@@ -24,7 +24,7 @@ void Servo::Servo_Controller(float perc[])
         {
             stat[i] = 0;
         }
-        ESPLOGI(TAG,"pwm: %f", perc[i]);
+        ESP_LOGI(TAG,"pwm: %f", perc[i]);
     }
 }
 
