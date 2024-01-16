@@ -131,6 +131,8 @@ void Pump::Dosing_Controller(float pump[])
             
             if (pump[i] > 0)
                 stat[i] = 1;
+            else
+                stat[i] = 0;
                
         // std::cout << "pump" << i << " " << pump[i] << "\n";
             // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
@@ -218,6 +220,8 @@ void Pump::Circulation_Controller(float pump[])
             
             if (pump[i] > 0)
                 stat[i] = 1;
+            else
+                stat[i] = 0;
                
         // std::cout << "pump" << i << " " << pump[i] << "\n";
             // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
