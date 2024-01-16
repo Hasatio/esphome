@@ -45,12 +45,12 @@ async def to_code(config):
     if CONF_PUMP_TOTAL in config:
         conf = config[CONF_PUMP_TOTAL]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.Pump_Tot_Sensor(sens))
+        cg.add(parent.PPump_Tot_Sensor(sens))
         
     if CONF_PUMP_STATUS in config:
         conf = config[CONF_PUMP_STATUS]
         sens = await text_sensor.new_text_sensor(conf)
-        cg.add(parent.Pump_Stat_Sensor(sens))
+        cg.add(parent.PPump_Stat_Sensor(sens))
         
     if CONF_SERVO_STATUS in config:
         conf = config[CONF_SERVO_STATUS]
