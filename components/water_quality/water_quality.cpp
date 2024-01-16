@@ -200,7 +200,7 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 
     for (size_t i = 0; i < 6; i++)
     {
-        pcal_[i] = pcal[i];
+        pcal_[i] = pcal[i] / 60;
     }
 
     pump.set_Pump_Calib_Gain(pcal_);

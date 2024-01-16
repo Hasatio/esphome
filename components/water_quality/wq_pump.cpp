@@ -75,7 +75,7 @@ void Pump::Dosing_Controller(float pump[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
-    uint8_t* calib = get_Pump_Calib_Gain() / 60;
+    uint8_t* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
@@ -162,7 +162,7 @@ void Pump::Circulation_Controller(float pump[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
-    uint8_t* calib = get_Pump_Calib_Gain() / 60;
+    uint8_t* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
