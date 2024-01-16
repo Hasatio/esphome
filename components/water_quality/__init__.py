@@ -314,7 +314,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
     val = config[CONF_PUMP_CIRCULATION]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
-        cg.add(var.set_pump_circ(template_))
+        cg.add(var.set_pump_c(template_))
 
     return var
 

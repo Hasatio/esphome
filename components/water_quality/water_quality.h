@@ -254,11 +254,11 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
 public:
 PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_circ);
+TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_c);
 
 void play(Ts... x) 
 {
-    std::vector<uint16_t> data = this->pump_circ_.value(x...);
+    std::vector<uint16_t> data = this->pump_c_.value(x...);
 
     this->parent_->pump_circulation(data);
 }

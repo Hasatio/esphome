@@ -178,7 +178,7 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    // pump.Pump_driver(p);
+    pump.Pump_driver(p);
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
@@ -218,8 +218,8 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
-    std::vector<uint8_t> pm(pump.get_Pump_Mode(), pump.get_Pump_Mode() + 6);
-    uint8_t pmode_[6];
+    uint8_t pmode_ = pump.get_Pump_Mode();
+    std::vector<uint8_t> pm(pmode_, pmode_ + 6);
 
     if (pm != pmode)
     {
@@ -234,14 +234,19 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
-    std::vector<uint16_t> pd(pump.get_Pump_Dose(), pump.get_Pump_Dose() + 6);
+    uint8_t* pmode_ = pump.get_Pump_Mode();
     uint16_t* pdose_ = pump.get_Pump_Dose();
+    std::vector<uint16_t> pd(pdose_, pdose_ + 6);
 
     if (pd != pdose)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            pdose_[i] += pdose[i];
+            if (pmode == 1)
+                pdose_[i] += pdose[i];
+            else
+                pdose_[i] = pdose[i];
+
             ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
         }
 
@@ -250,8 +255,9 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
-    std::vector<uint16_t> pc(pump.get_Pump_Circulation(), pump.get_Pump_Circulation() + 6);
+    uint8_t* pmode_ = pump.get_Pump_Mode();
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
+    std::vector<uint16_t> pc(pcirc_, pcirc_ + 6);
 
     if (pc != pcirc)
     {
@@ -266,8 +272,8 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 }
 void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
-    std::vector<bool> pr(pump.get_Pump_Reset(), pump.get_Pump_Reset() + 6);
-    bool pres_[6];
+    bool* pres_ = pump.get_Pump_Reset();
+    std::vector<bool> pr(pres_, pres_ + 6);
 
     if (pr != pres)
     {
