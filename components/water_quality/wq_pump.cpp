@@ -41,7 +41,7 @@ void Pump::Pump_driver(float pwm[])
             thread1.join();
             thread2.join();
             
-        ESP_LOGI(TAG,"pwm[%d] = %f", i, pwm[i]);
+        // ESP_LOGI(TAG,"pwm[%d] = %f", i, pwm[i]);
         } 
         while (pwm[i] > 0);
         
