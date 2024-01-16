@@ -164,6 +164,7 @@ void WaterQuality::dump_config()
 void WaterQuality::loop() 
 {
     // delay(1000);
+    ESP_LOGI(TAG,"WT = %d", an.get_WT_Val());
 }
 void WaterQuality::update()
 {

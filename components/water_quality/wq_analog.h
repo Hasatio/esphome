@@ -34,7 +34,7 @@ void Analog_Input_Driver(float volts[]);
 
 void set_WT_Res(uint16_t wtres)		{AnInWT_Res = wtres;}
 void set_WT_Val(float wt)			{AnInWT_Val = wt;}
-void set_VPow_Val(float vpow)		{AnInVPow_Val = vpow;}
+void set_VP_Val(float vp)			{AnInVP_Val = vp;}
 void set_ResMin(uint16_t resmax[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_ResMin[i] = resmax[i];}
 void set_ResMax(uint16_t resmin[])	{for (size_t i = 0; i < 2; i++)	AnInLvl_ResMax[i] = resmin[i];}
 void set_Lvl_Perc(float lvl[])		{for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = lvl[i];}
@@ -48,7 +48,7 @@ void set_Gen_Val(float gen[])		{for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = 
 
 uint16_t get_WT_Res() 	{return AnInWT_Res;}
 float get_WT_Val()		{return AnInWT_Val;}
-float get_VPow_Val()	{return AnInVPow_Val;}
+float get_VP_Val()		{return AnInVP_Val;}
 uint16_t* get_ResMin()	{return AnInLvl_ResMin;}
 uint16_t* get_ResMax()  {return AnInLvl_ResMax;}
 float* get_Lvl_Perc()	{return AnInLvl_Perc;}
@@ -73,7 +73,7 @@ float ecVoltage,phVoltage,temperature;
 
 protected:
 float AnInWT_Val;
-float AnInVPow_Val;
+float AnInVP_Val;
 float AnInLvl_Perc[2];
 float AnInEC_Val;
 float AnInPH_Val;
