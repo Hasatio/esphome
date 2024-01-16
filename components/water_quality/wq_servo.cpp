@@ -13,18 +13,19 @@ void Servo::Servo_Controller(float perc[])
     uint8_t* pos = get_Servo_Position();
     bool* stat = get_Servo_Status();
 
-    for (size_t i = 8; i < 16; i++)
+    for (size_t i = 0; i < 8; i++)
     {
         if (mode[i] == 1)
         {
-            perc[i] = pos[i] / 100;
+            perc[i + 8] = pos[i] / 100;
             stat[i] = 1;
+
+            ESP_LOGI(TAG,"servo[%d]: %f", i, perc[i + 8]);
         }
         else
         {
             stat[i] = 0;
         }
-        ESP_LOGI(TAG,"pwm: %f", perc[i]);
     }
 }
 
