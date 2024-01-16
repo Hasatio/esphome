@@ -23,6 +23,7 @@ void Pump::Pump_driver(float pwm[])
     uint16_t* circ = get_Pump_Circulation();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
+    uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[6][2] = get_Pump_Total();
 
     // for (size_t i = 0; i < 6; i++)
@@ -58,7 +59,7 @@ void Pump::Pump_driver(float pwm[])
     for (size_t i = 0; i < 6; i++)
     {
         // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-    
+        
     // ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
     }
 
@@ -75,6 +76,7 @@ void Pump::Dosing_Controller(float pump[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
+    uint8_t pump_[6] = {0};
     uint8_t* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
@@ -107,15 +109,19 @@ void Pump::Dosing_Controller(float pump[])
             // std::cout << "mode" << i << ": " << (mode[i] ? "true" : "false") << "\n";
             // std::cout << "dose" << i << ": " << dose[i] << "\n";
             
-            if (stat[i] == 1)
+            if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
                 (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
                 (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
-                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
+            }
+
+            if (pump[i] == 0 && pump_[i] == 1)
+            {
+                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+                pump_[i] = 0;
             }
 
             if (reset[i])
@@ -124,15 +130,29 @@ void Pump::Dosing_Controller(float pump[])
                 (*tot)[i][1] = 0;
             }
 
-            if (mode[i] && dose[i] > 0)
-                pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
+            if (mod[i] > 0)
+                if (mod[i] == 1)
+                    if (dose[i] > 0)
+                        {
+                            pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
+                            pump_[i] = 1;
+                            stat[i] = 1;
+                        }
+                    else
+                        stat[i] = 2;
+                else
+                    stat[i] = 3;
             else
-                pump[i] = 0;  
-            
-            if (pump[i] > 0)
-                stat[i] = 1;
-            else
+            {
+                pump[i] = 0; 
                 stat[i] = 0;
+            }
+
+
+
+
+
+
                
         // std::cout << "pump" << i << " " << pump[i] << "\n";
             // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
@@ -150,8 +170,6 @@ void Pump::Dosing_Controller(float pump[])
     // std::cout << "mint " << mint << "\n";
  
     std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
-
-    set_Pump_Status(stat);
          
     // auto stop = std::chrono::high_resolution_clock::now();
     // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
@@ -164,6 +182,7 @@ void Pump::Circulation_Controller(float pump[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
+    uint8_t pump_[6] = {0};
     uint8_t* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
@@ -196,15 +215,19 @@ void Pump::Circulation_Controller(float pump[])
             // std::cout << "mode" << i << ": " << (mode[i] ? "true" : "false") << "\n";
             // std::cout << "circ" << i << ": " << circ[i] << "\n";
             
-            if (stat[i] == 1)
+            if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
                 (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
                 (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
-                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-                
                 circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
+            }
+
+            if (pump[i] == 0 && pump_[i] == 1)
+            {
+                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+                pump_[i] = 0;
             }
 
             if (reset[i])
@@ -213,15 +236,23 @@ void Pump::Circulation_Controller(float pump[])
                 (*tot)[i][1] = 0;
             }
 
-            if (mode[i] && circ[i] > 0)
-                pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
+            if (mod[i] > 0)
+                if (mod[i] == 1)
+                    if (dose[i] > 0)
+                        {
+                            pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
+                            pump_[i] = 1;
+                            stat[i] = 1;
+                        }
+                    else
+                        stat[i] = 2;
+                else
+                    stat[i] = 3;
             else
-                pump[i] = 0;  
-            
-            if (pump[i] > 0)
-                stat[i] = 1;
-            else
+            {
+                pump[i] = 0; 
                 stat[i] = 0;
+            }
                
         // std::cout << "pump" << i << " " << pump[i] << "\n";
             // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
@@ -239,8 +270,6 @@ void Pump::Circulation_Controller(float pump[])
     // std::cout << "mint " << mint << "\n";
  
     std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
-
-    set_Pump_Status(stat);
          
     // auto stop = std::chrono::high_resolution_clock::now();
     // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
