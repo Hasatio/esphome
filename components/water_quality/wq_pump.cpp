@@ -128,6 +128,7 @@ void Pump::Dosing_Controller(float pump[])
         
         // std::this_thread::sleep_for(std::chrono::milliseconds (dose[i] > calib[i] ? 1000 : dose[i] * 1000 / calib[i]));
         
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
         }
             
         // std::cout << i << "    " << pump[i] << "    " << (mode[i] ? "true" : "false") << "    " << dose[i] << "\n";
@@ -213,6 +214,7 @@ void Pump::Circulation_Controller(float pump[])
         
         // std::this_thread::sleep_for(std::chrono::milliseconds (circ[i] > calib[i] ? 1000 : circ[i] * 1000 / calib[i]));
         
+        ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
         }
             
         // std::cout << i << "    " << pump[i] << "    " << (mode[i] ? "true" : "false") << "    " << circ[i] << "\n";
