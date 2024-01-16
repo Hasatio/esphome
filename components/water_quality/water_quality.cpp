@@ -436,7 +436,7 @@ void WaterQuality::sensor()
     //             ds << std::fixed << std::setprecision(0) << static_cast<uint16_t>(din[i]);
 
     //     this->DigIn_Stat_->publish_state(ds.str());
-    }
+    // }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
