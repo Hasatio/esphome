@@ -411,19 +411,19 @@ void WaterQuality::sensor()
     // }
     // if (this->AnInEC_Val_ != nullptr)   {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
     // if (this->AnInPH_Val_ != nullptr)   {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
-    // if (this->AnInGen_Val_ != nullptr) 
-    // {
-        // float* gen = an.get_Gen_Val();
-        // std::stringstream av;
+    if (this->AnInGen_Val_ != nullptr) 
+    {
+        float* gen = an.get_Gen_Val();
+        std::stringstream av;
 
-        // for (size_t i = 0; i < 2; i++)
-        //     if (i > 0)
-        //         av << "," << std::fixed << std::setprecision(2) << gen[i];
-        //     else
-        //         av << std::fixed << std::setprecision(2) << gen[i];
+        for (size_t i = 0; i < 2; i++)
+            if (i > 0)
+                av << "," << std::fixed << std::setprecision(2) << gen[i];
+            else
+                av << std::fixed << std::setprecision(2) << gen[i];
     
-        // this->AnInGen_Val_->publish_state(av.str());
-    // }
+        this->AnInGen_Val_->publish_state(av.str());
+    }
     if (this->DigIn_Stat_ != nullptr) 
     {
         bool* din = dig.get_Digital_In();
