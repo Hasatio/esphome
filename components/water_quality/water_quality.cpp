@@ -394,8 +394,8 @@ void WaterQuality::sensor()
 
         // this->Servo_Stat_->publish_state(ss.str());
     // }
-    if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
-    if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
+    // if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
+    // if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
     // if (this->AnInLvl_Perc_ != nullptr) 
     // {
         // float* lvl = an.get_Lvl_Perc();
@@ -424,19 +424,19 @@ void WaterQuality::sensor()
     
         // this->AnInGen_Val_->publish_state(av.str());
     // }
-    // if (this->DigIn_Stat_ != nullptr) 
-    // {
-        // bool* din = dig.get_Digital_In();
-        // std::stringstream ds;
+    if (this->DigIn_Stat_ != nullptr) 
+    {
+        bool* din = dig.get_Digital_In();
+        std::stringstream ds;
 
-        // for (size_t i = 0; i < 4; i++)
-        //     if (i > 0)
-        //         ds << "," << std::fixed << std::setprecision(0) << static_cast<uint16_t>(din[i]);
-        //     else
-        //         ds << std::fixed << std::setprecision(0) << static_cast<uint16_t>(din[i]);
+        for (size_t i = 0; i < 4; i++)
+            if (i > 0)
+                ds << "," << std::fixed << std::setprecision(0) << static_cast<uint16_t>(din[i]);
+            else
+                ds << std::fixed << std::setprecision(0) << static_cast<uint16_t>(din[i]);
 
-        // this->DigIn_Stat_->publish_state(ds.str());
-    // }
+        this->DigIn_Stat_->publish_state(ds.str());
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
