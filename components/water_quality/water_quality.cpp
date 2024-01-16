@@ -426,9 +426,9 @@ void WaterQuality::sensor()
     {
         for (size_t i = 0; i < 4; i++)
             if (i > 0)
-                ds << "," << std::fixed << std::setprecision(2) << static_cast<uint8_t>(din[i]);
+                ds << "," << std::fixed << std::setprecision(2) << static_cast<int>(din[i]);
             else
-                ds << std::fixed << std::setprecision(2) << static_cast<uint8_t>(din[i]);
+                ds << std::fixed << std::setprecision(2) << static_cast<int>(din[i]);
 
         this->DigIn_Stat_->publish_state(ds.str());
     }
