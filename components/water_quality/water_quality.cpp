@@ -234,6 +234,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 }
 void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 {
+    uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
     uint16_t* pdose_ = pump.get_Pump_Dose();
     std::vector<uint16_t> pd(pdose_, pdose_ + 6);
@@ -242,12 +243,14 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            if (pmode[i] == 1)
-                pdose_[i] += pdose[i];
-            else
-                pdose_[i] = pdose[i];
-
-            ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
+            if (ptype == 1)
+            {
+                if (pmode[i] == 1)
+                    pdose_[i] += pdose[i];
+                else
+                    pdose_[i] = pdose[i];
+                ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose_[i]);
+            }
         }
 
         pump.set_Pump_Dose(pdose_);
@@ -255,6 +258,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
 }
 void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
 {
+    uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
     uint16_t* pcirc_ = pump.get_Pump_Circulation();
     std::vector<uint16_t> pc(pcirc_, pcirc_ + 6);
@@ -263,12 +267,14 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            if (pmode[i] == 1)
-                pcirc_[i] += pcirc[i];
-            else
-                pcirc_[i] += pcirc[i];
-            
-            ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
+            if (ptype == 2)
+            {
+                if (pmode[i] == 1)
+                    pcirc_[i] += pcirc[i];
+                else
+                    pcirc_[i] += pcirc[i];
+                ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
+            }
         }
 
         pump.set_Pump_Circulation(pcirc_);
@@ -365,19 +371,19 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
 // Sensor
 void WaterQuality::sensor()
 {
-    // if (this->Pump_Tot_ != nullptr)
-    // {
-    //     uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
-    //     std::stringstream pt;
+    if (this->Pump_Tot_ != nullptr)
+    {
+        uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
+        std::stringstream pt;
 
-    //     for (size_t i = 0; i < 6; i++)
-    //         if (i > 0)
-    //             pt << "," << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
-    //         else
-    //             pt << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
+        for (size_t i = 0; i < 6; i++)
+            if (i > 0)
+                pt << "," << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
+            else
+                pt << std::fixed << std::setprecision(3) << (static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000);
     
-    //     this->Pump_Tot_->publish_state(pt.str());
-    // }
+        this->Pump_Tot_->publish_state(pt.str());
+    }
     // if (this->Pump_Stat_ != nullptr)
     // { 
         // uint8_t* pstat = pump.get_Pump_Status();
