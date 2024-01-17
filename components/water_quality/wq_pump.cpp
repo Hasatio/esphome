@@ -29,6 +29,7 @@ void Pump::Pump_driver(float pwm[])
     for (size_t i = 0; i < 6; i++)
     {
         pump[i] = pwm[i];
+    }
     //     do
     //     {
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
@@ -46,6 +47,8 @@ void Pump::Pump_driver(float pwm[])
         // } 
         // while (pwm[i] > 0);
 
+    for (size_t i = 0; i < 6; i++)
+    {
         if (pwm[i] != pump[i])
             ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
     }
