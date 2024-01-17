@@ -374,28 +374,28 @@ void WaterQuality::sensor()
     if (this->Pump_Tot_ != nullptr)
     {
         uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
-        std::string pt = {};
+        std::stringstream pt;
 
         for (size_t i = 0; i < 6; i++)
             if (i == 0)
-                pt += std::to_string((static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000));
+                pt << std::fixed << std::setprecision(3) << (*ptot)[i][0] + (*ptot)[i][1] / 1000.0;
             else
-                pt += "," + std::to_string((static_cast<float>((*ptot)[i][0]) + static_cast<float>((*ptot)[i][1])/1000));
-    
-        this->Pump_Tot_->publish_state(pt);
+                pt << "," << std::fixed << std::setprecision(3) << (*ptot)[i][0] + (*ptot)[i][1] / 1000.0;
+            
+        this->Pump_Tot_->publish_state(pt.str());
     }
     if (this->Pump_Stat_ != nullptr)
     { 
         uint8_t* pstat = pump.get_Pump_Status();
-        std::string ps = {};
+        std::stringstream ps;
 
         for (size_t i = 0; i < 6; i++)
-            if (i == 0)
-                ps += std::to_string(pstat[i]);
+            if (i > 0)
+                ps << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
             else
-                ps += "," + std::to_string(pstat[i]);
-
-        this->Pump_Stat_->publish_state(ps);
+                ps << "," << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
+            
+        this->Pump_Stat_->publish_state(ps.str());
     }
     // if (this->Servo_Stat_ != nullptr)
     // { 
