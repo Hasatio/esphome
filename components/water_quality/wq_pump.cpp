@@ -9,7 +9,7 @@ void Pump::Pump_driver(float pwm[])
 {     
     auto start = std::chrono::high_resolution_clock::now();
                
-    uint8_t* pump = get_Pump_Status();
+    uint8_t pump[6];
 
     // std::thread thread1(Dosing_Controller, pump);
     // Circulation_Controller(pump);
@@ -26,8 +26,9 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[6][2] = get_Pump_Total();
 
-    // for (size_t i = 0; i < 6; i++)
-    // {
+    for (size_t i = 0; i < 6; i++)
+    {
+        pump[i] = pwm[i];
     //     do
     //     {
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
@@ -44,7 +45,10 @@ void Pump::Pump_driver(float pwm[])
         // ESP_LOGI(TAG,"pwm[%d] = %f", i, pwm[i]);
         // } 
         // while (pwm[i] > 0);
-    // }
+
+        if (pwm[i] != pump[i])
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+    }
         
     
     // std::thread thread1(&Pump::Dosing_Controller, this, pwm, i);
@@ -55,12 +59,11 @@ void Pump::Pump_driver(float pwm[])
 
     // }
 
-    for (size_t i = 0; i < 6; i++)
-    {
+    // for (size_t i = 0; i < 6; i++)
+    // {
         // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-        if (pwm[i] != pump[i])
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-    }
+
+    // }
 
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
