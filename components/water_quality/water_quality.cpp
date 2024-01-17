@@ -384,19 +384,19 @@ void WaterQuality::sensor()
     
         this->Pump_Tot_->publish_state(pt.str());
     }
-    // if (this->Pump_Stat_ != nullptr)
-    // { 
-    //     uint8_t* pstat = pump.get_Pump_Status();
-    //     std::stringstream ps;
+    if (this->Pump_Stat_ != nullptr)
+    { 
+        uint8_t* pstat = pump.get_Pump_Status();
+        std::stringstream ps;
 
-    //     for (size_t i = 0; i < 6; i++)
-    //         if (i > 0)
-    //             ps << "," << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
-    //         else
-    //             ps << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
+        for (size_t i = 0; i < 6; i++)
+            if (i > 0)
+                ps << "," << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
+            else
+                ps << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
 
-    //     this->Pump_Stat_->publish_state(ps.str());
-    // }
+        this->Pump_Stat_->publish_state(ps.str());
+    }
     // if (this->Servo_Stat_ != nullptr)
     // { 
     //     bool* sstat = ser.get_Servo_Status();
