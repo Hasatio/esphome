@@ -9,7 +9,11 @@ void Pump::Pump_driver(float pwm[])
 {     
     auto start = std::chrono::high_resolution_clock::now();
                
+<<<<<<< Updated upstream
     uint8_t pump[6];
+=======
+    uint8_t pump[6] = get_Pump_Status();
+>>>>>>> Stashed changes
 
     // std::thread thread1(Dosing_Controller, pump);
     // Circulation_Controller(pump);
@@ -65,8 +69,14 @@ void Pump::Pump_driver(float pwm[])
     // for (size_t i = 0; i < 6; i++)
     // {
         // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
+<<<<<<< Updated upstream
 
     // }
+=======
+        if (pwm[i] != pump[i])
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+    }
+>>>>>>> Stashed changes
 
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
