@@ -9,7 +9,7 @@ void Pump::Pump_driver(float pwm[])
 {     
     auto start = std::chrono::high_resolution_clock::now();
                
-    // uint8_t pump[6] = get_Pump_Status();
+    uint8_t pump[6] = get_Pump_Status();
 
     // std::thread thread1(Dosing_Controller, pump);
     // Circulation_Controller(pump);
@@ -58,8 +58,8 @@ void Pump::Pump_driver(float pwm[])
     for (size_t i = 0; i < 6; i++)
     {
         // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-        
-    // ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+        if (pwm[i] != pump[i])
+            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
     }
 
     auto stop = std::chrono::high_resolution_clock::now();
@@ -116,10 +116,10 @@ void Pump::Dosing_Controller(float pump[])
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
             }
 
-            if (stat[i] == 1 && !(dose[i] > 0))
-            {
-                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-            }
+            // if (stat[i] == 1 && !(dose[i] > 0))
+            // {
+            //     ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            // }
 
             if (reset[i])
             {
@@ -225,10 +225,10 @@ void Pump::Circulation_Controller(float pump[])
                 circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];   
             }
 
-            if (stat[i] == 1 && !(circ[i] > 0))
-            {
-                ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-            }
+            // if (stat[i] == 1 && !(circ[i] > 0))
+            // {
+            //     ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            // }
 
             if (reset[i])
             {
