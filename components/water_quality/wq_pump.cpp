@@ -116,8 +116,8 @@ void Pump::Dosing_Controller(float pump[])
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint) / 1000);
-                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint) % 1000);
+                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
+                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
             }
