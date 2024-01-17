@@ -264,7 +264,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.uint32_t)
+                cv.ensure_list(cv.uint16_t)
             ),
         ),
     }
@@ -282,7 +282,7 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_DOSE]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint32_t))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16_t))
         cg.add(var.set_pump_d(template_))
 
     return var
