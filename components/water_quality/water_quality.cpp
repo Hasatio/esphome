@@ -232,12 +232,12 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
         pump.set_Pump_Mode(pmode_);
     }
 }
-void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
+void WaterQuality::pump_dose(std::vector<uint32_t> &pdose)
 {
     uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
-    uint16_t* pdose_ = pump.get_Pump_Dose();
-    std::vector<uint16_t> pd(pdose_, pdose_ + 6);
+    uint32_t* pdose_ = pump.get_Pump_Dose();
+    std::vector<uint32_t> pd(pdose_, pdose_ + 6);
 
     if (pd != pdose)
     {

@@ -9,7 +9,7 @@ void Pump::Pump_driver(float pwm[])
 {     
     auto start = std::chrono::high_resolution_clock::now();
                
-    uint8_t pump[6];
+    float pump[6];
 
     // std::thread thread1(Dosing_Controller, pump);
     // Circulation_Controller(pump);
