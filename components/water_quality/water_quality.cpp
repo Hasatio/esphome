@@ -243,7 +243,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            if (ptype == 1)
+            if (ptype[i] == 1)
             {
                 if (pmode[i] == 1)
                     pdose_[i] += pdose[i];
@@ -267,7 +267,7 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
     {
         for (size_t i = 0; i < 6; i++)
         {
-            if (ptype == 2)
+            if (ptype[i] == 2)
             {
                 if (pmode[i] == 1)
                     pcirc_[i] += pcirc[i];
