@@ -390,7 +390,7 @@ void WaterQuality::sensor()
         std::stringstream ps;
 
         for (size_t i = 0; i < 6; i++)
-            if (i > 0)
+            if (i == 0)
                 ps << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
             else
                 ps << "," << std::fixed << std::setprecision(0) << static_cast<int>(pstat[i]);
@@ -403,11 +403,11 @@ void WaterQuality::sensor()
         std::stringstream ss;
 
         for (size_t i = 0; i < 8; i++)
-            if (i > 0)
-                ss << "," << std::fixed << std::setprecision(0) << static_cast<int>(sstat[i]);
-            else
+            if (i == 0)
                 ss << std::fixed << std::setprecision(0) << static_cast<int>(sstat[i]);
-
+            else
+                ss << "," << std::fixed << std::setprecision(0) << static_cast<int>(sstat[i]);
+            
         this->Servo_Stat_->publish_state(ss.str());
     }
     // if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
@@ -418,10 +418,10 @@ void WaterQuality::sensor()
         std::stringstream ap;
 
         for (size_t i = 0; i < 2; i++)
-            if (i > 0)
-                ap << "," << std::fixed << std::setprecision(2) << lvl[i];
-            else
+            if (i == 0)
                 ap << std::fixed << std::setprecision(2) << lvl[i];
+            else
+                ap << "," << std::fixed << std::setprecision(2) << lvl[i];
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
@@ -433,26 +433,26 @@ void WaterQuality::sensor()
         std::stringstream av;
 
         for (size_t i = 0; i < 2; i++)
-            if (i > 0)
-                av << "," << std::fixed << std::setprecision(2) << gen[i];
-            else
+            if (i == 0)
                 av << std::fixed << std::setprecision(2) << gen[i];
+            else
+                av << "," << std::fixed << std::setprecision(2) << gen[i];
     
         this->AnInGen_Val_->publish_state(av.str());
     }
-    // if (this->DigIn_Stat_ != nullptr) 
-    // {
-    //     bool* din = dig.get_Digital_In();
-    //     std::stringstream ds;
+    if (this->DigIn_Stat_ != nullptr) 
+    {
+        bool* din = dig.get_Digital_In();
+        std::stringstream ds;
 
-    //     for (size_t i = 0; i < 4; i++)
-    //         if (i > 0)
-    //             ds << "," << std::fixed << std::setprecision(0) << static_cast<int>(din[i]);
-    //         else
-    //             ds << std::fixed << std::setprecision(0) << static_cast<int>(din[i]);
+        for (size_t i = 0; i < 4; i++)
+            if (i == 0)
+                ds << std::fixed << std::setprecision(0) << static_cast<int>(din[i]);
+            else
+                ds << "," << std::fixed << std::setprecision(0) << static_cast<int>(din[i]);
 
-    //     this->DigIn_Stat_->publish_state(ds.str());
-    // }
+        this->DigIn_Stat_->publish_state(ds.str());
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
