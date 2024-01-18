@@ -5,7 +5,7 @@
 
 #include "esphome.h"
 #include "esphome/core/log.h"
-#include <chrono>
+#include <cmath>
 #include <thread>
 
 namespace esphome {
