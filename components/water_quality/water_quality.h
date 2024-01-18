@@ -13,6 +13,7 @@
 #include "esphome/core/automation.h"
 #include <vector>
 #include <sstream>
+#include <iomanip>
 // #include <Wire.h>
 
 namespace esphome {
