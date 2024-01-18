@@ -12,9 +12,7 @@
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/core/automation.h"
 #include <vector>
-#include <iterator>
 #include <sstream>
-#include <iomanip>
 // #include <Wire.h>
 
 namespace esphome {

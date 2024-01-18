@@ -7,7 +7,6 @@
 #include "esphome/core/log.h"
 #include <chrono>
 #include <thread>
-#include <algorithm>
 
 namespace esphome {
 namespace water_quality {
