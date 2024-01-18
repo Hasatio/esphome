@@ -425,8 +425,8 @@ void WaterQuality::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    // if (this->AnInEC_Val_ != nullptr)   {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
-    // if (this->AnInPH_Val_ != nullptr)   {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
+    if (this->AnInEC_Val_ != nullptr)   {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
+    if (this->AnInPH_Val_ != nullptr)   {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
     if (this->AnInGen_Val_ != nullptr) 
     {
         float* gen = an.get_Gen_Val();
