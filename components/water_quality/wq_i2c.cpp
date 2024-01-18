@@ -449,13 +449,17 @@ void WaterQuality::PCA9685_Write()
                 phase_end -= 4096;
         }
 
-        ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
+        // ESP_LOGVV(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
 
         uint8_t data[4];
         data[0] = phase_begin & 0xFF;
         data[1] = (phase_begin >> 8) & 0xFF;
         data[2] = phase_end & 0xFF;
         data[3] = (phase_end >> 8) & 0xFF;
+
+        ESP_LOGI(TAG, "min_channel_: %d max_channel_: %d phase_begin: %d phase_end: %d", min_channel_, max_channel_, phase_begin, phase_end);
+
+        ESP_LOGI(TAG, "data0: %d data1: %d data2: %d data3: %d", data[0], data[1], data[2], data[3]);
 
         uint8_t reg = PCA9685_REGISTER_LED0 + 4 * channel;
         if (!this->write_bytes(reg, data, 4)) {
