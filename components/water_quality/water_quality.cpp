@@ -411,7 +411,7 @@ void WaterQuality::sensor()
         this->Servo_Stat_->publish_state(ss.str());
     }
     // if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
-    // if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
+    if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         float* lvl = an.get_Lvl_Perc();
