@@ -11,7 +11,7 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
     float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WT_Res() / 1000.0); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    set_WT_Val((std::sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    set_WT_Val((sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116)); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
 
     set_VP_Val(volts[1] * 6); //Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
