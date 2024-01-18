@@ -412,19 +412,19 @@ void WaterQuality::sensor()
     }
     // if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
     // if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
-    // if (this->AnInLvl_Perc_ != nullptr) 
-    // {
-    //     float* lvl = an.get_Lvl_Perc();
-    //     std::stringstream ap;
+    if (this->AnInLvl_Perc_ != nullptr) 
+    {
+        float* lvl = an.get_Lvl_Perc();
+        std::stringstream ap;
 
-    //     for (size_t i = 0; i < 2; i++)
-    //         if (i > 0)
-    //             ap << "," << std::fixed << std::setprecision(2) << lvl[i];
-    //         else
-    //             ap << std::fixed << std::setprecision(2) << lvl[i];
+        for (size_t i = 0; i < 2; i++)
+            if (i > 0)
+                ap << "," << std::fixed << std::setprecision(2) << lvl[i];
+            else
+                ap << std::fixed << std::setprecision(2) << lvl[i];
 
-    //     this->AnInLvl_Perc_->publish_state(ap.str());
-    // }
+        this->AnInLvl_Perc_->publish_state(ap.str());
+    }
     // if (this->AnInEC_Val_ != nullptr)   {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
     // if (this->AnInPH_Val_ != nullptr)   {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
     // if (this->AnInGen_Val_ != nullptr) 
