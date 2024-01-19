@@ -20,7 +20,7 @@
 #define _TIMERINTERRUPT_LOGLEVEL_     1
 
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include "ESP32TimerInterrupt.hpp"
+#include "ESP32TimerInterrupt.h"
 
 #define TIMER0_INTERVAL_MS        2000
 #define TIMER1_INTERVAL_MS        5000
@@ -195,38 +195,8 @@ void PH_Val_Sensor      (sensor::Sensor *ph)                {AnInPH_Val_ = ph;}
 void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      {AnInGen_Val_ = gen;}
 void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
 
-static volatile uint32_t Timer0Count;
-static volatile uint32_t Timer1Count;
-
 static bool IRAM_ATTR TimerHandler0(void * timerNo);
 static bool IRAM_ATTR TimerHandler1(void * timerNo);
-void printResult(uint32_t currTime);
-// bool IRAM_ATTR TimerHandler0(void * timerNo)
-// {
-// 	static bool toggle0 = false;
-
-// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-// 	Timer0Count++;
-
-// 	toggle0 = !toggle0;
-
-// 	return true;
-// }
-// bool IRAM_ATTR TimerHandler1(void * timerNo)
-// {
-// 	static bool toggle1 = false;
-
-// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-// 	Timer1Count++;
-
-// 	toggle1 = !toggle1;
-
-// 	return true;
-// }
-// void printResult(uint32_t currTime)
-// {
-// 	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
-// }
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};

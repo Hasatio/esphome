@@ -25,23 +25,6 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
-
-
-	// Interval in microsecs
-	if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
-	{
-		ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
-	}
-	else
-		ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
-
-	// Interval in microsecs
-	if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
-	{
-		ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
-	}
-	else
-		ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
 }
 void WaterQuality::dump_config()
 {
@@ -181,7 +164,6 @@ void WaterQuality::loop()
 
 	if (currTime - lastTime > CHECK_INTERVAL_MS)
 	{
-		printResult(currTime);
 		lastTime = currTime;
 
 		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
@@ -200,12 +182,8 @@ void WaterQuality::loop()
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
-volatile uint32_t WaterQuality::Timer0Count = 0;
-volatile uint32_t WaterQuality::Timer1Count = 0;
 bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 {
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer0Count++;
 
 ESP_LOGI(TAG, "TimerHandler0");
 
@@ -213,16 +191,10 @@ ESP_LOGI(TAG, "TimerHandler0");
 }
 bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
 {
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer1Count++;
 
 ESP_LOGI(TAG, "TimerHandler1");
 
 	return true;
-}
-void WaterQuality::printResult(uint32_t currTime)
-{
-	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
 }
 
 float a[8], p[16];
