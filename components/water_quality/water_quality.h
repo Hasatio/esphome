@@ -212,8 +212,6 @@ bool IRAM_ATTR TimerHandler0(void * timerNo)
 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
 	Timer0Count++;
 
-	//timer interrupt toggles pin PIN_D19
-	digitalWrite(PIN_D19, toggle0);
 	toggle0 = !toggle0;
 
 	return true;
@@ -229,8 +227,6 @@ bool IRAM_ATTR TimerHandler1(void * timerNo)
 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
 	Timer1Count++;
 
-	//timer interrupt toggles PIN_D3
-	digitalWrite(PIN_D3, toggle1);
 	toggle1 = !toggle1;
 
 	return true;
