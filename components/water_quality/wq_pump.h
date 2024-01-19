@@ -33,7 +33,7 @@ uint8_t* get_Pump_Mode()            {return Pump_Mode;}
 uint8_t* get_Pump_Status()          {return Pump_Status;}
 uint16_t* get_Pump_Dose()           {return Pump_Dose;}
 uint16_t* get_Pump_Circulation()    {return Pump_Circulation;}
-uint16_t (*get_Pump_Total())[6][2]  {return &Pump_Total;}
+uint16_t (*get_Pump_Total())[2]     {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 
 protected:
@@ -43,7 +43,7 @@ uint8_t Pump_Mode[6] = {0};
 uint8_t Pump_Status[6] = {0};
 uint16_t Pump_Dose[6] = {0};
 uint16_t Pump_Circulation[6] = {0};
-uint16_t Pump_Total[6][2] = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+uint16_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 };
 

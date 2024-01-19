@@ -431,7 +431,7 @@ void WaterQuality::sensor()
 {
     if (this->Pump_Tot_ != nullptr)
     {
-        uint16_t (*ptot)[6][2] = pump.get_Pump_Total();
+        uint16_t (*ptot)[2] = pump.get_Pump_Total();
         std::stringstream pt;
 
         for (size_t i = 0; i < 6; i++)

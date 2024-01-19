@@ -24,7 +24,7 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t (*tot)[2] = get_Pump_Total();
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -86,7 +86,7 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     uint16_t* dose = get_Pump_Dose();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];
 
@@ -195,7 +195,7 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     uint16_t* circ = get_Pump_Circulation();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];
 
