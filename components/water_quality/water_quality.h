@@ -198,35 +198,35 @@ void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
 volatile uint32_t Timer0Count = 0;
 volatile uint32_t Timer1Count = 0;
 
-// bool IRAM_ATTR TimerHandler0(void * timerNo);
-// bool IRAM_ATTR TimerHandler1(void * timerNo);
-// void printResult(uint32_t currTime);
-bool IRAM_ATTR TimerHandler0(void * timerNo)
-{
-	static bool toggle0 = false;
+bool IRAM_ATTR TimerHandler0(void * timerNo);
+bool IRAM_ATTR TimerHandler1(void * timerNo);
+void printResult(uint32_t currTime);
+// bool IRAM_ATTR TimerHandler0(void * timerNo)
+// {
+// 	static bool toggle0 = false;
 
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer0Count++;
+// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+// 	Timer0Count++;
 
-	toggle0 = !toggle0;
+// 	toggle0 = !toggle0;
 
-	return true;
-}
-bool IRAM_ATTR TimerHandler1(void * timerNo)
-{
-	static bool toggle1 = false;
+// 	return true;
+// }
+// bool IRAM_ATTR TimerHandler1(void * timerNo)
+// {
+// 	static bool toggle1 = false;
 
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer1Count++;
+// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+// 	Timer1Count++;
 
-	toggle1 = !toggle1;
+// 	toggle1 = !toggle1;
 
-	return true;
-}
-void printResult(uint32_t currTime)
-{
-	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
-}
+// 	return true;
+// }
+// void printResult(uint32_t currTime)
+// {
+// 	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
+// }
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};
