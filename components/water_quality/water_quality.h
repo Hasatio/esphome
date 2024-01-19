@@ -145,12 +145,7 @@ bool IRAM_ATTR TimerHandler1(void * timerNo)
 
 void printResult(uint32_t currTime)
 {
-	Serial.print(F("Time = "));
-	Serial.print(currTime);
-	Serial.print(F(", Timer0Count = "));
-	Serial.print(Timer0Count);
-	Serial.print(F(", Timer1Count = "));
-	Serial.println(Timer1Count);
+	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
 }
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice
