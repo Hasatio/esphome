@@ -28,10 +28,6 @@
 #define CHECK_INTERVAL_MS     10000L
 #define CHANGE_INTERVAL_MS    20000L
 
-// Init ESP32 timer 0
-ESP32Timer ITimer0(0);
-ESP32Timer ITimer1(1);
-
 namespace esphome {
 namespace water_quality {
 
@@ -109,6 +105,10 @@ enum MCP23008_InterruptMode : uint8_t
     MCP23008_RISING,
     MCP23008_FALLING,
 };
+
+// Init ESP32 timer 0
+ESP32Timer ITimer0(0);
+ESP32Timer ITimer1(1);
 
 volatile uint32_t Timer0Count = 0;
 volatile uint32_t Timer1Count = 0;
