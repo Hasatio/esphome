@@ -43,7 +43,7 @@ uint8_t Pump_Mode[6] = {0};
 uint8_t Pump_Status[6] = {0};
 uint16_t Pump_Dose[6] = {0};
 uint16_t Pump_Circulation[6] = {0};
-uint16_t Pump_Total[6][] = {0};
+uint16_t** Pump_Total = {0};
 bool Pump_Reset[6] = {0};
 };
 
