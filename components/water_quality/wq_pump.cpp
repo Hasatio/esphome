@@ -7,7 +7,7 @@ namespace water_quality {
 
 void Pump::Pump_driver(float pwm[])
 {     
-    auto start = std::chrono::high_resolution_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
                
     float pump[6];
 
@@ -68,8 +68,8 @@ void Pump::Pump_driver(float pwm[])
 
     // }
 
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    // auto stop = std::chrono::high_resolution_clock::now();
+    // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 
     // std::cout << "Geçen süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
