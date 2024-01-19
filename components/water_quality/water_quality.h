@@ -113,40 +113,9 @@ ESP32Timer ITimer1(1);
 volatile uint32_t Timer0Count = 0;
 volatile uint32_t Timer1Count = 0;
 
-// With core v2.0.0+, you can't use Serial.print/println in ISR or crash.
-// and you can't use float calculation inside ISR
-// Only OK in core v1.0.6-
-bool IRAM_ATTR TimerHandler0(void * timerNo)
-{
-	static bool toggle0 = false;
-
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer0Count++;
-
-	toggle0 = !toggle0;
-
-	return true;
-}
-
-// With core v2.0.0+, you can't use Serial.print/println in ISR or crash.
-// and you can't use float calculation inside ISR
-// Only OK in core v1.0.6-
-bool IRAM_ATTR TimerHandler1(void * timerNo)
-{
-	static bool toggle1 = false;
-
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer1Count++;
-
-	toggle1 = !toggle1;
-
-	return true;
-}
-
-void printResult(uint32_t currTime)
-{
-	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
-}
+bool IRAM_ATTR TimerHandler0(void * timerNo);
+bool IRAM_ATTR TimerHandler1(void * timerNo);
+void printResult(uint32_t currTime);
 
 class WaterQuality : public PollingComponent, public i2c::I2CDevice
 {

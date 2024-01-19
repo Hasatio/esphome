@@ -207,6 +207,32 @@ void WaterQuality::loop()
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
+bool IRAM_ATTR TimerHandler0(void * timerNo)
+{
+	static bool toggle0 = false;
+
+	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+	Timer0Count++;
+
+	toggle0 = !toggle0;
+
+	return true;
+}
+bool IRAM_ATTR TimerHandler1(void * timerNo)
+{
+	static bool toggle1 = false;
+
+	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+	Timer1Count++;
+
+	toggle1 = !toggle1;
+
+	return true;
+}
+void printResult(uint32_t currTime)
+{
+	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
+}
 
 float a[8], p[16];
 bool d[4];
