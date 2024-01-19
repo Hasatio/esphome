@@ -33,7 +33,7 @@ uint8_t* get_Pump_Mode()            {return Pump_Mode;}
 uint8_t* get_Pump_Status()          {return Pump_Status;}
 uint16_t* get_Pump_Dose()           {return Pump_Dose;}
 uint16_t* get_Pump_Circulation()    {return Pump_Circulation;}
-uint16_t (*get_Pump_Total())[6][2]  {return &Pump_Total;}
+uint16_t** get_Pump_Total()         {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 
 protected:

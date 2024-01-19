@@ -24,7 +24,7 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t** tot = get_Pump_Total();
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -86,7 +86,7 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     uint16_t* dose = get_Pump_Dose();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t** tot = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];
 
@@ -116,8 +116,8 @@ void Pump::Dosing_Controller(float pump[])
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
+                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
             }
@@ -129,8 +129,8 @@ void Pump::Dosing_Controller(float pump[])
 
             if (reset[i])
             {
-                (*tot)[i][0] = 0;
-                (*tot)[i][1] = 0;
+                tot[i][0] = 0;
+                tot[i][1] = 0;
             }
 
             if (mode[i] > 0)
@@ -195,7 +195,7 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     uint16_t* circ = get_Pump_Circulation();
-    uint16_t (*tot)[6][2] = get_Pump_Total();
+    uint16_t** tot = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];
 
@@ -225,8 +225,8 @@ void Pump::Circulation_Controller(float pump[])
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
+                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];   
             }
@@ -238,8 +238,8 @@ void Pump::Circulation_Controller(float pump[])
 
             if (reset[i])
             {
-                (*tot)[i][0] = 0;
-                (*tot)[i][1] = 0;
+                tot[i][0] = 0;
+                tot[i][1] = 0;
             }
 
             if (mode[i] > 0)
