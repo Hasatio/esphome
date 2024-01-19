@@ -16,6 +16,22 @@
 #include <iomanip>
 // #include <Wire.h>
 
+// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
+#define _TIMERINTERRUPT_LOGLEVEL_     1
+
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "ESP32TimerInterrupt.h"
+
+#define TIMER0_INTERVAL_MS        2000
+#define TIMER1_INTERVAL_MS        5000
+
+#define CHECK_INTERVAL_MS     10000L
+#define CHANGE_INTERVAL_MS    20000L
+
+// Init ESP32 timer 0
+ESP32Timer ITimer0(0);
+ESP32Timer ITimer1(1);
+
 namespace esphome {
 namespace water_quality {
 
@@ -182,6 +198,53 @@ void EC_Val_Sensor      (sensor::Sensor *ec)                {AnInEC_Val_ = ec;}
 void PH_Val_Sensor      (sensor::Sensor *ph)                {AnInPH_Val_ = ph;}
 void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      {AnInGen_Val_ = gen;}
 void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
+
+volatile uint32_t Timer0Count = 0;
+volatile uint32_t Timer1Count = 0;
+
+// With core v2.0.0+, you can't use Serial.print/println in ISR or crash.
+// and you can't use float calculation inside ISR
+// Only OK in core v1.0.6-
+bool IRAM_ATTR TimerHandler0(void * timerNo)
+{
+	static bool toggle0 = false;
+
+	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+	Timer0Count++;
+
+	//timer interrupt toggles pin PIN_D19
+	digitalWrite(PIN_D19, toggle0);
+	toggle0 = !toggle0;
+
+	return true;
+}
+
+// With core v2.0.0+, you can't use Serial.print/println in ISR or crash.
+// and you can't use float calculation inside ISR
+// Only OK in core v1.0.6-
+bool IRAM_ATTR TimerHandler1(void * timerNo)
+{
+	static bool toggle1 = false;
+
+	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+	Timer1Count++;
+
+	//timer interrupt toggles PIN_D3
+	digitalWrite(PIN_D3, toggle1);
+	toggle1 = !toggle1;
+
+	return true;
+}
+
+void printResult(uint32_t currTime)
+{
+	Serial.print(F("Time = "));
+	Serial.print(currTime);
+	Serial.print(F(", Timer0Count = "));
+	Serial.print(Timer0Count);
+	Serial.print(F(", Timer1Count = "));
+	Serial.println(Timer1Count);
+}
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};

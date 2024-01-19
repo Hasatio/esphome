@@ -17,11 +17,27 @@ static unsigned long timepoint = millis();
 
 void WaterQuality::setup()
 {
-    
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
+
+
+	// Interval in microsecs
+	if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
+	{
+		ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
+	}
+	else
+		ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
+
+	// Interval in microsecs
+	if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
+	{
+		ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
+	}
+	else
+		ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
 }
 void WaterQuality::dump_config()
 {
@@ -112,7 +128,7 @@ void WaterQuality::dump_config()
     // for (size_t t=0; t<8; t++) 
     // {
     //   tcaselect(t);
-    //   ESP_LOGI(TAG,"TCA Port %d", t);
+    //   ESP_LOGI(TAG, "TCA Port %d", t);
 
     //   for (uint8_t addr = 0; addr<=127; addr++) 
     //   {
@@ -121,7 +137,7 @@ void WaterQuality::dump_config()
     //     Wire.beginTransmission(addr);
     //     if (!Wire.endTransmission()) 
     //     {
-    //       ESP_LOGI(TAG,"Found I2C 0x%x",addr);
+    //       ESP_LOGI(TAG, "Found I2C 0x%x",addr);
     //     }
     //   }
     // }
@@ -136,35 +152,60 @@ void WaterQuality::dump_config()
         else if (type[i] == 2)
             circ += 1;
 
-    ESP_LOGI(TAG,"Pump_dose = %d", dose);
-    ESP_LOGI(TAG,"Pump_circ = %d", circ);
+    ESP_LOGI(TAG, "Pump_dose = %d", dose);
+    ESP_LOGI(TAG, "Pump_circ = %d", circ);
 
     for (size_t i = 0; i < 6; i++)
     {
-        ESP_LOGI(TAG,"Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
+        ESP_LOGI(TAG, "Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
     }
 
     for (size_t i = 0; i < 6; i++)
     {
-        ESP_LOGI(TAG,"Pump_Type[%d] = %d", i, type[i]);
+        ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
     }
 
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
     for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
     {
-        ESP_LOGI(TAG,"ResMin[%d] = %d", i, resmin[i]);
-        ESP_LOGI(TAG,"ResMax[%d] = %d", i, resmax[i]);
+        ESP_LOGI(TAG, "ResMin[%d] = %d", i, resmin[i]);
+        ESP_LOGI(TAG, "ResMax[%d] = %d", i, resmax[i]);
     }
 
-    ESP_LOGI(TAG,"EC_ch = %d", an.get_EC_Ch());
-    ESP_LOGI(TAG,"EC_type = %d", an.get_EC_Type());
-    ESP_LOGI(TAG,"PH_ch = %d", an.get_PH_Ch());
-    ESP_LOGI(TAG,"PH_type = %d", an.get_PH_Type());
+    ESP_LOGI(TAG, "EC_ch = %d", an.get_EC_Ch());
+    ESP_LOGI(TAG, "EC_type = %d", an.get_EC_Type());
+    ESP_LOGI(TAG, "PH_ch = %d", an.get_PH_Ch());
+    ESP_LOGI(TAG, "PH_type = %d", an.get_PH_Type());
 }
 void WaterQuality::loop() 
 {
+    static uint32_t lastTime = 0;
+	static uint32_t lastChangeTime = 0;
+	static uint32_t currTime;
+	static uint32_t multFactor = 0;
+
+	currTime = millis();
+
+	if (currTime - lastTime > CHECK_INTERVAL_MS)
+	{
+		printResult(currTime);
+		lastTime = currTime;
+
+		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
+		{
+			//setInterval(unsigned long interval, timerCallback callback)
+			multFactor = (multFactor + 1) % 2;
+
+			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
+			ITimer1.setInterval(TIMER1_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler1);
+
+			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d,  Timer1 = %d", TIMER0_INTERVAL_MS * (multFactor + 1), TIMER1_INTERVAL_MS * (multFactor + 1));
+
+			lastChangeTime = currTime;
+		}
+	}
     // delay(1000);
-    // ESP_LOGI(TAG,"WT = %d", an.get_WT_Val());
+    // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
 
 float a[8], p[16];
@@ -185,8 +226,8 @@ void WaterQuality::update()
     sensor();
     
     // an.set_WT_Val(1.23);
-    // ESP_LOGD(TAG,"test = %f", request_measurement());
-    // ESP_LOGD(TAG,"vpow test = %f", an.get_VPow_Val());
+    // ESP_LOGD(TAG, "test = %f", request_measurement());
+    // ESP_LOGD(TAG, "vpow test = %f", an.get_VPow_Val());
     
 }
 
@@ -226,7 +267,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
         for (size_t i = 0; i < 6; i++)
         {
             pmode_[i] = pmode[i];
-            ESP_LOGD(TAG,"Pump_Mode[%d] = %d", i, pmode_[i]);
+            ESP_LOGD(TAG, "Pump_Mode[%d] = %d", i, pmode_[i]);
         }
 
         pump.set_Pump_Mode(pmode_);
@@ -249,7 +290,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
                     pdose_[i] += pdose[i];
                 else
                     pdose_[i] = pdose[i];
-                ESP_LOGD(TAG,"Pump_Dose[%d] = %d", i, pdose[i]);
+                ESP_LOGD(TAG, "Pump_Dose[%d] = %d", i, pdose[i]);
             }
         }
 
@@ -273,7 +314,7 @@ void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
                     pcirc_[i] += pcirc[i];
                 else
                     pcirc_[i] = pcirc[i];
-                ESP_LOGD(TAG,"Pump_Circulation[%d] = %d", i, pcirc_[i]);
+                ESP_LOGD(TAG, "Pump_Circulation[%d] = %d", i, pcirc_[i]);
             }
         }
 
@@ -290,7 +331,7 @@ void WaterQuality::pump_reset(std::vector<bool> &pres)
         for (size_t i = 0; i < 6; i++)
         {
             pres_[i] = pres[i];
-            ESP_LOGD(TAG,"Pump_Reset[%d] = %d", i, pres_[i]);
+            ESP_LOGD(TAG, "Pump_Reset[%d] = %d", i, pres_[i]);
         }
 
         pump.set_Pump_Reset(pres_);
@@ -306,7 +347,7 @@ void WaterQuality::servo_mode(std::vector<bool> &smode)
         for (size_t i = 0; i < 8; i++)
         {
             smode_[i] = smode[i];
-            ESP_LOGD(TAG,"Servo_Mode[%d] = %d", i, smode_[i]);
+            ESP_LOGD(TAG, "Servo_Mode[%d] = %d", i, smode_[i]);
         }
     
         ser.set_Servo_Mode(smode_);
@@ -322,7 +363,7 @@ void WaterQuality::servo_position(std::vector<uint8_t> &spos)
         for (size_t i = 0; i < 8; i++)
         {
             spos_[i] = spos[i];
-            ESP_LOGD(TAG,"Servo_Position[%d] = %d", i, spos_[i]);
+            ESP_LOGD(TAG, "Servo_Position[%d] = %d", i, spos_[i]);
         }
 
         ser.set_Servo_Position(spos_);
@@ -361,7 +402,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
         for (size_t i = 0; i < 4; i++)
         {
             dout_[i] = dout[i];
-            ESP_LOGD(TAG,"DigOut_Status[%d] = %d", i, dout_[i]);
+            ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
         dig.set_Digital_Out(dout_);
     }

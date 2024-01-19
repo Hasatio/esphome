@@ -22,7 +22,7 @@ void Servo::Servo_Controller(float perc[])
             perc[i + 8] = static_cast<float>(pos[i]) / 100;
             stat[i] = 1;
 
-            // ESP_LOGI(TAG,"servo[%d]: %f", i, perc[i + 8]);
+            // ESP_LOGI(TAG, "servo[%d]: %f", i, perc[i + 8]);
         }
         else
         {

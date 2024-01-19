@@ -43,14 +43,14 @@ void Pump::Pump_driver(float pwm[])
             // thread1.join();
             // thread2.join();
             
-        // ESP_LOGI(TAG,"pwm[%d] = %f", i, pwm[i]);
+        // ESP_LOGI(TAG, "pwm[%d] = %f", i, pwm[i]);
         // } 
         // while (pwm[i] > 0);
 
     for (size_t i = 0; i < 6; i++)
     {
         if (pwm[i] != pump[i])
-            ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
     }
         
     
@@ -73,7 +73,7 @@ void Pump::Pump_driver(float pwm[])
 
     // std::cout << "Geçen süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
-    // ESP_LOGI(TAG,"Geçen süre: %f saniye", duration.count() / 1000);
+    // ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
     
 }
 void Pump::Dosing_Controller(float pump[])
@@ -124,7 +124,7 @@ void Pump::Dosing_Controller(float pump[])
 
             // if (stat[i] == 1 && !(dose[i] > 0))
             // {
-            //     ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            //     ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
             // }
 
             if (reset[i])
@@ -233,7 +233,7 @@ void Pump::Circulation_Controller(float pump[])
 
             // if (stat[i] == 1 && !(circ[i] > 0))
             // {
-            //     ESP_LOGD(TAG,"Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            //     ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
             // }
 
             if (reset[i])
