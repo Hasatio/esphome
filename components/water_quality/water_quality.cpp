@@ -200,8 +200,8 @@ void WaterQuality::loop()
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
-volatile uint32_t Timer0Count = 0;
-volatile uint32_t Timer1Count = 0;
+volatile uint32_t WaterQuality::Timer0Count = 0;
+volatile uint32_t WaterQuality::Timer1Count = 0;
 bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 {
 	static bool toggle0 = false;
