@@ -202,7 +202,7 @@ void WaterQuality::loop()
 }
 volatile uint32_t Timer0Count = 0;
 volatile uint32_t Timer1Count = 0;
-bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
+bool WaterQuality::TimerHandler0(void * timerNo)
 {
 	static bool toggle0 = false;
 
@@ -213,7 +213,7 @@ bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 
 	return true;
 }
-bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
+bool WaterQuality::TimerHandler1(void * timerNo)
 {
 	static bool toggle1 = false;
 
