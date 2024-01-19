@@ -171,35 +171,35 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    static uint32_t lastTime = 0;
-	static uint32_t lastChangeTime = 0;
-	static uint32_t currTime;
-	static uint32_t multFactor = 0;
+//     static uint32_t lastTime = 0;
+// 	static uint32_t lastChangeTime = 0;
+// 	static uint32_t currTime;
+// 	static uint32_t multFactor = 0;
 
-	currTime = millis();
+// 	currTime = millis();
 
-	if (currTime - lastTime > CHECK_INTERVAL_MS)
-	{
-		lastTime = currTime;
+// 	if (currTime - lastTime > CHECK_INTERVAL_MS)
+// 	{
+// 		lastTime = currTime;
 
-		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
-		{
-			//setInterval(unsigned long interval, timerCallback callback)
-			multFactor = (multFactor + 1) % 2;
+// 		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
+// 		{
+// 			//setInterval(unsigned long interval, timerCallback callback)
+// 			multFactor = (multFactor + 1) % 2;
 
-    auto start = std::chrono::high_resolution_clock::now();
-			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
-			ITimer1.setInterval(TIMER1_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler1);
- auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+//     auto start = std::chrono::high_resolution_clock::now();
+// 			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
+// 			ITimer1.setInterval(TIMER1_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler1);
+//  auto stop = std::chrono::high_resolution_clock::now();
+//     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
      
-    ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
+//     ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
     
-			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d,  Timer1 = %d", TIMER0_INTERVAL_MS * (multFactor + 1), TIMER1_INTERVAL_MS * (multFactor + 1));
+// 			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d,  Timer1 = %d", TIMER0_INTERVAL_MS * (multFactor + 1), TIMER1_INTERVAL_MS * (multFactor + 1));
 
-			lastChangeTime = currTime;
-		}
-	}
+// 			lastChangeTime = currTime;
+// 		}
+// 	}
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
