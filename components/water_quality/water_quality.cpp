@@ -204,24 +204,19 @@ volatile uint32_t WaterQuality::Timer0Count = 0;
 volatile uint32_t WaterQuality::Timer1Count = 0;
 bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 {
-	static bool toggle0 = false;
-
 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
 	Timer0Count++;
 
-	toggle0 = !toggle0;
+ESP_LOGI(TAG, "TimerHandler0");
 
 	return true;
 }
 bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
 {
-	static bool toggle1 = false;
-
 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
 	Timer1Count++;
 
-	toggle1 = !toggle1;
-    delay(5000);
+ESP_LOGI(TAG, "TimerHandler1");
 
 	return true;
 }
