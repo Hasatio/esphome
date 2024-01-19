@@ -50,7 +50,7 @@ void Pump::Pump_driver(float pwm[])
     for (size_t i = 0; i < 6; i++)
     {
         if (pwm[i] != pump[i])
-            ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
+            ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, tot[i][0], tot[i][1]);
     }
         
     
@@ -116,8 +116,8 @@ void Pump::Dosing_Controller(float pump[])
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
+                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 dose[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];
             }
@@ -129,8 +129,8 @@ void Pump::Dosing_Controller(float pump[])
 
             if (reset[i])
             {
-                (*tot)[i][0] = 0;
-                (*tot)[i][1] = 0;
+                tot[i][0] = 0;
+                tot[i][1] = 0;
             }
 
             if (mode[i] > 0)
@@ -225,8 +225,8 @@ void Pump::Circulation_Controller(float pump[])
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                (*tot)[i][0] += static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                (*tot)[i][1] = static_cast<uint16_t>(((*tot)[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
+                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
                 
                 circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];   
             }
@@ -238,8 +238,8 @@ void Pump::Circulation_Controller(float pump[])
 
             if (reset[i])
             {
-                (*tot)[i][0] = 0;
-                (*tot)[i][1] = 0;
+                tot[i][0] = 0;
+                tot[i][1] = 0;
             }
 
             if (mode[i] > 0)
