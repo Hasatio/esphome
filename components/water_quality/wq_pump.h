@@ -24,7 +24,7 @@ void set_Pump_Mode(uint8_t pm[])            {for (size_t i = 0; i < 6; i++) Pump
 void set_Pump_Status(uint8_t ps[])          {for (size_t i = 0; i < 6; i++) Pump_Status[i] = ps[i];}
 void set_Pump_Dose(uint16_t pd[])           {for (size_t i = 0; i < 6; i++) Pump_Dose[i] = pd[i];}
 void set_Pump_Circulation(uint16_t pc[])    {for (size_t i = 0; i < 6; i++) Pump_Circulation[i] = pc[i];}
-void set_Pump_Total(uint16_t pt[][])       {for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j];}
+void set_Pump_Total(uint16_t pt[][2])       {for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j];}
 void set_Pump_Reset(bool pr[])              {for (size_t i = 0; i < 6; i++) Pump_Reset[i] = pr[i];}
 
 uint8_t* get_Pump_Calib_Gain()      {return Pump_Calib_Gain;}
@@ -43,7 +43,7 @@ uint8_t Pump_Mode[6] = {0};
 uint8_t Pump_Status[6] = {0};
 uint16_t Pump_Dose[6] = {0};
 uint16_t Pump_Circulation[6] = {0};
-uint16_t** Pump_Total = {0};
+uint16_t Pump_Total[6][2] = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
 bool Pump_Reset[6] = {0};
 };
 
