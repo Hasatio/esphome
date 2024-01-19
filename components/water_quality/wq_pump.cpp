@@ -35,13 +35,14 @@ void Pump::Pump_driver(float pwm[])
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
     //         if (mode[i] == 1)
     //         {
-            // Dosing_Controller(pwm);
-            // Circulation_Controller(pwm);
-            std::thread thread1(&Pump::Dosing_Controller, this, pwm);
-            std::thread thread2(&Pump::Circulation_Controller, this, pwm);
+        
+            Dosing_Controller(pwm);
+            Circulation_Controller(pwm);
+            // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
+            // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
             
-            thread1.join();
-            thread2.join();
+            // thread1.join();
+            // thread2.join();
             
         // ESP_LOGI(TAG, "pwm[%d] = %f", i, pwm[i]);
         // } 
@@ -177,7 +178,7 @@ void Pump::Dosing_Controller(float pump[])
 
     // std::cout << "mint " << mint << "\n";
  
-    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
          
     // auto stop = std::chrono::high_resolution_clock::now();
     // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
@@ -280,7 +281,7 @@ void Pump::Circulation_Controller(float pump[])
 
     // std::cout << "mint " << mint << "\n";
  
-    std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
          
     // auto stop = std::chrono::high_resolution_clock::now();
     // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
