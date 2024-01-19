@@ -106,10 +106,6 @@ enum MCP23008_InterruptMode : uint8_t
     MCP23008_FALLING,
 };
 
-// Init ESP32 timer 0
-ESP32Timer ITimer0(0);
-ESP32Timer ITimer1(1);
-
 class WaterQuality : public PollingComponent, public i2c::I2CDevice
 {
 public:

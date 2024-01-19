@@ -15,6 +15,10 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
+// Init ESP32 timer 0
+ESP32Timer ITimer0(0);
+ESP32Timer ITimer1(1);
+
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
