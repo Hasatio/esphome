@@ -221,7 +221,7 @@ bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
 	Timer1Count++;
 
 	toggle1 = !toggle1;
-    delay(2000);
+    delay(10000);
 
 	return true;
 }
