@@ -436,9 +436,9 @@ void WaterQuality::sensor()
 
         for (size_t i = 0; i < 6; i++)
             if (i == 0)
-                pt << std::fixed << std::setprecision(3) << (*ptot)[i][0] + (*ptot)[i][1] / 1000.0;
+                pt << std::fixed << std::setprecision(3) << ptot[i][0] + ptot[i][1] / 1000.0;
             else
-                pt << "," << std::fixed << std::setprecision(3) << (*ptot)[i][0] + (*ptot)[i][1] / 1000.0;
+                pt << "," << std::fixed << std::setprecision(3) << ptot[i][0] + ptot[i][1] / 1000.0;
             
         this->Pump_Tot_->publish_state(pt.str());
     }
