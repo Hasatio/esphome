@@ -198,8 +198,8 @@ void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
 volatile uint32_t Timer0Count = 0;
 volatile uint32_t Timer1Count = 0;
 
-bool IRAM_ATTR TimerHandler0(void * timerNo);
-bool IRAM_ATTR TimerHandler1(void * timerNo);
+static bool IRAM_ATTR TimerHandler0(void * timerNo);
+static bool IRAM_ATTR TimerHandler1(void * timerNo);
 void printResult(uint32_t currTime);
 // bool IRAM_ATTR TimerHandler0(void * timerNo)
 // {
