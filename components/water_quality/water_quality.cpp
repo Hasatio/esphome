@@ -150,6 +150,7 @@ void WaterQuality::dump_config()
     uint8_t dose = 0, circ = 0;
     uint8_t* calib = pump.get_Pump_Calib_Gain();
     uint8_t* type = pump.get_Pump_Type();
+
     for (size_t i = 0; i < 4; i++)
         if (type[i] == 1)
             dose += 1;
@@ -158,28 +159,16 @@ void WaterQuality::dump_config()
 
     ESP_LOGI(TAG, "Pump_dose = %d", dose);
     ESP_LOGI(TAG, "Pump_circ = %d", circ);
-
     for (size_t i = 0; i < 6; i++)
-    {
         ESP_LOGI(TAG, "Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
-    }
-
     for (size_t i = 0; i < 6; i++)
-    {
         ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
-    }
 
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
     for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
-    {
-        ESP_LOGI(TAG, "ResMin[%d] = %d", i, resmin[i]);
-        ESP_LOGI(TAG, "ResMax[%d] = %d", i, resmax[i]);
-    }
-
-    ESP_LOGI(TAG, "EC_ch = %d", an.get_EC_Ch());
-    ESP_LOGI(TAG, "EC_type = %d", an.get_EC_Type());
-    ESP_LOGI(TAG, "PH_ch = %d", an.get_PH_Ch());
-    ESP_LOGI(TAG, "PH_type = %d", an.get_PH_Type());
+        ESP_LOGI(TAG, "ResMin[%d] = %d, ResMax[%d] = %d", i, resmin[i], i, resmax[i]);
+    ESP_LOGI(TAG, "EC_ch = %d, EC_type = %d", an.get_EC_Ch(), an.get_EC_Type());
+    ESP_LOGI(TAG, "PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
 }
 void WaterQuality::loop() 
 {
@@ -211,32 +200,32 @@ void WaterQuality::loop()
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
-bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
-{
-	static bool toggle0 = false;
+// bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
+// {
+// 	static bool toggle0 = false;
 
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer0Count++;
+// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+// 	Timer0Count++;
 
-	toggle0 = !toggle0;
+// 	toggle0 = !toggle0;
 
-	return true;
-}
-bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
-{
-	static bool toggle1 = false;
+// 	return true;
+// }
+// bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
+// {
+// 	static bool toggle1 = false;
 
-	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
-	Timer1Count++;
+// 	// Flag for checking to be sure ISR is working as Serial.print is not OK here in ISR
+// 	Timer1Count++;
 
-	toggle1 = !toggle1;
+// 	toggle1 = !toggle1;
 
-	return true;
-}
-void WaterQuality::printResult(uint32_t currTime)
-{
-	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
-}
+// 	return true;
+// }
+// void WaterQuality::printResult(uint32_t currTime)
+// {
+// 	ESP_LOGI(TAG, "Time = %d, Timer0Count = %d, Timer1Count = %d", currTime, Timer0Count, Timer1Count);
+// }
 
 float a[8], p[16];
 bool d[4];
