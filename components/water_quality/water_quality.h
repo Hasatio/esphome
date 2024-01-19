@@ -195,8 +195,8 @@ void PH_Val_Sensor      (sensor::Sensor *ph)                {AnInPH_Val_ = ph;}
 void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      {AnInGen_Val_ = gen;}
 void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
 
-volatile uint32_t Timer0Count = 0;
-volatile uint32_t Timer1Count = 0;
+static volatile uint32_t Timer0Count;
+static volatile uint32_t Timer1Count;
 
 static bool IRAM_ATTR TimerHandler0(void * timerNo);
 static bool IRAM_ATTR TimerHandler1(void * timerNo);
