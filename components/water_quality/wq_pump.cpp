@@ -40,7 +40,7 @@ void Pump::Pump_driver(float pwm[])
         stat_[i] = stat[i];
 
             Dosing_Controller(stat);
-            // Circulation_Controller(pwm);
+            Circulation_Controller(stat);
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
             
