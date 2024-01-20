@@ -56,7 +56,10 @@ void Pump::Pump_driver(float pwm[])
         if (stat[i] == 1)
             pwm[i] = 1;
         else if (stat[i] != stat_[i])
+        {
+            pwm[i] = 0;
             ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, tot[i][0], tot[i][1]);
+        }
     }
         
     
