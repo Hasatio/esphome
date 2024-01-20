@@ -233,7 +233,7 @@ void Pump::Circulation_Controller(uint8_t stat[])
             // std::cout << "mode" << i << ": " << (mode[i] ? "true" : "false") << "\n";
             // std::cout << "circ" << i << ": " << circ[i] << "\n";
             
-            if (stat[i] > 0)
+            if (stat[i] == 1)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
                 tot[i][0] += static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;

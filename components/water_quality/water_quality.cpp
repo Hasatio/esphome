@@ -300,7 +300,7 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
                     pdose_[i] += pdose[i];
                 else
                     pdose_[i] = pdose[i];
-                ESP_LOGD(TAG, "Pump_Dose[%d] = %d", i, pdose[i]);
+                ESP_LOGD(TAG, "Pump_Dose[%d] = %d", i, pdose_[i]);
             }
         }
 
