@@ -22,7 +22,7 @@ bool* get_Digital_In()  {return DigIn_Status;}
 bool* get_Digital_Out() {return DigOut_Status;}
 
 protected:
-uint8_t DigIn_FilterCoeff[4] = {0};
+uint8_t DigIn_FilterCoeff[8] = {0};
 bool DigIn_Read[4] = {0};
 bool DigIn_Status[4] = {1,1,1,1};
 bool DigOut_Status[4] = {0};
