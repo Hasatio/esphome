@@ -16,7 +16,7 @@ class Pump
 public:
 void Pump_driver(float pwm[]);
 void Dosing_Controller(uint8_t stat[]);
-void Circulation_Controller(float pump[]);
+void Circulation_Controller(uint8_t stat[]);
 
 void set_Pump_Calib_Gain(uint8_t pcg[])     {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])            {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
