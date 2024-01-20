@@ -35,7 +35,9 @@ void Pump::Pump_driver(float pwm[])
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
     //         if (mode[i] == 1)
     //         {
-        uint8_t stat_[6] = {0};
+    uint8_t stat_[6];
+    for (size_t i = 0; i < 6; i++)
+        stat_[i] = stat[i];
 
             Dosing_Controller(stat);
             // Circulation_Controller(pwm);
@@ -53,7 +55,7 @@ void Pump::Pump_driver(float pwm[])
     {
         if (stat[i] == 1)
             pwm[i] = 1;
-        else
+        if (stat[i] != stat_[i])
             ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, tot[i][0], tot[i][1]);
     }
         
