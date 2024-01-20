@@ -26,21 +26,21 @@ void WaterQuality::setup()
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
     
-    // Interval in microsecs
-	if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
-	{
-		ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
-	}
-	else
-		ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
+    // // Interval in microsecs
+	// if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
+	// {
+	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
+	// }
+	// else
+	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
 
-	// Interval in microsecs
-	if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
-	{
-		ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
-	}
-	else
-		ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
+	// // Interval in microsecs
+	// if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
+	// {
+	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
+	// }
+	// else
+	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
 }
 void WaterQuality::dump_config()
 {
