@@ -15,9 +15,9 @@ namespace water_quality {
     
 static unsigned long timepoint = millis();
 
-// Init ESP32 timer 0
-ESP32Timer ITimer0(0);
-ESP32Timer ITimer1(1);
+// // Init ESP32 timer 0
+// ESP32Timer ITimer0(0);
+// ESP32Timer ITimer1(1);
 
 void WaterQuality::setup()
 {
@@ -202,47 +202,47 @@ void WaterQuality::loop()
 // 	}
 
 
-	static unsigned long lastTimer0 = 0;
-	static unsigned long lastTimer1 = 0;
+	// static unsigned long lastTimer0 = 0;
+	// static unsigned long lastTimer1 = 0;
 
-	static bool timer0Stopped         = false;
-	static bool timer1Stopped         = false;
+	// static bool timer0Stopped         = false;
+	// static bool timer1Stopped         = false;
 
-	if (millis() - lastTimer0 > TIMER0_DURATION_MS)
-	{
-		lastTimer0 = millis();
+	// if (millis() - lastTimer0 > TIMER0_DURATION_MS)
+	// {
+	// 	lastTimer0 = millis();
 
-		if (timer0Stopped)
-		{
-            ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
-			ITimer0.restartTimer();
-		}
-		else
-		{
-            ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
-			ITimer0.stopTimer();
-		}
+	// 	if (timer0Stopped)
+	// 	{
+    //         ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
+	// 		ITimer0.restartTimer();
+	// 	}
+	// 	else
+	// 	{
+    //         ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
+	// 		ITimer0.stopTimer();
+	// 	}
 
-		timer0Stopped = !timer0Stopped;
-	}
+	// 	timer0Stopped = !timer0Stopped;
+	// }
 
-	if (millis() - lastTimer1 > TIMER1_DURATION_MS)
-	{
-		lastTimer1 = millis();
+	// if (millis() - lastTimer1 > TIMER1_DURATION_MS)
+	// {
+	// 	lastTimer1 = millis();
 
-		if (timer1Stopped)
-		{
-            ESP_LOGI(TAG, "Start ITimer1, millis() = %d", millis());
-			ITimer1.restartTimer();
-		}
-		else
-		{
-            ESP_LOGI(TAG, "Stop ITimer1, millis() = %d", millis());
-			ITimer1.stopTimer();
-		}
+	// 	if (timer1Stopped)
+	// 	{
+    //         ESP_LOGI(TAG, "Start ITimer1, millis() = %d", millis());
+	// 		ITimer1.restartTimer();
+	// 	}
+	// 	else
+	// 	{
+    //         ESP_LOGI(TAG, "Stop ITimer1, millis() = %d", millis());
+	// 		ITimer1.stopTimer();
+	// 	}
 
-		timer1Stopped = !timer1Stopped;
-	}
+	// 	timer1Stopped = !timer1Stopped;
+	// }
 
 
     // delay(1000);
