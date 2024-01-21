@@ -22,11 +22,17 @@
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include "ESP32TimerInterrupt.hpp"
 
-#define TIMER0_INTERVAL_MS        2000
-#define TIMER1_INTERVAL_MS        5000
+#define TIMER0_INTERVAL_MS  2000
+#define TIMER1_INTERVAL_MS  5000
 
-#define CHECK_INTERVAL_MS     10000L
-#define CHANGE_INTERVAL_MS    20000L
+#define CHECK_INTERVAL_MS   10000L
+#define CHANGE_INTERVAL_MS  20000L
+
+#define TIMER0_INTERVAL_MS  1000
+#define TIMER0_DURATION_MS  5000
+
+#define TIMER1_INTERVAL_MS  3000
+#define TIMER1_DURATION_MS  15000
 
 namespace esphome {
 namespace water_quality {
