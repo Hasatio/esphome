@@ -26,21 +26,21 @@ void WaterQuality::setup()
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
     
-    // // Interval in microsecs
-	// if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
-	// {
-	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
-	// }
-	// else
-	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
+    // Interval in microsecs
+	if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
+	{
+		ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
+	}
+	else
+		ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
 
-	// // Interval in microsecs
-	// if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
-	// {
-	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
-	// }
-	// else
-	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
+	// Interval in microsecs
+	if (ITimer1.attachInterruptInterval(TIMER1_INTERVAL_MS * 1000, TimerHandler1))
+	{
+		ESP_LOGCONFIG(TAG, "Starting  ITimer1 OK, millis() = %d", millis());
+	}
+	else
+		ESP_LOGCONFIG(TAG, "Can't set ITimer1. Select another freq. or timer");
 }
 void WaterQuality::dump_config()
 {
@@ -200,6 +200,51 @@ void WaterQuality::loop()
 // 			lastChangeTime = currTime;
 // 		}
 // 	}
+
+
+	static unsigned long lastTimer0 = 0;
+	static unsigned long lastTimer1 = 0;
+
+	static bool timer0Stopped         = false;
+	static bool timer1Stopped         = false;
+
+	if (millis() - lastTimer0 > TIMER0_DURATION_MS)
+	{
+		lastTimer0 = millis();
+
+		if (timer0Stopped)
+		{
+            ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
+			ITimer0.restartTimer();
+		}
+		else
+		{
+            ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
+			ITimer0.stopTimer();
+		}
+
+		timer0Stopped = !timer0Stopped;
+	}
+
+	if (millis() - lastTimer1 > TIMER1_DURATION_MS)
+	{
+		lastTimer1 = millis();
+
+		if (timer1Stopped)
+		{
+            ESP_LOGI(TAG, "Start ITimer1, millis() = %d", millis());
+			ITimer1.restartTimer();
+		}
+		else
+		{
+            ESP_LOGI(TAG, "Stop ITimer1, millis() = %d", millis());
+			ITimer1.stopTimer();
+		}
+
+		timer1Stopped = !timer1Stopped;
+	}
+
+
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
