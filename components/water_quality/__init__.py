@@ -45,7 +45,7 @@ PUMP_TYPE_CIRCULATION = 2
 
 PUMP_CALIBRATION_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.uint8_t
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float
     }
 )
 
@@ -217,7 +217,6 @@ async def to_code(config):
     cg.add_library("SPI", None)
     cg.add_library("SD", None)
     cg.add_library("Time", None)
-    cg.add_library("ESP32TimerInterrupt", None)
 
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
@@ -265,7 +264,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.uint16_t)
+                cv.ensure_list(cv.float)
             ),
         ),
     }
@@ -283,7 +282,7 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_DOSE]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.float_))
         cg.add(var.set_pump_d(template_))
 
     return var
@@ -296,7 +295,7 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_CIRCULATION): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.uint16_t)
+                cv.ensure_list(cv.float)
             ),
         ),
     }
@@ -314,7 +313,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PUMP_CIRCULATION]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint16))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.float_))
         cg.add(var.set_pump_c(template_))
 
     return var

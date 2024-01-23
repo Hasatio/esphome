@@ -292,7 +292,7 @@ void WaterQuality::version(const uint8_t ver)
 }
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
-    uint8_t pcal_[6];
+    float pcal_[6];
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -328,12 +328,12 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
         pump.set_Pump_Mode(pmode_);
     }
 }
-void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
+void WaterQuality::pump_dose(std::vector<float> &pdose)
 {
     uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
-    uint16_t* pdose_ = pump.get_Pump_Dose();
-    std::vector<uint16_t> pd(pdose_, pdose_ + 6);
+    float* pdose_ = pump.get_Pump_Dose();
+    std::vector<float> pd(pdose_, pdose_ + 6);
 
     if (pd != pdose)
     {
@@ -352,12 +352,12 @@ void WaterQuality::pump_dose(std::vector<uint16_t> &pdose)
         pump.set_Pump_Dose(pdose_);
     }
 }
-void WaterQuality::pump_circulation(std::vector<uint16_t> &pcirc)
+void WaterQuality::pump_circulation(std::vector<float> &pcirc)
 {
     uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
-    uint16_t* pcirc_ = pump.get_Pump_Circulation();
-    std::vector<uint16_t> pc(pcirc_, pcirc_ + 6);
+    float* pcirc_ = pump.get_Pump_Circulation();
+    std::vector<float> pc(pcirc_, pcirc_ + 6);
 
     if (pc != pcirc)
     {

@@ -19,10 +19,6 @@ void Pump::Pump_driver(float pwm[])
               
     // std::cout << "Pump_driver\n";
     
-    uint16_t* dose = get_Pump_Dose();
-    uint16_t* circ = get_Pump_Circulation();
-    uint8_t* type = get_Pump_Type();
-    uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
 
@@ -92,10 +88,10 @@ void Pump::Dosing_Controller(uint8_t stat[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
-    uint8_t* calib = get_Pump_Calib_Gain();
+    float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
-    uint16_t* dose = get_Pump_Dose();
+    float* dose = get_Pump_Dose();
     uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];
@@ -208,10 +204,10 @@ void Pump::Circulation_Controller(uint8_t stat[])
     // auto start = std::chrono::high_resolution_clock::now();
 
     // std::cout << "Dosing_Controller\n";
-    uint8_t* calib = get_Pump_Calib_Gain();
+    float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
-    uint16_t* circ = get_Pump_Circulation();
+    float* circ = get_Pump_Circulation();
     uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float mint, min[6];

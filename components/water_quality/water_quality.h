@@ -170,8 +170,8 @@ void version(const uint8_t ver);
 void pump_calib_gain(const std::vector<float> &pcal);
 void pump_type(const std::vector<uint8_t> &ptype);
 void pump_mode(std::vector<uint8_t> &pmode);
-void pump_dose(std::vector<uint16_t> &pdose);
-void pump_circulation(std::vector<uint16_t> &pcirc);
+void pump_dose(std::vector<float> &pdose);
+void pump_circulation(std::vector<float> &pcirc);
 void pump_reset(std::vector<bool> &pres);
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
@@ -258,11 +258,11 @@ template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
 public:
 PumpDoseAction(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_d);
+TEMPLATABLE_VALUE(std::vector<float>, pump_d);
 
 void play(Ts... x) 
 {
-    std::vector<uint16_t> data = this->pump_d_.value(x...);
+    std::vector<float> data = this->pump_d_.value(x...);
 
     this->parent_->pump_dose(data);
 }
@@ -274,11 +274,11 @@ template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
 public:
 PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::vector<uint16_t>, pump_c);
+TEMPLATABLE_VALUE(std::vector<float>, pump_c);
 
 void play(Ts... x) 
 {
-    std::vector<uint16_t> data = this->pump_c_.value(x...);
+    std::vector<float> data = this->pump_c_.value(x...);
 
     this->parent_->pump_circulation(data);
 }
