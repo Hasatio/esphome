@@ -147,7 +147,7 @@ void WaterQuality::dump_config()
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     uint8_t dose = 0, circ = 0;
-    uint8_t* calib = pump.get_Pump_Calib_Gain();
+    float* calib = pump.get_Pump_Calib_Gain();
     uint8_t* type = pump.get_Pump_Type();
 
     for (size_t i = 0; i < 4; i++)
