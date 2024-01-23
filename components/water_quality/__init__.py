@@ -217,7 +217,8 @@ async def to_code(config):
     cg.add_library("SPI", None)
     cg.add_library("SD", None)
     cg.add_library("Time", None)
-
+    cg.add_library("ESP32TimerInterrupt", None)
+    
 
 PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
 
