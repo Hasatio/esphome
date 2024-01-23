@@ -123,8 +123,8 @@ void Pump::Dosing_Controller(uint8_t stat[])
             if (stat[i] == 1)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint) / 1000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint * 10) % 10000;
                 
                 dose[i] -= (stat[i] > mint ? mint : stat[i]) * calib[i];
             }
@@ -238,8 +238,8 @@ void Pump::Circulation_Controller(uint8_t stat[])
             if (stat[i] == 1)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                tot[i][0] += static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) / 1000;
-                tot[i][1] = static_cast<uint16_t>((tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint)) % 1000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint) / 1000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint * 10) % 10000;
                 
                 circ[i] -= (stat[i] > mint ? mint : stat[i]) * calib[i];   
             }

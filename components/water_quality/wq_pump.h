@@ -27,12 +27,12 @@ void set_Pump_Circulation(float pc[])   {for (size_t i = 0; i < 6; i++) Pump_Cir
 void set_Pump_Total(uint16_t pt[][2])   {for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j];}
 void set_Pump_Reset(bool pr[])          {for (size_t i = 0; i < 6; i++) Pump_Reset[i] = pr[i];}
 
-uint8_t* get_Pump_Calib_Gain()      {return Pump_Calib_Gain;}
+float* get_Pump_Calib_Gain()        {return Pump_Calib_Gain;}
 uint8_t* get_Pump_Type()            {return Pump_Type;}
 uint8_t* get_Pump_Mode()            {return Pump_Mode;}
 uint8_t* get_Pump_Status()          {return Pump_Status;}
-uint16_t* get_Pump_Dose()           {return Pump_Dose;}
-uint16_t* get_Pump_Circulation()    {return Pump_Circulation;}
+float* get_Pump_Dose()              {return Pump_Dose;}
+float* get_Pump_Circulation()       {return Pump_Circulation;}
 uint16_t (*get_Pump_Total())[2]     {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 
