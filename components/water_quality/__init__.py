@@ -45,7 +45,7 @@ PUMP_TYPE_CIRCULATION = 2
 
 PUMP_CALIBRATION_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
     }
 )
 
@@ -264,7 +264,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_DOSE): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.float)
+                cv.ensure_list(cv.float_)
             ),
         ),
     }
@@ -295,7 +295,7 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PUMP_CIRCULATION): cv.All(
             cv.templatable(
-                cv.ensure_list(cv.float)
+                cv.ensure_list(cv.float_)
             ),
         ),
     }
