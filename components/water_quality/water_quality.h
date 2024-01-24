@@ -223,6 +223,7 @@ bool continuous_mode_;
 ADS1115_DataRate data_rate_;
 ADS1115_Resolution resolution_;
 
+uint8_t olat_{0x00};
 uint8_t pin_;
 bool inverted_;
 MCP23008_InterruptMode interrupt_mode_;
