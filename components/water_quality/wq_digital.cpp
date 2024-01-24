@@ -31,7 +31,11 @@ void Digital::Digital_Output_Driver(bool outputs[])
     bool* digital = get_Digital_Out();
 
     for (size_t i = 0; i < 4; i++)
+    {
         digital[i] = outputs[i];
+    
+    ESP_LOGI(TAG, "dig = %d", digital[i]);
+    }
 }
 
 }  // namespace water_quality
