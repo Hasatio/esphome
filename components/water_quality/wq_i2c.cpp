@@ -264,12 +264,20 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
         return;
 
     ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
-
     uint8_t iocon;
     if (!this->read_byte(MCP23008_IOCON, &iocon))
     {
         this->mark_failed();
         return;
+    }
+
+    // Read current output register state
+    this->read_byte(MCP23008_OLAT, &this->olat_);
+
+    if (this->open_drain_ints_)
+    {
+        // enable open-drain interrupt pins, 3.3V-safe
+        this->write_byte(MCP23008_IOCON, 0x04);
     }
 
     uint8_t reg_value = 0;
@@ -282,6 +290,7 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
         reg_value &= ~(1 << i);
     }
 
+<<<<<<< HEAD
     // Read current output register state
     this->read_byte(MCP23008_OLAT, &this->olat_);
 
@@ -300,6 +309,8 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     // this->write_byte(MCP23008_INTCAP, 0x00);
 
     // this->write_byte(MCP23008_GPIO, reg_value);
+=======
+>>>>>>> parent of 17b9ccc (.)
     this->write_byte(MCP23008_IODIR, reg_value);
     this->write_byte(MCP23008_GPPU, reg_value);
     this->write_byte(MCP23008_OLAT, reg_value);
@@ -315,8 +326,11 @@ bool WaterQuality::MCP23008_Read(uint8_t pin)
 void WaterQuality::MCP23008_Write(uint8_t pin, bool value) 
 {
     uint8_t bit = pin % 8;
+<<<<<<< HEAD
     // uint8_t olat_;
     this->read_byte(MCP23008_OLAT, &this->olat_);
+=======
+>>>>>>> parent of 17b9ccc (.)
     uint8_t reg_value = this->olat_;
 
     if (value)
@@ -330,6 +344,7 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
     {
         this->write_byte(MCP23008_GPIO, reg_value);
         this->write_byte(MCP23008_OLAT, reg_value);
+        this->olat_ = reg_value;
     }
 }
 void WaterQuality::MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode)
