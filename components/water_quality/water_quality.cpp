@@ -262,8 +262,8 @@ void WaterQuality::update()
         ESP_LOGI(TAG, "d[%d] = %d", i, d[i]);
     MCP23008_Driver(d);
     for (size_t i = 0; i < 4; i++)
-        ESP_LOGI(TAG, "d[%d] = %d", i, d[i]);
-    // dig.Digital_Input_Driver(d);
+        ESP_LOGD(TAG, "d[%d] = %d", i, d[i]);
+    dig.Digital_Input_Driver(d);
     for (size_t i = 0; i < 4; i++)
         ESP_LOGI(TAG, "d[%d] = %d", i, d[i]);
 
