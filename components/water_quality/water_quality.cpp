@@ -444,6 +444,7 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
             dout_[i] = dout[i];
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
+        dig.set_Digital_Out(dout_);
     }
 }
 
