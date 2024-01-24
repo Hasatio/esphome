@@ -313,8 +313,8 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
 {
     uint8_t bit = pin % 8;
     uint8_t olat_;
-    this->read_byte(MCP23008_OLAT, &olat_);
-    uint8_t reg_value = olat_;
+    this->read_byte(MCP23008_OLAT, &this->olat_);
+    uint8_t reg_value = this->olat_;
 
     if (value)
         reg_value |= 1 << bit;
@@ -323,7 +323,7 @@ void WaterQuality::MCP23008_Write(uint8_t pin, bool value)
 
     uint8_t val = 0;
     this->read_byte(MCP23008_GPIO, &val);
-    if (reg_value != olat_)
+    if (reg_value != this->olat_)
     {
         this->write_byte(MCP23008_GPIO, reg_value);
         this->write_byte(MCP23008_OLAT, reg_value);
