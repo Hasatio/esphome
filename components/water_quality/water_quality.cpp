@@ -259,7 +259,7 @@ void WaterQuality::update()
 
     dig.Digital_Output_Driver(d);
     MCP23008_Driver(d);
-    dig.Digital_Input_Driver(d);
+    // dig.Digital_Input_Driver(d);
 
 lastChangeTime = millis();
     
@@ -269,9 +269,9 @@ lastChangeTime = millis();
 
 lastTime = millis();
 
-    ESP_LOGI(TAG, "diğer fonk süresi = %d", lastChangeTime - currTime);
-    ESP_LOGI(TAG, "pump süresi = %d", lastTime - lastChangeTime);
-    ESP_LOGI(TAG, "toplam süre = %d", lastTime - currTime);
+    // ESP_LOGI(TAG, "diğer fonk süresi = %d", lastChangeTime - currTime);
+    // ESP_LOGI(TAG, "pump süresi = %d", lastTime - lastChangeTime);
+    // ESP_LOGI(TAG, "toplam süre = %d", lastTime - currTime);
 
     sensor();
     
@@ -442,7 +442,6 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
             dout_[i] = dout[i];
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
-        dig.set_Digital_Out(dout_);
     }
 }
 
