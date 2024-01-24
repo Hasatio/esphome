@@ -14,17 +14,14 @@ void Digital::Digital_Input_Driver(bool inputs[])
         else
             DigIn_FilterCoeff[i]--;
 
-        if (DigIn_FilterCoeff[i] > 8)
-            DigIn_FilterCoeff[i] = 8;
-
-        if (DigIn_FilterCoeff[i] == 0)
-        {
-            digital[i] = 0;
-            DigIn_FilterCoeff[i] = 4;
-        }
-        else if (DigIn_FilterCoeff[i] == 8)
+        if (DigIn_FilterCoeff[i] >= 8)
         {
             digital[i] = 1;
+            DigIn_FilterCoeff[i] = 4;
+        }
+        else if (DigIn_FilterCoeff[i] == 0)
+        {
+            digital[i] = 0;
             DigIn_FilterCoeff[i] = 4;
         }
     }
