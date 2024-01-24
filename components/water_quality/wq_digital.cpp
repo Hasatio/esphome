@@ -25,7 +25,6 @@ void Digital::Digital_Input_Driver(bool inputs[])
             this->DigIn_FilterCoeff[i] = 4;
         }
     }
-    set_Digital_In(digital);
 }
 void Digital::Digital_Output_Driver(bool outputs[])
 {
@@ -36,8 +35,6 @@ void Digital::Digital_Output_Driver(bool outputs[])
             digital[i] = 1;
         else
             digital[i] = 0;
-            
-    set_Digital_Out(digital);
 }
 
 }  // namespace water_quality
