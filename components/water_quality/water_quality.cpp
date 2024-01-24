@@ -55,6 +55,8 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Data rate: %d", this->get_data_rate());
     ESP_LOGI(TAG, "Resolution: %d", this->get_resolution());
 
+    uint8_t olat_{0x00};
+    this->read_byte(MCP23008_OLAT, &this->olat_);
     ESP_LOGI(TAG, "Digital status: %x", this->olat_);
 
     this->set_i2c_address(MCP23008_ADDRESS);
