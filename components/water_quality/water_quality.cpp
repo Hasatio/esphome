@@ -271,7 +271,7 @@ void WaterQuality::update()
     // ser.Servo_driver(p);
     // PCA9685_Driver(p);
 
-    // sensor();
+    sensor();
     
     // an.set_WT_Val(1.23);
     // ESP_LOGD(TAG, "test = %f", request_measurement());
