@@ -34,7 +34,10 @@ void Digital::Digital_Output_Driver(bool outputs[])
     bool* digital = get_Digital_Out();
 
     for (size_t i = 0; i < 4; i++)
-        outputs[i] = digital[i];
+        if (outputs[i])
+            digital[i] = 1;
+        else
+            digital[i] = 0;
 }
 
 }  // namespace water_quality
