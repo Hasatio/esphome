@@ -258,9 +258,9 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    pump.Pump_driver(p);
-    ser.Servo_driver(p);
-    PCA9685_Driver(p);
+    // pump.Pump_driver(p);
+    // ser.Servo_driver(p);
+    // PCA9685_Driver(p);
 
     sensor();
     
