@@ -32,7 +32,7 @@ void Digital::Digital_Output_Driver(bool outputs[])
 
     for (size_t i = 0; i < 4; i++)
     {
-        digital[i] = outputs[i];
+        outputs[i] = digital[i];
     
     ESP_LOGI(TAG, "dig = %d", digital[i]);
     }
