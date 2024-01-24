@@ -264,6 +264,7 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
         return;
 
     ESP_LOGCONFIG(TAG, "Setting up MCP23008...");
+
     uint8_t iocon;
     if (!this->read_byte(MCP23008_IOCON, &iocon))
     {
@@ -305,6 +306,8 @@ bool WaterQuality::MCP23008_Read(uint8_t pin)
 void WaterQuality::MCP23008_Write(uint8_t pin, bool value) 
 {
     uint8_t bit = pin % 8;
+    // uint8_t olat_;
+    // this->read_byte(MCP23008_OLAT, &this->olat_);
     uint8_t reg_value = this->olat_;
 
     if (value)
