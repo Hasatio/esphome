@@ -18,7 +18,7 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
-    // PCA9685_Setup(PCA9685_I2C_ADDRESS);	
+    PCA9685_Setup(PCA9685_I2C_ADDRESS);	
     
     // // Interval in microsecs
 	// if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
