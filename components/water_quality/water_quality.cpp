@@ -13,12 +13,6 @@ namespace water_quality {
     Pump pump;
     Servo ser;
     
-static unsigned long timepoint = millis();
-
-// // Init ESP32 timer 0
-// ESP32Timer ITimer0(0);
-// ESP32Timer ITimer1(1);
-
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
@@ -247,20 +241,6 @@ void WaterQuality::loop()
 
     // delay(1000);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
-}
-bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
-{
-
-ESP_LOGI(TAG, "TimerHandler0");
-
-	return true;
-}
-bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
-{
-
-ESP_LOGI(TAG, "TimerHandler1");
-
-	return true;
 }
 
 float a[8], p[16];
