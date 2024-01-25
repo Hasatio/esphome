@@ -239,7 +239,7 @@ void WaterQuality::loop()
 	// }
 
 
-    delay(500);
+    // delay(500);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
 
@@ -259,7 +259,7 @@ void WaterQuality::update()
 
     dig.Digital_Output_Driver(d);
     MCP23008_Driver(d);
-    // dig.Digital_Input_Driver(d);
+    dig.Digital_Input_Driver(d);
 
 lastChangeTime = millis();
     
