@@ -122,9 +122,7 @@ void WaterQuality::ADS1115_Read(float volts[])
 {
     for (size_t i = 0; i < 4; i++)
     {
-    uint8_t multi = ADS1115_MULTIPLEXER_P0_NG + i;
-
-                        ESP_LOGD(TAG, "multi: %d", multi);
+        uint8_t multi = ADS1115_MULTIPLEXER_P0_NG + i;
         uint16_t config = this->prev_config_;
         // uint16_t config = 0b0000000011100011;
         // Multiplexer
@@ -231,7 +229,7 @@ void WaterQuality::ADS1115_Read(float volts[])
         }
 
         this->status_clear_warning();
-        // ESP_LOGI(TAG, "config: %x", config);
+        ESP_LOGI(TAG, "config: %x", config);
         volts[i] = millivolts / 1e3f;
     }
 }
