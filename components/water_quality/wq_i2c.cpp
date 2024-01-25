@@ -118,8 +118,9 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-void WaterQuality::ADS1115_Read(float* volts)
+float* WaterQuality::ADS1115_Read()
 {
+    float volts[4];
     for (size_t i = 0; i < 4; i++)
     {
         uint8_t multi = ADS1115_MULTIPLEXER_P0_NG + i;
@@ -233,22 +234,21 @@ void WaterQuality::ADS1115_Read(float* volts)
         volts[i] = millivolts / 1e3f;
         ESP_LOGI(TAG, "volts[%d]: %f", i, volts[i]);
     }
+    return volts;
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
-    float v[4];
-
     this->set_i2c_address(ADS1X15_ADDRESS1);
     if (this->is_failed())
         return;
 
-    ADS1115_Read(v);
+    float* v1 = ADS1115_Read();
     for (size_t i = 0; i < 4; i++)
     { 
-        if (!std::isnan(v[i])) 
+        if (!std::isnan(v1[i])) 
         {
-            analog_voltage[i] = v[i];
-            ESP_LOGD(TAG, "Voltage%d: %f", i, v);
+            analog_voltage[i] = v1[i];
+            ESP_LOGD(TAG, "Voltage%d: %f", i, v1);
             // this->publish_state(v);
         }
     }
@@ -257,13 +257,13 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
-    ADS1115_Read(v);
+    float* v2 = ADS1115_Read();
     for (size_t i = 0; i < 4; i++)
     { 
-        if (!std::isnan(v[i])) 
+        if (!std::isnan(v2[i])) 
         {
-            analog_voltage[i + 4] = v[i];
-            ESP_LOGD(TAG, "Voltage%d: %f", i + 4, v);
+            analog_voltage[i + 4] = v2[i];
+            ESP_LOGD(TAG, "Voltage%d: %f", i + 4, v2);
             // this->publish_state(v);
         }
     }

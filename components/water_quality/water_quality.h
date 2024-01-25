@@ -102,7 +102,7 @@ float get_setup_priority() const override { return esphome::setup_priority::DATA
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 void ADS1115_Setup(uint8_t address);
-void ADS1115_Read(float volts[]);
+float* ADS1115_Read();
 void ADS1115_Driver(float analog_voltage[]);
 
 void set_multiplexer(ADS1115_Multiplexer multiplexer)   {multiplexer_ = multiplexer;}
