@@ -7,7 +7,7 @@ void Digital::Digital_Input_Driver(bool inputs[])
 {
     bool* in = get_Digital_In();
 
-    for (size_t i = 0; i < 8; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         if (inputs[i])
             this->DigIn_FilterCoeff[i]++;
