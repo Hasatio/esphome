@@ -380,13 +380,12 @@ void WaterQuality::MCP23008_Driver(bool digital[])
 
     MCP23008_Write(digital);
     
-    uint8_t value[4] = MCP23008_Read();
+    uint8_t value = MCP23008_Read();
     for (size_t i = 0; i < 4; i++)
     {
         digital[i] = value & (1 << i);
         ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
     }
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
