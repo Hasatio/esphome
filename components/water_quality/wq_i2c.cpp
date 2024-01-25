@@ -118,7 +118,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-void WaterQuality::ADS1115_Read(float volts[])
+void WaterQuality::ADS1115_Read(float* volts)
 {
     for (size_t i = 0; i < 4; i++)
     {
