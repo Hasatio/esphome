@@ -120,17 +120,17 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 }
 void WaterQuality::ADS1115_Read(float volts[])
 {
-    uint8_t multi = ADS1115_MULTIPLEXER_P0_NG;
-    
     for (size_t i = 0; i < 4; i++)
     {
+    uint8_t multi = ADS1115_MULTIPLEXER_P0_NG + i;
 
+                        ESP_LOGD(TAG, "multi: %d", multi);
         uint16_t config = this->prev_config_;
         // uint16_t config = 0b0000000011100011;
         // Multiplexer
         //        0bxBBBxxxxxxxxxxxx
         config &= 0b1000111111111111;
-        config |= (multi + i) << 12;
+        config |= multi << 12;
 
         // Gain
         //        0bxxxxBBBxxxxxxxxx
