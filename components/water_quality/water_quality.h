@@ -111,16 +111,16 @@ void set_continuous_mode(bool continuous_mode)          {continuous_mode_ = cont
 void set_data_rate(ADS1115_DataRate data_rate)          {data_rate_ = data_rate;}
 void set_resolution(ADS1115_Resolution resolution)      {resolution_ = resolution; }
 
-uint8_t get_multiplexer() const         {return multiplexer_;}
-uint8_t get_gain() const                {return gain_;}
-uint8_t get_continuous_mode() const     {return continuous_mode_;}
-uint8_t get_data_rate() const           {return data_rate_;}
-uint8_t get_resolution() const          {return resolution_;}
+uint8_t get_multiplexer() const     {return multiplexer_;}
+uint8_t get_gain() const            {return gain_;}
+bool get_continuous_mode() const    {return continuous_mode_;}
+uint8_t get_data_rate() const       {return data_rate_;}
+uint8_t get_resolution() const      {return resolution_;}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 void MCP23008_Setup(uint8_t address);
-uint8_t* MCP23008_Read();
+bool* MCP23008_Read();
 void MCP23008_Write(bool value[]);
 void MCP23008_Driver(bool digital[]);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);

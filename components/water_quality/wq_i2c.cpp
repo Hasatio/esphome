@@ -236,7 +236,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
 
     for (size_t i = 0; i < 4; i++)
     { 
-        this->set_multiplexer(ADS1115_MULTIPLEXER_P0_NG + i);
+        this->set_multiplexer(static_cast<ADS1115_Multiplexer>(ADS1115_MULTIPLEXER_P0_NG + i));
 
         float v = ADS1115_Read();
         if (!std::isnan(v)) 
@@ -253,7 +253,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
 
     for (size_t i = 0; i < 4; i++)
     { 
-        this->set_multiplexer(ADS1115_MULTIPLEXER_P0_NG + i);
+        this->set_multiplexer(static_cast<ADS1115_Multiplexer>(ADS1115_MULTIPLEXER_P0_NG + i));
 
         float v = ADS1115_Read();
         if (!std::isnan(v)) 
@@ -316,16 +316,16 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->write_byte(MCP23008_GPPU, reg_value);
     this->write_byte(MCP23008_OLAT, reg_value);
 }
-uint8_t* WaterQuality::MCP23008_Read()
+bool* WaterQuality::MCP23008_Read()
 {
     uint8_t val;
     this->read_byte(MCP23008_GPIO, &val);
 
-    float value[4];
+    bool value[4];
     for (size_t i = 0; i < 4; i++)
     {
         value[i] = val & (1 << i);
-        ESP_LOGD(TAG, "value %d", value[i]);
+        ESP_LOGD(TAG, "value %d", value[i] ? 1 : 0);
     }
 
     return value;
