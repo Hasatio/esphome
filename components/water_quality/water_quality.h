@@ -102,7 +102,7 @@ float get_setup_priority() const override { return esphome::setup_priority::DATA
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
 void ADS1115_Setup(uint8_t address);
-void ADS1115_Read(float volts[]);
+float ADS1115_Read();
 void ADS1115_Driver(float analog_voltage[]);
 
 void set_multiplexer(ADS1115_Multiplexer multiplexer)   {multiplexer_ = multiplexer;}
@@ -120,7 +120,7 @@ uint8_t get_resolution() const          {return resolution_;}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 void MCP23008_Setup(uint8_t address);
-void MCP23008_Read(bool value[]);
+uint8_t* MCP23008_Read();
 void MCP23008_Write(bool value[]);
 void MCP23008_Driver(bool digital[]);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
