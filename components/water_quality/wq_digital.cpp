@@ -10,20 +10,20 @@ void Digital::Digital_Input_Driver(bool inputs[])
     for (size_t i = 0; i < 8; i++)
     {
         if (inputs[i])
-        //     this->DigIn_FilterCoeff[i]++;
-        // else
-        //     this->DigIn_FilterCoeff[i]--;
+            this->DigIn_FilterCoeff[i]++;
+        else
+            this->DigIn_FilterCoeff[i]--;
 
-        // if (this->DigIn_FilterCoeff[i] >= 8)
-        // {
+        if (this->DigIn_FilterCoeff[i] >= 8)
+        {
             in[i] = 1;
-        //     this->DigIn_FilterCoeff[i] = 4;
-        // }
-        else /*if (this->DigIn_FilterCoeff[i] == 0)
-        {*/
+            this->DigIn_FilterCoeff[i] = 4;
+        }
+        else if (this->DigIn_FilterCoeff[i] == 0)
+        {
             in[i] = 0;
-        //     this->DigIn_FilterCoeff[i] = 4;
-        // }
+            this->DigIn_FilterCoeff[i] = 4;
+        }
     }
 }
 void Digital::Digital_Output_Driver(bool outputs[])
