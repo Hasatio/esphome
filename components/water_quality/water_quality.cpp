@@ -197,7 +197,11 @@ void WaterQuality::update()
     an.Analog_Input_Driver(a);
 
     dig.Digital_Output_Driver(d);
+    for (size_t i = 0; i < 8; i++)
+    ESP_LOGD(TAG, "dout = %d", d[i]);
     MCP23008_Driver(d);
+    for (size_t i = 0; i < 8; i++)
+    ESP_LOGD(TAG, "din = %d", d[i]);
     dig.Digital_Input_Driver(d);
 
 lastChangeTime = millis();
