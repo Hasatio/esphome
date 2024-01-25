@@ -299,8 +299,6 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     if (this->open_drain_ints_)
         // enable open-drain interrupt pins, 3.3V-safe
         this->write_byte(MCP23008_IOCON, 0x04);
-    else
-        this->write_byte(MCP23008_IOCON, 0x08);
 
     this->write_byte(MCP23008_INTF, 0x00);
     this->write_byte(MCP23008_INTCAP, 0x00);
