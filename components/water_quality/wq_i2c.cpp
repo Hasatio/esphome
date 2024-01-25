@@ -42,7 +42,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 
     // Setup Gain
     //        0bxxxx000xxxxxxxxx
-    config |= get_gain() << 9;
+    config |= this->get_gain() << 9;
 
     if (this->get_continuous_mode) 
     {
@@ -59,7 +59,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 
     // Set data rate - 860 samples per second (we're in singleshot mode)
     //        0bxxxxxxxx100xxxxx
-    config |= get_data_rate() << 5;
+    config |= this->get_data_rate() << 5;
 
     // Set comparator mode - hysteresis
     //        0bxxxxxxxxxxx0xxxx
@@ -142,8 +142,7 @@ float WaterQuality::ADS1115_Read()
         if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config))
         {
             this->status_set_warning();
-            volts[i] = NAN;
-            continue;
+            return NAN;
         }
 
         this->prev_config_ = config;
@@ -163,8 +162,7 @@ float WaterQuality::ADS1115_Read()
                 {
                     ESP_LOGW(TAG, "Reading ADS1115 timed out");
                     this->status_set_warning();
-                    volts[i] = NAN;
-                    continue;
+                    return NAN;
                 }
                 yield();
             }
@@ -175,8 +173,7 @@ float WaterQuality::ADS1115_Read()
 
     if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
         this->status_set_warning();
-        volts[i] = NAN;
-        continue;
+        return NAN;
     }
 
     if (this->get_resolution() == ADS1015_12_BITS)
@@ -227,8 +224,8 @@ float WaterQuality::ADS1115_Read()
 
     this->status_clear_warning();
     // ESP_LOGI(TAG, "config: %x", config);
-    volts[i] = millivolts / 1e3f;
-    // ESP_LOGI(TAG, "volts[%d]: %f", i, volts[i]);
+    return millivolts / 1e3f;
+    // ESP_LOGI(TAG, "volts: %f", millivolts / 1e3f);
     
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
