@@ -120,7 +120,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 }
 void WaterQuality::ADS1115_Read(float volts[])
 {
-    ADS1115_Multiplexer multi = ADS1115_MULTIPLEXER_P0_NG;
+    uint8_t multi = ADS1115_MULTIPLEXER_P0_NG;
     
     for (size_t i = 0; i < 4; i++)
     {
