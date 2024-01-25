@@ -44,7 +44,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
     //        0bxxxx000xxxxxxxxx
     config |= this->get_gain() << 9;
 
-    if (this->get_continuous_mode) 
+    if (this->get_continuous_mode()) 
     {
         // Set continuous mode
         //        0bxxxxxxx0xxxxxxxx
@@ -132,12 +132,12 @@ float WaterQuality::ADS1115_Read()
     config &= 0b1111000111111111;
     config |= this->get_gain() << 9;
 
-    if (!(this->get_continuous_mode())) {
+    if (!this->get_continuous_mode()) {
         // Start conversion
         config |= 0b1000000000000000;
     }
 
-    if (!(this->get_continuous_mode()) || this->prev_config_ != config)
+    if (!this->get_continuous_mode() || this->prev_config_ != config)
     {
         if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config))
         {
