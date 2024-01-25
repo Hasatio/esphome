@@ -386,11 +386,6 @@ void WaterQuality::MCP23008_Driver(bool digital[])
         return;
 
     MCP23008_Write(digital);
-    // for (size_t i = 0; i < 4; i++)
-    // {
-    //     MCP23008_Write(i + 4, digital[i]);
-    //     digital[i] = MCP23008_Read(i);
-    // }
     MCP23008_Read(digital);
 }
 

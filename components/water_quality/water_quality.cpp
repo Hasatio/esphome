@@ -263,9 +263,9 @@ void WaterQuality::update()
 
 lastChangeTime = millis();
     
-    // pump.Pump_driver(p);
-    // ser.Servo_driver(p);
-    // PCA9685_Driver(p);
+    pump.Pump_driver(p);
+    ser.Servo_driver(p);
+    PCA9685_Driver(p);
 
 lastTime = millis();
 
