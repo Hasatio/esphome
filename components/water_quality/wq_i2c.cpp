@@ -147,7 +147,8 @@ void WaterQuality::ADS1115_Read(float volts[])
             if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config))
             {
                 this->status_set_warning();
-                return NAN;
+                volts[i] = NAN;
+                continue;
             }
 
             this->prev_config_ = config;
@@ -167,7 +168,8 @@ void WaterQuality::ADS1115_Read(float volts[])
                     {
                         ESP_LOGW(TAG, "Reading ADS1115 timed out");
                         this->status_set_warning();
-                        return NAN;
+                        volts[i] = NAN;
+                        continue;
                     }
                     yield();
                 }
@@ -178,7 +180,8 @@ void WaterQuality::ADS1115_Read(float volts[])
 
         if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
             this->status_set_warning();
-            return NAN;
+            volts[i] = NAN;
+            continue;
         }
 
         if (this->get_resolution() == ADS1015_12_BITS)
@@ -234,11 +237,12 @@ void WaterQuality::ADS1115_Read(float volts[])
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
+    float v[4];
+    
     this->set_i2c_address(ADS1X15_ADDRESS1);
     if (this->is_failed())
         return;
 
-    float v[4];
     ADS1115_Read(v);
     for (size_t i = 0; i < 4; i++)
     { 
@@ -254,7 +258,6 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
-    float v[4];
     ADS1115_Read(v);
     for (size_t i = 0; i < 4; i++)
     { 
