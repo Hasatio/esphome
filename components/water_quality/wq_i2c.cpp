@@ -272,17 +272,6 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
         return;
     }
 
-    this->write_byte(MCP23008_GPIO, reg_value);
-
-    // Read current output register state
-    this->read_byte(MCP23008_OLAT, &this->olat_);
-
-    // if (this->open_drain_ints_)
-    // {
-    //     // enable open-drain interrupt pins, 3.3V-safe
-    //     this->write_byte(MCP23008_IOCON, 0x04);
-    // }
-
     uint8_t reg_value = 0;
     for (size_t i = 0; i < 4; i++)
     {
@@ -292,6 +281,12 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     {
         reg_value &= ~(1 << i);
     }
+
+    // this->write_byte(MCP23008_GPIO, reg_value);
+
+    // Read current output register state
+    this->read_byte(MCP23008_OLAT, &this->olat_);
+
 
     this->write_byte(MCP23008_IPOL, 0x00);
     this->write_byte(MCP23008_GPINTEN, 0x00);
