@@ -113,7 +113,7 @@ void set_resolution(ADS1115_Resolution resolution)      {resolution_ = resolutio
 
 uint8_t get_multiplexer() const     {return multiplexer_;}
 uint8_t get_gain() const            {return gain_;}
-bool get_continuous_mode() const    {return continuous_mode_;}
+bool get_continuous_mode()          {return continuous_mode_;}
 uint8_t get_data_rate() const       {return data_rate_;}
 uint8_t get_resolution() const      {return resolution_;}
 
