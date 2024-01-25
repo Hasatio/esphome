@@ -238,7 +238,7 @@ void WaterQuality::ADS1115_Read(float volts[])
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
     float v[4];
-    
+
     this->set_i2c_address(ADS1X15_ADDRESS1);
     if (this->is_failed())
         return;
@@ -392,7 +392,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     //     MCP23008_Write(i + 4, digital[i]);
     //     digital[i] = MCP23008_Read(i);
     // }
-    MCP23008_Read(digital)
+    MCP23008_Read(digital);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
