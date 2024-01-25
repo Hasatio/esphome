@@ -44,67 +44,6 @@ void WaterQuality::dump_config()
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
         
-    ESP_LOGI(TAG, "Gain: %d", this->get_gain());
-    ESP_LOGI(TAG, "Continuous mode: %s", this->get_continuous_mode() ? "true" : "false");
-    ESP_LOGI(TAG, "Data rate: %d", this->get_data_rate());
-    ESP_LOGI(TAG, "Resolution: %d", this->get_resolution());
-
-    ESP_LOGI(TAG, "Digital status: %x", this->olat_);
-
-    this->set_i2c_address(MCP23008_ADDRESS);
-    uint8_t iodir, ipol, gpinten, defval, intcon, iocon, gppu, intf, intcap, gpio, olat;
-        ESP_LOGI(TAG, "iodir: %x", iodir);
-        this->read_byte(MCP23008_IODIR, &iodir);
-        ESP_LOGI(TAG, "iodir: %x", iodir);
-        
-        ESP_LOGI(TAG, "ipol: %x", ipol);
-        this->read_byte(MCP23008_IPOL, &ipol);
-        ESP_LOGI(TAG, "ipol: %x", ipol);
-
-        ESP_LOGI(TAG, "gpinten: %x", gpinten);
-        this->read_byte(MCP23008_GPINTEN, &gpinten);
-        ESP_LOGI(TAG, "gpinten: %x", gpinten);
-        
-        ESP_LOGI(TAG, "defval: %x", defval);
-        this->read_byte(MCP23008_DEFVAL, &defval);
-        ESP_LOGI(TAG, "defval: %x", defval);
-        
-        ESP_LOGI(TAG, "intcon: %x", intcon);
-        this->read_byte(MCP23008_INTCON, &intcon);
-        ESP_LOGI(TAG, "intcon: %x", intcon);
-        
-        ESP_LOGI(TAG, "iocon: %x", iocon);
-        this->read_byte(MCP23008_IOCON, &iocon);
-        ESP_LOGI(TAG, "iocon: %x", iocon);
-        for (size_t i = 0; i < 8; i++)
-        {  
-            this->read_byte(MCP23008_IODIR, &iodir);
-            ESP_LOGI(TAG, "Digital pin(%d): %d", i, iodir & (1 << i));
-        }
-        this->read_byte(MCP23008_IOCON, &iocon);
-        ESP_LOGI(TAG, "iocon: %x", iocon);
-
-        ESP_LOGI(TAG, "gppu: %x", gppu);
-        this->read_byte(MCP23008_GPPU, &gppu);
-        ESP_LOGI(TAG, "gppu: %x", gppu);
-        
-        ESP_LOGI(TAG, "intf: %x", intf);
-        this->read_byte(MCP23008_INTF, &intf);
-        ESP_LOGI(TAG, "intf: %x", intf);
-        
-        ESP_LOGI(TAG, "intcap: %x", intcap);
-        this->read_byte(MCP23008_INTCAP, &intcap);
-        ESP_LOGI(TAG, "intcap: %x", intcap);
-        
-        ESP_LOGI(TAG, "gpio: %x", gpio);
-        this->read_byte(MCP23008_GPIO, &gpio);
-        ESP_LOGI(TAG, "gpio: %x", gpio);
-        
-        ESP_LOGI(TAG, "olat: %x", olat);
-        this->read_byte(MCP23008_OLAT, &olat);
-        ESP_LOGI(TAG, "olat: %x", olat);
-        
-
     ESP_LOGCONFIG(TAG, "PCA9685:");
     ESP_LOGCONFIG(TAG, "  Mode: 0x%02X", this->mode_);
     if (this->extclk_) {
