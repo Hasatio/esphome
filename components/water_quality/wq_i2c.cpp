@@ -320,7 +320,7 @@ uint8_t WaterQuality::MCP23008_Read()
 {
     this->set_i2c_address(MCP23008_ADDRESS);
     if (this->is_failed())
-        return;
+        return 0;
 
     uint8_t value;
     this->read_byte(MCP23008_GPIO, &value);
