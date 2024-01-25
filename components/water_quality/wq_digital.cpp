@@ -24,6 +24,7 @@ void Digital::Digital_Input_Driver(bool inputs[])
             in[i] = 0;
         //     this->DigIn_FilterCoeff[i] = 4;
         // }
+        inputs[i] = 0;
     }
 }
 void Digital::Digital_Output_Driver(bool outputs[])
