@@ -316,7 +316,7 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->write_byte(MCP23008_GPPU, reg_value);
     this->write_byte(MCP23008_OLAT, reg_value);
 }
-bool WaterQuality::MCP23008_Read()
+uint8_t WaterQuality::MCP23008_Read()
 {
     uint8_t value;
     this->read_byte(MCP23008_GPIO, &value);
