@@ -118,107 +118,119 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-float WaterQuality::ADS1115_Read(ADS1115_Multiplexer multi)
+void WaterQuality::ADS1115_Read(float volts[])
 {
-    uint16_t config = this->prev_config_;
-    // uint16_t config = 0b0000000011100011;
-    // Multiplexer
-    //        0bxBBBxxxxxxxxxxxx
-    config &= 0b1000111111111111;
-    config |= multi << 12;
+    ADS1115_Multiplexer multi = ADS1115_MULTIPLEXER_P0_NG;
+    
+    for (size_t i = 0; i < 4; i++)
+    {
 
-    // Gain
-    //        0bxxxxBBBxxxxxxxxx
-    config &= 0b1111000111111111;
-    config |= (ADS1115_GAIN_6P144) << 9;
+        uint16_t config = this->prev_config_;
+        // uint16_t config = 0b0000000011100011;
+        // Multiplexer
+        //        0bxBBBxxxxxxxxxxxx
+        config &= 0b1000111111111111;
+        config |= (multi + i) << 12;
 
-    if (!this->continuous_mode_) {
-        // Start conversion
-        config |= 0b1000000000000000;
-    }
+        // Gain
+        //        0bxxxxBBBxxxxxxxxx
+        config &= 0b1111000111111111;
+        config |= (ADS1115_GAIN_6P144) << 9;
 
-    if (!this->continuous_mode_ || this->prev_config_ != config) {
-        if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config)) {
-        this->status_set_warning();
-        return NAN;
-        }
-        this->prev_config_ = config;
-
-        // about 1.2 ms with 860 samples per second
-        delay(2);
-        
-        // in continuous mode, conversion will always be running, rely on the delay
-        // to ensure conversion is taking place with the correct settings
-        // can we use the rdy pin to trigger when a conversion is done?
         if (!this->continuous_mode_) {
-        uint32_t start = millis();
-        while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0) {
-            if (millis() - start > 100) {
-            ESP_LOGW(TAG, "Reading ADS1115 timed out");
+            // Start conversion
+            config |= 0b1000000000000000;
+        }
+
+        if (!this->continuous_mode_ || this->prev_config_ != config)
+        {
+            if (!this->write_byte_16(ADS1115_REGISTER_CONFIG, config))
+            {
+                this->status_set_warning();
+                return NAN;
+            }
+
+            this->prev_config_ = config;
+
+            // about 1.2 ms with 860 samples per second
+            delay(2);
+            
+            // in continuous mode, conversion will always be running, rely on the delay
+            // to ensure conversion is taking place with the correct settings
+            // can we use the rdy pin to trigger when a conversion is done?
+            if (!this->continuous_mode_)
+            {
+                uint32_t start = millis();
+                while (this->read_byte_16(ADS1115_REGISTER_CONFIG, &config) && (config >> 15) == 0)
+                {
+                    if (millis() - start > 100)
+                    {
+                        ESP_LOGW(TAG, "Reading ADS1115 timed out");
+                        this->status_set_warning();
+                        return NAN;
+                    }
+                    yield();
+                }
+            }
+        }
+
+        uint16_t raw_conversion;
+
+        if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
             this->status_set_warning();
             return NAN;
-            }
-            yield();
         }
-        }
-    }
 
-    uint16_t raw_conversion;
-
-    if (!this->read_byte_16(ADS1115_REGISTER_CONVERSION, &raw_conversion)) {
-        this->status_set_warning();
-        return NAN;
-    }
-
-    if (this->get_resolution() == ADS1015_12_BITS)
-    {
-        bool negative = (raw_conversion >> 15) == 1;
-
-        // shift raw_conversion as it's only 12-bits, left justified
-        raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
-
-        // check if number was negative in order to keep the sign
-        if (negative)
+        if (this->get_resolution() == ADS1015_12_BITS)
         {
-            // the number was negative
-            // 1) set the negative bit back
-            raw_conversion |= 0x8000;
-            // 2) reset the former (shifted) negative bit
-            raw_conversion &= 0xF7FF;
+            bool negative = (raw_conversion >> 15) == 1;
+
+            // shift raw_conversion as it's only 12-bits, left justified
+            raw_conversion = raw_conversion >> (16 - ADS1015_12_BITS);
+
+            // check if number was negative in order to keep the sign
+            if (negative)
+            {
+                // the number was negative
+                // 1) set the negative bit back
+                raw_conversion |= 0x8000;
+                // 2) reset the former (shifted) negative bit
+                raw_conversion &= 0xF7FF;
+            }
         }
+
+        auto signed_conversion = static_cast<int16_t>(raw_conversion);
+
+        float millivolts;
+        float divider = (this->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
+        switch (this->get_gain())
+        {
+            case ADS1115_GAIN_6P144:
+            millivolts = (signed_conversion * 6144) / divider;
+            break;
+            case ADS1115_GAIN_4P096:
+            millivolts = (signed_conversion * 4096) / divider;
+            break;
+            case ADS1115_GAIN_2P048:
+            millivolts = (signed_conversion * 2048) / divider;
+            break;
+            case ADS1115_GAIN_1P024:
+            millivolts = (signed_conversion * 1024) / divider;
+            break;
+            case ADS1115_GAIN_0P512:
+            millivolts = (signed_conversion * 512) / divider;
+            break;
+            case ADS1115_GAIN_0P256:
+            millivolts = (signed_conversion * 256) / divider;
+            break;
+            default:
+            millivolts = NAN;
+        }
+
+        this->status_clear_warning();
+        // ESP_LOGI(TAG, "config: %x", config);
+        volts[i] = millivolts / 1e3f;
     }
-
-    auto signed_conversion = static_cast<int16_t>(raw_conversion);
-
-    float millivolts;
-    float divider = (this->get_resolution() == ADS1115_16_BITS) ? 32768.0f : 2048.0f;
-    switch (this->get_gain())
-    {
-        case ADS1115_GAIN_6P144:
-        millivolts = (signed_conversion * 6144) / divider;
-        break;
-        case ADS1115_GAIN_4P096:
-        millivolts = (signed_conversion * 4096) / divider;
-        break;
-        case ADS1115_GAIN_2P048:
-        millivolts = (signed_conversion * 2048) / divider;
-        break;
-        case ADS1115_GAIN_1P024:
-        millivolts = (signed_conversion * 1024) / divider;
-        break;
-        case ADS1115_GAIN_0P512:
-        millivolts = (signed_conversion * 512) / divider;
-        break;
-        case ADS1115_GAIN_0P256:
-        millivolts = (signed_conversion * 256) / divider;
-        break;
-        default:
-        millivolts = NAN;
-    }
-
-    this->status_clear_warning();
-    // ESP_LOGI(TAG, "config: %x", config);
-    return millivolts / 1e3f;
 }
 void WaterQuality::ADS1115_Driver(float analog_voltage[])
 {
@@ -226,12 +238,13 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
+    float v[4];
+    ADS1115_Read(v);
     for (size_t i = 0; i < 4; i++)
-    {
-        float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
-        if (!std::isnan(v)) 
+    { 
+        if (!std::isnan(v[i])) 
         {
-            analog_voltage[i] = v;
+            analog_voltage[i] = v[i];
             // ESP_LOGD(TAG, "Voltage%d: %f", i, v);
             // this->publish_state(v);
         }
@@ -241,13 +254,14 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
+    float v[4];
+    ADS1115_Read(v);
     for (size_t i = 0; i < 4; i++)
-    {
-        float v = ADS1115_Read(static_cast<ADS1115_Multiplexer>(i + 4));
-        if (!std::isnan(v)) 
+    { 
+        if (!std::isnan(v[i])) 
         {
-            analog_voltage[i + 4] = v;
-            // ESP_LOGD(TAG, "Voltage%d: %f", i + 4, v);
+            analog_voltage[i] = v[i];
+            // ESP_LOGD(TAG, "Voltage%d: %f", i, v);
             // this->publish_state(v);
         }
     }
@@ -304,13 +318,15 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->write_byte(MCP23008_GPPU, reg_value);
     this->write_byte(MCP23008_OLAT, reg_value);
 }
-bool WaterQuality::MCP23008_Read(uint8_t pin)
+void WaterQuality::MCP23008_Read(bool value[])
 {
-    uint8_t bit = pin % 8;
-    uint8_t value = 0;
-    this->read_byte(MCP23008_GPIO, &value);
+    uint8_t val;
+    this->read_byte(MCP23008_GPIO, &val);
 
-    return value & (1 << bit);
+    for (size_t i = 0; i < 4; i++)
+    {
+        value[i] = val & (1 << i);
+    }
 }
 void WaterQuality::MCP23008_Write(bool value[]) 
 {
@@ -318,13 +334,13 @@ void WaterQuality::MCP23008_Write(bool value[])
 
     for (size_t i = 0; i < 4; i++)
     {
-    // uint8_t olat_;
-    // this->read_byte(MCP23008_OLAT, &this->olat_);
+        // uint8_t olat_;
+        // this->read_byte(MCP23008_OLAT, &this->olat_);
 
-    if (value[i])
-        reg_value |= 1 << (i + 4);
-    else
-        reg_value &= ~(1 << (i + 4));
+        if (value[i])
+            reg_value |= 1 << (i + 4);
+        else
+            reg_value &= ~(1 << (i + 4));
     }
 
     if (reg_value != this->olat_)
@@ -367,12 +383,13 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     if (this->is_failed())
         return;
 
+    MCP23008_Write(digital);
     // for (size_t i = 0; i < 4; i++)
     // {
     //     MCP23008_Write(i + 4, digital[i]);
     //     digital[i] = MCP23008_Read(i);
     // }
-    MCP23008_Write(digital);
+    MCP23008_Read(digital)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

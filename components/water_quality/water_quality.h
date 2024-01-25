@@ -63,15 +63,6 @@ enum ADS1115_Resolution
     ADS1015_12_BITS = 12,
 };
 
-enum MCP23008_PinMode
-{
-    FLAG_NONE,
-    FLAG_INPUT,
-    FLAG_OUTPUT,
-    FLAG_OPEN_DRAIN,
-    FLAG_PULLUP,
-    FLAG_PULLDOWN,
-};
 enum MCP23008_Registers 
 {
     MCP23008_IODIR = 0x00,
@@ -85,6 +76,15 @@ enum MCP23008_Registers
     MCP23008_INTCAP = 0x08,
     MCP23008_GPIO = 0x09,
     MCP23008_OLAT = 0x0A,
+};
+enum MCP23008_PinMode
+{
+    FLAG_NONE,
+    FLAG_INPUT,
+    FLAG_OUTPUT,
+    FLAG_OPEN_DRAIN,
+    FLAG_PULLUP,
+    FLAG_PULLDOWN,
 };
 enum MCP23008_InterruptMode : uint8_t
 {
