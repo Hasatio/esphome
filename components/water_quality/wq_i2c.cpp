@@ -303,17 +303,17 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->read_byte(MCP23008_OLAT, &this->olat_);
 
 
-    this->write_byte(MCP23008_IPOL, 0x00);
-    this->write_byte(MCP23008_GPINTEN, 0x00);
-    this->write_byte(MCP23008_DEFVAL, 0x00);
-    this->write_byte(MCP23008_INTCON, 0x00);
+    // this->write_byte(MCP23008_IPOL, 0x00);
+    // this->write_byte(MCP23008_GPINTEN, 0x00);
+    // this->write_byte(MCP23008_DEFVAL, 0x00);
+    // this->write_byte(MCP23008_INTCON, 0x00);
 
     if (this->open_drain_ints_)
         // enable open-drain interrupt pins, 3.3V-safe
         this->write_byte(MCP23008_IOCON, 0x04);
 
-    this->write_byte(MCP23008_INTF, 0x00);
-    this->write_byte(MCP23008_INTCAP, 0x00);
+    // this->write_byte(MCP23008_INTF, 0x00);
+    // this->write_byte(MCP23008_INTCAP, 0x00);
 }
 uint8_t WaterQuality::MCP23008_Read()
 {
