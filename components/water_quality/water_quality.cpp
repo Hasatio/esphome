@@ -259,13 +259,13 @@ void WaterQuality::update()
 
     dig.Digital_Output_Driver(d);
     MCP23008_Driver(d);
-    dig.Digital_Input_Driver(d);
+    // dig.Digital_Input_Driver(d);
 
 lastChangeTime = millis();
     
-    pump.Pump_driver(p);
-    ser.Servo_driver(p);
-    PCA9685_Driver(p);
+    // pump.Pump_driver(p);
+    // ser.Servo_driver(p);
+    // PCA9685_Driver(p);
 
 lastTime = millis();
 
