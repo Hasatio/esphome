@@ -249,7 +249,7 @@ void WaterQuality::loop()
 	static uint32_t multFactor = 0;
 
 float a[8], p[16];
-bool d[4];
+bool d[8];
 void WaterQuality::update()
 {
 	currTime = millis();
@@ -435,14 +435,14 @@ void WaterQuality::digital_out(std::vector<bool> &dout)
     bool* dout_ = dig.get_Digital_Out();
     std::vector<bool> d(dout_, dout_ + 4);
 
-    // if (d != dout)
-    // {
+    if (d != dout)
+    {
         for (size_t i = 0; i < 4; i++)
         {
             dout_[i] = dout[i];
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
-    // }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

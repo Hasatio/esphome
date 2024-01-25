@@ -318,21 +318,13 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
 }
 uint8_t WaterQuality::MCP23008_Read()
 {
-    this->set_i2c_address(MCP23008_ADDRESS);
-    if (this->is_failed())
-        return 0;
-
     uint8_t value;
     this->read_byte(MCP23008_GPIO, &value);
 
     return value;
 }
-void WaterQuality::MCP23008_Write(bool value[]) 
+void WaterQuality::MCP23008_Write(bool value[])
 {
-    this->set_i2c_address(MCP23008_ADDRESS);
-    if (this->is_failed())
-        return;
-
     uint8_t reg_value = this->olat_;
 
     for (size_t i = 0; i < 4; i++)
@@ -340,7 +332,7 @@ void WaterQuality::MCP23008_Write(bool value[])
         // uint8_t olat_;
         // this->read_byte(MCP23008_OLAT, &this->olat_);
 
-        if (value[i])
+        if (value[i + 4])
             reg_value |= 1 << (i + 4);
         else
             reg_value &= ~(1 << (i + 4));
@@ -385,7 +377,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     this->set_i2c_address(MCP23008_ADDRESS);
     if (this->is_failed())
         return;
-
+    
     MCP23008_Write(digital);
     
     uint8_t value = MCP23008_Read();

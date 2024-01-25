@@ -32,7 +32,7 @@ void Digital::Digital_Output_Driver(bool outputs[])
 
     for (size_t i = 0; i < 4; i++)
     {
-        outputs[i] = out[i];
+        outputs[i + 4] = out[i];
     }
 }
 
