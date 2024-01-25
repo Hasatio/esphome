@@ -30,9 +30,9 @@ void Digital::Digital_Output_Driver(bool outputs[])
 {
     bool* out = get_Digital_Out();
 
-    for (size_t i = 4; i < 8; i++)
+    for (size_t i = 0; i < 4; i++)
     {
-        outputs[i] = out[i - 4];
+        outputs[i] = out[i];
     }
 }
 

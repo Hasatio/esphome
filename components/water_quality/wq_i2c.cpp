@@ -326,15 +326,15 @@ void WaterQuality::MCP23008_Write(bool value[])
 {
     uint8_t reg_value = this->olat_;
 
-    for (size_t i = 4; i < 8; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         // uint8_t olat_;
         // this->read_byte(MCP23008_OLAT, &this->olat_);
 
         if (value[i])
-            reg_value |= 1 << (i);
+            reg_value |= 1 << (i + 4);
         else
-            reg_value &= ~(1 << (i));
+            reg_value &= ~(1 << (i + 4));
     }
 
     if (reg_value != this->olat_)
