@@ -392,7 +392,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     for (size_t i = 0; i < 4; i++)
     {
         digital[i] = value & (1 << i);
-        ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
+        // ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
     }
 }
 
