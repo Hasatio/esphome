@@ -318,6 +318,10 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
 }
 uint8_t WaterQuality::MCP23008_Read()
 {
+    this->set_i2c_address(MCP23008_ADDRESS);
+    if (this->is_failed())
+        return;
+
     uint8_t value;
     this->read_byte(MCP23008_GPIO, &value);
 
@@ -325,6 +329,10 @@ uint8_t WaterQuality::MCP23008_Read()
 }
 void WaterQuality::MCP23008_Write(bool value[]) 
 {
+    this->set_i2c_address(MCP23008_ADDRESS);
+    if (this->is_failed())
+        return;
+
     uint8_t reg_value = this->olat_;
 
     for (size_t i = 0; i < 4; i++)
@@ -452,6 +460,10 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
 }
 void WaterQuality::PCA9685_Write()
 {
+    this->set_i2c_address(PCA9685_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+
     if (this->min_channel_ == 0xFF || !this->update_)
         return;
     const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
