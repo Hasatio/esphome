@@ -372,7 +372,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     //     MCP23008_Write(i + 4, digital[i]);
     //     digital[i] = MCP23008_Read(i);
     // }
-    MCP23008_Write(digital[i]);
+    MCP23008_Write(digital);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
