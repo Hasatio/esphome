@@ -294,7 +294,7 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
         reg_value &= ~(1 << i);
     }
 
-    // this->write_byte(MCP23008_GPIO, reg_value);
+    this->write_byte(MCP23008_GPIO, reg_value);
 
     // Read current output register state
     this->read_byte(MCP23008_OLAT, &this->olat_);
@@ -327,15 +327,15 @@ void WaterQuality::MCP23008_Write(bool value[])
 {
     uint8_t reg_value = this->olat_;
 
-    for (size_t i = 0; i < 4; i++)
+    for (size_t i = 4; i < 8; i++)
     {
         // uint8_t olat_;
         // this->read_byte(MCP23008_OLAT, &this->olat_);
 
-        if (value[i + 4])
-            reg_value |= 1 << (i + 4);
+        if (value[i])
+            reg_value |= 1 << (i);
         else
-            reg_value &= ~(1 << (i + 4));
+            reg_value &= ~(1 << (i));
     }
 
     if (reg_value != this->olat_)
