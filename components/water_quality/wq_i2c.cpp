@@ -312,20 +312,21 @@ bool WaterQuality::MCP23008_Read(uint8_t pin)
 
     return value & (1 << bit);
 }
-void WaterQuality::MCP23008_Write(uint8_t pin, bool value) 
+void WaterQuality::MCP23008_Write(bool value[]) 
 {
-    uint8_t bit = pin % 8;
-    // uint8_t olat_;
-    // this->read_byte(MCP23008_OLAT, &this->olat_);
     uint8_t reg_value = this->olat_;
 
-    if (value)
-        reg_value |= 1 << bit;
-    else
-        reg_value &= ~(1 << bit);
+    for (size_t i = 0; i < 4; i++)
+    {
+    // uint8_t olat_;
+    // this->read_byte(MCP23008_OLAT, &this->olat_);
 
-    uint8_t val = 0;
-    this->read_byte(MCP23008_GPIO, &val);
+    if (value[i])
+        reg_value |= 1 << (i + 4);
+    else
+        reg_value &= ~(1 << (i + 4));
+    }
+
     if (reg_value != this->olat_)
     {
         // this->write_byte(MCP23008_GPIO, reg_value);
@@ -366,11 +367,12 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     if (this->is_failed())
         return;
 
-    for (size_t i = 0; i < 4; i++)
-    {
-        MCP23008_Write(i + 4, digital[i]);
-        digital[i] = MCP23008_Read(i);
-    }
+    // for (size_t i = 0; i < 4; i++)
+    // {
+    //     MCP23008_Write(i + 4, digital[i]);
+    //     digital[i] = MCP23008_Read(i);
+    // }
+    MCP23008_Write(digital[i]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
