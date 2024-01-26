@@ -44,9 +44,10 @@ void WaterQuality::setup()
 
     timer = timerBegin(0, 80, true);           	// timer 0, prescalar: 80, UP counting
     timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
-    timerAlarmWrite(timer, 1000000, true);  		// Match value= 1000000 for 1 sec. delay.
+    timerWrite(timer, 0);
     timerAlarmEnable(timer);           			// Enable Timer with interrupt (Alarm Enable)
-
+timerAlarmWrite(timer, 1000000, true);  		// Match value= 1000000 for 1 sec. delay.
+    
 
 }
 void WaterQuality::dump_config()
