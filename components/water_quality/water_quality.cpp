@@ -109,7 +109,7 @@ void WaterQuality::loop()
 
 	currTime = millis();
 
-	if (currTime - lastTime > CHECK_INTERVAL_MS)
+	if (millis() - lastTime > CHECK_INTERVAL_MS)
 	{
 
 			//setInterval(unsigned long interval, timerCallback callback)
@@ -119,7 +119,7 @@ void WaterQuality::loop()
     
 			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", currTime - lastTime);
 
-		lastTime = currTime;
+		lastTime = millis();
 	}
 
 
