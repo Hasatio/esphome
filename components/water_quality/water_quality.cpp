@@ -119,7 +119,7 @@ void WaterQuality::loop()
 	{
 
 			//setInterval(unsigned long interval, timerCallback callback)
-			multFactor = 1;
+			multFactor = 2;
 
 			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
     
