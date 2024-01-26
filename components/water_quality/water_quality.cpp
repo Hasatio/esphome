@@ -5,6 +5,12 @@
 #include "wq_pump.h"
 #include "wq_servo.h"
 
+// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
+#define _TIMERINTERRUPT_LOGLEVEL_     1
+
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "ESP32TimerInterrupt.h"
+
 namespace esphome {
 namespace water_quality {
 

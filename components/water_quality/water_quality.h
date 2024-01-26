@@ -16,14 +16,6 @@
 #include <iomanip>
 // #include <Wire.h>
 
-// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
-#define _TIMERINTERRUPT_LOGLEVEL_     1
-
-// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include "ESP32TimerInterrupt.hpp"
-#include "ESP32_ISR_Timer.hpp"
-#include "ESP32_ISR_Timer-Impl.h"
-
 #define TIMER0_INTERVAL_MS  1000
 
 #define CHECK_INTERVAL_MS   2000L
