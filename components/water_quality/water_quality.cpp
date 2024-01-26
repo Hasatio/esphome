@@ -182,7 +182,7 @@ void WaterQuality::Timer0()
 
 ESP_LOGI(TAG, "Timer0");
 
-	return true;
+	return;
 }
 
 float a[8], p[16];
