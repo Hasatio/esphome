@@ -16,8 +16,8 @@
 #include <iomanip>
 // #include <Wire.h>
 
-// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
-#define _TIMERINTERRUPT_LOGLEVEL_ 1
+// // These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
+// #define _TIMERINTERRUPT_LOGLEVEL_ 1
 
 #define TIMER0_INTERVAL_MS  1000
 
@@ -110,6 +110,7 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 static bool IRAM_ATTR TimerHandler0(void * timerNo);
+void IRAM_ATTR onTimer();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
