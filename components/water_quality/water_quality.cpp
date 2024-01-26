@@ -12,7 +12,13 @@ namespace water_quality {
     Digital dig;
     Pump pump;
     Servo ser;
-    
+        
+static unsigned long timepoint = millis();
+
+// Init ESP32 timer 0
+ESP32Timer ITimer0(0);
+ESP32Timer ITimer1(1);
+
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
@@ -135,47 +141,47 @@ void WaterQuality::loop()
 // 	}
 
 
-	// static unsigned long lastTimer0 = 0;
-	// static unsigned long lastTimer1 = 0;
+	static unsigned long lastTimer0 = 0;
+	static unsigned long lastTimer1 = 0;
 
-	// static bool timer0Stopped         = false;
-	// static bool timer1Stopped         = false;
+	static bool timer0Stopped         = false;
+	static bool timer1Stopped         = false;
 
-	// if (millis() - lastTimer0 > TIMER0_DURATION_MS)
-	// {
-	// 	lastTimer0 = millis();
+	if (millis() - lastTimer0 > TIMER0_DURATION_MS)
+	{
+		lastTimer0 = millis();
 
-	// 	if (timer0Stopped)
-	// 	{
-    //         ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
-	// 		ITimer0.restartTimer();
-	// 	}
-	// 	else
-	// 	{
-    //         ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
-	// 		ITimer0.stopTimer();
-	// 	}
+		if (timer0Stopped)
+		{
+            ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
+			ITimer0.restartTimer();
+		}
+		else
+		{
+            ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
+			ITimer0.stopTimer();
+		}
 
-	// 	timer0Stopped = !timer0Stopped;
-	// }
+		timer0Stopped = !timer0Stopped;
+	}
 
-	// if (millis() - lastTimer1 > TIMER1_DURATION_MS)
-	// {
-	// 	lastTimer1 = millis();
+	if (millis() - lastTimer1 > TIMER1_DURATION_MS)
+	{
+		lastTimer1 = millis();
 
-	// 	if (timer1Stopped)
-	// 	{
-    //         ESP_LOGI(TAG, "Start ITimer1, millis() = %d", millis());
-	// 		ITimer1.restartTimer();
-	// 	}
-	// 	else
-	// 	{
-    //         ESP_LOGI(TAG, "Stop ITimer1, millis() = %d", millis());
-	// 		ITimer1.stopTimer();
-	// 	}
+		if (timer1Stopped)
+		{
+            ESP_LOGI(TAG, "Start ITimer1, millis() = %d", millis());
+			ITimer1.restartTimer();
+		}
+		else
+		{
+            ESP_LOGI(TAG, "Stop ITimer1, millis() = %d", millis());
+			ITimer1.stopTimer();
+		}
 
-	// 	timer1Stopped = !timer1Stopped;
-	// }
+		timer1Stopped = !timer1Stopped;
+	}
 
 
     // delay(500);
@@ -186,6 +192,21 @@ void WaterQuality::loop()
 	static uint32_t lastChangeTime = 0;
 	static uint32_t currTime;
 	static uint32_t multFactor = 0;
+
+bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
+{
+
+ESP_LOGI(TAG, "TimerHandler0");
+
+	return true;
+}
+bool IRAM_ATTR WaterQuality::TimerHandler1(void * timerNo)
+{
+
+ESP_LOGI(TAG, "TimerHandler1");
+
+	return true;
+}
 
 float a[8], p[16];
 bool d[4];
