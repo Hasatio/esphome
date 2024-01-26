@@ -106,7 +106,7 @@ class WaterQuality : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-void IRAM_ATTR Timer0();
+static void IRAM_ATTR Timer0();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
