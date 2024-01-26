@@ -23,6 +23,7 @@ namespace water_quality {
 // ESP32Timer ITimer0(0);
 
 volatile int interruptCounter;  //for counting interrupt
+int totalInterruptCounter;   	//total interrupt counting
 hw_timer_t * timer = NULL;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
