@@ -43,7 +43,7 @@ void WaterQuality::setup()
 	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
 
     timer = timerBegin(0, 80, true);  // Timer 0, prescaler 80, sayımsal (count-up) mod
-    timerAttachInterrupt(timer, &TimerHandler0, true);  // Timer kesme işlevini bağlama
+    timerAttachInterrupt(timer, &Timer0, true);  // Timer kesme işlevini bağlama
     timerAlarmWrite(timer, 1000000, true);  // Her saniyede bir (1 saniye * 1000000 mikrosaniye)
     timerAlarmEnable(timer);  // Timer'ı etkinleştirme
 }
@@ -173,6 +173,14 @@ bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 {
 
 ESP_LOGI(TAG, "TimerHandler0");
+
+	return true;
+}
+
+void WaterQuality::Timer0()
+{
+
+ESP_LOGI(TAG, "Timer0");
 
 	return true;
 }
