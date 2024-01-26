@@ -118,7 +118,7 @@ void WaterQuality::loop()
 
 			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
     
-			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", currTime - lastChangeTime);
+			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", currTime - lastTime);
 
 	}
 
