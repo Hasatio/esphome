@@ -102,58 +102,52 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-//     static uint32_t lastTime = 0;
-// 	static uint32_t lastChangeTime = 0;
-// 	static uint32_t currTime;
-// 	static uint32_t multFactor = 0;
+    static uint32_t lastTime = 0;
+	static uint32_t lastChangeTime = 0;
+	static uint32_t currTime;
+	static uint32_t multFactor = 0;
 
-// 	currTime = millis();
+	currTime = millis();
 
-// 	if (currTime - lastTime > CHECK_INTERVAL_MS)
-// 	{
-// 		lastTime = currTime;
-
-// 		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
-// 		{
-// 			//setInterval(unsigned long interval, timerCallback callback)
-// 			multFactor = (multFactor + 1) % 2;
-
-//     auto start = std::chrono::high_resolution_clock::now();
-// 			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
-// 			ITimer1.setInterval(TIMER1_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler1);
-//  auto stop = std::chrono::high_resolution_clock::now();
-//     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-     
-//     ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
-    
-// 			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d,  Timer1 = %d", TIMER0_INTERVAL_MS * (multFactor + 1), TIMER1_INTERVAL_MS * (multFactor + 1));
-
-// 			lastChangeTime = currTime;
-// 		}
-// 	}
-
-
-	static unsigned long lastTimer0 = 0;
-
-	static bool timer0Stopped         = false;
-
-	if (millis() - lastTimer0 > TIMER0_DURATION_MS)
+	if (currTime - lastTime > CHECK_INTERVAL_MS)
 	{
-		lastTimer0 = millis();
+		lastTime = currTime;
 
-		if (timer0Stopped)
+		if (currTime - lastChangeTime > CHANGE_INTERVAL_MS)
 		{
-            ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
-			ITimer0.restartTimer();
-		}
-		else
-		{
-            ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
-			ITimer0.stopTimer();
-		}
+			//setInterval(unsigned long interval, timerCallback callback)
+			multFactor = (multFactor + 1) % 2;
 
-		timer0Stopped = !timer0Stopped;
+			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * (multFactor + 1), TimerHandler0);
+    
+			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", TIMER0_INTERVAL_MS * (multFactor + 1));
+
+			lastChangeTime = currTime;
+		}
 	}
+
+
+	// static unsigned long lastTimer0 = 0;
+
+	// static bool timer0Stopped         = false;
+
+	// if (millis() - lastTimer0 > TIMER0_DURATION_MS)
+	// {
+	// 	lastTimer0 = millis();
+
+	// 	if (timer0Stopped)
+	// 	{
+    //         ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
+	// 		ITimer0.restartTimer();
+	// 	}
+	// 	else
+	// 	{
+    //         ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
+	// 		ITimer0.stopTimer();
+	// 	}
+
+	// 	timer0Stopped = !timer0Stopped;
+	// }
 
 
 
