@@ -5,12 +5,6 @@
 #include "wq_pump.h"
 #include "wq_servo.h"
 
-// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
-#define _TIMERINTERRUPT_LOGLEVEL_     1
-
-// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include "ESP32TimerInterrupt.h"
-
 namespace esphome {
 namespace water_quality {
 
@@ -18,11 +12,6 @@ namespace water_quality {
     Digital dig;
     Pump pump;
     Servo ser;
-        
-static unsigned long timepoint = millis();
-
-// Init ESP32 timer 0
-ESP32Timer ITimer0(0);
 
 // Timer nesnesi
 hw_timer_t *timer = NULL;
@@ -115,25 +104,25 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    static uint32_t lastTime = 0;
-	static uint32_t lastChangeTime = 0;
-	static uint32_t currTime;
-	static uint32_t multFactor = 0;
+    // static uint32_t lastTime = 0;
+	// static uint32_t lastChangeTime = 0;
+	// static uint32_t currTime;
+	// static uint32_t multFactor = 0;
 
-	currTime = millis();
+	// currTime = millis();
 
-	if (millis() - lastTime >= CHECK_INTERVAL_MS)
-	{
+	// if (millis() - lastTime >= CHECK_INTERVAL_MS)
+	// {
 
-			//setInterval(unsigned long interval, timerCallback callback)
-			multFactor = 2;
+	// 		//setInterval(unsigned long interval, timerCallback callback)
+	// 		multFactor = 2;
 
-			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
+	// 		ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
     
-			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", millis() - lastTime);
+	// 		ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", millis() - lastTime);
 
-		lastTime = millis();
-	}
+	// 	lastTime = millis();
+	// }
 
 
 	// static unsigned long lastTimer0 = 0;
@@ -168,14 +157,6 @@ void WaterQuality::loop()
 	static uint32_t lastChangeTime = 0;
 	static uint32_t currTime;
 	static uint32_t multFactor = 0;
-
-bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
-{
-
-ESP_LOGI(TAG, "TimerHandler0");
-
-	return true;
-}
 
 void IRAM_ATTR WaterQuality::Timer0()
 {
