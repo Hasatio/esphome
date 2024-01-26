@@ -21,7 +21,8 @@
 
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include "ESP32TimerInterrupt.hpp"
-#include "ESP32_ISR_Timer.h"
+#include "ESP32_ISR_Timer.hpp"
+#include "ESP32_ISR_Timer-Impl.h"
 
 #define TIMER0_INTERVAL_MS  1000
 
