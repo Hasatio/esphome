@@ -20,7 +20,7 @@
 #define _TIMERINTERRUPT_LOGLEVEL_     1
 
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-#include "ESP32TimerInterrupt.hpp"
+#include "ESP32TimerInterrupt.h"
 
 #define TIMER0_INTERVAL_MS  1000
 
