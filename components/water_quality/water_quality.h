@@ -31,9 +31,6 @@
 #define TIMER0_INTERVAL_MS  1000
 #define TIMER0_DURATION_MS  5000
 
-#define TIMER1_INTERVAL_MS  1000
-#define TIMER1_DURATION_MS  5000
-
 namespace esphome {
 namespace water_quality {
 
@@ -118,7 +115,6 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 static bool IRAM_ATTR TimerHandler0(void * timerNo);
-static bool IRAM_ATTR TimerHandler1(void * timerNo);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
