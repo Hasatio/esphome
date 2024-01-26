@@ -109,7 +109,7 @@ void WaterQuality::loop()
 
 	currTime = millis();
 
-	if (millis() - lastTime > CHECK_INTERVAL_MS)
+	if (millis() - lastTime >= CHECK_INTERVAL_MS)
 	{
 
 			//setInterval(unsigned long interval, timerCallback callback)
