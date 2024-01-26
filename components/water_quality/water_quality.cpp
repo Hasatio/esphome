@@ -177,7 +177,7 @@ ESP_LOGI(TAG, "TimerHandler0");
 	return true;
 }
 
-void WaterQuality::Timer0()
+void IRAM_ATTR WaterQuality::Timer0()
 {
 
 ESP_LOGI(TAG, "Timer0");
