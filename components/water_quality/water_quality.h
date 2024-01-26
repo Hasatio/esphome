@@ -29,10 +29,10 @@
 // #define CHANGE_INTERVAL_MS  20000L
 
 #define TIMER0_INTERVAL_MS  1000
-#define TIMER0_DURATION_MS  500
+#define TIMER0_DURATION_MS  5000
 
 #define TIMER1_INTERVAL_MS  1000
-#define TIMER1_DURATION_MS  500
+#define TIMER1_DURATION_MS  5000
 
 namespace esphome {
 namespace water_quality {
