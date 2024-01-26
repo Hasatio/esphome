@@ -110,7 +110,7 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 static bool IRAM_ATTR TimerHandler0(void * timerNo);
-void IRAM_ATTR onTimer();
+static void IRAM_ATTR onTimer();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
