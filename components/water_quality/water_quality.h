@@ -94,11 +94,11 @@ enum MCP23008_InterruptMode : uint8_t
     MCP23008_FALLING,
 };
 
-// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
-// #define _TIMERINTERRUPT_LOGLEVEL_     1
+These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
+#define _TIMERINTERRUPT_LOGLEVEL_     1
 
-// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-// #include "ESP32TimerInterrupt.h"
+To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "ESP32TimerInterrupt.hpp"
 
 // #define TIMER0_INTERVAL_MS  2000
 // #define TIMER1_INTERVAL_MS  5000
