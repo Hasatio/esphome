@@ -16,6 +16,9 @@
 #include <iomanip>
 // #include <Wire.h>
 
+// These define's must be placed at the beginning before #include "ESP32_New_TimerInterrupt.h"
+#define _TIMERINTERRUPT_LOGLEVEL_ 1
+
 #define TIMER0_INTERVAL_MS  1000
 
 #define CHECK_INTERVAL_MS   2000
@@ -106,7 +109,7 @@ class WaterQuality : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-static void IRAM_ATTR Timer0();
+static bool IRAM_ATTR TimerHandler0(void * timerNo);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115

@@ -5,6 +5,10 @@
 #include "wq_pump.h"
 #include "wq_servo.h"
 
+
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "ESP32TimerInterrupt.h"
+
 namespace esphome {
 namespace water_quality {
 
@@ -12,9 +16,11 @@ namespace water_quality {
     Digital dig;
     Pump pump;
     Servo ser;
+        
+static unsigned long timepoint = millis();
 
-// Timer nesnesi
-hw_timer_t *timer = NULL;
+// Init ESP32 timer 0
+ESP32Timer ITimer0(0);
 
 void WaterQuality::setup()
 {
@@ -23,18 +29,14 @@ void WaterQuality::setup()
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
     
-    // // Interval in microsecs
-	// if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
-	// {
-	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
-	// }
-	// else
-	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
+    // Interval in microsecs
+	if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
+	{
+		ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
+	}
+	else
+		ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
 
-    timer = timerBegin(0, 80, true);  // Timer 0, prescaler 80, sayımsal (count-up) mod
-    timerAttachInterrupt(timer, &Timer0, true);  // Timer kesme işlevini bağlama
-    timerAlarmWrite(timer, 1000000, true);  // Her saniyede bir (1 saniye * 1000000 mikrosaniye)
-    timerAlarmEnable(timer);  // Timer'ı etkinleştirme
 }
 void WaterQuality::dump_config()
 {
@@ -104,25 +106,25 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    // static uint32_t lastTime = 0;
-	// static uint32_t lastChangeTime = 0;
-	// static uint32_t currTime;
-	// static uint32_t multFactor = 0;
+    static uint32_t lastTime = 0;
+	static uint32_t lastChangeTime = 0;
+	static uint32_t currTime;
+	static uint32_t multFactor = 0;
 
-	// currTime = millis();
+	currTime = millis();
 
-	// if (millis() - lastTime >= CHECK_INTERVAL_MS)
-	// {
+	if (millis() - lastTime >= CHECK_INTERVAL_MS)
+	{
 
-	// 		//setInterval(unsigned long interval, timerCallback callback)
-	// 		multFactor = 2;
+			//setInterval(unsigned long interval, timerCallback callback)
+			multFactor = 2;
 
-	// 		ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
+			ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
     
-	// 		ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", millis() - lastTime);
+			ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", millis() - lastTime);
 
-	// 	lastTime = millis();
-	// }
+		lastTime = millis();
+	}
 
 
 	// static unsigned long lastTimer0 = 0;
@@ -158,11 +160,12 @@ void WaterQuality::loop()
 	static uint32_t currTime;
 	static uint32_t multFactor = 0;
 
-void IRAM_ATTR WaterQuality::Timer0()
+bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
 {
 
-ESP_LOGI(TAG, "Timer0");
+ESP_LOGI(TAG, "TimerHandler0");
 
+	return true;
 }
 
 float a[8], p[16];
