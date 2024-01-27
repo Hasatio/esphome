@@ -34,20 +34,16 @@ void WaterQuality::setup()
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
     
-    // // Interval in microsecs
-	// if (ITimer0.attachInterruptInterval(TIMER0_INTERVAL_MS * 1000, TimerHandler0))
-	// {
-	// 	ESP_LOGCONFIG(TAG, "Starting  ITimer0 OK, millis() = %d", millis());
-	// }
-	// else
-	// 	ESP_LOGCONFIG(TAG, "Can't set ITimer0. Select another freq. or timer");
+    // Timer'ı başlat
+    esp_timer_create_args_t timer_args = {
+        .callback = &timerCallback,
+        .name = "my_timer"
+    };
+    esp_timer_handle_t my_timer;
+    esp_timer_create(&timer_args, &my_timer);
 
-    timer = timerBegin(0, 80, true);           	// timer 0, prescalar: 80, UP counting
-    timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
-    timerWrite(timer, 0);
-    timerAlarmEnable(timer);           			// Enable Timer with interrupt (Alarm Enable)
-timerAlarmWrite(timer, 500000, true);  		// Match value= 1000000 for 1 sec. delay.
-    
+    // Timer'ı başlat ve her 5 saniyede bir çağrılmasını sağla
+    esp_timer_start_periodic(my_timer, 1 * 1000000); // 5 saniye (mikrosaniye cinsinden)
 
 }
 void WaterQuality::dump_config()
@@ -118,15 +114,6 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    if (interruptCounter > 0)
-    {
- 
-        portENTER_CRITICAL(&timerMux);
-        interruptCounter--;
-        portEXIT_CRITICAL(&timerMux);
-        
-        totalInterruptCounter++;         	//counting total interrupt
-    }
 
     // static uint32_t lastTime = 0;
 	// static uint32_t lastChangeTime = 0;
@@ -181,22 +168,6 @@ void WaterQuality::loop()
 	static uint32_t lastChangeTime = 0;
 	static uint32_t currTime;
 	static uint32_t multFactor = 0;
-
-bool IRAM_ATTR WaterQuality::TimerHandler0(void * timerNo)
-{
-
-ESP_LOGI(TAG, "TimerHandler0");
-
-	return true;
-}
-void IRAM_ATTR WaterQuality::onTimer()
-{
-portENTER_CRITICAL_ISR(&timerMux);
-interruptCounter++;
-portEXIT_CRITICAL_ISR(&timerMux);
-
-ESP_LOGI(TAG, "TimerHandler0");
-}
 
 float a[8], p[16];
 bool d[4];
