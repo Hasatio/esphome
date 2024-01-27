@@ -18,8 +18,16 @@ namespace water_quality {
     Pump pump;
     Servo ser;
 
-void IRAM_ATTR WaterQuality::Timer0(void* arg) {
-    ESP_LOGI(TAG, "Timer");
+    static uint32_t lastTime = 0;
+	static uint32_t lastChangeTime = 0;
+	static uint32_t currTime;
+	static uint32_t multFactor = 0;
+
+void IRAM_ATTR WaterQuality::Timer0(void* arg)
+{
+    multFactor = millis();
+    ESP_LOGI(TAG, "timer = %d", multFactor - currTime);
+    ESP_LOGI(TAG, "toplam süre = %d", multFactor - lastTime);
 }
 
 void WaterQuality::setup()
@@ -159,11 +167,6 @@ void WaterQuality::loop()
     // delay(500);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
-
-    static uint32_t lastTime = 0;
-	static uint32_t lastChangeTime = 0;
-	static uint32_t currTime;
-	static uint32_t multFactor = 0;
 
 float a[8], p[16];
 bool d[4];
