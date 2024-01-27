@@ -36,7 +36,7 @@ void WaterQuality::setup()
     
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
-        .callback = &timerCallback,
+        .callback = &WaterQuality::timerCallback,
         .name = "my_timer"
     };
     esp_timer_handle_t my_timer;
