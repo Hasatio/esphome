@@ -40,8 +40,8 @@ void WaterQuality::setup()
     
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
-        .callback = &Timer0,
-        .arg = nullptr,
+        .callback = &WaterQuality::Timer0,
+        .arg = this,
         .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
