@@ -17,7 +17,11 @@ namespace water_quality {
     Digital dig;
     Pump pump;
     Servo ser;
-        
+
+void IRAM_ATTR WaterQuality::Timer0(void* arg) {
+    ESP_LOGI(TAG, "Timer");
+}
+
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
