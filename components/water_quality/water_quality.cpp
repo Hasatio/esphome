@@ -46,7 +46,7 @@ void WaterQuality::setup()
     timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
     timerWrite(timer, 0);
     timerAlarmEnable(timer);           			// Enable Timer with interrupt (Alarm Enable)
-timerAlarmWrite(timer, 2000000, true);  		// Match value= 1000000 for 1 sec. delay.
+timerAlarmWrite(timer, 500000, true);  		// Match value= 1000000 for 1 sec. delay.
     
 
 }
