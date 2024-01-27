@@ -18,16 +18,6 @@ namespace water_quality {
     Pump pump;
     Servo ser;
         
-// static unsigned long timepoint = millis();
-
-// // Init ESP32 timer 0
-// ESP32Timer ITimer0(0);
-
-volatile int interruptCounter;  //for counting interrupt
-int totalInterruptCounter;   	//total interrupt counting
-hw_timer_t * timer = NULL;
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
