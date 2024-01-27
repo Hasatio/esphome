@@ -15,7 +15,6 @@
 #include <sstream>
 #include <iomanip>
 // #include <Wire.h>
-#include <esp_timer.h>
 
 namespace esphome {
 namespace water_quality {

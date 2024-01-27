@@ -4,6 +4,7 @@
 #include "wq_digital.h"
 #include "wq_pump.h"
 #include "wq_servo.h"
+#include <esp_timer.h>
 
 
 // // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
