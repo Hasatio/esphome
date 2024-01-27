@@ -22,12 +22,13 @@ namespace water_quality {
 	static uint32_t lastChangeTime = 0;
 	static uint32_t currTime;
 	static uint32_t multFactor = 0;
+	static uint32_t timers = 0;
 
 void IRAM_ATTR WaterQuality::Timer0(void* arg)
 {
-    multFactor = millis();
-    ESP_LOGI(TAG, "timer = %d", multFactor - currTime);
-    ESP_LOGI(TAG, "toplam süre = %d", multFactor - lastTime);
+    timers = millis();
+    ESP_LOGI(TAG, "timer = %d", timers - multFactor);
+    multFactor = timers;
 }
 
 void WaterQuality::setup()
