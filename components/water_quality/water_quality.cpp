@@ -36,11 +36,12 @@ void WaterQuality::setup()
     
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
-        .callback = &WaterQuality::timerCallback,
-        .name = "my_timer"
+        .callback = &Timer0,
+        .arg = nullptr,
+        .name = nullptr,
     };
-    esp_timer_handle_t my_timer;
-    esp_timer_create(&timer_args, &my_timer);
+    esp_timer_handle_t timer;
+    esp_timer_create(&timer_args, &timer);
 
     // Timer'ı başlat ve her 5 saniyede bir çağrılmasını sağla
     esp_timer_start_periodic(my_timer, 1 * 1000000); // 5 saniye (mikrosaniye cinsinden)

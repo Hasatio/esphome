@@ -101,8 +101,8 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 // Timer callback fonksiyonu
-void timerCallback(void* arg) {
-    ESP_LOGI(TAG, "timerCallback");
+static void IRAM_ATTR Timer0(void* arg) {
+    ESP_LOGI(TAG, "Timer");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
