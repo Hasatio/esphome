@@ -24,7 +24,7 @@ namespace water_quality {
 	static uint32_t multFactor = 0;
 	static uint32_t timers = 0;
 
-void IRAM_ATTR WaterQuality::Timer0(void* arg)
+void WaterQuality::Timer0(void* arg)
 {
     timers = millis();
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
