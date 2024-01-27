@@ -44,7 +44,7 @@ void WaterQuality::setup()
     esp_timer_create(&timer_args, &timer);
 
     // Timer'ı başlat ve her 5 saniyede bir çağrılmasını sağla
-    esp_timer_start_periodic(my_timer, 1 * 1000000); // 5 saniye (mikrosaniye cinsinden)
+    esp_timer_start_periodic(timer, 1 * 1000000); // 5 saniye (mikrosaniye cinsinden)
 
 }
 void WaterQuality::dump_config()
