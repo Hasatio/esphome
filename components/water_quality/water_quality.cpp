@@ -42,6 +42,7 @@ void WaterQuality::setup()
     esp_timer_create_args_t timer_args = {
         .callback = &Timer0,
         .arg = nullptr,
+        .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
     esp_timer_handle_t timer;
