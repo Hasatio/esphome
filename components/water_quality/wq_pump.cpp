@@ -6,9 +6,10 @@ namespace water_quality {
 void Pump::Timer_Setup(float period, float pump[])
 {
     // Timer'ı başlat
+    TimerCallbackArgs* args = new TimerCallbackArgs{this, pump, period};
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer,
-        .arg = new TimerArgs{pump, period},
+        .arg = this,
         .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
@@ -23,8 +24,9 @@ void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
     TimerArgs* args = static_cast<TimerArgs*>(arg);
-    this->Dosing_Controller(args->pump, args->min);
-    this->Circulation_Controller(args->pump, args->min);
+    Dosing_Controller(args->pump, args->period);
+    Circulation_Controller(args->pump, args->period);
+    delete args;
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
