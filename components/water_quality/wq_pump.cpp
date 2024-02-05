@@ -150,8 +150,8 @@ void Pump::Dosing_Controller(uint8_t pump[], float min)
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint * 10) / 10000;
-                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * mint * 10) % 10000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
                 dose[i] -= (pump[i] > min ? min : pump[i]) * calib[i];
             }
@@ -238,21 +238,6 @@ void Pump::Circulation_Controller(uint8_t pump[], float min)
     float* circ = get_Pump_Circulation();
     uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
-    float mint, min[6];
-
-    std::copy(stat, stat + 6, min);
-    std::sort(min, min + 6);
-
-    for (size_t i = 0; i < 6; ++i) 
-    {
-        if (min[i] > 0)
-        {
-            mint = min[i];
-            break;
-        }
-        else
-            mint = 0;
-    }
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -266,8 +251,8 @@ void Pump::Circulation_Controller(uint8_t pump[], float min)
             if (pump[i] > 0)
             {
                 //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
-                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint * 10) / 10000;
-                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * mint * 10) % 10000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
                 circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];   
             }
