@@ -15,7 +15,7 @@ void Pump::Timer_Setup(float period, float pump[])
     };
     esp_timer_create(&timer_args, &timer);
 
-    esp_timer_start_periodic(timer, period * 1000000);
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
 	static uint32_t multFactor = 0;
