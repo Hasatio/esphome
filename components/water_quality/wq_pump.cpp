@@ -22,9 +22,10 @@ void Pump::Timer_Setup(float pump[])
 void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
+    Pump* pumpInstance = static_cast<Pump*>(arg);
     float* pump = static_cast<float*>(arg);
-    Pump::Dosing_Controller(pump);
-    Pump::Circulation_Controller(pump);
+    pumpInstance->Dosing_Controller(pump);
+    pumpInstance->Circulation_Controller(pump);
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
