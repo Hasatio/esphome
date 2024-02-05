@@ -23,8 +23,8 @@ void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
     TimerArgs* args = static_cast<TimerArgs*>(arg);
-    args->Dosing_Controller(args->pump, args->min);
-    args->Circulation_Controller(args->pump, args->min);
+    this->Dosing_Controller(args->pump, args->min);
+    this->Circulation_Controller(args->pump, args->min);
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
