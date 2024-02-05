@@ -9,7 +9,7 @@ void Pump::Timer_Setup()
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer0,
         .arg = this,
-        .dispatch_method = ESP_TIMER_MAX,
+        .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
     esp_timer_handle_t timer;
