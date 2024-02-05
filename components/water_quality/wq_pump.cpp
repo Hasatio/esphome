@@ -19,8 +19,8 @@ void Pump::Timer_Setup(float period)
     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
-	static uint32_t multFactor = 0;
-	static uint32_t timers = 0;
+static uint32_t multFactor = 0;
+static uint32_t timers = 0;
 void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
@@ -29,6 +29,8 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
+    for (size_t i = 0; i < 6; i++)
+        ESP_LOGD(TAG, "pump[%d] = %d", i, pump[i]);
     // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
 }
