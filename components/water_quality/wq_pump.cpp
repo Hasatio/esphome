@@ -25,7 +25,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
     Pump* pumpInstance = static_cast<Pump*>(arg);
-    float* pump = get_Pump_Time();
+    float* pump = pumpInstance->get_Pump_Time();
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
