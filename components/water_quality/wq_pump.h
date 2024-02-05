@@ -15,24 +15,10 @@ namespace water_quality {
 class Pump
 {
 public:
-Pump()
-{
-    // Timer'ı başlat
-    esp_timer_create_args_t timer_args = {
-        .callback = &Pump::Timer0,
-        .arg = this,
-        .dispatch_method = ESP_TIMER_MAX,
-        .name = nullptr,
-    };
-    esp_timer_handle_t timer;
-    esp_timer_create(&timer_args, &timer);
-
-    // Timer'ı başlat ve her 1 saniyede bir çağrılmasını sağla
-    esp_timer_start_periodic(timer, 1 * 1000000); // 1 saniye (mikrosaniye cinsinden)
-}
 void Pump_driver(float pwm[]);
 void Dosing_Controller(uint8_t stat[]);
 void Circulation_Controller(uint8_t stat[]);
+void Timer_Setup();
 
 void set_Pump_Calib_Gain(float pcg[])   {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])        {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
