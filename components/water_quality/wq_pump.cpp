@@ -24,8 +24,8 @@ void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
     TimerArgs* args = static_cast<TimerArgs*>(arg);
-    Dosing_Controller(args->pump, args->period);
-    Circulation_Controller(args->pump, args->period);
+    args->p->Dosing_Controller(args->pump, args->period);
+    args->p->Circulation_Controller(args->pump, args->period);
     delete args;
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
