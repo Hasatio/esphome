@@ -16,9 +16,9 @@ class Pump
 {
 public:
 void Pump_driver(float pwm[]);
-void Dosing_Controller(uint8_t pump[]);
-void Circulation_Controller(uint8_t pump[]);
-void Timer_Setup(float period, float pump[]);
+void Dosing_Controller(uint8_t pump[], float min);
+void Circulation_Controller(uint8_t pump[], float min);
+void Timer_Setup(float period, float pump[], float min);
 
 void set_Pump_Calib_Gain(float pcg[])   {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])        {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
@@ -38,7 +38,7 @@ float* get_Pump_Circulation()       {return Pump_Circulation;}
 uint16_t (*get_Pump_Total())[2]     {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 
-static void IRAM_ATTR Timer0(float pump[]);
+static void IRAM_ATTR Timer(void* arg);
 
 protected:
 float Pump_Calib_Gain[6] = {0};
@@ -50,6 +50,7 @@ float Pump_Circulation[6] = {0};
 uint16_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 
+private:
 esp_timer_handle_t timer;
 };
 

@@ -7,10 +7,10 @@ void Pump::Timer_Setup(float period, float pump[])
 {
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
-        .callback = &Pump::Timer0,
-        .arg = pump,
+        .callback = &Pump::Timer,
+        .arg = new TimerArgs{pump, min},
         .dispatch_method = ESP_TIMER_TASK,
-        .name = nullptr,
+        .name = my_timer,
     };
     esp_timer_create(&timer_args, &timer);
 
@@ -19,12 +19,13 @@ void Pump::Timer_Setup(float period, float pump[])
 
 	static uint32_t multFactor = 0;
 	static uint32_t timers = 0;
-void IRAM_ATTR Pump::Timer0(float pump[])
+void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
-
-    Dosing_Controller(pump);
-    Circulation_Controller(pump);
+    TimerArgs* args = static_cast<TimerArgs*>(arg);
+    Dosing_Controller(args->pump, args->min);
+    Circulation_Controller(args->pump, args->min);
+    delete args;
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
@@ -225,7 +226,7 @@ void Pump::Dosing_Controller(uint8_t pump[], float min)
     // std::cout << "Süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
 }
-void Pump::Circulation_Controller(uint8_t pump[])
+void Pump::Circulation_Controller(uint8_t pump[], float min)
 {
     // auto start = std::chrono::high_resolution_clock::now();
 
