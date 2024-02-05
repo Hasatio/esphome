@@ -8,7 +8,7 @@ void Pump::Timer_Setup(float period, float pump[])
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer,
-        .arg = new TimerArgs{pump, min},
+        .arg = new TimerArgs{pump, period},
         .dispatch_method = ESP_TIMER_TASK,
         .name = my_timer,
     };
