@@ -85,13 +85,13 @@ void Pump::Pump_driver(float pwm[])
             min_ = 0;
     }
     set_Min(min_);
+            ESP_LOGI(TAG, "min = %f", min);
+            ESP_LOGI(TAG, "min_ = %f", min_);
 
     if (min > 0)
         if(min != min_)
         {
             Timer_Setup(min_);
-            ESP_LOGI(TAG, "min = %f", min);
-            ESP_LOGI(TAG, "min_ = %f", min_);
         }
     else
     {
