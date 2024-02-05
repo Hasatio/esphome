@@ -19,7 +19,7 @@ void Pump::Timer_Setup(float pump[])
 
 	static uint32_t multFactor = 0;
 	static uint32_t timers = 0;
-void IRAM_ATTR Pump::Timer(void* arg)
+void IRAM_ATTR Pump::Timer(float pump[])
 {
     timers = millis();
     Dosing_Controller(pump);
