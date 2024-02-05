@@ -16,7 +16,7 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
     
-    esp_timer_start_once(timer, static_cast<uint32_t>(period * 1000000));
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
 	static uint32_t multFactor = 0;
@@ -51,7 +51,8 @@ void Pump::Pump_driver(float pwm[])
     uint16_t (*tot)[2] = get_Pump_Total();
     float* pump = get_Pump_Time();
     uint8_t stat_[6];
-    float min, mint[6];
+    float min = get_Min();
+    float min_, mint[6];
 
     // for (size_t i = 0; i < 6; i++)
     // {
@@ -73,16 +74,18 @@ void Pump::Pump_driver(float pwm[])
     {
         if (mint[i] > 0)
         {
-            min = mint[i];
+            min_ = mint[i];
             break;
         }
         else
-            min = 0;
+            min_ = 0;
     }
-            min = 1;
-    set_Min(min);
-
-    Timer_Setup(min);
+            min_ = 1;
+    if (min != min_)
+    {
+        set_Min(min_);
+        Timer_Setup(min);
+    }
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
