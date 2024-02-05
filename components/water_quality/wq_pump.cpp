@@ -254,7 +254,7 @@ void Pump::Circulation_Controller(uint8_t pump[], float min)
                 tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
                 tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
-                circ[i] -= (pump[i] > mint ? mint : pump[i]) * calib[i];   
+                circ[i] -= (pump[i] > min ? min : pump[i]) * calib[i];   
             }
 
             // if (stat[i] == 1 && !(circ[i] > 0))
