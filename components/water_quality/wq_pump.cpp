@@ -29,7 +29,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
-    ESP_LOGI(TAG, "timer = %d", timers - multFactor);
+    // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
 }
 
