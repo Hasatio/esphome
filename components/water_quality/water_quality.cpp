@@ -21,15 +21,6 @@ namespace water_quality {
     static uint32_t lastTime = 0;
 	static uint32_t lastChangeTime = 0;
 	static uint32_t currTime;
-	static uint32_t multFactor = 0;
-	static uint32_t timers = 0;
-
-void IRAM_ATTR WaterQuality::Timer0(void* arg)
-{
-    timers = millis();
-    ESP_LOGI(TAG, "timer = %d", timers - multFactor);
-    multFactor = timers;
-}
 
 void WaterQuality::setup()
 {
@@ -40,7 +31,7 @@ void WaterQuality::setup()
     
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
-        .callback = &WaterQuality::Timer0,
+        .callback = &Pump::Timer0,
         .arg = this,
         .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,

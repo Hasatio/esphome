@@ -36,6 +36,8 @@ float* get_Pump_Circulation()       {return Pump_Circulation;}
 uint16_t (*get_Pump_Total())[2]     {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 
+static void IRAM_ATTR Timer0(void* arg);
+
 protected:
 float Pump_Calib_Gain[6] = {0};
 uint8_t Pump_Type[6] = {0};
