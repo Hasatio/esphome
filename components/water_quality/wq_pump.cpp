@@ -3,18 +3,20 @@
 namespace esphome {
 namespace water_quality {
 
-void Pump::Timer_Setup(float pump[])
+void Pump::Timer_Setup(float period)
 {
+    float* pump = get_Pump_Time();
+
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer,
-        .arg = pump,
+        .arg = this,
         .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
     
-    esp_timer_start_periodic(timer, static_cast<uint32_t>(get_Min() * 1000000));
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
 	static uint32_t multFactor = 0;
@@ -23,7 +25,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
     Pump* pumpInstance = static_cast<Pump*>(arg);
-    float* pump = static_cast<float*>(arg);
+    float* pump = get_Pump_Time();
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
@@ -79,7 +81,7 @@ void Pump::Pump_driver(float pwm[])
     }
     set_Min(min);
 
-    Timer_Setup(pump);
+    Timer_Setup(min);
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
