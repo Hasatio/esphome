@@ -7,6 +7,7 @@
 #include "esphome/core/log.h"
 #include <cmath>
 #include <thread>
+#include <esp_timer.h>
 
 namespace esphome {
 namespace water_quality {
@@ -17,6 +18,7 @@ public:
 void Pump_driver(float pwm[]);
 void Dosing_Controller(uint8_t stat[]);
 void Circulation_Controller(uint8_t stat[]);
+void Timer_Setup();
 
 void set_Pump_Calib_Gain(float pcg[])   {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])        {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}

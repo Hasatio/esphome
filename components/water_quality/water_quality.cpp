@@ -4,7 +4,6 @@
 #include "wq_digital.h"
 #include "wq_pump.h"
 #include "wq_servo.h"
-#include <esp_timer.h>
 
 
 // // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
@@ -28,20 +27,7 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
-    
-    // Timer'ı başlat
-    esp_timer_create_args_t timer_args = {
-        .callback = &Pump::Timer0,
-        .arg = this,
-        .dispatch_method = ESP_TIMER_TASK,
-        .name = nullptr,
-    };
-    esp_timer_handle_t timer;
-    esp_timer_create(&timer_args, &timer);
-
-    // Timer'ı başlat ve her 5 saniyede bir çağrılmasını sağla
-    esp_timer_start_periodic(timer, 1 * 1000000); // 5 saniye (mikrosaniye cinsinden)
-
+    Pupm.Timer_Setup();
 }
 void WaterQuality::dump_config()
 {
