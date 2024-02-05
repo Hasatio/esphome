@@ -54,7 +54,7 @@ float Pump_Circulation[6] = {0};
 uint16_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 float Pump_Time[6] = {0};
-float min;
+float min = 0.01;
 
 private:
 esp_timer_handle_t timer;

@@ -80,7 +80,7 @@ void Pump::Pump_driver(float pwm[])
         else
             min_ = 0;
     }
-            min_ = 1;
+    
     if (min != min_)
     {
         set_Min(min_);
