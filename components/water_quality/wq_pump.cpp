@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-void Timer_Setup()
+void Pump::Timer_Setup()
 {
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
