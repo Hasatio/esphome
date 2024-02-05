@@ -6,7 +6,7 @@ namespace water_quality {
 void Pump::Timer_Setup(float period, float pump[])
 {
     // Timer'ı başlat
-    TimerArgs* args = new TimerCallbackArgs{this, pump, period};
+    TimerArgs* args = new TimerArgs{this, pump, period};
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer,
         .arg = this,
