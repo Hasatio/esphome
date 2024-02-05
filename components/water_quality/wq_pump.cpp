@@ -125,7 +125,7 @@ void Pump::Pump_driver(float pwm[])
     // ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
     
 }
-void Pump::Dosing_Controller(uint8_t pump[], float min)
+void Pump::Dosing_Controller(float pump[], float min)
 {
     // auto start = std::chrono::high_resolution_clock::now();
 
@@ -226,7 +226,7 @@ void Pump::Dosing_Controller(uint8_t pump[], float min)
     // std::cout << "Süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
 }
-void Pump::Circulation_Controller(uint8_t pump[], float min)
+void Pump::Circulation_Controller(float pump[], float min)
 {
     // auto start = std::chrono::high_resolution_clock::now();
 
