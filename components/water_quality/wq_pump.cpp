@@ -75,7 +75,7 @@ void Pump::Pump_driver(float pwm[])
 
     for (size_t i = 0; i < 6; ++i) 
     {
-    ESP_LOGI(TAG, "min = %f", pump[i]);
+    ESP_LOGI(TAG, "min = %f", mint[i]);
         if (mint[i] > 0)
         {
             min_ = mint[i];
