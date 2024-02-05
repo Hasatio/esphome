@@ -16,6 +16,7 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
     
+    ESP_LOGI(TAG, "period = %f", period);
     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
@@ -84,7 +85,6 @@ void Pump::Pump_driver(float pwm[])
             min_ = 0;
     }
     
-    ESP_LOGI(TAG, "min = %f", min_);
     if (min_ == 0)
         min_ = 0.1;
 
