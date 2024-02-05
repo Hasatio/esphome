@@ -82,17 +82,20 @@ void Pump::Pump_driver(float pwm[])
             break;
         }
         else
-            min_ = 0.001;
+            min_ = 0;
     }
 
-    if (min != min_)
-    {
+    if (min != min_ && min > 0)
         Timer_Setup(min_);
-        
+    else
+    {
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
+    }
+    
+
     ESP_LOGI(TAG, "min = %f", min);
     ESP_LOGI(TAG, "min_ = %f", min_);
-    }
-
     set_Min(min_);
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
