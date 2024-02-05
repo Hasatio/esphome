@@ -42,7 +42,7 @@ bool* get_Pump_Reset()              {return Pump_Reset;}
 float* get_Pump_Time()              {return Pump_Time;}
 float get_Min()                     {return min;}
 
-static void IRAM_ATTR Timer(float pump[]);
+static void IRAM_ATTR Timer(void* arg);
 
 protected:
 float Pump_Calib_Gain[6] = {0};
