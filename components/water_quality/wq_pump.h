@@ -15,6 +15,8 @@ namespace water_quality {
 class Pump
 {
 public:
+static void IRAM_ATTR Timer(void* arg);
+
 void Pump_driver(float pwm[]);
 void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
@@ -41,8 +43,6 @@ uint16_t (*get_Pump_Total())[2]     {return Pump_Total;}
 bool* get_Pump_Reset()              {return Pump_Reset;}
 float* get_Pump_Time()              {return Pump_Time;}
 float get_Min()                     {return min;}
-
-static void IRAM_ATTR Timer(void* arg);
 
 protected:
 float Pump_Calib_Gain[6] = {0};
