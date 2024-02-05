@@ -3,22 +3,6 @@
 namespace esphome {
 namespace water_quality {
 
-void Timer_Setup()
-{
-    // Timer'ı başlat
-    esp_timer_create_args_t timer_args = {
-        .callback = &Pump::Timer0,
-        .arg = this,
-        .dispatch_method = ESP_TIMER_ISR,
-        .name = nullptr,
-    };
-    esp_timer_handle_t timer;
-    esp_timer_create(&timer_args, &timer);
-
-    // Timer'ı başlat ve her 1 saniyede bir çağrılmasını sağla
-    esp_timer_start_periodic(timer, 1 * 1000000); // 1 saniye (mikrosaniye cinsinden)
-}
-
 	static uint32_t multFactor = 0;
 	static uint32_t timers = 0;
 void IRAM_ATTR Pump::Timer0(void* arg)

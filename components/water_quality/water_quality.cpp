@@ -27,7 +27,6 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);	
-    pump.Timer_Setup();
 }
 void WaterQuality::dump_config()
 {
