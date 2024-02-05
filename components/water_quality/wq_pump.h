@@ -49,6 +49,8 @@ float Pump_Dose[6] = {0};
 float Pump_Circulation[6] = {0};
 uint16_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
+
+esp_timer_handle_t timer;
 };
 
 }  // namespace water_quality
