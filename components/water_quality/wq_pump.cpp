@@ -30,6 +30,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Circulation_Controller(pump);
 
     for (size_t i = 0; i < 6; i++)
+    if(pump[i] > 0)
         ESP_LOGD(TAG, "pump[%d] = %d", i, pump[i]);
     // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
