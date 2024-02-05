@@ -86,7 +86,7 @@ void Pump::Pump_driver(float pwm[])
     }
     
     if (min_ == 0)
-        min_ = 0.1;
+        min_ = 10;
 
     if (min != min_)
     {
