@@ -75,7 +75,7 @@ void Pump::Pump_driver(float pwm[])
             break;
         }
         else
-            mint = 0;
+            mint = 1;
     }
 
     Timer_Setup(mint, pump);
