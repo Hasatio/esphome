@@ -676,7 +676,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_dose2
@@ -691,7 +691,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_dose3
@@ -706,7 +706,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_dose4
@@ -721,7 +721,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_dose5
@@ -736,7 +736,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_dose6
@@ -751,7 +751,7 @@ number:
       then:
         - water_quality.pump_dose:
             pump_dose: !lambda |-
-              return {static_cast<uint16_t>(id(pump_dose1).state), static_cast<uint16_t>(id(pump_dose2).state), static_cast<uint16_t>(id(pump_dose3).state), static_cast<uint16_t>(id(pump_dose4).state), static_cast<uint16_t>(id(pump_dose5).state), static_cast<uint16_t>(id(pump_dose6).state)};
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
 
   - platform: template
     id: pump_circulation1
@@ -766,7 +766,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: pump_circulation2
@@ -781,7 +781,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: pump_circulation3
@@ -796,7 +796,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: pump_circulation4
@@ -811,7 +811,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: pump_circulation5
@@ -826,7 +826,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: pump_circulation6
@@ -841,7 +841,7 @@ number:
       then:
         - water_quality.pump_circulation:
             pump_circulation: !lambda |-
-              return {static_cast<uint16_t>(id(pump_circulation1).state), static_cast<uint16_t>(id(pump_circulation2).state), static_cast<uint16_t>(id(pump_circulation3).state), static_cast<uint16_t>(id(pump_circulation4).state), static_cast<uint16_t>(id(pump_circulation5).state), static_cast<uint16_t>(id(pump_circulation6).state)};
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
 
   - platform: template
     id: servo_position1
