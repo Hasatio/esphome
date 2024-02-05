@@ -87,7 +87,7 @@ void Pump::Pump_driver(float pwm[])
     }
     set_Min(min_);
 
-    if (min_ != 0)
+    if (min != 0)
         if(min != min_)
         {
             Timer_Setup(min_);
