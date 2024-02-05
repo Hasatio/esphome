@@ -90,17 +90,12 @@ void Pump::Pump_driver(float pwm[])
             ESP_LOGI(TAG, "min_ = %f", min_);
 
     if (min_ > 0)
-    {
         if(min != min_)
         {
-            ESP_LOGD(TAG, "here");
             Timer_Setup(min_);
         }
-            ESP_LOGD(TAG, "here3");
-    }
     else
     {
-            ESP_LOGD(TAG, "here2");
         Dosing_Controller(pump);
         Circulation_Controller(pump);
     }
