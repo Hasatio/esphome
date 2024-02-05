@@ -3,19 +3,18 @@
 namespace esphome {
 namespace water_quality {
 
-void Pump::Timer_Setup(float period, float pump[])
+void Pump::Timer_Setup(float pump[])
 {
     // Timer'ı başlat
-    TimerArgs* args = new TimerArgs{this, pump, period};
     esp_timer_create_args_t timer_args = {
         .callback = &Pump::Timer,
-        .arg = this,
+        .arg = pump,
         .dispatch_method = ESP_TIMER_TASK,
         .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
-
-    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+    
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(get_Min() * 1000000));
 }
 
 	static uint32_t multFactor = 0;
@@ -23,10 +22,8 @@ void Pump::Timer_Setup(float period, float pump[])
 void IRAM_ATTR Pump::Timer(void* arg)
 {
     timers = millis();
-    TimerArgs* args = static_cast<TimerArgs*>(arg);
-    args->p->Dosing_Controller(args->pump, args->period);
-    args->p->Circulation_Controller(args->pump, args->period);
-    delete args;
+    Dosing_Controller(pump);
+    Circulation_Controller(pump);
 
     ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
@@ -48,8 +45,9 @@ void Pump::Pump_driver(float pwm[])
     
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
+    float* pump = get_Pump_Time();
     uint8_t stat_[6];
-    float pump[6], mint, min[6];
+    float min, mint[6];
 
     // for (size_t i = 0; i < 6; i++)
     // {
@@ -64,21 +62,22 @@ void Pump::Pump_driver(float pwm[])
         stat_[i] = stat[i];
 
             
-    std::copy(pump, pump + 6, min);
-    std::sort(min, min + 6);
+    std::copy(pump, pump + 6, mint);
+    std::sort(mint, mint + 6);
 
     for (size_t i = 0; i < 6; ++i) 
     {
-        if (min[i] > 0)
+        if (mint[i] > 0)
         {
-            mint = min[i];
+            min = mint[i];
             break;
         }
         else
-            mint = 1;
+            min = 0;
     }
+    set_Min(min);
 
-    Timer_Setup(mint, pump);
+    Timer_Setup(pump);
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
@@ -126,7 +125,7 @@ void Pump::Pump_driver(float pwm[])
     // ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
     
 }
-void Pump::Dosing_Controller(float pump[], float min)
+void Pump::Dosing_Controller(float pump[])
 {
     // auto start = std::chrono::high_resolution_clock::now();
 
@@ -138,6 +137,7 @@ void Pump::Dosing_Controller(float pump[], float min)
     float* dose = get_Pump_Dose();
     uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
+    float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -227,7 +227,7 @@ void Pump::Dosing_Controller(float pump[], float min)
     // std::cout << "Süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
 
 }
-void Pump::Circulation_Controller(float pump[], float min)
+void Pump::Circulation_Controller(float pump[])
 {
     // auto start = std::chrono::high_resolution_clock::now();
 
@@ -239,6 +239,7 @@ void Pump::Circulation_Controller(float pump[], float min)
     float* circ = get_Pump_Circulation();
     uint16_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
+    float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
     {
