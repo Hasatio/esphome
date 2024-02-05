@@ -96,6 +96,7 @@ void Pump::Pump_driver(float pwm[])
         }
     else
     {
+            ESP_LOGI(TAG, "here");
         Dosing_Controller(pump);
         Circulation_Controller(pump);
     }
