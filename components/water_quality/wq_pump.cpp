@@ -86,10 +86,9 @@ void Pump::Pump_driver(float pwm[])
     }
 
     if (min != min_)
-    {
-        set_Min(min_);
         Timer_Setup(min_);
-    }
+        
+    set_Min(min_);
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
