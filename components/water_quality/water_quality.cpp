@@ -236,7 +236,7 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
                     pdose_[i] += pdose[i];
                 else
                     pdose_[i] = pdose[i];
-                ESP_LOGD(TAG, "Pump_Dose[%d] = %d", i, pdose_[i]);
+                ESP_LOGD(TAG, "Pump_Dose[%d] = %f", i, pdose_[i]);
             }
         }
     }
@@ -258,7 +258,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
                     pcirc_[i] += pcirc[i];
                 else
                     pcirc_[i] = pcirc[i];
-                ESP_LOGD(TAG, "Pump_Circulation[%d] = %d", i, pcirc_[i]);
+                ESP_LOGD(TAG, "Pump_Circulation[%d] = %f", i, pcirc_[i]);
             }
         }
     }
