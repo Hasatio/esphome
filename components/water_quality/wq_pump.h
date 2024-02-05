@@ -53,7 +53,7 @@ bool Pump_Reset[6] = {0};
 private:
 struct TimerArgs {
     float* pump;
-    float period;
+    float min;
 };
 esp_timer_handle_t timer;
 };
