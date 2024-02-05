@@ -82,9 +82,11 @@ void Pump::Pump_driver(float pwm[])
         }
         else
             min_ = 0;
+            
+    ESP_LOGI(TAG, "min = %d", mint[i]);
     }
     
-    ESP_LOGI(TAG, "min = %d", min_);
+    // ESP_LOGI(TAG, "min = %d", min_);
     if (min_ == 0)
         min_ = 0.1;
 
