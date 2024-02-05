@@ -10,7 +10,7 @@ void Pump::Timer_Setup(float period, float pump[])
         .callback = &Pump::Timer,
         .arg = new TimerArgs{pump, period},
         .dispatch_method = ESP_TIMER_TASK,
-        .name = my_timer,
+        .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
 
