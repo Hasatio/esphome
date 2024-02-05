@@ -51,6 +51,10 @@ uint16_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 
 private:
+struct TimerArgs {
+    float period;
+    float* pump;
+};
 esp_timer_handle_t timer;
 };
 

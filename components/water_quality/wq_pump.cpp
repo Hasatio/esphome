@@ -77,7 +77,7 @@ void Pump::Pump_driver(float pwm[])
             mint = 0;
     }
 
-            Timer_Setup(mint, pump);
+    Timer_Setup(mint, pump);
 
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
