@@ -185,14 +185,28 @@ void WaterQuality::version(const uint8_t ver)
 }
 void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 {
-    float pcal_[6];
+    float pcal_[6], calib[6] = {0};
+    bool start = 0;
 
     for (size_t i = 0; i < 6; i++)
     {
-        pcal_[i] = pcal[i] / 60;
+        if (pcal[i] > 0)
+            pcal_[i] = pcal[i] / 60;
+        else
+            {
+                pcal_[i] = 0;
+                calib[i] = 1;
+                start = 1;
+            }
     }
 
     pump.set_Pump_Calib_Gain(pcal_);
+
+    if (start)
+        {
+            pump.set_Pump_Time(calib);
+            pump.Timer_Setup(60);
+        }
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {

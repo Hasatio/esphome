@@ -8,6 +8,7 @@ void Pump::Timer_Setup(float period)
     float* pump = get_Pump_Time();
     if (timer)
     {
+            std::memset(pump, 0, sizeof(pump));
             esp_timer_stop(timer);
             esp_timer_delete(timer);
     }
@@ -24,19 +25,12 @@ void Pump::Timer_Setup(float period)
     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 
 }
-
-static uint32_t multFactor = 0;
-static uint32_t timers = 0;
 void IRAM_ATTR Pump::Timer(void* arg)
 {
-    timers = millis();
     Pump* pumpInstance = static_cast<Pump*>(arg);
     float* pump = pumpInstance->get_Pump_Time();
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
-
-    // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
-    multFactor = timers;
 }
 
 void Pump::Pump_driver(float pwm[])
@@ -44,7 +38,6 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
     float* pump = get_Pump_Time();
-    uint8_t stat_[6] = {0};
     float min = get_Min();
     float min_, mint[6];
 
@@ -123,7 +116,7 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            switch (mode[i])
+            switch (mode[i] && calib[i] > 0)
             {
             case 0:
                 pump[i] = 0;
@@ -189,7 +182,7 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            switch (mode[i])
+            switch (mode[i] && calib[i] > 0)
             {
             case 0:
                 pump[i] = 0;
