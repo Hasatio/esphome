@@ -44,6 +44,7 @@ bool* get_Pump_Reset()              {return Pump_Reset;}
 float* get_Pump_Time()              {return Pump_Time;}
 float get_Min()                     {return min;}
 
+esp_timer_handle_t timer;
 protected:
 float Pump_Calib_Gain[6] = {0};
 uint8_t Pump_Type[6] = {0};
@@ -57,7 +58,6 @@ float Pump_Time[6] = {0};
 float min = 0;
 
 private:
-esp_timer_handle_t timer;
 };
 
 }  // namespace water_quality
