@@ -8,7 +8,7 @@ void Pump::Timer_Setup(float period)
     float* pump = get_Pump_Time();
     if (timer)
     {
-            std::memset(pump, 0, sizeof(pump));
+            pump = {0,0,0,0,0,0};
             esp_timer_stop(timer);
             esp_timer_delete(timer);
     }
