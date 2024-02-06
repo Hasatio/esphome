@@ -20,14 +20,9 @@ void Pump::Timer_Setup(float period)
         .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
-    // if (period > 0)
-        esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
-    // else
-    // {
-    //     ESP_LOGD(TAG, "here");
-    //     esp_timer_stop(timer);
-    //     esp_timer_delete(timer);
-    // }
+        
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+
 }
 
 static uint32_t multFactor = 0;
@@ -46,34 +41,12 @@ void IRAM_ATTR Pump::Timer(void* arg)
 
 void Pump::Pump_driver(float pwm[])
 {     
-    // auto start = std::chrono::high_resolution_clock::now();
-               
-    // float pump[6];
-
-    // std::thread thread1(Dosing_Controller, pump);
-    // Circulation_Controller(pump);
-    
-    // thread1.join();
-
-              
-    // std::cout << "Pump_driver\n";
-    
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
     float* pump = get_Pump_Time();
     uint8_t stat_[6] = {0};
     float min = get_Min();
     float min_, mint[6];
-
-    // for (size_t i = 0; i < 6; i++)
-    // {
-    //     pump[i] = pwm[i];
-    // }
-    //     do
-    //     {
-    //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
-    //         if (mode[i] == 1)
-    //         {
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -108,16 +81,6 @@ void Pump::Pump_driver(float pwm[])
         Circulation_Controller(pump);
     }
     
-            // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
-            // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
-            
-            // thread1.join();
-            // thread2.join();
-            
-        // ESP_LOGI(TAG, "pwm[%d] = %f", i, pwm[i]);
-        // } 
-        // while (pwm[i] > 0);
-
     for (size_t i = 0; i < 6; i++)
     {
         if (pump[i] > 0)
@@ -130,35 +93,9 @@ void Pump::Pump_driver(float pwm[])
             pwm[i] = 0;
         }
     }
-        
-    
-    // std::thread thread1(&Pump::Dosing_Controller, this, pwm, i);
-    // thread1.join();
-        // std::this_thread::sleep_for(std::chrono::milliseconds (static_cast<uint16_t>(pwm[i] * 1000)));
-   
-    //     std::cout << "pwm[" << i << "] = " << pwm[i] << "\n";
-
-    // }
-
-    // for (size_t i = 0; i < 6; i++)
-    // {
-        // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-
-    // }
-
-    // auto stop = std::chrono::high_resolution_clock::now();
-    // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
-    // std::cout << "Geçen süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
-
-    // ESP_LOGI(TAG, "Geçen süre: %f saniye", duration.count() / 1000);
-    
 }
 void Pump::Dosing_Controller(float pump[])
 {
-    // auto start = std::chrono::high_resolution_clock::now();
-
-    // std::cout << "Dosing_Controller\n";
     float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
@@ -172,24 +109,13 @@ void Pump::Dosing_Controller(float pump[])
     {
         if (type[i] == 1)
         {
-
-            // std::cout << "reset" << i << ": " << reset[i] << "\n";
-            // std::cout << "mode" << i << ": " << (mode[i] ? "true" : "false") << "\n";
-            // std::cout << "dose" << i << ": " << dose[i] << "\n";
-            
             if (pump[i] > 0)
             {
-                //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
                 tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
                 tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
                 dose[i] -= (pump[i] > min ? min : pump[i]) * calib[i];
             }
-
-            // if (stat[i] == 1 && !(dose[i] > 0))
-            // {
-            //     ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-            // }
 
             if (reset[i])
             {
@@ -231,37 +157,11 @@ void Pump::Dosing_Controller(float pump[])
             default:
                 break;
             }
-
-
-               
-        // std::cout << "pump" << i << " " << pump[i] << "\n";
-            // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-        
-        // std::this_thread::sleep_for(std::chrono::milliseconds (dose[i] > calib[i] ? 1000 : dose[i] * 1000 / calib[i]));
-        
         }
-            
-        // std::cout << i << "    " << pump[i] << "    " << (mode[i] ? "true" : "false") << "    " << dose[i] << "\n";
-            
-             
-        // std::cout << pump[i] << " " << dose[i] << "\n";
     }
-
-    // std::cout << "mint " << mint << "\n";
- 
-    // std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
-         
-    // auto stop = std::chrono::high_resolution_clock::now();
-    // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-     
-    // std::cout << "Süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
-
 }
 void Pump::Circulation_Controller(float pump[])
 {
-    // auto start = std::chrono::high_resolution_clock::now();
-
-    // std::cout << "Dosing_Controller\n";
     float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* mode = get_Pump_Mode();
@@ -275,24 +175,13 @@ void Pump::Circulation_Controller(float pump[])
     {
         if (type[i] == 2)
         {
-
-            // std::cout << "reset" << i << ": " << reset[i] << "\n";
-            // std::cout << "mode" << i << ": " << (mode[i] ? "true" : "false") << "\n";
-            // std::cout << "circ" << i << ": " << circ[i] << "\n";
-            
             if (pump[i] > 0)
             {
-                //  std::cout << "Pump_stat[" << i << "] = " << (stat[i] ? "true" : "false") << "\n";
                 tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
                 tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * calib[i];   
             }
-
-            // if (stat[i] == 1 && !(circ[i] > 0))
-            // {
-            //     ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, (*tot)[i][0], (*tot)[i][1]);
-            // }
 
             if (reset[i])
             {
@@ -334,29 +223,8 @@ void Pump::Circulation_Controller(float pump[])
             default:
                 break;
             }
-               
-        // std::cout << "pump" << i << " " << pump[i] << "\n";
-            // std::cout << "Pump_Total[" << i << "] = " << (*tot)[i][0] << "." <<  ((*tot)[i][1] < 100 ? "0" + std::to_string((*tot)[i][1]) :  std::to_string((*tot)[i][1])) << "\n";
-        
-        // std::this_thread::sleep_for(std::chrono::milliseconds (circ[i] > calib[i] ? 1000 : circ[i] * 1000 / calib[i]));
-        
         }
-            
-        // std::cout << i << "    " << pump[i] << "    " << (mode[i] ? "true" : "false") << "    " << circ[i] << "\n";
-            
-             
-        // std::cout << pump[i] << " " << circ[i] << "\n";
     }
-
-    // std::cout << "mint " << mint << "\n";
- 
-    // std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<uint16_t>(mint * 1000)));
-         
-    // auto stop = std::chrono::high_resolution_clock::now();
-    // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-     
-    // std::cout << "Süre: " << static_cast<float>(duration.count()) / 1000 << " saniye\n";
-    // set_Pump_Total(*tot);
 }
 
 }  // namespace water_quality
