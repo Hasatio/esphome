@@ -24,6 +24,7 @@ void Pump::Timer_Setup(float period)
         
     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 
+        ESP_LOGI(TAG, "timer = %d", timer);
 }
 void IRAM_ATTR Pump::Timer(void* arg)
 {
@@ -35,7 +36,6 @@ void IRAM_ATTR Pump::Timer(void* arg)
     for (size_t i = 0; i < 6; i++)
         ESP_LOGI(TAG, "pump[%d] = %f", i, pump[i]);
         
-        ESP_LOGI(TAG, "timer = %d", timer);
 }
 
 void Pump::Pump_driver(float pwm[])
