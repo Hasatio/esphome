@@ -22,7 +22,7 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
         
-    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+    esp_timer_start_once(timer, static_cast<uint32_t>(period * 1000000));
 
         ESP_LOGI(TAG, "timer = %d", timer);
 }
