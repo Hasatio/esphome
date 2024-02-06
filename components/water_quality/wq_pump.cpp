@@ -73,7 +73,13 @@ void Pump::Pump_driver(float pwm[])
         Dosing_Controller(pump);
         Circulation_Controller(pump);
     }
-    
+
+    if (timer) {
+            esp_timer_stop(timer);
+            esp_timer_delete(timer);
+            timer = nullptr; // Timer'ı nullptr olarak ayarla
+        }
+        
     for (size_t i = 0; i < 6; i++)
     {
         if (pump[i] > 0)
