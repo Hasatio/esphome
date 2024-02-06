@@ -41,14 +41,6 @@ void Pump::Pump_driver(float pwm[])
     float min = get_Min();
     float min_, mint[6];
 
-    for (size_t i = 0; i < 6; i++)
-    {
-        if (stat_[i] != stat[i])
-        {
-            stat_[i] = stat[i];
-        }
-    }
-
     std::copy(pump, pump + 6, mint);
     std::sort(mint, mint + 6);
 
