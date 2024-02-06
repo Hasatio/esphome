@@ -200,6 +200,7 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
     uint8_t ptype_[6];
+    float *pcal = pump.get_Pump_Calib_Gain();
     float calib[6] = {0};
     bool start = 0;
     
