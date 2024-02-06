@@ -18,11 +18,7 @@ void Pump::Timer_Setup(float period)
     if (period > 0)
         esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
     else
-    {
         esp_timer_stop(timer);
-        Dosing_Controller(pump);
-        Circulation_Controller(pump);
-    }
 }
 
 static uint32_t multFactor = 0;
@@ -89,15 +85,15 @@ void Pump::Pump_driver(float pwm[])
     }
     set_Min(min_);
 
-    // if (min_ > 0 && min != min_)
-    // {
+    if (min != min_)
+    {
         Timer_Setup(min_);
-    // }
-    // else if (min_ == 0)
-    // {
-    //     Dosing_Controller(pump);
-    //     Circulation_Controller(pump);
-    // }
+    }
+    else if (min_ == 0)
+    {
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
+    }
     
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
