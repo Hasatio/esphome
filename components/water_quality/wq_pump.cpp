@@ -16,7 +16,6 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
     
-    ESP_LOGI(TAG, "period = %f", period);
     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 
@@ -30,10 +29,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
-    for (size_t i = 0; i < 6; i++)
-    if(pump[i] > 0)
-        ESP_LOGD(TAG, "pump[%d] = %f", i, pump[i]);
-    // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
+    ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
 }
 
@@ -90,8 +86,6 @@ void Pump::Pump_driver(float pwm[])
     if (min_ > 0 && min != min_)
     {
         Timer_Setup(min_);
-        ESP_LOGI(TAG, "min = %f", min);
-        ESP_LOGI(TAG, "min_ = %f", min_);
     }
     else if (min_ == 0)
     {
