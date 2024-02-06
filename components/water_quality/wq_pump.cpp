@@ -110,7 +110,7 @@ void Pump::Pump_driver(float pwm[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (stat_[i] != stat[i])
+        // if (stat_[i] != stat[i])
         {
             ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
             ESP_LOGI(TAG, "stat[%d] = %d", i, stat[i]);
