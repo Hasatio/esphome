@@ -212,6 +212,8 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
             pump.set_Pump_Time(calib);
             pump.Timer_Setup(6);
         }
+        
+        ESP_LOGI(TAG, "start");
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
