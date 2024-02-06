@@ -70,8 +70,8 @@ void Pump::Pump_driver(float pwm[])
         Circulation_Controller(pump);
     }
 
-    if (!(esp_timer_is_active(timer)))
-        Timer_Setup(0);
+    ESP_LOGD(TAG, "timer = %d", esp_timer_is_active(timer))
+
 
     for (size_t i = 0; i < 6; i++)
     {
