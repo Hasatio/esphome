@@ -116,40 +116,41 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            switch (mode[i] && calib[i] > 0)
-            {
-            case 0:
-                pump[i] = 0;
-                if (stat[i] <= 1)
-                    stat[i] = 0;
-                break;
-            case 1:
-                if (dose[i] > 0)
-                    if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
-                    {
-                        pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
-                        stat[i] = 1;
-                    }
+            if (calib[i] > 0)
+                switch (mode[i])
+                {
+                case 0:
+                    pump[i] = 0;
+                    if (stat[i] <= 1)
+                        stat[i] = 0;
+                    break;
+                case 1:
+                    if (dose[i] > 0)
+                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
+                        {
+                            pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
+                            stat[i] = 1;
+                        }
+                        else
+                        {
+                            pump[i] = 0;
+                            stat[i] = 0;
+                        }
                     else
                     {
                         pump[i] = 0;
-                        stat[i] = 0;
+                        stat[i] = 2;
+                        mode[i] = 0;
                     }
-                else
-                {
+                    break;
+                case 2:
                     pump[i] = 0;
-                    stat[i] = 2;
-                    mode[i] = 0;
+                    stat[i] = 3;
+                    break;
+                
+                default:
+                    break;
                 }
-                break;
-            case 2:
-                pump[i] = 0;
-                stat[i] = 3;
-                break;
-            
-            default:
-                break;
-            }
         }
     }
 }
@@ -182,40 +183,41 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            switch (mode[i] && calib[i] > 0)
-            {
-            case 0:
-                pump[i] = 0;
-                if (stat[i] <= 1)
-                    stat[i] = 0;
-                break;
-            case 1:
-                if (circ[i] > 0)
-                    if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
-                    {
-                        pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
-                        stat[i] = 1;
-                    }
+            if (calib[i] > 0)
+                switch (mode[i])
+                {
+                case 0:
+                    pump[i] = 0;
+                    if (stat[i] <= 1)
+                        stat[i] = 0;
+                    break;
+                case 1:
+                    if (circ[i] > 0)
+                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
+                        {
+                            pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
+                            stat[i] = 1;
+                        }
+                        else
+                        {
+                            pump[i] = 0;
+                            stat[i] = 0;
+                        }
                     else
                     {
                         pump[i] = 0;
-                        stat[i] = 0;
+                        stat[i] = 2;
+                        mode[i] = 0;
                     }
-                else
-                {
+                    break;
+                case 2:
                     pump[i] = 0;
-                    stat[i] = 2;
-                    mode[i] = 0;
+                    stat[i] = 3;
+                    break;
+                
+                default:
+                    break;
                 }
-                break;
-            case 2:
-                pump[i] = 0;
-                stat[i] = 3;
-                break;
-            
-            default:
-                break;
-            }
         }
     }
 }
