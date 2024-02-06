@@ -18,7 +18,11 @@ void Pump::Timer_Setup(float period)
     if (period > 0)
         esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
     else
+    {
+        ESP_LOGD(TAG, "here");
         esp_timer_stop(timer);
+        esp_timer_delete(timer);
+    }
 }
 
 static uint32_t multFactor = 0;
