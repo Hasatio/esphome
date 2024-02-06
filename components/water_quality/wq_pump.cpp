@@ -15,8 +15,14 @@ void Pump::Timer_Setup(float period)
         .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
-    
-    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+    if (period > 0)
+        esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+    else
+    {
+        esp_timer_stop(timer);
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
+    }
 }
 
 static uint32_t multFactor = 0;
@@ -29,8 +35,7 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 
-        ESP_LOGI(TAG, "min = %f", pumpInstance->get_Min());
-    ESP_LOGI(TAG, "timer = %d", timers - multFactor);
+    // ESP_LOGI(TAG, "timer = %d", timers - multFactor);
     multFactor = timers;
 }
 
@@ -84,15 +89,15 @@ void Pump::Pump_driver(float pwm[])
     }
     set_Min(min_);
 
-    if (min_ > 0 && min != min_)
-    {
+    // if (min_ > 0 && min != min_)
+    // {
         Timer_Setup(min_);
-    }
-    else if (min_ == 0)
-    {
-        Dosing_Controller(pump);
-        Circulation_Controller(pump);
-    }
+    // }
+    // else if (min_ == 0)
+    // {
+    //     Dosing_Controller(pump);
+    //     Circulation_Controller(pump);
+    // }
     
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
