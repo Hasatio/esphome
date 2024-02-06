@@ -107,15 +107,6 @@ void Pump::Pump_driver(float pwm[])
         Dosing_Controller(pump);
         Circulation_Controller(pump);
     }
-
-    for (size_t i = 0; i < 6; i++)
-    {
-        // if (stat_[i] != stat[i])
-        {
-            ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
-            ESP_LOGI(TAG, "stat[%d] = %d", i, stat[i]);
-        }
-    }
     
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
             // std::thread thread2(&Pump::Circulation_Controller, this, pwm);
@@ -129,11 +120,11 @@ void Pump::Pump_driver(float pwm[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (stat[i] == 1)
+        if (pump[i] > 0)
             pwm[i] = 1;
         else
         {
-            if (stat[i] != stat_[i])
+            if (stat[i])
                 ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, tot[i][0], tot[i][1]);
 
             pwm[i] = 0;
