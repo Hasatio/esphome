@@ -74,17 +74,16 @@ void Pump::Pump_driver(float pwm[])
     //     while ((dose[i] > 0 && type[i] == 1) || (circ[i] > 0 && type[i] == 2))
     //         if (mode[i] == 1)
     //         {
+
     for (size_t i = 0; i < 6; i++)
     {
         if (stat_[i] != stat[i])
         {
-        ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
-        ESP_LOGI(TAG, "stat[%d] = %d", i, stat[i]);
         stat_[i] = stat[i];
+        ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
         }
     }
 
-            
     std::copy(pump, pump + 6, mint);
     std::sort(mint, mint + 6);
 
@@ -108,6 +107,14 @@ void Pump::Pump_driver(float pwm[])
     {
         Dosing_Controller(pump);
         Circulation_Controller(pump);
+    }
+
+    for (size_t i = 0; i < 6; i++)
+    {
+        if (stat_[i] != stat[i])
+        {
+        ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
+        }
     }
     
             // std::thread thread1(&Pump::Dosing_Controller, this, pwm);
