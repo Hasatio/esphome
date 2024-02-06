@@ -34,6 +34,8 @@ void IRAM_ATTR Pump::Timer(void* arg)
     
     for (size_t i = 0; i < 6; i++)
         ESP_LOGI(TAG, "pump[%d] = %f", i, pump[i]);
+        
+        ESP_LOGI(TAG, "timer = %d", timer ? "true" : "false");
 }
 
 void Pump::Pump_driver(float pwm[])
