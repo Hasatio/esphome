@@ -205,7 +205,7 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
     if (start)
         {
             pump.set_Pump_Time(calib);
-            pump.Timer_Setup(60);
+            pump.Timer_Setup(6);
         }
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)

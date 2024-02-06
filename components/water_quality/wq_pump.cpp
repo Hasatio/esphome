@@ -31,6 +31,9 @@ void IRAM_ATTR Pump::Timer(void* arg)
     float* pump = pumpInstance->get_Pump_Time();
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
+    
+    for (size_t i = 0; i < 6; i++)
+        ESP_LOGI(TAG, "pump[%d] = %f", i, pump[i]);
 }
 
 void Pump::Pump_driver(float pwm[])
