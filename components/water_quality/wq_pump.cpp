@@ -75,7 +75,11 @@ void Pump::Pump_driver(float pwm[])
     //         if (mode[i] == 1)
     //         {
     for (size_t i = 0; i < 6; i++)
+    {
+        ESP_LOGI(TAG, "stat[%d] = %f", i, min);
         stat_[i] = stat[i];
+        ESP_LOGI(TAG, "stat[%d] = %f", i, min);
+    }
 
             
     std::copy(pump, pump + 6, mint);
@@ -83,7 +87,6 @@ void Pump::Pump_driver(float pwm[])
 
     for (size_t i = 0; i < 6; ++i) 
     {
-            // ESP_LOGI(TAG, "pump = %f", pump[i]);
         if (mint[i] > 0)
         {
             min_ = mint[i];
