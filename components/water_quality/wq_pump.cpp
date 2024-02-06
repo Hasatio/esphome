@@ -76,9 +76,9 @@ void Pump::Pump_driver(float pwm[])
     //         {
     for (size_t i = 0; i < 6; i++)
     {
-        ESP_LOGI(TAG, "stat[%d] = %f", i, min);
+        // ESP_LOGI(TAG, "stat[%d] = %f", i, min);
         stat_[i] = stat[i];
-        ESP_LOGI(TAG, "stat[%d] = %f", i, min);
+        // ESP_LOGI(TAG, "stat[%d] = %f", i, min);
     }
 
             
