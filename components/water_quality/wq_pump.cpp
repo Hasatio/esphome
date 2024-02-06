@@ -6,6 +6,11 @@ namespace water_quality {
 void Pump::Timer_Setup(float period)
 {
     float* pump = get_Pump_Time();
+    if (timer)
+    {
+            esp_timer_stop(timer);
+            esp_timer_delete(timer);
+    }
 
     // Timer'ı başlat
     esp_timer_create_args_t timer_args = {
@@ -15,14 +20,14 @@ void Pump::Timer_Setup(float period)
         .name = nullptr,
     };
     esp_timer_create(&timer_args, &timer);
-    if (period > 0)
+    // if (period > 0)
         esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
-    else
-    {
-        ESP_LOGD(TAG, "here");
-        esp_timer_stop(timer);
-        esp_timer_delete(timer);
-    }
+    // else
+    // {
+    //     ESP_LOGD(TAG, "here");
+    //     esp_timer_stop(timer);
+    //     esp_timer_delete(timer);
+    // }
 }
 
 static uint32_t multFactor = 0;
