@@ -79,8 +79,7 @@ void Pump::Pump_driver(float pwm[])
     {
         if (stat_[i] != stat[i])
         {
-        stat_[i] = stat[i];
-        ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
+            stat_[i] = stat[i];
         }
     }
 
@@ -113,7 +112,8 @@ void Pump::Pump_driver(float pwm[])
     {
         if (stat_[i] != stat[i])
         {
-        ESP_LOGI(TAG, "stat[%d] = %d", i, stat[i]);
+            ESP_LOGI(TAG, "stat_[%d] = %d", i, stat_[i]);
+            ESP_LOGI(TAG, "stat[%d] = %d", i, stat[i]);
         }
     }
     
