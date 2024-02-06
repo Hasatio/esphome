@@ -61,7 +61,7 @@ void Pump::Pump_driver(float pwm[])
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
     float* pump = get_Pump_Time();
-    uint8_t stat_[6];
+    uint8_t stat_[6] = {0};
     float min = get_Min();
     float min_, mint[6];
 
