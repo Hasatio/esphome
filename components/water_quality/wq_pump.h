@@ -15,12 +15,12 @@ namespace water_quality {
 class Pump
 {
 public:
+void Timer_Setup(float period);
 static void IRAM_ATTR Timer(void* arg);
 
 void Pump_driver(float pwm[]);
 void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
-void Timer_Setup(float period);
 
 void set_Pump_Calib_Gain(float pcg[])   {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])        {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
