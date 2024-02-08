@@ -41,7 +41,7 @@ void Pump::Calibration_Status()
 {
     float* pcal = get_Pump_Calib_Gain();
     uint8_t* ptype = get_Pump_Type();
-    float calib = 0;
+    float calib[6] = {0};
     bool stat = 0;
 
     for (size_t i = 0; i < 6; i++)
