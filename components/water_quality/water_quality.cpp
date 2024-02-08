@@ -210,6 +210,7 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
         
         if (ptype[i] > 0 && pcal[i] <= 0)
         {
+            pcal[i] = 1;
             calib[i] = 60;
             start = 1;
         }
@@ -220,6 +221,7 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
     // pump.set_Calibration_Mode(start);
     if (start)
         {
+            pump.set_Calibration_Mode(start);
             pump.set_Pump_Dose(calib);
             pump.set_Pump_Circulation(calib);
             pump.Timer_Setup(6);

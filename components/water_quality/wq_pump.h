@@ -17,6 +17,7 @@ class Pump
 public:
 void Timer_Setup(float period);
 static void IRAM_ATTR Timer(void* arg);
+void Calibration_Status(bool status);
 
 void Pump_driver(float pwm[]);
 void Dosing_Controller(float pump[]);

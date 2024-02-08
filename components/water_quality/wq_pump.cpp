@@ -37,6 +37,10 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 }
+void Pump::Calibration_Status(bool status)
+{
+
+}
 
 void Pump::Pump_driver(float pwm[])
 {     
@@ -117,11 +121,11 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            if (calib[i] <= 0)
+            if (get_Calibration_Mode())
                 mode[i] = 1;
-            else
-                switch (mode[i])
-                {
+
+            switch (mode[i])
+            {
                 case 0:
                     pump[i] = 0;
                     if (stat[i] <= 1)
@@ -153,7 +157,7 @@ void Pump::Dosing_Controller(float pump[])
                 
                 default:
                     break;
-                }
+            }
         }
     }
 }
@@ -186,9 +190,11 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            if (calib[i] > 0)
-                switch (mode[i])
-                {
+            if (get_Calibration_Mode())
+                mode[i] = 1;
+                
+            switch (mode[i])
+            {
                 case 0:
                     pump[i] = 0;
                     if (stat[i] <= 1)
@@ -220,7 +226,7 @@ void Pump::Circulation_Controller(float pump[])
                 
                 default:
                     break;
-                }
+            }
         }
     }
 }
