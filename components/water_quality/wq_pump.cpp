@@ -39,28 +39,30 @@ void IRAM_ATTR Pump::Timer(void* arg)
 }
 void Pump::Calibration_Status()
 {
-    float* pcal = get_Pump_Calib_Gain();
-    uint8_t* ptype = get_Pump_Type();
-    float calib[6] = {0};
+    float* calib = get_Pump_Calib_Gain();
+    uint8_t* type = get_Pump_Type();
+    uint8_t* mode = get_Pump_Mode();
+    float* dose = get_Pump_Dose();
+    float* circ = get_Pump_Circulation();
     bool stat = 0;
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (ptype[i] > 0 && pcal[i] <= 0)
+        if (type[i] > 0 && calib[i] <= 0)
         {
-            pcal[i] = 1;
-            calib[i] = 6;
+            calib[i] = 1;
+            mode[i] = 1;
+            if (type[i] == 1)
+                dose[i] = 6;
+            if (type[i] == 2)
+                circ[i] = 6;
             stat = 1;
         }
     }
     set_Calibration_Mode(stat);
 
     if (stat)
-    {
-        set_Pump_Dose(calib);
-        set_Pump_Circulation(calib);
-        ESP_LOGI(TAG, "start");
-    }
+        ESP_LOGI(TAG, "Calibration Start");
 }
 
 void Pump::Pump_driver(float pwm[])
