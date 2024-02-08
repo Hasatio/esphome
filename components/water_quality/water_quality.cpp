@@ -233,7 +233,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
     uint8_t* pmode_ = pump.get_Pump_Mode();
     std::vector<uint8_t> pm(pmode_, pmode_ + 6);
 
-    if (pm != pmode && pump.get_Calibration_Mode())
+    if (pm != pmode)
     {
         for (size_t i = 0; i < 6; i++)
         {
