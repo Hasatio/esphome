@@ -224,7 +224,6 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
             pump.set_Calibration_Mode(start);
             pump.set_Pump_Dose(calib);
             pump.set_Pump_Circulation(calib);
-            pump.Timer_Setup(6);
         }
         
         ESP_LOGI(TAG, "start");
