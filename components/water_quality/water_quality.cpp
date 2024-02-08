@@ -17,10 +17,6 @@ namespace water_quality {
     Pump pump;
     Servo ser;
 
-    static uint32_t lastTime = 0;
-	static uint32_t lastChangeTime = 0;
-	static uint32_t currTime;
-
 void WaterQuality::setup()
 {
     ADS1115_Setup(ADS1X15_ADDRESS1);
@@ -96,52 +92,6 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-
-    // static uint32_t lastTime = 0;
-	// static uint32_t lastChangeTime = 0;
-	// static uint32_t currTime;
-	// static uint32_t multFactor = 0;
-
-	// currTime = millis();
-
-	// if (millis() - lastTime >= CHECK_INTERVAL_MS)
-	// {
-
-	// 		//setInterval(unsigned long interval, timerCallback callback)
-	// 		multFactor = 2;
-
-	// 		ITimer0.setInterval(TIMER0_INTERVAL_MS * 1000 * multFactor, TimerHandler0);
-    
-	// 		ESP_LOGI(TAG, "Changing Interval, Timer0 = %d", millis() - lastTime);
-
-	// 	lastTime = millis();
-	// }
-
-
-	// static unsigned long lastTimer0 = 0;
-
-	// static bool timer0Stopped         = false;
-
-	// if (millis() - lastTimer0 > TIMER0_DURATION_MS)
-	// {
-	// 	lastTimer0 = millis();
-
-	// 	if (timer0Stopped)
-	// 	{
-    //         ESP_LOGI(TAG, "Start ITimer0, millis() = %d", millis());
-	// 		ITimer0.restartTimer();
-	// 	}
-	// 	else
-	// 	{
-    //         ESP_LOGI(TAG, "Stop ITimer0, millis() = %d", millis());
-	// 		ITimer0.stopTimer();
-	// 	}
-
-	// 	timer0Stopped = !timer0Stopped;
-	// }
-
-
-
     // delay(500);
     // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
 }
@@ -150,8 +100,6 @@ float a[8], p[16];
 bool d[4];
 void WaterQuality::update()
 {
-	currTime = millis();
-
     ADS1115_Driver(a);
     an.Analog_Input_Driver(a);
 
@@ -159,24 +107,11 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-lastChangeTime = millis();
-    
     pump.Pump_driver(p);
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
-lastTime = millis();
-
-    // ESP_LOGI(TAG, "diğer fonk süresi = %d", lastChangeTime - currTime);
-    // ESP_LOGI(TAG, "pump süresi = %d", lastTime - lastChangeTime);
-    // ESP_LOGI(TAG, "toplam süre = %d", lastTime - currTime);
-
-    sensor();
-    
-    // an.set_WT_Val(1.23);
-    // ESP_LOGD(TAG, "test = %f", request_measurement());
-    // ESP_LOGD(TAG, "vpow test = %f", an.get_VPow_Val());
-    
+    sensor();  
 }
 
 void WaterQuality::version(const uint8_t ver)
@@ -249,7 +184,7 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
     float* pdose_ = pump.get_Pump_Dose();
     std::vector<float> pd(pdose_, pdose_ + 6);
 
-    if (pd != pdose && pump.get_Calibration_Mode())
+    if (pd != pdose)
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -271,7 +206,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
     float* pcirc_ = pump.get_Pump_Circulation();
     std::vector<float> pc(pcirc_, pcirc_ + 6);
 
-    if (pc != pcirc && pump.get_Calibration_Mode())
+    if (pc != pcirc)
     {
         for (size_t i = 0; i < 6; i++)
         {
