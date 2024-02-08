@@ -70,4 +70,3 @@ light:
       mode:
         output: True
       inverted: False
-

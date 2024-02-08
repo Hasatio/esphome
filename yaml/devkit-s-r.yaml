@@ -51,9 +51,9 @@ sensor:
   #   sample:
   #     name: sample
 
-  # - platform: posture_analyzer
-  #   sample_sec:
-  #     name: sample_sec
+  - platform: posture_analyzer
+    sample_sec:
+      name: sample_sec
 
 
 button:
@@ -70,4 +70,3 @@ light:
       mode:
         output: True
       inverted: False
-
