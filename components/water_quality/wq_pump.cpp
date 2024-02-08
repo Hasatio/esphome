@@ -121,9 +121,6 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            if (get_Calibration_Mode())
-                mode[i] = 1;
-
             switch (mode[i])
             {
                 case 0:
@@ -190,9 +187,6 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            if (get_Calibration_Mode())
-                mode[i] = 1;
-                
             switch (mode[i])
             {
                 case 0:
