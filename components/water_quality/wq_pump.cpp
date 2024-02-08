@@ -8,9 +8,6 @@ void Pump::Timer_Setup(float period)
     float* pump = get_Pump_Time();
     if (timer)
     {
-            for (size_t i = 0; i < 6; ++i)
-                pump[i] = 0;
-                
             esp_timer_stop(timer);
             esp_timer_delete(timer);
     }
