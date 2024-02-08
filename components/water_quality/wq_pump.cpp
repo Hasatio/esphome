@@ -83,10 +83,7 @@ void Pump::Pump_driver(float pwm[])
     set_Min(min_);
 
     if (min != min_)
-    {
-        ESP_LOGI(TAG, "timer start");
         Timer_Setup(min_);
-    }
     else if (min_ == 0)
     {
         Dosing_Controller(pump);

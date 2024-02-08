@@ -133,7 +133,7 @@ void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode)  { interrupt_mode
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
 void PCA9685_Setup(uint8_t address);
-void PCA9685_Write(uint16_t duty[]);
+void PCA9685_Write(uint16_t duty);
 void PCA9685_Driver(float state[]);
 
 void set_extclk(bool extclk)            { this->extclk_ = extclk; }
@@ -210,6 +210,7 @@ bool open_drain_ints_;
 
 float frequency_ = 1000;
 bool extclk_ = false;
+uint16_t pwm_amounts_[16] = {0};
 uint8_t min_channel_{0xFF};
 uint8_t max_channel_{0x00};
 bool update_{true};
