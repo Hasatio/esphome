@@ -408,7 +408,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
         return;
     }
     uint8_t mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
-    if (!this->write_byte(PCA9685_REGISTER_MODE2, this->mode_)) {
+    if (!this->write_byte(PCA9685_REGISTER_MODE2, mode_)) {
         this->mark_failed();
         return;
     }
