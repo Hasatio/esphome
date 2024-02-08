@@ -209,11 +209,9 @@ MCP23008_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
 
 float frequency_ = 1000;
-uint8_t mode_;
 bool extclk_ = false;
 uint8_t min_channel_{0xFF};
 uint8_t max_channel_{0x00};
-uint16_t pwm_amounts_[16] = {0};
 bool update_{true};
 };
 

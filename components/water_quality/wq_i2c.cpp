@@ -407,7 +407,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
         this->mark_failed();
         return;
     }
-    this->mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
+    uint8_t mode_ = PCA9685_MODE_OUTPUT_ONACK | PCA9685_MODE_OUTPUT_TOTEM_POLE;
     if (!this->write_byte(PCA9685_REGISTER_MODE2, this->mode_)) {
         this->mark_failed();
         return;
@@ -449,12 +449,8 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
     }
     delayMicroseconds(500);
 }
-void WaterQuality::PCA9685_Write()
+void WaterQuality::PCA9685_Write(uint16_t duty[])
 {
-    this->set_i2c_address(PCA9685_I2C_ADDRESS);
-    if (this->is_failed())
-        return;
-
     if (this->min_channel_ == 0xFF || !this->update_)
         return;
     const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
@@ -462,7 +458,7 @@ void WaterQuality::PCA9685_Write()
     {
         uint16_t phase_begin = uint16_t(channel - this->min_channel_) / num_channels * 4096;
         uint16_t phase_end;
-        uint16_t amount = this->pwm_amounts_[channel];
+        uint16_t amount = duty[channel];
         if (amount == 0)
         {
             phase_end = 4096;
@@ -503,6 +499,7 @@ void WaterQuality::PCA9685_Driver(float state[])
     if (this->is_failed())
         return;
 
+    uint16_t pwm_amounts_[16] = {0};
     for (uint8_t i = 0; i < 16; i++)
     {
         this->min_channel_ = std::min(this->min_channel_, i);
@@ -511,14 +508,12 @@ void WaterQuality::PCA9685_Driver(float state[])
         const uint16_t max_duty = 4096;
         const float duty_rounded = roundf(state[i] * max_duty);
         uint16_t duty = static_cast<uint16_t>(duty_rounded);
-        if (this->pwm_amounts_[i] != duty)
+        if (pwm_amounts_[i] != duty)
             this->update_ = true;
             
-        this->pwm_amounts_[i] = duty;
-
-        PCA9685_Write();
-        
+        pwm_amounts_[i] = duty;
     }
+        PCA9685_Write(pwm_amounts_);
 }
 
 // void EC10() {/*DFRobot_EC10 ec;*/}
