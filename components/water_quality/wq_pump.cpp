@@ -21,14 +21,10 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
         
-    ESP_LOGI(TAG, "period = %f", period);
-    if (period > 1){
-    ESP_LOGD(TAG, "once");
-        esp_timer_start_once(timer, static_cast<uint32_t>(period * 1000000));}
-    else if (period > 0){
-    ESP_LOGD(TAG, "periodic");
+    if (period > 1)
+        esp_timer_start_once(timer, static_cast<uint32_t>(period * 1000000));
+    else if (period > 0)
         esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
-    }
 }
 void IRAM_ATTR Pump::Timer(void* arg)
 {
@@ -50,25 +46,16 @@ void Pump::Calibration_Status()
     {
         if (type[i] > 0 && calib[i] <= 0)
         {
-            stat = 1;
-            Timer_Setup(2);
-        }
-    }
-    set_Calibration_Mode(stat);
-
-    if (stat)
-    {
-        for (size_t i = 0; i < 6; i++)
-        {
             calib[i] = 1;
             mode[i] = 1;
             if (type[i] == 1)
                 dose[i] = 6;
             if (type[i] == 2)
                 circ[i] = 6;
+            stat = 1;
         }
-        ESP_LOGI(TAG, "Calibration Start");
     }
+    set_Calibration_Mode(stat);
 }
 
 void Pump::Pump_driver(float pwm[])
