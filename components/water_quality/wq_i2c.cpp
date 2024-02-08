@@ -513,6 +513,11 @@ void WaterQuality::PCA9685_Driver(float state[])
             
         this->pwm_amounts_[i] = duty;
         PCA9685_Write(duty);
+        
+    ESP_LOGI(TAG, "min_channel_ = %d", min_channel_);
+    ESP_LOGI(TAG, "max_channel_ = %d", max_channel_);
+    ESP_LOGI(TAG, "duty_rounded = %f", duty_rounded);
+    ESP_LOGI(TAG, "duty = %d", duty);
     }
 }
 
