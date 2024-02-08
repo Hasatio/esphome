@@ -62,6 +62,7 @@ void Pump::Pump_driver(float pwm[])
 
     if (min != min_)
     {
+        ESP_LOGD(TAG, "timer start");
         Timer_Setup(min_);
     }
     else if (min_ == 0)
