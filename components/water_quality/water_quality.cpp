@@ -150,7 +150,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
     uint8_t* pmode_ = pump.get_Pump_Mode();
     std::vector<uint8_t> pm(pmode_, pmode_ + 6);
 
-    if (pm != pmode && pump.get_Calibration_Mode())
+    if (pm != pmode && !pump.get_Calibration_Mode())
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -166,7 +166,7 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
     float* pdose_ = pump.get_Pump_Dose();
     std::vector<float> pd(pdose_, pdose_ + 6);
 
-    if (pd != pdose && pump.get_Calibration_Mode())
+    if (pd != pdose && !pump.get_Calibration_Mode())
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -188,7 +188,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
     float* pcirc_ = pump.get_Pump_Circulation();
     std::vector<float> pc(pcirc_, pcirc_ + 6);
 
-    if (pc != pcirc && pump.get_Calibration_Mode())
+    if (pc != pcirc && !pump.get_Calibration_Mode())
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -208,7 +208,7 @@ void WaterQuality::pump_reset(std::vector<bool> &pres)
     bool* pres_ = pump.get_Pump_Reset();
     std::vector<bool> pr(pres_, pres_ + 6);
 
-    if (pr != pres && pump.get_Calibration_Mode())
+    if (pr != pres && !pump.get_Calibration_Mode())
     {
         for (size_t i = 0; i < 6; i++)
         {
