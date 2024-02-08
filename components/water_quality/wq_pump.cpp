@@ -50,19 +50,25 @@ void Pump::Calibration_Status()
     {
         if (type[i] > 0 && calib[i] <= 0)
         {
+            stat = 1;
+            Timer_Setup(2);
+        }
+    }
+    set_Calibration_Mode(stat);
+
+    if (stat)
+    {
+        for (size_t i = 0; i < 6; i++)
+        {
             calib[i] = 1;
             mode[i] = 1;
             if (type[i] == 1)
                 dose[i] = 6;
             if (type[i] == 2)
                 circ[i] = 6;
-            stat = 1;
         }
-    }
-    set_Calibration_Mode(stat);
-
-    if (stat)
         ESP_LOGI(TAG, "Calibration Start");
+    }
 }
 
 void Pump::Pump_driver(float pwm[])
