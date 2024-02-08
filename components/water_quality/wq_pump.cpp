@@ -147,7 +147,7 @@ void Pump::Dosing_Controller(float pump[])
                     break;
                 case 1:
                     if (dose[i] > 0)
-                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
+                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
                         {
                             pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
                             stat[i] = 1;
@@ -213,7 +213,7 @@ void Pump::Circulation_Controller(float pump[])
                     break;
                 case 1:
                     if (circ[i] > 0)
-                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] == 0))
+                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
                         {
                             pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
                             stat[i] = 1;
