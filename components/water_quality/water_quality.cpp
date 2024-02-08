@@ -34,7 +34,6 @@ void WaterQuality::dump_config()
         ESP_LOGI(TAG, "Communication Successfulled!");
         
     ESP_LOGCONFIG(TAG, "PCA9685:");
-    ESP_LOGCONFIG(TAG, "  Mode: 0x%02X", this->mode_);
     if (this->extclk_) {
         ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
     } else {
