@@ -117,7 +117,9 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = 0;
             }
 
-            if (calib[i] > 0)
+            if (calib[i] <= 0)
+                mode[i] = 1;
+            else
                 switch (mode[i])
                 {
                 case 0:

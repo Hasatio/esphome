@@ -22,6 +22,7 @@ void Pump_driver(float pwm[]);
 void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
 
+void set_Calibration_Mode(bool cm)      {Calibration_Mode = cm;}
 void set_Pump_Calib_Gain(float pcg[])   {for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i];}
 void set_Pump_Type(uint8_t pt[])        {for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i];}
 void set_Pump_Mode(uint8_t pm[])        {for (size_t i = 0; i < 6; i++) Pump_Mode[i] = pm[i];}
@@ -33,6 +34,7 @@ void set_Pump_Reset(bool pr[])          {for (size_t i = 0; i < 6; i++) Pump_Res
 void set_Pump_Time(float pt[])          {for (size_t i = 0; i < 6; i++) Pump_Time[i] = pt[i];}
 void set_Min(float m)                   {min = m;}
 
+bool get_Calibration_Mode()         {return Calibration_Mode;}
 float* get_Pump_Calib_Gain()        {return Pump_Calib_Gain;}
 uint8_t* get_Pump_Type()            {return Pump_Type;}
 uint8_t* get_Pump_Mode()            {return Pump_Mode;}
@@ -45,6 +47,7 @@ float* get_Pump_Time()              {return Pump_Time;}
 float get_Min()                     {return min;}
 
 protected:
+bool Calibration_Mode = 0;
 float Pump_Calib_Gain[6] = {0};
 uint8_t Pump_Type[6] = {0};
 uint8_t Pump_Mode[6] = {0};
