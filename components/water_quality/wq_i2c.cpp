@@ -508,7 +508,7 @@ void WaterQuality::PCA9685_Driver(float state[])
         const uint16_t max_duty = 4096;
         const float duty_rounded = roundf(state[i] * max_duty);
         uint16_t duty = static_cast<uint16_t>(duty_rounded);
-        if (pwm_amounts_[i] != duty)
+        if (this->pwm_amounts_[i] != duty)
             this->update_ = true;
             
         this->pwm_amounts_[i] = duty;
