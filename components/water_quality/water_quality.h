@@ -105,17 +105,17 @@ void ADS1115_Setup(uint8_t address);
 float ADS1115_Read();
 void ADS1115_Driver(float analog_voltage[]);
 
-void set_multiplexer(ADS1115_Multiplexer multiplexer)   {multiplexer_ = multiplexer;}
-void set_gain(ADS1115_Gain gain)                        {gain_ = gain;}
-void set_continuous_mode(bool continuous_mode)          {continuous_mode_ = continuous_mode;}
-void set_data_rate(ADS1115_DataRate data_rate)          {data_rate_ = data_rate;}
-void set_resolution(ADS1115_Resolution resolution)      {resolution_ = resolution; }
+void set_multiplexer(ADS1115_Multiplexer multiplexer)   { multiplexer_ = multiplexer; }
+void set_gain(ADS1115_Gain gain)                        { gain_ = gain; }
+void set_continuous_mode(bool continuous_mode)          { continuous_mode_ = continuous_mode; }
+void set_data_rate(ADS1115_DataRate data_rate)          { data_rate_ = data_rate; }
+void set_resolution(ADS1115_Resolution resolution)      { resolution_ = resolution; }
 
-uint8_t get_multiplexer() const     {return multiplexer_;}
-uint8_t get_gain() const            {return gain_;}
-bool get_continuous_mode()          {return continuous_mode_;}
-uint8_t get_data_rate() const       {return data_rate_;}
-uint8_t get_resolution() const      {return resolution_;}
+uint8_t get_multiplexer() const     { return multiplexer_; }
+uint8_t get_gain() const            { return gain_; }
+bool get_continuous_mode()          { return continuous_mode_; }
+uint8_t get_data_rate() const       { return data_rate_; }
+uint8_t get_resolution() const      { return resolution_; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
@@ -125,10 +125,10 @@ void MCP23008_Write(bool value[]);
 void MCP23008_Driver(bool digital[]);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
 
-void set_open_drain_ints(const bool value)                      {this->open_drain_ints_ = value;}
-void set_pin(uint8_t pin)                                       {pin_ = pin;}
-void set_inverted(bool inverted)                                {inverted_ = inverted;}
-void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode)  {interrupt_mode_ = interrupt_mode;}
+void set_open_drain_ints(const bool value)                      { this->open_drain_ints_ = value; }
+void set_pin(uint8_t pin)                                       { pin_ = pin; }
+void set_inverted(bool inverted)                                { inverted_ = inverted; }
+void set_interrupt_mode(MCP23008_InterruptMode interrupt_mode)  { interrupt_mode_ = interrupt_mode; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
@@ -136,8 +136,8 @@ void PCA9685_Setup(uint8_t address);
 void PCA9685_Write();
 void PCA9685_Driver(float state[]);
 
-void set_extclk(bool extclk)            {this->extclk_ = extclk;}
-void set_frequency(float frequency)     {this->frequency_ = frequency;}
+void set_extclk(bool extclk)            { this->extclk_ = extclk; }
+void set_frequency(float frequency)     { this->frequency_ = frequency; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -172,16 +172,16 @@ void digital_out(std::vector<bool> &dout);
 
 // void update() override;
 
-void Pump_Tot_Sensor    (text_sensor::TextSensor *ptot)     {Pump_Tot_ = ptot;}
-void Pump_Stat_Sensor   (text_sensor::TextSensor *pstat)    {Pump_Stat_ = pstat;}
-void Servo_Stat_Sensor  (text_sensor::TextSensor *servo)    {Servo_Stat_ = servo;}
-void WT_Val_Sensor      (sensor::Sensor *wtemp)             {AnInWT_Val_ = wtemp;}
-void VP_Val_Sensor      (sensor::Sensor *vp)                {AnInVP_Val_ = vp;}
-void AnLvl_Perc_Sensor  (text_sensor::TextSensor *level)    {AnInLvl_Perc_ = level;}
-void EC_Val_Sensor      (sensor::Sensor *ec)                {AnInEC_Val_ = ec;}
-void PH_Val_Sensor      (sensor::Sensor *ph)                {AnInPH_Val_ = ph;}
-void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      {AnInGen_Val_ = gen;}
-void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      {DigIn_Stat_ = din;}
+void Pump_Tot_Sensor    (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
+void Pump_Stat_Sensor   (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
+void Servo_Stat_Sensor  (text_sensor::TextSensor *servo)    { Servo_Stat_ = servo; }
+void WT_Val_Sensor      (sensor::Sensor *wtemp)             { AnInWT_Val_ = wtemp; }
+void VP_Val_Sensor      (sensor::Sensor *vp)                { AnInVP_Val_ = vp; }
+void AnLvl_Perc_Sensor  (text_sensor::TextSensor *level)    { AnInLvl_Perc_ = level; }
+void EC_Val_Sensor      (sensor::Sensor *ec)                { AnInEC_Val_ = ec; }
+void PH_Val_Sensor      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; }
+void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      { AnInGen_Val_ = gen; }
+void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
 protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};

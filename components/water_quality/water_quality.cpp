@@ -23,6 +23,7 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
+    pump.Calibration_Status();
 }
 void WaterQuality::dump_config()
 {
@@ -136,32 +137,11 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
     uint8_t ptype_[6];
     float *pcal = pump.get_Pump_Calib_Gain();
-    float calib[6] = {0};
-    bool start = 0;
     
     for (size_t i = 0; i < 6; i++)
-    {
         ptype_[i] = ptype[i];
-        
-        if (ptype[i] > 0 && pcal[i] <= 0)
-        {
-            pcal[i] = 1;
-            calib[i] = 6;
-            start = 1;
-        }
-    }
 
-    pump.set_Pump_Type(ptype_);
-
-    // pump.set_Calibration_Mode(start);
-    if (start)
-        {
-            pump.set_Calibration_Mode(start);
-            pump.set_Pump_Dose(calib);
-            pump.set_Pump_Circulation(calib);
-        }
-        
-        ESP_LOGI(TAG, "start");
+    pump.set_Pump_Type(ptype_);   
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {
@@ -344,8 +324,8 @@ void WaterQuality::sensor()
             
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWT_Val_ != nullptr)   {this->AnInWT_Val_->publish_state(an.get_WT_Val());}
-    if (this->AnInVP_Val_ != nullptr)   {this->AnInVP_Val_->publish_state(an.get_VP_Val());}
+    if (this->AnInWT_Val_ != nullptr)   { this->AnInWT_Val_->publish_state(an.get_WT_Val()); }
+    if (this->AnInVP_Val_ != nullptr)   { this->AnInVP_Val_->publish_state(an.get_VP_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
         float* lvl = an.get_Lvl_Perc();
@@ -359,8 +339,8 @@ void WaterQuality::sensor()
 
         this->AnInLvl_Perc_->publish_state(ap.str());
     }
-    if (this->AnInEC_Val_ != nullptr)   {this->AnInEC_Val_->publish_state(an.get_EC_Val());}
-    if (this->AnInPH_Val_ != nullptr)   {this->AnInPH_Val_->publish_state(an.get_PH_Val());}
+    if (this->AnInEC_Val_ != nullptr)   { this->AnInEC_Val_->publish_state(an.get_EC_Val()); }
+    if (this->AnInPH_Val_ != nullptr)   { this->AnInPH_Val_->publish_state(an.get_PH_Val()); }
     if (this->AnInGen_Val_ != nullptr) 
     {
         float* gen = an.get_Gen_Val();
