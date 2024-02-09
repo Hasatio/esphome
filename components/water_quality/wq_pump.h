@@ -30,7 +30,7 @@ void set_Pump_Mode(uint8_t pm[])        { for (size_t i = 0; i < 6; i++) Pump_Mo
 void set_Pump_Status(uint8_t ps[])      { for (size_t i = 0; i < 6; i++) Pump_Status[i] = ps[i]; }
 void set_Pump_Dose(float pd[])          { for (size_t i = 0; i < 6; i++) Pump_Dose[i] = pd[i]; }
 void set_Pump_Circulation(float pc[])   { for (size_t i = 0; i < 6; i++) Pump_Circulation[i] = pc[i]; }
-void set_Pump_Total(uint16_t pt[][2])   { for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j]; }
+void set_Pump_Total(uint32_t pt[][2])   { for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = pt[i][j]; }
 void set_Pump_Reset(bool pr[])          { for (size_t i = 0; i < 6; i++) Pump_Reset[i] = pr[i]; }
 void set_Pump_Time(float pt[])          { for (size_t i = 0; i < 6; i++) Pump_Time[i] = pt[i]; }
 void set_Min(float m)                   { min = m; }
@@ -42,7 +42,7 @@ uint8_t* get_Pump_Mode()            { return Pump_Mode; }
 uint8_t* get_Pump_Status()          { return Pump_Status; }
 float* get_Pump_Dose()              { return Pump_Dose; }
 float* get_Pump_Circulation()       { return Pump_Circulation; }
-uint16_t (*get_Pump_Total())[2]     { return Pump_Total; }
+uint32_t (*get_Pump_Total())[2]     { return Pump_Total; }
 bool* get_Pump_Reset()              { return Pump_Reset; }
 float* get_Pump_Time()              { return Pump_Time; }
 float get_Min()                     { return min; }
@@ -55,7 +55,7 @@ uint8_t Pump_Mode[6] = {0};
 uint8_t Pump_Status[6] = {0};
 float Pump_Dose[6] = {0};
 float Pump_Circulation[6] = {0};
-uint16_t Pump_Total[6][2] = {0};
+uint32_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 float Pump_Time[6] = {0};
 float min = 0;

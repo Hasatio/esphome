@@ -62,7 +62,7 @@ void Pump::Calibration_Status()
 void Pump::Pump_driver(float pwm[])
 {     
     uint8_t* stat = get_Pump_Status();
-    uint16_t (*tot)[2] = get_Pump_Total();
+    uint32_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float* pump = get_Pump_Time();
     float min = get_Min();
@@ -106,7 +106,7 @@ void Pump::Pump_driver(float pwm[])
             pwm[i] = 0;
         }
 
-        if (reset[i])
+        if (reset[i] || get_Calibration_Mode())
         {
             tot[i][0] = 0;
             tot[i][1] = 0;
@@ -121,7 +121,7 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     float* dose = get_Pump_Dose();
-    uint16_t (*tot)[2] = get_Pump_Total();
+    uint32_t (*tot)[2] = get_Pump_Total();
     float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
@@ -130,8 +130,8 @@ void Pump::Dosing_Controller(float pump[])
         {
             if (pump[i] > 0)
             {
-                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
-                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) / 10000000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) % 10000000;
                 
                 dose[i] -= (pump[i] > min ? min : pump[i]) * calib[i];
             }
@@ -180,7 +180,7 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     float* circ = get_Pump_Circulation();
-    uint16_t (*tot)[2] = get_Pump_Total();
+    uint32_t (*tot)[2] = get_Pump_Total();
     float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
@@ -189,8 +189,8 @@ void Pump::Circulation_Controller(float pump[])
         {
             if (pump[i] > 0)
             {
-                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 100) / 100000;
-                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 100) % 100000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) / 10000000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) % 10000000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
                 

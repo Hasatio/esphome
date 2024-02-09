@@ -289,14 +289,14 @@ void WaterQuality::sensor()
 {
     if (this->Pump_Tot_ != nullptr)
     {
-        uint16_t (*ptot)[2] = pump.get_Pump_Total();
+        uint32_t (*ptot)[2] = pump.get_Pump_Total();
         std::stringstream pt;
 
         for (size_t i = 0; i < 6; i++)
             if (i == 0)
-                pt << std::fixed << std::setprecision(4) << ptot[i][0] + ptot[i][1] / 1000000.0;
+                pt << std::fixed << std::setprecision(4) << ptot[i][0] + ptot[i][1] / 10000000.0;
             else
-                pt << "," << std::fixed << std::setprecision(4) << ptot[i][0] + ptot[i][1] / 1000000.0;
+                pt << "," << std::fixed << std::setprecision(4) << ptot[i][0] + ptot[i][1] / 10000000.0;
             
         this->Pump_Tot_->publish_state(pt.str());
     }
