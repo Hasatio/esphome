@@ -63,6 +63,7 @@ void Pump::Pump_driver(float pwm[])
 {     
     uint8_t* stat = get_Pump_Status();
     uint16_t (*tot)[2] = get_Pump_Total();
+    bool* reset = get_Pump_Reset();
     float* pump = get_Pump_Time();
     float min = get_Min();
     float min_, mint[6];
@@ -100,10 +101,16 @@ void Pump::Pump_driver(float pwm[])
         else
         {
             if (pwm[i])
-                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%03d", i, tot[i][0], tot[i][1]);
+                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%04d", i, tot[i][0], tot[i][1]);
 
             pwm[i] = 0;
         }
+    }
+    
+    if (reset[i])
+    {
+        tot[i][0] = 0;
+        tot[i][1] = 0;
     }
 }
 void Pump::Dosing_Controller(float pump[])
@@ -114,7 +121,6 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* stat = get_Pump_Status();
     float* dose = get_Pump_Dose();
     uint16_t (*tot)[2] = get_Pump_Total();
-    bool* reset = get_Pump_Reset();
     float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
@@ -127,12 +133,6 @@ void Pump::Dosing_Controller(float pump[])
                 tot[i][1] = static_cast<uint16_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 
                 dose[i] -= (pump[i] > min ? min : pump[i]) * calib[i];
-            }
-
-            if (reset[i])
-            {
-                tot[i][0] = 0;
-                tot[i][1] = 0;
             }
 
             switch (mode[i])
@@ -180,7 +180,6 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* stat = get_Pump_Status();
     float* circ = get_Pump_Circulation();
     uint16_t (*tot)[2] = get_Pump_Total();
-    bool* reset = get_Pump_Reset();
     float min = get_Min();
 
     for (size_t i = 0; i < 6; i++)
@@ -189,19 +188,14 @@ void Pump::Circulation_Controller(float pump[])
         {
             if (pump[i] > 0)
             {
-                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000;
-                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
+                tot[i][0] += static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10) / 10000;
+                tot[i][1] = static_cast<uint16_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10) % 10000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
                 
                 ESP_LOGI(TAG, "pump[%d] = %f", i , pump[i]);
                 ESP_LOGI(TAG, "circ[%d] = %f", i , circ[i]);
-            }
-
-            if (reset[i])
-            {
-                tot[i][0] = 0;
-                tot[i][1] = 0;
+                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%04d", i, tot[i][0], tot[i][1]);
             }
 
             switch (mode[i])
