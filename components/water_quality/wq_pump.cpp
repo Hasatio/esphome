@@ -105,13 +105,14 @@ void Pump::Pump_driver(float pwm[])
 
             pwm[i] = 0;
         }
+        
+        if (reset[i])
+        {
+            tot[i][0] = 0;
+            tot[i][1] = 0;
+        }
     }
     
-    if (reset[i])
-    {
-        tot[i][0] = 0;
-        tot[i][1] = 0;
-    }
 }
 void Pump::Dosing_Controller(float pump[])
 {
