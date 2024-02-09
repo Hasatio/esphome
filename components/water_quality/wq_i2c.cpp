@@ -466,7 +466,7 @@ void WaterQuality::PCA9685_Write()
     {
         uint16_t phase_begin = uint16_t(i - min_channel) / max_channel * max_duty;
         uint16_t phase_end;
-        uint16_t amount = this->pwm_amounts_[channel];
+        uint16_t amount = this->pwm_amounts_[i];
         if (amount == 0)
         {
             phase_end = max_duty;
