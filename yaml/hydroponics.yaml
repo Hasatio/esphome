@@ -20,7 +20,6 @@ logger:
     component: ERROR
     sensor: ERROR
     text_sensor: ERROR
-    template: ERROR
     number: ERROR
     switch: ERROR
 
