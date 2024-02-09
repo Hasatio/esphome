@@ -403,6 +403,10 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
         return;
     }
 
+    if (!this->write_byte(PCA9685_REGISTER_MODE1, PCA9685_MODE1_RESTART)) {
+        this->mark_failed();
+        return;
+
     if (!this->write_byte(PCA9685_REGISTER_MODE1, PCA9685_MODE1_RESTART | PCA9685_MODE1_AUTOINC)) {
         this->mark_failed();
         return;
@@ -449,33 +453,36 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
     }
     delayMicroseconds(500);
 }
-void WaterQuality::PCA9685_Write(uint16_t duty)
+void WaterQuality::PCA9685_Write()
 {
     if (!this->update_)
         return;
-    for (uint8_t channel = 0; channel <= 16; channel++)
+
+    const uint8_t min_channel{0};
+    const uint8_t max_channel{16};
+    const uint16_t max_duty = 4096;
+    for (size_t i = min_channel; i <= max_channel; i++)
     {
-        uint16_t phase_begin = uint16_t(channel) / 16 * 4096;
+        uint16_t phase_begin = uint16_t(i - min_channel) / max_channel * max_duty;
         uint16_t phase_end;
         uint16_t amount = this->pwm_amounts_[channel];
-        // uint16_t amount = duty;
         if (amount == 0)
         {
-            phase_end = 4096;
+            phase_end = max_duty;
         }
-        else if (amount >= 4096)
+        else if (amount >= max_duty)
         {
-            phase_begin = 4096;
+            phase_begin = max_duty;
             phase_end = 0;
         }
         else
         {
             phase_end = phase_begin + amount;
-            if (phase_end >= 4096)
-                phase_end -= 4096;
+            if (phase_end >= max_duty)
+                phase_end -= max_duty;
         }
 
-        // ESP_LOGI(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", channel, amount, phase_begin, phase_end);
+        // ESP_LOGI(TAG, "Channel %02u: amount=%04u phase_begin=%04u phase_end=%04u", i, amount, phase_begin, phase_end);
 
         uint8_t data[4];
         data[0] = phase_begin & 0xFF;
@@ -483,7 +490,7 @@ void WaterQuality::PCA9685_Write(uint16_t duty)
         data[2] = phase_end & 0xFF;
         data[3] = (phase_end >> 8) & 0xFF;
 
-        uint8_t reg = PCA9685_REGISTER_LED0 + 4 * channel;
+        uint8_t reg = PCA9685_REGISTER_LED0 + 4 * i;
         if (!this->write_bytes(reg, data, 4)) {
         this->status_set_warning();
         return;
@@ -499,19 +506,15 @@ void WaterQuality::PCA9685_Driver(float state[])
     if (this->is_failed())
         return;
 
+    const uint16_t max_duty = 4096;
     for (uint8_t i = 0; i < 16; i++)
     {
-        const uint16_t max_duty = 4096;
-        const float duty_rounded = roundf(state[i] * max_duty);
-        uint16_t duty = static_cast<uint16_t>(duty_rounded);
+        uint16_t duty = static_cast<uint16_t>(roundf(state[i] * max_duty));
         if (this->pwm_amounts_[i] != duty)
             this->update_ = true;
             
         this->pwm_amounts_[i] = duty;
-        PCA9685_Write(duty);
-        
-    ESP_LOGI(TAG, "duty_rounded = %f", duty_rounded);
-    ESP_LOGI(TAG, "duty = %d", duty);
+        PCA9685_Write();
     }
 }
 
