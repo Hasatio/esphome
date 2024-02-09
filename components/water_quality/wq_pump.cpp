@@ -193,10 +193,6 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) % 10000000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
-                
-                ESP_LOGI(TAG, "pump[%d] = %f", i , pump[i]);
-                ESP_LOGI(TAG, "circ[%d] = %f", i , circ[i]);
-                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%04d", i, tot[i][0], tot[i][1]);
             }
 
             switch (mode[i])
