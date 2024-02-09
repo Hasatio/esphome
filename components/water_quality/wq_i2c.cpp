@@ -451,12 +451,11 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
 }
 void WaterQuality::PCA9685_Write(uint16_t duty)
 {
-    if (this->min_channel_ == 0xFF || !this->update_)
+    if (!this->update_)
         return;
-    const uint16_t num_channels = this->max_channel_ - this->min_channel_ + 1;
-    for (uint8_t channel = this->min_channel_; channel <= this->max_channel_; channel++)
+    for (uint8_t channel = 0; channel <= 16; channel++)
     {
-        uint16_t phase_begin = uint16_t(channel - this->min_channel_) / num_channels * 4096;
+        uint16_t phase_begin = uint16_t(channel) / 16 * 4096;
         uint16_t phase_end;
         uint16_t amount = this->pwm_amounts_[channel];
         // uint16_t amount = duty;
@@ -502,9 +501,6 @@ void WaterQuality::PCA9685_Driver(float state[])
 
     for (uint8_t i = 0; i < 16; i++)
     {
-        this->min_channel_ = std::min(this->min_channel_, i);
-        this->max_channel_ = std::max(this->max_channel_, i);
-
         const uint16_t max_duty = 4096;
         const float duty_rounded = roundf(state[i] * max_duty);
         uint16_t duty = static_cast<uint16_t>(duty_rounded);
@@ -514,8 +510,6 @@ void WaterQuality::PCA9685_Driver(float state[])
         this->pwm_amounts_[i] = duty;
         PCA9685_Write(duty);
         
-    ESP_LOGI(TAG, "min_channel_ = %d", min_channel_);
-    ESP_LOGI(TAG, "max_channel_ = %d", max_channel_);
     ESP_LOGI(TAG, "duty_rounded = %f", duty_rounded);
     ESP_LOGI(TAG, "duty = %d", duty);
     }

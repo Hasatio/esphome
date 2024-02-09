@@ -211,8 +211,6 @@ bool open_drain_ints_;
 float frequency_ = 1000;
 bool extclk_ = false;
 uint16_t pwm_amounts_[16] = {0};
-uint8_t min_channel_{0xFF};
-uint8_t max_channel_{0x00};
 bool update_{true};
 };
 
