@@ -406,6 +406,7 @@ void WaterQuality::PCA9685_Setup(uint8_t address)
     if (!this->write_byte(PCA9685_REGISTER_MODE1, PCA9685_MODE1_RESTART)) {
         this->mark_failed();
         return;
+    }
 
     if (!this->write_byte(PCA9685_REGISTER_MODE1, PCA9685_MODE1_RESTART | PCA9685_MODE1_AUTOINC)) {
         this->mark_failed();
