@@ -40,7 +40,7 @@ void Pump::Calibration_Status()
     uint8_t* mode = get_Pump_Mode();
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
-    uint8_t calib_time = 60;
+    uint8_t calib_time = 500;
     bool stat = 0;
 
     for (size_t i = 0; i < 6; i++)
@@ -193,6 +193,10 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) % 10000000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
+                
+                ESP_LOGI(TAG, "pump[%d] = %f", i , pump[i]);
+                ESP_LOGI(TAG, "circ[%d] = %f", i , circ[i]);
+                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%04d", i, tot[i][0], tot[i][1]);
             }
 
             switch (mode[i])
