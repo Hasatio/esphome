@@ -71,7 +71,8 @@ void WaterQuality::dump_config()
     float* calib = pump.get_Pump_Calib_Gain();
     uint8_t* type = pump.get_Pump_Type();
 
-    ESP_LOGI(TAG, "Pump_Calibration_Mode = %d", pump.get_Calibration_Mode());
+    if (pump.get_Calibration_Mode())
+        ESP_LOGI(TAG, "Pump Calibration Start");
 
     for (size_t i = 0; i < 6; i++)
         if (type[i] == 1)
