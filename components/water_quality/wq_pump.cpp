@@ -91,9 +91,6 @@ void Pump::Pump_driver(float pwm[])
         Circulation_Controller(pump);
     }
 
-    // ESP_LOGD(TAG, "timer = %d", esp_timer_is_active(timer));
-
-
     for (size_t i = 0; i < 6; i++)
     {
         if (pump[i] > 0)
@@ -139,11 +136,6 @@ void Pump::Dosing_Controller(float pump[])
 
             switch (mode[i])
             {
-                case 0:
-                    pump[i] = 0;
-                    if (stat[i] <= 1)
-                        stat[i] = 0;
-                    break;
                 case 1:
                     if (dose[i] > 0)
                         if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
@@ -195,19 +187,10 @@ void Pump::Circulation_Controller(float pump[])
                 tot[i][0] += static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) / 10000000;
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
-                
-                ESP_LOGI(TAG, "pump[%d] = %f", i , pump[i]);
-                ESP_LOGI(TAG, "circ[%d] = %f", i , circ[i]);
-                ESP_LOGD(TAG, "Pump_Total[%d] = %d.%04d", i, tot[i][0], tot[i][1]);
             }
 
             switch (mode[i])
             {
-                case 0:
-                    pump[i] = 0;
-                    if (stat[i] <= 1)
-                        stat[i] = 0;
-                    break;
                 case 1:
                     if (circ[i] > 0)
                         if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
