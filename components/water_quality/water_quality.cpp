@@ -166,23 +166,21 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
 {
     uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
+    uint8_t* pstat = pump.get_Pump_Status();
     float* pdose_ = pump.get_Pump_Dose();
     std::vector<float> pd(pdose_, pdose_ + 6);
 
     if (pd != pdose && !pump.get_Calibration_Mode())
-    {
         for (size_t i = 0; i < 6; i++)
-        {
             if (ptype[i] == 1)
-            {
                 if (pmode[i] == 0)
                 {
-                    pdose_[i] = pdose[i];
+                    if (pstat[i] == 1)
+                        pdose_[i] += pdose[i];
+                    else
+                        pdose_[i] = pdose[i];
                     ESP_LOGD(TAG, "Pump_Dose[%d] = %f", i, pdose_[i]);
                 }
-            }
-        }
-    }
 }
 void WaterQuality::pump_circulation(std::vector<float> &pcirc)
 {
@@ -192,19 +190,16 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
     std::vector<float> pc(pcirc_, pcirc_ + 6);
 
     if (pc != pcirc && !pump.get_Calibration_Mode())
-    {
         for (size_t i = 0; i < 6; i++)
-        {
             if (ptype[i] == 2)
-            {
                 if (pmode[i] == 0)
                 {
-                    pcirc_[i] = pcirc[i];
+                    if (pstat[i] == 1)
+                        pcirc_[i] += pcirc[i];
+                    else
+                        pcirc_[i] = pcirc[i];
                     ESP_LOGD(TAG, "Pump_Circulation[%d] = %f", i, pcirc_[i]);
                 }
-            }
-        }
-    }
 }
 void WaterQuality::pump_reset(std::vector<bool> &pres)
 {
