@@ -186,6 +186,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
 {
     uint8_t* ptype = pump.get_Pump_Type();
     uint8_t* pmode = pump.get_Pump_Mode();
+    uint8_t* pstat = pump.get_Pump_Status();
     float* pcirc_ = pump.get_Pump_Circulation();
     std::vector<float> pc(pcirc_, pcirc_ + 6);
 
