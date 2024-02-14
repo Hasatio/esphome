@@ -108,27 +108,24 @@ external_components:
 
 water_quality:
   address: 0x00
-  i2c_id: multiplex0channel0 #  Use the first I2C channel of TCA9548A to communicate with water quality sensor.
+  i2c_id: multiplex0channel0 # Use the first I2C channel of TCA9548A to communicate with water quality sensor.
   version: 0
   pump1: 
     pump_type: 1
-    pump_calib_gain: 60
+    pump_calib_gain: 0
   pump2: 
-    pump_type: 2
-    pump_calib_gain: 120
+    pump_type: 0
   pump3: 
     pump_type: 0
   pump4: 
     pump_type: 0
   pump5: 
-    pump_type: 2
-    pump_calib_gain: 180
+    pump_type: 0
   pump6: 
-    pump_type: 1
-    pump_calib_gain: 240
+    pump_type: 0
   level:
-    res_min: [150]
-    res_max: [250]
+    res_min: [0]
+    res_max: [0]
   sensors:
     ec_channel: 1
     ec_type: 1
@@ -145,38 +142,38 @@ sensor:
     name: "Internal Temperature"
 
   - platform: water_quality
-    water_temp:
+    Water_Temp:
       id: water_temp
       name: water_temp
-    voltage:
+    Voltage_Power:
       id: voltage
       name: voltage
-    ec:
+    EC:
       id: ec
       name: ec
-    ph:
+    PH:
       id: ph
       name: ph
 
 
 text_sensor:
   - platform: water_quality
-    pump_total:
+    Pump_Total:
       id: pump_total
       name: pump_total
-    pump_status:
+    Pump_Status:
       id: pump_status
       name: pump_status
-    servo_status:
+    Servo_Status:
       id: servo_status
       name: servo_status
-    level:
+    Level_Percentage:
       id: level
       name: level
-    analog:
+    Analog_Input:
       id: analog
       name: analog
-    digital:
+    Digital_Input:
       id: digital
       name: digital
 
