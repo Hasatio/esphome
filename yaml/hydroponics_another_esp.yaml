@@ -87,38 +87,38 @@ sensor:
     name: "Internal Temperature"
 
   - platform: water_quality
-    water_temp:
+    Water_Temp:
       id: water_temp
       name: water_temp
-    voltage:
+    Voltage_Power:
       id: voltage
       name: voltage
-    ec:
+    EC:
       id: ec
       name: ec
-    ph:
+    PH:
       id: ph
       name: ph
 
 
 text_sensor:
   - platform: water_quality
-    pump_total:
+    Pump_Total:
       id: pump_total
       name: pump_total
-    pump_status:
+    Pump_Status:
       id: pump_status
       name: pump_status
-    servo_status:
+    Servo_Status:
       id: servo_status
       name: servo_status
-    level:
+    Level_Percentage:
       id: level
       name: level
-    analog:
+    Analog_Input:
       id: analog
       name: analog
-    digital:
+    Digital_Input:
       id: digital
       name: digital
 
