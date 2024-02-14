@@ -1,0 +1,896 @@
+substitutions:
+  devicename: "hydroponics"
+
+esphome:
+  name: $devicename
+  friendly_name: $devicename
+
+esp32:
+  board: esp32-gateway
+  framework:
+    type: arduino
+
+logger:
+
+api:
+
+ota:
+
+wifi:
+  ssid: wifi_ssid
+  password: wifi_password
+
+  ap:
+    ssid: $devicename
+    password: $devicename
+
+  reboot_timeout: 0s
+  fast_connect: true
+  power_save_mode: none
+  
+captive_portal:
+
+web_server:
+  port: 80
+  css_url: v3
+  include_internal: True
+  local: True
+  version: 2
+
+
+i2c:
+  id: i2c0
+  sda: GPIO16
+  scl: GPIO32
+  scan: True
+  frequency: 800kHz
+
+
+external_components:
+  - source: github://Hasatio/esphome
+    components: [water_quality]
+    refresh: always
+
+water_quality:
+  address: 0x00
+  i2c_id: i2c0
+  version: 0
+  pump1: 
+    pump_type: 0
+    pump_calib_gain: 0
+  pump2: 
+    pump_type: 0
+  pump3: 
+    pump_type: 0
+  pump4: 
+    pump_type: 0
+  pump5: 
+    pump_type: 0
+  pump6: 
+    pump_type: 0
+  level:
+    res_min: [0]
+    res_max: [0]
+  sensors:
+    ec_channel: 1
+    ec_type: 1
+    ph_channel: 2
+    ph_type: 1
+
+
+sensor:
+  - platform: uptime
+    name: Uptime Sensor
+    update_interval: 1s
+    
+  - platform: internal_temperature
+    name: "Internal Temperature"
+
+  - platform: water_quality
+    water_temp:
+      id: water_temp
+      name: water_temp
+    voltage:
+      id: voltage
+      name: voltage
+    ec:
+      id: ec
+      name: ec
+    ph:
+      id: ph
+      name: ph
+
+
+text_sensor:
+  - platform: water_quality
+    pump_total:
+      id: pump_total
+      name: pump_total
+    pump_status:
+      id: pump_status
+      name: pump_status
+    servo_status:
+      id: servo_status
+      name: servo_status
+    level:
+      id: level
+      name: level
+    analog:
+      id: analog
+      name: analog
+    digital:
+      id: digital
+      name: digital
+
+
+button:
+  - platform: restart
+    name: "Restart"
+    
+
+switch:
+  - platform: template
+    id: pump_reset1
+    name: "Pump_Reset1"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset1
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: pump_reset2
+    name: "Pump_Reset2"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset2
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: pump_reset3
+    name: "Pump_Reset3"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset3
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: pump_reset4
+    name: "Pump_Reset4"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset4
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: pump_reset5
+    name: "Pump_Reset5"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset5
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: pump_reset6
+    name: "Pump_Reset6"
+    optimistic: true
+    restore_mode: ALWAYS_OFF
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+        - delay: 0s
+        - switch.turn_off: pump_reset6
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.pump_reset:
+            pump_reset: !lambda |-
+              return {static_cast<bool>(id(pump_reset1).state), static_cast<bool>(id(pump_reset2).state), static_cast<bool>(id(pump_reset3).state), static_cast<bool>(id(pump_reset4).state), static_cast<bool>(id(pump_reset5).state), static_cast<bool>(id(pump_reset6).state)};
+
+  - platform: template
+    id: digital_out1
+    name: "Digital_Out1"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+
+  - platform: template
+    id: digital_out2
+    name: "Digital_Out2"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+
+  - platform: template
+    id: digital_out3
+    name: "Digital_Out3"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+
+  - platform: template
+    id: digital_out4
+    name: "Digital_Out4"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.digital_out:
+            digital_out: !lambda |-
+              return {static_cast<bool>(id(digital_out1).state), static_cast<bool>(id(digital_out2).state), static_cast<bool>(id(digital_out3).state), static_cast<bool>(id(digital_out4).state)};
+
+  - platform: template
+    id: servo_mode1
+    name: "Servo_mode1"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode2
+    name: "Servo_mode2"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode3
+    name: "Servo_mode3"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode4
+    name: "Servo_mode4"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode5
+    name: "Servo_mode5"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode6
+    name: "Servo_mode6"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode7
+    name: "Servo_mode7"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+  - platform: template
+    id: servo_mode8
+    name: "Servo_mode8"
+    optimistic: true
+    turn_on_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+    turn_off_action:
+      then:
+        - delay: 0s
+        - water_quality.servo_mode:
+            servo_mode: !lambda |-
+              return {static_cast<bool>(id(servo_mode1).state), static_cast<bool>(id(servo_mode2).state), static_cast<bool>(id(servo_mode3).state), static_cast<bool>(id(servo_mode4).state), static_cast<bool>(id(servo_mode5).state), static_cast<bool>(id(servo_mode6).state), static_cast<bool>(id(servo_mode7).state), static_cast<bool>(id(servo_mode8).state)};
+
+
+number:
+  - platform: template
+    id: pump_mode1
+    name: "Pump_Mode1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |- 
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_mode2
+    name: "Pump_Mode2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_mode3
+    name: "Pump_Mode3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_mode4
+    name: "Pump_Mode4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_mode5
+    name: "Pump_Mode5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_mode6
+    name: "Pump_Mode6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 2
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_mode:
+            pump_mode: !lambda |-
+              return {static_cast<uint8_t>(id(pump_mode1).state), static_cast<uint8_t>(id(pump_mode2).state), static_cast<uint8_t>(id(pump_mode3).state), static_cast<uint8_t>(id(pump_mode4).state), static_cast<uint8_t>(id(pump_mode5).state), static_cast<uint8_t>(id(pump_mode6).state)};
+
+  - platform: template
+    id: pump_dose1
+    name: "Pump_Dose1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_dose2
+    name: "Pump_Dose2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_dose3
+    name: "Pump_Dose3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_dose4
+    name: "Pump_Dose4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_dose5
+    name: "Pump_Dose5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_dose6
+    name: "Pump_Dose6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_dose:
+            pump_dose: !lambda |-
+              return {static_cast<float>(id(pump_dose1).state), static_cast<float>(id(pump_dose2).state), static_cast<float>(id(pump_dose3).state), static_cast<float>(id(pump_dose4).state), static_cast<float>(id(pump_dose5).state), static_cast<float>(id(pump_dose6).state)};
+
+  - platform: template
+    id: pump_circulation1
+    name: "Pump_Circulation1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: pump_circulation2
+    name: "Pump_Circulation2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: pump_circulation3
+    name: "Pump_Circulation3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: pump_circulation4
+    name: "Pump_Circulation4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: pump_circulation5
+    name: "Pump_Circulation5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: pump_circulation6
+    name: "Pump_Circulation6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 1000
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.pump_circulation:
+            pump_circulation: !lambda |-
+              return {static_cast<float>(id(pump_circulation1).state), static_cast<float>(id(pump_circulation2).state), static_cast<float>(id(pump_circulation3).state), static_cast<float>(id(pump_circulation4).state), static_cast<float>(id(pump_circulation5).state), static_cast<float>(id(pump_circulation6).state)};
+
+  - platform: template
+    id: servo_position1
+    name: "Servo_position1"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position2
+    name: "Servo_position2"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position3
+    name: "Servo_position3"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position4
+    name: "Servo_position4"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position5
+    name: "Servo_position5"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position6
+    name: "Servo_position6"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position7
+    name: "Servo_position7"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+  - platform: template
+    id: servo_position8
+    name: "Servo_position8"
+    optimistic: true
+    mode: slider
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - water_quality.servo_position:
+            servo_position: !lambda |-
+              return {static_cast<uint8_t>(id(servo_position1).state), static_cast<uint8_t>(id(servo_position2).state), static_cast<uint8_t>(id(servo_position3).state), static_cast<uint8_t>(id(servo_position4).state), static_cast<uint8_t>(id(servo_position5).state), static_cast<uint8_t>(id(servo_position6).state), static_cast<uint8_t>(id(servo_position7).state), static_cast<uint8_t>(id(servo_position8).state)};
+
+
+# status_led:
+#     pin: 
+#       number: GPIO33
+#       mode: 
+#         output: True
+      # inverted: False
+
+
+light:
+  # - platform: status_led
+  #   name: "status led"
+  #   id: status
+  #   pin: 
+  #     number: GPIO33
+  #     mode:
+  #       output: True
+  #     inverted: False
+
+  - platform: binary
+    name: "led"
+    id: led
+    output: out
+    effects:
+      - strobe:
+          name: strobe
+          colors:
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              brightness: 0%
+              duration: 50ms
+            - state: true
+              brightness: 100%
+              duration: 100ms
+            - state: false
+              brightness: 0%
+              duration: 250ms
+
+
+output:
+  - platform: gpio
+    id: out
+    pin: 
+      number: GPIO33
+      mode:
+        output: True
+      inverted: False
