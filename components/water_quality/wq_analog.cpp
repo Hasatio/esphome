@@ -9,7 +9,7 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
     float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    WT_Res = (WT_Res > 3904.8 ? 3904.8 : WT_Res) * (get_WT_Res() / 1000.0); //max temp limit and set model multiplier 
+    WT_Res = (WT_Res > 3904.8 ? 3904.8 : WT_Res) * (get_WTemp_Res() / 1000.0); //max temp limit and set model multiplier 
     float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     set_WTemp_Val(WT);
     
@@ -17,7 +17,7 @@ void Analog::Analog_Input_Driver(float volts[])
     
     float lvl[2], Vmin[2], Vmax[2];
     uint16_t res, volt, *resmin = get_ResMin(), *resmax = get_ResMax();
-    if (get_version() == 0) { res = 1000; volt = get_VP_Val(); }
+    if (get_version() == 0) { res = 1000; volt = get_VPow_Val(); }
     if (get_version() == 1) { res = 270; volt = 5; }
     Vmin[0] = volt * resmin[0] / (res + resmin[0]); //Vout = Vin * R2 / (R1 + R2); R1 = 10k
     Vmin[1] = volt * resmin[1] / (res + resmin[1]);
