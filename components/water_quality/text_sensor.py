@@ -14,16 +14,16 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
-CONF_PUMP_TOTAL = "pump_total"
-CONF_PUMP_STATUS = "pump_status"
-CONF_SERVO_STATUS = "servo_status"
-CONF_LEVEL = "level"
-CONF_ANALOG = "analog"
-CONF_DIGITAL = "digital"
+CONF_PUMP_TOTAL = "Pump_Total"
+CONF_PUMP_STATUS = "Pump_Status"
+CONF_SERVO_STATUS = "Servo_Status"
+CONF_LEVEL_PERCENTAGE = "Level_Percentage"
+CONF_ANALOG_INPUT = "Analog_Input"
+CONF_DIGITAL_INPUT = "Digital_Input"
 
-UNIT_LITER = "l"
-UNIT_MILILITER = "ml"
-UNIT_MILILITERS_PER_MINUTE = "ml/min"
+UNIT_LITER = "L"
+UNIT_MILILITER = "mL"
+UNIT_MILILITERS_PER_MINUTE = "mL/min"
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -32,9 +32,9 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_PUMP_TOTAL): text_sensor.text_sensor_schema(),
             cv.Optional(CONF_PUMP_STATUS): text_sensor.text_sensor_schema(),
             cv.Optional(CONF_SERVO_STATUS): text_sensor.text_sensor_schema(),
-            cv.Optional(CONF_LEVEL): text_sensor.text_sensor_schema(),
-            cv.Optional(CONF_ANALOG): text_sensor.text_sensor_schema(),
-            cv.Optional(CONF_DIGITAL): text_sensor.text_sensor_schema(),
+            cv.Optional(CONF_LEVEL_PERCENTAGE): text_sensor.text_sensor_schema(),
+            cv.Optional(CONF_ANALOG_INPUT): text_sensor.text_sensor_schema(),
+            cv.Optional(CONF_DIGITAL_INPUT): text_sensor.text_sensor_schema(),
         }
     )
 )
@@ -57,18 +57,18 @@ async def to_code(config):
         sens = await text_sensor.new_text_sensor(conf)
         cg.add(parent.Servo_Stat_Sensor(sens))
         
-    if CONF_LEVEL in config:
-        conf = config[CONF_LEVEL]
+    if CONF_LEVEL_PERCENTAGE in config:
+        conf = config[CONF_LEVEL_PERCENTAGE]
         sens = await text_sensor.new_text_sensor(conf)
         cg.add(parent.AnLvl_Perc_Sensor(sens))
         
-    if CONF_ANALOG in config:
-        conf = config[CONF_ANALOG]
+    if CONF_ANALOG_INPUT in config:
+        conf = config[CONF_ANALOG_INPUT]
         sens = await text_sensor.new_text_sensor(conf)
         cg.add(parent.AnGen_Val_Sensor(sens))
         
-    if CONF_DIGITAL in config:
-        conf = config[CONF_DIGITAL]
+    if CONF_DIGITAL_INPUT in config:
+        conf = config[CONF_DIGITAL_INPUT]
         sens = await text_sensor.new_text_sensor(conf)
         cg.add(parent.DigIn_Stat_Sensor(sens))
         

@@ -17,10 +17,10 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["water_quality"]
 
-CONF_WATER_TEMP = "water_temp"
-CONF_VOLTAGE = "voltage"
-CONF_EC = "ec"
-CONF_PH = "ph"
+CONF_WATER_TEMP = "Water_Temp"
+CONF_VOLTAGE_POWER = "Voltage_Power"
+CONF_EC = "EC"
+CONF_PH = "PH"
 
 UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
 
@@ -35,7 +35,7 @@ CONFIG_SCHEMA = (
                 unit_of_measurement = UNIT_CELSIUS,
                 accuracy_decimals = 2,
             ),
-            cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
+            cv.Optional(CONF_VOLTAGE_POWER): sensor.sensor_schema(
                 # MySensor,
                 unit_of_measurement = UNIT_VOLT,
                 accuracy_decimals = 2,
@@ -60,12 +60,12 @@ async def to_code(config):
     if CONF_WATER_TEMP in config:
         conf = config[CONF_WATER_TEMP]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.WT_Val_Sensor(sens))
+        cg.add(parent.WTemp_Val_Sensor(sens))
         
-    if CONF_VOLTAGE in config:
-        conf = config[CONF_VOLTAGE]
+    if CONF_VOLTAGE_POWER in config:
+        conf = config[CONF_VOLTAGE_POWER]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.VP_Val_Sensor(sens))
+        cg.add(parent.VPow_Val_Sensor(sens))
         
     if CONF_EC in config:
         conf = config[CONF_EC]

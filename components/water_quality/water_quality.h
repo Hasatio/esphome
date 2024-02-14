@@ -175,8 +175,8 @@ void digital_out(std::vector<bool> &dout);
 void Pump_Tot_Sensor    (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
 void Pump_Stat_Sensor   (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
 void Servo_Stat_Sensor  (text_sensor::TextSensor *servo)    { Servo_Stat_ = servo; }
-void WT_Val_Sensor      (sensor::Sensor *wtemp)             { AnInWT_Val_ = wtemp; }
-void VP_Val_Sensor      (sensor::Sensor *vp)                { AnInVP_Val_ = vp; }
+void WTemp_Val_Sensor   (sensor::Sensor *wtemp)             { AnInWTemp_Val_ = wtemp; }
+void VPow_Val_Sensor    (sensor::Sensor *vpow)              { AnInVPow_Val_ = vpow; }
 void AnLvl_Perc_Sensor  (text_sensor::TextSensor *level)    { AnInLvl_Perc_ = level; }
 void EC_Val_Sensor      (sensor::Sensor *ec)                { AnInEC_Val_ = ec; }
 void PH_Val_Sensor      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; }
@@ -187,8 +187,8 @@ protected:
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
 text_sensor::TextSensor *Servo_Stat_{nullptr};
-sensor::Sensor *AnInWT_Val_{nullptr};
-sensor::Sensor *AnInVP_Val_{nullptr};
+sensor::Sensor *AnInWTemp_Val_{nullptr};
+sensor::Sensor *AnInVPow_Val_{nullptr};
 text_sensor::TextSensor *AnInLvl_Perc_{nullptr};
 sensor::Sensor *AnInEC_Val_{nullptr};
 sensor::Sensor *AnInPH_Val_{nullptr};
