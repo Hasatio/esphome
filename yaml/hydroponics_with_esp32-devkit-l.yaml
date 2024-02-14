@@ -108,7 +108,7 @@ external_components:
 
 water_quality:
   address: 0x00
-  i2c_id: multiplex0channel2
+  i2c_id: multiplex0channel0 #  Use the first I2C channel of TCA9548A to communicate with water quality sensor.
   version: 0
   pump1: 
     pump_type: 1
