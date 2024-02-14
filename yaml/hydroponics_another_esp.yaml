@@ -40,8 +40,8 @@ web_server:
 
 i2c:
   id: i2c0
-  sda: GPIO16
-  scl: GPIO32
+  sda: GPIO21
+  scl: GPIO22
   scan: True
   frequency: 800kHz
 
