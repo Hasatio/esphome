@@ -21,10 +21,7 @@ void Pump::Timer_Setup(float period)
     };
     esp_timer_create(&timer_args, &timer);
         
-    if (period > 1)
-        esp_timer_start_once(timer, static_cast<uint32_t>(period * 1000000));
-    else if (period > 0)
-        esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
+    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000000));
 }
 void IRAM_ATTR Pump::Timer(void* arg)
 {
