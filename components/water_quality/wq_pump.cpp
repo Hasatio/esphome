@@ -37,7 +37,7 @@ void Pump::Calibration_Status()
 {
     float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
-    uint8_t* mode = get_Pump_Mode();
+    uint8_t mode[6] = {0};
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
     uint16_t calib_time = 480;
@@ -51,12 +51,16 @@ void Pump::Calibration_Status()
             mode[i] = 1;
             if (type[i] == 1)
                 dose[i] = calib_time;
-            if (type[i] == 2)
+            else if (type[i] == 2)
                 circ[i] = calib_time;
             stat = 1;
         }
     }
     set_Calibration_Mode(stat);
+
+    if (stat)
+        Timer_Setup(2);
+    set_Pump_Mode(mode);
 }
 
 void Pump::Pump_driver(float pwm[])
@@ -109,7 +113,6 @@ void Pump::Pump_driver(float pwm[])
             tot[i][1] = 0;
         }
     }
-    
 }
 void Pump::Dosing_Controller(float pump[])
 {
