@@ -180,6 +180,7 @@ void Pump::Circulation_Controller(float pump[])
                 if (!get_Calibration_Mode())
                     tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) % 10000000;
                 tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000)) / 10000000;
+                ESP_LOGI(TAG,"total = %d", tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min);
                 
                 circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
             }
