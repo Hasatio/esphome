@@ -181,7 +181,7 @@ void Pump::Circulation_Controller(float pump[])
                     tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) % 10000;
                 tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000);
                 ESP_LOGI(TAG,"min = %f", min);
-                ESP_LOGI(TAG,"total = %d", static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000));
+                ESP_LOGI(TAG,"total = %f", floor(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10) / 10000);
                 
                 circ[i] -= min * calib[i];
             }
