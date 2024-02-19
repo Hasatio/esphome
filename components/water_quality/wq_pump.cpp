@@ -178,11 +178,12 @@ void Pump::Circulation_Controller(float pump[])
             if (pump[i] > 0)
             {
                 if (!get_Calibration_Mode())
-                    tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000) % 10000000;
-                tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min * 10000)) / 10000000;
-                ESP_LOGI(TAG,"total = %d", tot[i][1] + (circ[i] > 0 ? static_cast<float>(calib[i]) : 0.0) * min);
+                    tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10000) % 10000000;
+                tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10000)) / 10000000;
+                ESP_LOGI(TAG,"min = %f", min);
+                ESP_LOGI(TAG,"total = %f", tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min);
                 
-                circ[i] -= (pump[i] > min ? min : pump[i]) * static_cast<float>(calib[i]);
+                circ[i] -= (pump[i] > min ? min : pump[i]) * calib[i];
             }
 
             switch (mode[i])
@@ -191,7 +192,7 @@ void Pump::Circulation_Controller(float pump[])
                     if (circ[i] > 0)
                         if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
                         {
-                            pump[i] = circ[i] > calib[i] ? 1 : static_cast<float>(circ[i]) / calib[i];
+                            pump[i] = circ[i] > calib[i] ? 1 : circ[i] / calib[i];
                             stat[i] = 1;
                         }
                         else
