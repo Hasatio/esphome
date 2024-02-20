@@ -84,8 +84,8 @@ void Pump::Pump_driver(float pwm[])
         Timer_Setup(min_);
     else if (min_ == 0)
     {
-        Dosing_Controller(pump);
-        Circulation_Controller(pump);
+        // Dosing_Controller(pump);
+        // Circulation_Controller(pump);
     }
 
     for (size_t i = 0; i < 6; i++)
@@ -164,7 +164,6 @@ void Pump::Dosing_Controller(float pump[])
                 default:
                     break;
             }
-            ESP_LOGI(TAG,"dose[%d]: %f", i, dose[i]);
 
             if (stat[i] == 1)
                 if (dose[i] > calib[i])
@@ -233,6 +232,7 @@ void Pump::Circulation_Controller(float pump[])
                 default:
                     break;
             }
+            ESP_LOGI(TAG,"circ[%d]: %f", i, circ[i]);
 
             if (stat[i] == 1)
                 if (circ[i] > calib[i])
