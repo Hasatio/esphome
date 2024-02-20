@@ -132,40 +132,46 @@ void Pump::Dosing_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-                ESP_LOGI(TAG,"min = %f", min);
-                ESP_LOGI(TAG,"total = %f", floor(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) / 10000000);
-                
                 dose[i] -= min * calib[i];
             }
 
             switch (mode[i])
             {
+                case 0:
+                    if (dose[i] > 0)
+                        if (!(i % 2 == 0) || !(i % 2 == 1 && stat[i - 1] != 1))
+                            stat[i] = 0;
+                    else
+                        stat[i] = 2;
+                    break;
+
                 case 1:
                     if (dose[i] > 0)
-                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
+                        if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
                         {
-                            pump[i] = dose[i] > calib[i] ? 1 : static_cast<float>(dose[i]) / calib[i];
                             stat[i] = 1;
                         }
                         else
-                        {
-                            pump[i] = 0;
                             stat[i] = 0;
-                        }
                     else
-                    {
-                        pump[i] = 0;
                         stat[i] = 2;
-                    }
                     break;
+
                 case 2:
-                    pump[i] = 0;
                     stat[i] = 3;
                     break;
                 
                 default:
                     break;
             }
+
+            if (stat[i] == 1)
+                if (dose[i] > calib[i])
+                    pump[i] = 1;
+                else
+                    pump[i] = dose[i] / calib[i];
+            else
+                pump[i] = 0;
         }
     }
 }
@@ -199,32 +205,42 @@ void Pump::Circulation_Controller(float pump[])
 
             switch (mode[i])
             {
+                case 0:
+                    if (circ[i] > 0)
+                        if (!(i % 2 == 0) || !(i % 2 == 1 && stat[i - 1] != 1))
+                            stat[i] = 0;
+                    else
+                        stat[i] = 2;
+                    break;
+
                 case 1:
                     if (circ[i] > 0)
-                        if (i % 2 == 0 || (i % 2 == 1 && mode[i - 1] != 1))
+                        if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
                         {
-                            pump[i] = circ[i] > calib[i] ? 1 : circ[i] / calib[i];
                             stat[i] = 1;
                         }
                         else
-                        {
-                            pump[i] = 0;
                             stat[i] = 0;
-                        }
                     else
-                    {
-                        pump[i] = 0;
                         stat[i] = 2;
-                    }
                     break;
+
                 case 2:
-                    pump[i] = 0;
                     stat[i] = 3;
                     break;
                 
                 default:
                     break;
             }
+
+            if (stat[i] == 1)
+                if (circ[i] > calib[i])
+                pump[i] = 1;
+                else
+                pump[i] = circ[i] / calib[i];
+            else
+                pump[i] = 0;
+
         }
     }
 }

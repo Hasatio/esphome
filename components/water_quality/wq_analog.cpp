@@ -9,7 +9,10 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
     float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); //R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    WT_Res = (WT_Res > 3904.8 ? 3904.8 : WT_Res) * (get_WTemp_Res() / 1000.0); //max temp limit and set model multiplier 
+    if (WT_Res > 3904.8) //max temp limit and set model multiplier 
+        WT_Res = 3904.8 * (get_WTemp_Res() / 1000.0);
+    else
+        WT_Res = WT_Res * (get_WTemp_Res() / 1000.0);
     float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); //Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     set_WTemp_Val(WT);
     
@@ -31,11 +34,23 @@ void Analog::Analog_Input_Driver(float volts[])
     set_PH_Val(volts[get_PH_Ch() + 3]);
 
     float gen[2];
-    uint8_t tot, rnd, AnInGen_Ch[2];
-    tot = get_EC_Ch() + get_PH_Ch();
-    rnd = round((10 - tot) / 2);
-    AnInGen_Ch[0] = (((10 - tot - rnd - 1) == AnInEC_Ch) ? (10 - tot - rnd - 2) : (10 - tot - rnd - 1));
-    AnInGen_Ch[1] = (((10 - tot - AnInGen_Ch[0]) == AnInPH_Ch) ? (10 - tot - AnInGen_Ch[0] + 1) : (10 - tot - AnInGen_Ch[0]));
+    uint8_t AnInGen_Ch[2];
+    uint8_t tot = get_EC_Ch() + get_PH_Ch();
+    uint8_t rnd = round((10 - tot) / 2);
+    uint8_t ch1 = 10 - tot - rnd - 1;
+
+    if (ch1 == AnInEC_Ch)
+        AnInGen_Ch[0] = ch1 - 1;
+    else
+        AnInGen_Ch[0] = ch1;
+
+    uint8_t ch2 = 10 - tot - AnInGen_Ch[0];
+
+    if (ch2 == AnInPH_Ch)
+        AnInGen_Ch[0] = ch2 + 1;
+    else
+        AnInGen_Ch[0] = ch2;
+
     gen[0] = volts[AnInGen_Ch[0] + 3];
     gen[1] = volts[AnInGen_Ch[1] + 3];
     set_Gen_Val(gen);
