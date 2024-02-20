@@ -124,14 +124,19 @@ void Pump::Dosing_Controller(float pump[])
             if (pump[i] > 0)
             {
                 if (!get_Calibration_Mode())
-                    tot[i][1] = static_cast<uint32_t>(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) % 10000000;
-                tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000)) / 10000000;
+                    if (dose[i] > 0)
+                    {
+                        tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib[i] * min * 10000);
+                        tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
+                        if (tot[i][1] >= 10000000)
+                            tot[i][1] = 0;
+                    }
+
                 ESP_LOGI(TAG,"min = %f", min);
-                ESP_LOGI(TAG,"total = %f", std::floor(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) / 10000000);
+                ESP_LOGI(TAG,"total = %f", floor(tot[i][1] + (dose[i] > 0 ? calib[i] : 0) * min * 10000) / 10000000);
                 
                 dose[i] -= min * calib[i];
             }
-ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i]);
 
             switch (mode[i])
             {
@@ -181,8 +186,13 @@ void Pump::Circulation_Controller(float pump[])
             if (pump[i] > 0)
             {
                 if (!get_Calibration_Mode())
-                    tot[i][1] = static_cast<uint32_t>(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10000) % 10000000;
-                tot[i][0] += static_cast<uint32_t>(floor(tot[i][1] + (circ[i] > 0 ? calib[i] : 0) * min * 10000) / 10000000);
+                    if (circ[i] > 0)
+                    {
+                        tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib[i] * min * 10000);
+                        tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
+                        if (tot[i][1] >= 10000000)
+                            tot[i][1] = 0;
+                    }
 
                 circ[i] -= min * calib[i];
             }
