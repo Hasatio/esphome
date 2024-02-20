@@ -139,7 +139,7 @@ void Pump::Dosing_Controller(float pump[])
             {
                 case 0:
                     if (dose[i] > 0)
-                        if (!(i % 2 == 0) || !(i % 2 == 1 && stat[i - 1] != 1))
+                        if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
                     else
                         stat[i] = 2;
@@ -207,7 +207,7 @@ void Pump::Circulation_Controller(float pump[])
             {
                 case 0:
                     if (circ[i] > 0)
-                        if (!(i % 2 == 0) || !(i % 2 == 1 && stat[i - 1] != 1))
+                        if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
                     else
                         stat[i] = 2;
@@ -235,9 +235,9 @@ void Pump::Circulation_Controller(float pump[])
 
             if (stat[i] == 1)
                 if (circ[i] > calib[i])
-                pump[i] = 1;
+                    pump[i] = 1;
                 else
-                pump[i] = circ[i] / calib[i];
+                    pump[i] = circ[i] / calib[i];
             else
                 pump[i] = 0;
 
