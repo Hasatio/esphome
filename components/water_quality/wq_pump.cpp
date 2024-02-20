@@ -164,6 +164,7 @@ void Pump::Dosing_Controller(float pump[])
                 default:
                     break;
             }
+            ESP_LOGI(TAG,"dose: %f", dose[i]);
 
             if (stat[i] == 1)
                 if (dose[i] > calib[i])
