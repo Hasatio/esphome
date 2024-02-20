@@ -84,8 +84,8 @@ void Pump::Pump_driver(float pwm[])
         Timer_Setup(min_);
     else if (min_ == 0)
     {
-        // Dosing_Controller(pump);
-        // Circulation_Controller(pump);
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
     }
 
     for (size_t i = 0; i < 6; i++)
