@@ -232,7 +232,6 @@ void Pump::Circulation_Controller(float pump[])
                 default:
                     break;
             }
-            ESP_LOGI(TAG,"circ[%d]: %f", i, circ[i]);
 
             if (stat[i] == 1)
                 if (circ[i] > calib[i])
