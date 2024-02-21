@@ -39,17 +39,17 @@ void Analog::Analog_Input_Driver(float volts[])
     uint8_t rnd = round((10 - tot) / 2);
     uint8_t ch1 = 10 - tot - rnd - 1;
 
-    if (ch1 == AnInEC_Ch)
+    if (ch1 == get_EC_Ch())
         AnInGen_Ch[0] = ch1 - 1;
     else
         AnInGen_Ch[0] = ch1;
 
     uint8_t ch2 = 10 - tot - AnInGen_Ch[0];
 
-    if (ch2 == AnInPH_Ch)
-        AnInGen_Ch[0] = ch2 + 1;
+    if (ch2 == get_PH_Ch())
+        AnInGen_Ch[1] = ch2 + 1;
     else
-        AnInGen_Ch[0] = ch2;
+        AnInGen_Ch[1] = ch2;
 
     gen[0] = volts[AnInGen_Ch[0] + 3];
     gen[1] = volts[AnInGen_Ch[1] + 3];
