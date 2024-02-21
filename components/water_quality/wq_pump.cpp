@@ -138,10 +138,10 @@ void Pump::Dosing_Controller(float pump[])
             switch (mode[i])
             {
                 case 0:
-                    if (dose[i] >= 0)
+                    if (dose[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else
+                    else if (dose[i] == 0)
                         stat[i] = 2;
                     break;
 
@@ -153,7 +153,7 @@ void Pump::Dosing_Controller(float pump[])
                         }
                         else
                             stat[i] = 0;
-                    else
+                    else if (dose[i] == 0)
                         stat[i] = 2;
                     break;
 
