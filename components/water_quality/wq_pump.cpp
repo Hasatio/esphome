@@ -135,7 +135,7 @@ void Pump::Dosing_Controller(float pump[])
             if (dose[i] * 10 == 0)
                 dose[i] = 0;
             else
-                dose[i] = static_cast<uint32_t>(dose[i] - min * calib[i]);
+                dose[i] = static_cast<float>(dose[i] - min * calib[i]);
             }
 
             if (dose[i] > 0)
@@ -203,7 +203,7 @@ void Pump::Circulation_Controller(float pump[])
             if (circ[i] * 10 == 0)
                 circ[i] = 0;
             else
-                circ[i] = static_cast<uint32_t>(circ[i] - min * calib[i]);
+                circ[i] = static_cast<float>(circ[i] - min * calib[i]);
             }
 
             if (circ[i] > 0)
