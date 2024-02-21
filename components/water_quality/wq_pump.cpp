@@ -207,10 +207,10 @@ void Pump::Circulation_Controller(float pump[])
             {
                 case 0:
                 ESP_LOGI(TAG,"circ[%d]= %f", i, circ[i]);
-                    if (circ[i] >= 0)
+                    if (circ[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else
+                    else if (pump[i] > 0)
                         stat[i] = 2;
                     break;
 
