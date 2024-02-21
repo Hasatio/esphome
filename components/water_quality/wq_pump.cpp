@@ -132,9 +132,6 @@ void Pump::Dosing_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-            if (dose[i] * 100 == 0)
-                dose[i] = 0;
-            else
                 dose[i] = fabs(dose[i] - min * calib[i]);
             }
 
@@ -201,9 +198,6 @@ void Pump::Circulation_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-            if (circ[i] * 100 == 0)
-                circ[i] = 0;
-            else
                 circ[i] = fabs(circ[i] - min * calib[i]);
             }
 
