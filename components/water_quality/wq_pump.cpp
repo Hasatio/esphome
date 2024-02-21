@@ -135,32 +135,35 @@ void Pump::Dosing_Controller(float pump[])
                 dose[i] -= min * calib[i];
             }
 
-            if (dose[i] > 0)
-                switch (mode[i])
-                {
-                    case 0:
+            switch (mode[i])
+            {
+                case 0:
+                    if (dose[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                        break;
+                    else if (dose[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                    case 1:
+                case 1:
+                    if (dose[i] > 0)
                         if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
                         {
                             stat[i] = 1;
                         }
                         else
                             stat[i] = 0;
-                        break;
+                    else if (dose[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                    case 2:
-                        stat[i] = 3;
-                        break;
-                    
-                    default:
-                        break;
-                }
-            else if (dose[i] == 0)
-                stat[i] = 2;
+                case 2:
+                    stat[i] = 3;
+                    break;
+                
+                default:
+                    break;
+            }
 
             if (stat[i] == 1)
                 if (dose[i] > calib[i])
@@ -200,32 +203,35 @@ void Pump::Circulation_Controller(float pump[])
                 circ[i] -= min * calib[i];
             }
 
-            if (circ[i] > 0)
-                switch (mode[i])
-                {
-                    case 0:
+            switch (mode[i])
+            {
+                case 0:
+                    if (circ[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                        break;
+                    else if (circ[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                    case 1:
+                case 1:
+                    if (circ[i] > 0)
                         if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
                         {
                             stat[i] = 1;
                         }
                         else
                             stat[i] = 0;
-                        break;
+                    else if (circ[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                    case 2:
-                        stat[i] = 3;
-                        break;
-                    
-                    default:
-                        break;
-                }
-            else if (circ[i] == 0)
-                stat[i] = 2;
+                case 2:
+                    stat[i] = 3;
+                    break;
+                
+                default:
+                    break;
+            }
 
             if (stat[i] == 1)
                 if (circ[i] > calib[i])
