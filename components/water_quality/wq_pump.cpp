@@ -37,7 +37,7 @@ void Pump::Calibration_Status()
     uint8_t* mode = get_Pump_Mode();
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
-    uint16_t calib_time = 120;
+    uint16_t calib_time = 480;
     bool stat = 0;
 
     for (size_t i = 0; i < 6; i++)
@@ -132,6 +132,9 @@ void Pump::Dosing_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
+            if (dose[i] * 100 == 0)
+                dose[i] = 0;
+            else
                 dose[i] = fabs(dose[i] - min * calib[i]);
             }
 
@@ -198,6 +201,9 @@ void Pump::Circulation_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
+            if (circ[i] * 100 == 0)
+                circ[i] = 0;
+            else
                 circ[i] = fabs(circ[i] - min * calib[i]);
             }
 
