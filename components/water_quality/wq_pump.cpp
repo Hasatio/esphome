@@ -29,10 +29,6 @@ void IRAM_ATTR Pump::Timer(void* arg)
     float* pump = pumpInstance->get_Pump_Time();
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
-    
-    float* dose = pumpInstance->get_Pump_Dose();
-    for (size_t i = 0; i < 6; ++i)
-        ESP_LOGI(TAG,"dose[%d]: %f", i, dose[i]);
 }
 void Pump::Calibration_Status()
 {
@@ -139,7 +135,7 @@ void Pump::Dosing_Controller(float pump[])
             if (dose[i] * 10 == 0)
                 dose[i] = 0;
             else
-                dose[i] -= min * calib[i];
+                dose[i] = static_cast<uint32_t>(dose[i] - min * calib[i]);
             }
 
             if (dose[i] > 0)
@@ -207,7 +203,7 @@ void Pump::Circulation_Controller(float pump[])
             if (circ[i] * 10 == 0)
                 circ[i] = 0;
             else
-                circ[i] -= min * calib[i];
+                circ[i] = static_cast<uint32_t>(circ[i] - min * calib[i]);
             }
 
             if (circ[i] > 0)
