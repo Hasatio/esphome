@@ -135,7 +135,7 @@ void Pump::Dosing_Controller(float pump[])
             if (dose[i] * 100 == 0)
                 dose[i] = 0;
             else
-                dose[i] = static_cast<float>(dose[i] - min * calib[i]);
+                dose[i] = fabs(dose[i] - min * calib[i]);
             }
 
             switch (mode[i])
@@ -144,7 +144,7 @@ void Pump::Dosing_Controller(float pump[])
                     if (dose[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else if (fabs(dose[i]) == 0)
+                    else if (dose[i] == 0)
                         stat[i] = 2;
                     break;
 
@@ -154,7 +154,7 @@ void Pump::Dosing_Controller(float pump[])
                             stat[i] = 1;
                         else
                             stat[i] = 0;
-                    else if (fabs(dose[i]) == 0)
+                    else if (dose[i] == 0)
                         stat[i] = 2;
                     break;
 
@@ -204,7 +204,7 @@ void Pump::Circulation_Controller(float pump[])
             if (circ[i] * 100 == 0)
                 circ[i] = 0;
             else
-                circ[i] = static_cast<float>(circ[i] - min * calib[i]);
+                circ[i] = fabs(circ[i] - min * calib[i]);
             }
 
             switch (mode[i])
@@ -213,7 +213,7 @@ void Pump::Circulation_Controller(float pump[])
                     if (circ[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else if (fabs(circ[i]) == 0)
+                    else if (circ[i] == 0)
                         stat[i] = 2;
                     break;
 
@@ -223,7 +223,7 @@ void Pump::Circulation_Controller(float pump[])
                             stat[i] = 1;
                         else
                             stat[i] = 0;
-                    else if (fabs(circ[i]) == 0)
+                    else if (circ[i] == 0)
                         stat[i] = 2;
                     break;
 
