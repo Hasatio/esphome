@@ -175,7 +175,7 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
             if (ptype[i] == 1)
                 if (pmode[i] == 0)
                 {
-                    if (pstat[i] == 1)
+                    if (!(pstat[i] == 1))
                         // pdose_[i] += pdose[i];
                     else
                         pdose_[i] = pdose[i];
@@ -195,7 +195,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
             if (ptype[i] == 2)
                 if (pmode[i] == 0)
                 {
-                    if (pstat[i] == 1)
+                    if (!(pstat[i] == 1))
                         // pcirc_[i] += pcirc[i];
                     else
                         pcirc_[i] = pcirc[i];
