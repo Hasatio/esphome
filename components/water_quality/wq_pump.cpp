@@ -132,7 +132,7 @@ void Pump::Dosing_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-            if (dose[i] * 10 == 0)
+            if (dose[i] * 100 == 0)
                 dose[i] = 0;
             else
                 dose[i] = static_cast<float>(dose[i] - min * calib[i]);
@@ -144,7 +144,7 @@ void Pump::Dosing_Controller(float pump[])
                     if (dose[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else if (roundf(dose[i]) == 0)
+                    else if (fabs(dose[i]) == 0)
                         stat[i] = 2;
                     break;
 
@@ -154,7 +154,7 @@ void Pump::Dosing_Controller(float pump[])
                             stat[i] = 1;
                         else
                             stat[i] = 0;
-                    else if (roundf(dose[i]) == 0)
+                    else if (fabs(dose[i]) == 0)
                         stat[i] = 2;
                     break;
 
@@ -201,7 +201,7 @@ void Pump::Circulation_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-            if (circ[i] * 10 == 0)
+            if (circ[i] * 100 == 0)
                 circ[i] = 0;
             else
                 circ[i] = static_cast<float>(circ[i] - min * calib[i]);
@@ -213,7 +213,7 @@ void Pump::Circulation_Controller(float pump[])
                     if (circ[i] > 0)
                         if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
                             stat[i] = 0;
-                    else if (circ[i] == 0)
+                    else if (fabs(circ[i]) == 0)
                         stat[i] = 2;
                     break;
 
@@ -223,7 +223,7 @@ void Pump::Circulation_Controller(float pump[])
                             stat[i] = 1;
                         else
                             stat[i] = 0;
-                    else if (circ[i] == 0)
+                    else if (fabs(circ[i]) == 0)
                         stat[i] = 2;
                     break;
 
