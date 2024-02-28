@@ -22,6 +22,8 @@ CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
 CONF_PUMP_CALIB_GAIN = "pump_calib_gain"
 CONF_PUMP_TYPE = "pump_type"
+CONF_PUMP_DOSING_MODEL = "pump_dosing_model"
+CONF_PUMP_CIRCULATION_MODEL = "pump_circulation_model"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
 CONF_PUMP_CIRCULATION = "pump_circulation"
@@ -43,8 +45,15 @@ PUMP_TYPE_DOSE = 1
 PUMP_TYPE_CIRCULATION = 2
 
 
-PUMP_CALIBRATION_SCHEMA = cv.Schema(
+PUMP_DOSING_SCHEMA = cv.Schema(
     {
+        cv.Required(CONF_PUMP_DOSING_MODEL): cv.uint8_t,
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
+    }
+)
+PUMP_CIRCULATION_SCHEMA = cv.Schema(
+    {
+        cv.Required(CONF_PUMP_CIRCULATION_MODEL): cv.uint8_t,
         cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
     }
 )
@@ -52,8 +61,8 @@ PUMP_CALIBRATION_SCHEMA = cv.Schema(
 PUMP_TYPE_SCHEMA = cv.typed_schema(
     {
         PUMP_TYPE_NULL: cv.Any({}),
-        PUMP_TYPE_DOSE: PUMP_CALIBRATION_SCHEMA,
-        PUMP_TYPE_CIRCULATION: PUMP_CALIBRATION_SCHEMA,
+        PUMP_TYPE_DOSE: PUMP_DOSING_SCHEMA,
+        PUMP_TYPE_CIRCULATION: PUMP_CIRCULATION_SCHEMA,
     },
     key=CONF_PUMP_TYPE,
     default_type=PUMP_TYPE_NULL,
