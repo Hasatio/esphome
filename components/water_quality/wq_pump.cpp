@@ -43,7 +43,7 @@ void Pump::Calibration_Status()
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (calib[i] == 0 && type[i] > 0 && model == 1)
+        if (calib[i] == 0 && type[i] > 0 && model[i] == 1)
         {
             calib[i] = 1;
             mode[i] = 1;
