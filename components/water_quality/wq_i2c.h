@@ -101,8 +101,6 @@ bool get_continuous_mode()          { return continuous_mode_; }
 uint8_t get_data_rate() const       { return data_rate_; }
 uint8_t get_resolution() const      { return resolution_; }
 
-void test();
-
 void set_water_quality(WaterQuality *wq)
 {
     wq_ = wq;

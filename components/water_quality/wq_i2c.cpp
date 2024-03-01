@@ -525,16 +525,5 @@ void WaterQuality::PCA9685_Driver(float state[])
     // DFRobot_EC ec;
     // DFRobot_PH ph;
 
-
-void Data::test()
-{
-    WaterQuality *wq;
-    // LOG_I2C_DEVICE(wq->get_address());
-    // if (wq->is_failed())
-    //     ESP_LOGE(TAG, "var");
-    // else
-    //     ESP_LOGI(TAG, "yok");
-}
-
 }  // namespace water_quality
 }  // namespace esphome
