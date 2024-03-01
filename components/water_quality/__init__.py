@@ -76,7 +76,7 @@ I2C = component_ns.class_("I2C", i2c.I2CDevice)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(WaterQuality),
+            cv.GenerateID(): cv.declare_id(I2C),
             cv.Optional(CONF_VERSION, default = 1): cv.uint8_t,  
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
