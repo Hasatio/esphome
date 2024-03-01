@@ -148,7 +148,6 @@ CONFIG_SCHEMA = cv.All(
             cv.GenerateID(): cv.declare_id(I2C),
         }
     )
-    .extend(cv.COMPONENT_SCHEMA)
     .extend(i2c.i2c_device_schema(None)),
 )
 
