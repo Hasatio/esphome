@@ -70,6 +70,13 @@ private:
 friend class WaterQuality;
 
 protected:
+uint16_t prev_config_{0};
+ADS1115_Multiplexer multiplexer_;
+ADS1115_Gain gain_;
+bool continuous_mode_;
+ADS1115_DataRate data_rate_;
+ADS1115_Resolution resolution_;
+
 WaterQuality *wq_;
 };
 
