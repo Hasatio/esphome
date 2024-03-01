@@ -12,6 +12,7 @@
 namespace esphome {
 namespace water_quality {
 
+    I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
@@ -19,8 +20,8 @@ namespace water_quality {
 
 void WaterQuality::setup()
 {
-    ADS1115_Setup(ADS1X15_ADDRESS1);
-    ADS1115_Setup(ADS1X15_ADDRESS2);
+    i2c.ADS1115_Setup(ADS1X15_ADDRESS1);
+    i2c.ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
     pump.Calibration_Status();
@@ -104,7 +105,7 @@ float a[8], p[16];
 bool d[4];
 void WaterQuality::update()
 {
-    ADS1115_Driver(a);
+    i2c.ADS1115_Driver(a);
     an.Analog_Input_Driver(a);
 
     dig.Digital_Output_Driver(d);
