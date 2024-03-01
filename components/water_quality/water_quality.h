@@ -21,6 +21,48 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
+enum ADS1115_Registers
+{
+    ADS1115_REGISTER_CONVERSION = 0x00,
+    ADS1115_REGISTER_CONFIG = 0x01,
+};
+enum ADS1115_Multiplexer
+{
+    ADS1115_MULTIPLEXER_P0_N1 = 0b000,
+    ADS1115_MULTIPLEXER_P0_N3 = 0b001,
+    ADS1115_MULTIPLEXER_P1_N3 = 0b010,
+    ADS1115_MULTIPLEXER_P2_N3 = 0b011,
+    ADS1115_MULTIPLEXER_P0_NG = 0b100,
+    ADS1115_MULTIPLEXER_P1_NG = 0b101,
+    ADS1115_MULTIPLEXER_P2_NG = 0b110,
+    ADS1115_MULTIPLEXER_P3_NG = 0b111,
+};
+enum ADS1115_Gain
+{
+    ADS1115_GAIN_6P144 = 0b000,
+    ADS1115_GAIN_4P096 = 0b001,
+    ADS1115_GAIN_2P048 = 0b010,
+    ADS1115_GAIN_1P024 = 0b011,
+    ADS1115_GAIN_0P512 = 0b100,
+    ADS1115_GAIN_0P256 = 0b101,
+};
+enum ADS1115_DataRate
+{
+    ADS1115_DATA_RATE_8_SPS = 0b000,
+    ADS1115_DATA_RATE_16_SPS = 0b001,
+    ADS1115_DATA_RATE_32_SPS = 0b010,
+    ADS1115_DATA_RATE_64_SPS = 0b011,
+    ADS1115_DATA_RATE_128_SPS = 0b100,
+    ADS1115_DATA_RATE_250_SPS = 0b101,
+    ADS1115_DATA_RATE_475_SPS = 0b110,
+    ADS1115_DATA_RATE_860_SPS = 0b111,
+};
+enum ADS1115_Resolution
+{
+    ADS1115_16_BITS = 16,
+    ADS1015_12_BITS = 12,
+};
+
 enum MCP23008_Registers 
 {
     MCP23008_IODIR = 0x00,
@@ -56,6 +98,24 @@ class WaterQuality : public PollingComponent, public i2c::I2CDevice
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+void ADS1115_Setup(uint8_t address);
+float ADS1115_Read();
+void ADS1115_Driver(float analog_voltage[]);
+
+void set_multiplexer(ADS1115_Multiplexer multiplexer)   { multiplexer_ = multiplexer; }
+void set_gain(ADS1115_Gain gain)                        { gain_ = gain; }
+void set_continuous_mode(bool continuous_mode)          { continuous_mode_ = continuous_mode; }
+void set_data_rate(ADS1115_DataRate data_rate)          { data_rate_ = data_rate; }
+void set_resolution(ADS1115_Resolution resolution)      { resolution_ = resolution; }
+
+uint8_t get_multiplexer() const     { return multiplexer_; }
+uint8_t get_gain() const            { return gain_; }
+bool get_continuous_mode()          { return continuous_mode_; }
+uint8_t get_data_rate() const       { return data_rate_; }
+uint8_t get_resolution() const      { return resolution_; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
