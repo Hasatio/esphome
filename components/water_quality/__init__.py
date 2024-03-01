@@ -139,7 +139,9 @@ CONFIG_SCHEMA = cv.All(
                 ),
             ),
         }
-    ),
+    )
+    .extend(cv.COMPONENT_SCHEMA)
+    .extend(i2c.i2c_device_schema(None)),
     
     cv.Schema(
         {
