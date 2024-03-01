@@ -73,10 +73,10 @@ component_ns = cg.esphome_ns.namespace("water_quality")
 WaterQuality = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
 I2C = component_ns.class_("I2C", i2c.I2CDevice)
 
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(I2C),
+            cv.GenerateID(): cv.declare_id(WaterQuality),
             cv.Optional(CONF_VERSION, default = 1): cv.uint8_t,  
             cv.Required(CONF_PUMP1): cv.All(
                 cv.ensure_list(PUMP_TYPE_SCHEMA),
@@ -141,7 +141,15 @@ CONFIG_SCHEMA = (
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
-    .extend(i2c.i2c_device_schema(None))
+    .extend(i2c.i2c_device_schema(None)),
+    
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.declare_id(I2C),
+        }
+    )
+    .extend(cv.COMPONENT_SCHEMA)
+    .extend(i2c.i2c_device_schema(None)),
 )
 
 
