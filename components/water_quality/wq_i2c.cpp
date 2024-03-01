@@ -10,7 +10,7 @@ namespace water_quality {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
-void WaterQuality::ADS1115_Setup(uint8_t address)
+void I2C::ADS1115_Setup(uint8_t address)
 {
     this->set_i2c_address(address);
     if (this->is_failed())
@@ -118,7 +118,7 @@ void WaterQuality::ADS1115_Setup(uint8_t address)
 //     // ec.begin();
 //     // ph.begin();
 }
-float WaterQuality::ADS1115_Read()
+float I2C::ADS1115_Read()
 {
     uint16_t config = this->prev_config_;
     // uint16_t config = 0b0000000011100011;
@@ -228,7 +228,7 @@ float WaterQuality::ADS1115_Read()
     // ESP_LOGI(TAG, "volts: %f", millivolts / 1e3f);
     
 }
-void WaterQuality::ADS1115_Driver(float analog_voltage[])
+void I2C::ADS1115_Driver(float analog_voltage[])
 {
     this->set_i2c_address(ADS1X15_ADDRESS1);
     if (this->is_failed())

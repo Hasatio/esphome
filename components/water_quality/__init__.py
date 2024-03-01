@@ -47,14 +47,14 @@ PUMP_TYPE_CIRCULATION = 2
 
 PUMP_DOSING_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_DOSING_MODEL): cv.uint8_t,
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
+        cv.Required(CONF_PUMP_DOSING_MODEL): cv.int_range(min = 1, max = 2),
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_,
     }
 )
 PUMP_CIRCULATION_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_CIRCULATION_MODEL): cv.uint8_t,
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_
+        cv.Required(CONF_PUMP_CIRCULATION_MODEL): cv.int_range(min = 1, max = 2),
+        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_,
     }
 )
 
@@ -71,7 +71,7 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
 
 component_ns = cg.esphome_ns.namespace("water_quality")
 WaterQuality = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
-
+I2C = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -156,10 +156,17 @@ async def to_code(config):
     empty = [0] * 1
     type = []
     calib = []
+    model = []
     
     conf = config[CONF_PUMP1][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
@@ -167,6 +174,12 @@ async def to_code(config):
     conf = config[CONF_PUMP2][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
@@ -174,6 +187,12 @@ async def to_code(config):
     conf = config[CONF_PUMP3][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
@@ -181,6 +200,12 @@ async def to_code(config):
     conf = config[CONF_PUMP4][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
@@ -188,6 +213,12 @@ async def to_code(config):
     conf = config[CONF_PUMP5][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
@@ -195,12 +226,19 @@ async def to_code(config):
     conf = config[CONF_PUMP6][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        if conf[CONF_PUMP_TYPE] == 1:
+            model.append(conf[CONF_PUMP_DOSING_MODEL])
+        elif conf[CONF_PUMP_TYPE] == 2:
+            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
+        else:
+            model.append(empty)
         calib.append(conf[CONF_PUMP_CALIB_GAIN])
     else:
         calib.append(empty)
         
     cg.add(var.pump_calib_gain(calib))
     cg.add(var.pump_type(type))
+    cg.add(var.pump_model(type))
     
         
     min = []

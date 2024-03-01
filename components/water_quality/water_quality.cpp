@@ -32,6 +32,7 @@ void WaterQuality::dump_config()
         ESP_LOGE(TAG, "Communication failed!");
     else
         ESP_LOGI(TAG, "Communication Successfulled!");
+    LOG_UPDATE_INTERVAL(this);
         
     ESP_LOGCONFIG(TAG, "PCA9685:");
     if (this->extclk_) {
@@ -138,12 +139,20 @@ void WaterQuality::pump_calib_gain(const std::vector<float> &pcal)
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
     uint8_t ptype_[6];
-    float *pcal = pump.get_Pump_Calib_Gain();
     
     for (size_t i = 0; i < 6; i++)
         ptype_[i] = ptype[i];
 
     pump.set_Pump_Type(ptype_);   
+}
+void WaterQuality::pump_model(const std::vector<uint8_t> &pmodel)
+{
+    uint8_t pmodel_[6];
+    
+    for (size_t i = 0; i < 6; i++)
+        pmodel_[i] = pmodel[i];
+
+    pump.set_Pump_Model(pmodel_);   
 }
 void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
 {

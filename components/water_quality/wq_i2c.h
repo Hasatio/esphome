@@ -38,9 +38,27 @@ static const uint8_t PCA9685_MODE1_SLEEP = 0b00010000;
 
 class WaterQuality;
 
-class Data
+class I2C : public i2c::I2CDevice
 {
 public:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+void ADS1115_Setup(uint8_t address);
+float ADS1115_Read();
+void ADS1115_Driver(float analog_voltage[]);
+
+void set_multiplexer(ADS1115_Multiplexer multiplexer)   { multiplexer_ = multiplexer; }
+void set_gain(ADS1115_Gain gain)                        { gain_ = gain; }
+void set_continuous_mode(bool continuous_mode)          { continuous_mode_ = continuous_mode; }
+void set_data_rate(ADS1115_DataRate data_rate)          { data_rate_ = data_rate; }
+void set_resolution(ADS1115_Resolution resolution)      { resolution_ = resolution; }
+
+uint8_t get_multiplexer() const     { return multiplexer_; }
+uint8_t get_gain() const            { return gain_; }
+bool get_continuous_mode()          { return continuous_mode_; }
+uint8_t get_data_rate() const       { return data_rate_; }
+uint8_t get_resolution() const      { return resolution_; }
+
 void test();
 
 void set_water_quality(WaterQuality *wq)

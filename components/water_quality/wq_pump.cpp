@@ -34,6 +34,7 @@ void Pump::Calibration_Status()
 {
     float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
+    uint8_t* model = get_Pump_Model();
     uint8_t* mode = get_Pump_Mode();
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
@@ -42,7 +43,7 @@ void Pump::Calibration_Status()
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] > 0 && calib[i] <= 0)
+        if (calib[i] == 0 && type[i] > 0 && model == 1)
         {
             calib[i] = 1;
             mode[i] = 1;

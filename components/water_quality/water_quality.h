@@ -100,24 +100,6 @@ public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  ADS1115
-void ADS1115_Setup(uint8_t address);
-float ADS1115_Read();
-void ADS1115_Driver(float analog_voltage[]);
-
-void set_multiplexer(ADS1115_Multiplexer multiplexer)   { multiplexer_ = multiplexer; }
-void set_gain(ADS1115_Gain gain)                        { gain_ = gain; }
-void set_continuous_mode(bool continuous_mode)          { continuous_mode_ = continuous_mode; }
-void set_data_rate(ADS1115_DataRate data_rate)          { data_rate_ = data_rate; }
-void set_resolution(ADS1115_Resolution resolution)      { resolution_ = resolution; }
-
-uint8_t get_multiplexer() const     { return multiplexer_; }
-uint8_t get_gain() const            { return gain_; }
-bool get_continuous_mode()          { return continuous_mode_; }
-uint8_t get_data_rate() const       { return data_rate_; }
-uint8_t get_resolution() const      { return resolution_; }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23008
 void MCP23008_Setup(uint8_t address);
 uint8_t MCP23008_Read();
@@ -151,6 +133,7 @@ void update() override;
 void version(const uint8_t ver);
 void pump_calib_gain(const std::vector<float> &pcal);
 void pump_type(const std::vector<uint8_t> &ptype);
+void pump_model(const std::vector<uint8_t> &pmodel);
 void pump_mode(std::vector<uint8_t> &pmode);
 void pump_dose(std::vector<float> &pdose);
 void pump_circulation(std::vector<float> &pcirc);
