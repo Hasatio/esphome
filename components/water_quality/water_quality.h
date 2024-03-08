@@ -272,6 +272,7 @@ void queue_command_(uint16_t command, double volume, int duration, bool should_s
 void pop_next_command_();
 uint16_t peek_next_command_();
 
+double volume_ = 0;
 float current_volume_dosed_= 0;
 float total_volume_dosed_= 0;
 float absolute_total_volume_dosed_= 0;
