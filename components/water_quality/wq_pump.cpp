@@ -260,12 +260,12 @@ double Pump::Serial_Com_Pump_Driver()
     float min = get_Min();
     double vol = 0;
 
+                ESP_LOGD(TAG,"here");
     for (size_t i = 0; i < 6; i++)
     {
         if (type[i] == 1)
             if (model[i] == 2)
             {
-                ESP_LOGD(TAG,"here");
                 // if (pump[i] > 0)
                 // {
                 //     if (!get_Calibration_Mode())
