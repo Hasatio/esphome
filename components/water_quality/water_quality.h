@@ -14,7 +14,8 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
-// #include <Wire.h>
+#include <Wire.h>
+#include "wq_i2c.h"
 
 namespace esphome {
 namespace water_quality {
@@ -94,10 +95,26 @@ enum MCP23008_InterruptMode : uint8_t
     MCP23008_FALLING,
 };
 
+class WQ_I2C;
+
 class WaterQuality : public PollingComponent, public i2c::I2CDevice
 {
+private:
+// WQ_I2C *wq_i2c_;
+// friend class WQ_I2C;
+// friend class Pump;
+
 public:
+// WaterQuality();
+// WaterQuality(i2c::I2CComponent *parent) : I2C(parent) {}
+// WaterQuality(WQ_I2C *i2c) : wq_i2c_(i2c) {}
+
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
+
+void setup() override;
+void dump_config() override;
+void loop() override;
+void update() override;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ADS1115
@@ -140,13 +157,23 @@ void set_extclk(bool extclk)            { this->extclk_ = extclk; }
 void set_frequency(float frequency)     { this->frequency_ = frequency; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  EZOPMP
 
-void sensor();
+void EZOPMP_Driver();
+void find();
+void dose_continuously();
+void dose_volume(double volume);
+void dose_volume_over_time(double volume, int duration);
+void dose_with_constant_flow_rate(double volume, int duration);
+void set_calibration_volume(double volume);
+void clear_total_volume_dosed();
+void clear_calibration();
+void pause_dosing();
+void stop_dosing();
+void change_i2c_address(int address);
+void exec_arbitrary_command(const std::basic_string<char> &command);
 
-void setup() override;
-void dump_config() override;
-void loop() override;
-void update() override;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void version(const uint8_t ver);
 void pump_calib_gain(const std::vector<float> &pcal);
@@ -163,15 +190,7 @@ void ec(const uint8_t ch, const uint8_t type);
 void ph(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout);
 
-// protected:
-// std::vector<ADS1115Sensor *> sensors_;
-
-// class MySensor : public PollingComponent, public sensor::Sensor
-// {
-// public:
-// MySensor(WaterQuality *parent) : parent_(parent) {}
-
-// void update() override;
+void sensor();
 
 void Pump_Tot_Sensor    (text_sensor::TextSensor *ptot)     { Pump_Tot_ = ptot; }
 void Pump_Stat_Sensor   (text_sensor::TextSensor *pstat)    { Pump_Stat_ = pstat; }
@@ -184,7 +203,88 @@ void PH_Val_Sensor      (sensor::Sensor *ph)                { AnInPH_Val_ = ph; 
 void AnGen_Val_Sensor   (text_sensor::TextSensor *gen)      { AnInGen_Val_ = gen; }
 void DigIn_Stat_Sensor  (text_sensor::TextSensor *din)      { DigIn_Stat_ = din; }
 
+void set_current_volume_dosed(float current_volume_dosed) { current_volume_dosed_ = current_volume_dosed; }
+void set_total_volume_dosed(float total_volume_dosed) { total_volume_dosed_ = total_volume_dosed; }
+void set_absolute_total_volume_dosed(float absolute_total_volume_dosed) { absolute_total_volume_dosed_ = absolute_total_volume_dosed; }
+void set_pump_voltage(float pump_voltage) { pump_voltage_ = pump_voltage; }
+void set_last_volume_requested(float last_volume_requested) { last_volume_requested_ = last_volume_requested; }
+void set_max_flow_rate(float max_flow_rate) { max_flow_rate_ = max_flow_rate; }
+
+void set_is_dosing(bool is_dosing) { is_dosing_ = is_dosing; }
+void set_is_paused(bool is_paused) { is_paused_ = is_paused; }
+
+void set_dosing_mode(std::string dosing_mode) { dosing_mode_ = dosing_mode; }
+void set_calibration_status(std::string calibration_status) { calibration_status_ = calibration_status; }
+
 protected:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  ADS1115
+uint16_t prev_config_{0};
+ADS1115_Multiplexer multiplexer_;
+ADS1115_Gain gain_;
+bool continuous_mode_;
+ADS1115_DataRate data_rate_;
+ADS1115_Resolution resolution_;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  MCP23008
+uint8_t olat_{0x00};
+uint8_t pin_;
+bool inverted_;
+MCP23008_InterruptMode interrupt_mode_;
+bool open_drain_ints_;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  PCA9685
+float frequency_ = 1000;
+bool extclk_ = false;
+uint16_t pwm_amounts_[16] = {0};
+bool update_{true};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  EZOPMP
+uint32_t start_time_ = 0;
+uint32_t wait_time_ = 0;
+bool is_waiting_ = false;
+bool is_first_read_ = true;
+
+uint16_t next_command_ = 0;
+double next_command_volume_ = 0;  // might be negative
+int next_command_duration_ = 0;
+
+uint16_t next_command_queue_[10];
+double next_command_volume_queue_[10];
+int next_command_duration_queue_[10];
+int next_command_queue_head_ = 0;
+int next_command_queue_last_ = 0;
+int next_command_queue_length_ = 0;
+
+uint16_t current_command_ = 0;
+bool is_paused_flag_ = false;
+bool is_dosing_flag_ = false;
+
+const char *arbitrary_command_{nullptr};
+
+void send_next_command_();
+void read_command_result_();
+void clear_current_command_();
+void queue_command_(uint16_t command, double volume, int duration, bool should_schedule);
+void pop_next_command_();
+uint16_t peek_next_command_();
+
+float current_volume_dosed_= 0;
+float total_volume_dosed_= 0;
+float absolute_total_volume_dosed_= 0;
+float pump_voltage_= 0;
+float max_flow_rate_= 0;
+float last_volume_requested_= 0;
+bool is_dosing_= 0;
+bool is_paused_= 0;
+std::string dosing_mode_= {0};
+std::string calibration_status_= {0};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sensor
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
 text_sensor::TextSensor *Servo_Stat_{nullptr};
@@ -196,23 +296,8 @@ sensor::Sensor *AnInPH_Val_{nullptr};
 text_sensor::TextSensor *AnInGen_Val_{nullptr};
 text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
-uint16_t prev_config_{0};
-ADS1115_Multiplexer multiplexer_;
-ADS1115_Gain gain_;
-bool continuous_mode_;
-ADS1115_DataRate data_rate_;
-ADS1115_Resolution resolution_;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-uint8_t olat_{0x00};
-uint8_t pin_;
-bool inverted_;
-MCP23008_InterruptMode interrupt_mode_;
-bool open_drain_ints_;
-
-float frequency_ = 1000;
-bool extclk_ = false;
-uint16_t pwm_amounts_[16] = {0};
-bool update_{true};
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {

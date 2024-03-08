@@ -12,6 +12,7 @@ DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
+CONF_WATER_QUALITY = "water_quality"
 CONF_COMPONENT_ID = "component_id"
 CONF_VERSION = "version"
 CONF_PUMP1 = "pump1"
@@ -69,9 +70,8 @@ PUMP_TYPE_SCHEMA = cv.typed_schema(
     int=True,
 )
 
-component_ns = cg.esphome_ns.namespace("water_quality")
-WaterQuality = component_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
-I2C = component_ns.class_("I2C", i2c.I2CDevice, cg.Parented.template(WaterQuality))
+water_quality_ns = cg.esphome_ns.namespace(CONF_WATER_QUALITY)
+WaterQuality = water_quality_ns.class_("WaterQuality", cg.PollingComponent, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
@@ -149,6 +149,9 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
+    
+    # parent = await cg.get_variable(config["WQ_I2C"])
+    # cg.add(var.set_parent(parent))
     
     if CONF_VERSION in config:
         cg.add(var.version(config[CONF_VERSION]))
@@ -265,8 +268,8 @@ async def to_code(config):
     cg.add_library("SD", None)
     cg.add_library("Time", None)
     
-
-PumpModeAction = component_ns.class_("PumpModeAction", automation.Action)
+    
+PumpModeAction = water_quality_ns.class_("PumpModeAction", automation.Action)
 
 PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
@@ -304,7 +307,7 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpDoseAction = component_ns.class_("PumpDoseAction", automation.Action)
+PumpDoseAction = water_quality_ns.class_("PumpDoseAction", automation.Action)
 
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
@@ -335,7 +338,7 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpCirculationAction = component_ns.class_("PumpCirculationAction", automation.Action)
+PumpCirculationAction = water_quality_ns.class_("PumpCirculationAction", automation.Action)
 
 PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
     {
@@ -366,7 +369,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpResetAction = component_ns.class_("PumpResetAction", automation.Action)
+PumpResetAction = water_quality_ns.class_("PumpResetAction", automation.Action)
 
 PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
@@ -397,7 +400,7 @@ async def pump_reset_to_code(config, action_id, template_arg, args):
     return var
 
 
-ServoModeAction = component_ns.class_("ServoModeAction", automation.Action)
+ServoModeAction = water_quality_ns.class_("ServoModeAction", automation.Action)
 
 SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
@@ -428,7 +431,7 @@ async def servo_mode_to_code(config, action_id, template_arg, args):
     return var
 
 
-ServoPositionAction = component_ns.class_("ServoPositionAction", automation.Action)
+ServoPositionAction = water_quality_ns.class_("ServoPositionAction", automation.Action)
 
 SERVO_POSITION_ACTION_SCHEMA = cv.All(
     {
@@ -459,7 +462,7 @@ async def servo_position_to_code(config, action_id, template_arg, args):
     return var
 
 
-DigitalOutAction = component_ns.class_("DigitalOutAction", automation.Action)
+DigitalOutAction = water_quality_ns.class_("DigitalOutAction", automation.Action)
 
 DIGITAL_OUT_ACTION_SCHEMA = cv.All(
     {

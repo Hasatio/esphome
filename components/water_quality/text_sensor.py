@@ -6,7 +6,7 @@ from esphome.const import (
 )
 
 from . import (
-    component_ns, 
+    water_quality_ns, 
     WaterQuality,
     CONF_COMPONENT_ID
 )

@@ -19,7 +19,7 @@ void Timer_Setup(float period);
 static void IRAM_ATTR Timer(void* arg);
 void Calibration_Status();
 
-void Pump_driver(float pwm[]);
+void Generic_Pump_Driver(float pwm[]);
 void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
 

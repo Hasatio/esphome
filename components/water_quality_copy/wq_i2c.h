@@ -51,6 +51,8 @@ friend class WaterQuality;
 
 protected:
 WaterQuality *wq_;
+
+TwoWire* wire = &Wire;
 };
 
 }  // namespace water_quality

@@ -5,18 +5,19 @@
 #include "wq_pump.h"
 #include "wq_servo.h"
 
-
-// // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
-// #include "ESP32TimerInterrupt.h"
-
 namespace esphome {
 namespace water_quality {
 
-    I2C i2c;
+// WaterQuality water_quality_instance;
+// WQ_I2C i2c(&water_quality_instance);
+
+//     // WQ_I2C i2c;
     Analog an;
     Digital dig;
     Pump pump;
     Servo ser;
+
+// WaterQuality::WaterQuality() { wq_i2c_ = new WQ_I2C(this); }
 
 void WaterQuality::setup()
 {
@@ -97,8 +98,20 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    // delay(500);
-    // ESP_LOGI(TAG, "WT = %d", an.get_WT_Val());
+    // If we are not waiting for anything and there is no command to be sent, return
+    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+        return;
+
+    // If we are not waiting for anything and there IS a command to be sent, do it.
+    if (!this->is_waiting_ && this->peek_next_command_() != EZO_PMP_COMMAND_NONE)
+        this->send_next_command_();
+
+    // If we are waiting for something but it isn't ready yet, then return
+    if (this->is_waiting_ && millis() - this->start_time_ < this->wait_time_)
+        return;
+
+    // We are waiting for something and it should be ready.
+    this->read_command_result_();
 }
 
 float a[8], p[16];
@@ -112,11 +125,41 @@ void WaterQuality::update()
     MCP23008_Driver(d);
     dig.Digital_Input_Driver(d);
 
-    pump.Pump_driver(p);
+    pump.Generic_Pump_Driver(p);
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
-    sensor();  
+    sensor();
+
+    if (this->is_waiting_)
+        return;
+
+    if (this->is_first_read_)
+    {
+        // this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) this->calibration_status_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+        this->is_first_read_ = false;
+    }
+
+    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+    {
+        this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+
+        if (this->is_dosing_flag_)
+        {
+            this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+            this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+            this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+        }
+
+        this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
+    }
+    else
+        ESP_LOGV(TAG, "Not Scheduling new Command during update()");
 }
 
 void WaterQuality::version(const uint8_t ver)
@@ -379,6 +422,7 @@ void WaterQuality::sensor()
         this->DigIn_Stat_->publish_state(ds.str());
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }  // namespace water_quality

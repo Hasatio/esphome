@@ -9,7 +9,7 @@ from esphome.const import (
 )
 
 from . import (
-    component_ns, 
+    water_quality_ns, 
     WaterQuality,
     CONF_COMPONENT_ID
 )
@@ -23,8 +23,6 @@ CONF_EC = "EC"
 CONF_PH = "PH"
 
 UNIT_MICROSIEMENS_PER_CENTIMETER = "uS/cm"
-
-MySensor = component_ns.class_("MySensor", sensor.Sensor, cg.PollingComponent)
 
 CONFIG_SCHEMA = (
     cv.Schema(
