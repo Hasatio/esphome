@@ -73,6 +73,7 @@ void WaterQuality::dump_config()
     uint8_t dose = 0, circ = 0;
     float* calib = pump.get_Pump_Calib_Gain();
     uint8_t* type = pump.get_Pump_Type();
+    uint8_t* model = pump.get_Pump_Model();
 
     if (pump.get_Calibration_Mode())
         ESP_LOGI(TAG, "Pump Calibration Enable");
@@ -86,9 +87,11 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Pump_dose = %d", dose);
     ESP_LOGI(TAG, "Pump_circ = %d", circ);
     for (size_t i = 0; i < 6; i++)
+    {
         ESP_LOGI(TAG, "Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
-    for (size_t i = 0; i < 6; i++)
         ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
+        ESP_LOGI(TAG, "Pump_Model[%d] = %d", i, model[i]);
+    }
 
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
     for (size_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
