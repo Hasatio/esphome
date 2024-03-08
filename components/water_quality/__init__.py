@@ -241,7 +241,7 @@ async def to_code(config):
         
     cg.add(var.pump_calib_gain(calib))
     cg.add(var.pump_type(type))
-    cg.add(var.pump_model(type))
+    cg.add(var.pump_model(model))
     
         
     min = []
