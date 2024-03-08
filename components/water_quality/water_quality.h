@@ -298,7 +298,6 @@ text_sensor::TextSensor *AnInGen_Val_{nullptr};
 text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 };
 
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
