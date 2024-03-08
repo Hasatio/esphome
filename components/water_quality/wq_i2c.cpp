@@ -792,7 +792,7 @@ void WaterQuality::dose_volume(double volume)
 {
     if (this->volume_ != volume)
     {
-        this->volume_ == volume
+        this->volume_ == volume;
         this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME, volume, 0, true);
         this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
         this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
