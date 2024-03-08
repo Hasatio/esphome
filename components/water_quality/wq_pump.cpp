@@ -258,6 +258,7 @@ double Pump::Serial_Com_Pump_Driver()
     float* dose = get_Pump_Dose();
     uint32_t (*tot)[2] = get_Pump_Total();
     float min = get_Min();
+    double vol = 0;
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -304,15 +305,15 @@ double Pump::Serial_Com_Pump_Driver()
                 }
 
                 if (stat[i] == 1)
-                    return dose[i];
+                    vol = dose[i];
                 else
-                    return 0;
+                    vol = 0;
                     
                 // if (model[i] == 2)
                 //     pump[i] *= -calib[i];
             }
     }
-
+return vol;
 }
 
 }  // namespace water_quality
