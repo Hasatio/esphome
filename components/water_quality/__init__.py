@@ -156,7 +156,7 @@ async def to_code(config):
     if CONF_VERSION in config:
         cg.add(var.version(config[CONF_VERSION]))
         
-    empty = [0] * 1
+    zero = [0] * 1
     type = []
     calib = []
     model = []
@@ -164,80 +164,86 @@ async def to_code(config):
     conf = config[CONF_PUMP1][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
             
     conf = config[CONF_PUMP2][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
         
     conf = config[CONF_PUMP3][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
         
     conf = config[CONF_PUMP4][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
         
     conf = config[CONF_PUMP5][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
         
     conf = config[CONF_PUMP6][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
+        calib.append(conf[CONF_PUMP_CALIB_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
             model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
         else:
-            model.append(empty)
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+            model.append(zero)
     else:
-        calib.append(empty)
+        calib.append(zero)
+        model.append(zero)
         
     cg.add(var.pump_calib_gain(calib))
     cg.add(var.pump_type(type))
