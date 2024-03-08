@@ -129,6 +129,8 @@ void WaterQuality::update()
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
+    dose_volume(pump.Serial_Com_Pump_Driver());
+
     sensor();
 
     if (this->is_waiting_)

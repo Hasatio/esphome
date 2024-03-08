@@ -22,7 +22,7 @@ void Calibration_Status();
 void Generic_Pump_Driver(float pwm[]);
 void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
-void Serial_Com_Pump_Driver();
+double Serial_Com_Pump_Driver();
 
 void set_Calibration_Mode(bool cm)      { Calibration_Mode = cm; }
 void set_Pump_Calib_Gain(float pcg[])   { for (size_t i = 0; i < 6; i++) Pump_Calib_Gain[i] = pcg[i]; }
