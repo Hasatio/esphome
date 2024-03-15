@@ -987,8 +987,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         }
     }
     
-    EZOPMP_update();
     EZOPMP_loop();
+    EZOPMP_update();
 }
 void WaterQuality::EZOPMP_loop()
 {
