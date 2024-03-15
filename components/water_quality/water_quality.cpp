@@ -101,20 +101,6 @@ void WaterQuality::dump_config()
 }
 void WaterQuality::loop() 
 {
-    // If we are not waiting for anything and there is no command to be sent, return
-    if (!pump.is_waiting_ && pump.peek_next_command_() == EZO_PMP_COMMAND_NONE)
-        return;
-
-    // If we are not waiting for anything and there IS a command to be sent, do it.
-    if (!pump.is_waiting_ && pump.peek_next_command_() != EZO_PMP_COMMAND_NONE)
-        pump.send_next_command_();
-
-    // If we are waiting for something but it isn't ready yet, then return
-    if (pump.is_waiting_ && millis() - pump.start_time_ < pump.wait_time_)
-        return;
-
-    // We are waiting for something and it should be ready.
-    this->read_command_result_();
 }
 
 float a[8], p[16];
@@ -132,39 +118,10 @@ void WaterQuality::update()
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
-    dose_volume(pump.Serial_Com_Pump_Driver());
+    pump.Serial_Com_Pump_Driver(p);
+    EZOPMP_Driver(p);
 
     sensor();
-
-    if (pump.is_waiting_)
-        return;
-
-    if (pump.is_first_read_)
-    {
-        // pump.queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) pump.calibration_status_);
-        pump.queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) pump.max_flow_rate_);
-        pump.queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) pump.current_volume_dosed_);
-        pump.queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.total_volume_dosed_);
-        pump.queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.absolute_total_volume_dosed_);
-        pump.queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
-        pump.is_first_read_ = false;
-    }
-
-    if (!pump.is_waiting_ && pump.peek_next_command_() == EZO_PMP_COMMAND_NONE)
-    {
-        pump.queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
-
-        if (pump.is_dosing_flag_)
-        {
-            pump.queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) pump.current_volume_dosed_);
-            pump.queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.total_volume_dosed_);
-            pump.queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.absolute_total_volume_dosed_);
-        }
-
-        pump.queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) pump.pump_voltage_);
-    }
-    else
-        ESP_LOGV(TAG, "Not Scheduling new Command during update()");
 }
 
 void WaterQuality::version(const uint8_t ver)
