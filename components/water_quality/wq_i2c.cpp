@@ -968,7 +968,7 @@ uint16_t WaterQuality::peek_next_command_()
     return this->next_command_queue_[this->next_command_queue_head_];
 }
 
-void WaterQuality::EZOPMP_Driver(float volume)
+void WaterQuality::EZOPMP_Driver(float volume[])
 {
     // If we are not waiting for anything and there is no command to be sent, return
     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
