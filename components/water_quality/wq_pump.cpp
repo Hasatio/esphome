@@ -252,7 +252,7 @@ void Pump::Circulation_Controller(float pump[])
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  SERIAL
-double Pump::Serial_Com_Pump_Driver(float pump[])
+void Pump::Serial_Com_Pump_Driver(float pump[])
 {
     float* calib = get_Pump_Calib_Gain();
     uint8_t* type = get_Pump_Type();
