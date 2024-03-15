@@ -68,6 +68,17 @@ void stop_dosing();
 void change_i2c_address(int address);
 void exec_arbitrary_command(const std::basic_string<char> &command);
 
+void set_current_volume_dosed(float current_volume_dosed) { current_volume_dosed_ = current_volume_dosed; }
+void set_total_volume_dosed(float total_volume_dosed) { total_volume_dosed_ = total_volume_dosed; }
+void set_absolute_total_volume_dosed(float absolute_total_volume_dosed) { absolute_total_volume_dosed_ = absolute_total_volume_dosed; }
+void set_pump_voltage(float pump_voltage) { pump_voltage_ = pump_voltage; }
+void set_last_volume_requested(float last_volume_requested) { last_volume_requested_ = last_volume_requested; }
+void set_max_flow_rate(float max_flow_rate) { max_flow_rate_ = max_flow_rate; }
+void set_is_dosing(bool is_dosing) { is_dosing_ = is_dosing; }
+void set_is_paused(bool is_paused) { is_paused_ = is_paused; }
+void set_dosing_mode(std::string dosing_mode) { dosing_mode_ = dosing_mode; }
+void set_calibration_status(std::string calibration_status) { calibration_status_ = calibration_status; }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 protected:
