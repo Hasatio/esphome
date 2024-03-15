@@ -970,6 +970,16 @@ uint16_t WaterQuality::peek_next_command_()
 
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
+    for (size_t i = 0; i < 6; i++)
+    {
+        if (this->volume_[i] != volume[i] && volume[i] >= 0)
+        {
+            dose_volume(volume[i]);
+            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+            this->volume_[i] == volume[i];
+        }
+    }
+    
     // If we are not waiting for anything and there is no command to be sent, return
     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
         return;
@@ -1015,16 +1025,6 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     }
     else
         ESP_LOGV(TAG, "Not Scheduling new Command during update()");
-
-    for (size_t i = 0; i < 6; i++)
-    {
-        if (this->volume_[i] != volume[i] && volume[i] >= 0)
-        {
-            dose_volume(volume[i]);
-            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
-            this->volume_[i] == volume[i];
-        }
-    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
