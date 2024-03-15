@@ -972,14 +972,26 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 {
     for (size_t i = 0; i < 6; i++)
     {
-        if (this->volume_[i] != volume[i] && volume[i] >= 0)
+        if (this->volume_[i] != volume[i] && volume[i] >= -1)
         {
-            dose_volume(volume[i]);
-            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
             this->volume_[i] == volume[i];
+
+            if (volume[i] > 0)
+                dose_volume(volume[i]);
+            else if (volume[i] == -1)
+            {
+                pause_dosing();
+                this->volume_[i] = 0;
+            }
+            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
     }
     
+    EZOPMP_update();
+    EZOPMP_loop();
+}
+void WaterQuality::EZOPMP_loop()
+{
     // If we are not waiting for anything and there is no command to be sent, return
     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
         return;
@@ -994,8 +1006,9 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
     // We are waiting for something and it should be ready.
     this->read_command_result_();
-
-    
+}
+void WaterQuality::EZOPMP_update()
+{
     if (this->is_waiting_)
         return;
 
@@ -1026,6 +1039,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     else
         ESP_LOGV(TAG, "Not Scheduling new Command during update()");
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // void EC10() {/*DFRobot_EC10 ec;*/}

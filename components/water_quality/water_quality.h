@@ -159,6 +159,8 @@ void set_frequency(float frequency)     { this->frequency_ = frequency; }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EZOPMP
 void EZOPMP_Driver(float volume[]);
+void EZOPMP_update();
+void EZOPMP_loop();
 
 void find();
 void dose_continuously();

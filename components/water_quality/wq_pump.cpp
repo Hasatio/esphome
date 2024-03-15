@@ -288,10 +288,7 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
 
                     case 1:
                         if (dose[i] > 0)
-                            if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
-                                stat[i] = 1;
-                            else
-                                stat[i] = 0;
+                            stat[i] = 1;
                         else if (dose[i] == 0)
                             stat[i] = 2;
                         break;
@@ -306,6 +303,8 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
 
                 if (stat[i] == 1)
                     pump[i] = dose[i];
+                else if(stat[i] == 3)
+                    pump[i] = -1;
                 else
                     pump[i] = 0;
                     
@@ -313,7 +312,7 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
                 //     pump[i] *= -calib[i];
             }
             else
-                pump[i] = -1;
+                pump[i] = -2;
     }
 }
 
