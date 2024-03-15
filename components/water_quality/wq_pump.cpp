@@ -57,6 +57,8 @@ void Pump::Calibration_Status()
     set_Calibration_Mode(stat);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  GENERIC
 void Pump::Generic_Pump_Driver(float pwm[])
 {
     uint32_t (*tot)[2] = get_Pump_Total();
@@ -248,6 +250,8 @@ void Pump::Circulation_Controller(float pump[])
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  SERIAL
 double Pump::Serial_Com_Pump_Driver()
 {
     float* calib = get_Pump_Calib_Gain();
@@ -316,6 +320,132 @@ double Pump::Serial_Com_Pump_Driver()
     }
 return vol;
 }
+
+void Pump::find() { this->queue_command_(EZO_PMP_COMMAND_FIND, 0, 0, true); }
+void Pump::dose_continuously()
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_CONTINUOUSLY, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void Pump::dose_volume(double volume)
+{
+    if (this->volume_ != volume)
+    {
+        ESP_LOGI(TAG,"volume = %f", volume);
+        this->volume_ == volume;
+        this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME, volume, 0, true);
+        this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+        this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+    }
+}
+void Pump::dose_volume_over_time(double volume, int duration)
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME, volume, duration, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void Pump::dose_with_constant_flow_rate(double volume, int duration)
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE, volume, duration, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void Pump::set_calibration_volume(double volume)
+{
+    this->queue_command_(EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME, volume, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
+}
+void Pump::clear_total_volume_dosed()
+{
+    this->queue_command_(EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, true);
+}
+void Pump::clear_calibration()
+{
+    this->queue_command_(EZO_PMP_COMMAND_CLEAR_CALIBRATION, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
+}
+void Pump::pause_dosing()
+{
+    this->queue_command_(EZO_PMP_COMMAND_PAUSE_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+}
+void Pump::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOSING, 0, 0, true); }
+void Pump::change_i2c_address(int address)
+{
+    this->queue_command_(EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS, 0, address, true);
+}
+void Pump::exec_arbitrary_command(const std::basic_string<char> &command)
+{
+    this->arbitrary_command_ = command.c_str();
+    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
+}
+void Pump::clear_current_command_()
+{
+    this->current_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = false;
+}
+void Pump::queue_command_(uint16_t command, double volume, int duration, bool should_schedule)
+{
+    if (!should_schedule)
+        return;
+
+    if (this->next_command_queue_length_ >= 10)
+    {
+        ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
+        return;
+    }
+
+    this->next_command_queue_[this->next_command_queue_last_] = command;
+    this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
+    this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
+
+    ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
+
+    // Move positions
+    next_command_queue_last_++;
+    if (next_command_queue_last_ >= 10)
+        next_command_queue_last_ = 0;
+
+    next_command_queue_length_++;
+}
+void Pump::pop_next_command_()
+{
+    if (this->next_command_queue_length_ <= 0)
+    {
+        ESP_LOGE(TAG, "Tried to dequeue command from empty queue");
+        this->next_command_ = EZO_PMP_COMMAND_NONE;
+        this->next_command_volume_ = 0;
+        this->next_command_duration_ = 0;
+        return;
+    }
+
+    // Read from Head
+    this->next_command_ = this->next_command_queue_[this->next_command_queue_head_];
+    this->next_command_volume_ = this->next_command_volume_queue_[this->next_command_queue_head_];
+    this->next_command_duration_ = this->next_command_duration_queue_[this->next_command_queue_head_];
+
+    // Move positions
+    next_command_queue_head_++;
+    if (next_command_queue_head_ >= 10)
+        next_command_queue_head_ = 0;
+
+    next_command_queue_length_--;
+}
+uint16_t Pump::peek_next_command_()
+{
+    if (this->next_command_queue_length_ <= 0)
+        return EZO_PMP_COMMAND_NONE;
+
+    return this->next_command_queue_[this->next_command_queue_head_];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }  // namespace water_quality
 }  // namespace esphome
