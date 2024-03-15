@@ -102,15 +102,15 @@ void WaterQuality::dump_config()
 void WaterQuality::loop() 
 {
     // If we are not waiting for anything and there is no command to be sent, return
-    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+    if (!pump.is_waiting_ && pump.peek_next_command_() == EZO_PMP_COMMAND_NONE)
         return;
 
     // If we are not waiting for anything and there IS a command to be sent, do it.
-    if (!this->is_waiting_ && this->peek_next_command_() != EZO_PMP_COMMAND_NONE)
-        this->send_next_command_();
+    if (!pump.is_waiting_ && pump.peek_next_command_() != EZO_PMP_COMMAND_NONE)
+        pump.send_next_command_();
 
     // If we are waiting for something but it isn't ready yet, then return
-    if (this->is_waiting_ && millis() - this->start_time_ < this->wait_time_)
+    if (pump.is_waiting_ && millis() - pump.start_time_ < pump.wait_time_)
         return;
 
     // We are waiting for something and it should be ready.
@@ -136,32 +136,32 @@ void WaterQuality::update()
 
     sensor();
 
-    if (this->is_waiting_)
+    if (pump.is_waiting_)
         return;
 
-    if (this->is_first_read_)
+    if (pump.is_first_read_)
     {
-        // this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) this->calibration_status_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
-        this->is_first_read_ = false;
+        // pump.queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) pump.calibration_status_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) pump.max_flow_rate_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) pump.current_volume_dosed_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.total_volume_dosed_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.absolute_total_volume_dosed_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+        pump.is_first_read_ = false;
     }
 
-    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+    if (!pump.is_waiting_ && pump.peek_next_command_() == EZO_PMP_COMMAND_NONE)
     {
-        this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
 
-        if (this->is_dosing_flag_)
+        if (pump.is_dosing_flag_)
         {
-            this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-            this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-            this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+            pump.queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) pump.current_volume_dosed_);
+            pump.queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.total_volume_dosed_);
+            pump.queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) pump.absolute_total_volume_dosed_);
         }
 
-        this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
+        pump.queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) pump.pump_voltage_);
     }
     else
         ESP_LOGV(TAG, "Not Scheduling new Command during update()");
