@@ -103,10 +103,11 @@ void WaterQuality::loop()
 {
 }
 
-float a[8], p[16];
-bool d[4];
 void WaterQuality::update()
 {
+    float a[8], p[16];
+    bool d[4];
+
     ADS1115_Driver(a);
     an.Analog_Input_Driver(a);
 

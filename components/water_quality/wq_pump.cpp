@@ -269,7 +269,6 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
         if (type[i] == 1)
             if (model[i] == 2)
             {
-                ESP_LOGD(TAG,"here");
                 // if (pump[i] > 0)
                 // {
                 //     if (!get_Calibration_Mode())
