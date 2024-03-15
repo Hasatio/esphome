@@ -184,16 +184,16 @@ void set_is_paused(bool is_paused)                                          { is
 void set_dosing_mode(std::string dosing_mode)                               { dosing_mode_ = dosing_mode; }
 void set_calibration_status(std::string calibration_status)                 { calibration_status_ = calibration_status; }
 
-float get_current_volume_dosed()            { return current_volume_dosed_ }
-float get_total_volume_dosed()              { return total_volume_dosed_ }
-float get_absolute_total_volume_dosed()     { return absolute_total_volume_dosed_ }
-float get_pump_voltage()                    { return pump_voltage_ }
-float get_last_volume_requested()           { return last_volume_requested_ }
-float get_max_flow_rate()                   { return max_flow_rate_ }
-bool get_is_dosing()                        { return is_dosing_ }
-bool get_is_paused()                        { return is_paused_ }
-std::string get_dosing_mode()               { return dosing_mode_ }
-std::string get_calibration_status()        { return calibration_status_ }
+float get_current_volume_dosed()            { return current_volume_dosed_; }
+float get_total_volume_dosed()              { return total_volume_dosed_; }
+float get_absolute_total_volume_dosed()     { return absolute_total_volume_dosed_; }
+float get_pump_voltage()                    { return pump_voltage_; }
+float get_last_volume_requested()           { return last_volume_requested_; }
+float get_max_flow_rate()                   { return max_flow_rate_; }
+bool get_is_dosing()                        { return is_dosing_; }
+bool get_is_paused()                        { return is_paused_; }
+std::string get_dosing_mode()               { return dosing_mode_; }
+std::string get_calibration_status()        { return calibration_status_; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
