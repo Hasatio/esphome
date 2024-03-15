@@ -105,7 +105,7 @@ void WaterQuality::loop()
 
 void WaterQuality::update()
 {
-    float a[8], p[16], e[6];
+    float a[8], p[16] = {0}, e[6] = {0};
     bool d[4];
 
     ADS1115_Driver(a);
@@ -119,8 +119,8 @@ void WaterQuality::update()
     ser.Servo_driver(p);
     PCA9685_Driver(p);
 
-    // pump.Serial_Com_Pump_Driver(e);
-    // EZOPMP_Driver(e);
+    pump.Serial_Com_Pump_Driver(e);
+    EZOPMP_Driver(e);
 
     sensor();
 }
