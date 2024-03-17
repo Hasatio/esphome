@@ -80,7 +80,7 @@ class WaterQuality;
 class WQ_I2C
 {
 private:
-// WaterQuality *parent_;
+WaterQuality *parent_;
 friend class WaterQuality;
 
 public:
