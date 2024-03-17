@@ -1014,7 +1014,7 @@ void WaterQuality::EZOPMP_update()
 
     if (this->is_first_read_)
     {
-        this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) this->calibration_status_);
+        // this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, (bool) this->calibration_status_);
         this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
         this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
         this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
