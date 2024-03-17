@@ -40,22 +40,22 @@ void WaterQuality::dump_config()
 //  TCA9548
     // Wire.begin(SDA,SCL,frq);
 
-    // for (size_t t=0; t<8; t++) 
-    // {
-    //   tcaselect(t);
-    //   ESP_LOGI(TAG, "TCA Port %d", t);
+    for (size_t t=0; t<8; t++) 
+    {
+      tcaselect(t);
+      ESP_LOGI(TAG, "TCA Port %d", t);
 
-    //   for (uint8_t addr = 0; addr<=127; addr++) 
-    //   {
-    //     if (addr == TCA9548_ADDRESS) continue;
+      for (uint8_t addr = 0; addr<=127; addr++) 
+      {
+        if (addr == TCA9548_ADDRESS) continue;
 
-    //     Wire.beginTransmission(addr);
-    //     if (!Wire.endTransmission()) 
-    //     {
-    //       ESP_LOGI(TAG, "Found I2C 0x%x",addr);
-    //     }
-    //   }
-    // }
+        Wire.beginTransmission(addr);
+        if (!Wire.endTransmission()) 
+        {
+          ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+        }
+      }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -120,7 +120,7 @@ void WaterQuality::update()
     PCA9685_Driver(p);
 
     pump.Serial_Com_Pump_Driver(e);
-    EZOPMP_Driver(e);
+    // EZOPMP_Driver(e);
 
     sensor();
 }
