@@ -287,10 +287,10 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
                         break;
 
                     case 1:
-                        // if (dose[i] > 0)
+                        if (dose[i] > 0)
                             stat[i] = 1;
-                        // else if (dose[i] == 0)
-                        //     stat[i] = 2;
+                        else if (dose[i] == 0)
+                            stat[i] = 2;
                         break;
 
                     case 2:
