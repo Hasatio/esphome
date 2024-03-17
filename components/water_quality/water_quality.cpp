@@ -36,6 +36,29 @@ void WaterQuality::dump_config()
         ESP_LOGI(TAG, "Communication Successfulled!");
     LOG_UPDATE_INTERVAL(this);
         
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+    // Wire.begin(SDA,SCL,frq);
+
+    // for (size_t t=0; t<8; t++) 
+    // {
+    //   tcaselect(t);
+    //   ESP_LOGI(TAG, "TCA Port %d", t);
+
+    //   for (uint8_t addr = 0; addr<=127; addr++) 
+    //   {
+    //     if (addr == TCA9548_ADDRESS) continue;
+
+    //     Wire.beginTransmission(addr);
+    //     if (!Wire.endTransmission()) 
+    //     {
+    //       ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+    //     }
+    //   }
+    // }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     ESP_LOGCONFIG(TAG, "PCA9685:");
     if (this->extclk_) {
         ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
@@ -47,28 +70,6 @@ void WaterQuality::dump_config()
         ESP_LOGE(TAG, "Setting up PCA9685 failed!");
     }
     
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  TCA9548
-    // Wire.begin(SDA,SCL,frq);
-
-    for (size_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG, "TCA Port %d", t);
-
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
-        {
-          ESP_LOGI(TAG, "Found I2C 0x%x",addr);
-        }
-      }
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     uint8_t dose = 0, circ = 0;
     float* calib = pump.get_Pump_Calib_Gain();
     uint8_t* type = pump.get_Pump_Type();
