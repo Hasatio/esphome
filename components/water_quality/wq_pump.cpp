@@ -304,13 +304,13 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
                 if (stat[i] == 1)
                 {
                     pump[i] = dose[i];
-                    dose[i] = 0;
                 }
                 else if(stat[i] == 3)
                     pump[i] = -1;
                 else
                     pump[i] = 0;
                     
+                    dose[i] = 0;
                 // if (model[i] == 2)
                 //     pump[i] *= -calib[i];
             }
