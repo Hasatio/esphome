@@ -970,9 +970,9 @@ uint16_t WaterQuality::peek_next_command_()
 
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
-    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-    if (this->is_failed())
-        return;
+    // this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    // if (this->is_failed())
+    //     return;
 
     // uint8_t model = 0;
     
@@ -1007,9 +1007,9 @@ void WaterQuality::EZOPMP_Driver(float volume[])
             }
 
         }
-            EZOPMP_loop();
-            EZOPMP_update();
     
+        EZOPMP_loop();
+        EZOPMP_update();
 }
 void WaterQuality::EZOPMP_loop()
 {

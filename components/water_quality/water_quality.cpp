@@ -60,8 +60,8 @@ void WaterQuality::dump_config()
       {
         if (addr == TCA9548_ADDRESS) continue;
 
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
+        this->beginTransmission(addr);
+        if (!this->endTransmission()) 
         {
           ESP_LOGI(TAG, "Found I2C 0x%x",addr);
         }
