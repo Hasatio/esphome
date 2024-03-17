@@ -575,10 +575,6 @@ void WaterQuality::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOS
 
 void WaterQuality::send_next_command_()
 {
-    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-    if (this->is_failed())
-        return;
-
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
@@ -693,10 +689,6 @@ void WaterQuality::send_next_command_()
 }
 void WaterQuality::read_command_result_()
 {
-    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-    if (this->is_failed())
-        return;
-
     uint8_t response_buffer[21] = {'\0'};
 
     response_buffer[0] = 0;
@@ -970,25 +962,46 @@ uint16_t WaterQuality::peek_next_command_()
 
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
-    for (size_t i = 0; i < 6; i++)
-    {
-        if (this->volume_[i] != volume[i] && volume[i] >= -1)
-        {
-            this->volume_[i] == volume[i];
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
 
-            if (volume[i] > 0)
-                dose_volume(volume[i]);
-            else if (volume[i] == -1)
-            {
-                pause_dosing();
-                this->volume_[i] = 0;
-            }
-            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
-        }
-    }
+    // uint8_t model = 0;
     
-    EZOPMP_loop();
-    EZOPMP_update();
+    // for (size_t i = 0; i < 6; i++)
+    // {
+    //     if (Pump_Model[i] != 0)
+    //         model++;
+    // }
+
+    // if (model > 0)
+    //     for (size_t i = 0; i < model; i++)
+    //     {
+    //         this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    //         if (!this->is_failed())
+    //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
+    //     }
+
+        for (size_t i = 0; i < 6; i++)
+        {
+            if (this->volume_[i] != volume[i] && volume[i] >= -1)
+            {
+                this->volume_[i] == volume[i];
+
+                if (volume[i] > 0)
+                    dose_volume(volume[i]);
+                else if (volume[i] == -1)
+                {
+                    pause_dosing();
+                    this->volume_[i] = 0;
+                }
+                ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+            }
+
+            EZOPMP_loop();
+            EZOPMP_update();
+        }
+    
 }
 void WaterQuality::EZOPMP_loop()
 {
