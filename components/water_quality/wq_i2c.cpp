@@ -696,7 +696,7 @@ void WaterQuality::read_command_result_()
     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
     if (this->is_failed())
         return;
-        
+
     uint8_t response_buffer[21] = {'\0'};
 
     response_buffer[0] = 0;
@@ -1006,9 +1006,9 @@ void WaterQuality::EZOPMP_Driver(float volume[])
                 ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
             }
 
+        }
             EZOPMP_loop();
             EZOPMP_update();
-        }
     
 }
 void WaterQuality::EZOPMP_loop()
