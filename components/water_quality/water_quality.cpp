@@ -120,7 +120,7 @@ void WaterQuality::update()
     PCA9685_Driver(p);
 
     pump.Serial_Com_Pump_Driver(e);
-    // EZOPMP_Driver(e);
+    EZOPMP_Driver(e);
 
     sensor();
 }
