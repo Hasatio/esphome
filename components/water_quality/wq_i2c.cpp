@@ -575,6 +575,10 @@ void WaterQuality::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOS
 
 void WaterQuality::send_next_command_()
 {
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+        
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
@@ -689,6 +693,10 @@ void WaterQuality::send_next_command_()
 }
 void WaterQuality::read_command_result_()
 {
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+        
     uint8_t response_buffer[21] = {'\0'};
 
     response_buffer[0] = 0;
