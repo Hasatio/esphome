@@ -38,26 +38,28 @@ void WaterQuality::dump_config()
         
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
-#ifdef I2CBus
     // Wire.begin(SDA,SCL,frq);
 
-    for (size_t t=0; t<8; t++) 
-    {
-      tcaselect(t);
-      ESP_LOGI(TAG, "TCA Port %d", t);
+    Wire.beginTransmission(TCA9548_ADDRESS);
+    uint8_t error = Wire.endTransmission();
 
-      for (uint8_t addr = 0; addr<=127; addr++) 
-      {
-        if (addr == TCA9548_ADDRESS) continue;
-
-        Wire.beginTransmission(addr);
-        if (!Wire.endTransmission()) 
+    if(error == 0)
+        for (size_t t=0; t<8; t++) 
         {
-          ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+            tcaselect(t);
+            ESP_LOGI(TAG, "TCA Port %d", t);
+
+            for (uint8_t addr = 0; addr<=127; addr++) 
+            {
+                if (addr == TCA9548_ADDRESS) continue;
+
+                Wire.beginTransmission(addr);
+                if (!Wire.endTransmission()) 
+                {
+                ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+                }
+            }
         }
-      }
-    }
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
