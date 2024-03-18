@@ -694,7 +694,7 @@ void WaterQuality::read_command_result_()
     response_buffer[0] = 0;
     if (!this->read_bytes_raw(response_buffer, 20))
     {
-        ESP_LOGE(TAG, "read error");
+        // ESP_LOGE(TAG, "read error");
         this->clear_current_command_();
         return;
     }
@@ -783,7 +783,7 @@ void WaterQuality::read_command_result_()
                 this->is_dosing_flag_ = parsed_third_parameter.value_or(0) == 1;
 
             if (this->is_dosing_)
-                this->is_dosing_ = (this->is_dosing_flag_);
+                this->is_dosing_->publish_state(this->is_dosing_flag_);
 
             if (parsed_second_parameter.has_value() && this->last_volume_requested_)
                 this->last_volume_requested_ = (parsed_second_parameter.value_or(0));
