@@ -41,13 +41,14 @@ void WaterQuality::dump_config()
     // Wire.begin(SDA,SCL,frq);
 
     Wire.beginTransmission(TCA9548_ADDRESS);
-    uint8_t error = Wire.endTransmission();
+    if(!Wire.endTransmission())
+    {
+        ESP_LOGCONFIG(TAG, "TCA9548:");
 
-    if(error == 0)
-        for (size_t t=0; t<8; t++) 
+        for (size_t t=0; t<8; t++)
         {
             tcaselect(t);
-            ESP_LOGI(TAG, "TCA Port %d", t);
+            ESP_LOGI(TAG, "Channel %d:", t);
 
             for (uint8_t addr = 0; addr<=127; addr++) 
             {
@@ -56,10 +57,11 @@ void WaterQuality::dump_config()
                 Wire.beginTransmission(addr);
                 if (!Wire.endTransmission()) 
                 {
-                ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+                    ESP_LOGI(TAG, "Found I2C 0x%x",addr);
                 }
             }
         }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
