@@ -737,7 +737,7 @@ void WaterQuality::read_command_result_()
             break;
 
         case EZO_PMP_COMMAND_READ_NAMING_DEVICE:  // Naming Device (page 68)
-            if (parsed_second_parameter.has_value() && this->name_)
+            if (parsed_second_parameter.has_value() && this->name_ != "")
                 this->name_ = (parsed_second_parameter.value_or(0));
             break;
 
