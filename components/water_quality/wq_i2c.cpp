@@ -572,125 +572,15 @@ void WaterQuality::pause_dosing()
     this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
 }
 void WaterQuality::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOSING, 0, 0, true); }
-
-void WaterQuality::send_next_command_()
+void WaterQuality::change_i2c_address(int address)
 {
-    int wait_time_for_command = 400;  // milliseconds
-    uint8_t command_buffer[21];
-    int command_buffer_length = 0;
+    this->queue_command_(EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS, 0, address, true);
+}
 
-    this->pop_next_command_();  // this->next_command will be updated.
-
-    switch (this->next_command_)
-    {
-        // Read Commands
-        case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
-            command_buffer_length = sprintf((char *) command_buffer, "D,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
-            command_buffer_length = sprintf((char *) command_buffer, "R");
-            break;
-
-        case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:
-            command_buffer_length = sprintf((char *) command_buffer, "DC,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_PAUSE_STATUS:
-            command_buffer_length = sprintf((char *) command_buffer, "P,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:
-            command_buffer_length = sprintf((char *) command_buffer, "TV,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:
-            command_buffer_length = sprintf((char *) command_buffer, "ATV,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:
-            command_buffer_length = sprintf((char *) command_buffer, "Cal,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:
-            command_buffer_length = sprintf((char *) command_buffer, "PV,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:
-            command_buffer_length = sprintf((char *) command_buffer, "Name,?");
-            break;
-
-        // Non-Read Commands
-
-        case EZO_PMP_COMMAND_FIND:  // Find (page 52)
-            command_buffer_length = sprintf((char *) command_buffer, "Find");
-            wait_time_for_command = 60000;  // This command will block all updates for a minute
-            break;
-
-        case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
-            command_buffer_length = sprintf((char *) command_buffer, "D,*");
-            break;
-
-        case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
-            command_buffer_length = sprintf((char *) command_buffer, "Clear");
-            break;
-
-        case EZO_PMP_COMMAND_CLEAR_CALIBRATION:  // Clear Calibration (page 65)
-            command_buffer_length = sprintf((char *) command_buffer, "Cal,clear");
-            break;
-
-        case EZO_PMP_COMMAND_PAUSE_DOSING:  // Pause (page 61)
-            command_buffer_length = sprintf((char *) command_buffer, "P");
-            break;
-
-        case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
-            command_buffer_length = sprintf((char *) command_buffer, "X");
-            break;
-
-        // Non-Read commands with parameters
-
-        case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
-            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f", this->next_command_volume_);
-            break;
-
-        case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
-            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
-            break;
-
-        case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
-            command_buffer_length = sprintf((char *) command_buffer, "DC,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
-            break;
-
-        case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:  // Set Calibration Volume (page 65)
-            command_buffer_length = sprintf((char *) command_buffer, "Cal,%0.2f", this->next_command_volume_);
-            break;
-
-        case EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS:  // Change I2C Address (page 73)
-            command_buffer_length = sprintf((char *) command_buffer, "I2C,%i", this->next_command_duration_);
-            break;
-
-        case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:  // Run an arbitrary command
-            command_buffer_length = sprintf((char *) command_buffer, this->arbitrary_command_, this->next_command_duration_);
-            ESP_LOGI(TAG, "Sending arbitrary command: %s", (char *) command_buffer);
-            break;
-
-        case EZO_PMP_COMMAND_TYPE_READ:
-        case EZO_PMP_COMMAND_NONE:
-        default:
-            ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
-            return;
-    }
-
-    ESP_LOGI(TAG,"write command: %s", command_buffer);
-    // Send command
-    ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
-    this->write(command_buffer, command_buffer_length);
-
-    this->current_command_ = this->next_command_;
-    this->next_command_ = EZO_PMP_COMMAND_NONE;
-    this->is_waiting_ = true;
-    this->start_time_ = millis();
-    this->wait_time_ = wait_time_for_command;
+void WaterQuality::clear_current_command_()
+{
+    this->current_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = false;
 }
 void WaterQuality::read_command_result_()
 {
@@ -902,43 +792,124 @@ void WaterQuality::read_command_result_()
 
     this->clear_current_command_();
 }
-void WaterQuality::change_i2c_address(int address)
+void WaterQuality::send_next_command_()
 {
-    this->queue_command_(EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS, 0, address, true);
-}
-void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
-{
-    this->arbitrary_command_ = command.c_str();
-    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
-}
-void WaterQuality::clear_current_command_()
-{
-    this->current_command_ = EZO_PMP_COMMAND_NONE;
-    this->is_waiting_ = false;
-}
-void WaterQuality::queue_command_(uint16_t command, float volume, int duration, bool should_schedule)
-{
-    if (!should_schedule)
-        return;
+    int wait_time_for_command = 400;  // milliseconds
+    uint8_t command_buffer[21];
+    int command_buffer_length = 0;
 
-    if (this->next_command_queue_length_ >= 10)
+    this->pop_next_command_();  // this->next_command will be updated.
+
+    switch (this->next_command_)
     {
-        ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
-        return;
+        // Read Commands
+        case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
+            command_buffer_length = sprintf((char *) command_buffer, "D,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
+            command_buffer_length = sprintf((char *) command_buffer, "R");
+            break;
+
+        case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:
+            command_buffer_length = sprintf((char *) command_buffer, "DC,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_PAUSE_STATUS:
+            command_buffer_length = sprintf((char *) command_buffer, "P,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:
+            command_buffer_length = sprintf((char *) command_buffer, "TV,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:
+            command_buffer_length = sprintf((char *) command_buffer, "ATV,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:
+            command_buffer_length = sprintf((char *) command_buffer, "PV,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:
+            command_buffer_length = sprintf((char *) command_buffer, "Name,?");
+            break;
+
+        // Non-Read Commands
+
+        case EZO_PMP_COMMAND_FIND:  // Find (page 52)
+            command_buffer_length = sprintf((char *) command_buffer, "Find");
+            wait_time_for_command = 60000;  // This command will block all updates for a minute
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
+            command_buffer_length = sprintf((char *) command_buffer, "D,*");
+            break;
+
+        case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
+            command_buffer_length = sprintf((char *) command_buffer, "Clear");
+            break;
+
+        case EZO_PMP_COMMAND_CLEAR_CALIBRATION:  // Clear Calibration (page 65)
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,clear");
+            break;
+
+        case EZO_PMP_COMMAND_PAUSE_DOSING:  // Pause (page 61)
+            command_buffer_length = sprintf((char *) command_buffer, "P");
+            break;
+
+        case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
+            command_buffer_length = sprintf((char *) command_buffer, "X");
+            break;
+
+        // Non-Read commands with parameters
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
+            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f", this->next_command_volume_);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
+            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
+            command_buffer_length = sprintf((char *) command_buffer, "DC,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:  // Set Calibration Volume (page 65)
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,%0.2f", this->next_command_volume_);
+            break;
+
+        case EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS:  // Change I2C Address (page 73)
+            command_buffer_length = sprintf((char *) command_buffer, "I2C,%i", this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:  // Run an arbitrary command
+            command_buffer_length = sprintf((char *) command_buffer, this->arbitrary_command_, this->next_command_duration_);
+            ESP_LOGI(TAG, "Sending arbitrary command: %s", (char *) command_buffer);
+            break;
+
+        case EZO_PMP_COMMAND_TYPE_READ:
+        case EZO_PMP_COMMAND_NONE:
+        default:
+            ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
+            return;
     }
 
-    this->next_command_queue_[this->next_command_queue_last_] = command;
-    this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
-    this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
+    ESP_LOGI(TAG,"write command: %s", command_buffer);
+    // Send command
+    ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
+    this->write(command_buffer, command_buffer_length);
 
-    ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
-
-    // Move positions
-    next_command_queue_last_++;
-    if (next_command_queue_last_ >= 10)
-        next_command_queue_last_ = 0;
-
-    next_command_queue_length_++;
+    this->current_command_ = this->next_command_;
+    this->next_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = true;
+    this->start_time_ = millis();
+    this->wait_time_ = wait_time_for_command;
 }
 void WaterQuality::pop_next_command_()
 {
@@ -969,6 +940,35 @@ uint16_t WaterQuality::peek_next_command_()
         return EZO_PMP_COMMAND_NONE;
 
     return this->next_command_queue_[this->next_command_queue_head_];
+}
+void WaterQuality::queue_command_(uint16_t command, float volume, int duration, bool should_schedule)
+{
+    if (!should_schedule)
+        return;
+
+    if (this->next_command_queue_length_ >= 10)
+    {
+        ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
+        return;
+    }
+
+    this->next_command_queue_[this->next_command_queue_last_] = command;
+    this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
+    this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
+
+    ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
+
+    // Move positions
+    next_command_queue_last_++;
+    if (next_command_queue_last_ >= 10)
+        next_command_queue_last_ = 0;
+
+    next_command_queue_length_++;
+}
+void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
+{
+    this->arbitrary_command_ = command.c_str();
+    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
 }
 
 void WaterQuality::EZOPMP_Driver(float volume[])
