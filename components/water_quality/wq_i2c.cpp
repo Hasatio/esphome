@@ -677,6 +677,7 @@ void WaterQuality::send_next_command_()
             return;
     }
 
+    ESP_LOGI(TAG,"write command: %s", command_buffer);
     // Send command
     ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
     this->write(command_buffer, command_buffer_length);
@@ -775,6 +776,7 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
+    ESP_LOGI(TAG,"read command: %d", this->current_command_);
     switch (this->current_command_)
     {
         // Read Commands
