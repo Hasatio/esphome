@@ -67,6 +67,7 @@ static const uint16_t EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED = 33;
 static const uint16_t EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED = 65;
 static const uint16_t EZO_PMP_COMMAND_READ_CALIBRATION_STATUS = 129;
 static const uint16_t EZO_PMP_COMMAND_READ_PUMP_VOLTAGE = 257;
+static const uint16_t EZO_PMP_COMMAND_READ_NAMING_DEVICE = 513;
 
 static const std::string DOSING_MODE_NONE = "None";
 static const std::string DOSING_MODE_VOLUME = "Volume";

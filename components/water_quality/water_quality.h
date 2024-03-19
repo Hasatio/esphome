@@ -295,16 +295,17 @@ void pop_next_command_();
 uint16_t peek_next_command_();
 
 float volume_[6] = {0};
-float current_volume_dosed_= 0;
-float total_volume_dosed_= 0;
-float absolute_total_volume_dosed_= 0;
-float pump_voltage_= 0;
-float max_flow_rate_= 0;
-float last_volume_requested_= 0;
-bool is_dosing_= 0;
-bool is_paused_= 0;
-std::string dosing_mode_= {0};
-std::string calibration_status_= {0};
+float current_volume_dosed_ = 0;
+float total_volume_dosed_ = 0;
+float absolute_total_volume_dosed_ = 0;
+float pump_voltage_ = 0;
+float max_flow_rate_ = 0;
+float last_volume_requested_ = 0;
+bool is_dosing_ = 0;
+bool is_paused_ = 0;
+std::string name_ = {0};
+std::string dosing_mode_ = {0};
+std::string calibration_status_ = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor

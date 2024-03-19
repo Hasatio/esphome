@@ -616,6 +616,10 @@ void WaterQuality::send_next_command_()
             command_buffer_length = sprintf((char *) command_buffer, "PV,?");
             break;
 
+        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:
+            command_buffer_length = sprintf((char *) command_buffer, "Name,?");
+            break;
+
         // Non-Read Commands
 
         case EZO_PMP_COMMAND_FIND:  // Find (page 52)
@@ -840,6 +844,11 @@ void WaterQuality::read_command_result_()
         case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:  // Pump Voltage (page 67)
             if (parsed_second_parameter.has_value() && this->pump_voltage_)
                 this->pump_voltage_ = (parsed_second_parameter.value_or(0));
+            break;
+
+        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:  // Naming Device (page 68)
+            if (parsed_second_parameter.has_value() && this->name_)
+                this->name_ = (parsed_second_parameter.value_or(0));
             break;
 
         // Non-Read Commands
