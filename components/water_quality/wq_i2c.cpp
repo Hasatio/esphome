@@ -970,6 +970,10 @@ void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command
     this->arbitrary_command_ = command.c_str();
     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
 }
+void WaterQuality::custom_command(uint16_t command)
+{
+    this->queue_command_(command, 0, 0, true);
+}
 
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
