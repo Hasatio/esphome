@@ -973,7 +973,7 @@ void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command
 void WaterQuality::custom_command()
 {
     this->queue_command_(513, 0, 0, true);
-    ESP_LOGI(TAG, "Name: %s", this->name_);
+    ESP_LOGI(TAG, "Name: %s", this->name_.c_str());
             
 }
 
