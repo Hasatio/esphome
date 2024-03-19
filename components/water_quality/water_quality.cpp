@@ -59,8 +59,9 @@ void WaterQuality::dump_config()
                 {
                     ESP_LOGI(TAG, "Found I2C 0x%x",addr);
                 }
-                else if(Wire.endTransmission() == 4)
-                    ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+                else //if(Wire.endTransmission() == 4)
+                    // ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+                    ESP_LOGE(TAG, "Wire: %d",Wire.endTransmission());
             }
         }
     }
