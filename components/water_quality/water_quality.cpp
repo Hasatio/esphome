@@ -81,7 +81,7 @@ void WaterQuality::dump_config()
     }
     
     uint8_t dose = 0, circ = 0;
-    float* calib = pump.get_Pump_Calib_Gain();
+    float* calib = pump.get_Pump_Calibraion_Gain();
     uint8_t* type = pump.get_Pump_Type();
     uint8_t* model = pump.get_Pump_Model();
 
@@ -144,7 +144,7 @@ void WaterQuality::pump_calibration(std::vector<bool> &pcal)
     bool* pcal_ = pump.get_Pump_Calibration();
     std::vector<bool> pc(pcal_, pcal_ + 6);
 
-    if (pc != pres)
+    if (pc != pcal)
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -165,7 +165,7 @@ void WaterQuality::pump_calibration_gain(const std::vector<float> &pcal)
             pcal_[i] = 0;
     }
 
-    pump.set_Pump_Calib_Gain(pcal_);
+    pump.set_Pump_Calibration_Gain(pcal_);
 }
 void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 {
