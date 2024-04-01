@@ -247,7 +247,7 @@ void VEML7700::update()
     }
 }
 
-ErrorCode VEML7700Component::configure_()
+ErrorCode VEML7700::configure_()
 {
     ESP_LOGV(TAG, "Configure");
 
@@ -289,7 +289,7 @@ ErrorCode VEML7700Component::configure_()
 
     return err;
 }
-ErrorCode VEML7700Component::reconfigure_time_and_gain_(IntegrationTime time, Gain gain, bool shutdown)
+ErrorCode VEML7700::reconfigure_time_and_gain_(IntegrationTime time, Gain gain, bool shutdown)
 {
     ESP_LOGV(TAG, "Reconfigure time and gain (%d ms, %s) %s", get_itime_ms(time), get_gain_str(gain), shutdown ? "Shutting down" : "Turning back on");
 
@@ -310,7 +310,7 @@ ErrorCode VEML7700Component::reconfigure_time_and_gain_(IntegrationTime time, Ga
 
     return err;
 }
-ErrorCode VEML7700Component::read_sensor_output_(Readings &data)
+ErrorCode VEML7700::read_sensor_output_(Readings &data)
 {
     auto als_err = this->read_register((uint8_t) CommandRegisters::ALS, (uint8_t *) &data.als_counts, VEML_REG_SIZE, false);
     if (als_err != i2c::ERROR_OK)
@@ -336,7 +336,7 @@ ErrorCode VEML7700Component::read_sensor_output_(Readings &data)
     return std::max(als_err, white_err);
 }
 
-bool VEML7700Component::are_adjustments_required_(Readings &data)
+bool VEML7700::are_adjustments_required_(Readings &data)
 {
     // skip first sample in auto mode -
     // we need to reconfigure device after last measurement
@@ -390,7 +390,7 @@ bool VEML7700Component::are_adjustments_required_(Readings &data)
     // or there is no room to change sensitivity anymore
     return false;
 }
-void VEML7700Component::apply_lux_calculation_(Readings &data)
+void VEML7700::apply_lux_calculation_(Readings &data)
 {
     static const float MAX_GAIN = 2.0f;
     static const float MAX_ITIME_MS = 800.0f;
@@ -404,7 +404,7 @@ void VEML7700Component::apply_lux_calculation_(Readings &data)
 
     ESP_LOGV(TAG, "%s mode - ALS = %.1f lx, WHITE = %.1f lx, FAKE_IR = %.1f lx", this->automatic_mode_enabled_ ? "Automatic" : "Manual", data.als_lux, data.white_lux, data.fake_infrared_lux);
 }
-void VEML7700Component::apply_lux_compensation_(Readings &data)
+void VEML7700::apply_lux_compensation_(Readings &data)
 {
     if (!this->lux_compensation_enabled_)
         return;
@@ -435,14 +435,14 @@ void VEML7700Component::apply_lux_compensation_(Readings &data)
 
     ESP_LOGV(TAG, "Lux compensation - ALS = %.1f lx, WHITE = %.1f lx, FAKE_IR = %.1f lx", data.als_lux, data.white_lux, data.fake_infrared_lux);
 }
-void VEML7700Component::apply_glass_attenuation_(Readings &data)
+void VEML7700::apply_glass_attenuation_(Readings &data)
 {
     data.als_lux *= this->glass_attenuation_factor_;
     data.white_lux *= this->glass_attenuation_factor_;
     data.fake_infrared_lux = reduce_to_zero(data.white_lux, data.als_lux);
     ESP_LOGV(TAG, "Glass attenuation - ALS = %.1f lx, WHITE = %.1f lx, FAKE_IR = %.1f lx", data.als_lux, data.white_lux, data.fake_infrared_lux);
 }
-void VEML7700Component::publish_data_part_1_(Readings &data)
+void VEML7700::publish_data_part_1_(Readings &data)
 {
     if (this->ambient_light_sensor_ != nullptr)
     {
@@ -453,7 +453,7 @@ void VEML7700Component::publish_data_part_1_(Readings &data)
         this->white_sensor_->publish_state(data.white_lux);
     }
 }
-void VEML7700Component::publish_data_part_2_(Readings &data)
+void VEML7700::publish_data_part_2_(Readings &data)
 {
     if (this->fake_infrared_sensor_ != nullptr)
     {
@@ -468,7 +468,7 @@ void VEML7700Component::publish_data_part_2_(Readings &data)
         this->white_counts_sensor_->publish_state(data.white_counts);
     }
 }
-void VEML7700Component::publish_data_part_3_(Readings &data)
+void VEML7700::publish_data_part_3_(Readings &data)
 {
     if (this->actual_gain_sensor_ != nullptr)
     {
