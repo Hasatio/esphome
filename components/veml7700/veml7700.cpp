@@ -23,7 +23,7 @@ void VEML7700::setup()
 
   // tcaselect(4);
   //Wire.beginTransmission(0x10);
-  if (!veml.begin())
+  if (!veml.begin(this))
       ESP_LOGE(TAG,"Failed to initialize VEML7700.");
   else
       ESP_LOGI(TAG,"Successfulled to initialize VEML7700.");
