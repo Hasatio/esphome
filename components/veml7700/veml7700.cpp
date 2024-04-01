@@ -101,6 +101,45 @@ void VEML7700::setup()
 void VEML7700::dump_config()
 {
     LOG_I2C_DEVICE(this);
+    if (this->is_failed())
+        ESP_LOGE(TAG, "Communication failed!");
+    else
+        ESP_LOGI(TAG, "Communication Successfulled!");
+    LOG_UPDATE_INTERVAL(this);
+    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+
+    Wire.beginTransmission(TCA9548_ADDRESS);
+    if(!Wire.endTransmission())
+    {
+        ESP_LOGCONFIG(TAG, "TCA9548:");
+
+        for (size_t t=0; t<8; t++)
+        {
+            tcaselect(t);
+            ESP_LOGI(TAG, "Channel %d:", t);
+
+            for (uint8_t addr = 0; addr<=127; addr++) 
+            {
+                if (addr == TCA9548_ADDRESS) continue;
+
+                Wire.beginTransmission(addr);
+                if (!Wire.endTransmission()) 
+                {
+                    if (addr < 16)
+                        ESP_LOGI(TAG, "Found I2C 0x0%x",addr);
+                    else
+                        ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+                }
+                else if(Wire.endTransmission() == 4)
+                    ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+            }
+        }
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     ESP_LOGCONFIG(TAG, "  Automatic gain/time: %s", YESNO(this->automatic_mode_enabled_));
     
     if (!this->automatic_mode_enabled_)
@@ -131,7 +170,7 @@ void VEML7700::loop()
     this->set_i2c_address(VEML7700_ADDRESS);
     if (this->is_failed())
         return;
-        
+
     ErrorCode err = i2c::ERROR_OK;
 
     if (this->state_ == State::INITIAL_SETUP_COMPLETED)
