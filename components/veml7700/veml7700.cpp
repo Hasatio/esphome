@@ -8,6 +8,80 @@ static const size_t VEML_REG_SIZE = 2;
 
 static float reduce_to_zero(float a, float b) { return (a > b) ? (a - b) : 0; }
 
+template<typename T, size_t size> T get_next(const T (&array)[size], const T val)
+{
+    size_t i = 0;
+    size_t idx = -1;
+    while (idx == -1 && i < size)
+    {
+        if (array[i] == val)
+        {
+            idx = i;
+            break;
+        }
+        i++;
+    }
+    if (idx == -1 || i + 1 >= size)
+        return val;
+    return array[i + 1];
+}
+template<typename T, size_t size> T get_prev(const T (&array)[size], const T val)
+{
+    size_t i = size - 1;
+    size_t idx = -1;
+    while (idx == -1 && i > 0)
+    {
+        if (array[i] == val)
+        {
+            idx = i;
+            break;
+        }
+        i--;
+    }
+    if (idx == -1 || i == 0)
+        return val;
+    return array[i - 1];
+}
+
+static uint16_t get_itime_ms(IntegrationTime time)
+{
+    uint16_t ms = 0;
+    switch (time)
+    {
+        case INTEGRATION_TIME_100MS:
+            ms = 100;
+            break;
+        case INTEGRATION_TIME_200MS:
+            ms = 200;
+            break;
+        case INTEGRATION_TIME_400MS:
+            ms = 400;
+            break;
+        case INTEGRATION_TIME_800MS:
+            ms = 800;
+            break;
+        case INTEGRATION_TIME_50MS:
+            ms = 50;
+            break;
+        case INTEGRATION_TIME_25MS:
+            ms = 25;
+            break;
+        default:
+            ms = 100;
+    }
+    return ms;
+}
+static float get_gain_coeff(Gain gain)
+{
+    static const float GAIN_FLOAT[GAINS_COUNT] = {1.0f, 2.0f, 0.125f, 0.25f};
+    return GAIN_FLOAT[gain & 0b11];
+}
+static const char *get_gain_str(Gain gain)
+{
+    static const char *gain_str[GAINS_COUNT] = {"1x", "2x", "1/8x", "1/4x"};
+    return gain_str[gain & 0b11];
+}
+
 void VEML7700::setup()
 {  
     this->set_i2c_address(VEML7700_ADDRESS);
@@ -23,10 +97,6 @@ void VEML7700::setup()
     } else {
         this->state_ = State::INITIAL_SETUP_COMPLETED;
     }
-
-  veml.setGain(VEML_GAIN); // in example is VEML7700_GAIN_1
-  veml.setIntegrationTime(VEML_IT); // in example is VEML7700_IT_800MS
-  //veml.readLux(); // fetch the first entry, but discard it - it will be wrong
 }
 void VEML7700::dump_config()
 {
@@ -408,41 +478,6 @@ void VEML7700Component::publish_data_part_3_(Readings &data)
     {
         this->actual_integration_time_sensor_->publish_state(get_itime_ms(data.actual_time));
     }
-}
-
-template<typename T, size_t size> T get_next(const T (&array)[size], const T val)
-{
-    size_t i = 0;
-    size_t idx = -1;
-    while (idx == -1 && i < size)
-    {
-        if (array[i] == val)
-        {
-            idx = i;
-            break;
-        }
-        i++;
-    }
-    if (idx == -1 || i + 1 >= size)
-        return val;
-    return array[i + 1];
-}
-template<typename T, size_t size> T get_prev(const T (&array)[size], const T val)
-{
-    size_t i = size - 1;
-    size_t idx = -1;
-    while (idx == -1 && i > 0)
-    {
-        if (array[i] == val)
-        {
-            idx = i;
-            break;
-        }
-        i--;
-    }
-    if (idx == -1 || i == 0)
-        return val;
-    return array[i - 1];
 }
 
 }  // namespace veml7700

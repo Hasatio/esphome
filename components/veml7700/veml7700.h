@@ -10,10 +10,6 @@
 // I2C Address
 #define VEML7700_ADDRESS 0x10
 
-#define VEML_GAIN VEML7700_GAIN_1 // GAIN_1 is 'default'
-#define VEML_IT VEML7700_IT_100MS // 100MS is 'default'
-// gain 1, IT 100mS, means the max light level reported will be 3775
-
 namespace esphome {
 namespace veml7700 {
 
