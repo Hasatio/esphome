@@ -128,6 +128,10 @@ void VEML7700::dump_config()
 } 
 void VEML7700::loop()
 {
+    this->set_i2c_address(VEML7700_ADDRESS);
+    if (this->is_failed())
+        return;
+        
     ErrorCode err = i2c::ERROR_OK;
 
     if (this->state_ == State::INITIAL_SETUP_COMPLETED)

@@ -19,45 +19,45 @@ using esphome::i2c::ErrorCode;
 
 enum class CommandRegisters : uint8_t
 {
-  ALS_CONF_0 = 0x00,  // W: ALS gain, integration time, interrupt, and shutdown
-  ALS_WH = 0x01,      // W: ALS high threshold window setting
-  ALS_WL = 0x02,      // W: ALS low threshold window setting
-  PWR_SAVING = 0x03,  // W: Set (15 : 3) 0000 0000 0000 0b
-  ALS = 0x04,         // R: MSB, LSB data of whole ALS 16 bits
-  WHITE = 0x05,       // R: MSB, LSB data of whole WHITE 16 bits
-  ALS_INT = 0x06      // R: ALS INT trigger event
+    ALS_CONF_0 = 0x00,  // W: ALS gain, integration time, interrupt, and shutdown
+    ALS_WH = 0x01,      // W: ALS high threshold window setting
+    ALS_WL = 0x02,      // W: ALS low threshold window setting
+    PWR_SAVING = 0x03,  // W: Set (15 : 3) 0000 0000 0000 0b
+    ALS = 0x04,         // R: MSB, LSB data of whole ALS 16 bits
+    WHITE = 0x05,       // R: MSB, LSB data of whole WHITE 16 bits
+    ALS_INT = 0x06      // R: ALS INT trigger event
 };
 enum Gain : uint8_t
 {
-  X_1 = 0,
-  X_2 = 1,
-  X_1_8 = 2,
-  X_1_4 = 3,
+    X_1 = 0,
+    X_2 = 1,
+    X_1_8 = 2,
+    X_1_4 = 3,
 };
 const uint8_t GAINS_COUNT = 4;
 enum IntegrationTime : uint8_t
 {
-  INTEGRATION_TIME_25MS = 0b1100,
-  INTEGRATION_TIME_50MS = 0b1000,
-  INTEGRATION_TIME_100MS = 0b0000,
-  INTEGRATION_TIME_200MS = 0b0001,
-  INTEGRATION_TIME_400MS = 0b0010,
-  INTEGRATION_TIME_800MS = 0b0011,
+    INTEGRATION_TIME_25MS = 0b1100,
+    INTEGRATION_TIME_50MS = 0b1000,
+    INTEGRATION_TIME_100MS = 0b0000,
+    INTEGRATION_TIME_200MS = 0b0001,
+    INTEGRATION_TIME_400MS = 0b0010,
+    INTEGRATION_TIME_800MS = 0b0011,
 };
 const uint8_t INTEGRATION_TIMES_COUNT = 6;
 enum Persistence : uint8_t
 {
-  PERSISTENCE_1 = 0,
-  PERSISTENCE_2 = 1,
-  PERSISTENCE_4 = 2,
-  PERSISTENCE_8 = 3,
+    PERSISTENCE_1 = 0,
+    PERSISTENCE_2 = 1,
+    PERSISTENCE_4 = 2,
+    PERSISTENCE_8 = 3,
 };
 enum PSM : uint8_t
 {
-  PSM_MODE_1 = 0,
-  PSM_MODE_2 = 1,
-  PSM_MODE_3 = 2,
-  PSM_MODE_4 = 3,
+    PSM_MODE_1 = 0,
+    PSM_MODE_2 = 1,
+    PSM_MODE_3 = 2,
+    PSM_MODE_4 = 3,
 };
 
 // The following section with bit-fields brings GCC compilation 'notes' about padding bytes due to bug in older GCC back
@@ -68,37 +68,41 @@ enum PSM : uint8_t
 //
 // VEML7700_CR_ALS_CONF_0 Register (0x00)
 //
-union ConfigurationRegister {
-  uint16_t raw;
-  uint8_t raw_bytes[2];
-  struct {
-    bool ALS_SD : 1;             // ALS shut down setting: 0 = ALS power on, 1 = ALS shut
-                                 // down
-    bool ALS_INT_EN : 1;         // ALS interrupt enable setting: 0 = ALS INT disable, 1
-                                 // = ALS INT enable
-    bool reserved_2 : 1;         // 0
-    bool reserved_3 : 1;         // 0
-    Persistence ALS_PERS : 2;    // 00 - 1, 01- 2, 10 - 4, 11 - 8
-    IntegrationTime ALS_IT : 4;  // ALS integration time setting
-    bool reserved_10 : 1;        // 0
-    Gain ALS_GAIN : 2;           // Gain selection
-    bool reserved_13 : 1;        // 0
-    bool reserved_14 : 1;        // 0
-    bool reserved_15 : 1;        // 0
-  } __attribute__((packed));
+union ConfigurationRegister
+{
+    uint16_t raw;
+    uint8_t raw_bytes[2];
+    struct
+    {
+        bool ALS_SD : 1;             // ALS shut down setting: 0 = ALS power on, 1 = ALS shut
+                                    // down
+        bool ALS_INT_EN : 1;         // ALS interrupt enable setting: 0 = ALS INT disable, 1
+                                    // = ALS INT enable
+        bool reserved_2 : 1;         // 0
+        bool reserved_3 : 1;         // 0
+        Persistence ALS_PERS : 2;    // 00 - 1, 01- 2, 10 - 4, 11 - 8
+        IntegrationTime ALS_IT : 4;  // ALS integration time setting
+        bool reserved_10 : 1;        // 0
+        Gain ALS_GAIN : 2;           // Gain selection
+        bool reserved_13 : 1;        // 0
+        bool reserved_14 : 1;        // 0
+        bool reserved_15 : 1;        // 0
+    } __attribute__((packed));
 };
 
 //
 // Power Saving Mode: PSM Register (0x03)
 //
-union PSMRegister {
-  uint16_t raw;
-  uint8_t raw_bytes[2];
-  struct {
-    bool PSM_EN : 1;
-    uint8_t PSM : 2;
-    uint16_t reserved : 13;
-  } __attribute__((packed));
+union PSMRegister
+{
+    uint16_t raw;
+    uint8_t raw_bytes[2];
+    struct
+    {
+        bool PSM_EN : 1;
+        uint8_t PSM : 2;
+        uint16_t reserved : 13;
+    } __attribute__((packed));
 };
 
 class VEML7700 : public PollingComponent, public i2c::I2CDevice, public sensor::Sensor
