@@ -68,18 +68,15 @@ CONFIG_SCHEMA = (
             ),
         }
     )
-    # .extend(cv.COMPONENT_SCHEMA)
-    # .extend(cv.polling_component_schema("60s"))
-    # .extend(i2c.i2c_device_schema(0x76))
 )
 
 async def to_code(config):
     parent = await cg.get_variable(config[CONF_COMP_ID])
 
-    if CONF_AMBIENT_LIGHT in config:
-        conf = config[CONF_AMBIENT_LIGHT]
-        sens = await sensor.new_sensor(conf)
-        cg.add(parent.set_ambient_light_sensor(sens))
+    # if CONF_AMBIENT_LIGHT in config:
+    conf = config[CONF_AMBIENT_LIGHT]
+    sens = await sensor.new_sensor(conf)
+    cg.add(parent.set_ambient_light_sensor(sens))
         
     if CONF_AMBIENT_LIGHT_COUNTS in config:
         conf = config[CONF_AMBIENT_LIGHT_COUNTS]
