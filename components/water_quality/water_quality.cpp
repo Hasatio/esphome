@@ -81,7 +81,7 @@ void WaterQuality::dump_config()
     }
     
     uint8_t dose = 0, circ = 0;
-    float* calib = pump.get_Pump_Calibraion_Gain();
+    float* calib = pump.get_Pump_Calibration_Gain();
     uint8_t* type = pump.get_Pump_Type();
     uint8_t* model = pump.get_Pump_Model();
 
