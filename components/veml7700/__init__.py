@@ -15,7 +15,7 @@ CONF_COMP_ID = "comp_id"
 component_ns = cg.esphome_ns.namespace("veml7700")
 VEML7700 = component_ns.class_("VEML7700", cg.PollingComponent, i2c.I2CDevice)
 
-CONFIG_SCHEMA = (
+CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(VEML7700),
