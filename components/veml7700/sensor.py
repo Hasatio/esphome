@@ -26,10 +26,10 @@ from . import (
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["veml7700"]
 
-CONF_ACTUAL_INTEGRATION_TIME = "actual_integration_time"
 CONF_AMBIENT_LIGHT = "ambient_light"
 CONF_AMBIENT_LIGHT_COUNTS = "ambient_light_counts"
 CONF_FULL_SPECTRUM_COUNTS = "full_spectrum_counts"
+CONF_ACTUAL_INTEGRATION_TIME = "actual_integration_time"
 CONF_LUX_COMPENSATION = "lux_compensation"
 
 UNIT_RAW = "raw"
