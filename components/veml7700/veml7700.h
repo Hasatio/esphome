@@ -130,19 +130,18 @@ void tcaselect(uint8_t i)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void set_gain(Gain gain) { this->gain_ = gain; }
-void set_integration_time(IntegrationTime time) { this->integration_time_ = time; }
-void set_enable_automatic_mode(bool enable) { this->automatic_mode_enabled_ = enable; }
-void set_enable_lux_compensation(bool enable) { this->lux_compensation_enabled_ = enable; }
-void set_glass_attenuation_factor(float factor) { this->glass_attenuation_factor_ = factor; }
-
-void set_ambient_light_sensor(sensor::Sensor *sensor) { this->ambient_light_sensor_ = sensor; }
-void set_ambient_light_counts_sensor(sensor::Sensor *sensor) { this->ambient_light_counts_sensor_ = sensor; }
-void set_white_sensor(sensor::Sensor *sensor) { this->white_sensor_ = sensor; }
-void set_white_counts_sensor(sensor::Sensor *sensor) { this->white_counts_sensor_ = sensor; }
-void set_infrared_sensor(sensor::Sensor *sensor) { this->fake_infrared_sensor_ = sensor; }
-void set_actual_gain_sensor(sensor::Sensor *sensor) { this->actual_gain_sensor_ = sensor; }
-void set_actual_integration_time_sensor(sensor::Sensor *sensor) { this->actual_integration_time_sensor_ = sensor; }
+void set_gain(Gain gain)                                            { this->gain_ = gain; }
+void set_integration_time(IntegrationTime time)                     { this->integration_time_ = time; }
+void set_enable_automatic_mode(bool enable)                         { this->automatic_mode_enabled_ = enable; }
+void set_enable_lux_compensation(bool enable)                       { this->lux_compensation_enabled_ = enable; }
+void set_glass_attenuation_factor(float factor)                     { this->glass_attenuation_factor_ = factor; }
+void set_ambient_light_sensor(sensor::Sensor *sensor)               { this->ambient_light_sensor_ = sensor; }
+void set_ambient_light_counts_sensor(sensor::Sensor *sensor)        { this->ambient_light_counts_sensor_ = sensor; }
+void set_white_sensor(sensor::Sensor *sensor)                       { this->white_sensor_ = sensor; }
+void set_white_counts_sensor(sensor::Sensor *sensor)                { this->white_counts_sensor_ = sensor; }
+void set_infrared_sensor(sensor::Sensor *sensor)                    { this->fake_infrared_sensor_ = sensor; }
+void set_actual_gain_sensor(sensor::Sensor *sensor)                 { this->actual_gain_sensor_ = sensor; }
+void set_actual_integration_time_sensor(sensor::Sensor *sensor)     { this->actual_integration_time_sensor_ = sensor; }
 
 
 protected:
