@@ -6,7 +6,6 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/i2c/i2c.h"
 #include <Wire.h>
-#include <Adafruit_VEML7700.h>
 
 // I2C Address
 #define VEML7700_ADDRESS 0x10
