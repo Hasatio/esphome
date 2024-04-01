@@ -33,5 +33,3 @@ async def to_code(config):
     
     cg.add_library("Wire", None)
     cg.add_library("SPI", None)
-    cg.add_library("Adafruit BusIO", None)
-    cg.add_library("Adafruit VEML7700 library", None)
