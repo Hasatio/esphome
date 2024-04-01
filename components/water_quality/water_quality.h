@@ -212,7 +212,8 @@ std::string get_calibration_status()        { return calibration_status_; }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void version(const uint8_t ver);
-void pump_calib_gain(const std::vector<float> &pcal);
+void pump_calibration(std::vector<bool> &pres);
+void pump_calibration_gain(const std::vector<float> &pcal);
 void pump_type(const std::vector<uint8_t> &ptype);
 void pump_model(const std::vector<uint8_t> &pmodel);
 void pump_mode(std::vector<uint8_t> &pmode);
@@ -323,7 +324,22 @@ text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
+template<typename... Ts> class PumpCalibrationAction : public Action<Ts...> {
+public:
+PumpCalibrationAction(WaterQuality *parent) : parent_(parent){};
 
+TEMPLATABLE_VALUE(std::vector<bool>, pump_calib);
+
+void play(Ts... x) 
+{
+    std::vector<bool> data = this->pump_calib.value(x...);
+
+    this->parent_->pump_calibration(data);
+}
+
+protected:
+WaterQuality *parent_;
+};
 template<typename... Ts> class PumpModeAction : public Action<Ts...> {
 public:
 PumpModeAction(WaterQuality *parent) : parent_(parent){};

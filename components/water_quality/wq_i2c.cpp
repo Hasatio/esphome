@@ -1001,17 +1001,15 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
         for (size_t i = 0; i < 6; i++)
         {
-            if (this->volume_[i] != volume[i] && volume[i] >= -1)
+            if (this->volume_[i] != volume[i] && volume[i] >= 0)
             {
                 this->volume_[i] == volume[i];
 
                 if (volume[i] > 0)
                     dose_volume(volume[i]);
-                else if (volume[i] == -1)
-                {
-                    pause_dosing();
-                    this->volume_[i] = 0;
-                }
+                else if (volume[i] == 0)
+                    stop_dosing();
+                    
                 ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
             }
 
