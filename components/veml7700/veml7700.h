@@ -20,6 +20,8 @@ namespace veml7700 {
 
 static const char *const TAG = "mycomponent";
 
+using esphome::i2c::ErrorCode;
+
 enum class CommandRegisters : uint8_t
 {
   ALS_CONF_0 = 0x00,  // W: ALS gain, integration time, interrupt, and shutdown
