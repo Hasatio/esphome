@@ -8,6 +8,7 @@
 #include <Wire.h>
 
 // I2C Address
+#define TCA9548_ADDRESS 0x70
 #define VEML7700_ADDRESS 0x10
 
 namespace esphome {
@@ -115,6 +116,19 @@ void setup() override;
 void dump_config() override;
 void loop() override;
 void update() override;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  TCA9548
+void tcaselect(uint8_t i)
+{
+  if (i > 7) return;
+ 
+  Wire.beginTransmission(TCA9548_ADDRESS);
+  Wire.write(1 << i);
+  Wire.endTransmission();  
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void set_gain(Gain gain) { this->gain_ = gain; }
 void set_integration_time(IntegrationTime time) { this->integration_time_ = time; }
