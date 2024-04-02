@@ -493,9 +493,10 @@ void WaterQuality::PCA9685_Write()
         data[3] = (phase_end >> 8) & 0xFF;
 
         uint8_t reg = PCA9685_REGISTER_LED0 + 4 * i;
-        if (!this->write_bytes(reg, data, 4)) {
-        this->status_set_warning();
-        return;
+        if (!this->write_bytes(reg, data, 4))
+        {
+            this->status_set_warning();
+            return;
         }
     }
 

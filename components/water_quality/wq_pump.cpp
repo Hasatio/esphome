@@ -98,7 +98,6 @@ void Pump::Generic_Pump_Driver(float pwm[])
 
     for (size_t i = 0; i < 6; i++)
     {
-                ESP_LOGD(TAG,"pump[%d] = %f", i, pump[i]);
         if (pump[i] > 0)
             pwm[i] = 1;
         else if (pump[i] < 0)
@@ -221,7 +220,7 @@ void Pump::Circulation_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 1 && model[i] > 0)
+        if (type[i] == 2 && model[i] > 0)
             if (get_Calibration_Condition())
             {
                 if (pump[i] > 0 && stat[i] == 4)
