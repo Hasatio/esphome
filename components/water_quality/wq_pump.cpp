@@ -56,7 +56,7 @@ void Pump::Calibration_Controller()
                 set_Calibration_Condition(2);
                 ESP_LOGI(TAG, "Pump Calibration Finish");
             }
-            else if (calib_mode[i] == 0)
+            else if (calib_mode[i] == 0 && calib_vol[i] > 0)
             {
                 calib_vol[i] = 0;
                 set_Calibration_Condition(0);
@@ -73,14 +73,6 @@ void Pump::Generic_Pump_Driver(float pwm[])
     float min = get_Min();
     float min_ = 0, mint[6];
 
-    if (min != min_)
-        Timer_Setup(min_);
-    else if (min_ == 0)
-    {
-        Dosing_Controller(pump);
-        Circulation_Controller(pump);
-    }
-
     std::copy(pump, pump + 6, mint);
     std::sort(mint, mint + 6);
 
@@ -95,6 +87,14 @@ void Pump::Generic_Pump_Driver(float pwm[])
             min_ = 0;
     }
     set_Min(min_);
+
+    if (min != min_)
+        Timer_Setup(min_);
+    else if (min_ == 0)
+    {
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
+    }
 
     for (size_t i = 0; i < 6; i++)
     {
