@@ -115,7 +115,7 @@ void WaterQuality::loop()
 }
 void WaterQuality::update()
 {
-    float a[8], p[16] = {0}, e[6] = {0};
+    float a[8], p[16]{0}, e[6] = {0};
     bool d[4];
 
     ADS1115_Driver(a);
