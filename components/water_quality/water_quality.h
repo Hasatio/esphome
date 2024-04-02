@@ -332,7 +332,7 @@ TEMPLATABLE_VALUE(std::vector<bool>, pump_calib_mode);
 
 void play(Ts... x) 
 {
-    std::vector<bool> data = this->pump_calib_mode.value(x...);
+    std::vector<bool> data = this->pump_calib_mode_.value(x...);
 
     this->parent_->pump_calibration_mode(data);
 }
