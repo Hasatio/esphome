@@ -115,7 +115,7 @@ void WaterQuality::loop()
 }
 void WaterQuality::update()
 {
-    float a[8], p[16]{0}, e[6] = {0};
+    float a[8], p[16] = {0}, e[6] = {0};
     bool d[4];
 
     ADS1115_Driver(a);
@@ -129,7 +129,7 @@ void WaterQuality::update()
     ser.Servo_driver(p);
     
     for (size_t i = 0; i < 16; i++)
-    ESP_LOGI(TAG, "pwm[%d] = %d", i, p[i]);
+    ESP_LOGI(TAG, "pwm[%d] = %f", i, p[i]);
 
     // PCA9685_Driver(p);
 
