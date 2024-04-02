@@ -212,7 +212,7 @@ std::string get_calibration_status()        { return calibration_status_; }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void version(const uint8_t ver);
-void pump_calibration(std::vector<bool> &pres);
+void pump_calibration_mode(std::vector<bool> &pres);
 void pump_calibration_gain(const std::vector<float> &pcal);
 void pump_type(const std::vector<uint8_t> &ptype);
 void pump_model(const std::vector<uint8_t> &pmodel);
