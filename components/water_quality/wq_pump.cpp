@@ -47,16 +47,20 @@ void Pump::Calibration_Controller()
         if (type[i] > 0 && model[i] > 0)
             if (calib_mode[i] == 1 && !get_Calibration_Condition())
             {
-                calib_gain[i] = 1;
                 calib_vol[i] = calib_time;
                 set_Calibration_Condition(1);
+                ESP_LOGI(TAG, "Pump Calibration Start");
             }
             else if (calib_mode[i] == 1 && calib_vol[i] == 0)
+            {
                 set_Calibration_Condition(2);
+                ESP_LOGI(TAG, "Pump Calibration Finish");
+            }
             else if (calib_mode[i] == 0)
             {
                 calib_vol[i] = 0;
                 set_Calibration_Condition(0);
+                ESP_LOGI(TAG, "Pump Calibration Abort");
             }
     }
 }
