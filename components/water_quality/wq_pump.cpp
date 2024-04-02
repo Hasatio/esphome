@@ -30,9 +30,10 @@ void IRAM_ATTR Pump::Timer(void* arg)
     pumpInstance->Dosing_Controller(pump);
     pumpInstance->Circulation_Controller(pump);
 }
-void Pump::Calibration_Status()
+void Pump::Calibration_Controller()
 {
-    bool* calib = get_Pump_Calibration();
+    bool* calib_mode = get_Pump_Calibration_Mode();
+    float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* model = get_Pump_Model();
@@ -40,32 +41,24 @@ void Pump::Calibration_Status()
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
     uint16_t calib_time = 120;
-    uint8_t calib_mode = 0;
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (calib[i] == 1 && type[i] > 0 && model[i] > 0)
-        {
-            calib_gain[i] = 1;
-            mode[i] = 1;
-            if (type[i] == 1)
-                dose[i] = calib_time;
-            else if (type[i] == 2)
-                circ[i] = calib_time;
-            calib_mode++;
-        }
-        else if (calib[i] == 0)
-        {
-            if (type[i] == 1)
-                dose[i] = 0;
-            else if (type[i] == 2)
-                circ[i] = 0;
-        }
+        if (type[i] > 0 && model[i] > 0)
+            if (calib_mode[i] == 1 && !get_Calibration_Condition())
+            {
+                calib_gain[i] = 1;
+                calib_vol[i] = calib_time;
+                set_Calibration_Condition(1);
+            }
+            else if (calib_mode[i] == 1 && calib_vol[i] == 0)
+                set_Calibration_Condition(2);
+            else if (calib_mode[i] == 0)
+            {
+                calib_vol[i] = 0;
+                set_Calibration_Condition(0);
+            }
     }
-    if (calib_mode > 0)
-        set_Calibration_Mode(true);
-    else
-        set_Calibration_Mode(false);
 }
 
 void Pump::Generic_Pump_Driver(float pwm[])
@@ -75,6 +68,14 @@ void Pump::Generic_Pump_Driver(float pwm[])
     float* pump = get_Pump_Time();
     float min = get_Min();
     float min_ = 0, mint[6];
+
+    if (min != min_)
+        Timer_Setup(min_);
+    else if (min_ == 0)
+    {
+        Dosing_Controller(pump);
+        Circulation_Controller(pump);
+    }
 
     std::copy(pump, pump + 6, mint);
     std::sort(mint, mint + 6);
@@ -90,14 +91,6 @@ void Pump::Generic_Pump_Driver(float pwm[])
             min_ = 0;
     }
     set_Min(min_);
-
-    if (min != min_)
-        Timer_Setup(min_);
-    else if (min_ == 0)
-    {
-        Dosing_Controller(pump);
-        Circulation_Controller(pump);
-    }
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -122,6 +115,8 @@ void Pump::Generic_Pump_Driver(float pwm[])
 }
 void Pump::Dosing_Controller(float pump[])
 {
+    bool* calib_mode = get_Pump_Calibration_Mode();
+    float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* model = get_Pump_Model();
@@ -133,21 +128,38 @@ void Pump::Dosing_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 1)
-            if (model[i] > 0)
+        if (type[i] == 1 && model[i] > 0)
+            if (get_Calibration_Condition())
+            {
+                if (pump[i] > 0 && stat[i] == 4)
+                    calib_vol[i]--;
+                
+                if (calib_vol[i] > 0)
+                {
+                    pump[i] = 1;
+                    stat[i] = 4;
+                }
+                else
+                {
+                    pump[i] = 0;
+                    stat[i] = 0;
+                }
+            }
+            else
             {
                 if (pump[i] > 0)
                 {
-                    if (!get_Calibration_Mode())
-                        if (dose[i] > 0)
-                        {
-                            tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
-                            tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
-                            if (tot[i][1] >= 10000000)
-                                tot[i][1] = 0;
-                        }
+                    if (dose[i] > 0)
+                    {
+                        tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
+                        tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
+                        if (tot[i][1] >= 10000000)
+                            tot[i][1] = 0;
+                    }
 
                     dose[i] = fabs(dose[i] - min * calib_gain[i]);
+                    if (dose[i] < 0)
+                        dose[i] = 0;
                 }
 
                 switch (mode[i])
@@ -186,9 +198,6 @@ void Pump::Dosing_Controller(float pump[])
                         pump[i] = dose[i] / calib_gain[i];
                 else
                     pump[i] = 0;
-                    
-                // if (model[i] == 2)
-                //     pump[i] *= -calib_gain[i];
             }
     }
 }
@@ -204,11 +213,27 @@ void Pump::Circulation_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 2)
-        {
-            if (pump[i] > 0)
+        if (type[i] == 1 && model[i] > 0)
+            if (get_Calibration_Condition())
             {
-                if (!get_Calibration_Mode())
+                if (pump[i] > 0 && stat[i] == 4)
+                    calib_vol[i]--;
+                
+                if (calib_vol[i] > 0)
+                {
+                    pump[i] = 1;
+                    stat[i] = 4;
+                }
+                else
+                {
+                    pump[i] = 0;
+                    stat[i] = 0;
+                }
+            }
+            else
+            {
+                if (pump[i] > 0)
+                {
                     if (circ[i] > 0)
                     {
                         tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
@@ -217,46 +242,48 @@ void Pump::Circulation_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
-                circ[i] = fabs(circ[i] - min * calib_gain[i]);
-            }
+                    circ[i] = fabs(circ[i] - min * calib_gain[i]);
+                    if (circ[i] < 0)
+                        circ[i] = 0;
+                }
 
-            switch (mode[i])
-            {
-                case 0:
-                    if (circ[i] > 0)
-                        if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
-                            stat[i] = 0;
-                    else if (circ[i] == 0)
-                        stat[i] = 2;
-                    break;
+                switch (mode[i])
+                {
+                    case 0:
+                        if (circ[i] > 0)
+                            if (!(i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1)))
+                                stat[i] = 0;
+                        else if (circ[i] == 0)
+                            stat[i] = 2;
+                        break;
 
-                case 1:
-                    if (circ[i] > 0)
-                        if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
-                            stat[i] = 1;
-                        else
-                            stat[i] = 0;
-                    else if (circ[i] == 0)
-                        stat[i] = 2;
-                    break;
+                    case 1:
+                        if (circ[i] > 0)
+                            if (i % 2 == 0 || (i % 2 == 1 && stat[i - 1] != 1))
+                                stat[i] = 1;
+                            else
+                                stat[i] = 0;
+                        else if (circ[i] == 0)
+                            stat[i] = 2;
+                        break;
 
-                case 2:
-                    stat[i] = 3;
-                    circ[i] = 0;
-                    break;
-                
-                default:
-                    break;
-            }
+                    case 2:
+                        stat[i] = 3;
+                        circ[i] = 0;
+                        break;
+                    
+                    default:
+                        break;
+                }
 
-            if (stat[i] == 1)
-                if (circ[i] > calib_gain[i])
-                    pump[i] = 1;
+                if (stat[i] == 1)
+                    if (circ[i] > calib_gain[i])
+                        pump[i] = 1;
+                    else
+                        pump[i] = circ[i] / calib_gain[i];
                 else
-                    pump[i] = circ[i] / calib_gain[i];
-            else
-                pump[i] = 0;
-        }
+                    pump[i] = 0;
+            }
     }
 }
 
@@ -320,9 +347,6 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
                 }
                 else if(stat[i] == 3)
                     pump[i] = 0;
-                    
-                // if (model[i] == 2)
-                //     pump[i] *= -calib_gain[i];
             }
     }
 }

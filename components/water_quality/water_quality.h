@@ -324,17 +324,17 @@ text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
-template<typename... Ts> class PumpCalibrationAction : public Action<Ts...> {
+template<typename... Ts> class PumpCalibrationModeAction : public Action<Ts...> {
 public:
-PumpCalibrationAction(WaterQuality *parent) : parent_(parent){};
+PumpCalibrationModeAction(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::vector<bool>, pump_calib);
+TEMPLATABLE_VALUE(std::vector<bool>, pump_calib_mode);
 
 void play(Ts... x) 
 {
-    std::vector<bool> data = this->pump_calib.value(x...);
+    std::vector<bool> data = this->pump_calib_mode.value(x...);
 
-    this->parent_->pump_calibration(data);
+    this->parent_->pump_calibration_mode(data);
 }
 
 protected:

@@ -109,10 +109,8 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "EC_ch = %d, EC_type = %d", an.get_EC_Ch(), an.get_EC_Type());
     ESP_LOGI(TAG, "PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
 }
-void WaterQuality::loop() 
-{
-}
-
+void WaterQuality::loop()
+{}
 void WaterQuality::update()
 {
     float a[8], p[16] = {0}, e[6] = {0};
@@ -139,9 +137,9 @@ void WaterQuality::version(const uint8_t ver)
 {
     an.set_version(ver);
 }
-void WaterQuality::pump_calibration(std::vector<bool> &pcal)
+void WaterQuality::pump_calibration_mode(std::vector<bool> &pcal)
 {
-    bool* pcal_ = pump.get_Pump_Calibration();
+    bool* pcal_ = pump.get_Pump_Calibration_Mode();
     std::vector<bool> pc(pcal_, pcal_ + 6);
 
     if (pc != pcal)
@@ -149,7 +147,7 @@ void WaterQuality::pump_calibration(std::vector<bool> &pcal)
         for (size_t i = 0; i < 6; i++)
         {
             pcal_[i] = pcal[i];
-            ESP_LOGD(TAG, "Pump_Calibration[%d] = %d", i, pcal_[i]);
+            ESP_LOGD(TAG, "Pump_Calibration_Mode[%d] = %d", i, pcal_[i]);
         }
     }
 }

@@ -21,8 +21,8 @@ CONF_PUMP3 = "pump3"
 CONF_PUMP4 = "pump4"
 CONF_PUMP5 = "pump5"
 CONF_PUMP6 = "pump6"
-CONF_PUMP_CALIBRATION = "pump_calibration"
-CONF_PUMP_CALIB_GAIN = "pump_calib_gain"
+CONF_PUMP_CALIBRATION_MODE = "pump_calibration_mode"
+CONF_PUMP_CALIBRATION_GAIN = "pump_calibration_gain"
 CONF_PUMP_TYPE = "pump_type"
 CONF_PUMP_DOSING_MODEL = "pump_dosing_model"
 CONF_PUMP_CIRCULATION_MODEL = "pump_circulation_model"
@@ -50,13 +50,13 @@ PUMP_TYPE_CIRCULATION = 2
 PUMP_DOSING_SCHEMA = cv.Schema(
     {
         cv.Required(CONF_PUMP_DOSING_MODEL): cv.int_range(min = 1, max = 2),
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_,
+        cv.Required(CONF_PUMP_CALIBRATION_GAIN): cv.float_,
     }
 )
 PUMP_CIRCULATION_SCHEMA = cv.Schema(
     {
         cv.Required(CONF_PUMP_CIRCULATION_MODEL): cv.int_range(min = 1, max = 2),
-        cv.Required(CONF_PUMP_CALIB_GAIN): cv.float_,
+        cv.Required(CONF_PUMP_CALIBRATION_GAIN): cv.float_,
     }
 )
 
@@ -165,7 +165,7 @@ async def to_code(config):
     conf = config[CONF_PUMP1][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -179,7 +179,7 @@ async def to_code(config):
     conf = config[CONF_PUMP2][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -193,7 +193,7 @@ async def to_code(config):
     conf = config[CONF_PUMP3][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -207,7 +207,7 @@ async def to_code(config):
     conf = config[CONF_PUMP4][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -221,7 +221,7 @@ async def to_code(config):
     conf = config[CONF_PUMP5][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -235,7 +235,7 @@ async def to_code(config):
     conf = config[CONF_PUMP6][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
-        calib.append(conf[CONF_PUMP_CALIB_GAIN])
+        calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
         if conf[CONF_PUMP_TYPE] == 1:
             model.append(conf[CONF_PUMP_DOSING_MODEL])
         elif conf[CONF_PUMP_TYPE] == 2:
@@ -276,12 +276,12 @@ async def to_code(config):
     cg.add_library("Time", None)
     
     
-PumpCalibrationAction = water_quality_ns.class_("PumpCalibrationAction", automation.Action)
+PumpCalibrationModeAction = water_quality_ns.class_("PumpCalibrationModeAction", automation.Action)
 
-PUMP_CALIBRATION_ACTION_SCHEMA = cv.All(
+PUMP_CALIBRATION_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(WaterQuality),
-        cv.Required(CONF_PUMP_CALIBRATION): cv.All(
+        cv.Required(CONF_PUMP_CALIBRATION_MODE): cv.All(
             cv.templatable(
                 cv.ensure_list(cv.boolean)
             ),
@@ -290,19 +290,19 @@ PUMP_CALIBRATION_ACTION_SCHEMA = cv.All(
 )
 
 @automation.register_action(
-    "water_quality.pump_calibration", 
-    PumpCalibrationAction, 
-    PUMP_CALIBRATION_ACTION_SCHEMA
+    "water_quality.pump_calibration_mode", 
+    PumpCalibrationModeAction, 
+    PUMP_CALIBRATION_MODE_ACTION_SCHEMA
 )
 
 async def pump_calibration_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
-    val = config[CONF_PUMP_CALIBRATION]
+    val = config[CONF_PUMP_CALIBRATION_MODE]
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
-        cg.add(var.set_pump_calib(template_))
+        cg.add(var.set_pump_calib_mode(template_))
 
     return var
 
