@@ -25,7 +25,7 @@ void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
 
 void set_Calibration_Condition(uint8_t cc)      { Calibration_Condition = cc; }
-void set_Pump_Calibration_Mode(bool pc[])       { for (size_t i = 0; i < 6; i++) Pump_Calibration_Mode[i] = pcm[i]; }
+void set_Pump_Calibration_Mode(bool pcm[])       { for (size_t i = 0; i < 6; i++) Pump_Calibration_Mode[i] = pcm[i]; }
 void set_Pump_Calibration_Volume(float pcv[])   { for (size_t i = 0; i < 6; i++) Pump_Calibration_Volume[i] = pcv[i]; }
 void set_Pump_Calibration_Gain(float pcg[])     { for (size_t i = 0; i < 6; i++) Pump_Calibration_Gain[i] = pcg[i]; }
 void set_Pump_Type(uint8_t pt[])                { for (size_t i = 0; i < 6; i++) Pump_Type[i] = pt[i]; }
