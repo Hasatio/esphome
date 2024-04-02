@@ -516,7 +516,7 @@ void WaterQuality::PCA9685_Driver(float state[])
             this->update_ = true;
             
         this->pwm_amounts_[i] = duty;
-        PCA9685_Write();
+        // PCA9685_Write();
     }
 }
 

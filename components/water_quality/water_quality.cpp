@@ -127,10 +127,6 @@ void WaterQuality::update()
 
     pump.Generic_Pump_Driver(p);
     ser.Servo_driver(p);
-    
-    for (size_t i = 0; i < 16; i++)
-    ESP_LOGI(TAG, "pwm[%d] = %f", i, p[i]);
-
     PCA9685_Driver(p);
 
     pump.Serial_Com_Pump_Driver(e);
