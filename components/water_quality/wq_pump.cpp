@@ -150,7 +150,7 @@ void Pump::Dosing_Controller(float pump[])
                 }
             }
             else
-            {ESP_LOGD(TAG,"here");
+            {
                 if (pump[i] > 0)
                 {
                     if (dose[i] > 0)
@@ -202,6 +202,7 @@ void Pump::Dosing_Controller(float pump[])
                         pump[i] = dose[i] / calib_gain[i];
                 else
                     pump[i] = 0;
+                ESP_LOGD(TAG,"pump[%d] = %f", i, pump[i]);
             }
     }
 }
