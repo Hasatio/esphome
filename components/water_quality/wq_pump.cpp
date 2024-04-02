@@ -65,7 +65,7 @@ void Pump::Calibration_Controller()
                     else
                     {
                         set_Calibration_Condition(0);
-                        ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        ESP_LOGI(TAG, "Pump%d Calibration Queque", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                     }
                 }
