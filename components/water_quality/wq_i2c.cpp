@@ -494,7 +494,7 @@ void WaterQuality::PCA9685_Write()
 
         uint8_t reg = PCA9685_REGISTER_LED0 + 4 * i;
         if (!this->write_bytes(reg, data, 4)) {
-        this->status_set_warning();
+        // this->status_set_warning();
         return;
         }
     }
@@ -516,7 +516,7 @@ void WaterQuality::PCA9685_Driver(float state[])
             this->update_ = true;
             
         this->pwm_amounts_[i] = duty;
-        // PCA9685_Write();
+        PCA9685_Write();
     }
 }
 
