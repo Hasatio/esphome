@@ -25,7 +25,6 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
-    pump.Calibration_Status();
 }
 void WaterQuality::dump_config()
 {
@@ -81,11 +80,11 @@ void WaterQuality::dump_config()
     }
     
     uint8_t dose = 0, circ = 0;
-    float* calib = pump.get_Pump_Calibration_Gain();
+    float* calib_gain = pump.get_Pump_Calibration_Gain();
     uint8_t* type = pump.get_Pump_Type();
     uint8_t* model = pump.get_Pump_Model();
 
-    if (pump.get_Calibration_Mode())
+    if (pump.get_Calibration_Condition())
         ESP_LOGI(TAG, "Pump Calibration Enable");
 
     for (size_t i = 0; i < 6; i++)
@@ -98,7 +97,7 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "Pump_circ = %d", circ);
     for (size_t i = 0; i < 6; i++)
     {
-        ESP_LOGI(TAG, "Pump_Calib_Gain[%d] = %.2f", i, calib[i]);
+        ESP_LOGI(TAG, "Pump_Calibration_Gain[%d] = %.2f", i, calib_gain[i]);
         ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
         ESP_LOGI(TAG, "Pump_Model[%d] = %d", i, model[i]);
     }
@@ -110,7 +109,10 @@ void WaterQuality::dump_config()
     ESP_LOGI(TAG, "PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
 }
 void WaterQuality::loop()
-{}
+{
+    pump.Calibration_Controller();
+    sensor();
+}
 void WaterQuality::update()
 {
     float a[8], p[16] = {0}, e[6] = {0};
@@ -129,8 +131,6 @@ void WaterQuality::update()
 
     pump.Serial_Com_Pump_Driver(e);
     EZOPMP_Driver(e);
-
-    sensor();
 }
 
 void WaterQuality::version(const uint8_t ver)
@@ -188,7 +188,7 @@ void WaterQuality::pump_mode(std::vector<uint8_t> &pmode)
     uint8_t* pmode_ = pump.get_Pump_Mode();
     std::vector<uint8_t> pm(pmode_, pmode_ + 6);
 
-    if (pm != pmode && !pump.get_Calibration_Mode())
+    if (pm != pmode && !pump.get_Calibration_Condition())
     {
         for (size_t i = 0; i < 6; i++)
         {
@@ -205,7 +205,7 @@ void WaterQuality::pump_dose(std::vector<float> &pdose)
     float* pdose_ = pump.get_Pump_Dose();
     std::vector<float> pd(pdose_, pdose_ + 6);
 
-    if (pd != pdose && !pump.get_Calibration_Mode())
+    if (pd != pdose && !pump.get_Calibration_Condition())
         for (size_t i = 0; i < 6; i++)
             if (ptype[i] == 1)
                 if (pmode[i] == 0)
@@ -230,7 +230,7 @@ void WaterQuality::pump_circulation(std::vector<float> &pcirc)
     float* pcirc_ = pump.get_Pump_Circulation();
     std::vector<float> pc(pcirc_, pcirc_ + 6);
 
-    if (pc != pcirc && !pump.get_Calibration_Mode())
+    if (pc != pcirc && !pump.get_Calibration_Condition())
         for (size_t i = 0; i < 6; i++)
             if (ptype[i] == 2)
                 if (pmode[i] == 0)
@@ -252,7 +252,7 @@ void WaterQuality::pump_reset(std::vector<bool> &pres)
     bool* pres_ = pump.get_Pump_Reset();
     std::vector<bool> pr(pres_, pres_ + 6);
 
-    if (pr != pres && !pump.get_Calibration_Mode())
+    if (pr != pres && !pump.get_Calibration_Condition())
     {
         for (size_t i = 0; i < 6; i++)
         {
