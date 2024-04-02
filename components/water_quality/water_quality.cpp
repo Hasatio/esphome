@@ -118,12 +118,12 @@ void WaterQuality::update()
     float a[8], p[16] = {0}, e[6] = {0};
     bool d[4];
 
-    // ADS1115_Driver(a);
-    // an.Analog_Input_Driver(a);
+    ADS1115_Driver(a);
+    an.Analog_Input_Driver(a);
 
-    // dig.Digital_Output_Driver(d);
-    // MCP23008_Driver(d);
-    // dig.Digital_Input_Driver(d);
+    dig.Digital_Output_Driver(d);
+    MCP23008_Driver(d);
+    dig.Digital_Input_Driver(d);
 
     // pump.Generic_Pump_Driver(p);
     // ser.Servo_driver(p);
