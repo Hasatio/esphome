@@ -52,6 +52,7 @@ void Pump::Calibration_Controller()
                     calib_vol[i] = calib_time;
                     set_Calibration_Condition(1);
                     ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
+                    ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                 }
                 else 
                 {
@@ -59,11 +60,13 @@ void Pump::Calibration_Controller()
                     {
                         set_Calibration_Condition(2);
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                     }
                     else
                     {
                         set_Calibration_Condition(0);
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                     }
                 }
             }
@@ -72,6 +75,7 @@ void Pump::Calibration_Controller()
                 calib_vol[i] = 0;
                 set_Calibration_Condition(0);
                 ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
+                ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
             }
     }
 }
