@@ -131,7 +131,7 @@ void WaterQuality::update()
     for (size_t i = 0; i < 16; i++)
     ESP_LOGI(TAG, "pwm[%d] = %f", i, p[i]);
 
-    // PCA9685_Driver(p);
+    PCA9685_Driver(p);
 
     pump.Serial_Com_Pump_Driver(e);
     EZOPMP_Driver(e);
