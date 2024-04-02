@@ -98,6 +98,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
 
     for (size_t i = 0; i < 6; i++)
     {
+                ESP_LOGD(TAG,"pump[%d] = %f", i, pump[i]);
         if (pump[i] > 0)
             pwm[i] = 1;
         else if (pump[i] < 0)
@@ -202,7 +203,6 @@ void Pump::Dosing_Controller(float pump[])
                         pump[i] = dose[i] / calib_gain[i];
                 else
                     pump[i] = 0;
-                ESP_LOGD(TAG,"pump[%d] = %f", i, pump[i]);
             }
     }
 }
