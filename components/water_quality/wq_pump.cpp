@@ -203,8 +203,11 @@ void Pump::Dosing_Controller(float pump[])
 }
 void Pump::Circulation_Controller(float pump[])
 {
+    bool* calib_mode = get_Pump_Calibration_Mode();
+    float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
+    uint8_t* model = get_Pump_Model();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     float* circ = get_Pump_Circulation();
