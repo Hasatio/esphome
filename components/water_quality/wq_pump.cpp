@@ -150,7 +150,7 @@ void Pump::Dosing_Controller(float pump[])
                 }
             }
             else
-            {
+            {ESP_LOGD(TAG,"here");
                 if (pump[i] > 0)
                 {
                     if (dose[i] > 0)
