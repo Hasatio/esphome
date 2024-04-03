@@ -44,29 +44,67 @@ void Pump::Calibration_Controller()
 
     for (size_t i = 0; i < 6; i++)
     {
+        // if (type[i] > 0 && model[i] > 0)
+        //     if (calib_mode[i])
+        //     {
+        //         if (!get_Calibration_Condition())
+        //         {
+        //             calib_vol[i] = calib_time;
+        //             set_Calibration_Condition(1);
+        //             ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
+        //             ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+        //         }
+        //         else if (calib_vol[i] == 0)
+        //         {
+        //             set_Calibration_Condition(2);
+        //             ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+        //             ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+        //         }
+        //     }
+        //     else if (get_Calibration_Condition())
+        //     {
+        //         calib_vol[i] = 0;
+        //         set_Calibration_Condition(0);
+        //         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
+        //         ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+        //     }
+        
         if (type[i] > 0 && model[i] > 0)
-            if (calib_mode[i])
+            if (get_Calibration_Condition() == 0)
             {
-                if (!get_Calibration_Condition())
+                if (calib_mode[i])
                 {
                     calib_vol[i] = calib_time;
                     set_Calibration_Condition(1);
                     ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
                     ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                 }
-                else if (calib_vol[i] == 0)
-                {
-                    set_Calibration_Condition(0);
-                    ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
-                    ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
-                }
             }
-            else if (calib_vol[i] > 0)
+            else if (get_Calibration_Condition() == 1)
             {
-                calib_vol[i] = 0;
-                set_Calibration_Condition(0);
-                ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
-                ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                if (calib_mode[i] == 1)
+                    if (calib_vol[i] == 0)
+                    {
+                        set_Calibration_Condition(2);
+                        ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                    }
+                else if (calib_mode[i] == 0)
+                    if (calib_vol[i] > 0)
+                    {
+                        calib_vol[i] = 0;
+                        set_Calibration_Condition(0);
+                        ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
+                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                    }
+            }
+            else if (get_Calibration_Condition() == 2)
+            {
+                if (calib_mode[i] == 0)
+                    {
+                        set_Calibration_Condition(0);
+                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                    }
             }
     }
 }
