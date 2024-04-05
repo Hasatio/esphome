@@ -802,7 +802,7 @@ void WaterQuality::send_next_command_()
 
     if (this->current_command_ != this->next_command_)
         ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
-        
+
     this->pop_next_command_();  // this->next_command will be updated.
 
     switch (this->next_command_)
@@ -1014,24 +1014,31 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-        for (size_t i = 0; i < 6; i++)
+    EZOPMP_loop();
+    EZOPMP_update();
+    
+    for (size_t i = 0; i < 6; i++)
+    {
+        // if (this->volume_[i] != volume[i])
+        // {
+        //     if (volume[i] > 0)
+        //     {
+        //         dose_volume(volume[i]);
+        //         ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+        //     }
+        //     else if (volume[i] == 0)
+        //         stop_dosing();
+                
+        //     this->volume_[i] == volume[i];
+        // }
+        if (volume[i] > 0 && !get_is_dosing())
         {
-            if (this->volume_[i] != volume[i])
-            {
-                if (volume[i] > 0)
-                {
-                    dose_volume(volume[i]);
-                    ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
-                }
-                else if (volume[i] == 0)
-                    stop_dosing();
-                    
-                this->volume_[i] == volume[i];
-            }
-
+            dose_volume(volume[i]);
+            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
-            EZOPMP_loop();
-            EZOPMP_update();
+        else if (volume[i] == 0 && get_is_dosing())
+            stop_dosing();
+    }
     
 }
 void WaterQuality::EZOPMP_loop()
