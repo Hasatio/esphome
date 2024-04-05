@@ -671,7 +671,7 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
-    ESP_LOGI(TAG,"read command: %d", this->current_command_);
+    ESP_LOGI(TAG,"read command: %s", (char *) first_parameter_buffer);
     switch (this->current_command_)
     {
         // Read Commands
