@@ -11,6 +11,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/core/automation.h"
+#include <string>
 #include <vector>
 #include <sstream>
 #include <iomanip>
