@@ -671,6 +671,9 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
+    ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
+    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
+
     switch (this->current_command_)
     {
         // Read Commands
@@ -789,9 +792,6 @@ void WaterQuality::read_command_result_()
             ESP_LOGE(TAG, "Unsupported command received: %d", this->current_command_);
             return;
     }
-
-    ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
-    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
 
     this->clear_current_command_();
 }
