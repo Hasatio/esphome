@@ -671,7 +671,7 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
-    ESP_LOGI(TAG,"read command: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
+    ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
     switch (this->current_command_)
     {
         // Read Commands
@@ -901,9 +901,8 @@ void WaterQuality::send_next_command_()
             return;
     }
 
-    ESP_LOGI(TAG,"write command: %s", command_buffer);
     // Send command
-    ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
+    ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
     this->write(command_buffer, command_buffer_length);
 
     this->current_command_ = this->next_command_;
@@ -1015,16 +1014,17 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
         for (size_t i = 0; i < 6; i++)
         {
-            if (this->volume_[i] != volume[i] && volume[i] >= 0)
+            if (this->volume_[i] != volume[i])
             {
-                this->volume_[i] == volume[i];
-
                 if (volume[i] > 0)
+                {
                     dose_volume(volume[i]);
+                    ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+                }
                 else if (volume[i] == 0)
                     stop_dosing();
                     
-                ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+                this->volume_[i] == volume[i];
             }
 
         }
