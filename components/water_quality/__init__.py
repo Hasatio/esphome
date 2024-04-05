@@ -557,7 +557,7 @@ async def digital_out_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_CUSTOM_COMMAND]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.string))
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.std_string))
         cg.add(var.set_custom(template_))
 
     return var

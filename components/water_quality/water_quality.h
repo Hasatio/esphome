@@ -452,6 +452,22 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
+template<typename... Ts> class CustomCommandAction : public Action<Ts...> {
+public:
+CustomCommandAction(WaterQuality *parent) : parent_(parent){};
+
+TEMPLATABLE_VALUE(string, custom);
+
+void play(Ts... x) 
+{
+    string data = this->custom_.value(x...);
+
+    this->parent_->custom_command(data);
+}
+
+protected:
+WaterQuality *parent_;
+};
 
 }  // namespace water_quality
 }  // namespace esphome
