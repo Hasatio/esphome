@@ -971,7 +971,7 @@ void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command
     this->arbitrary_command_ = command.c_str();
     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
 }
-void WaterQuality::custom_command(string custom)
+void WaterQuality::custom_command(std::string custom)
 {
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
