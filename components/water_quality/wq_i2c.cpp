@@ -976,7 +976,7 @@ void WaterQuality::custom_command(std::string custom)
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
-    command_buffer_length = sprintf((char *) command_buffer, custom);
+    command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
 
     // Send command
     ESP_LOGV(TAG, "Sending command to device: %s", (char *) command_buffer);
