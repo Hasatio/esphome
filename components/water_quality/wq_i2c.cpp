@@ -595,6 +595,8 @@ void WaterQuality::read_command_result_()
         return;
     }
 
+    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
+
     switch (response_buffer[0])
     {
         case 254:
@@ -670,8 +672,6 @@ void WaterQuality::read_command_result_()
     auto parsed_first_parameter = parse_number<float>(first_parameter_buffer);
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
-
-    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
 
     switch (this->current_command_)
     {
@@ -800,6 +800,9 @@ void WaterQuality::send_next_command_()
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
 
+    if (this->current_command_ != this->next_command_)
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
+        
     this->pop_next_command_();  // this->next_command will be updated.
 
     switch (this->next_command_)
@@ -902,8 +905,6 @@ void WaterQuality::send_next_command_()
             return;
     }
     // Send command
-    if (this->current_command_ != this->next_command_)
-        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
     this->write(command_buffer, command_buffer_length);
 
     this->current_command_ = this->next_command_;
