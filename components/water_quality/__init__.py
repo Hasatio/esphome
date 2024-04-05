@@ -551,13 +551,13 @@ CUSTOM_COMMAND_ACTION_SCHEMA = cv.All(
     CUSTOM_COMMAND_ACTION_SCHEMA
 )
 
-async def digital_out_to_code(config, action_id, template_arg, args):
+async def custom_command_to_code(config, action_id, template_arg, args):
     paren = await cg.get_variable(config[CONF_ID])
     var = cg.new_Pvariable(action_id, template_arg, paren)
 
     val = config[CONF_CUSTOM_COMMAND]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.std_string))
+        template_ = await cg.templatable(val, args, cg.std_string)
         cg.add(var.set_custom(template_))
 
     return var
