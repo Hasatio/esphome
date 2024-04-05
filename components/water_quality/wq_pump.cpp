@@ -396,7 +396,7 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
             {
                 pump[i] = dose[i];
                 dose[i] = 0;
-                ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i])
+                ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i]);
             }
             else if(stat[i] == 3)
                 pump[i] = 0;
