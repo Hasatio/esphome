@@ -790,9 +790,9 @@ void WaterQuality::read_command_result_()
             return;
     }
 
-    // ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
-    ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) response_buffer);
-    
+    ESP_LOGI(TAG,"Reading command to device: %s%s%s", (char *) first_parameter_buffer, (char *) second_parameter_buffer, (char *) third_parameter_buffer);
+    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
+
     this->clear_current_command_();
 }
 void WaterQuality::send_next_command_()
