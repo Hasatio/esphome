@@ -1031,7 +1031,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
                 
         //     this->volume_[i] == volume[i];
         // }
-        ESP_LOGI(TAG,"get_is_dosing =", i, get_is_dosing());
+        ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
         
         if (get_is_dosing())
         {
