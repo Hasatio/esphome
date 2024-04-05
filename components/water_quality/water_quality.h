@@ -285,8 +285,6 @@ int next_command_queue_last_ = 0;
 int next_command_queue_length_ = 0;
 
 uint16_t current_command_ = 0;
-bool is_paused_flag_ = false;
-bool is_dosing_flag_ = false;
 
 const char *arbitrary_command_{nullptr};
 

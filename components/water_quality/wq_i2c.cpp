@@ -678,15 +678,12 @@ void WaterQuality::read_command_result_()
         // Read Commands
         case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
             if (parsed_third_parameter.has_value())
-                this->is_dosing_flag_ = parsed_third_parameter.value_or(0) == 1;
-
-            if (this->is_dosing_)
-                this->is_dosing_ = (this->is_dosing_flag_);
+                this->is_dosing_ = parsed_third_parameter.value_or(0) == 1;
 
             if (parsed_second_parameter.has_value() && this->last_volume_requested_)
                 this->last_volume_requested_ = (parsed_second_parameter.value_or(0));
 
-            if (!this->is_dosing_flag_ && !this->is_paused_flag_)
+            if (!this->is_dosing_ && !this->is_paused_)
                 // If pump is not paused and not dispensing
                 if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
                     this->dosing_mode_ = (DOSING_MODE_NONE);
@@ -705,10 +702,7 @@ void WaterQuality::read_command_result_()
 
         case EZO_PMP_COMMAND_READ_PAUSE_STATUS:  // Pause (page 61)
             if (parsed_second_parameter.has_value())
-                this->is_paused_flag_ = parsed_second_parameter.value_or(0) == 1;
-
-            if (this->is_paused_)
-                this->is_paused_ = (this->is_paused_flag_);
+                this->is_paused_ = parsed_second_parameter.value_or(0) == 1;
             break;
 
         case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:  // Total Volume Dispensed (page 64)
@@ -766,9 +760,7 @@ void WaterQuality::read_command_result_()
             break;
 
         case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
-            this->is_paused_flag_ = false;
-            if (this->is_paused_)
-                this->is_paused_ = (this->is_paused_flag_);
+            this->is_paused_ = false;
             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
                 this->dosing_mode_ = (DOSING_MODE_NONE);
             break;
@@ -1087,7 +1079,7 @@ void WaterQuality::EZOPMP_update()
     {
         this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
 
-        if (this->is_dosing_flag_)
+        if (this->is_dosing_)
         {
             this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
             this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
