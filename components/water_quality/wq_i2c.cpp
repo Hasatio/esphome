@@ -982,13 +982,13 @@ void WaterQuality::custom_command(std::string custom)
 
     // Send command
     ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
-    // this->write(command_buffer, command_buffer_length);
+    this->write(command_buffer, command_buffer_length);
     
-    // this->current_command_ = this->next_command_;
-    // this->next_command_ = EZO_PMP_COMMAND_NONE;
-    // this->is_waiting_ = true;
-    // this->start_time_ = millis();
-    // this->wait_time_ = wait_time_for_command;       
+    this->current_command_ = this->next_command_;
+    this->next_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = true;
+    this->start_time_ = millis();
+    this->wait_time_ = wait_time_for_command;       
 }
 
 void WaterQuality::EZOPMP_Driver(float volume[])
