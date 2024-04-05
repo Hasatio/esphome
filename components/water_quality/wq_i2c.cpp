@@ -1031,6 +1031,12 @@ void WaterQuality::EZOPMP_Driver(float volume[])
                 
         //     this->volume_[i] == volume[i];
         // }
+        if (get_is_dosing())
+        {
+            ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
+            ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
+        }
+        
         if (volume[i] > 0 && !get_is_dosing())
         {
             dose_volume(volume[i]);
@@ -1039,11 +1045,6 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         else if (volume[i] == 0 && get_is_dosing())
             stop_dosing();
         
-        if (get_is_dosing())
-        {
-            ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
-            ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
-        }
     }
     
 }
