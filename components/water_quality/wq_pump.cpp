@@ -70,41 +70,46 @@ void Pump::Calibration_Controller()
         //     }
         
         if (type[i] > 0 && model[i] > 0)
-            if (get_Calibration_Condition() == 0)
+            switch (get_Calibration_Condition())
             {
-                if (calib_mode[i])
-                {
-                    calib_vol[i] = calib_time;
-                    set_Calibration_Condition(1);
-                    ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
-                    ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
-                }
-            }
-            else if (get_Calibration_Condition() == 1)
-            {
-                if (calib_mode[i] == 1)
-                    if (calib_vol[i] == 0)
+                case 0:
+                    if (calib_mode[i])
                     {
-                        set_Calibration_Condition(2);
-                        ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        calib_vol[i] = calib_time;
+                        set_Calibration_Condition(1);
+                        ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                     }
-                else if (calib_mode[i] == 0)
-                    if (calib_vol[i] > 0)
+                    break;
+
+                case 1:
+                    if (calib_mode[i])
+                        if (calib_vol[i] == 0)
+                        {
+                            set_Calibration_Condition(2);
+                            ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                            ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                        }
+                    else
+                        if (calib_vol[i] > 0)
+                        {
+                            calib_vol[i] = 0;
+                            set_Calibration_Condition(0);
+                            ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
+                            ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
+                        }
+                    break;
+
+                case 2:
+                    if (!calib_mode[i])
                     {
-                        calib_vol[i] = 0;
                         set_Calibration_Condition(0);
-                        ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
                     }
-            }
-            else if (get_Calibration_Condition() == 2)
-            {
-                if (calib_mode[i] == 0)
-                    {
-                        set_Calibration_Condition(0);
-                        ESP_LOGI(TAG, "Calibration_Condition = %d", get_Calibration_Condition());
-                    }
+                    break;
+                
+                default:
+                    break;
             }
     }
 }
@@ -176,7 +181,7 @@ void Pump::Dosing_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 1 && model[i] > 0)
+        if (type[i] == 1 && model[i] == 1)
             if (get_Calibration_Condition())
             {
                 if (pump[i] > 0 && stat[i] == 4)
@@ -264,7 +269,7 @@ void Pump::Circulation_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 2 && model[i] > 0)
+        if (type[i] == 2 && model[i] == 1)
             if (get_Calibration_Condition())
             {
                 if (pump[i] > 0 && stat[i] == 4)
@@ -352,53 +357,50 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 1)
-            if (model[i] == 2)
+        if (type[i] == 1 && model[i] == 2)
+        {
+            // if (pump[i] > 0)
+            // {
+            //         if (dose[i] > 0)
+            //         {
+            //             tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
+            //             tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
+            //             if (tot[i][1] >= 10000000)
+            //                 tot[i][1] = 0;
+            //         }
+            // }
+
+            switch (mode[i])
             {
-                // if (pump[i] > 0)
-                // {
-                //     if (!get_Calibration_Mode())
-                //         if (dose[i] > 0)
-                //         {
-                //             tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
-                //             tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
-                //             if (tot[i][1] >= 10000000)
-                //                 tot[i][1] = 0;
-                //         }
+                case 0:
+                    if (dose[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                //     dose[i] = fabs(dose[i] - min * calib_gain[i]);
-                // }
+                case 1:
+                    if (dose[i] > 0)
+                        stat[i] = 1;
+                    else if (dose[i] == 0)
+                        stat[i] = 2;
+                    break;
 
-                switch (mode[i])
-                {
-                    case 0:
-                        if (dose[i] == 0)
-                            stat[i] = 2;
-                        break;
-
-                    case 1:
-                        if (dose[i] > 0)
-                            stat[i] = 1;
-                        else if (dose[i] == 0)
-                            stat[i] = 2;
-                        break;
-
-                    case 2:
-                        stat[i] = 3;
-                        break;
-                    
-                    default:
-                        break;
-                }
-
-                if (stat[i] == 1)
-                {
-                    pump[i] = dose[i];
-                    dose[i] = 0;
-                }
-                else if(stat[i] == 3)
-                    pump[i] = 0;
+                case 2:
+                    stat[i] = 3;
+                    break;
+                
+                default:
+                    break;
             }
+
+            if (stat[i] == 1)
+            {
+                pump[i] = dose[i];
+                dose[i] = 0;
+                ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i])
+            }
+            else if(stat[i] == 3)
+                pump[i] = 0;
+        }
     }
 }
 
