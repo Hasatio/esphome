@@ -1018,23 +1018,14 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    EZOPMP_loop();
-    EZOPMP_update();
+    // EZOPMP_loop();
+    // EZOPMP_update();
 
-    this->requestFrom(EZO_PMP_ADDR, 7); // Sensörden 7 byte oku (örneğin)
-
-    if (this->available() < 7) {
-        // Sensörden beklenen byte sayısı gelmezse hata oluşmuş olabilir
-        return -1.0; // Hata durumunu belirtmek için negatif bir değer döndürülebilir
-    }
-
-    // Okunan verileri işleyin ve basınç değerini döndürün
-    // Bu örnek kodda 7 byte'lık bir yanıt alındığı varsayılmıştır
-    // Dönüşüm işlemi senaryoya ve sensöre bağlı olarak değişebilir
-    float pressure;
+    uint8_t pressure[50] = {0}, len = 8;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
-    this->readBytes(reinterpret_cast<char *>(&pressure), sizeof(pressure));
-    ESP_LOGI(TAG,"read = %s", pressure);
+    this->read_bytes_raw(pressure, len);
+    for (size_t i = 0; i < len; i++)
+        ESP_LOGI(TAG,"read[%d] = %s", pressure[i]);
         
     for (size_t i = 0; i < 6; i++)
     {
