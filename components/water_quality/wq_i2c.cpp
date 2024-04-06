@@ -1018,8 +1018,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    EZOPMP_loop();
-    EZOPMP_update();
+    // EZOPMP_loop();
+    // EZOPMP_update();
 
     uint8_t pressure[50] = {0}, len = 20;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
@@ -1052,7 +1052,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         
         if (volume[i] > 0 && !get_is_dosing())
         {
-            dose_volume(volume[i]);
+            // dose_volume(volume[i]);
+            this->custom_command("D," + volume[i]);
             ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
         else if (volume[i] == 0 && get_is_dosing())
