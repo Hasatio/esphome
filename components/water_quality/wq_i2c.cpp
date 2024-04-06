@@ -1018,8 +1018,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    // EZOPMP_loop();
-    // EZOPMP_update();
+    EZOPMP_loop();
+    EZOPMP_update();
 
     uint8_t pressure[50] = {0}, len = 8;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
