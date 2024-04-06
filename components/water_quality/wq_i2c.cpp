@@ -595,8 +595,6 @@ void WaterQuality::read_command_result_()
         return;
     }
 
-    ESP_LOGI(TAG,"Reading command to device: %s", (char *) response_buffer);
-
     switch (response_buffer[0])
     {
         case 254:
@@ -635,10 +633,10 @@ void WaterQuality::read_command_result_()
 
         if (current_char == '\0')
         {
-            ESP_LOGV(TAG, "Read Response from device: %s", (char *) response_buffer);
-            ESP_LOGV(TAG, "First Component: %s", (char *) first_parameter_buffer);
-            ESP_LOGV(TAG, "Second Component: %s", (char *) second_parameter_buffer);
-            ESP_LOGV(TAG, "Third Component: %s", (char *) third_parameter_buffer);
+            ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+            ESP_LOGI(TAG, "First Component: %s", (char *) first_parameter_buffer);
+            ESP_LOGI(TAG, "Second Component: %s", (char *) second_parameter_buffer);
+            ESP_LOGI(TAG, "Third Component: %s", (char *) third_parameter_buffer);
 
             break;
         }
@@ -649,6 +647,8 @@ void WaterQuality::read_command_result_()
             position_in_parameter_buffer = 0;
             continue;
         }
+
+        ESP_LOGI(TAG, "current_parameter: %d", current_parameter);
 
         switch (current_parameter)
         {
