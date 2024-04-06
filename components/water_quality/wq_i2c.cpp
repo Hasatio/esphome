@@ -592,18 +592,18 @@ void WaterQuality::read_command_result_()
     ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
     ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
 
-    uint8_t response_buffer[22] = {'\0'};
+    uint8_t response_buffer[21] = {'\0'};
 
     response_buffer[0] = 0;
-    if (!this->read_bytes_raw(response_buffer, 22))
+    if (!this->read_bytes_raw(response_buffer, 21))
     {
         // ESP_LOGE(TAG, "read error");
-    ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20], response_buffer[21]);
+    ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
     ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
         this->clear_current_command_();
         return;
     }
-    ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20], response_buffer[21]);
+    ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
     ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
 
     switch (response_buffer[0])
@@ -805,7 +805,7 @@ void WaterQuality::send_next_command_()
     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
     if (this->is_failed())
         return;
-        
+
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
