@@ -588,7 +588,7 @@ void WaterQuality::read_command_result_()
     ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
     ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
 
-    uint8_t response_buffer[21] = {'\0'};
+    uint8_t response_buffer[22] = {'\0'};
 
     response_buffer[0] = 0;
     if (!this->read_bytes_raw(response_buffer, 22))
@@ -1021,7 +1021,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     EZOPMP_loop();
     EZOPMP_update();
 
-    uint8_t pressure[50] = {0}, len = 8;
+    uint8_t pressure[50] = {0}, len = 21;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
     this->read_bytes_raw(pressure, len);
     for (size_t i = 0; i < len; i++)
