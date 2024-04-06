@@ -595,6 +595,7 @@ void WaterQuality::read_command_result_()
         return;
     }
 
+    ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
     ESP_LOGE(TAG, "response_buffer[0] = %d", response_buffer[0]);
     switch (response_buffer[0])
     {
