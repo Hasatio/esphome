@@ -1009,8 +1009,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    EZOPMP_loop();
     EZOPMP_update();
+    EZOPMP_loop();
     
     for (size_t i = 0; i < 6; i++)
     {
