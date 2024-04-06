@@ -673,6 +673,10 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
+    ESP_LOGI(TAG, "First Parameter: %d", parsed_first_parameter);
+    ESP_LOGI(TAG, "Second Parameter: %d", parsed_second_parameter);
+    ESP_LOGI(TAG, "Third Parameter: %d", parsed_third_parameter);
+
     switch (this->current_command_)
     {
         // Read Commands
@@ -687,7 +691,6 @@ void WaterQuality::read_command_result_()
                 // If pump is not paused and not dispensing
                 if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
                     this->dosing_mode_ = (DOSING_MODE_NONE);
-
         break;
 
         case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
@@ -1023,7 +1026,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
                 
         //     this->volume_[i] == volume[i];
         // }
-        
+
         // ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
         
         if (get_is_dosing())
@@ -1039,7 +1042,6 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         }
         else if (volume[i] == 0 && get_is_dosing())
             stop_dosing();
-        
     }
     
 }
