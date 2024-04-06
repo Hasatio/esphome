@@ -595,6 +595,7 @@ void WaterQuality::read_command_result_()
         return;
     }
 
+    ESP_LOGE(TAG, "response_buffer[0] = %d", response_buffer[0]);
     switch (response_buffer[0])
     {
         case 254:
