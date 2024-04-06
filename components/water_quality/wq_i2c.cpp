@@ -585,6 +585,10 @@ void WaterQuality::clear_current_command_()
 }
 void WaterQuality::read_command_result_()
 {
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+
     ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
     ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
 
@@ -798,6 +802,10 @@ void WaterQuality::read_command_result_()
 }
 void WaterQuality::send_next_command_()
 {
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+        
     int wait_time_for_command = 400;  // milliseconds
     uint8_t command_buffer[21];
     int command_buffer_length = 0;
@@ -1018,8 +1026,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    // EZOPMP_loop();
-    // EZOPMP_update();
+    EZOPMP_loop();
+    EZOPMP_update();
 
     uint8_t command[50] = {0}, len = 21;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
@@ -1048,11 +1056,11 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
         // ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
         
-        if (get_is_dosing())
-        {
-            ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
-            ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
-        }
+        // if (get_is_dosing())
+        // {
+        //     ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
+        //     ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
+        // }
         
         if (volume[i] > 0 && !get_is_dosing())
         {
@@ -1061,7 +1069,10 @@ void WaterQuality::EZOPMP_Driver(float volume[])
             ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
         else if (volume[i] == 0 && get_is_dosing())
-            stop_dosing();
+        {
+            // stop_dosing();
+            this->custom_command("X");
+        }
     }
     
 }
