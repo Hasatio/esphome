@@ -673,9 +673,9 @@ void WaterQuality::read_command_result_()
     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
 
-    ESP_LOGI(TAG, "First Parameter: %d", parsed_first_parameter);
-    ESP_LOGI(TAG, "Second Parameter: %d", parsed_second_parameter);
-    ESP_LOGI(TAG, "Third Parameter: %d", parsed_third_parameter);
+    ESP_LOGI(TAG, "First Parameter: %f", parsed_first_parameter);
+    ESP_LOGI(TAG, "Second Parameter: %f", parsed_second_parameter);
+    ESP_LOGI(TAG, "Third Parameter: %f", parsed_third_parameter);
 
     switch (this->current_command_)
     {
