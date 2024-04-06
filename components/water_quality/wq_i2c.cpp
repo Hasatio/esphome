@@ -1021,7 +1021,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     EZOPMP_loop();
     EZOPMP_update();
 
-    uint8_t pressure[50] = {0}, len = 21;
+    uint8_t pressure[50] = {0}, len = 20;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
     this->read_bytes_raw(pressure, len);
     for (size_t i = 0; i < len; i++)
