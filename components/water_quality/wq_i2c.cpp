@@ -591,13 +591,13 @@ void WaterQuality::read_command_result_()
     if (!this->read_bytes_raw(response_buffer, 20))
     {
         // ESP_LOGE(TAG, "read error");
-    ESP_LOGI(TAG, "response_buffer = %d", response_buffer);
+    ESP_LOGI(TAG, "response_buffer = %f", response_buffer);
     ESP_LOGE(TAG, "response_buffer[0] = %d", response_buffer[0]);
     ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
         this->clear_current_command_();
         return;
     }
-    ESP_LOGI(TAG, "response_buffer = %d", response_buffer);
+    ESP_LOGI(TAG, "response_buffer = %f", response_buffer);
     ESP_LOGE(TAG, "response_buffer[0] = %d", response_buffer[0]);
     ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
 
