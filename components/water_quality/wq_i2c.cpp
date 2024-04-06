@@ -984,7 +984,9 @@ void WaterQuality::custom_command(std::string custom)
     this->next_command_ = EZO_PMP_COMMAND_NONE;
     this->is_waiting_ = true;
     this->start_time_ = millis();
-    this->wait_time_ = wait_time_for_command;       
+    this->wait_time_ = wait_time_for_command;
+    
+    this->read_command_result_();
 }
 
 void WaterQuality::EZOPMP_Driver(float volume[])
@@ -1009,8 +1011,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    EZOPMP_update();
     EZOPMP_loop();
+    EZOPMP_update();
     
     for (size_t i = 0; i < 6; i++)
     {
