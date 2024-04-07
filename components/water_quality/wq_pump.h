@@ -38,7 +38,7 @@ void set_Pump_Circulation(float circulation[])              { for (size_t i = 0;
 void set_Pump_Total(uint32_t total[][2])                    { for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = total[i][j]; }
 void set_Pump_Reset(bool reset[])                           { for (size_t i = 0; i < 6; i++) Pump_Reset[i] = reset[i]; }
 void set_Pump_Time(float time[])                            { for (size_t i = 0; i < 6; i++) Pump_Time[i] = time[i]; }
-void set_Min(float min)                                     { Min = min; }
+void set_Min_Time(float min)                                { Min_Time = min; }
 
 bool get_Pump_Calibration_Mode_Check()      { return Pump_Calibration_Mode_Check; }
 uint8_t* get_Pump_Calibration_Condition()   { return Pump_Calibration_Condition; }
@@ -54,7 +54,7 @@ float* get_Pump_Circulation()               { return Pump_Circulation; }
 uint32_t (*get_Pump_Total())[2]             { return Pump_Total; }
 bool* get_Pump_Reset()                      { return Pump_Reset; }
 float* get_Pump_Time()                      { return Pump_Time; }
-float get_Min()                             { return Min; }
+float get_Min_Time()                        { return Min_Time; }
 
 protected:
 bool Pump_Calibration_Mode_Check = 0;
@@ -71,7 +71,7 @@ float Pump_Circulation[6] = {0};
 uint32_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 float Pump_Time[6] = {0};
-float Min = 0;
+float Min_Time = 0;
 
 private:
 esp_timer_handle_t timer;

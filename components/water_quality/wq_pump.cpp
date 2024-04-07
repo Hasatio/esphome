@@ -138,29 +138,26 @@ void Pump::Generic_Pump_Driver(float pwm[])
     uint32_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float* pump = get_Pump_Time();
-    float min = get_Min();
-    float min_ = 0, mint[6];
+    float min = 0, min_[6];
 
     std::copy(pump, pump + 6, mint);
-    std::sort(mint, mint + 6);
+    std::sort(min_, min_ + 6);
 
     for (size_t i = 0; i < 6; ++i)
     {
-        ESP_LOGD(TAG, "mint[%d] = %f", i, mint[i]);
-        if (mint[i] > 0)
+        if (min_[i] > 0)
         {
-            min_ = mint[i];
+            min = min_[i];
             break;
         }
         else
-            min_ = 0;
+            min = 0;
     }
-    set_Min(min_);
-    ESP_LOGD(TAG, "min_ = %f", get_Min());
+    set_Min_Time(min);
 
-    if (min != min_)
+    if (get_Min_Time() != min)
         Timer_Setup(min_);
-    else if (min_ == 0)
+    else if (min == 0)
     {
         Dosing_Controller(pump);
         Circulation_Controller(pump);
@@ -198,7 +195,7 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* stat = get_Pump_Status();
     float* dose = get_Pump_Dose();
     uint32_t (*tot)[2] = get_Pump_Total();
-    float min = get_Min();
+    float min = get_Min_Time();
 
     for (size_t i = 0; i < 6; i++)
     {
@@ -290,7 +287,7 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* stat = get_Pump_Status();
     float* circ = get_Pump_Circulation();
     uint32_t (*tot)[2] = get_Pump_Total();
-    float min = get_Min();
+    float min = get_Min_Time();
 
     for (size_t i = 0; i < 6; i++)
     {
