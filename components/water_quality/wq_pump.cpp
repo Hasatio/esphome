@@ -155,8 +155,8 @@ void Pump::Generic_Pump_Driver(float pwm[])
         else
             min_ = 0;
     }
-    ESP_LOGD(TAG, "min_ = %f", min_);
     set_Min(min_);
+    ESP_LOGD(TAG, "min_ = %f", get_Min());
 
     if (min != min_)
         Timer_Setup(min_);
