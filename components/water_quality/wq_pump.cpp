@@ -154,8 +154,8 @@ void Pump::Generic_Pump_Driver(float pwm[])
             min = 0;
     }
 
-    if (get_Min_Time() != min){
-        Timer_Setup(min);ESP_LOGD(TAG, "here");}
+    if (get_Min_Time() != min)
+        Timer_Setup(min);
     else if (min == 0)
     {
         Dosing_Controller(pump);
@@ -228,9 +228,6 @@ void Pump::Dosing_Controller(float pump[])
                         if (tot[i][1] >= 10000000)
                             tot[i][1] = 0;
                     }
-
-                    ESP_LOGD(TAG, "dose[%d] = %f", i, dose[i]);
-                    ESP_LOGD(TAG, "min = %f", min);
 
                     dose[i] = fabs(dose[i] - min * calib_gain[i]);
                     if (dose[i] < 0)
