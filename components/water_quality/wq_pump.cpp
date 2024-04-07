@@ -145,10 +145,8 @@ void Pump::Generic_Pump_Driver(float pwm[])
     std::sort(mint, mint + 6);
 
     for (size_t i = 0; i < 6; ++i)
-        ESP_LOGD(TAG, "mint[%d] = %f", i, mint[i]);
-
-    for (size_t i = 0; i < 6; ++i)
     {
+        ESP_LOGD(TAG, "mint[%d] = %f", i, mint[i]);
         if (mint[i] > 0)
         {
             min_ = mint[i];
@@ -157,6 +155,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
         else
             min_ = 0;
     }
+    ESP_LOGD(TAG, "min_ = %f", min_);
     set_Min(min_);
 
     if (min != min_)
