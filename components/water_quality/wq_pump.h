@@ -36,7 +36,7 @@ void set_Pump_Status(uint8_t status[])                      { for (size_t i = 0;
 void set_Pump_Dose(float dose[])                            { for (size_t i = 0; i < 6; i++) Pump_Dose[i] = dose[i]; }
 void set_Pump_Circulation(float circulation[])              { for (size_t i = 0; i < 6; i++) Pump_Circulation[i] = circulation[i]; }
 void set_Pump_Total(uint32_t total[][2])                    { for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = total[i][j]; }
-void set_Pump_Reset(bool reset[])                           { for (size_t i = 0; i < 6; i++) Pump_Reset[i] = rest[i]; }
+void set_Pump_Reset(bool reset[])                           { for (size_t i = 0; i < 6; i++) Pump_Reset[i] = reset[i]; }
 void set_Pump_Time(float time[])                            { for (size_t i = 0; i < 6; i++) Pump_Time[i] = time[i]; }
 void set_Min(float min)                                     { min = min; }
 
