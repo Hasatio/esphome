@@ -1045,7 +1045,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     // EZOPMP_update();
 
     uint8_t command[50] = {0}, len = 20;
-    // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
+    
     this->read_bytes_raw(command, len);
     if (this->command_[0] != command[0] /*&& command[0] <= 1*/)
         ESP_LOGI(TAG, "command: %s", (char *) command);
@@ -1073,11 +1073,11 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
         // ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
         
-        // if (get_is_dosing())
-        // {
-        //     ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
-        //     ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
-        // }
+        if (get_is_dosing())
+        {
+            ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
+            ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
+        }
         
         if (volume[i] > 0 && !get_is_dosing())
         {
