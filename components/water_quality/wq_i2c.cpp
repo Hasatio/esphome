@@ -1052,6 +1052,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         {
             this->command_[i] = command[i];
             ESP_LOGI(TAG,"read[%d] = %d", i, command[i]);
+            ESP_LOGI(TAG, "command: %s", (char *) command);
         }
         
     for (size_t i = 0; i < 6; i++)
