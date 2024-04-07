@@ -156,8 +156,8 @@ void Pump::Generic_Pump_Driver(float pwm[])
     set_Min_Time(min);
     ESP_LOGD(TAG, "min = %f", get_Min_Time());
 
-    if (get_Min_Time() != min)
-        Timer_Setup(min);
+    if (get_Min_Time() != min){
+        Timer_Setup(min);ESP_LOGD(TAG, "here");}
     else if (min == 0)
     {
         Dosing_Controller(pump);
