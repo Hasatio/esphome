@@ -138,7 +138,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     uint32_t (*tot)[2] = get_Pump_Total();
     bool* reset = get_Pump_Reset();
     float* pump = get_Pump_Time();
-    float min = 0, min_[6];
+    float min = 0, min_[6] = {0};
 
     std::copy(pump, pump + 6, min_);
     std::sort(min_, min_ + 6);
@@ -155,6 +155,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     }
     set_Min_Time(min);
     ESP_LOGD(TAG, "min = %f", get_Min_Time());
+    ESP_LOGD(TAG, "min2 = %f", min);
 
     if (get_Min_Time() != min){
         Timer_Setup(min);ESP_LOGD(TAG, "here");}
