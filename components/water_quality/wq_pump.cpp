@@ -90,7 +90,7 @@ void Pump::Calibration_Controller()
                         else if (model[i] == 2)
                             calib_vol[i] = calib_ml;
 
-                        set_Calibration_Condition(1);
+                        set_Calibracalib_cond[i] = 1;
                         ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
@@ -99,14 +99,14 @@ void Pump::Calibration_Controller()
                 case 1:
                     if (calib_mode[i] && calib_vol[i] == 0)
                     {
-                        set_Calibration_Condition(2);
+                        set_Calibracalib_cond[i] = 2;
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
                     else if (!calib_mode[i] && calib_vol[i] > 0)
                     {
                         calib_vol[i] = 0;
-                        set_Calibration_Condition(0);
+                        set_Calibracalib_cond[i] = 0;
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
@@ -115,7 +115,7 @@ void Pump::Calibration_Controller()
                 case 2:
                     if (!calib_mode[i])
                     {
-                        set_Calibration_Condition(0);
+                        set_Calibracalib_cond[i] = 0;
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
                     break;
@@ -194,7 +194,7 @@ void Pump::Dosing_Controller(float pump[])
     for (size_t i = 0; i < 6; i++)
     {
         if (type[i] == 1 && model[i] == 1)
-            if (get_Calibration_Condition())
+            if (get_Pump_Calibration_Mode_Check())
             {
                 if (pump[i] > 0 && stat[i] == 4)
                     calib_vol[i]--;
@@ -282,7 +282,7 @@ void Pump::Circulation_Controller(float pump[])
     for (size_t i = 0; i < 6; i++)
     {
         if (type[i] == 2 && model[i] == 1)
-            if (get_Calibration_Condition())
+            if (get_Pump_Calibration_Mode_Check())
             {
                 if (pump[i] > 0 && stat[i] == 4)
                     calib_vol[i]--;
