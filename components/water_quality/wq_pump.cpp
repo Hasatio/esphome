@@ -145,6 +145,9 @@ void Pump::Generic_Pump_Driver(float pwm[])
     std::sort(mint, mint + 6);
 
     for (size_t i = 0; i < 6; ++i)
+        ESP_LOGD(TAG, "mint[%d] = %f", i, mint[i]);
+
+    for (size_t i = 0; i < 6; ++i)
     {
         if (mint[i] > 0)
         {
