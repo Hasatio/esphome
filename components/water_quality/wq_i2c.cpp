@@ -761,11 +761,6 @@ void WaterQuality::read_command_result_()
                 this->pump_voltage_ = (parsed_second_parameter.value_or(0));
             break;
 
-        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:  // Naming Device (page 68)
-            if (parsed_second_parameter.has_value() && this->name_ != "")
-                this->name_ = std::to_string(parsed_second_parameter.value_or(0));
-            break;
-
         // Non-Read Commands
 
         case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
@@ -808,6 +803,7 @@ void WaterQuality::read_command_result_()
 
         case EZO_PMP_COMMAND_TYPE_READ:
         case EZO_PMP_COMMAND_NONE:
+        case EZO_PMP_COMMAND_CUSTOM:
         default:
             ESP_LOGE(TAG, "Unsupported command received: %d", this->current_command_);
             return;
@@ -863,10 +859,6 @@ void WaterQuality::send_next_command_()
 
         case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:
             command_buffer_length = sprintf((char *) command_buffer, "PV,?");
-            break;
-
-        case EZO_PMP_COMMAND_READ_NAMING_DEVICE:
-            command_buffer_length = sprintf((char *) command_buffer, "Name,?");
             break;
 
         // Non-Read Commands
@@ -925,6 +917,11 @@ void WaterQuality::send_next_command_()
 
         case EZO_PMP_COMMAND_TYPE_READ:
         case EZO_PMP_COMMAND_NONE:
+        case EZO_PMP_COMMAND_CUSTOM:
+            command_buffer_length = sprintf((char *) command_buffer, this->custom_);
+            ESP_LOGI(TAG, "Sending custom command: %s", (char *) command_buffer.c_str());
+            break;
+
         default:
             ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
             return;
@@ -1007,7 +1004,9 @@ void WaterQuality::custom_command(std::string custom)
     // clear_current_command_();
 
     // Send command
-    this->exec_arbitrary_command(custom);
+    this->custom_ = custom.c_str();
+    this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
+
     ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
     // this->write(command_buffer, command_buffer_length);
     

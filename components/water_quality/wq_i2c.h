@@ -58,6 +58,7 @@ static const uint16_t EZO_PMP_COMMAND_PAUSE_DOSING = 512;
 static const uint16_t EZO_PMP_COMMAND_STOP_DOSING = 1024;
 static const uint16_t EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS = 2048;
 static const uint16_t EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS = 4096;
+static const uint16_t EZO_PMP_COMMAND_CUSTOM = 8192;
 
 static const uint16_t EZO_PMP_COMMAND_READ_DOSING = 3;
 static const uint16_t EZO_PMP_COMMAND_READ_SINGLE_REPORT = 5;
@@ -67,7 +68,6 @@ static const uint16_t EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED = 33;
 static const uint16_t EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED = 65;
 static const uint16_t EZO_PMP_COMMAND_READ_CALIBRATION_STATUS = 129;
 static const uint16_t EZO_PMP_COMMAND_READ_PUMP_VOLTAGE = 257;
-static const uint16_t EZO_PMP_COMMAND_READ_NAMING_DEVICE = 513;
 
 static const std::string DOSING_MODE_NONE = "None";
 static const std::string DOSING_MODE_VOLUME = "Volume";
