@@ -296,6 +296,7 @@ void pop_next_command_();
 uint16_t peek_next_command_();
 
 uint8_t command_[50] = {0};
+uint8_t command2_[50] = {0};
 float volume_[6] = {0};
 float current_volume_dosed_ = 0;
 float total_volume_dosed_ = 0;
