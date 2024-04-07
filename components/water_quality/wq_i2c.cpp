@@ -918,7 +918,7 @@ void WaterQuality::send_next_command_()
         case EZO_PMP_COMMAND_TYPE_READ:
         case EZO_PMP_COMMAND_NONE:
         case EZO_PMP_COMMAND_CUSTOM:
-            command_buffer_length = sprintf((char *) command_buffer, this->custom_);
+            command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
             ESP_LOGI(TAG, "Sending custom command: %s", (char *) command_buffer.c_str());
             break;
 
