@@ -1016,7 +1016,7 @@ void WaterQuality::custom_command(std::string custom)
     this->start_time_ = millis();
     this->wait_time_ = wait_time_for_command;
     
-    this->read_command_result_();
+    // this->read_command_result_();
 }
 
 void WaterQuality::EZOPMP_Driver(float volume[])
