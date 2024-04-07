@@ -108,8 +108,7 @@ void Pump::Calibration_Controller()
                     else if (!calib_mode[i] && calib_vol[i] > 0)
                     {
                         calib_vol[i] = 0;
-                        calib_cond[i] = 0;
-                        set_Pump_Calibration_Mode_Check(0);
+                        calib_cond[i] = 3;
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
@@ -122,6 +121,10 @@ void Pump::Calibration_Controller()
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
                     break;
+
+                case 3:
+                    calib_cond[i] = 0;
+                    set_Pump_Calibration_Mode_Check(0);
                 
                 default:
                     break;
@@ -201,7 +204,7 @@ void Pump::Dosing_Controller(float pump[])
             {
                 if (pump[i] > 0 && stat[i] == 4)
                     calib_vol[i]--;
-                ESP_LOGD(TAG, "calib_vol[%d] = %d", calib_vol[i]);
+                ESP_LOGD(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
 
                 if (calib_vol[i] > 0)
                 {
