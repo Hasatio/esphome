@@ -589,8 +589,8 @@ void WaterQuality::read_command_result_()
     if (this->is_failed())
         return;
 
-    ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
-    ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
+    // ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
+    // ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
 
     uint8_t response_buffer[21] = {'\0'};
 
