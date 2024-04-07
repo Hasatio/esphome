@@ -90,7 +90,7 @@ void Pump::Calibration_Controller()
                         else if (model[i] == 2)
                             calib_vol[i] = calib_ml;
 
-                        set_Calibracalib_cond[i] = 1;
+                        calib_cond[i] = 1;
                         ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
@@ -99,14 +99,14 @@ void Pump::Calibration_Controller()
                 case 1:
                     if (calib_mode[i] && calib_vol[i] == 0)
                     {
-                        set_Calibracalib_cond[i] = 2;
+                        calib_cond[i] = 2;
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
                     else if (!calib_mode[i] && calib_vol[i] > 0)
                     {
                         calib_vol[i] = 0;
-                        set_Calibracalib_cond[i] = 0;
+                        calib_cond[i] = 0;
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
@@ -115,7 +115,7 @@ void Pump::Calibration_Controller()
                 case 2:
                     if (!calib_mode[i])
                     {
-                        set_Calibracalib_cond[i] = 0;
+                        calib_cond[i] = 0;
                         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_cond[i]);
                     }
                     break;
