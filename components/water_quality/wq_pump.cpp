@@ -83,7 +83,7 @@ void Pump::Calibration_Controller()
             switch (calib_cond[i])
             {
                 case 0:
-                    if (calib_mode[i] && !get_Pump_Calibration_Mode_Control())
+                    if (calib_mode[i] && !get_Pump_Calibration_Mode_Check())
                     {
                         if (model[i] == 1)
                             calib_vol[i] = calib_time;
