@@ -1047,7 +1047,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     uint8_t command[50] = {0}, len = 20;
     // Örneğin, ilk 4 byte basınç değerini içeriyorsa:
     this->read_bytes_raw(command, len);
-    if (this->command_[0] != command[0] && command[0] <= 1)
+    if (this->command_[0] != command[0] /*&& command[0] <= 1*/)
         ESP_LOGI(TAG, "command: %s", (char *) command);
     for (size_t i = 0; i < len; i++)
         if (this->command_[i] != command[i])
