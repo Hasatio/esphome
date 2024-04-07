@@ -125,6 +125,7 @@ void Pump::Calibration_Controller()
                 case 3:
                     calib_cond[i] = 0;
                     set_Pump_Calibration_Mode_Check(0);
+                    break;
                 
                 default:
                     break;
