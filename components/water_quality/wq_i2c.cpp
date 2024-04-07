@@ -595,7 +595,7 @@ void WaterQuality::read_command_result_()
     uint8_t response_buffer[21] = {'\0'};
 
     response_buffer[0] = 0;
-    if (!this->read_bytes_raw(response_buffer, 21))
+    if (!this->read_bytes_raw(response_buffer, 20))
     {
         // ESP_LOGE(TAG, "read error");
         
