@@ -230,6 +230,8 @@ void Pump::Dosing_Controller(float pump[])
                             tot[i][1] = 0;
                     }
 
+                    ESP_LOGD(TAG, "dose[%d] = %f", i, dose[i]);
+
                     dose[i] = fabs(dose[i] - min * calib_gain[i]);
                     if (dose[i] < 0)
                         dose[i] = 0;
