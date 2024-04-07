@@ -54,7 +54,7 @@ float* get_Pump_Circulation()               { return Pump_Circulation; }
 uint32_t (*get_Pump_Total())[2]             { return Pump_Total; }
 bool* get_Pump_Reset()                      { return Pump_Reset; }
 float* get_Pump_Time()                      { return Pump_Time; }
-float get_Min()                             { return min; }
+float get_Min()                             { return Min; }
 
 protected:
 bool Pump_Calibration_Mode_Check = 0;
