@@ -999,22 +999,23 @@ void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command
 }
 void WaterQuality::custom_command(std::string custom)
 {
-    int wait_time_for_command = 400;  // milliseconds
-    uint8_t command_buffer[21];
-    int command_buffer_length = 0;
-    command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
+    // int wait_time_for_command = 400;  // milliseconds
+    // uint8_t command_buffer[21];
+    // int command_buffer_length = 0;
+    // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
 
     // clear_current_command_();
 
     // Send command
+    this->exec_arbitrary_command(custom);
     ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
-    this->write(command_buffer, command_buffer_length);
+    // this->write(command_buffer, command_buffer_length);
     
-    this->current_command_ = this->next_command_;
-    this->next_command_ = EZO_PMP_COMMAND_NONE;
-    this->is_waiting_ = true;
-    this->start_time_ = millis();
-    this->wait_time_ = wait_time_for_command;
+    // this->current_command_ = this->next_command_;
+    // this->next_command_ = EZO_PMP_COMMAND_NONE;
+    // this->is_waiting_ = true;
+    // this->start_time_ = millis();
+    // this->wait_time_ = wait_time_for_command;
     
     // this->read_command_result_();
 }
@@ -1041,10 +1042,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
     //     }
 
-    // EZOPMP_loop();
-    // EZOPMP_update();
-
-    this->read_command_result_();
+    EZOPMP_loop();
+    EZOPMP_update();
 
     uint8_t command[50] = {0}, len = 20;
     
@@ -1083,14 +1082,14 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         
         if (volume[i] > 0 && !get_is_dosing())
         {
-            // dose_volume(volume[i]);
-            this->custom_command("D," + std::to_string(volume[i]));
+            dose_volume(volume[i]);
+            // this->custom_command("D," + std::to_string(volume[i]));
             ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
         else if (volume[i] == 0 && get_is_dosing())
         {
-            // stop_dosing();
-            this->custom_command("X");
+            stop_dosing();
+            // this->custom_command("X");
             ESP_LOGI(TAG,"Pump%d Stopped", i + 1);
         }
     }
