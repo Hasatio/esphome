@@ -45,40 +45,7 @@ void Pump::Calibration_Controller()
     uint8_t calib_ml = 200;
 
     for (size_t i = 0; i < 6; i++)
-    {
-        // if (type[i] > 0 && model[i] > 0)
-        //     if (calib_mode[i])
-        //     {
-        //         if (calib_con[i] == 0)
-        //         {
-        //             calib_vol[i] = calib_time;
-        //             set_Calibration_Condition(1);
-        //             ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
-        //             ESP_LOGI(TAG, "Calibration_Condition = %d", calib_con[i]);
-        //         }
-        //         else if (calib_con[i] == 1 && calib_vol[i] == 0)
-        //         {
-        //             set_Calibration_Condition(2);
-        //             ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
-        //             ESP_LOGI(TAG, "Calibration_Condition = %d", calib_con[i]);
-        //         }
-        //     }
-        //     else
-        //     {
-            //     if (calib_con[i] == 1 && calib_vol[i] > 0)
-            //     {
-            //         calib_vol[i] = 0;
-            //         set_Calibration_Condition(0);
-            //         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
-            //         ESP_LOGI(TAG, "Calibration_Condition = %d", calib_con[i]);
-            //     }
-                // if (calib_con[i] == 2)
-                // {
-                //     set_Calibration_Condition(0);
-                //     ESP_LOGI(TAG, "Calibration_Condition = %d", calib_con[i]);
-                // }
-            // }
-        
+    {        
         if (type[i] > 0 && model[i] > 0)
             switch (calib_cond[i])
             {
@@ -93,7 +60,9 @@ void Pump::Calibration_Controller()
                         calib_cond[i] = 1;
                         set_Pump_Calibration_Mode_Check(1);
                         ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
+                        ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
+                        ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
                     break;
 
@@ -103,6 +72,7 @@ void Pump::Calibration_Controller()
                         calib_cond[i] = 2;
                         set_Pump_Calibration_Mode_Check(0);
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
+                        ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
@@ -111,6 +81,7 @@ void Pump::Calibration_Controller()
                         calib_vol[i] = 0;
                         calib_cond[i] = 3;
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
+                        ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
@@ -120,6 +91,7 @@ void Pump::Calibration_Controller()
                     if (!calib_mode[i])
                     {
                         calib_cond[i] = 0;
+                        ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
@@ -128,6 +100,8 @@ void Pump::Calibration_Controller()
                 case 3:
                     calib_cond[i] = 0;
                     set_Pump_Calibration_Mode_Check(0);
+                    ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
+                    ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                     ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     break;
                 
