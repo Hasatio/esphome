@@ -104,6 +104,7 @@ void Pump::Calibration_Controller()
                         set_Pump_Calibration_Mode_Check(0);
                         ESP_LOGI(TAG, "Pump%d Calibration Finish", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
+                        ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
                     else if (!calib_mode[i] && calib_vol[i] > 0)
                     {
@@ -111,6 +112,7 @@ void Pump::Calibration_Controller()
                         calib_cond[i] = 3;
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
+                        ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
                     break;
 
@@ -119,12 +121,14 @@ void Pump::Calibration_Controller()
                     {
                         calib_cond[i] = 0;
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
+                        ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
                     break;
 
                 case 3:
                     calib_cond[i] = 0;
                     set_Pump_Calibration_Mode_Check(0);
+                    ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     break;
                 
                 default:
@@ -293,7 +297,8 @@ void Pump::Circulation_Controller(float pump[])
             {
                 if (pump[i] > 0 && stat[i] == 4)
                     calib_vol[i]--;
-                
+                ESP_LOGD(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
+
                 if (calib_vol[i] > 0)
                 {
                     pump[i] = 1;
