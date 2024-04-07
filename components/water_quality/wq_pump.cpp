@@ -140,7 +140,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     float* pump = get_Pump_Time();
     float min = 0, min_[6];
 
-    std::copy(pump, pump + 6, mint);
+    std::copy(pump, pump + 6, min_);
     std::sort(min_, min_ + 6);
 
     for (size_t i = 0; i < 6; ++i)
@@ -156,7 +156,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     set_Min_Time(min);
 
     if (get_Min_Time() != min)
-        Timer_Setup(min_);
+        Timer_Setup(min);
     else if (min == 0)
     {
         Dosing_Controller(pump);
@@ -374,7 +374,6 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
     uint8_t* stat = get_Pump_Status();
     float* dose = get_Pump_Dose();
     uint32_t (*tot)[2] = get_Pump_Total();
-    float min = get_Min();
     double vol = 0;
 
     for (size_t i = 0; i < 6; i++)
