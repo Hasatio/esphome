@@ -201,7 +201,8 @@ void Pump::Dosing_Controller(float pump[])
             {
                 if (pump[i] > 0 && stat[i] == 4)
                     calib_vol[i]--;
-                
+                ESP_LOGD(TAG, "calib_vol[%d] = %d", calib_vol[i]);
+
                 if (calib_vol[i] > 0)
                 {
                     pump[i] = 1;
