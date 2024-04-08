@@ -154,9 +154,9 @@ void WaterQuality::pump_calibration_gain(const std::vector<float> &pcal)
     uint8_t* model = pump.get_Pump_Model(); 
 
     for (size_t i = 0; i < 6; i++)
-        if (model == 1)
+        if (model[i] == 1)
             pcal_[i] = pcal[i] / 60;
-        else if (model == 2)
+        else if (model[i] == 2)
             pcal_[i] = 1 / pcal[i] * 200;
 
     pump.set_Pump_Calibration_Gain(pcal_);
