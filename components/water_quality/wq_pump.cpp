@@ -153,7 +153,6 @@ void Pump::Generic_Pump_Driver(float pwm[])
 }
 void Pump::Dosing_Controller(float pump[])
 {
-    bool* calib_mode = get_Pump_Calibration_Mode();
     float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
@@ -243,7 +242,6 @@ void Pump::Dosing_Controller(float pump[])
 }
 void Pump::Circulation_Controller(float pump[])
 {
-    bool* calib_mode = get_Pump_Calibration_Mode();
     float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
@@ -334,6 +332,7 @@ void Pump::Circulation_Controller(float pump[])
 
 void Pump::Serial_Com_Pump_Driver(float pump[])
 {
+    float* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
     uint8_t* model = get_Pump_Model();
