@@ -27,7 +27,7 @@ void Circulation_Controller(float pump[]);
 void set_Pump_Calibration_Mode_Check(bool check)            { Pump_Calibration_Mode_Check = check; }
 void set_Pump_Calibration_Condition(uint8_t condition[])    { for (size_t i = 0; i < 6; i++) Pump_Calibration_Condition[i] = condition[i]; }
 void set_Pump_Calibration_Mode(bool mode[])                 { for (size_t i = 0; i < 6; i++) Pump_Calibration_Mode[i] = mode[i]; }
-void set_Pump_Calibration_Volume(uint8_t volume[])            { for (size_t i = 0; i < 6; i++) Pump_Calibration_Volume[i] = volume[i]; }
+void set_Pump_Calibration_Volume(uint8_t volume[])          { for (size_t i = 0; i < 6; i++) Pump_Calibration_Volume[i] = volume[i]; }
 void set_Pump_Calibration_Gain(float gain[])                { for (size_t i = 0; i < 6; i++) Pump_Calibration_Gain[i] = gain[i]; }
 void set_Pump_Type(uint8_t type[])                          { for (size_t i = 0; i < 6; i++) Pump_Type[i] = type[i]; }
 void set_Pump_Model(uint8_t model[])                        { for (size_t i = 0; i < 6; i++) Pump_Model[i] = model[i]; }
@@ -43,7 +43,7 @@ void set_Min_Time(float min)                                { Min_Time = min; }
 bool get_Pump_Calibration_Mode_Check()      { return Pump_Calibration_Mode_Check; }
 uint8_t* get_Pump_Calibration_Condition()   { return Pump_Calibration_Condition; }
 bool* get_Pump_Calibration_Mode()           { return Pump_Calibration_Mode; }
-uint8_t* get_Pump_Calibration_Volume()        { return Pump_Calibration_Volume; }
+uint8_t* get_Pump_Calibration_Volume()      { return Pump_Calibration_Volume; }
 float* get_Pump_Calibration_Gain()          { return Pump_Calibration_Gain; }
 uint8_t* get_Pump_Type()                    { return Pump_Type; }
 uint8_t* get_Pump_Model()                   { return Pump_Model; }
@@ -55,6 +55,8 @@ uint32_t (*get_Pump_Total())[2]             { return Pump_Total; }
 bool* get_Pump_Reset()                      { return Pump_Reset; }
 float* get_Pump_Time()                      { return Pump_Time; }
 float get_Min_Time()                        { return Min_Time; }
+uint8_t get_calib_time()                      { return calib_time; }
+uint8_t get_calib_ml()                        { return calib_ml; }
 
 protected:
 bool Pump_Calibration_Mode_Check = 0;

@@ -51,9 +51,9 @@ void Pump::Calibration_Controller()
                     if (calib_mode[i] && !get_Pump_Calibration_Mode_Check())
                     
                         if (model[i] == 1)
-                            calib_vol[i] = this->calib_time;
+                            calib_vol[i] = get_calib_time();
                         else if (model[i] == 2)
-                            calib_vol[i] = this->calib_ml;
+                            calib_vol[i] = get_calib_ml();
 
                         calib_cond[i] = 1;
                         set_Pump_Calibration_Mode_Check(1);
