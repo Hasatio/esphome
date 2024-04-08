@@ -58,7 +58,7 @@ void Pump::Calibration_Controller()
                         calib_cond[i] = 1;
                         set_Pump_Calibration_Mode_Check(1);
                         ESP_LOGI(TAG, "Pump%d Calibration Start", i + 1);
-                        ESP_LOGI(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
+                        ESP_LOGI(TAG, "calib_vol[%d] = %d", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
                     }
