@@ -176,9 +176,9 @@ void WaterQuality::pump_model(const std::vector<uint8_t> &pmodel)
         pmodel_[i] = pmodel[i];
         
         if (pmodel[i] == 1)
-            pcal[i] /= 60;
+            pcal[i] /= pump.get_calib_time() / 2;
         else if (pmodel[i] == 2)
-            pcal[i] = 1 / pcal[i] * 200;
+            pcal[i] = 1 / pcal[i] * pump.get_calib_ml();
     }
 
     pump.set_Pump_Model(pmodel_);   
