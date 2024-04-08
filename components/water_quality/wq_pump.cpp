@@ -361,7 +361,6 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
                 }
                 else
                 {
-                    set_Pump_Calibration_Mode_Check(0);
                     pump[i] = 0;
                     stat[i] = 0;
                 }
