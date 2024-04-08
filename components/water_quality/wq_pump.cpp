@@ -41,8 +41,6 @@ void Pump::Calibration_Controller()
     uint8_t* mode = get_Pump_Mode();
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
-    uint8_t calib_time = 120;
-    uint8_t calib_ml = 200;
 
     for (size_t i = 0; i < 6; i++)
     {        
@@ -51,11 +49,11 @@ void Pump::Calibration_Controller()
             {
                 case 0:
                     if (calib_mode[i] && !get_Pump_Calibration_Mode_Check())
-                    {
+                    
                         if (model[i] == 1)
-                            calib_vol[i] = calib_time;
+                            calib_vol[i] = this->calib_time;
                         else if (model[i] == 2)
-                            calib_vol[i] = calib_ml;
+                            calib_vol[i] = this->calib_ml;
 
                         calib_cond[i] = 1;
                         set_Pump_Calibration_Mode_Check(1);
@@ -63,7 +61,7 @@ void Pump::Calibration_Controller()
                         ESP_LOGI(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
-                    }
+                    
                     break;
 
                 case 1:
@@ -400,7 +398,7 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
 
                 if (stat[i] == 1)
                 {
-                    pump[i] = dose[i];
+                    pump[i] = dose[i] * calib_gain[i];
                     dose[i] = 0;
                     ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i]);
                 }

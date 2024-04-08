@@ -72,6 +72,8 @@ uint32_t Pump_Total[6][2] = {0};
 bool Pump_Reset[6] = {0};
 float Pump_Time[6] = {0};
 float Min_Time = 0;
+uint8_t calib_time = 120;
+uint8_t calib_ml = 200;
 
 private:
 esp_timer_handle_t timer;
