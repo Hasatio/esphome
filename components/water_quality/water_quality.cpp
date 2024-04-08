@@ -151,13 +151,9 @@ void WaterQuality::pump_calibration_mode(std::vector<bool> &pcal)
 void WaterQuality::pump_calibration_gain(const std::vector<float> &pcal)
 {
     float pcal_[6];
-    uint8_t* model = pump.get_Pump_Model(); 
 
     for (size_t i = 0; i < 6; i++)
-        if (model[i] == 1)
-            pcal_[i] = pcal[i] / 60;
-        else if (model[i] == 2)
-            pcal_[i] = 1 / pcal[i] * 200;
+        pcal_[i] = pcal[i];
 
     pump.set_Pump_Calibration_Gain(pcal_);
 }
@@ -173,9 +169,17 @@ void WaterQuality::pump_type(const std::vector<uint8_t> &ptype)
 void WaterQuality::pump_model(const std::vector<uint8_t> &pmodel)
 {
     uint8_t pmodel_[6];
+    float* pcal = get_Pump_Calibration_Gain();
     
     for (size_t i = 0; i < 6; i++)
+    {
         pmodel_[i] = pmodel[i];
+        
+        if (pmodel[i] == 1)
+            pcal[i] /= 60;
+        else if (pmodel[i] == 2)
+            pcal[i] = 1 / pcal[i] * 200;
+    }
 
     pump.set_Pump_Model(pmodel_);   
 }
