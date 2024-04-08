@@ -49,7 +49,7 @@ void Pump::Calibration_Controller()
             {
                 case 0:
                     if (calib_mode[i] && !get_Pump_Calibration_Mode_Check())
-                    
+                    {
                         if (model[i] == 1)
                             calib_vol[i] = get_calib_time();
                         else if (model[i] == 2)
@@ -61,7 +61,7 @@ void Pump::Calibration_Controller()
                         ESP_LOGI(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
-                    
+                    }
                     break;
 
                 case 1:
