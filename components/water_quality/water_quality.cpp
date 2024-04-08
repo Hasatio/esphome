@@ -151,7 +151,7 @@ void WaterQuality::pump_calibration_mode(std::vector<bool> &pcal)
 void WaterQuality::pump_calibration_gain(const std::vector<float> &pcal)
 {
     float pcal_[6];
-    uint8_t* model pump.get_Pump_Model(); 
+    uint8_t* model = pump.get_Pump_Model(); 
 
     for (size_t i = 0; i < 6; i++)
         if (model == 1)
