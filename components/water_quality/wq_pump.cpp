@@ -354,7 +354,7 @@ void Pump::Serial_Com_Pump_Driver(float pump[])
         {
             if (get_Pump_Calibration_Mode_Check())
             {
-                if (calib_vol[i] > 0 && (stat[i] == 0 || stat[i] == 2)
+                if (calib_vol[i] > 0 && (stat[i] == 0 || stat[i] == 2))
                 {
                     pump[i] = calib_vol[i];
                     stat[i] = 4;
