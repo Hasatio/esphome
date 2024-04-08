@@ -77,6 +77,7 @@ void Pump::Calibration_Controller()
                     {
                         calib_vol[i] = 0;
                         calib_cond[i] = 0;
+                        set_Pump_Calibration_Mode_Check(0);
                         ESP_LOGI(TAG, "Pump%d Calibration Abort", i + 1);
                         ESP_LOGI(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
@@ -88,6 +89,7 @@ void Pump::Calibration_Controller()
                     if (!calib_mode[i])
                     {
                         calib_cond[i] = 0;
+                        set_Pump_Calibration_Mode_Check(0);
                         ESP_LOGI(TAG, "calib_vol[%d] = %f", i, calib_vol[i]);
                         ESP_LOGI(TAG, "Calibration_Condition[%d] = %d", i, calib_cond[i]);
                         ESP_LOGI(TAG, "Pump_Calibration_Mode_Check = %d", get_Pump_Calibration_Mode_Check());
@@ -179,7 +181,6 @@ void Pump::Dosing_Controller(float pump[])
                 }
                 else
                 {
-                    set_Pump_Calibration_Mode_Check(0);
                     pump[i] = 0;
                     stat[i] = 0;
                 }
@@ -230,6 +231,9 @@ void Pump::Dosing_Controller(float pump[])
                         break;
                 }
 
+                if (stat[i] == 4)
+                    stat[i] = 0;
+
                 if (stat[i] == 1)
                     if (dose[i] > calib_gain[i])
                         pump[i] = 1;
@@ -268,7 +272,6 @@ void Pump::Circulation_Controller(float pump[])
                 }
                 else
                 {
-                    set_Pump_Calibration_Mode_Check(0);
                     pump[i] = 0;
                     stat[i] = 0;
                 }
@@ -319,6 +322,9 @@ void Pump::Circulation_Controller(float pump[])
                         break;
                 }
 
+                if (stat[i] == 4)
+                    stat[i] = 0;
+                    
                 if (stat[i] == 1)
                     if (circ[i] > calib_gain[i])
                         pump[i] = 1;
