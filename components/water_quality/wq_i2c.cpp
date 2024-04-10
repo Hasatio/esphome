@@ -823,11 +823,6 @@ void WaterQuality::send_next_command_()
 
     this->pop_next_command_();  // this->next_command will be updated.
 
-    if (this->current_command_ != this->next_command_)
-        ESP_LOGI(TAG, "Sending command to device: %s", (char *) this->current_command_);
-    if (this->current_command_ != this->next_command_)
-        ESP_LOGI(TAG, "Sending command to device: %s", (char *) this->next_command_);
-
     switch (this->next_command_)
     {
         // Read Commands
@@ -929,6 +924,9 @@ void WaterQuality::send_next_command_()
             return;
     }
     // Send command
+    if (this->current_command_ != this->next_command_)
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
+
     this->write(command_buffer, command_buffer_length);
 
     this->current_command_ = this->next_command_;
