@@ -824,7 +824,9 @@ void WaterQuality::send_next_command_()
     this->pop_next_command_();  // this->next_command will be updated.
 
     if (this->current_command_ != this->next_command_)
-        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) current_command_);
+    if (this->current_command_ != this->next_command_)
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) next_command_);
 
     switch (this->next_command_)
     {
@@ -1007,7 +1009,7 @@ void WaterQuality::custom_command(std::string custom)
     this->custom_ = custom.c_str();
     this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
 
-    ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
+    // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
     // this->write(command_buffer, command_buffer_length);
     
     // this->current_command_ = this->next_command_;
