@@ -1005,7 +1005,7 @@ void WaterQuality::custom_command(std::string custom)
 
     // Send command
     this->custom_ = custom.c_str();
-    this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
+    // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
 
     // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
     // this->write(command_buffer, command_buffer_length);
