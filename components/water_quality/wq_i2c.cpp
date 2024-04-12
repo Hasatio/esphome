@@ -1058,6 +1058,7 @@ void WaterQuality::EZOPMP_Write()
     {
         this->write(command_buffer, command_buffer_length);
         ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
+        this->custom_ = "";
     }
 }
 void WaterQuality::EZOPMP_Driver(float volume[])
