@@ -1054,8 +1054,11 @@ void WaterQuality::EZOPMP_Write()
     int command_buffer_length = 0;
     command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
     
-    ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
-    this->write(command_buffer, command_buffer_length);
+    if (command_buffer_length > 0)
+    {
+        this->write(command_buffer, command_buffer_length);
+        ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
+    }
 }
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
