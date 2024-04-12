@@ -1019,6 +1019,43 @@ void WaterQuality::custom_command(std::string custom)
     // this->read_command_result_();
 }
 
+void WaterQuality::EZOPMP_Read()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+
+    uint8_t response_buffer[21] = {'\0'};
+    response_buffer[0] = 0;
+
+    if (millis() - this->start_time_ >= 300)
+    {
+        this->start_time_ = millis();
+        if (!this->read_bytes_raw(response_buffer, 20))
+            return;
+
+        if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+            {
+                ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
+                ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+            
+                this->command2_[i] = response_buffer[i];
+            }
+    }
+}
+void WaterQuality::EZOPMP_Write()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+
+    uint8_t command_buffer[21];
+    int command_buffer_length = 0;
+    command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
+    
+    ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
+    this->write(command_buffer, command_buffer_length);
+}
 void WaterQuality::EZOPMP_Driver(float volume[])
 {
     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
@@ -1046,7 +1083,7 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
     uint8_t command[50] = {0}, len = 20;
     
-    this->read_bytes_raw(command, len);
+    // this->read_bytes_raw(command, len);
     // if (this->command_[0] != command[0] /*&& command[0] <= 1*/)
     //     ESP_LOGI(TAG, "command: %s", (char *) command);
     // for (size_t i = 0; i < len; i++)
@@ -1092,7 +1129,6 @@ void WaterQuality::EZOPMP_Driver(float volume[])
             ESP_LOGI(TAG,"Pump%d Stopped", i + 1);
         }
     }
-    
 }
 void WaterQuality::EZOPMP_loop()
 {

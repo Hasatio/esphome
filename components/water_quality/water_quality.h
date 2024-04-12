@@ -170,6 +170,8 @@ void set_frequency(float frequency)     { this->frequency_ = frequency; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EZOPMP
+void EZOPMP_Read();
+void EZOPMP_Write();
 void EZOPMP_Driver(float volume[]);
 void EZOPMP_loop();
 void EZOPMP_update();
