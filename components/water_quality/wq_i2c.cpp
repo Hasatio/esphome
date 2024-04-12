@@ -1034,7 +1034,8 @@ void WaterQuality::EZOPMP_Read()
         if (!this->read_bytes_raw(response_buffer, 20))
             return;
 
-        if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+        for (size_t i = 0; i < 21; i++)
+            if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
             {
                 ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
                 ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
