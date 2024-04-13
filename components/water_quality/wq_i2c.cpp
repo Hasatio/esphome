@@ -1099,8 +1099,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
     // EZOPMP_loop();
     // EZOPMP_update();
-    EZOPMP_Read();
     EZOPMP_Write();
+    EZOPMP_Read();
 
     uint8_t command[50] = {0}, len = 20;
     
