@@ -188,7 +188,7 @@ void set_frequency(float frequency)     { this->frequency_ = frequency; }
 // void stop_dosing();
 // void change_i2c_address(int address);
 // void exec_arbitrary_command(const std::basic_string<char> &command);
-// void custom_command(std::string custom);
+void custom_command(std::string custom);
 
 // void set_current_volume_dosed(float current_volume_dosed)                   { current_volume_dosed_ = current_volume_dosed; }
 // void set_total_volume_dosed(float total_volume_dosed)                       { total_volume_dosed_ = total_volume_dosed; }
