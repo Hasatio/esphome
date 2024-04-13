@@ -1051,6 +1051,7 @@ void WaterQuality::EZOPMP_Read()
             
                 this->command2_[i] = response_buffer[i];
             }
+        ESP_LOGE(TAG, "wait time = %d", millis() - this->start_time_);
         this->is_waiting_ = 0;
     }
 }
