@@ -990,10 +990,10 @@ void WaterQuality::PCA9685_Driver(float state[])
 //     next_command_queue_length_++;
 // }
 // void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
-{
-    this->arbitrary_command_ = command.c_str();
-    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
-}
+// {
+//     this->arbitrary_command_ = command.c_str();
+//     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
+// }
 void WaterQuality::custom_command(std::string custom)
 {
     // int wait_time_for_command = 400;  // milliseconds
