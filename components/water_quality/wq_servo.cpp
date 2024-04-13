@@ -3,7 +3,7 @@
 namespace esphome {
 namespace water_quality {
 
-void Servo::Servo_driver(float pwm[])
+void Servo::Servo_Driver(float pwm[])
 {
     Servo_Controller(pwm);
 }

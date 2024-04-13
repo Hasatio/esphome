@@ -12,7 +12,7 @@ namespace water_quality {
 class Servo
 {
 public:
-void Servo_driver(float pwm[]);
+void Servo_Driver(float pwm[]);
 void Servo_Controller(float perc[]);
 
 void set_Servo_Mode(bool sm[])          { for (size_t i = 0; i < 8; i++) Servo_Mode[i] = sm[i]; }
