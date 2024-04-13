@@ -308,7 +308,7 @@ bool update_{true};
 // float last_volume_requested_ = 0;
 // bool is_dosing_ = 0;
 // bool is_paused_ = 0;
-// std::string custom_ = {0};
+std::string custom_ = {0};
 // std::string dosing_mode_ = {0};
 // std::string calibration_status_ = {0};
 
