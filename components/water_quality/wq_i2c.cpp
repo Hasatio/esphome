@@ -990,34 +990,34 @@ void WaterQuality::PCA9685_Driver(float state[])
 //     next_command_queue_length_++;
 // }
 // void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
-// {
-//     this->arbitrary_command_ = command.c_str();
-//     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
-// }
-// void WaterQuality::custom_command(std::string custom)
-// {
-//     // int wait_time_for_command = 400;  // milliseconds
-//     // uint8_t command_buffer[21];
-//     // int command_buffer_length = 0;
-//     // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
+{
+    this->arbitrary_command_ = command.c_str();
+    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
+}
+void WaterQuality::custom_command(std::string custom)
+{
+    // int wait_time_for_command = 400;  // milliseconds
+    // uint8_t command_buffer[21];
+    // int command_buffer_length = 0;
+    // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
 
-//     // clear_current_command_();
+    // clear_current_command_();
 
-//     // Send command
-//     this->custom_ = custom.c_str();
-//     // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
+    // Send command
+    this->custom_ = custom.c_str();
+    // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
 
-//     // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
-//     // this->write(command_buffer, command_buffer_length);
+    // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
+    // this->write(command_buffer, command_buffer_length);
     
-//     // this->current_command_ = this->next_command_;
-//     // this->next_command_ = EZO_PMP_COMMAND_NONE;
-//     // this->is_waiting_ = true;
-//     // this->start_time_ = millis();
-//     // this->wait_time_ = wait_time_for_command;
+    // this->current_command_ = this->next_command_;
+    // this->next_command_ = EZO_PMP_COMMAND_NONE;
+    // this->is_waiting_ = true;
+    // this->start_time_ = millis();
+    // this->wait_time_ = wait_time_for_command;
     
-//     // this->read_command_result_();
-// }
+    // this->read_command_result_();
+}
 
 // void WaterQuality::EZOPMP_Read()
 // {
@@ -1170,37 +1170,37 @@ void WaterQuality::PCA9685_Driver(float state[])
 //     this->read_command_result_();
 // }
 // void WaterQuality::EZOPMP_update()
-{
-    if (this->is_waiting_)
-        return;
+// {
+//     if (this->is_waiting_)
+//         return;
 
-    if (this->is_first_read_)
-    {
-        this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
-        this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
-        this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
-        this->is_first_read_ = false;
-    }
+//     if (this->is_first_read_)
+//     {
+//         this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+//         this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
+//         this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+//         this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+//         this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+//         this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+//         this->is_first_read_ = false;
+//     }
 
-    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
-    {
-        this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+//     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+//     {
+//         this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
 
-        if (this->is_dosing_)
-        {
-            this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-            this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-            this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
-        }
+//         if (this->is_dosing_)
+//         {
+//             this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+//             this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+//             this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+//         }
 
-        this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
-    }
-    else
-        ESP_LOGV(TAG, "Not Scheduling new Command during update()");
-}
+//         this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
+//     }
+//     else
+//         ESP_LOGV(TAG, "Not Scheduling new Command during update()");
+// }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
