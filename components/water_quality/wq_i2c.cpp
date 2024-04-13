@@ -994,30 +994,30 @@ void WaterQuality::PCA9685_Driver(float state[])
 //     this->arbitrary_command_ = command.c_str();
 //     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
 // }
-void WaterQuality::custom_command(std::string custom)
-{
-    // int wait_time_for_command = 400;  // milliseconds
-    // uint8_t command_buffer[21];
-    // int command_buffer_length = 0;
-    // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
+// void WaterQuality::custom_command(std::string custom)
+// {
+//     // int wait_time_for_command = 400;  // milliseconds
+//     // uint8_t command_buffer[21];
+//     // int command_buffer_length = 0;
+//     // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
 
-    // clear_current_command_();
+//     // clear_current_command_();
 
-    // Send command
-    this->custom_ = custom.c_str();
-    // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
+//     // Send command
+//     this->custom_ = custom.c_str();
+//     // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
 
-    // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
-    // this->write(command_buffer, command_buffer_length);
+//     // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
+//     // this->write(command_buffer, command_buffer_length);
     
-    // this->current_command_ = this->next_command_;
-    // this->next_command_ = EZO_PMP_COMMAND_NONE;
-    // this->is_waiting_ = true;
-    // this->start_time_ = millis();
-    // this->wait_time_ = wait_time_for_command;
+//     // this->current_command_ = this->next_command_;
+//     // this->next_command_ = EZO_PMP_COMMAND_NONE;
+//     // this->is_waiting_ = true;
+//     // this->start_time_ = millis();
+//     // this->wait_time_ = wait_time_for_command;
     
-    // this->read_command_result_();
-}
+//     // this->read_command_result_();
+// }
 
 // void WaterQuality::EZOPMP_Read()
 // {
