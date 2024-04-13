@@ -1040,7 +1040,7 @@ void WaterQuality::EZOPMP_Read()
                 
                     this->command2_[i] = response_buffer[i];
                 }
-            return;
+            // return;
         }
 
         for (size_t i = 0; i < 21; i++)
@@ -1099,8 +1099,8 @@ void WaterQuality::EZOPMP_Driver(float volume[])
 
     // EZOPMP_loop();
     // EZOPMP_update();
-    EZOPMP_Write();
     EZOPMP_Read();
+    EZOPMP_Write();
 
     uint8_t command[50] = {0}, len = 20;
     
