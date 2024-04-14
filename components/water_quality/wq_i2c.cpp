@@ -1046,6 +1046,7 @@ this->read_bytes_raw(response_buffer, 20);
         
                 this->command2_[i] = response_buffer[i];
             }
+        this->start_time_ = millis();
     // }
 }
 void WaterQuality::EZOPMP_Write()
