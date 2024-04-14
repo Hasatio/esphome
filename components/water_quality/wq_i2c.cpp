@@ -1037,6 +1037,8 @@ this->read_bytes_raw(response_buffer, 20);
         // if (!this->read_bytes_raw(response_buffer, 20);)
         //     return;
 
+        this->start_time_ = millis();
+
         for (size_t i = 0; i < 21; i++)
             if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
             {
@@ -1046,7 +1048,6 @@ this->read_bytes_raw(response_buffer, 20);
         
                 this->command2_[i] = response_buffer[i];
             }
-        this->start_time_ = millis();
     // }
 }
 void WaterQuality::EZOPMP_Write()
@@ -1067,6 +1068,14 @@ void WaterQuality::EZOPMP_Write()
         this->is_waiting_ = 1;
         this->start_time_ = millis();
         this->custom_ = "";
+    }
+
+    if (millis() - this->start_time_ > 100)
+    {
+        command_buffer_length = sprintf((char *) command_buffer, "D,?");
+        this->write(command_buffer, command_buffer_length);
+        this->is_waiting_ = 1;
+        this->start_time_ = millis();
     }
 }
 void WaterQuality::EZOPMP_Driver(float volume[])
