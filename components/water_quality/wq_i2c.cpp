@@ -1040,12 +1040,10 @@ void WaterQuality::EZOPMP_Read()
             if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
             {
                 ESP_LOGE(TAG, "response_buffer[%d] = %d", i, response_buffer[i]);
-                
+                ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+        
                 this->command2_[i] = response_buffer[i];
             }
-            
-        if ((char *) response_buffer != "")
-            ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
     }
 }
 void WaterQuality::EZOPMP_Write()
