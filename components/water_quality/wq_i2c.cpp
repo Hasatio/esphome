@@ -1085,7 +1085,6 @@ void WaterQuality::EZOPMP_Write()
     {
         command_buffer_length = sprintf((char *) command_buffer, "D,?");
         this->write(command_buffer, command_buffer_length);
-        this->is_waiting_ = 1;
         this->start_time_ = millis();
     }
 }
