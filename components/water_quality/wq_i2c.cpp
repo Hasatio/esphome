@@ -1074,6 +1074,7 @@ void WaterQuality::EZOPMP_Write()
     {
         command_buffer_length = sprintf((char *) command_buffer, "D,?");
         this->write(command_buffer, command_buffer_length);
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
         this->is_waiting_ = 1;
         this->start_time_ = millis();
     }
