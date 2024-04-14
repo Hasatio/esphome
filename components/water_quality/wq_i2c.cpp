@@ -523,684 +523,684 @@ void WaterQuality::PCA9685_Driver(float state[])
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EZOPMP
-// void WaterQuality::find() { this->queue_command_(EZO_PMP_COMMAND_FIND, 0, 0, true); }
-// void WaterQuality::dose_continuously()
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_DOSE_CONTINUOUSLY, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-// }
-// void WaterQuality::dose_volume(float volume)
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME, volume, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-// }
-// void WaterQuality::dose_volume_over_time(float volume, int duration)
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME, volume, duration, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-// }
-// void WaterQuality::dose_with_constant_flow_rate(float volume, int duration)
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE, volume, duration, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-// }
-// void WaterQuality::set_calibration_volume(float volume)
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME, volume, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
-// }
-// void WaterQuality::clear_total_volume_dosed()
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, true);
-// }
-// void WaterQuality::clear_calibration()
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_CLEAR_CALIBRATION, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
-// }
-// void WaterQuality::pause_dosing()
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_PAUSE_DOSING, 0, 0, true);
-//     this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
-// }
-// void WaterQuality::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOSING, 0, 0, true); }
-// void WaterQuality::change_i2c_address(int address)
-// {
-//     this->queue_command_(EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS, 0, address, true);
-// }
+void WaterQuality::find() { this->queue_command_(EZO_PMP_COMMAND_FIND, 0, 0, true); }
+void WaterQuality::dose_continuously()
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_CONTINUOUSLY, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void WaterQuality::dose_volume(float volume)
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME, volume, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void WaterQuality::dose_volume_over_time(float volume, int duration)
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME, volume, duration, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void WaterQuality::dose_with_constant_flow_rate(float volume, int duration)
+{
+    this->queue_command_(EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE, volume, duration, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+}
+void WaterQuality::set_calibration_volume(float volume)
+{
+    this->queue_command_(EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME, volume, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
+}
+void WaterQuality::clear_total_volume_dosed()
+{
+    this->queue_command_(EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, true);
+}
+void WaterQuality::clear_calibration()
+{
+    this->queue_command_(EZO_PMP_COMMAND_CLEAR_CALIBRATION, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, true);
+}
+void WaterQuality::pause_dosing()
+{
+    this->queue_command_(EZO_PMP_COMMAND_PAUSE_DOSING, 0, 0, true);
+    this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+}
+void WaterQuality::stop_dosing() { this->queue_command_(EZO_PMP_COMMAND_STOP_DOSING, 0, 0, true); }
+void WaterQuality::change_i2c_address(int address)
+{
+    this->queue_command_(EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS, 0, address, true);
+}
 
-// void WaterQuality::clear_current_command_()
-// {
-//     this->current_command_ = EZO_PMP_COMMAND_NONE;
-//     this->is_waiting_ = false;
-// }
-// void WaterQuality::read_command_result_()
-// {
-//     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     if (this->is_failed())
-//         return;
+void WaterQuality::clear_current_command_()
+{
+    this->current_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = false;
+}
+void WaterQuality::read_command_result_()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
 
-//     // ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
-//     // ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
+    // ESP_LOGI(TAG, "total_volume_dosed_ = %f", this->total_volume_dosed_);
+    // ESP_LOGI(TAG, "absolute_total_volume_dosed_ = %f", this->absolute_total_volume_dosed_);
 
-//     uint8_t response_buffer[21] = {'\0'};
+    uint8_t response_buffer[21] = {'\0'};
 
-//     response_buffer[0] = 0;
-//     if (!this->read_bytes_raw(response_buffer, 20))
-//     {
-//         // ESP_LOGE(TAG, "read error");
+    response_buffer[0] = 0;
+    if (!this->read_bytes_raw(response_buffer, 20))
+    {
+        // ESP_LOGE(TAG, "read error");
         
-//         for (size_t i = 0; i < 21; i++)
-//             if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
-//             {
-//                 ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
-//                 ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+        for (size_t i = 0; i < 21; i++)
+            if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+            {
+                ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
+                ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
             
-//                 this->command2_[i] = response_buffer[i];
-//             }
+                this->command2_[i] = response_buffer[i];
+            }
 
-//         this->clear_current_command_();
-//         return;
-//     }
+        this->clear_current_command_();
+        return;
+    }
 
-//     for (size_t i = 0; i < 21; i++)
-//         if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
-//         {
-//             ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
-//             ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+    for (size_t i = 0; i < 21; i++)
+        if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+        {
+            ESP_LOGE(TAG, "response_buffer = %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", response_buffer[0], response_buffer[1], response_buffer[2], response_buffer[3], response_buffer[4], response_buffer[5], response_buffer[6], response_buffer[7], response_buffer[8], response_buffer[9], response_buffer[10], response_buffer[11], response_buffer[12], response_buffer[13], response_buffer[14], response_buffer[15], response_buffer[16], response_buffer[17], response_buffer[18], response_buffer[19], response_buffer[20]);
+            ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
         
-//             this->command2_[i] = response_buffer[i];
-//         }
-
-//     switch (response_buffer[0])
-//     {
-//         case 254:
-//             return;  // keep waiting
-//         case 1:
-//             break;
-//         case 2:
-//             ESP_LOGE(TAG, "device returned a syntax error");
-//             this->clear_current_command_();
-//             return;
-//         case 255:
-//             // ESP_LOGE(TAG, "device returned no data");
-//             this->clear_current_command_();
-//             return;
-//         default:
-//             // ESP_LOGE(TAG, "device returned an unknown response: %d", response_buffer[0]);
-//             this->clear_current_command_();
-//             return;
-//     }
-
-//     char first_parameter_buffer[10] = {'\0'};
-//     char second_parameter_buffer[10] = {'\0'};
-//     char third_parameter_buffer[10] = {'\0'};
-
-//     first_parameter_buffer[0] = '\0';
-//     second_parameter_buffer[0] = '\0';
-//     third_parameter_buffer[0] = '\0';
-
-//     int current_parameter = 1;
-
-//     size_t position_in_parameter_buffer = 0;
-//     // some sensors return multiple comma-separated values, terminate string after first one
-//     for (size_t i = 1; i < sizeof(response_buffer) - 1; i++)
-//     {
-//         char current_char = response_buffer[i];
-
-//         if (current_char == '\0')
-//         {
-//             ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
-//             ESP_LOGI(TAG, "First Component: %s", (char *) first_parameter_buffer);
-//             ESP_LOGI(TAG, "Second Component: %s", (char *) second_parameter_buffer);
-//             ESP_LOGI(TAG, "Third Component: %s", (char *) third_parameter_buffer);
-
-//             break;
-//         }
-
-//         if (current_char == ',')
-//         {
-//             current_parameter++;
-//             position_in_parameter_buffer = 0;
-//             continue;
-//         }
-
-//         ESP_LOGI(TAG, "current_parameter: %d", current_parameter);
-
-//         switch (current_parameter)
-//         {
-//             case 1:
-//                 first_parameter_buffer[position_in_parameter_buffer] = current_char;
-//                 first_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
-//                 break;
-//             case 2:
-//                 second_parameter_buffer[position_in_parameter_buffer] = current_char;
-//                 second_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
-//                 break;
-//             case 3:
-//                 third_parameter_buffer[position_in_parameter_buffer] = current_char;
-//                 third_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
-//                 break;
-//         }
-
-//         position_in_parameter_buffer++;
-//     }
-
-//     auto parsed_first_parameter = parse_number<float>(first_parameter_buffer);
-//     auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
-//     auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
-
-//     ESP_LOGI(TAG, "First Parameter: %f", parsed_first_parameter);
-//     ESP_LOGI(TAG, "Second Parameter: %f", parsed_second_parameter);
-//     ESP_LOGI(TAG, "Third Parameter: %f", parsed_third_parameter);
-
-//     switch (this->current_command_)
-//     {
-//         // Read Commands
-//         case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
-//             if (parsed_third_parameter.has_value())
-//                 this->is_dosing_ = parsed_third_parameter.value_or(0) == 1;
-
-//             if (parsed_second_parameter.has_value() && this->last_volume_requested_)
-//                 this->last_volume_requested_ = (parsed_second_parameter.value_or(0));
-
-//             if (!this->is_dosing_ && !this->is_paused_)
-//                 // If pump is not paused and not dispensing
-//                 if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
-//                     this->dosing_mode_ = (DOSING_MODE_NONE);
-//         break;
-
-//         case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
-//             if (parsed_first_parameter.has_value() && (bool) this->current_volume_dosed_)
-//                 this->current_volume_dosed_ = (parsed_first_parameter.value_or(0));
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:  // Constant Flow Rate (page 57)
-//             if (parsed_second_parameter.has_value() && this->max_flow_rate_)
-//                 this->max_flow_rate_ = (parsed_second_parameter.value_or(0));
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_PAUSE_STATUS:  // Pause (page 61)
-//             if (parsed_second_parameter.has_value())
-//                 this->is_paused_ = parsed_second_parameter.value_or(0) == 1;
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:  // Total Volume Dispensed (page 64)
-//             if (parsed_second_parameter.has_value() && this->total_volume_dosed_)
-//                 this->total_volume_dosed_ = (parsed_second_parameter.value_or(0));
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:  // Total Volume Dispensed (page 64)
-//             if (parsed_second_parameter.has_value() && this->absolute_total_volume_dosed_)
-//                 this->absolute_total_volume_dosed_ = (parsed_second_parameter.value_or(0));
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:  // Calibration (page 65)
-//             if (parsed_second_parameter.has_value() && this->calibration_status_ != "")
-//                 if (parsed_second_parameter.value_or(0) == 1)
-//                     this->calibration_status_ = ("Fixed Volume");
-//                 else if (parsed_second_parameter.value_or(0) == 2)
-//                     this->calibration_status_ = ("Volume/Time");
-//                 else if (parsed_second_parameter.value_or(0) == 3)
-//                     this->calibration_status_ = ("Fixed Volume & Volume/Time");
-//                 else
-//                     this->calibration_status_ = ("Uncalibrated");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:  // Pump Voltage (page 67)
-//             if (parsed_second_parameter.has_value() && this->pump_voltage_)
-//                 this->pump_voltage_ = (parsed_second_parameter.value_or(0));
-//             break;
-
-//         // Non-Read Commands
-
-//         case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
-//             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_VOLUME)
-//                 this->dosing_mode_ = (DOSING_MODE_VOLUME);
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
-//             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_VOLUME_OVER_TIME)
-//                 this->dosing_mode_ = (DOSING_MODE_VOLUME_OVER_TIME);
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
-//             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_CONSTANT_FLOW_RATE)
-//                 this->dosing_mode_ = (DOSING_MODE_CONSTANT_FLOW_RATE);
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
-//             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_CONTINUOUS)
-//                 this->dosing_mode_ = (DOSING_MODE_CONTINUOUS);
-//             break;
-
-//         case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
-//             this->is_paused_ = false;
-//             if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
-//                 this->dosing_mode_ = (DOSING_MODE_NONE);
-//             break;
-
-//         case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:
-//             ESP_LOGI(TAG, "Arbitrary Command Response: %s", (char *) response_buffer);
-//             break;
-
-//         case EZO_PMP_COMMAND_CLEAR_CALIBRATION:         // Clear Calibration (page 65)
-//         case EZO_PMP_COMMAND_PAUSE_DOSING:              // Pause (page 61)
-//         case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:    // Set Calibration Volume (page 65)
-//         case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
-//         case EZO_PMP_COMMAND_FIND:                      // Find (page 52)
-//             // Nothing to do here
-//             break;
-
-//         case EZO_PMP_COMMAND_TYPE_READ:
-//         case EZO_PMP_COMMAND_NONE:
-//         case EZO_PMP_COMMAND_CUSTOM:
-//         default:
-//             ESP_LOGE(TAG, "Unsupported command received: %d", this->current_command_);
-//             return;
-//     }
-
-//     this->clear_current_command_();
-// }
-// void WaterQuality::send_next_command_()
-// {
-//     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     if (this->is_failed())
-//         return;
-
-//     int wait_time_for_command = 400;  // milliseconds
-//     uint8_t command_buffer[21];
-//     int command_buffer_length = 0;
-
-//     this->pop_next_command_();  // this->next_command will be updated.
-
-//     switch (this->next_command_)
-//     {
-//         // Read Commands
-//         case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
-//             command_buffer_length = sprintf((char *) command_buffer, "D,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
-//             command_buffer_length = sprintf((char *) command_buffer, "R");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:
-//             command_buffer_length = sprintf((char *) command_buffer, "DC,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_PAUSE_STATUS:
-//             command_buffer_length = sprintf((char *) command_buffer, "P,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:
-//             command_buffer_length = sprintf((char *) command_buffer, "TV,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:
-//             command_buffer_length = sprintf((char *) command_buffer, "ATV,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:
-//             command_buffer_length = sprintf((char *) command_buffer, "Cal,?");
-//             break;
-
-//         case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:
-//             command_buffer_length = sprintf((char *) command_buffer, "PV,?");
-//             break;
-
-//         // Non-Read Commands
-
-//         case EZO_PMP_COMMAND_FIND:  // Find (page 52)
-//             command_buffer_length = sprintf((char *) command_buffer, "Find");
-//             wait_time_for_command = 60000;  // This command will block all updates for a minute
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
-//             command_buffer_length = sprintf((char *) command_buffer, "D,*");
-//             break;
-
-//         case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
-//             command_buffer_length = sprintf((char *) command_buffer, "Clear");
-//             break;
-
-//         case EZO_PMP_COMMAND_CLEAR_CALIBRATION:  // Clear Calibration (page 65)
-//             command_buffer_length = sprintf((char *) command_buffer, "Cal,clear");
-//             break;
-
-//         case EZO_PMP_COMMAND_PAUSE_DOSING:  // Pause (page 61)
-//             command_buffer_length = sprintf((char *) command_buffer, "P");
-//             break;
-
-//         case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
-//             command_buffer_length = sprintf((char *) command_buffer, "X");
-//             break;
-
-//         // Non-Read commands with parameters
-
-//         case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
-//             command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f", this->next_command_volume_);
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
-//             command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
-//             break;
-
-//         case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
-//             command_buffer_length = sprintf((char *) command_buffer, "DC,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
-//             break;
-
-//         case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:  // Set Calibration Volume (page 65)
-//             command_buffer_length = sprintf((char *) command_buffer, "Cal,%0.2f", this->next_command_volume_);
-//             break;
-
-//         case EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS:  // Change I2C Address (page 73)
-//             command_buffer_length = sprintf((char *) command_buffer, "I2C,%i", this->next_command_duration_);
-//             break;
-
-//         case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:  // Run an arbitrary command
-//             command_buffer_length = sprintf((char *) command_buffer, this->arbitrary_command_, this->next_command_duration_);
-//             ESP_LOGI(TAG, "Sending arbitrary command: %s", (char *) command_buffer);
-//             break;
-
-//         case EZO_PMP_COMMAND_TYPE_READ:
-//         case EZO_PMP_COMMAND_NONE:
-//         case EZO_PMP_COMMAND_CUSTOM:
-//             command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
-//             ESP_LOGI(TAG, "Sending custom command: %s", (char *) command_buffer);
-//             break;
-
-//         default:
-//             ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
-//             return;
-//     }
-//     // Send command
-//     if (this->current_command_ != this->next_command_)
-//         ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
-
-//     this->write(command_buffer, command_buffer_length);
-
-//     this->current_command_ = this->next_command_;
-//     this->next_command_ = EZO_PMP_COMMAND_NONE;
-//     this->is_waiting_ = true;
-//     this->start_time_ = millis();
-//     this->wait_time_ = wait_time_for_command;
-// }
-// void WaterQuality::pop_next_command_()
-// {
-//     if (this->next_command_queue_length_ <= 0)
-//     {
-//         ESP_LOGE(TAG, "Tried to dequeue command from empty queue");
-//         this->next_command_ = EZO_PMP_COMMAND_NONE;
-//         this->next_command_volume_ = 0;
-//         this->next_command_duration_ = 0;
-//         return;
-//     }
-
-//     // Read from Head
-//     this->next_command_ = this->next_command_queue_[this->next_command_queue_head_];
-//     this->next_command_volume_ = this->next_command_volume_queue_[this->next_command_queue_head_];
-//     this->next_command_duration_ = this->next_command_duration_queue_[this->next_command_queue_head_];
-
-//     // Move positions
-//     next_command_queue_head_++;
-//     if (next_command_queue_head_ >= 10)
-//         next_command_queue_head_ = 0;
-
-//     next_command_queue_length_--;
-// }
-// uint16_t WaterQuality::peek_next_command_()
-// {
-//     if (this->next_command_queue_length_ <= 0)
-//         return EZO_PMP_COMMAND_NONE;
-
-//     return this->next_command_queue_[this->next_command_queue_head_];
-// }
-// void WaterQuality::queue_command_(uint16_t command, float volume, int duration, bool should_schedule)
-// {
-//     if (!should_schedule)
-//         return;
-
-//     if (this->next_command_queue_length_ >= 10)
-//     {
-//         ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
-//         return;
-//     }
-
-//     this->next_command_queue_[this->next_command_queue_last_] = command;
-//     this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
-//     this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
-
-//     ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
-
-//     // Move positions
-//     next_command_queue_last_++;
-//     if (next_command_queue_last_ >= 10)
-//         next_command_queue_last_ = 0;
-
-//     next_command_queue_length_++;
-// }
-// void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
-// {
-//     this->arbitrary_command_ = command.c_str();
-//     this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
-// }
-// void WaterQuality::custom_command(std::string custom)
-// {
-//     // int wait_time_for_command = 400;  // milliseconds
-//     // uint8_t command_buffer[21];
-//     // int command_buffer_length = 0;
-//     // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
-
-//     // clear_current_command_();
-
-//     // Send command
-//     this->custom_ = custom.c_str();
-//     // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
-
-//     // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
-//     // this->write(command_buffer, command_buffer_length);
+            this->command2_[i] = response_buffer[i];
+        }
+
+    switch (response_buffer[0])
+    {
+        case 254:
+            return;  // keep waiting
+        case 1:
+            break;
+        case 2:
+            ESP_LOGE(TAG, "device returned a syntax error");
+            this->clear_current_command_();
+            return;
+        case 255:
+            // ESP_LOGE(TAG, "device returned no data");
+            this->clear_current_command_();
+            return;
+        default:
+            // ESP_LOGE(TAG, "device returned an unknown response: %d", response_buffer[0]);
+            this->clear_current_command_();
+            return;
+    }
+
+    char first_parameter_buffer[10] = {'\0'};
+    char second_parameter_buffer[10] = {'\0'};
+    char third_parameter_buffer[10] = {'\0'};
+
+    first_parameter_buffer[0] = '\0';
+    second_parameter_buffer[0] = '\0';
+    third_parameter_buffer[0] = '\0';
+
+    int current_parameter = 1;
+
+    size_t position_in_parameter_buffer = 0;
+    // some sensors return multiple comma-separated values, terminate string after first one
+    for (size_t i = 1; i < sizeof(response_buffer) - 1; i++)
+    {
+        char current_char = response_buffer[i];
+
+        if (current_char == '\0')
+        {
+            ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+            ESP_LOGI(TAG, "First Component: %s", (char *) first_parameter_buffer);
+            ESP_LOGI(TAG, "Second Component: %s", (char *) second_parameter_buffer);
+            ESP_LOGI(TAG, "Third Component: %s", (char *) third_parameter_buffer);
+
+            break;
+        }
+
+        if (current_char == ',')
+        {
+            current_parameter++;
+            position_in_parameter_buffer = 0;
+            continue;
+        }
+
+        ESP_LOGI(TAG, "current_parameter: %d", current_parameter);
+
+        switch (current_parameter)
+        {
+            case 1:
+                first_parameter_buffer[position_in_parameter_buffer] = current_char;
+                first_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+                break;
+            case 2:
+                second_parameter_buffer[position_in_parameter_buffer] = current_char;
+                second_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+                break;
+            case 3:
+                third_parameter_buffer[position_in_parameter_buffer] = current_char;
+                third_parameter_buffer[position_in_parameter_buffer + 1] = '\0';
+                break;
+        }
+
+        position_in_parameter_buffer++;
+    }
+
+    auto parsed_first_parameter = parse_number<float>(first_parameter_buffer);
+    auto parsed_second_parameter = parse_number<float>(second_parameter_buffer);
+    auto parsed_third_parameter = parse_number<float>(third_parameter_buffer);
+
+    ESP_LOGI(TAG, "First Parameter: %f", parsed_first_parameter);
+    ESP_LOGI(TAG, "Second Parameter: %f", parsed_second_parameter);
+    ESP_LOGI(TAG, "Third Parameter: %f", parsed_third_parameter);
+
+    switch (this->current_command_)
+    {
+        // Read Commands
+        case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
+            if (parsed_third_parameter.has_value())
+                this->is_dosing_ = parsed_third_parameter.value_or(0) == 1;
+
+            if (parsed_second_parameter.has_value() && this->last_volume_requested_)
+                this->last_volume_requested_ = (parsed_second_parameter.value_or(0));
+
+            if (!this->is_dosing_ && !this->is_paused_)
+                // If pump is not paused and not dispensing
+                if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
+                    this->dosing_mode_ = (DOSING_MODE_NONE);
+        break;
+
+        case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
+            if (parsed_first_parameter.has_value() && (bool) this->current_volume_dosed_)
+                this->current_volume_dosed_ = (parsed_first_parameter.value_or(0));
+            break;
+
+        case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:  // Constant Flow Rate (page 57)
+            if (parsed_second_parameter.has_value() && this->max_flow_rate_)
+                this->max_flow_rate_ = (parsed_second_parameter.value_or(0));
+            break;
+
+        case EZO_PMP_COMMAND_READ_PAUSE_STATUS:  // Pause (page 61)
+            if (parsed_second_parameter.has_value())
+                this->is_paused_ = parsed_second_parameter.value_or(0) == 1;
+            break;
+
+        case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:  // Total Volume Dispensed (page 64)
+            if (parsed_second_parameter.has_value() && this->total_volume_dosed_)
+                this->total_volume_dosed_ = (parsed_second_parameter.value_or(0));
+            break;
+
+        case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:  // Total Volume Dispensed (page 64)
+            if (parsed_second_parameter.has_value() && this->absolute_total_volume_dosed_)
+                this->absolute_total_volume_dosed_ = (parsed_second_parameter.value_or(0));
+            break;
+
+        case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:  // Calibration (page 65)
+            if (parsed_second_parameter.has_value() && this->calibration_status_ != "")
+                if (parsed_second_parameter.value_or(0) == 1)
+                    this->calibration_status_ = ("Fixed Volume");
+                else if (parsed_second_parameter.value_or(0) == 2)
+                    this->calibration_status_ = ("Volume/Time");
+                else if (parsed_second_parameter.value_or(0) == 3)
+                    this->calibration_status_ = ("Fixed Volume & Volume/Time");
+                else
+                    this->calibration_status_ = ("Uncalibrated");
+            break;
+
+        case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:  // Pump Voltage (page 67)
+            if (parsed_second_parameter.has_value() && this->pump_voltage_)
+                this->pump_voltage_ = (parsed_second_parameter.value_or(0));
+            break;
+
+        // Non-Read Commands
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
+            if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_VOLUME)
+                this->dosing_mode_ = (DOSING_MODE_VOLUME);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
+            if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_VOLUME_OVER_TIME)
+                this->dosing_mode_ = (DOSING_MODE_VOLUME_OVER_TIME);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
+            if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_CONSTANT_FLOW_RATE)
+                this->dosing_mode_ = (DOSING_MODE_CONSTANT_FLOW_RATE);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
+            if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_CONTINUOUS)
+                this->dosing_mode_ = (DOSING_MODE_CONTINUOUS);
+            break;
+
+        case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
+            this->is_paused_ = false;
+            if (this->dosing_mode_ != "" && this->dosing_mode_ != DOSING_MODE_NONE)
+                this->dosing_mode_ = (DOSING_MODE_NONE);
+            break;
+
+        case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:
+            ESP_LOGI(TAG, "Arbitrary Command Response: %s", (char *) response_buffer);
+            break;
+
+        case EZO_PMP_COMMAND_CLEAR_CALIBRATION:         // Clear Calibration (page 65)
+        case EZO_PMP_COMMAND_PAUSE_DOSING:              // Pause (page 61)
+        case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:    // Set Calibration Volume (page 65)
+        case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
+        case EZO_PMP_COMMAND_FIND:                      // Find (page 52)
+            // Nothing to do here
+            break;
+
+        case EZO_PMP_COMMAND_TYPE_READ:
+        case EZO_PMP_COMMAND_NONE:
+        case EZO_PMP_COMMAND_CUSTOM:
+        default:
+            ESP_LOGE(TAG, "Unsupported command received: %d", this->current_command_);
+            return;
+    }
+
+    this->clear_current_command_();
+}
+void WaterQuality::send_next_command_()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
+
+    int wait_time_for_command = 400;  // milliseconds
+    uint8_t command_buffer[21];
+    int command_buffer_length = 0;
+
+    this->pop_next_command_();  // this->next_command will be updated.
+
+    switch (this->next_command_)
+    {
+        // Read Commands
+        case EZO_PMP_COMMAND_READ_DOSING:  // Page 54
+            command_buffer_length = sprintf((char *) command_buffer, "D,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_SINGLE_REPORT:  // Single Report (page 53)
+            command_buffer_length = sprintf((char *) command_buffer, "R");
+            break;
+
+        case EZO_PMP_COMMAND_READ_MAX_FLOW_RATE:
+            command_buffer_length = sprintf((char *) command_buffer, "DC,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_PAUSE_STATUS:
+            command_buffer_length = sprintf((char *) command_buffer, "P,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED:
+            command_buffer_length = sprintf((char *) command_buffer, "TV,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED:
+            command_buffer_length = sprintf((char *) command_buffer, "ATV,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_CALIBRATION_STATUS:
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,?");
+            break;
+
+        case EZO_PMP_COMMAND_READ_PUMP_VOLTAGE:
+            command_buffer_length = sprintf((char *) command_buffer, "PV,?");
+            break;
+
+        // Non-Read Commands
+
+        case EZO_PMP_COMMAND_FIND:  // Find (page 52)
+            command_buffer_length = sprintf((char *) command_buffer, "Find");
+            wait_time_for_command = 60000;  // This command will block all updates for a minute
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_CONTINUOUSLY:  // Continuous Dispensing (page 54)
+            command_buffer_length = sprintf((char *) command_buffer, "D,*");
+            break;
+
+        case EZO_PMP_COMMAND_CLEAR_TOTAL_VOLUME_DOSED:  // Clear Total Volume Dosed (page 64)
+            command_buffer_length = sprintf((char *) command_buffer, "Clear");
+            break;
+
+        case EZO_PMP_COMMAND_CLEAR_CALIBRATION:  // Clear Calibration (page 65)
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,clear");
+            break;
+
+        case EZO_PMP_COMMAND_PAUSE_DOSING:  // Pause (page 61)
+            command_buffer_length = sprintf((char *) command_buffer, "P");
+            break;
+
+        case EZO_PMP_COMMAND_STOP_DOSING:  // Stop (page 62)
+            command_buffer_length = sprintf((char *) command_buffer, "X");
+            break;
+
+        // Non-Read commands with parameters
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME:  // Volume Dispensing (page 55)
+            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f", this->next_command_volume_);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_VOLUME_OVER_TIME:  // Dose over time (page 56)
+            command_buffer_length = sprintf((char *) command_buffer, "D,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_DOSE_WITH_CONSTANT_FLOW_RATE:  // Constant Flow Rate (page 57)
+            command_buffer_length = sprintf((char *) command_buffer, "DC,%0.1f,%i", this->next_command_volume_, this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_SET_CALIBRATION_VOLUME:  // Set Calibration Volume (page 65)
+            command_buffer_length = sprintf((char *) command_buffer, "Cal,%0.2f", this->next_command_volume_);
+            break;
+
+        case EZO_PMP_COMMAND_CHANGE_I2C_ADDRESS:  // Change I2C Address (page 73)
+            command_buffer_length = sprintf((char *) command_buffer, "I2C,%i", this->next_command_duration_);
+            break;
+
+        case EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS:  // Run an arbitrary command
+            command_buffer_length = sprintf((char *) command_buffer, this->arbitrary_command_, this->next_command_duration_);
+            ESP_LOGI(TAG, "Sending arbitrary command: %s", (char *) command_buffer);
+            break;
+
+        case EZO_PMP_COMMAND_TYPE_READ:
+        case EZO_PMP_COMMAND_NONE:
+        case EZO_PMP_COMMAND_CUSTOM:
+            command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
+            ESP_LOGI(TAG, "Sending custom command: %s", (char *) command_buffer);
+            break;
+
+        default:
+            ESP_LOGE(TAG, "Unsupported command received: %d", this->next_command_);
+            return;
+    }
+    // Send command
+    if (this->current_command_ != this->next_command_)
+        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
+
+    this->write(command_buffer, command_buffer_length);
+
+    this->current_command_ = this->next_command_;
+    this->next_command_ = EZO_PMP_COMMAND_NONE;
+    this->is_waiting_ = true;
+    this->start_time_ = millis();
+    this->wait_time_ = wait_time_for_command;
+}
+void WaterQuality::pop_next_command_()
+{
+    if (this->next_command_queue_length_ <= 0)
+    {
+        ESP_LOGE(TAG, "Tried to dequeue command from empty queue");
+        this->next_command_ = EZO_PMP_COMMAND_NONE;
+        this->next_command_volume_ = 0;
+        this->next_command_duration_ = 0;
+        return;
+    }
+
+    // Read from Head
+    this->next_command_ = this->next_command_queue_[this->next_command_queue_head_];
+    this->next_command_volume_ = this->next_command_volume_queue_[this->next_command_queue_head_];
+    this->next_command_duration_ = this->next_command_duration_queue_[this->next_command_queue_head_];
+
+    // Move positions
+    next_command_queue_head_++;
+    if (next_command_queue_head_ >= 10)
+        next_command_queue_head_ = 0;
+
+    next_command_queue_length_--;
+}
+uint16_t WaterQuality::peek_next_command_()
+{
+    if (this->next_command_queue_length_ <= 0)
+        return EZO_PMP_COMMAND_NONE;
+
+    return this->next_command_queue_[this->next_command_queue_head_];
+}
+void WaterQuality::queue_command_(uint16_t command, float volume, int duration, bool should_schedule)
+{
+    if (!should_schedule)
+        return;
+
+    if (this->next_command_queue_length_ >= 10)
+    {
+        ESP_LOGE(TAG, "Tried to queue command '%d' but queue is full", command);
+        return;
+    }
+
+    this->next_command_queue_[this->next_command_queue_last_] = command;
+    this->next_command_volume_queue_[this->next_command_queue_last_] = volume;
+    this->next_command_duration_queue_[this->next_command_queue_last_] = duration;
+
+    ESP_LOGV(TAG, "Queue command '%d' in position '%d'", command, next_command_queue_last_);
+
+    // Move positions
+    next_command_queue_last_++;
+    if (next_command_queue_last_ >= 10)
+        next_command_queue_last_ = 0;
+
+    next_command_queue_length_++;
+}
+void WaterQuality::exec_arbitrary_command(const std::basic_string<char> &command)
+{
+    this->arbitrary_command_ = command.c_str();
+    this->queue_command_(EZO_PMP_COMMAND_EXEC_ARBITRARY_COMMAND_ADDRESS, 0, 0, true);
+}
+void WaterQuality::custom_command(std::string custom)
+{
+    // int wait_time_for_command = 400;  // milliseconds
+    // uint8_t command_buffer[21];
+    // int command_buffer_length = 0;
+    // command_buffer_length = sprintf((char *) command_buffer, custom.c_str());
+
+    // clear_current_command_();
+
+    // Send command
+    this->custom_ = custom.c_str();
+    // this->queue_command_(EZO_PMP_COMMAND_CUSTOM, 0, 0, true);
+
+    // ESP_LOGI(TAG, "Sending command to device: %s", custom.c_str());
+    // this->write(command_buffer, command_buffer_length);
     
-//     // this->current_command_ = this->next_command_;
-//     // this->next_command_ = EZO_PMP_COMMAND_NONE;
-//     // this->is_waiting_ = true;
-//     // this->start_time_ = millis();
-//     // this->wait_time_ = wait_time_for_command;
+    // this->current_command_ = this->next_command_;
+    // this->next_command_ = EZO_PMP_COMMAND_NONE;
+    // this->is_waiting_ = true;
+    // this->start_time_ = millis();
+    // this->wait_time_ = wait_time_for_command;
     
-//     // this->read_command_result_();
-// }
+    // this->read_command_result_();
+}
 
-// void WaterQuality::EZOPMP_Read()
-// {
-//     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     if (this->is_failed())
-//         return;
+void WaterQuality::EZOPMP_Read()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
 
-//     uint8_t response_buffer[21] = {'\0'};
-//     response_buffer[0] = 0;
+    uint8_t response_buffer[21] = {'\0'};
+    response_buffer[0] = 0;
 
-//     if (this->is_waiting_ && millis() - this->start_time_ >= 300)
-//     {
-//         ESP_LOGE(TAG, "wait time = %d", millis() - this->start_time_);
-//         this->is_waiting_ = 0;
+    if (this->is_waiting_ && millis() - this->start_time_ >= 300)
+    {
+        ESP_LOGE(TAG, "wait time = %d", millis() - this->start_time_);
+        this->is_waiting_ = 0;
 
-//         if (!this->read_bytes_raw(response_buffer, 20))
-//         {
-//             for (size_t i = 0; i < 21; i++)
-//                 // if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
-//                 {
-//                     ESP_LOGE(TAG, "response_buffer[%d] = %d", i, response_buffer[i]);
-//                     ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+        if (!this->read_bytes_raw(response_buffer, 20))
+        {
+            for (size_t i = 0; i < 21; i++)
+                // if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+                {
+                    ESP_LOGE(TAG, "response_buffer[%d] = %d", i, response_buffer[i]);
+                    ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
                 
-//                     this->command2_[i] = response_buffer[i];
-//                 }
-//             // return;
-//         }
+                    this->command2_[i] = response_buffer[i];
+                }
+            // return;
+        }
 
-//         for (size_t i = 0; i < 21; i++)
-//             // if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
-//             {
-//                 ESP_LOGE(TAG, "response_buffer[%d] = %d", i, response_buffer[i]);
-//                 ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
+        for (size_t i = 0; i < 21; i++)
+            // if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
+            {
+                ESP_LOGE(TAG, "response_buffer[%d] = %d", i, response_buffer[i]);
+                ESP_LOGI(TAG, "Read Response from device: %s", (char *) response_buffer);
             
-//                 this->command2_[i] = response_buffer[i];
-//             }
-//     }
-// }
-// void WaterQuality::EZOPMP_Write()
-// {
-//     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     if (this->is_failed())
-//         return;
+                this->command2_[i] = response_buffer[i];
+            }
+    }
+}
+void WaterQuality::EZOPMP_Write()
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
 
-//     uint8_t command_buffer[21];
-//     int command_buffer_length = 0;
-//     command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
+    uint8_t command_buffer[21];
+    int command_buffer_length = 0;
+    command_buffer_length = sprintf((char *) command_buffer, this->custom_.c_str());
     
-//     if (command_buffer_length > 0)
-//     {
-//         this->write(command_buffer, command_buffer_length);
-//         ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
+    if (command_buffer_length > 0)
+    {
+        this->write(command_buffer, command_buffer_length);
+        ESP_LOGI(TAG, "Sending command to device: %s", this->custom_.c_str());
         
-//         this->is_waiting_ = 1;
-//         this->start_time_ = millis();
-//         this->custom_ = "";
-//     }
-// }
-// void WaterQuality::EZOPMP_Driver(float volume[])
-// {
-//     this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     if (this->is_failed())
-//         return;
+        this->is_waiting_ = 1;
+        this->start_time_ = millis();
+        this->custom_ = "";
+    }
+}
+void WaterQuality::EZOPMP_Driver(float volume[])
+{
+    this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    if (this->is_failed())
+        return;
 
-//     // uint8_t model = 0;
+    // uint8_t model = 0;
     
-//     // for (size_t i = 0; i < 6; i++)
-//     // {
-//     //     if (Pump_Model[i] != 0)
-//     //         model++;
-//     // }
+    // for (size_t i = 0; i < 6; i++)
+    // {
+    //     if (Pump_Model[i] != 0)
+    //         model++;
+    // }
 
-//     // if (model > 0)
-//     //     for (size_t i = 0; i < model; i++)
-//     //     {
-//     //         this->set_i2c_address(EZOPMP_I2C_ADDRESS);
-//     //         if (!this->is_failed())
-//     //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
-//     //     }
+    // if (model > 0)
+    //     for (size_t i = 0; i < model; i++)
+    //     {
+    //         this->set_i2c_address(EZOPMP_I2C_ADDRESS);
+    //         if (!this->is_failed())
+    //             change_i2c_address(EZOPMP_I2C_ADDRESS + i + 1);
+    //     }
 
-//     // EZOPMP_loop();
-//     // EZOPMP_update();
-//     EZOPMP_Read();
-//     EZOPMP_Write();
+    // EZOPMP_loop();
+    // EZOPMP_update();
+    EZOPMP_Read();
+    EZOPMP_Write();
 
-//     uint8_t command[50] = {0}, len = 20;
+    uint8_t command[50] = {0}, len = 20;
     
-//     // this->read_bytes_raw(command, len);
-//     // if (this->command_[0] != command[0] /*&& command[0] <= 1*/)
-//     //     ESP_LOGI(TAG, "command: %s", (char *) command);
-//     // for (size_t i = 0; i < len; i++)
-//     //     if (this->command_[i] != command[i])
-//     //     {
-//     //         this->command_[i] = command[i];
-//     //         ESP_LOGI(TAG,"read[%d] = %d", i, command[i]);
-//     //     }
+    // this->read_bytes_raw(command, len);
+    // if (this->command_[0] != command[0] /*&& command[0] <= 1*/)
+    //     ESP_LOGI(TAG, "command: %s", (char *) command);
+    // for (size_t i = 0; i < len; i++)
+    //     if (this->command_[i] != command[i])
+    //     {
+    //         this->command_[i] = command[i];
+    //         ESP_LOGI(TAG,"read[%d] = %d", i, command[i]);
+    //     }
         
-//     for (size_t i = 0; i < 6; i++)
-//     {
-//         // if (this->volume_[i] != volume[i])
-//         // {
-//         //     if (volume[i] > 0)
-//         //     {
-//         //         dose_volume(volume[i]);
-//         //         ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
-//         //     }
-//         //     else if (volume[i] == 0)
-//         //         stop_dosing();
+    for (size_t i = 0; i < 6; i++)
+    {
+        // if (this->volume_[i] != volume[i])
+        // {
+        //     if (volume[i] > 0)
+        //     {
+        //         dose_volume(volume[i]);
+        //         ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+        //     }
+        //     else if (volume[i] == 0)
+        //         stop_dosing();
                 
-//         //     this->volume_[i] == volume[i];
-//         // }
+        //     this->volume_[i] == volume[i];
+        // }
 
-//         // ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
+        // ESP_LOGI(TAG,"get_is_dosing = %d", get_is_dosing());
         
-//         if (get_is_dosing())
-//         {
-//             ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
-//             ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
-//         }
+        if (get_is_dosing())
+        {
+            ESP_LOGI(TAG,"total_volume_dosed_[%d] = %f", i, get_total_volume_dosed());
+            ESP_LOGI(TAG,"absolute_total_volume_dosed_[%d] = %f", i, get_absolute_total_volume_dosed());
+        }
         
-//         if (volume[i] > 0 && !get_is_dosing())
-//         {
-//             dose_volume(volume[i]);
-//             // this->custom_command("D," + std::to_string(volume[i]));
-//             ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
-//         }
-//         else if (volume[i] == 0 && get_is_dosing())
-//         {
-//             stop_dosing();
-//             // this->custom_command("X");
-//             ESP_LOGI(TAG,"Pump%d Stopped", i + 1);
-//         }
-//     }
-// }
-// void WaterQuality::EZOPMP_loop()
-// {
-//     // If we are not waiting for anything and there is no command to be sent, return
-//     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
-//         return;
+        if (volume[i] > 0 && !get_is_dosing())
+        {
+            dose_volume(volume[i]);
+            // this->custom_command("D," + std::to_string(volume[i]));
+            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
+        }
+        else if (volume[i] == 0 && get_is_dosing())
+        {
+            stop_dosing();
+            // this->custom_command("X");
+            ESP_LOGI(TAG,"Pump%d Stopped", i + 1);
+        }
+    }
+}
+void WaterQuality::EZOPMP_loop()
+{
+    // If we are not waiting for anything and there is no command to be sent, return
+    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+        return;
 
-//     // If we are not waiting for anything and there IS a command to be sent, do it.
-//     if (!this->is_waiting_ && this->peek_next_command_() != EZO_PMP_COMMAND_NONE)
-//         this->send_next_command_();
+    // If we are not waiting for anything and there IS a command to be sent, do it.
+    if (!this->is_waiting_ && this->peek_next_command_() != EZO_PMP_COMMAND_NONE)
+        this->send_next_command_();
 
-//     // If we are waiting for something but it isn't ready yet, then return
-//     if (this->is_waiting_ && millis() - this->start_time_ < this->wait_time_)
-//         return;
+    // If we are waiting for something but it isn't ready yet, then return
+    if (this->is_waiting_ && millis() - this->start_time_ < this->wait_time_)
+        return;
 
-//     // We are waiting for something and it should be ready.
-//     this->read_command_result_();
-// }
-// void WaterQuality::EZOPMP_update()
-// {
-//     if (this->is_waiting_)
-//         return;
+    // We are waiting for something and it should be ready.
+    this->read_command_result_();
+}
+void WaterQuality::EZOPMP_update()
+{
+    if (this->is_waiting_)
+        return;
 
-//     if (this->is_first_read_)
-//     {
-//         this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
-//         this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
-//         this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-//         this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-//         this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
-//         this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
-//         this->is_first_read_ = false;
-//     }
+    if (this->is_first_read_)
+    {
+        this->queue_command_(EZO_PMP_COMMAND_READ_CALIBRATION_STATUS, 0, 0, true);
+        this->queue_command_(EZO_PMP_COMMAND_READ_MAX_FLOW_RATE, 0, 0, (bool) this->max_flow_rate_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+        this->queue_command_(EZO_PMP_COMMAND_READ_PAUSE_STATUS, 0, 0, true);
+        this->is_first_read_ = false;
+    }
 
-//     if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
-//     {
-//         this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
+    if (!this->is_waiting_ && this->peek_next_command_() == EZO_PMP_COMMAND_NONE)
+    {
+        this->queue_command_(EZO_PMP_COMMAND_READ_DOSING, 0, 0, true);
 
-//         if (this->is_dosing_)
-//         {
-//             this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
-//             this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
-//             this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
-//         }
+        if (this->is_dosing_)
+        {
+            this->queue_command_(EZO_PMP_COMMAND_READ_SINGLE_REPORT, 0, 0, (bool) this->current_volume_dosed_);
+            this->queue_command_(EZO_PMP_COMMAND_READ_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->total_volume_dosed_);
+            this->queue_command_(EZO_PMP_COMMAND_READ_ABSOLUTE_TOTAL_VOLUME_DOSED, 0, 0, (bool) this->absolute_total_volume_dosed_);
+        }
 
-//         this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
-//     }
-//     else
-//         ESP_LOGV(TAG, "Not Scheduling new Command during update()");
-// }
+        this->queue_command_(EZO_PMP_COMMAND_READ_PUMP_VOLTAGE, 0, 0, (bool) this->pump_voltage_);
+    }
+    else
+        ESP_LOGV(TAG, "Not Scheduling new Command during update()");
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

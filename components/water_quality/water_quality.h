@@ -170,47 +170,47 @@ void set_frequency(float frequency)     { this->frequency_ = frequency; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EZOPMP
-// void EZOPMP_Read();
-// void EZOPMP_Write();
-// void EZOPMP_Driver(float volume[]);
-// void EZOPMP_loop();
-// void EZOPMP_update();
+void EZOPMP_Read();
+void EZOPMP_Write();
+void EZOPMP_Driver(float volume[]);
+void EZOPMP_loop();
+void EZOPMP_update();
 
-// void find();
-// void dose_continuously();
-// void dose_volume(float volume);
-// void dose_volume_over_time(float volume, int duration);
-// void dose_with_constant_flow_rate(float volume, int duration);
-// void set_calibration_volume(float volume);
-// void clear_total_volume_dosed();
-// void clear_calibration();
-// void pause_dosing();
-// void stop_dosing();
-// void change_i2c_address(int address);
-// void exec_arbitrary_command(const std::basic_string<char> &command);
+void find();
+void dose_continuously();
+void dose_volume(float volume);
+void dose_volume_over_time(float volume, int duration);
+void dose_with_constant_flow_rate(float volume, int duration);
+void set_calibration_volume(float volume);
+void clear_total_volume_dosed();
+void clear_calibration();
+void pause_dosing();
+void stop_dosing();
+void change_i2c_address(int address);
+void exec_arbitrary_command(const std::basic_string<char> &command);
 void custom_command(std::string custom);
 
-// void set_current_volume_dosed(float current_volume_dosed)                   { current_volume_dosed_ = current_volume_dosed; }
-// void set_total_volume_dosed(float total_volume_dosed)                       { total_volume_dosed_ = total_volume_dosed; }
-// void set_absolute_total_volume_dosed(float absolute_total_volume_dosed)     { absolute_total_volume_dosed_ = absolute_total_volume_dosed; }
-// void set_pump_voltage(float pump_voltage)                                   { pump_voltage_ = pump_voltage; }
-// void set_last_volume_requested(float last_volume_requested)                 { last_volume_requested_ = last_volume_requested; }
-// void set_max_flow_rate(float max_flow_rate)                                 { max_flow_rate_ = max_flow_rate; }
-// void set_is_dosing(bool is_dosing)                                          { is_dosing_ = is_dosing; }
-// void set_is_paused(bool is_paused)                                          { is_paused_ = is_paused; }
-// void set_dosing_mode(std::string dosing_mode)                               { dosing_mode_ = dosing_mode; }
-// void set_calibration_status(std::string calibration_status)                 { calibration_status_ = calibration_status; }
+void set_current_volume_dosed(float current_volume_dosed)                   { current_volume_dosed_ = current_volume_dosed; }
+void set_total_volume_dosed(float total_volume_dosed)                       { total_volume_dosed_ = total_volume_dosed; }
+void set_absolute_total_volume_dosed(float absolute_total_volume_dosed)     { absolute_total_volume_dosed_ = absolute_total_volume_dosed; }
+void set_pump_voltage(float pump_voltage)                                   { pump_voltage_ = pump_voltage; }
+void set_last_volume_requested(float last_volume_requested)                 { last_volume_requested_ = last_volume_requested; }
+void set_max_flow_rate(float max_flow_rate)                                 { max_flow_rate_ = max_flow_rate; }
+void set_is_dosing(bool is_dosing)                                          { is_dosing_ = is_dosing; }
+void set_is_paused(bool is_paused)                                          { is_paused_ = is_paused; }
+void set_dosing_mode(std::string dosing_mode)                               { dosing_mode_ = dosing_mode; }
+void set_calibration_status(std::string calibration_status)                 { calibration_status_ = calibration_status; }
 
-// float get_current_volume_dosed()            { return current_volume_dosed_; }
-// float get_total_volume_dosed()              { return total_volume_dosed_; }
-// float get_absolute_total_volume_dosed()     { return absolute_total_volume_dosed_; }
-// float get_pump_voltage()                    { return pump_voltage_; }
-// float get_last_volume_requested()           { return last_volume_requested_; }
-// float get_max_flow_rate()                   { return max_flow_rate_; }
-// bool get_is_dosing()                        { return is_dosing_; }
-// bool get_is_paused()                        { return is_paused_; }
-// std::string get_dosing_mode()               { return dosing_mode_; }
-// std::string get_calibration_status()        { return calibration_status_; }
+float get_current_volume_dosed()            { return current_volume_dosed_; }
+float get_total_volume_dosed()              { return total_volume_dosed_; }
+float get_absolute_total_volume_dosed()     { return absolute_total_volume_dosed_; }
+float get_pump_voltage()                    { return pump_voltage_; }
+float get_last_volume_requested()           { return last_volume_requested_; }
+float get_max_flow_rate()                   { return max_flow_rate_; }
+bool get_is_dosing()                        { return is_dosing_; }
+bool get_is_paused()                        { return is_paused_; }
+std::string get_dosing_mode()               { return dosing_mode_; }
+std::string get_calibration_status()        { return calibration_status_; }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -270,47 +270,47 @@ bool update_{true};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EZOPMP
-// uint32_t start_time_ = 0;
-// uint32_t wait_time_ = 0;
-// bool is_waiting_ = false;
-// bool is_first_read_ = true;
+uint32_t start_time_ = 0;
+uint32_t wait_time_ = 0;
+bool is_waiting_ = false;
+bool is_first_read_ = true;
 
-// uint16_t next_command_ = 0;
-// double next_command_volume_ = 0;  // might be negative
-// int next_command_duration_ = 0;
+uint16_t next_command_ = 0;
+double next_command_volume_ = 0;  // might be negative
+int next_command_duration_ = 0;
 
-// uint16_t next_command_queue_[10];
-// double next_command_volume_queue_[10];
-// int next_command_duration_queue_[10];
-// int next_command_queue_head_ = 0;
-// int next_command_queue_last_ = 0;
-// int next_command_queue_length_ = 0;
+uint16_t next_command_queue_[10];
+double next_command_volume_queue_[10];
+int next_command_duration_queue_[10];
+int next_command_queue_head_ = 0;
+int next_command_queue_last_ = 0;
+int next_command_queue_length_ = 0;
 
-// uint16_t current_command_ = 0;
+uint16_t current_command_ = 0;
 
-// const char *arbitrary_command_{nullptr};
+const char *arbitrary_command_{nullptr};
 
-// void send_next_command_();
-// void read_command_result_();
-// void clear_current_command_();
-// void queue_command_(uint16_t command, float volume, int duration, bool should_schedule);
-// void pop_next_command_();
-// uint16_t peek_next_command_();
+void send_next_command_();
+void read_command_result_();
+void clear_current_command_();
+void queue_command_(uint16_t command, float volume, int duration, bool should_schedule);
+void pop_next_command_();
+uint16_t peek_next_command_();
 
-// uint16_t command_[50] = {0};
-// uint16_t command2_[50] = {0};
-// float volume_[6] = {0};
-// float current_volume_dosed_ = 0;
-// float total_volume_dosed_ = 0;
-// float absolute_total_volume_dosed_ = 0;
-// float pump_voltage_ = 0;
-// float max_flow_rate_ = 0;
-// float last_volume_requested_ = 0;
-// bool is_dosing_ = 0;
-// bool is_paused_ = 0;
-// std::string custom_ = {0};
-// std::string dosing_mode_ = {0};
-// std::string calibration_status_ = {0};
+uint16_t command_[50] = {0};
+uint16_t command2_[50] = {0};
+float volume_[6] = {0};
+float current_volume_dosed_ = 0;
+float total_volume_dosed_ = 0;
+float absolute_total_volume_dosed_ = 0;
+float pump_voltage_ = 0;
+float max_flow_rate_ = 0;
+float last_volume_requested_ = 0;
+bool is_dosing_ = 0;
+bool is_paused_ = 0;
+std::string custom_ = {0};
+std::string dosing_mode_ = {0};
+std::string calibration_status_ = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
