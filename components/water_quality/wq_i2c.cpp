@@ -1037,7 +1037,7 @@ this->read_bytes_raw(response_buffer, 20);
         // if (!this->read_bytes_raw(response_buffer, 20);)
         //     return;
 
-        this->start_time_ = millis();
+        // this->start_time_ = millis();
 
         for (size_t i = 0; i < 21; i++)
             if (this->command2_[i] != response_buffer[i] /*&& response_buffer[0] <= 1*/)
@@ -1074,7 +1074,6 @@ void WaterQuality::EZOPMP_Write()
     {
         command_buffer_length = sprintf((char *) command_buffer, "D,?");
         this->write(command_buffer, command_buffer_length);
-        ESP_LOGI(TAG, "Sending command to device: %s", (char *) command_buffer);
         this->is_waiting_ = 1;
         this->start_time_ = millis();
     }
