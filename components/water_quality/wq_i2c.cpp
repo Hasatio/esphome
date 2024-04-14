@@ -1142,7 +1142,6 @@ void WaterQuality::EZOPMP_Driver(float volume[])
         {
             // dose_volume(volume[i]);
             this->custom_command("D," + std::to_string(volume[i]));
-            ESP_LOGI(TAG,"volume[%d] = %f", i, volume[i]);
         }
         else if (volume[i] == 0 && get_is_dosing())
         {
