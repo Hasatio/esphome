@@ -44,7 +44,7 @@ void Pump::Calibration_Controller()
 
     for (size_t i = 0; i < 6; i++)
     {        
-        if (type[i] > 0 && model[i] > 0)
+        if (type[i] > 0 && model[i] > 0  && mode[i] == 4)
             switch (calib_cond[i])
             {
                 case 0:
@@ -99,6 +99,11 @@ void Pump::Calibration_Controller()
                 default:
                     break;
             }
+        else
+        {    
+            calib_cond[i] = 0;
+            set_Pump_Calibration_Mode_Check(0);
+        }
     }
 }
 
@@ -184,6 +189,8 @@ void Pump::Dosing_Controller(float pump[])
                     pump[i] = 0;
                     stat[i] = 0;
                 }
+
+                dose[i] = 0;
             }
             else
             {
@@ -275,6 +282,8 @@ void Pump::Circulation_Controller(float pump[])
                     pump[i] = 0;
                     stat[i] = 0;
                 }
+                
+                circ[i] = 0;
             }
             else
             {

@@ -318,7 +318,7 @@ PUMP_MODE_ACTION_SCHEMA = cv.All(
                     # [cv.Any(cv.uint8_t)],
                     # [cv.ensure_list(cv.uint8_t)],
                     cv.templatable(
-                        cv.ensure_list(cv.int_range(min = 0, max = 2))
+                        cv.ensure_list(cv.int_range(min = 0, max = 3))
                     ),
                     # cv.Length(min=0, max=3),
                 )
