@@ -44,7 +44,7 @@ void Pump::Calibration_Controller()
 
     for (size_t i = 0; i < 6; i++)
     {        
-        if (type[i] > 0 && model[i] > 0  && mode[i] == 4)
+        if (type[i] > 0 && model[i] > 0  && mode[i] == 3)
             switch (calib_cond[i])
             {
                 case 0:
@@ -282,7 +282,7 @@ void Pump::Circulation_Controller(float pump[])
                     pump[i] = 0;
                     stat[i] = 0;
                 }
-                
+
                 circ[i] = 0;
             }
             else
