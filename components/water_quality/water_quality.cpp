@@ -67,6 +67,7 @@ void WaterQuality::dump_config()
         else
         {
             ESP_LOGI(TAG, "I2C:");
+            
             for (uint8_t addr = 0; addr<=127; addr++) 
             {
                 Wire.beginTransmission(addr);
