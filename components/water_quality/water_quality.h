@@ -454,22 +454,6 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class CustomCommandAction : public Action<Ts...> {
-public:
-CustomCommandAction(WaterQuality *parent) : parent_(parent){};
-
-TEMPLATABLE_VALUE(std::string, cus_com);
-
-void play(Ts... x) 
-{
-    std::string data = this->cus_com_.value(x...);
-
-    this->parent_->custom_command(data);
-}
-
-protected:
-WaterQuality *parent_;
-};
 
 }  // namespace water_quality
 }  // namespace esphome
