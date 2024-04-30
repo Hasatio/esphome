@@ -64,23 +64,23 @@ void WaterQuality::dump_config()
                     ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
             }
         }
-        else
+    }
+    else
+    {
+        ESP_LOGI(TAG, "I2C:");
+        
+        for (uint8_t addr = 0; addr<=127; addr++) 
         {
-            ESP_LOGI(TAG, "I2C:");
-            
-            for (uint8_t addr = 0; addr<=127; addr++) 
+            Wire.beginTransmission(addr);
+            if (!Wire.endTransmission()) 
             {
-                Wire.beginTransmission(addr);
-                if (!Wire.endTransmission()) 
-                {
-                    if (addr < 16)
-                        ESP_LOGI(TAG, "Found I2C 0x0%x",addr);
-                    else
-                        ESP_LOGI(TAG, "Found I2C 0x%x",addr);
-                }
-                else if(Wire.endTransmission() == 4)
-                    ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+                if (addr < 16)
+                    ESP_LOGI(TAG, "Found I2C 0x0%x",addr);
+                else
+                    ESP_LOGI(TAG, "Found I2C 0x%x",addr);
             }
+            else if(Wire.endTransmission() == 4)
+                ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
         }
     }
 
