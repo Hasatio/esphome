@@ -268,50 +268,6 @@ uint16_t pwm_amounts_[16] = {0};
 bool update_{true};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  EZOPMP
-uint32_t start_time_ = 0;
-uint32_t wait_time_ = 0;
-bool is_waiting_ = false;
-bool is_first_read_ = true;
-
-uint16_t next_command_ = 0;
-double next_command_volume_ = 0;  // might be negative
-int next_command_duration_ = 0;
-
-uint16_t next_command_queue_[10];
-double next_command_volume_queue_[10];
-int next_command_duration_queue_[10];
-int next_command_queue_head_ = 0;
-int next_command_queue_last_ = 0;
-int next_command_queue_length_ = 0;
-
-uint16_t current_command_ = 0;
-
-const char *arbitrary_command_{nullptr};
-
-void send_next_command_();
-void read_command_result_();
-void clear_current_command_();
-void queue_command_(uint16_t command, float volume, int duration, bool should_schedule);
-void pop_next_command_();
-uint16_t peek_next_command_();
-
-uint16_t command_[50] = {0};
-uint16_t command2_[50] = {0};
-float volume_[6] = {0};
-float current_volume_dosed_ = 0;
-float total_volume_dosed_ = 0;
-float absolute_total_volume_dosed_ = 0;
-float pump_voltage_ = 0;
-float max_flow_rate_ = 0;
-float last_volume_requested_ = 0;
-bool is_dosing_ = 0;
-bool is_paused_ = 0;
-std::string custom_ = {0};
-std::string dosing_mode_ = {0};
-std::string calibration_status_ = {0};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sensor
 text_sensor::TextSensor *Pump_Tot_{nullptr};
 text_sensor::TextSensor *Pump_Stat_{nullptr};
