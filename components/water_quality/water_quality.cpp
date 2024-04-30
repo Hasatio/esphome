@@ -41,7 +41,7 @@ void WaterQuality::dump_config()
     Wire.beginTransmission(TCA9548_ADDRESS);
     if(!Wire.endTransmission())
     {
-        ESP_LOGCONFIG(TAG, "TCA9548:");
+        ESP_LOGI(TAG, "TCA9548:");
 
         for (size_t t=0; t<8; t++)
         {
