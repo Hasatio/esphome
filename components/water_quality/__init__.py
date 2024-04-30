@@ -24,7 +24,6 @@ CONF_PUMP6 = "pump6"
 CONF_PUMP_CALIBRATION_MODE = "pump_calibration_mode"
 CONF_PUMP_CALIBRATION_GAIN = "pump_calibration_gain"
 CONF_PUMP_TYPE = "pump_type"
-CONF_PUMP_DOSING_MODEL = "pump_dosing_model"
 CONF_PUMP_CIRCULATION_MODEL = "pump_circulation_model"
 CONF_PUMP_MODE = "pump_mode"
 CONF_PUMP_DOSE = "pump_dose"
@@ -50,13 +49,11 @@ PUMP_TYPE_CIRCULATION = 2
 
 PUMP_DOSING_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_DOSING_MODEL): cv.int_range(min = 1, max = 2),
         cv.Required(CONF_PUMP_CALIBRATION_GAIN): cv.float_,
     }
 )
 PUMP_CIRCULATION_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_PUMP_CIRCULATION_MODEL): cv.int_range(min = 1, max = 2),
         cv.Required(CONF_PUMP_CALIBRATION_GAIN): cv.float_,
     }
 )
@@ -161,95 +158,51 @@ async def to_code(config):
     zero = [0] * 1
     type = []
     calib = []
-    model = []
     
     conf = config[CONF_PUMP1][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
             
     conf = config[CONF_PUMP2][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
         
     conf = config[CONF_PUMP3][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
         
     conf = config[CONF_PUMP4][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
         
     conf = config[CONF_PUMP5][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
         
     conf = config[CONF_PUMP6][0]
     type.append(conf[CONF_PUMP_TYPE])
     if conf[CONF_PUMP_TYPE] != 0:
         calib.append(conf[CONF_PUMP_CALIBRATION_GAIN])
-        if conf[CONF_PUMP_TYPE] == 1:
-            model.append(conf[CONF_PUMP_DOSING_MODEL])
-        elif conf[CONF_PUMP_TYPE] == 2:
-            model.append(conf[CONF_PUMP_CIRCULATION_MODEL])
-        else:
-            model.append(zero)
     else:
         calib.append(zero)
-        model.append(zero)
         
     cg.add(var.pump_calibration_gain(calib))
     cg.add(var.pump_type(type))
-    cg.add(var.pump_model(model))
     
         
     min = []

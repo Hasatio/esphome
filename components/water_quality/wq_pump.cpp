@@ -37,23 +37,19 @@ void Pump::Calibration_Controller()
     uint8_t* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
-    uint8_t* model = get_Pump_Model();
     uint8_t* mode = get_Pump_Mode();
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
 
     for (size_t i = 0; i < 6; i++)
     {        
-        if (type[i] > 0 && model[i] > 0  && mode[i] == 3)
+        if (type[i] > 0 && mode[i] == 3)
             switch (calib_cond[i])
             {
                 case 0:
                     if (calib_mode[i] && !get_Pump_Calibration_Mode_Check())
                     {
-                        if (model[i] == 1)
-                            calib_vol[i] = get_calib_time();
-                        else if (model[i] == 2)
-                            calib_vol[i] = get_calib_ml();
+                        calib_vol[i] = get_calib_time();
 
                         calib_cond[i] = 1;
                         set_Pump_Calibration_Mode_Check(1);
@@ -163,7 +159,6 @@ void Pump::Dosing_Controller(float pump[])
     uint8_t* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
-    uint8_t* model = get_Pump_Model();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     float* dose = get_Pump_Dose();
@@ -172,7 +167,7 @@ void Pump::Dosing_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 1 && model[i] == 1)
+        if (type[i] == 1)
             if (get_Pump_Calibration_Mode_Check())
             {
                 if (pump[i] > 0 && stat[i] == 4)
@@ -256,7 +251,6 @@ void Pump::Circulation_Controller(float pump[])
     uint8_t* calib_vol = get_Pump_Calibration_Volume();
     float* calib_gain = get_Pump_Calibration_Gain();
     uint8_t* type = get_Pump_Type();
-    uint8_t* model = get_Pump_Model();
     uint8_t* mode = get_Pump_Mode();
     uint8_t* stat = get_Pump_Status();
     float* circ = get_Pump_Circulation();
@@ -265,7 +259,7 @@ void Pump::Circulation_Controller(float pump[])
 
     for (size_t i = 0; i < 6; i++)
     {
-        if (type[i] == 2 && model[i] == 1)
+        if (type[i] == 2)
             if (get_Pump_Calibration_Mode_Check())
             {
                 if (pump[i] > 0 && stat[i] == 4)
@@ -342,83 +336,6 @@ void Pump::Circulation_Controller(float pump[])
                 else
                     pump[i] = 0;
             }
-    }
-}
-
-void Pump::Serial_Com_Pump_Driver(float pump[])
-{
-    uint8_t* calib_vol = get_Pump_Calibration_Volume();
-    float* calib_gain = get_Pump_Calibration_Gain();
-    uint8_t* type = get_Pump_Type();
-    uint8_t* model = get_Pump_Model();
-    uint8_t* mode = get_Pump_Mode();
-    uint8_t* stat = get_Pump_Status();
-    float* dose = get_Pump_Dose();
-    uint32_t (*tot)[2] = get_Pump_Total();
-    double vol = 0;
-
-    for (size_t i = 0; i < 6; i++)
-    {
-        if (type[i] == 1 && model[i] == 2)
-        {
-            if (get_Pump_Calibration_Mode_Check())
-            {
-                if (calib_vol[i] > 0 && stat[i] != 4)
-                {
-                    pump[i] = calib_vol[i];
-                    stat[i] = 4;
-                }
-                else if (calib_vol[i] == 0)
-                {
-                    pump[i] = 0;
-                    stat[i] = 0;
-                }
-            }
-            else
-            {
-                // if (pump[i] > 0)
-                // {
-                //         if (dose[i] > 0)
-                //         {
-                //             tot[i][1] = static_cast<uint32_t>(tot[i][1] + calib_gain[i] * min * 10000);
-                //             tot[i][0] += static_cast<uint32_t>(tot[i][1] / 10000000);
-                //             if (tot[i][1] >= 10000000)
-                //                 tot[i][1] = 0;
-                //         }
-                // }
-
-                switch (mode[i])
-                {
-                    case 0:
-                        if (dose[i] == 0)
-                            stat[i] = 2;
-                        break;
-
-                    case 1:
-                        if (dose[i] > 0)
-                            stat[i] = 1;
-                        else if (dose[i] == 0)
-                            stat[i] = 2;
-                        break;
-
-                    case 2:
-                        stat[i] = 3;
-                        break;
-                    
-                    default:
-                        break;
-                }
-
-                if (stat[i] == 1)
-                {
-                    pump[i] = dose[i] * calib_gain[i];
-                    dose[i] = 0;
-                    ESP_LOGI(TAG,"pump[%d] = %f", i, pump[i]);
-                }
-                else if(stat[i] == 3)
-                    pump[i] = 0;
-            }
-        }
     }
 }
 
