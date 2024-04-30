@@ -484,33 +484,3 @@ async def digital_out_to_code(config, action_id, template_arg, args):
 
     return var
 
-
-CustomCommandAction = water_quality_ns.class_("CustomCommandAction", automation.Action)
-
-CUSTOM_COMMAND_ACTION_SCHEMA = cv.All(
-    {
-        cv.GenerateID(): cv.use_id(WaterQuality),
-        cv.Required(CONF_CUSTOM_COMMAND): cv.All(
-            cv.templatable(
-                cv.string
-            ),
-        ),
-    }
-)
-
-@automation.register_action(
-    "water_quality.custom_command", 
-    CustomCommandAction, 
-    CUSTOM_COMMAND_ACTION_SCHEMA
-)
-
-async def custom_command_to_code(config, action_id, template_arg, args):
-    paren = await cg.get_variable(config[CONF_ID])
-    var = cg.new_Pvariable(action_id, template_arg, paren)
-
-    val = config[CONF_CUSTOM_COMMAND]
-    if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.std_string)
-        cg.add(var.set_cus_com(template_))
-
-    return var
