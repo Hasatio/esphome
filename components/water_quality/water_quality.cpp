@@ -82,7 +82,6 @@ void WaterQuality::dump_config()
     uint8_t dose = 0, circ = 0;
     float* calib_gain = pump.get_Pump_Calibration_Gain();
     uint8_t* type = pump.get_Pump_Type();
-    uint8_t* model = pump.get_Pump_Model();
 
     for (size_t i = 0; i < 6; i++)
         if (type[i] == 1)
@@ -125,9 +124,6 @@ void WaterQuality::update()
     pump.Generic_Pump_Driver(p);
     ser.Servo_Driver(p);
     PCA9685_Driver(p);
-
-    pump.Serial_Com_Pump_Driver(e);
-    EZOPMP_Driver(e);
 }
 
 void WaterQuality::version(const uint8_t ver)

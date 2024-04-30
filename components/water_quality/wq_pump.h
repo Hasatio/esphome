@@ -53,7 +53,6 @@ bool* get_Pump_Reset()                      { return Pump_Reset; }
 float* get_Pump_Time()                      { return Pump_Time; }
 float get_Min_Time()                        { return Min_Time; }
 uint8_t get_calib_time()                    { return calib_time; }
-uint8_t get_calib_ml()                      { return calib_ml; }
 
 protected:
 bool Pump_Calibration_Mode_Check = 0;
