@@ -95,7 +95,6 @@ void WaterQuality::dump_config()
     {
         ESP_LOGI(TAG, "Pump_Calibration_Gain[%d] = %.2f", i, calib_gain[i]);
         ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
-        ESP_LOGI(TAG, "Pump_Model[%d] = %d", i, model[i]);
     }
 
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
