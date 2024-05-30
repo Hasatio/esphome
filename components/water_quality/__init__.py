@@ -224,7 +224,6 @@ async def to_code(config):
     cg.add_library("DFRobot_EC", None, "https://github.com/DFRobot/DFRobot_EC/")
     cg.add_library("DFRobot_EC10", None)
     cg.add_library("DFRobot_PH", None)
-    cg.add_library("DFRobot_PH", None)
     cg.add_library("SPI", None)
     cg.add_library("SD", None)
     cg.add_library("Time", None)
