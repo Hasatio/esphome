@@ -40,6 +40,7 @@ void set_VPow_Val(float vp)				{ AnInVPow_Val = vp; }
 void set_ResMin(uint16_t resmax[])		{ for (size_t i = 0; i < 2; i++)	AnInLvl_ResMin[i] = resmax[i]; }
 void set_ResMax(uint16_t resmin[])		{ for (size_t i = 0; i < 2; i++)	AnInLvl_ResMax[i] = resmin[i]; }
 void set_Lvl_Perc(float lvl[])			{ for (size_t i = 0; i < 2; i++)	AnInLvl_Perc[i] = lvl[i]; }
+void set_EC_PH_Calibration(bool cal)	{ EC_PH_Calibration = cal; }
 void set_EC_Val(float ec)				{ AnInEC_Val = ec; }
 void set_EC_Ch(uint8_t ec)				{ AnInEC_Ch = ec; }
 void set_EC_Type(uint8_t ec)			{ AnInEC_Type = ec; }
