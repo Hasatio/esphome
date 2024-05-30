@@ -148,7 +148,7 @@ void Analog::ec_ph2()
 }
 
 int i = 0;
-bool readSerial(char result[])
+bool Analog::readSerial(char result[])
 {
 	while (Serial.available() > 0)
 	{
