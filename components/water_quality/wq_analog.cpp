@@ -116,9 +116,11 @@ void Analog::ec_ph()
 		last[3] = now; 
 		if (!get_EC_PH_Calibration())
 		{
-
-			set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val())); // Convert voltage to EC with temperature compensation
-			set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val())); // Convert voltage to PH with temperature compensation
+            set_EC_Val(/*ec.readEC(*/ecVoltage/*, get_WTemp_Val())*/); // Convert voltage to EC with temperature compensation
+			set_PH_Val(/*ph.readPH(*/phVoltage/*, get_WTemp_Val())*/); // Convert voltage to PH with temperature compensation
+		
+			// set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val())); // Convert voltage to EC with temperature compensation
+			// set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val())); // Convert voltage to PH with temperature compensation
 		}
 	}
 }
