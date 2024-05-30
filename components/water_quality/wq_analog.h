@@ -45,22 +45,23 @@ void set_EC_Type(uint8_t ec)		{ AnInEC_Type = ec; }
 void set_PH_Val(float ph)			{ AnInPH_Val = ph; }
 void set_PH_Ch(uint8_t ph)			{ AnInPH_Ch = ph; }
 void set_PH_Type(uint8_t ph)		{ AnInPH_Type = ph; }
-void set_Gen_Val(float gen[])		{ for (size_t i = 0; i < 2; i++) AnInGen_Val[i] = gen[i]; }
+void set_Gen_Val(float gen[])		{ for (size_t i = 0; i < 2; i++)	AnInGen_Val[i] = gen[i]; }
 
-uint8_t get_version()		{ return version; }	
-uint16_t get_WTemp_Res()	{ return AnInWTemp_Res; }
-float get_WTemp_Val()		{ return AnInWTemp_Val; }
-float get_VPow_Val()		{ return AnInVPow_Val; }
-uint16_t* get_ResMin()		{ return AnInLvl_ResMin; }
-uint16_t* get_ResMax()  	{ return AnInLvl_ResMax; }
-float* get_Lvl_Perc()		{ return AnInLvl_Perc; }
-float get_EC_Val()			{ return AnInEC_Val; }
-uint8_t get_EC_Ch()			{ return AnInEC_Ch; }
-uint8_t get_EC_Type() 		{ return AnInEC_Type; }
-float get_PH_Val()			{ return AnInPH_Val; }
-uint8_t get_PH_Ch()			{ return AnInPH_Ch; }
-uint8_t get_PH_Type() 		{ return AnInPH_Type; }
-float* get_Gen_Val()		{ return AnInGen_Val; }
+uint8_t get_version()			{ return version; }	
+uint16_t get_WTemp_Res()		{ return AnInWTemp_Res; }
+float get_WTemp_Val()			{ return AnInWTemp_Val; }
+float get_VPow_Val()			{ return AnInVPow_Val; }
+uint16_t* get_ResMin()			{ return AnInLvl_ResMin; }
+uint16_t* get_ResMax()  		{ return AnInLvl_ResMax; }
+float* get_Lvl_Perc()			{ return AnInLvl_Perc; }
+float get_EC_PH_Calibration()   { return EC_PH_Calibration; }
+float get_EC_Val()				{ return AnInEC_Val; }
+uint8_t get_EC_Ch()				{ return AnInEC_Ch; }
+uint8_t get_EC_Type() 			{ return AnInEC_Type; }
+float get_PH_Val()				{ return AnInPH_Val; }
+uint8_t get_PH_Ch()				{ return AnInPH_Ch; }
+uint8_t get_PH_Type() 			{ return AnInPH_Type; }
+float* get_Gen_Val()			{ return AnInGen_Val; }
 
 bool readSerial(char result[]);
 
@@ -79,6 +80,7 @@ float AnInWTemp_Val;
 float AnInVPow_Val;
 uint16_t AnInLvl_ResMin[2], AnInLvl_ResMax[2];
 float AnInLvl_Perc[2];
+bool EC_PH_Calibration = 0;
 float AnInEC_Val;
 float AnInPH_Val;
 float AnInGen_Val[2];
