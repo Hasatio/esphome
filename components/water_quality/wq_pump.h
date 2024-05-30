@@ -24,18 +24,18 @@ void Dosing_Controller(float pump[]);
 void Circulation_Controller(float pump[]);
 
 void set_Pump_Calibration_Mode_Check(bool check)            { Pump_Calibration_Mode_Check = check; }
-void set_Pump_Calibration_Condition(uint8_t condition[])    { for (size_t i = 0; i < 6; i++) Pump_Calibration_Condition[i] = condition[i]; }
-void set_Pump_Calibration_Mode(bool mode[])                 { for (size_t i = 0; i < 6; i++) Pump_Calibration_Mode[i] = mode[i]; }
-void set_Pump_Calibration_Volume(uint8_t volume[])          { for (size_t i = 0; i < 6; i++) Pump_Calibration_Volume[i] = volume[i]; }
-void set_Pump_Calibration_Gain(float gain[])                { for (size_t i = 0; i < 6; i++) Pump_Calibration_Gain[i] = gain[i]; }
-void set_Pump_Type(uint8_t type[])                          { for (size_t i = 0; i < 6; i++) Pump_Type[i] = type[i]; }
-void set_Pump_Mode(uint8_t mode[])                          { for (size_t i = 0; i < 6; i++) Pump_Mode[i] = mode[i]; }
-void set_Pump_Status(uint8_t status[])                      { for (size_t i = 0; i < 6; i++) Pump_Status[i] = status[i]; }
-void set_Pump_Dose(float dose[])                            { for (size_t i = 0; i < 6; i++) Pump_Dose[i] = dose[i]; }
-void set_Pump_Circulation(float circulation[])              { for (size_t i = 0; i < 6; i++) Pump_Circulation[i] = circulation[i]; }
-void set_Pump_Total(uint32_t total[][2])                    { for (size_t i = 0; i < 6; i++) for (size_t j = 0; j < 2; j++) Pump_Total[i][j] = total[i][j]; }
-void set_Pump_Reset(bool reset[])                           { for (size_t i = 0; i < 6; i++) Pump_Reset[i] = reset[i]; }
-void set_Pump_Time(float time[])                            { for (size_t i = 0; i < 6; i++) Pump_Time[i] = time[i]; }
+void set_Pump_Calibration_Condition(uint8_t condition[])    { for (size_t i = 0; i < 6; i++)    Pump_Calibration_Condition[i] = condition[i]; }
+void set_Pump_Calibration_Mode(bool mode[])                 { for (size_t i = 0; i < 6; i++)    Pump_Calibration_Mode[i] = mode[i]; }
+void set_Pump_Calibration_Volume(uint8_t volume[])          { for (size_t i = 0; i < 6; i++)    Pump_Calibration_Volume[i] = volume[i]; }
+void set_Pump_Calibration_Gain(float gain[])                { for (size_t i = 0; i < 6; i++)    Pump_Calibration_Gain[i] = gain[i]; }
+void set_Pump_Type(uint8_t type[])                          { for (size_t i = 0; i < 6; i++)    Pump_Type[i] = type[i]; }
+void set_Pump_Mode(uint8_t mode[])                          { for (size_t i = 0; i < 6; i++)    Pump_Mode[i] = mode[i]; }
+void set_Pump_Status(uint8_t status[])                      { for (size_t i = 0; i < 6; i++)    Pump_Status[i] = status[i]; }
+void set_Pump_Dose(float dose[])                            { for (size_t i = 0; i < 6; i++)    Pump_Dose[i] = dose[i]; }
+void set_Pump_Circulation(float circulation[])              { for (size_t i = 0; i < 6; i++)    Pump_Circulation[i] = circulation[i]; }
+void set_Pump_Total(uint32_t total[][2])                    { for (size_t i = 0; i < 6; i++)    for (size_t j = 0; j < 2; j++)  Pump_Total[i][j] = total[i][j]; }
+void set_Pump_Reset(bool reset[])                           { for (size_t i = 0; i < 6; i++)    Pump_Reset[i] = reset[i]; }
+void set_Pump_Time(float time[])                            { for (size_t i = 0; i < 6; i++)    Pump_Time[i] = time[i]; }
 void set_Min_Time(float min)                                { Min_Time = min; }
 
 bool get_Pump_Calibration_Mode_Check()      { return Pump_Calibration_Mode_Check; }
