@@ -31,7 +31,7 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_WATER_TEMP): sensor.sensor_schema(
                 # MySensor,
                 unit_of_measurement = UNIT_CELSIUS,
-                accuracy_decimals = 2,
+                accuracy_decimals = 1,
             ),
             cv.Optional(CONF_VOLTAGE_POWER): sensor.sensor_schema(
                 # MySensor,
@@ -41,12 +41,12 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_EC): sensor.sensor_schema(
                 # MySensor,
                 unit_of_measurement = UNIT_MICROSIEMENS_PER_CENTIMETER,
-                accuracy_decimals = 1,
+                accuracy_decimals = 2,
             ),
             cv.Optional(CONF_PH): sensor.sensor_schema(
                 # MySensor,
                 unit_of_measurement = UNIT_PH,
-                accuracy_decimals = 1,
+                accuracy_decimals = 2,
             ),
         }
     )
