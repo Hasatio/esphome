@@ -44,10 +44,10 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    ecVoltage = volts[get_EC_Ch() + 3]; // read the voltage
+    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
     
     //pH
-    phVoltage = volts[get_PH_Ch() + 3]; // read the voltage
+    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
 
     // set_EC_Val(volts[get_EC_Ch() + 3]);
     // set_PH_Val(volts[get_PH_Ch() + 3]);
@@ -79,7 +79,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
 void Analog::ec_ph()
 {
-	unsigned long now = millis();
+	now = millis();
     
     //Water Temperature
     // temperature = get_WTemp_Val(); // read your temperature sensor to execute temperature compensation
@@ -99,7 +99,7 @@ void Analog::ec_ph()
 			strupr(cmd);
 			if (get_EC_PH_Calibration() || strstr(cmd, "PH") || strstr(cmd, "EC"))
 			{
-				get_EC_PH_Calibration() = true;
+				set_EC_PH_Calibration(1);
 				
                 if (strstr(cmd, "PH"))
 					ph.calibration(phVoltage, get_WTemp_Val(), cmd); // PH calibration process by Serial CMD
@@ -109,7 +109,7 @@ void Analog::ec_ph()
 			}
 
 			if (strstr(cmd, "EXITPH") || strstr(cmd, "EXITEC"))
-				get_EC_PH_Calibration() = false;
+				set_EC_PH_Calibration(0);
 		}
 	}
 	if (now - last[3] >= intervals[3]) // 5000ms interval
@@ -126,17 +126,18 @@ void Analog::ec_ph()
 
 void Analog::ec_ph2()
 {
-    if(millis()-timepoint>1000U)                             //time interval: 1s
+    if(millis() - now > 1000U)                             //time interval: 1s
     {
-        timepoint = millis();
+        now = millis();
         // temperature = get_WTemp_Val();                   // read your temperature sensor to execute temperature compensation
-        voltagePH = analogRead(PH_PIN)/1024.0*5000;          // read the ph voltage
-        PH    = ph.readPH(voltagePH, get_WTemp_Val());       // convert voltage to pH with temperature compensation
 
-        voltageEC = analogRead(EC_PIN)/1024.0*5000;
-        EC    = ec.readEC(voltageEC, get_WTemp_Val());       // convert voltage to EC with temperature compensation
+        set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val()));       // convert voltage to EC with temperature compensation
+        
+        set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val()));       // convert voltage to pH with temperature compensation
     }
-    if(readSerial(cmd)){
+
+    if(readSerial(cmd))
+    {
         strupr(cmd);
         if(strstr(cmd,"PH")){
             ph.calibration(voltagePH,get_WTemp_Val(),cmd);       //PH calibration process by Serail CMD

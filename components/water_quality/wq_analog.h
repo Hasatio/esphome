@@ -73,6 +73,7 @@ float voltagePH, voltageEC;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
+unsigned long now = 0;
 
 protected:
 uint8_t version;
