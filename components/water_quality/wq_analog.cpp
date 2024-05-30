@@ -48,9 +48,8 @@ void Analog::Analog_Input_Driver(float volts[])
     
     //pH
     phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
-
-    // set_EC_Val(volts[get_EC_Ch() + 3]);
-    // set_PH_Val(volts[get_PH_Ch() + 3]);
+    
+    ec_ph();
 
 
     //Analog general
