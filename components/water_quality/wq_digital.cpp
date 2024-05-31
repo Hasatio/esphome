@@ -43,7 +43,7 @@ void Digital::Digital_Input_Driver(bool input[])
 }
 void Digital::Digital_Output_Driver(bool output[])
 {
-    bool* out = get_Digital_Out();
+    bool* out = get_Digital_Output();
 
     for (size_t i = 0; i < 4; i++)
         output[i] = out[i];
