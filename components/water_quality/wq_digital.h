@@ -22,8 +22,8 @@ void set_Digital_Output(bool out[])             { for (size_t i = 0; i < 4; i++)
 
 uint32_t get_Digital_Timepoint()    { return DigIn_Timepoint; }
 uint8_t* get_Digital_FilterCoeff()  { return DigIn_FilterCoeff; }
-bool* get_Digital_In()              { return DigIn_Status; }
-bool* get_Digital_Out()             { return DigOut_Status; }
+bool* get_Digital_Input()           { return DigIn_Status; }
+bool* get_Digital_Output()          { return DigOut_Status; }
 
 protected:
 uint32_t DigIn_Timepoint = 0;
