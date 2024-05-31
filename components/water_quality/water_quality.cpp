@@ -310,7 +310,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
-    bool* dout_ = dig.get_Digital_Out();
+    bool* dout_ = dig.get_Digital_Output();
     std::vector<bool> d(dout_, dout_ + 4);
 
     if (d != dout)
@@ -398,7 +398,7 @@ void WaterQuality::sensor()
     }
     if (this->DigIn_Stat_ != nullptr) 
     {
-        bool* din = dig.get_Digital_In();
+        bool* din = dig.get_Digital_Input();
         std::stringstream ds;
 
         for (size_t i = 0; i < 4; i++)
