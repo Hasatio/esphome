@@ -13,7 +13,7 @@ void Analog::Analog_Input_Driver(float volts[])
     // my.ADS1115_Driver(volts);
 
     //Water Temperature
-    uint8_t timeperiod = 1000; // Wait time before each update
+    uint16_t timeperiod = 1000; // Wait time before each update
     if (millis() - get_Digital_Timepoint() >= timeperiod)
     {
         float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
