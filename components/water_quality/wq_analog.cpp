@@ -26,7 +26,7 @@ void Analog::Analog_Input_Driver(float volts[])
         float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
         
         set_WTemp_Val(WT);
-        set_Anolog_Timepoint(millis());
+        set_Analog_Timepoint(millis());
     }
     
 

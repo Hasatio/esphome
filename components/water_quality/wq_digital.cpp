@@ -3,22 +3,22 @@
 namespace esphome {
 namespace water_quality {
 
-void Digital_Input_Filter(bool input[])
+void Digital_Input_Filter(bool input[], Digital* digital)
 {
     uint8_t filteramount = 10; // Total amount of input to filter
     uint8_t timeperiod = 10; // Wait time before each update
-    uint8_t* filter = get_Digital_FilterCoeff();
+    uint8_t* filter = digital->get_Digital_FilterCoeff();
 
     for (size_t i = 0; i < 4; i++)
     {
-        if (millis() - get_Digital_Timepoint() >= timeperiod)
+        if (millis() - digital->get_Digital_Timepoint() >= timeperiod)
         {
             if (input[i])
                 filter[i]++;
             else
                 filter[i]--;
 
-            set_Digital_Timepoint(millis());
+            digital->set_Digital_Timepoint(millis());
         }
         
         if (filter[i] >= filteramount)
@@ -36,7 +36,7 @@ void Digital_Input_Filter(bool input[])
 void Digital::Digital_Input_Driver(bool input[])
 {
     bool* in = get_Digital_Input();
-    Digital_Input_Filter(input);
+    Digital_Input_Filter(input, this);
 
     for (size_t i = 0; i < 4; i++)
         in[i] = input[i];
