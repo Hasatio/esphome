@@ -13,13 +13,21 @@ void Analog::Analog_Input_Driver(float volts[])
     // my.ADS1115_Driver(volts);
 
     //Water Temperature
-    float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-    if (WT_Res > 3904.8) // Max temp limit and set model multiplier 
-        WT_Res = 3904.8 * (get_WTemp_Res() / 1000.0);
-    else
-        WT_Res = WT_Res * (get_WTemp_Res() / 1000.0);
-    float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-    set_WTemp_Val(WT);
+    uint8_t timeperiod = 1000; // Wait time before each update
+    if (millis() - get_Digital_Timepoint() >= timeperiod)
+    {
+        float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+        
+        if (WT_Res > 3904.8) // Max temp limit and set model multiplier 
+            WT_Res = 3904.8 * (get_WTemp_Res() / 1000.0);
+        else
+            WT_Res = WT_Res * (get_WTemp_Res() / 1000.0);
+        
+        float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+        
+        set_WTemp_Val(WT);
+        set_Anolog_Timepoint(millis());
+    }
     
 
     //Power
@@ -44,10 +52,11 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
+    ecVoltage = 22;//volts[get_EC_Ch() + 3]; // Read the EC voltage
     
+
     //pH
-    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
+    phVoltage = 22;//volts[get_PH_Ch() + 3]; // Read the PH voltage
     
     ec_ph();
 

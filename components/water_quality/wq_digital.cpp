@@ -3,37 +3,50 @@
 namespace esphome {
 namespace water_quality {
 
-void Digital::Digital_Input_Driver(bool inputs[])
+void Digital_Input_Filter(bool input[])
 {
-    bool* in = get_Digital_In();
+    uint8_t filteramount = 10; // Total amount of input to filter
+    uint8_t timeperiod = 10; // Wait time before each update
+    uint8_t* filter = get_Digital_FilterCoeff();
 
     for (size_t i = 0; i < 4; i++)
     {
-        if (inputs[i])
-            this->DigIn_FilterCoeff[i]++;
-        else
-            this->DigIn_FilterCoeff[i]--;
+        if (millis() - get_Digital_Timepoint() >= timeperiod)
+        {
+            if (input[i])
+                filter[i]++;
+            else
+                filter[i]--;
 
-        if (this->DigIn_FilterCoeff[i] >= 8)
-        {
-            in[i] = 1;
-            this->DigIn_FilterCoeff[i] = 4;
+            set_Digital_Timepoint(millis());
         }
-        else if (this->DigIn_FilterCoeff[i] == 0)
+        
+        if (filter[i] >= filteramount)
         {
-            in[i] = 0;
-            this->DigIn_FilterCoeff[i] = 4;
+            filter[i] = filteramount / 2;
+            input[i] = 1;
+        }
+        else if (filter[i] == 0)
+        {
+            filter[i] = filteramount / 2;
+            input[i] = 0;
         }
     }
 }
-void Digital::Digital_Output_Driver(bool outputs[])
+void Digital::Digital_Input_Driver(bool input[])
+{
+    bool* in = get_Digital_Input();
+    Digital_Input_Filter(input);
+
+    for (size_t i = 0; i < 4; i++)
+        in[i] = input[i];
+}
+void Digital::Digital_Output_Driver(bool output[])
 {
     bool* out = get_Digital_Out();
 
     for (size_t i = 0; i < 4; i++)
-    {
-        outputs[i] = out[i];
-    }
+        output[i] = out[i];
 }
 
 }  // namespace water_quality
