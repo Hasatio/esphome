@@ -14,34 +14,33 @@ void Analog::Analog_Input_Driver(float volts[])
 
     //Water Temperature
     uint16_t timeperiod = 1000; // Wait time before each update
+
     if (millis() - get_Analog_Timepoint() >= timeperiod)
     {
-        float WT_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * (get_WTemp_Res() / 1000.0); // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+        float model_multiply = get_WaterTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
+        float WaterTemp_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
         
-        if (WT_Res > 3904.8) // Max temp limit and set model multiplier 
-            WT_Res = 3904.8 * (get_WTemp_Res() / 1000.0);
+        if (WaterTemp_Res > 3904.8) // Max temp limit and set model multiplier 
+            WaterTemp_Res = 3904.8 * model_multiply;
         else
-            WT_Res = WT_Res * (get_WTemp_Res() / 1000.0);
+            WaterTemp_Res = WaterTemp_Res * model_multiply;
         
-        float WT = (sqrt((-0.00232 * WT_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+        float WaterTemp = (sqrt((-0.00232 * WaterTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
         
-        set_WTemp_Val(WT);
+        set_WaterTemp_Val(WaterTemp);
         set_Analog_Timepoint(millis());
-
-        for(size_t i=0;i<8;i++)
-            ESP_LOGI(TAG,"volts[%d] = %f", i, volts[i]);
     }
     
 
     //Power
-    set_VPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    set_VoltagePow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
 
     //Level
     float lvl[2], Vmin[2], Vmax[2];
     uint16_t res, volt, *resmin = get_ResMin(), *resmax = get_ResMax();
 
-    if (get_version() == 0) { res = 1000; volt = get_VPow_Val(); } // Version check
+    if (get_version() == 0) { res = 1000; volt = get_VoltagePow_Val(); } // Version check
     if (get_version() == 1) { res = 270; volt = 5; }
 
     Vmin[0] = volt * resmin[0] / (res + resmin[0]); // Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -51,7 +50,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
     lvl[0] = 100 * (volts[2] - Vmin[0]) / (Vmax[0] - Vmin[0]);
     lvl[1] = 100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
-    set_Lvl_Perc(lvl);
+    set_Level_Perc(lvl);
 
 
     //EC
@@ -90,50 +89,30 @@ void Analog::Analog_Input_Driver(float volts[])
 
 void Analog::ec_ph()
 {
-	now = millis();
     
-    //Water Temperature
-    // temperature = get_WTemp_Val(); // read your temperature sensor to execute temperature compensation
-
-	if (now - last[0] >= intervals[0]) // 1000ms interval
+	if (millis() - now >= 1000) // 1000ms interval
 	{
-		last[0] = now;
-		if (get_EC_PH_Calibration())
-		{
-			set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val())); // Convert voltage to EC with temperature compensation
-			set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val())); // Convert voltage to PH with temperature compensation
-		}
+	    now = millis();
 
-		char cmd[10];
-		if (readSerial(cmd))
-		{
-			strupr(cmd);
-			if (get_EC_PH_Calibration() || strstr(cmd, "PH") || strstr(cmd, "EC"))
-			{
-				set_EC_PH_Calibration(1);
-				
-                if (strstr(cmd, "PH"))
-					ph.calibration(phVoltage, get_WTemp_Val(), cmd); // PH calibration process by Serial CMD
-				
-                if (strstr(cmd, "EC"))
-					ec.calibration(ecVoltage, get_WTemp_Val(), cmd); // EC calibration process by Serial CMD
-			}
-
-			if (strstr(cmd, "EXITPH") || strstr(cmd, "EXITEC"))
-				set_EC_PH_Calibration(0);
-		}
-	}
-	if (now - last[3] >= intervals[3]) // 5000ms interval
-	{
-		last[3] = now; 
 		if (!get_EC_PH_Calibration())
 		{
-            set_EC_Val(/*ec.readEC(*/ecVoltage/*, get_WTemp_Val())*/); // Convert voltage to EC with temperature compensation
-			set_PH_Val(/*ph.readPH(*/phVoltage/*, get_WTemp_Val())*/); // Convert voltage to PH with temperature compensation
-		
-			// set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val())); // Convert voltage to EC with temperature compensation
-			// set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val())); // Convert voltage to PH with temperature compensation
+			set_EC_Val(ec.readEC(ecVoltage, get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
+			set_PH_Val(ph.readPH(phVoltage, get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
 		}
+
+        if (get_EC_PH_Calibration() || strstr(cmd, "PH") || strstr(cmd, "EC"))
+        {
+            set_EC_PH_Calibration(1);
+            
+            if (strstr(cmd, "PH"))
+                ph.calibration(phVoltage, get_WTemp_Val(), cmd); // PH calibration process by Serial CMD
+            
+            if (strstr(cmd, "EC"))
+                ec.calibration(ecVoltage, get_WTemp_Val(), cmd); // EC calibration process by Serial CMD
+        }
+
+        if (strstr(cmd, "EXITPH") || strstr(cmd, "EXITEC"))
+            set_EC_PH_Calibration(0);
 	}
 }
 
@@ -142,7 +121,6 @@ void Analog::ec_ph2()
     if(millis() - now > 1000U)                             //time interval: 1s
     {
         now = millis();
-        // temperature = get_WTemp_Val();                   // read your temperature sensor to execute temperature compensation
 
         set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val()));       // convert voltage to EC with temperature compensation
         
@@ -159,29 +137,6 @@ void Analog::ec_ph2()
             ec.calibration(voltageEC,get_WTemp_Val(),cmd);       //EC calibration process by Serail CMD
         }
     }
-}
-
-int i = 0;
-bool Analog::readSerial(char result[])
-{
-	while (Serial.available() > 0)
-	{
-		char inChar = Serial.read();
-		if (inChar == '\n')
-		{
-			result[i] = '\0';
-			Serial.flush();
-			i = 0;
-			return true;
-		}
-		if (inChar != '\r')
-		{
-			result[i] = inChar;
-			i++;
-		}
-		delay(1);
-	}
-	return false;
 }
 
 }  // namespace water_quality
