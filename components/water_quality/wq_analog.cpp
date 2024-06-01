@@ -27,6 +27,9 @@ void Analog::Analog_Input_Driver(float volts[])
         
         set_WTemp_Val(WT);
         set_Analog_Timepoint(millis());
+
+        for(size_t i=0;i<8;i++)
+            ESP_LOGI(TAG,"volts[%d] = %f", i, volts[i]);
     }
     
 
@@ -52,11 +55,11 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    ecVoltage = 22;//volts[get_EC_Ch() + 3]; // Read the EC voltage
+    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
     
 
     //pH
-    phVoltage = 22;//volts[get_PH_Ch() + 3]; // Read the PH voltage
+    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
     
     ec_ph();
 
