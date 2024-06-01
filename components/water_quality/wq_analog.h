@@ -54,7 +54,6 @@ uint8_t get_PH_Type()                   { return AnInPH_Type; }
 float* get_Gen_Val()                    { return AnInGen_Val; }
 
 void ec_ph();
-void ec_ph2();
 
 float voltagePH, voltageEC;
 char cmd[10];

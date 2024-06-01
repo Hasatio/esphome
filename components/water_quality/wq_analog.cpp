@@ -99,44 +99,21 @@ void Analog::ec_ph()
 			set_EC_Val(ec.readEC(ecVoltage, get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
 			set_PH_Val(ph.readPH(phVoltage, get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
 		}
+	}
 
         if (get_EC_PH_Calibration() || strstr(cmd, "PH") || strstr(cmd, "EC"))
         {
             set_EC_PH_Calibration(1);
             
             if (strstr(cmd, "PH"))
-                ph.calibration(phVoltage, get_WTemp_Val(), cmd); // PH calibration process by Serial CMD
+                ph.calibration(phVoltage, get_WaterTemp_Val(), cmd); // PH calibration process by Serial CMD
             
             if (strstr(cmd, "EC"))
-                ec.calibration(ecVoltage, get_WTemp_Val(), cmd); // EC calibration process by Serial CMD
+                ec.calibration(ecVoltage, get_WaterTemp_Val(), cmd); // EC calibration process by Serial CMD
         }
 
         if (strstr(cmd, "EXITPH") || strstr(cmd, "EXITEC"))
             set_EC_PH_Calibration(0);
-	}
-}
-
-void Analog::ec_ph2()
-{
-    if(millis() - now > 1000U)                             //time interval: 1s
-    {
-        now = millis();
-
-        set_EC_Val(ec.readEC(ecVoltage, get_WTemp_Val()));       // convert voltage to EC with temperature compensation
-        
-        set_PH_Val(ph.readPH(phVoltage, get_WTemp_Val()));       // convert voltage to pH with temperature compensation
-    }
-
-    if(readSerial(cmd))
-    {
-        strupr(cmd);
-        if(strstr(cmd,"PH")){
-            ph.calibration(voltagePH,get_WTemp_Val(),cmd);       //PH calibration process by Serail CMD
-        }
-        if(strstr(cmd,"EC")){
-            ec.calibration(voltageEC,get_WTemp_Val(),cmd);       //EC calibration process by Serail CMD
-        }
-    }
 }
 
 }  // namespace water_quality
