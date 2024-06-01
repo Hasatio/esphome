@@ -538,9 +538,7 @@ CUSTOM_COMMAND_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_CUSTOM_COMMAND): cv.All(
-            cv.templatable(
-                cv.string
-            ),
+            cv.templatable(cv.string),
         ),
     }
 )
