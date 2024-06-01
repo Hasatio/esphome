@@ -35,8 +35,10 @@ CONF_LEVEL = "level"
 CONF_RES_MIN = "res_min"
 CONF_RES_MAX = "res_max"
 CONF_SENSORS = "sensors"
+CONF_EC_CALIBRATION = "ec_calibration"
 CONF_EC_CHANNEL = "ec_channel"
 CONF_EC_TYPE = "ec_type"
+CONF_PH_CALIBRATION = "ph_calibration"
 CONF_PH_CHANNEL = "ph_channel"
 CONF_PH_TYPE = "ph_type"
 CONF_DIGITAL_OUT = "digital_out"
@@ -229,7 +231,7 @@ async def to_code(config):
     cg.add_library("Time", None)
     
     
-PumpCalibrationModeAction = water_quality_ns.class_("PumpCalibrationModeAction", automation.Action)
+Pump_Calibration_Mode_Action = water_quality_ns.class_("Pump_Calibration_Mode_Action", automation.Action)
 
 PUMP_CALIBRATION_MODE_ACTION_SCHEMA = cv.All(
     {
@@ -244,7 +246,7 @@ PUMP_CALIBRATION_MODE_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.pump_calibration_mode", 
-    PumpCalibrationModeAction, 
+    Pump_Calibration_Mode_Action, 
     PUMP_CALIBRATION_MODE_ACTION_SCHEMA
 )
 
@@ -260,29 +262,25 @@ async def pump_calibration_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpModeAction = water_quality_ns.class_("PumpModeAction", automation.Action)
+Pump_Mode_Action = water_quality_ns.class_("Pump_Mode_Action", automation.Action)
 
 PUMP_MODE_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(WaterQuality),
-            cv.Required(CONF_PUMP_MODE): (
-                cv.All(
-                    # [cv.Any(cv.uint8_t)],
-                    # [cv.ensure_list(cv.uint8_t)],
-                    cv.templatable(
-                        cv.ensure_list(cv.int_range(min = 0, max = 3))
-                    ),
+        cv.Required(CONF_PUMP_MODE): (
+            cv.All(
+                cv.templatable(
+                    cv.ensure_list(cv.int_range(min = 0, max = 3)),
                     # cv.Length(min=0, max=3),
-                )
-            ),
-        # cv.Required(CONF_PUMP_MODE):
-        #     cv.templatable(cv.int_range()),
+                ),
+            )
+        ),
     }
 )
 
 @automation.register_action(
     "water_quality.pump_mode", 
-    PumpModeAction, 
+    Pump_Mode_Action, 
     PUMP_MODE_ACTION_SCHEMA
 )
 
@@ -298,7 +296,7 @@ async def pump_mode_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpDoseAction = water_quality_ns.class_("PumpDoseAction", automation.Action)
+Pump_Dose_Action = water_quality_ns.class_("Pump_Dose_Action", automation.Action)
 
 PUMP_DOSE_ACTION_SCHEMA = cv.All(
     {
@@ -313,7 +311,7 @@ PUMP_DOSE_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.pump_dose", 
-    PumpDoseAction, 
+    Pump_Dose_Action, 
     PUMP_DOSE_ACTION_SCHEMA
 )
 
@@ -329,7 +327,7 @@ async def pump_dose_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpCirculationAction = water_quality_ns.class_("PumpCirculationAction", automation.Action)
+Pump_Circulation_Action = water_quality_ns.class_("Pump_Circulation_Action", automation.Action)
 
 PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
     {
@@ -344,7 +342,7 @@ PUMP_CIRCULATION_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.pump_circulation", 
-    PumpCirculationAction, 
+    Pump_Circulation_Action, 
     PUMP_CIRCULATION_ACTION_SCHEMA
 )
 
@@ -360,7 +358,7 @@ async def pump_circulation_to_code(config, action_id, template_arg, args):
     return var
 
 
-PumpResetAction = water_quality_ns.class_("PumpResetAction", automation.Action)
+Pump_Reset_Action = water_quality_ns.class_("Pump_Reset_Action", automation.Action)
 
 PUMP_RESET_ACTION_SCHEMA = cv.All(
     {
@@ -375,7 +373,7 @@ PUMP_RESET_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.pump_reset", 
-    PumpResetAction, 
+    Pump_Reset_Action, 
     PUMP_RESET_ACTION_SCHEMA
 )
 
@@ -391,7 +389,7 @@ async def pump_reset_to_code(config, action_id, template_arg, args):
     return var
 
 
-ServoModeAction = water_quality_ns.class_("ServoModeAction", automation.Action)
+Servo_Mode_Action = water_quality_ns.class_("Servo_Mode_Action", automation.Action)
 
 SERVO_MODE_ACTION_SCHEMA = cv.All(
     {
@@ -406,7 +404,7 @@ SERVO_MODE_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.servo_mode", 
-    ServoModeAction, 
+    Servo_Mode_Action, 
     SERVO_MODE_ACTION_SCHEMA
 )
 
@@ -422,7 +420,7 @@ async def servo_mode_to_code(config, action_id, template_arg, args):
     return var
 
 
-ServoPositionAction = water_quality_ns.class_("ServoPositionAction", automation.Action)
+Servo_Position_Action = water_quality_ns.class_("Servo_Position_Action", automation.Action)
 
 SERVO_POSITION_ACTION_SCHEMA = cv.All(
     {
@@ -437,7 +435,7 @@ SERVO_POSITION_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.servo_position", 
-    ServoPositionAction, 
+    Servo_Position_Action, 
     SERVO_POSITION_ACTION_SCHEMA
 )
 
@@ -449,6 +447,64 @@ async def servo_position_to_code(config, action_id, template_arg, args):
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
         cg.add(var.set_ser_pos(template_))
+
+    return var
+
+
+PH_Calibration_Action = water_quality_ns.class_("PH_Calibration_Action", automation.Action)
+
+PH_CALIBRATION_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(WaterQuality),
+        cv.Required(CONF_PH_CALIBRATION): cv.All(
+            cv.templatable(cv.int_range(min = 0, max = 14)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.ph_calibration", 
+    PH_Calibration_Action, 
+    PH_CALIBRATION_ACTION_SCHEMA
+)
+
+async def ph_calibration_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_PH_CALIBRATION]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.uint8)
+        cg.add(var.set_ph_cal(template_))
+
+    return var
+
+
+EC_Calibration_Action = water_quality_ns.class_("EC_Calibration_Action", automation.Action)
+
+EC_CALIBRATION_ACTION_SCHEMA = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(WaterQuality),
+        cv.Required(CONF_EC_CALIBRATION): cv.All(
+            cv.templatable(cv.int_range(min = 0, max = 14)),
+        ),
+    }
+)
+
+@automation.register_action(
+    "water_quality.ec_calibration", 
+    EC_Calibration_Action, 
+    EC_CALIBRATION_ACTION_SCHEMA
+)
+
+async def ec_calibration_to_code(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_EC_CALIBRATION]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.uint8)
+        cg.add(var.set_ec_cal(template_))
 
     return var
 

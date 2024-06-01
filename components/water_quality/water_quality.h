@@ -238,9 +238,9 @@ text_sensor::TextSensor *DigIn_Stat_{nullptr};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
-template<typename... Ts> class PumpCalibrationModeAction : public Action<Ts...> {
+template<typename... Ts> class Pump_Calibration_Mode_Action : public Action<Ts...> {
 public:
-PumpCalibrationModeAction(WaterQuality *parent) : parent_(parent){};
+Pump_Calibration_Mode_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<bool>, pump_calib_mode);
 
@@ -254,9 +254,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class PumpModeAction : public Action<Ts...> {
+template<typename... Ts> class Pump_Mode_Action : public Action<Ts...> {
 public:
-PumpModeAction(WaterQuality *parent) : parent_(parent){};
+Pump_Mode_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<uint8_t>, pump_m);
 
@@ -270,9 +270,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class PumpDoseAction : public Action<Ts...> {
+template<typename... Ts> class Pump_Dose_Action : public Action<Ts...> {
 public:
-PumpDoseAction(WaterQuality *parent) : parent_(parent){};
+Pump_Dose_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<float>, pump_d);
 
@@ -286,9 +286,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class PumpCirculationAction : public Action<Ts...> {
+template<typename... Ts> class Pump_Circulation_Action : public Action<Ts...> {
 public:
-PumpCirculationAction(WaterQuality *parent) : parent_(parent){};
+Pump_Circulation_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<float>, pump_c);
 
@@ -302,9 +302,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class PumpResetAction : public Action<Ts...> {
+template<typename... Ts> class Pump_Reset_Action : public Action<Ts...> {
 public:
-PumpResetAction(WaterQuality *parent) : parent_(parent){};
+Pump_Reset_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<bool>, pump_res);
 
@@ -318,9 +318,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class ServoModeAction : public Action<Ts...> {
+template<typename... Ts> class Servo_Mode_Action : public Action<Ts...> {
 public:
-ServoModeAction(WaterQuality *parent) : parent_(parent){};
+Servo_Mode_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<bool>, ser_mode);
 
@@ -334,9 +334,9 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class ServoPositionAction : public Action<Ts...> {
+template<typename... Ts> class Servo_Position_Action : public Action<Ts...> {
 public:
-ServoPositionAction(WaterQuality *parent) : parent_(parent){};
+Servo_Position_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<uint8_t>, ser_pos);
 
@@ -350,9 +350,41 @@ void play(Ts... x)
 protected:
 WaterQuality *parent_;
 };
-template<typename... Ts> class DigitalOutAction : public Action<Ts...> {
+template<typename... Ts> class PH_Calibration_Action : public Action<Ts...> {
 public:
-DigitalOutAction(WaterQuality *parent) : parent_(parent){};
+PH_Calibration_Action(WaterQuality *parent) : parent_(parent){};
+
+TEMPLATABLE_VALUE(std::string, ph_cal);
+
+void play(Ts... x) 
+{
+    uint8_t data = this->ph_cal_.value(x...);
+
+    this->parent_->custom_command(data);
+}
+
+protected:
+WaterQuality *parent_;
+};
+template<typename... Ts> class EC_Calibration_Action : public Action<Ts...> {
+public:
+EC_Calibration_Action(WaterQuality *parent) : parent_(parent){};
+
+TEMPLATABLE_VALUE(std::string, ec_cal);
+
+void play(Ts... x) 
+{
+    uint8_t data = this->ec_cal_.value(x...);
+
+    this->parent_->custom_command(data);
+}
+
+protected:
+WaterQuality *parent_;
+};
+template<typename... Ts> class Digital_Out_Action : public Action<Ts...> {
+public:
+Digital_Out_Action(WaterQuality *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<bool>, dig_out);
 
