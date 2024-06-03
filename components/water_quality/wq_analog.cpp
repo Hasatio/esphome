@@ -5,8 +5,6 @@ namespace water_quality {
 
 // WaterQuality my;
 
-DFRobot_EC ec;
-
 void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
@@ -86,24 +84,26 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Gen_Val(gen);
 }
 
-void ph(Analog* analog)
-{
     DFRobot_PH ph;
+    DFRobot_EC ec;
+
+void ph1(Analog* analog)
+{
 
 	if (millis() - analog->now >= 1000) // 1000ms interval
 	{
 	    analog->now = millis();
 
-		if (!analog->get_EC_PH_Calibration())
+		if (!analog->get_PH_EC_Calibration())
 		{
 			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
 		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
         }
 	}
 
-        if (analog->get_EC_PH_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
+        if (analog->get_PH_EC_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
         {
-            analog->set_EC_PH_Calibration(1);
+            analog->set_PH_EC_Calibration(1);
             
             if (strstr(analog->cmd, "PH"))
                 ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
@@ -113,7 +113,7 @@ void ph(Analog* analog)
         }
 
         if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
-            analog->set_EC_PH_Calibration(0);
+            analog->set_PH_EC_Calibration(0);
 }
 
 #define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
@@ -134,7 +134,7 @@ void ph2(Analog* analog)
         pHArray[pHArrayIndex++] = analog->phVoltage;
         if(pHArrayIndex==ArrayLenth)pHArrayIndex=0;
         voltage = avergearray(pHArray, ArrayLenth)*5.0/1024;
-        analog->set_PH_Val(pHValue = 3.5*voltage+Offset);
+        analog->set_PH_Val(pHValue = 3.5 * voltage + analog->get_PH_Cal());
         samplingTime=millis();
     }
 }

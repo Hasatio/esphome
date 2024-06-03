@@ -300,7 +300,7 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ph_calibration(float cal)
 {
-    an.AnInPH_Cal = cal;
+    an.set_PH_Cal(cal);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
@@ -309,7 +309,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::ec_calibration(float cal)
 {
-    an.AnInEC_Cal = cal;
+    an.set_EC_Cal(cal);
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
