@@ -509,7 +509,7 @@ async def ec_calibration_to_code(config, action_id, template_arg, args):
     return var
 
 
-DigitalOutAction = water_quality_ns.class_("DigitalOutAction", automation.Action)
+Digital_Out_Action = water_quality_ns.class_("Digital_Out_Action", automation.Action)
 
 DIGITAL_OUT_ACTION_SCHEMA = cv.All(
     {
@@ -524,7 +524,7 @@ DIGITAL_OUT_ACTION_SCHEMA = cv.All(
 
 @automation.register_action(
     "water_quality.digital_out", 
-    DigitalOutAction, 
+    Digital_Out_Action, 
     DIGITAL_OUT_ACTION_SCHEMA
 )
 
