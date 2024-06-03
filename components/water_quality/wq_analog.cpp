@@ -6,7 +6,6 @@ namespace water_quality {
 // WaterQuality my;
 
 DFRobot_EC ec;
-DFRobot_PH ph;
 
 void Analog::Analog_Input_Driver(float volts[])
 {
@@ -60,7 +59,7 @@ void Analog::Analog_Input_Driver(float volts[])
     //pH
     phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
     
-    ec_ph();
+    ph2(this);
 
 
     //Analog general
@@ -87,33 +86,112 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Gen_Val(gen);
 }
 
-void Analog::ec_ph()
+void ph(Analog* analog)
 {
-    
-	if (millis() - now >= 1000) // 1000ms interval
-	{
-	    now = millis();
+    DFRobot_PH ph;
 
-		if (!get_EC_PH_Calibration())
+	if (millis() - analog->now >= 1000) // 1000ms interval
+	{
+	    analog->now = millis();
+
+		if (!analog->get_EC_PH_Calibration())
 		{
-			set_EC_Val(ec.readEC(ecVoltage, get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
-			set_PH_Val(ph.readPH(phVoltage, get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
-		}
+			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
+		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
+        }
 	}
 
-        if (get_EC_PH_Calibration() || strstr(cmd, "PH") || strstr(cmd, "EC"))
+        if (analog->get_EC_PH_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
         {
-            set_EC_PH_Calibration(1);
+            analog->set_EC_PH_Calibration(1);
             
-            if (strstr(cmd, "PH"))
-                ph.calibration(phVoltage, get_WaterTemp_Val(), cmd); // PH calibration process by Serial CMD
+            if (strstr(analog->cmd, "PH"))
+                ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
             
-            if (strstr(cmd, "EC"))
-                ec.calibration(ecVoltage, get_WaterTemp_Val(), cmd); // EC calibration process by Serial CMD
+            if (strstr(analog->cmd, "EC"))
+                ec.calibration(analog->ecVoltage, analog->get_WaterTemp_Val(), analog->cmd); // EC calibration process by Serial CMD
         }
 
-        if (strstr(cmd, "EXITPH") || strstr(cmd, "EXITEC"))
-            set_EC_PH_Calibration(0);
+        if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
+            analog->set_EC_PH_Calibration(0);
+}
+
+#define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
+#define Offset 0.00            //deviation compensate
+#define samplingInterval 20
+#define printInterval 800
+#define ArrayLenth  40    //times of collection
+int pHArray[ArrayLenth];   //Store the average value of the sensor feedback
+int pHArrayIndex=0;
+
+void ph2(Analog* analog)
+{
+    static unsigned long samplingTime = millis();
+    static unsigned long printTime = millis();
+    static float pHValue,voltage;
+    if(millis()-samplingTime > samplingInterval)
+    {
+        pHArray[pHArrayIndex++] = analog->phVoltage;
+        if(pHArrayIndex==ArrayLenth)pHArrayIndex=0;
+        voltage = avergearray(pHArray, ArrayLenth)*5.0/1024;
+        analog->set_PH_Val(pHValue = 3.5*voltage+Offset);
+        samplingTime=millis();
+    }
+}
+double avergearray(int* arr, int number)
+{
+    int i;
+    int max,min;
+    double avg;
+    long amount=0;
+
+    if(number<=0)
+    {
+        Serial.println("Error number for the array to avraging!/n");
+        return 0;
+    }
+
+    if(number<5)  //less than 5, calculated directly statistics
+    {
+        for(i=0;i<number;i++)
+            amount+=arr[i];
+        
+        avg = amount/number;
+        return avg;
+    }
+    else
+    {
+        if(arr[0]<arr[1])
+        {
+            min = arr[0];
+            max = arr[1];
+        }
+        else
+        {
+            min = arr[1];
+            max = arr[0];
+        }
+        for(i=2;i<number;i++)
+        {
+            if(arr[i]<min)
+            {
+                amount+=min;        //arr<min
+                min=arr[i];
+            }
+            else
+            {
+                if(arr[i]>max)
+                {
+                    amount+=max;    //arr>max
+                    max=arr[i];
+                }
+                else
+                    amount+=arr[i]; //min<=arr<=max
+            }//if
+        }//for
+        avg = (double)amount/(number-2);
+    }//if
+    return avg;
 }
 
 }  // namespace water_quality

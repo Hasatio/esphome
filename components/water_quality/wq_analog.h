@@ -53,9 +53,6 @@ uint8_t get_PH_Ch()                     { return AnInPH_Ch; }
 uint8_t get_PH_Type()                   { return AnInPH_Type; }
 float* get_Gen_Val()                    { return AnInGen_Val; }
 
-void ec_ph();
-
-float voltagePH, voltageEC;
 char cmd[10];
 
 float ecVoltage,phVoltage,temperature;
@@ -65,16 +62,18 @@ protected:
 unsigned long AnIn_Timepoint = 0;
 uint8_t version;
 uint16_t AnInWTemp_Res = 1000; // Temperature sensor model pt1000 and its resistance is 1k
-float AnInWTemp_Val;
-float AnInVPow_Val;
-uint16_t AnInLvl_ResMin[2], AnInLvl_ResMax[2];
-float AnInLvl_Perc[2];
+float AnInWTemp_Val = 0;
+float AnInVPow_Val = 0;
+uint16_t AnInLvl_ResMin[2] = {0}, AnInLvl_ResMax[2] = {0};
+float AnInLvl_Perc[2] = {0};
 bool EC_PH_Calibration = 0;
-float AnInEC_Val;
-float AnInPH_Val;
-float AnInGen_Val[2];
-uint8_t AnInEC_Ch, AnInEC_Type;
-uint8_t AnInPH_Ch, AnInPH_Type;
+float AnInPH_Cal = 0;
+float AnInPH_Val = 0;
+float AnInEC_Cal = 0;
+float AnInEC_Val = 0;
+float AnInGen_Val[2] = {0};
+uint8_t AnInEC_Ch = 0, AnInEC_Type = 0;
+uint8_t AnInPH_Ch = 0, AnInPH_Type = 0;
 };
 
 }  // namespace water_quality

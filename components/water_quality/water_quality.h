@@ -181,8 +181,10 @@ void pump_reset(std::vector<bool> &pres);
 void servo_mode(std::vector<bool> &smode);
 void servo_position(std::vector<uint8_t> &spos);
 void level_res(const std::vector<uint16_t> &rmin, const std::vector<uint16_t> &rmax);
-void ec(const uint8_t ch, const uint8_t type);
+void ph_calibration(float cal);
 void ph(const uint8_t ch, const uint8_t type);
+void ec_calibration(float cal);
+void ec(const uint8_t ch, const uint8_t type);
 void digital_out(std::vector<bool> &dout);
 
 void sensor();
@@ -360,7 +362,7 @@ void play(Ts... x)
 {
     uint8_t data = this->ph_cal_.value(x...);
 
-    this->parent_->custom_command(data);
+    this->parent_->ph_calibration(data);
 }
 
 protected:
@@ -376,7 +378,7 @@ void play(Ts... x)
 {
     uint8_t data = this->ec_cal_.value(x...);
 
-    this->parent_->custom_command(data);
+    this->parent_->ec_calibration(data);
 }
 
 protected:

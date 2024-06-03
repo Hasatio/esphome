@@ -298,15 +298,23 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
     an.set_ResMin(rminArray);
     an.set_ResMax(rmaxArray);
 }
-void WaterQuality::ec(const uint8_t ch, const uint8_t type)
+void WaterQuality::ph_calibration(float cal)
 {
-    an.set_EC_Ch(ch);
-    an.set_EC_Type(type);
+    an.AnInPH_Cal = cal;
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
     an.set_PH_Ch(ch);
     an.set_PH_Type(type);
+}
+void WaterQuality::ec_calibration(float cal)
+{
+    an.AnInEC_Cal = cal;
+}
+void WaterQuality::ec(const uint8_t ch, const uint8_t type)
+{
+    an.set_EC_Ch(ch);
+    an.set_EC_Type(type);
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
