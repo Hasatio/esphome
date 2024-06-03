@@ -356,11 +356,11 @@ template<typename... Ts> class PH_Calibration_Action : public Action<Ts...> {
 public:
 PH_Calibration_Action(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::string, ph_cal);
+TEMPLATABLE_VALUE(float, ph_cal);
 
 void play(Ts... x) 
 {
-    uint8_t data = this->ph_cal_.value(x...);
+    float data = this->ph_cal_.value(x...);
 
     this->parent_->ph_calibration(data);
 }
@@ -372,11 +372,11 @@ template<typename... Ts> class EC_Calibration_Action : public Action<Ts...> {
 public:
 EC_Calibration_Action(WaterQuality *parent) : parent_(parent){};
 
-TEMPLATABLE_VALUE(std::string, ec_cal);
+TEMPLATABLE_VALUE(float, ec_cal);
 
 void play(Ts... x) 
 {
-    uint8_t data = this->ec_cal_.value(x...);
+    float data = this->ec_cal_.value(x...);
 
     this->parent_->ec_calibration(data);
 }

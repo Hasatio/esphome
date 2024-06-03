@@ -457,7 +457,7 @@ PH_CALIBRATION_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_PH_CALIBRATION): cv.All(
-            cv.templatable(cv.int_range(min = 0, max = 14)),
+            cv.templatable(cv.float_range(min = 0, max = 14)),
         ),
     }
 )
@@ -486,7 +486,7 @@ EC_CALIBRATION_ACTION_SCHEMA = cv.All(
     {
         cv.GenerateID(): cv.use_id(WaterQuality),
         cv.Required(CONF_EC_CALIBRATION): cv.All(
-            cv.templatable(cv.int_range(min = 0, max = 14)),
+            cv.templatable(cv.float_range(min = 0, max = 20)),
         ),
     }
 )
