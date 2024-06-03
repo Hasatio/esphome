@@ -45,20 +45,6 @@ void ph1(Analog* analog)
 int pHArray[ArrayLenth];   //Store the average value of the sensor feedback
 int pHArrayIndex=0;
 
-void ph2(Analog* analog)
-{
-    static unsigned long samplingTime = millis();
-    static unsigned long printTime = millis();
-    static float pHValue,voltage;
-    if(millis()-samplingTime > samplingInterval)
-    {
-        pHArray[pHArrayIndex++] = analog->phVoltage;
-        if(pHArrayIndex==ArrayLenth)pHArrayIndex=0;
-        voltage = avergearray(pHArray, ArrayLenth)*5.0/1024;
-        analog->set_PH_Val(pHValue = 3.5 * voltage + analog->get_PH_Cal());
-        samplingTime=millis();
-    }
-}
 double avergearray(int* arr, int number)
 {
     int i;
@@ -113,6 +99,20 @@ double avergearray(int* arr, int number)
         avg = (double)amount/(number-2);
     }//if
     return avg;
+}
+void ph2(Analog* analog)
+{
+    static unsigned long samplingTime = millis();
+    static unsigned long printTime = millis();
+    static float pHValue,voltage;
+    if(millis()-samplingTime > samplingInterval)
+    {
+        pHArray[pHArrayIndex++] = analog->phVoltage;
+        if(pHArrayIndex==ArrayLenth)pHArrayIndex=0;
+        voltage = avergearray(pHArray, ArrayLenth)*5.0/1024;
+        analog->set_PH_Val(pHValue = 3.5 * voltage + analog->get_PH_Cal());
+        samplingTime=millis();
+    }
 }
 
 void Analog::Analog_Input_Driver(float volts[])
