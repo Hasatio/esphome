@@ -58,14 +58,13 @@ void ph2(Analog* analog)
     static unsigned long printTime = millis();
     static float phValue = 0;
 
-    float standardPh = 7;
+    float phStandard = 7;
     float E0 = 0;
     // Voltajı pH'a dönüştürmek için Nernst denklemi
-    // float ph = - (analog->phVoltage / ((R * T * log(10)) / (n * F)));
-    float ph = standardPh + ((R * T) / (n * F)) * log(10) * log10(analog->phVoltage);
+    // float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
+    float ph = phStandard + ((R * T) / (n * F)) * log(10) * log10(analog->phVoltage);
     // Nernst denklemiyle pH hesaplama
-    float factor = (R * T) / (n * F) * log(10);
-    float pH = (analog->phVoltage - E0) / factor;
+    float pH = phStandard + (analog->phVoltage - E0) / ((R * T) / (n * F) * log(10));
 
     if (millis() - samplingTime > samplingInterval)
     {
