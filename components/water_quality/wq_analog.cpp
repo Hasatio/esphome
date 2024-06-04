@@ -8,77 +8,9 @@ namespace water_quality {
     DFRobot_PH ph;
     DFRobot_EC ec;
 
-void ph1(Analog* analog)
-{
-
-	if (millis() - analog->now >= 1000) // 1000ms interval
-	{
-	    analog->now = millis();
-
-		if (!analog->get_PH_Calibration())
-		{
-			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
-		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
-        }
-	}
-
-        if (analog->get_PH_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
-        {
-            analog->set_PH_Calibration(1);
-            
-            if (strstr(analog->cmd, "PH"))
-                ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
-            
-            if (strstr(analog->cmd, "EC"))
-                ec.calibration(analog->ecVoltage, analog->get_WaterTemp_Val(), analog->cmd); // EC calibration process by Serial CMD
-        }
-
-        if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
-            analog->set_PH_Calibration(0);
-}
-
-#define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
-#define Offset 0.00            //deviation compensate
-#define samplingInterval 20
-#define printInterval 800
-#define ArrayLenth  40    //times of collection
-float pHArray[ArrayLenth];   //Store the average value of the sensor feedback
-int pHArrayIndex=0;
-
-void ph2(Analog* analog)
-{
-    // Sıcaklık telafisi için Nernst sabiti
-    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
-    const float R = 8.314; // Gaz sabiti, J/(mol*K)
-    const float F = 96485; // Faraday sabiti, C/mol
-    const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
-    float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
-
-    static unsigned long samplingTime = millis();
-    static unsigned long printTime = millis();
-    static float phValue = 0;
-
-    float phStandard = 7;
-    float E0 = 2.5;
-    // Voltajı pH'a dönüştürmek için Nernst denklemi
-    float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
-    // Nernst denklemiyle pH hesaplama
-    float pH = phStandard + (analog->phVoltage - E0) / ((R * T) / (n * F) * log(10));
-
-    if (millis() - samplingTime > samplingInterval)
-    {
-        phValue = 3.5 * analog->phVoltage + analog->get_PH_Cal();
-        samplingTime = millis();
-    }
-    if (millis() - printTime > 1000)
-    {
-        analog->set_PH_Val(phValue);
-        ESP_LOGI(TAG,"ph = %f", ph);
-        ESP_LOGI(TAG,"pH = %f", pH);
-        ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
-        printTime = millis();
-    }
-}
+void ph1(Analog* analog);
+void ph2(Analog* analog);
+double averageArray(float* arr, int number);
 
 void Analog::Analog_Input_Driver(float volts[])
 {
@@ -157,6 +89,136 @@ void Analog::Analog_Input_Driver(float volts[])
     gen[0] = volts[AnInGen_Ch[0] + 3];
     gen[1] = volts[AnInGen_Ch[1] + 3];
     set_Gen_Val(gen);
+}
+
+void ph1(Analog* analog)
+{
+
+	if (millis() - analog->now >= 1000) // 1000ms interval
+	{
+	    analog->now = millis();
+
+		if (!analog->get_PH_Calibration())
+		{
+			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
+		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
+        }
+	}
+
+        if (analog->get_PH_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
+        {
+            analog->set_PH_Calibration(1);
+            
+            if (strstr(analog->cmd, "PH"))
+                ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
+            
+            if (strstr(analog->cmd, "EC"))
+                ec.calibration(analog->ecVoltage, analog->get_WaterTemp_Val(), analog->cmd); // EC calibration process by Serial CMD
+        }
+
+        if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
+            analog->set_PH_Calibration(0);
+}
+
+#define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
+#define Offset 0.00            //deviation compensate
+#define samplingInterval 20
+#define printInterval 800
+#define ArrayLenth  40    //times of collection
+float pHArray[ArrayLenth];   //Store the average value of the sensor feedback
+int pHArrayIndex=0;
+
+void ph2(Analog* analog)
+{
+    // Sıcaklık telafisi için Nernst sabiti
+    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
+    const float R = 8.314; // Gaz sabiti, J/(mol*K)
+    const float F = 96485; // Faraday sabiti, C/mol
+    const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
+    float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
+
+    static unsigned long samplingTime = millis();
+    static unsigned long printTime = millis();
+    static float phValue, voltage;
+
+    float phStandard = 7;
+    float E0 = 2.5;
+    // Voltajı pH'a dönüştürmek için Nernst denklemi
+    float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
+    // Nernst denklemiyle pH hesaplama
+    float pH = phStandard + (analog->phVoltage - E0) / ((R * T) / (n * F) * log(10));
+
+    if (millis() - samplingTime > samplingInterval)
+    {
+        pHArray[pHArrayIndex++] = analog->phVoltage;
+        if (pHArrayIndex == ArrayLenth)
+            pHArrayIndex = 0;
+        voltage = avergearray(pHArray, ArrayLenth);
+        phValue = 3.5 * voltage + analog->get_PH_Cal();
+        samplingTime = millis();
+    }
+    if (millis() - printTime > 1000)
+    {
+        analog->set_PH_Val(phValue);
+        ESP_LOGI(TAG,"ph = %f", ph);
+        ESP_LOGI(TAG,"pH = %f", pH);
+        ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
+        printTime = millis();
+    }
+}
+double averageArray(float* arr, int number)
+{
+    int i;
+    float max, min;
+    double avg;
+    double amount = 0.0;
+    
+    if (number <= 0)
+    {
+        Serial.println("Error number for the array to averaging!/n");
+        return 0;
+    }
+
+    if (number < 5)
+    { // less than 5, calculated directly statistics
+        for (i = 0; i < number; i++)
+            amount += arr[i];
+        avg = amount / number;
+        return avg;
+    }
+    else
+    {
+        if (arr[0] < arr[1])
+        {
+        min = arr[0];
+        max = arr[1];
+        }
+        else
+        {
+        min = arr[1];
+        max = arr[0];
+        }
+
+        for (i = 2; i < number; i++)
+        {
+            if (arr[i] < min)
+            {
+                amount += min; // arr[i] < min
+                min = arr[i];
+            }
+            else if (arr[i] > max)
+            {
+                amount += max; // arr[i] > max
+                max = arr[i];
+            }
+            else
+            {
+                amount += arr[i]; // min <= arr[i] <= max
+            }
+        }
+        avg = amount / (number - 2);
+    }
+    return avg;
 }
 
 }  // namespace water_quality
