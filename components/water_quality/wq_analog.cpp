@@ -142,7 +142,7 @@ void ph2(Analog* analog)
     static float phValue, voltage;
 
     float phStandard = 7;
-    float E0 = 2.5;
+    float E0 = 1.96;
     // Voltajı pH'a dönüştürmek için Nernst denklemi
     float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
     // Nernst denklemiyle pH hesaplama
@@ -174,10 +174,7 @@ double averageArray(float* arr, int number)
     double amount = 0.0;
     
     if (number <= 0)
-    {
-        Serial.println("Error number for the array to averaging!/n");
         return 0;
-    }
 
     if (number < 5)
     { // less than 5, calculated directly statistics
