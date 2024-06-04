@@ -148,13 +148,30 @@ void ph2(Analog* analog)
     // Nernst denklemiyle pH hesaplama
     float pH = phStandard + (analog->phVoltage - E0) / ((R * T) / (n * F) * log(10));
 
+    //ph 7 1.96v
+    //ph 10 3.31v
+    float acidPH = 4;
+    float neutralPH = 7;
+    float basePH = 10;
+    float acidVoltage = 0;
+    float neutralVoltage = 1.96;
+    float baseVoltage = 3.31;
+    float slope = (7.0 - 4.0) / ((baseVoltage - neutralVoltage) / k - (_acidVoltage - 1500.0) / k);
+    float intercept = 7.0 - slope * (_neutralVoltage - 1500.0) / k;
+    // İki nokta arasında eğimi hesaplayın
+    float slope = (basePH - neutralPH) / (baseVoltage - neutralVoltage);
+    // Verilen voltaj için pH değerini hesaplayın
+    float phValue =  neutralPH + slope * (voltage - neutralVoltage);
+
+   
+
     if (millis() - samplingTime > samplingInterval)
     {
         pHArray[pHArrayIndex++] = analog->phVoltage;
         if (pHArrayIndex == ArrayLenth)
             pHArrayIndex = 0;
         voltage = averageArray(pHArray, ArrayLenth);
-        phValue = 3.5 * voltage + analog->get_PH_Cal();
+        // phValue = 3.5 * voltage + analog->get_PH_Cal();
         samplingTime = millis();
     }
     if (millis() - printTime > 1000)
