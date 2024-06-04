@@ -50,7 +50,7 @@ void ph2(Analog* analog)
     // Sıcaklık telafisi için Nernst sabiti
     float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
     const float R = 8.314; // Gaz sabiti, J/(mol*K)
-    const float F = 96485.332; // Faraday sabiti, C/mol
+    const float F = 96485; // Faraday sabiti, C/mol
     const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
     float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
 
@@ -59,7 +59,7 @@ void ph2(Analog* analog)
     static float phValue = 0;
 
     float phStandard = 7;
-    float E0 = 0;
+    float E0 = 1.5;
     // Voltajı pH'a dönüştürmek için Nernst denklemi
     // float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
     float ph = phStandard + ((R * T) / (n * F)) * log(10) * log10(analog->phVoltage);
