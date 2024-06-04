@@ -15,16 +15,16 @@ void ph1(Analog* analog)
 	{
 	    analog->now = millis();
 
-		if (!analog->get_PH_EC_Calibration())
+		if (!analog->get_PH_Calibration())
 		{
 			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
 		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
         }
 	}
 
-        if (analog->get_PH_EC_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
+        if (analog->get_PH_Calibration() || strstr(analog->cmd, "PH") || strstr(analog->cmd, "EC"))
         {
-            analog->set_PH_EC_Calibration(1);
+            analog->set_PH_Calibration(1);
             
             if (strstr(analog->cmd, "PH"))
                 ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
@@ -34,7 +34,7 @@ void ph1(Analog* analog)
         }
 
         if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
-            analog->set_PH_EC_Calibration(0);
+            analog->set_PH_Calibration(0);
 }
 
 #define SensorPin A0            //pH meter Analog output to Arduino Analog Input 0
@@ -47,19 +47,30 @@ int pHArrayIndex=0;
 
 void ph2(Analog* analog)
 {
+    // Sıcaklık telafisi için Nernst sabiti
+    const float R = 8.314; // Gaz sabiti, J/(mol*K)
+    const float F = 96485.332; // Faraday sabiti, C/mol
+    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
+    float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
+
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
-    static float pHValue,voltage;
-    if(millis()-samplingTime > samplingInterval)
+    static float phValue = 0;
+
+    if (analog->get_PH_Calibration())
     {
-        voltage = analog->phVoltage;
-        pHValue = 3.5 * voltage + analog->get_PH_Cal();
-        samplingTime=millis();
+        analog->get_PH_Cal() -= analog->get_PH_Val();
+        analog->set_PH_Calibration(0);
     }
-    if(millis() - printTime > 1000)
+    if (millis() - samplingTime > samplingInterval)
     {
-        analog->set_PH_Val(pHValue);
-        printTime=millis();
+        phValue = 3.5 * analog->phVoltage + analog->get_PH_Cal();
+        samplingTime = millis();
+    }
+    if (millis() - printTime > 1000)
+    {
+        analog->set_PH_Val(phValue);
+        printTime = millis();
     }
 }
 
