@@ -140,28 +140,46 @@ void ph2(Analog* analog)
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
     static float phValue, voltage;
-
-    float phStandard = 7;
-    float E0 = 1.96;
-    // Voltajı pH'a dönüştürmek için Nernst denklemi
-    float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
-    // Nernst denklemiyle pH hesaplama
-    float pH = phStandard + (analog->phVoltage - E0) / ((R * T) / (n * F) * log(10));
-
+    
     //ph 7 1.96v
     //ph 10 3.31v
     float acidPH = 4;
     float neutralPH = 7;
     float basePH = 10;
+
     float acidVoltage = 0;
     float neutralVoltage = 1.96;
     float baseVoltage = 3.31;
-    float slope = (7.0 - 4.0) / ((baseVoltage - neutralVoltage) / k - (_acidVoltage - 1500.0) / k);
-    float intercept = 7.0 - slope * (_neutralVoltage - 1500.0) / k;
-    // İki nokta arasında eğimi hesaplayın
-    float slope = (basePH - neutralPH) / (baseVoltage - neutralVoltage);
-    // Verilen voltaj için pH değerini hesaplayın
-    float phValue =  neutralPH + slope * (voltage - neutralVoltage);
+
+    float firstPH = 0, secondPH = 0;
+    float volt1 = 0, volt2 = 0;
+    if (get_PH_Calibration())
+    {
+        if (volt1 == 0)
+        {
+            firstPH = get_PH_Cal();
+            // Nernst denklemi
+            volt1 = analog->phVoltage + firstPH * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+        }
+        else if (volt2 == 0)
+        {
+            secondPH = get_PH_Cal();
+            // Nernst denklemi
+            volt2 = analog->phVoltage + secondPH * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+        }
+
+        set_PH_Calibration(0);
+    }
+
+    // Nernst denklemiyle pH hesaplama
+    float pHcalc = (analog->phVoltage - volt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
+
+    // İki nokta arasında eğimi hesaplama
+    float slope = (secondPH - firstPH) / (volt2 - volt1);
+    // y kesişim noktasını hesaplama
+    float intercept = firstPH - slope * volt1;
+    // Verilen voltaj için pH değerini hesaplama
+    float phValue = intercept + slope * (analog->phVoltage - volt1);
 
    
 
