@@ -59,7 +59,7 @@ void ph2(Analog* analog)
 
     if (analog->get_PH_Calibration())
     {
-        analog->get_PH_Cal() -= analog->get_PH_Val();
+        analog->set_PH_Cal(analog->get_PH_Cal() - analog->get_PH_Val());
         analog->set_PH_Calibration(0);
     }
     if (millis() - samplingTime > samplingInterval)
