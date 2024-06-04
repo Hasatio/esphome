@@ -33,6 +33,8 @@ void Analog::Analog_Input_Driver(float volts[])
         
         set_WaterTemp_Val(WaterTemp);
         set_Analog_Timepoint(millis());
+        for(size_t i=0;i<8;i++)
+            ESP_LOGI(TAG,"volts[%d] = %f", i, volts[i]);
     }
     
 
@@ -162,7 +164,7 @@ void ph2(Analog* analog)
         analog->set_PH_Val(phValue);
         ESP_LOGI(TAG,"ph = %f", ph);
         ESP_LOGI(TAG,"pH = %f", pH);
-        ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
+        // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
         printTime = millis();
     }
 }
