@@ -61,6 +61,7 @@ void ph2(Analog* analog)
     {
         analog->set_PH_Cal(analog->get_PH_Cal() - analog->get_PH_Val());
         analog->set_PH_Calibration(0);
+        ESP_LOGI(TAG,"set_PH_Cal = %f",analog->get_PH_Cal());
     }
     if (millis() - samplingTime > samplingInterval)
     {
