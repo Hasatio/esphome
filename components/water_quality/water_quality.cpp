@@ -300,6 +300,7 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ph_calibration(float cal)
 {
+    ESP_LOGI(TAG,"cal = %f", cal);
     an.set_PH_Cal(cal - an.get_PH_Val());
     ESP_LOGI(TAG,"set_PH_Cal = %f", an.get_PH_Cal());
 }
