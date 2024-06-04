@@ -153,7 +153,7 @@ void ph2(Analog* analog)
         pHArray[pHArrayIndex++] = analog->phVoltage;
         if (pHArrayIndex == ArrayLenth)
             pHArrayIndex = 0;
-        voltage = avergearray(pHArray, ArrayLenth);
+        voltage = averageArray(pHArray, ArrayLenth);
         phValue = 3.5 * voltage + analog->get_PH_Cal();
         samplingTime = millis();
     }
