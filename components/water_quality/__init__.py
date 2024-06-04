@@ -474,7 +474,7 @@ async def ph_calibration_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_PH_CALIBRATION]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.float)
+        template_ = await cg.templatable(val, args, cg.float_)
         cg.add(var.set_ph_cal(template_))
 
     return var
@@ -503,7 +503,7 @@ async def ec_calibration_to_code(config, action_id, template_arg, args):
 
     val = config[CONF_EC_CALIBRATION]
     if cg.is_template(val):
-        template_ = await cg.templatable(val, args, cg.float)
+        template_ = await cg.templatable(val, args, cg.float_)
         cg.add(var.set_ec_cal(template_))
 
     return var
