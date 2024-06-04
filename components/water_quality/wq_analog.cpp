@@ -33,8 +33,6 @@ void Analog::Analog_Input_Driver(float volts[])
         
         set_WaterTemp_Val(WaterTemp);
         set_Analog_Timepoint(millis());
-        for(size_t i=0;i<8;i++)
-            ESP_LOGI(TAG,"volts[%d] = %f", i, volts[i]);
     }
     
 
