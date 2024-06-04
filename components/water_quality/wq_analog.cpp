@@ -57,12 +57,6 @@ void ph2(Analog* analog)
     static unsigned long printTime = millis();
     static float phValue = 0;
 
-    if (analog->get_PH_Calibration())
-    {
-        analog->set_PH_Cal(analog->get_PH_Cal() - analog->get_PH_Val());
-        analog->set_PH_Calibration(0);
-        ESP_LOGI(TAG,"set_PH_Cal = %f", analog->get_PH_Cal());
-    }
     if (millis() - samplingTime > samplingInterval)
     {
         phValue = 3.5 * analog->phVoltage + analog->get_PH_Cal();
