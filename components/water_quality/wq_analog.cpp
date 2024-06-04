@@ -59,7 +59,7 @@ void ph2(Analog* analog)
     static float phValue = 0;
 
     float phStandard = 7;
-    float E0 = 1.8;
+    float E0 = 1.5;
     // Voltajı pH'a dönüştürmek için Nernst denklemi
     float ph = - (analog->phVoltage / ((R * T) / (n * F) * log(10)));
     // Nernst denklemiyle pH hesaplama
