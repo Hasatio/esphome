@@ -64,7 +64,7 @@ void ph2(Analog* analog)
     // float ph = - (analog->phVoltage / ((R * T * log(10)) / (n * F)));
     float ph = standardPh + ((R * T) / (n * F)) * log(10) * log10(analog->phVoltage);
     // Nernst denklemiyle pH hesaplama
-    float factor = (R * T * log(10)) / (n * F);
+    float factor = (R * T) / (n * F) * log(10);
     float pH = (analog->phVoltage - E0) / factor;
 
     if (millis() - samplingTime > samplingInterval)
@@ -75,7 +75,7 @@ void ph2(Analog* analog)
     if (millis() - printTime > 1000)
     {
         analog->set_PH_Val(phValue);
-        ESP_LOGI(TAG,"phValue = %f", ph);
+        ESP_LOGI(TAG,"phValue = %f", pH);
         printTime = millis();
     }
 }
