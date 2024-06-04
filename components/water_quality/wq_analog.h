@@ -8,6 +8,7 @@
 #include "DFRobot_EC.h"
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
+#include <math.h>
 #include <EEPROM.h>
 
 namespace esphome {

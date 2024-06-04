@@ -48,14 +48,24 @@ int pHArrayIndex=0;
 void ph2(Analog* analog)
 {
     // Sıcaklık telafisi için Nernst sabiti
+    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
     const float R = 8.314; // Gaz sabiti, J/(mol*K)
     const float F = 96485.332; // Faraday sabiti, C/mol
-    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
+    const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
     float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
 
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
     static float phValue = 0;
+
+    float standardPh = 7;
+    float E0 = 0;
+    // Voltajı pH'a dönüştürmek için Nernst denklemi
+    float ph = - (analog->phVoltage / ((R * T * log(10)) / (n * F)));
+    // float ph = standardPh + ((R * T) / (n * F)) * log(10) * log10(analog->phVoltage);
+    // Nernst denklemiyle pH hesaplama
+    float factor = (R * T * log(10)) / (n * F);
+    float pH = (analog->phVoltage - E0) / factor;
 
     if (millis() - samplingTime > samplingInterval)
     {
@@ -65,7 +75,7 @@ void ph2(Analog* analog)
     if (millis() - printTime > 1000)
     {
         analog->set_PH_Val(phValue);
-        ESP_LOGI(TAG,"phValue = %f", phValue);
+        ESP_LOGI(TAG,"phValue = %f", ph);
         printTime = millis();
     }
 }
