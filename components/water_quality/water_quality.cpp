@@ -385,11 +385,11 @@ void WaterQuality::sensor()
             
         this->Servo_Stat_->publish_state(ss.str());
     }
-    if (this->AnInWTemp_Val_ != nullptr)    { this->AnInWTemp_Val_->publish_state(an.get_WaterTemp_Val()); }
-    if (this->AnInVPow_Val_ != nullptr)     { this->AnInVPow_Val_->publish_state(an.get_VoltagePow_Val()); }
+    if (this->AnInWTemp_Val_ != nullptr)    { this->AnInWTemp_Val_->publish_state(an.get_WatTemp_Val()); }
+    if (this->AnInVPow_Val_ != nullptr)     { this->AnInVPow_Val_->publish_state(an.get_VoltPow_Val()); }
     if (this->AnInLvl_Perc_ != nullptr) 
     {
-        float* lvl = an.get_Level_Perc();
+        float* lvl = an.get_Lvl_Perc();
         std::stringstream ap;
 
         for (size_t i = 0; i < 2; i++)
