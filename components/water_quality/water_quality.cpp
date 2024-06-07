@@ -312,11 +312,13 @@ void WaterQuality::ph_calibration(float cal)
     uint8_t PHVALUEADDR = 0x00;
     bool isEepromEmpty = 1;
     for (uint8_t i = 0; i < 4; i++)
+    {
         if (EEPROM.read(PHVALUEADDR + i) != 0xFF)
         {
             isEepromEmpty = 0;
             break;
         }
+    }
     if (isEepromEmpty)
         EEPROM_write(PHVALUEADDR, neutralVoltage); // new EEPROM, write typical voltage
     else
