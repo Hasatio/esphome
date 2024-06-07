@@ -15,9 +15,9 @@ public:
 void Servo_Driver(float pwm[]);
 void Servo_Controller(float perc[]);
 
-void set_Servo_Mode(bool sm[])          { for (size_t i = 0; i < 8; i++) Servo_Mode[i] = sm[i]; }
-void set_Servo_Position(uint8_t sp[])   { for (size_t i = 0; i < 8; i++) Servo_Position[i] = sp[i]; }
-void set_Servo_Status(bool ss[])        { for (size_t i = 0; i < 8; i++) Servo_Status[i] = ss[i]; }
+void set_Servo_Mode(bool sm[])          { for (uint8_t i = 0; i < 8; i++) Servo_Mode[i] = sm[i]; }
+void set_Servo_Position(uint8_t sp[])   { for (uint8_t i = 0; i < 8; i++) Servo_Position[i] = sp[i]; }
+void set_Servo_Status(bool ss[])        { for (uint8_t i = 0; i < 8; i++) Servo_Status[i] = ss[i]; }
 
 bool* get_Servo_Mode()          { return Servo_Mode; }
 uint8_t* get_Servo_Position()   { return Servo_Position; }

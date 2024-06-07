@@ -235,7 +235,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     { 
         this->set_multiplexer(static_cast<ADS1115_Multiplexer>(ADS1115_MULTIPLEXER_P0_NG + i));
 
@@ -252,7 +252,7 @@ void WaterQuality::ADS1115_Driver(float analog_voltage[])
     if (this->is_failed())
         return;
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     { 
         this->set_multiplexer(static_cast<ADS1115_Multiplexer>(ADS1115_MULTIPLEXER_P0_NG + i));
 
@@ -286,11 +286,11 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     }
 
     uint8_t reg_value = 0;
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
         reg_value |= 1 << i;
     }
-    for (size_t i = 4; i < 8; i++)
+    for (uint8_t i = 4; i < 8; i++)
     {
         reg_value &= ~(1 << i);
     }
@@ -327,7 +327,7 @@ void WaterQuality::MCP23008_Write(bool value[])
 {
     uint8_t reg_value = this->olat_;
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
         // uint8_t olat_;
         // this->read_byte(MCP23008_OLAT, &this->olat_);
@@ -381,7 +381,7 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     MCP23008_Write(digital);
     
     uint8_t value = MCP23008_Read();
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
         digital[i] = value & (1 << i);
         // ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
@@ -463,7 +463,7 @@ void WaterQuality::PCA9685_Write()
     const uint8_t min_channel{0};
     const uint8_t max_channel{16};
     const uint16_t max_duty = 4096;
-    for (size_t i = min_channel; i <= max_channel; i++)
+    for (uint8_t i = min_channel; i <= max_channel; i++)
     {
         uint16_t phase_begin = uint16_t(i - min_channel) / max_channel * max_duty;
         uint16_t phase_end;

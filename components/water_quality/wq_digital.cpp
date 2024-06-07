@@ -9,7 +9,7 @@ void Digital_Input_Filter(bool input[], Digital* digital)
     uint8_t timeperiod = 10; // Wait time before each update
     uint8_t* filter = digital->get_Digital_FilterCoeff();
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
         if (millis() - digital->get_Digital_Timepoint() >= timeperiod)
         {
@@ -38,14 +38,14 @@ void Digital::Digital_Input_Driver(bool input[])
     bool* in = get_Digital_Input();
     Digital_Input_Filter(input, this);
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
         in[i] = input[i];
 }
 void Digital::Digital_Output_Driver(bool output[])
 {
     bool* out = get_Digital_Output();
 
-    for (size_t i = 0; i < 4; i++)
+    for (uint8_t i = 0; i < 4; i++)
         output[i] = out[i];
 }
 

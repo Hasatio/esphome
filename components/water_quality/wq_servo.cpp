@@ -13,7 +13,7 @@ void Servo::Servo_Controller(float perc[])
     uint8_t* pos = get_Servo_Position();
     bool* stat = get_Servo_Status();
 
-    for (size_t i = 0; i < 8; i++)
+    for (uint8_t i = 0; i < 8; i++)
     {
         if (mode[i] == 1)
         {

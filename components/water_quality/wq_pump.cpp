@@ -41,7 +41,7 @@ void Pump::Calibration_Controller()
     float* dose = get_Pump_Dose();
     float* circ = get_Pump_Circulation();
 
-    for (size_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 6; i++)
     {        
         if (type[i] > 0 && mode[i] == 3)
             switch (calib_cond[i])
@@ -113,7 +113,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     std::copy(pump, pump + 6, min_);
     std::sort(min_, min_ + 6);
 
-    for (size_t i = 0; i < 6; ++i)
+    for (uint8_t i = 0; i < 6; i++)
     {
         if (min_[i] > 0)
         {
@@ -133,7 +133,7 @@ void Pump::Generic_Pump_Driver(float pwm[])
     }
     set_Min_Time(min);
 
-    for (size_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 6; i++)
     {
         if (pump[i] > 0)
             pwm[i] = 1;
@@ -165,7 +165,7 @@ void Pump::Dosing_Controller(float pump[])
     uint32_t (*tot)[2] = get_Pump_Total();
     float min = get_Min_Time();
 
-    for (size_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 6; i++)
     {
         if (type[i] == 1)
             if (get_Pump_Calibration_Mode_Check())
@@ -257,7 +257,7 @@ void Pump::Circulation_Controller(float pump[])
     uint32_t (*tot)[2] = get_Pump_Total();
     float min = get_Min_Time();
 
-    for (size_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 6; i++)
     {
         if (type[i] == 2)
             if (get_Pump_Calibration_Mode_Check())
