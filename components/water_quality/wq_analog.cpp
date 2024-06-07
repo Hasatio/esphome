@@ -105,8 +105,8 @@ void ph1(Analog* analog)
 
 		if (!analog->get_PH_Calibration())
 		{
-			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WaterTemp_Val())); // Convert voltage to PH with temperature compensation
-		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WaterTemp_Val())); // Convert voltage to EC with temperature compensation
+			analog->set_PH_Val(ph.readPH(analog->phVoltage, analog->get_WatTemp_Val())); // Convert voltage to PH with temperature compensation
+		    analog->set_EC_Val(ec.readEC(analog->ecVoltage, analog->get_WatTemp_Val())); // Convert voltage to EC with temperature compensation
         }
 	}
 
@@ -115,10 +115,10 @@ void ph1(Analog* analog)
             analog->set_PH_Calibration(1);
             
             if (strstr(analog->cmd, "PH"))
-                ph.calibration(analog->phVoltage, analog->get_WaterTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
+                ph.calibration(analog->phVoltage, analog->get_WatTemp_Val(), analog->cmd); // PH calibration process by Serial CMD
             
             if (strstr(analog->cmd, "EC"))
-                ec.calibration(analog->ecVoltage, analog->get_WaterTemp_Val(), analog->cmd); // EC calibration process by Serial CMD
+                ec.calibration(analog->ecVoltage, analog->get_WatTemp_Val(), analog->cmd); // EC calibration process by Serial CMD
         }
 
         if (strstr(analog->cmd, "EXITPH") || strstr(analog->cmd, "EXITEC"))
@@ -137,7 +137,6 @@ void ph2(Analog* analog)
 {
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
-    static float phValue, voltage;
     
     // Water
     // temp    ph
@@ -193,7 +192,7 @@ void ph2(Analog* analog)
     // float _phValue = phValue + (temp - 25.0) * temperatureCoefficient;
 
     float (*phCal)[2] = analog->get_PH_Cal();
-    float phFirst = phCal[0][0], phSecond = phCal[1][0],;
+    float phFirst = phCal[0][0], phSecond = phCal[1][0];
     float phVolt1 = phCal[0][1], phVolt2 = phCal[1][1];
 
     // Calculate the slope between two points
@@ -204,6 +203,7 @@ void ph2(Analog* analog)
     float phValue =  slope * (analog->phVoltage - phVolt1) + intercept; // y = m * x + b
     
 
+    static float voltage;
     if (millis() - samplingTime > samplingInterval)
     {
         pHArray[pHArrayIndex++] = analog->phVoltage;
@@ -217,7 +217,7 @@ void ph2(Analog* analog)
     {
         analog->set_PH_Val(phValue);
         ESP_LOGI(TAG,"ph = %f", ph);
-        ESP_LOGI(TAG,"pH = %f", pH);
+        // ESP_LOGI(TAG,"pH = %f", pH);
         // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
         printTime = millis();
     }

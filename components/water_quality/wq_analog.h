@@ -51,7 +51,7 @@ float* get_Lvl_Perc()                   { return AnInLvl_Perc; }
 uint8_t get_PH_Ch()                     { return AnInPH_Ch; }
 uint8_t get_PH_Type()                   { return AnInPH_Type; }
 bool get_PH_Calibration()               { return PH_Calibration; }
-float (*get_Pump_Total())[2]            { return AnInPH_Cal; }
+float (*get_PH_Cal())[2]            { return AnInPH_Cal; }
 float get_PH_Val()                      { return AnInPH_Val; }
 uint8_t get_EC_Ch()                     { return AnInEC_Ch; }
 uint8_t get_EC_Type()                   { return AnInEC_Type; }
