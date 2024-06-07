@@ -16,6 +16,8 @@
 #include <sstream>
 #include <iomanip>
 #include <Wire.h>
+#include <cmath>
+#include <EEPROM.h>
 #include "wq_i2c.h"
 
 namespace esphome {

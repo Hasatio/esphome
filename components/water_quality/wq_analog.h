@@ -22,16 +22,16 @@ void Analog_Input_Driver(float volts[]);
 
 void set_Analog_Timepoint(unsigned long time)   { AnIn_Timepoint = time; }
 void set_version(uint8_t ver)                   { version = ver; }
-void set_WaterTemp_Res(uint16_t res)            { AnInWTemp_Res = res; }
-void set_WaterTemp_Val(float wt)                { AnInWTemp_Val = wt; }
-void set_VoltagePow_Val(float vp)               { AnInVPow_Val = vp; }
+void set_WatTemp_Res(uint16_t res)              { AnInWTemp_Res = res; }
+void set_WatTemp_Val(float wt)                  { AnInWTemp_Val = wt; }
+void set_VoltPow_Val(float vp)                  { AnInVPow_Val = vp; }
 void set_ResMin(uint16_t resmax[])              { for (size_t i = 0; i < 2; i++)    AnInLvl_ResMin[i] = resmax[i]; }
 void set_ResMax(uint16_t resmin[])              { for (size_t i = 0; i < 2; i++)    AnInLvl_ResMax[i] = resmin[i]; }
-void set_Level_Perc(float lvl[])                { for (size_t i = 0; i < 2; i++)    AnInLvl_Perc[i] = lvl[i]; }
+void set_Lvl_Perc(float lvl[])                  { for (size_t i = 0; i < 2; i++)    AnInLvl_Perc[i] = lvl[i]; }
 void set_PH_Ch(uint8_t ph)                      { AnInPH_Ch = ph; }
 void set_PH_Type(uint8_t ph)                    { AnInPH_Type = ph; }
 void set_PH_Calibration(bool cal)               { PH_Calibration = cal; }
-void set_PH_Cal(float cal)                      { AnInPH_Cal = cal; }
+void set_PH_Cal(float cal[][2])                 { for (size_t i = 0; i < 2; i++)    for (size_t j = 0; j < 2; j++)  AnInPH_Cal[i][j] = cal[i][j]; }
 void set_PH_Val(float ph)                       { AnInPH_Val = ph; }
 void set_EC_Ch(uint8_t ec)                      { AnInEC_Ch = ec; }
 void set_EC_Type(uint8_t ec)                    { AnInEC_Type = ec; }
@@ -42,16 +42,16 @@ void set_Gen_Val(float gen[])                   { for (size_t i = 0; i < 2; i++)
 
 unsigned long get_Analog_Timepoint()    { return AnIn_Timepoint; }
 uint8_t get_version()                   { return version; }	
-uint16_t get_WaterTemp_Res()            { return AnInWTemp_Res; }
-float get_WaterTemp_Val()               { return AnInWTemp_Val; }
-float get_VoltagePow_Val()              { return AnInVPow_Val; }
+uint16_t get_WatTemp_Res()              { return AnInWTemp_Res; }
+float get_WatTemp_Val()                 { return AnInWTemp_Val; }
+float get_VoltPow_Val()                 { return AnInVPow_Val; }
 uint16_t* get_ResMin()                  { return AnInLvl_ResMin; }
 uint16_t* get_ResMax()                  { return AnInLvl_ResMax; }
-float* get_Level_Perc()                 { return AnInLvl_Perc; }
+float* get_Lvl_Perc()                   { return AnInLvl_Perc; }
 uint8_t get_PH_Ch()                     { return AnInPH_Ch; }
 uint8_t get_PH_Type()                   { return AnInPH_Type; }
 bool get_PH_Calibration()               { return PH_Calibration; }
-float get_PH_Cal()                      { return AnInPH_Cal; }
+float (*get_Pump_Total())[2]            { return AnInPH_Cal; }
 float get_PH_Val()                      { return AnInPH_Val; }
 uint8_t get_EC_Ch()                     { return AnInEC_Ch; }
 uint8_t get_EC_Type()                   { return AnInEC_Type; }
@@ -75,7 +75,7 @@ uint16_t AnInLvl_ResMin[2] = {0}, AnInLvl_ResMax[2] = {0};
 float AnInLvl_Perc[2] = {0};
 uint8_t AnInPH_Ch = 0, AnInPH_Type = 0;
 bool PH_Calibration = 0;
-float AnInPH_Cal = 0;
+float AnInPH_Cal[2][2] = {0};
 float AnInPH_Val = 0;
 uint8_t AnInEC_Ch = 0, AnInEC_Type = 0;
 bool EC_Calibration = 0;

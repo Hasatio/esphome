@@ -21,30 +21,35 @@ void Analog::Analog_Input_Driver(float volts[])
 
     if (millis() - get_Analog_Timepoint() >= timeperiod)
     {
-        float model_multiply = get_WaterTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
-        float WaterTemp_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+        float model_multiply = get_WatTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
+        float WatTemp_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
         
-        if (WaterTemp_Res > 3904.8) // Max temp limit and set model multiplier 
-            WaterTemp_Res = 3904.8 * model_multiply;
+        float WatTemp_Res_Max = 3904.8;
+        float WatTemp_Res_Min = 185.2;
+        if (WatTemp_Res > WatTemp_Res_Max) // Max temp limit and set model multiplier 
+            WatTemp_Res = WatTemp_Res_Max * model_multiply;
+        else if (WatTemp_Res < WatTemp_Res_Min) // Min temp limit and set model multiplier 
+            WatTemp_Res = WatTemp_Res_Min * model_multiply;
         else
-            WaterTemp_Res = WaterTemp_Res * model_multiply;
+            WatTemp_Res = WatTemp_Res * model_multiply;
         
-        float WaterTemp = (sqrt((-0.00232 * WaterTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+        // Formula                                                                                        _________________________
+        float WatTemp = (sqrt((-0.00232 * WatTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
         
-        set_WaterTemp_Val(WaterTemp);
+        set_WatTemp_Val(WatTemp);
         set_Analog_Timepoint(millis());
     }
     
 
     //Power
-    set_VoltagePow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    set_VoltPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
     
 
     //Level
     float lvl[2], Vmin[2], Vmax[2];
     uint16_t res, volt, *resmin = get_ResMin(), *resmax = get_ResMax();
 
-    if (get_version() == 0) { res = 1000; volt = get_VoltagePow_Val(); } // Version check
+    if (get_version() == 0) { res = 1000; volt = get_VoltPow_Val(); } // Version check
     if (get_version() == 1) { res = 270; volt = 5; }
 
     Vmin[0] = volt * resmin[0] / (res + resmin[0]); // Vout = Vin * R2 / (R1 + R2); R1 = 10k
@@ -54,7 +59,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
     lvl[0] = 100 * (volts[2] - Vmin[0]) / (Vmax[0] - Vmin[0]);
     lvl[1] = 100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
-    set_Level_Perc(lvl);
+    set_Lvl_Perc(lvl);
 
 
     //EC
@@ -130,58 +135,74 @@ int pHArrayIndex=0;
 
 void ph2(Analog* analog)
 {
-    // Sıcaklık telafisi için Nernst sabiti
-    float T = analog->get_WaterTemp_Val() + 273.15; // Kelvin cinsinden sıcaklık
-    const float R = 8.314; // Gaz sabiti, J/(mol*K)
-    const float F = 96485; // Faraday sabiti, C/mol
-    const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
-    float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
-
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
     static float phValue, voltage;
     
-    //ph 7 1.96v
-    //ph 10 3.31v
-    float acidPH = 4;
-    float neutralPH = 7;
-    float basePH = 10;
+    // Water
+    // temp    ph
+    // 0       7.47
+    // 10      7.27
+    // 20      7.08
+    // 25      7.00
+    // 30      6.92
+    // 40      6.77
+    // 50      6.63
+    // 100     6.14
+    
+    // // Sıcaklık telafisi için Nernst sabiti
+    // float temp = analog->get_WaterTemp_Val();
+    // float T = temp + 273.15; // Kelvin cinsinden sıcaklık
+    // const float R = 8.314; // Gaz sabiti, J/(mol*K)
+    // const float F = 96485.332; // Faraday sabiti, C/mol
+    // const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
+    // //float k = (R * T) / F * 1000; // mV başına değişim (2.303 * R * T / F)
 
-    float acidVoltage = 0;
-    float neutralVoltage = 1.96;
-    float baseVoltage = 3.31;
+    // float acidPH = 4;
+    // float neutralPH = 7;
+    // float basePH = 10;
 
-    float firstPH = 0, secondPH = 0;
-    float volt1 = 0, volt2 = 0;
-    if (get_PH_Calibration())
-    {
-        if (volt1 == 0)
-        {
-            firstPH = get_PH_Cal();
-            // Nernst denklemi
-            volt1 = analog->phVoltage + firstPH * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
-        }
-        else if (volt2 == 0)
-        {
-            secondPH = get_PH_Cal();
-            // Nernst denklemi
-            volt2 = analog->phVoltage + secondPH * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
-        }
+    // float acidVoltage = 0.61;
+    // float neutralVoltage = 1.96;
+    // float baseVoltage = 3.31;
 
-        set_PH_Calibration(0);
-    }
+    // float phFirst = 0, phSecond = 0;
+    // float phVolt1 = 0, phVolt2 = 0;
+    // if (get_PH_Calibration())
+    // {
+    //     if (phVolt1 == 0)
+    //     {
+    //         phFirst = get_PH_Cal();
+    //         // Nernst denklemi
+    //         phVolt1 = analog->phVoltage + phFirst * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+    //     }
+    //     else if (phVolt2 == 0)
+    //     {
+    //         phSecond = get_PH_Cal();
+    //         // Nernst denklemi
+    //         phVolt2 = analog->phVoltage + phSecond * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+    //     }
 
-    // Nernst denklemiyle pH hesaplama
-    float pHcalc = (analog->phVoltage - volt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
+    //     set_PH_Calibration(0);
+    // }
 
-    // İki nokta arasında eğimi hesaplama
-    float slope = (secondPH - firstPH) / (volt2 - volt1);
-    // y kesişim noktasını hesaplama
-    float intercept = firstPH - slope * volt1;
+    // // Nernst denklemiyle pH hesaplama
+    // float pHcalc = (analog->phVoltage - phVolt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
+    // // Sıcaklık telafisi ekleme
+    // float temperatureCoefficient = (R * T) / (n * F) * log(10);
+    // float _phValue = phValue + (temp - 25.0) * temperatureCoefficient;
+
+    float (*phCal)[2] = analog->get_PH_Cal();
+    float phFirst = phCal[0][0], phSecond = phCal[1][0],;
+    float phVolt1 = phCal[0][1], phVolt2 = phCal[1][1];
+
+    // Calculate the slope between two points
+    float slope = (phSecond - phFirst) / (phVolt2 - phVolt1); // m = (y2 - y1) / (x2 - x1)
+    // Calculate the y-intercept
+    float intercept = phSecond - slope * phVolt2; // b = y1 - m * x1 | b = y2 - m * x2
     // Verilen voltaj için pH değerini hesaplama
-    float phValue = intercept + slope * (analog->phVoltage - volt1);
-
-   
+    float phValue =  slope * (analog->phVoltage - phVolt1) + intercept; // y = m * x + b
+    
 
     if (millis() - samplingTime > samplingInterval)
     {

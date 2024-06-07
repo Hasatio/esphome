@@ -300,8 +300,18 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ph_calibration(float cal)
 {
-    an.set_PH_Cal(cal - an.get_PH_Val());
-    ESP_LOGI(TAG,"set_PH_Cal = %f", an.get_PH_Cal());
+    float acidVoltage = 0.61;
+    float neutralVoltage = 1.96;
+    float baseVoltage = 3.31;
+
+    float acidPh = 4.0;
+    float neutralPh = 7.0;
+    float basePh = 10.0;
+
+    float PH_Cal[2][2] = {neutralPh, neutralVoltage, acidPh, acidVoltage};
+
+    an.set_PH_Cal(PH_Cal);
+    ESP_LOGI(TAG,"set_PH_Cal = %f", cal);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
