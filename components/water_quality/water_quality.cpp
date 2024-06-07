@@ -311,19 +311,16 @@ void WaterQuality::ph_calibration(float cal)
     float eeprom;
     uint8_t PHVALUEADDR = 0x00;
     bool isEepromEmpty = 1;
-    for (uint8_t i = 0; i < 4; i++)
-        if (EEPROM.read(PHVALUEADDR + i) != 0xFF)
+    if(EEPROM.read(PHVALUEADDR) == 0xFF && EEPROM.read(PHVALUEADDR + 1) == 0xFF && EEPROM.read(PHVALUEADDR + 2) == 0xFF && EEPROM.read(PHVALUEADDR + 3) == 0xFF)
+        if (round(cal) == neutralPh)
         {
-            isEepromEmpty = 0;
-            break;
+            EEPROM_write(PHVALUEADDR, an.phVoltage); // new EEPROM, write typical voltage
+            ESP_LOGI(TAG,"Calibrated to pH = %f", cal);
         }
-    if (isEepromEmpty & round(cal) == neutralPh)
-    {
-        EEPROM_write(PHVALUEADDR, an.phVoltage); // new EEPROM, write typical voltage
-        ESP_LOGI(TAG,"Calibrated to pH = %f", cal);
-    }
-    else
-        EEPROM_read(PHVALUEADDR, eeprom); //load the neutral (pH = 7.0) voltage of the pH board from the EEPROM
+        else
+        ESP_LOGI(TAG,"boş değil");
+    
+    EEPROM_read(PHVALUEADDR, eeprom); //load the neutral (pH = 7.0) voltage of the pH board from the EEPROM
     
     ESP_LOGI(TAG,"VALUEADDR = %d", PHVALUEADDR);
     ESP_LOGI(TAG,"DATA = %f", eeprom);
