@@ -318,8 +318,10 @@ void WaterQuality::ph_calibration(float cal)
             break;
         }
     if (isEepromEmpty)
-        {EEPROM_write(PHVALUEADDR, neutralVoltage); // new EEPROM, write typical voltage
-    }else
+    {
+        EEPROM_write(PHVALUEADDR, neutralVoltage); // new EEPROM, write typical voltage
+    }
+    else
         EEPROM_read(PHVALUEADDR, eeprom); //load the neutral (pH = 7.0) voltage of the pH board from the EEPROM
     
     ESP_LOGI(TAG,"VALUEADDR = %d", PHVALUEADDR);
@@ -334,7 +336,9 @@ void WaterQuality::ph_calibration(float cal)
             break;
         }
     if (isEepromEmpty)
+    {
         EEPROM_write(PHVALUEADDR, acidVoltage); // new EEPROM, write typical voltage
+    }
     else
         EEPROM_read(PHVALUEADDR, eeprom); //load the acid (pH = 4.0) voltage of the pH board from the EEPROM
     
