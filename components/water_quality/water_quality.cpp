@@ -317,9 +317,9 @@ void WaterQuality::ph_calibration(float cal)
             isEepromEmpty = 0;
             break;
         }
-    if (isEepromEmpty)
+    if (isEepromEmpty & static_cast<uint8_t>(cal) == neutralPh)
     {
-        EEPROM_write(PHVALUEADDR, neutralVoltage); // new EEPROM, write typical voltage
+        EEPROM_write(PHVALUEADDR, an.phVoltage); // new EEPROM, write typical voltage
     }
     else
         EEPROM_read(PHVALUEADDR, eeprom); //load the neutral (pH = 7.0) voltage of the pH board from the EEPROM
