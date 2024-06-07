@@ -216,7 +216,7 @@ void ph2(Analog* analog)
     if (millis() - printTime > 1000)
     {
         analog->set_PH_Val(phValue);
-        ESP_LOGI(TAG,"ph = %f", ph);
+        // ESP_LOGI(TAG,"ph = %f", ph);
         // ESP_LOGI(TAG,"pH = %f", pH);
         // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
         printTime = millis();
