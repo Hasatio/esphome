@@ -422,7 +422,7 @@ void WaterQuality::ph_calibration(float ph)
         eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
         eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
     
-        bool q = 0;
+        static bool q = 0;
         if (round(ph) != round(eepromPH2) && round(ph) != round(eepromPH2_backup) && !q || round(ph) == round(eepromPH1))
         {
             q = 1;
