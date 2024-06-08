@@ -36,8 +36,8 @@ float EEPROM_read(int address)
 
 void PH_Setup()
 {
-    float acidVoltage = 2032.44; // mV
-    float neutralVoltage = 1500; // mV
+    float acidVoltage = 0.483;// 2032.44; // mV
+    float neutralVoltage = 1.912;// 1500; // mV
     float baseVoltage = 967.56; // mV
 
     float acidPh = 4.0;
@@ -411,7 +411,7 @@ void WaterQuality::ph_calibration(float ph)
 {
     if (ph > 0)
     {
-        float voltage = an.phVoltage * 1000; // Convert from V to mV
+        float voltage = an.phVoltage;// * 1000; // Convert from V to mV
 
         EEPROM.begin(EEPROM_SIZE);
         

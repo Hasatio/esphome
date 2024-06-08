@@ -141,7 +141,7 @@ void ph2(Analog* analog)
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
     
-    float voltage = analog->phVoltage * 1000; // Convert from V to mV
+    float voltage = analog->phVoltage;// * 1000; // Convert from V to mV
 
     // Water
     // temp    ph
