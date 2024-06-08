@@ -36,9 +36,9 @@ float EEPROM_read(int address)
 
 void PH_Setup()
 {
-    float acidVoltage = 0.483;// 2032.44; // mV
-    float neutralVoltage = 1.912;// 1500; // mV
-    float baseVoltage = 967.56; // mV
+    float acidVoltage = 0.41;// 2032.44; // mV
+    float neutralVoltage = 1.78;// 1500; // mV
+    float baseVoltage = 3.02;//967.56; // mV
 
     float acidPh = 4.0;
     float neutralPh = 7.0;
