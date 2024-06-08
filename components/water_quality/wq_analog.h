@@ -56,7 +56,7 @@ float get_PH_Val()                      { return AnInPH_Val; }
 uint8_t get_EC_Ch()                     { return AnInEC_Ch; }
 uint8_t get_EC_Type()                   { return AnInEC_Type; }
 bool get_EC_Calibration()               { return EC_Calibration; }
-float get_EC_Cal()                      { return AnInEC_Cal; }
+float (*get_EC_Cal())[2]                { return AnInEC_Cal; }
 float get_EC_Val()                      { return AnInEC_Val; }
 float* get_Gen_Val()                    { return AnInGen_Val; }
 
