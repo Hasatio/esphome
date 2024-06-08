@@ -324,17 +324,18 @@ void WaterQuality::ph_calibration(float ph)
     ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
     ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
 
-    if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
-        EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
-    if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
-        EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
-    if (round(ph) != eepromPH2)
-    {
-        EEPROM_write(PH1ADDR, ph); // Write the calibrated pH value
-        EEPROM_write(Volt1ADDR, voltage); // Write the calibrated pH voltage
-        ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
-    }
+    // if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
+    //     EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
+    // if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
+    //     EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
+    // if (round(ph) != eepromPH2)
+    // {
+    //     EEPROM_write(PH1ADDR, ph); // Write the calibrated pH value
+    //     EEPROM_write(Volt1ADDR, voltage); // Write the calibrated pH voltage
+    //     ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
+    // }
     
+    esp_rom_erase_region(0, EEPROM_SIZE);
     
     ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
     ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
