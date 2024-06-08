@@ -46,14 +46,14 @@ void PH_Setup()
     
     EEPROM.begin(EEPROM_SIZE);
 
-    // if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
-    //     EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
-    // if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
-    //     EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
-    // if (EEPROM.read(PH2ADDR) == 0xFF && EEPROM.read(PH2ADDR + 1) == 0xFF && EEPROM.read(PH2ADDR + 2) == 0xFF && EEPROM.read(PH2ADDR + 3) == 0xFF)
-    //     EEPROM_write(PH2ADDR, acidPh); // New EEPROM, write typical pH value
-    // if (EEPROM.read(Volt2ADDR) == 0xFF && EEPROM.read(Volt2ADDR + 1) == 0xFF && EEPROM.read(Volt2ADDR + 2) == 0xFF && EEPROM.read(Volt2ADDR + 3) == 0xFF)
-    //     EEPROM_write(Volt2ADDR, acidVoltage); // New EEPROM, write typical pH voltage
+    if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
+        EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
+    if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
+        EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
+    if (EEPROM.read(PH2ADDR) == 0xFF && EEPROM.read(PH2ADDR + 1) == 0xFF && EEPROM.read(PH2ADDR + 2) == 0xFF && EEPROM.read(PH2ADDR + 3) == 0xFF)
+        EEPROM_write(PH2ADDR, acidPh); // New EEPROM, write typical pH value
+    if (EEPROM.read(Volt2ADDR) == 0xFF && EEPROM.read(Volt2ADDR + 1) == 0xFF && EEPROM.read(Volt2ADDR + 2) == 0xFF && EEPROM.read(Volt2ADDR + 3) == 0xFF)
+        EEPROM_write(Volt2ADDR, acidVoltage); // New EEPROM, write typical pH voltage
     
     float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
