@@ -42,23 +42,26 @@ void Analog::Analog_Input_Driver(float volts[])
     
 
     //Power
-    set_VoltPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2; R1 = 10k, R2 = 2k
+    set_VoltPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
     
 
     //Level
-    float lvl[2], Vmin[2], Vmax[2];
-    uint16_t res, volt, *resmin = get_ResMin(), *resmax = get_ResMax();
+    float lvl[2], lvlVmin[2], lvlVmax[2];
+    uint16_t* resMin = get_ResMin(), resMax = get_ResMax();
+    uint16_t lvlVolt; // Supply voltage for the voltage divider (V)
+    uint16_t lvlRes; // Resistance of the lower resistor in the voltage divider (Ω)
 
-    if (get_version() == 0) { res = 1000; volt = get_VoltPow_Val(); } // Version check
-    if (get_version() == 1) { res = 270; volt = 5; }
+    // Version check
+    if (get_version() == 0) { lvlVolt = get_VoltPow_Val(); lvlRes = 1000; } // Prototype version, Vs = Vin & R = 1k
+    if (get_version() == 1) { lvlVolt = 5; lvlRes = 270; } // First version, Vs = 5V & R = 270Ω
 
-    Vmin[0] = volt * resmin[0] / (res + resmin[0]); // Vout = Vin * R2 / (R1 + R2); R1 = 10k
-    Vmin[1] = volt * resmin[1] / (res + resmin[1]);
-    Vmax[0] = volt * resmax[0] / (res + resmax[0]);
-    Vmax[1] = volt * resmax[1] / (res + resmax[1]);
+    lvlVmin[0] = lvlVolt * resMin[0] / (lvlRes + resMin[0]); // Vout = Vin * R2 / (R1 + R2)
+    lvlVmin[1] = lvlVolt * resMin[1] / (lvlRes + resMin[1]);
+    lvlVmax[0] = lvlVolt * resMax[0] / (lvlRes + resMax[0]);
+    lvlVmax[1] = lvlVolt * resMax[1] / (lvlRes + resMax[1]);
 
-    lvl[0] = 100 * (volts[2] - Vmin[0]) / (Vmax[0] - Vmin[0]);
-    lvl[1] = 100 * (volts[3] - Vmin[1]) / (Vmax[1] - Vmin[1]);
+    lvl[0] = 100 * (volts[2] - lvlVmin[0]) / (lvlVmax[0] - lvlVmin[0]);
+    lvl[1] = 100 * (volts[3] - lvlVmin[1]) / (lvlVmax[1] - lvlVmin[1]);
     set_Lvl_Perc(lvl);
 
 

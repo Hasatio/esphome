@@ -89,12 +89,14 @@ void WaterQuality::setup()
 }
 void WaterQuality::dump_config()
 {
+    ESP_LOGCONFIG(TAG, "I2C:");
+    
     LOG_I2C_DEVICE(this);
-    if (this->is_failed())
-        ESP_LOGE(TAG, "Communication failed!");
-    else
-        ESP_LOGI(TAG, "Communication Successfulled!");
     LOG_UPDATE_INTERVAL(this);
+    if (this->is_failed())
+        ESP_LOGE(TAG, "  Communication failed!");
+    else
+        ESP_LOGI(TAG, "  Communication Successfulled!");
         
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
@@ -102,12 +104,12 @@ void WaterQuality::dump_config()
     Wire.beginTransmission(TCA9548_ADDRESS);
     if(!Wire.endTransmission())
     {
-        ESP_LOGI(TAG, "TCA9548:");
+        ESP_LOGCONFIG(TAG, "  TCA9548:");
 
         for (uint8_t t=0; t<8; t++)
         {
             tcaselect(t);
-            ESP_LOGI(TAG, "Channel %d:", t);
+            ESP_LOGI(TAG, "    Channel %d:", t);
 
             for (uint8_t addr = 0; addr<=127; addr++) 
             {
@@ -117,31 +119,31 @@ void WaterQuality::dump_config()
                 if (!Wire.endTransmission()) 
                 {
                     if (addr < 16)
-                        ESP_LOGI(TAG, "Found I2C 0x0%x",addr);
+                        ESP_LOGI(TAG, "      Found I2C 0x0%x",addr);
                     else
-                        ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+                        ESP_LOGI(TAG, "      Found I2C 0x%x",addr);
                 }
                 else if(Wire.endTransmission() == 4)
-                    ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+                    ESP_LOGE(TAG, "      Found the same I2C 0x%x",addr);
             }
         }
     }
     else
     {
-        ESP_LOGI(TAG, "I2C:");
-        
+        ESP_LOGCONFIG(TAG, "  I2C Devices:");
+
         for (uint8_t addr = 0; addr<=127; addr++) 
         {
             Wire.beginTransmission(addr);
             if (!Wire.endTransmission()) 
             {
                 if (addr < 16)
-                    ESP_LOGI(TAG, "Found I2C 0x0%x",addr);
+                    ESP_LOGI(TAG, "    Found I2C 0x0%x",addr);
                 else
-                    ESP_LOGI(TAG, "Found I2C 0x%x",addr);
+                    ESP_LOGI(TAG, "    Found I2C 0x%x",addr);
             }
             else if(Wire.endTransmission() == 4)
-                ESP_LOGE(TAG, "Found the same I2C 0x%x",addr);
+                ESP_LOGE(TAG, "    Found the same I2C 0x%x",addr);
         }
     }
 
@@ -149,15 +151,16 @@ void WaterQuality::dump_config()
 
     ESP_LOGCONFIG(TAG, "PCA9685:");
     if (this->extclk_) {
-        ESP_LOGCONFIG(TAG, "  EXTCLK: enabled");
+        ESP_LOGI(TAG, "  EXTCLK: enabled");
     } else {
-        ESP_LOGCONFIG(TAG, "  EXTCLK: disabled");
-        ESP_LOGCONFIG(TAG, "  Frequency: %.0f Hz", this->frequency_);
+        ESP_LOGI(TAG, "  EXTCLK: disabled");
+        ESP_LOGI(TAG, "  Frequency: %.0f Hz", this->frequency_);
     }
     if (this->is_failed()) {
-        ESP_LOGE(TAG, "Setting up PCA9685 failed!");
+        ESP_LOGE(TAG, "  Setting up PCA9685 failed!");
     }
     
+    ESP_LOGCONFIG(TAG, "Pumps:");
     uint8_t dose = 0, circ = 0;
     float* calib_gain = pump.get_Pump_Calibration_Gain();
     uint8_t* type = pump.get_Pump_Type();
@@ -168,17 +171,19 @@ void WaterQuality::dump_config()
         else if (type[i] == 2)
             circ += 1;
 
-    ESP_LOGI(TAG, "Pump_dose = %d", dose);
-    ESP_LOGI(TAG, "Pump_circ = %d", circ);
+    ESP_LOGI(TAG, "  Pump dose quantity: %d", dose);
+    ESP_LOGI(TAG, "  Pump circ quantity: %d", circ);
     for (uint8_t i = 0; i < 6; i++)
     {
-        ESP_LOGI(TAG, "Pump_Calibration_Gain[%d] = %.2f", i, calib_gain[i]);
-        ESP_LOGI(TAG, "Pump_Type[%d] = %d", i, type[i]);
+        ESP_LOGCONFIG(TAG, "  Pump%d:", i + 1);
+        ESP_LOGI(TAG, "    Pump Calibration Gain = %.2f", calib_gain[i]);
+        ESP_LOGI(TAG, "    Pump Type = %d", type[i]);
     }
-
+    
+    ESP_LOGCONFIG(TAG, "Level:");
     uint16_t *resmin = an.get_ResMin(), *resmax = an.get_ResMax();
     for (uint8_t i = 0; i < sizeof(resmin) / sizeof(resmin[0]); i++)
-        ESP_LOGI(TAG, "ResMin[%d] = %d, ResMax[%d] = %d", i, resmin[i], i, resmax[i]);
+        ESP_LOGI(TAG, "  ResMin[%d] = %d, ResMax[%d] = %d", i, resmin[i], i, resmax[i]);
 
     ESP_LOGCONFIG(TAG, "PH:");
     ESP_LOGI(TAG, "PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
