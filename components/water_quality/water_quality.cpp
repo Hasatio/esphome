@@ -81,7 +81,7 @@ void PH_Clear()
     EEPROM.commit();
     EEPROM.end();
 
-    ESP_LOGD(TAG, "PH Clear")
+    ESP_LOGD(TAG, "PH Clear");
     PH_Setup();
 }
 
