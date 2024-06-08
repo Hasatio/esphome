@@ -213,8 +213,7 @@ void WaterQuality::dump_config()
     float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
     
-    // EEPROM.commit();
-    // EEPROM.end();
+    EEPROM.end();
 
     ESP_LOGI(TAG,"  PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
     ESP_LOGI(TAG,"  Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
