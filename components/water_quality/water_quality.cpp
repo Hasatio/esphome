@@ -21,7 +21,6 @@ namespace water_quality {
 
 void WaterQuality::setup()
 {
-    EEPROM.begin(EEPROM_SIZE);
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
@@ -311,6 +310,7 @@ void WaterQuality::ph_calibration(float ph)
     
     float voltage = an.phVoltage * 1000; // Convert from V to mV
 
+    EEPROM.begin(EEPROM_SIZE);
     uint8_t PH1ADDR = 0x00, Volt1ADDR = 0x04;
     uint8_t PH2ADDR = 0x08, Volt2ADDR = 0x0c;
     float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
@@ -334,8 +334,6 @@ void WaterQuality::ph_calibration(float ph)
     //     ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
     // }
     
-    esp_rom_erase_region(0, EEPROM_SIZE);
-    
     eepromPH1 = EEPROM_read(PH1ADDR);
     eepromVolt1 = EEPROM_read(Volt1ADDR);
     eepromPH2 = EEPROM_read(PH2ADDR);
@@ -346,6 +344,9 @@ void WaterQuality::ph_calibration(float ph)
     ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
     ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
 
+    EEPROM.commit();
+    EEPROM.end();
+    
     float PH_Cal[2][2] = {neutralPh, neutralVoltage, acidPh, acidVoltage};
 
     an.set_PH_Cal(PH_Cal);
