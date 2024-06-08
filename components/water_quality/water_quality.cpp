@@ -61,7 +61,7 @@ void PH_Setup()
     float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
     
     EEPROM.commit();
-    EEPROM.end();
+    // EEPROM.end();
 
     ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
     ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
@@ -79,7 +79,7 @@ void PH_Clear()
         EEPROM.write(i, 0xFF);
 
     EEPROM.commit();
-    EEPROM.end();
+    // EEPROM.end();
 
     ESP_LOGD(TAG, "PH Clear");
     PH_Setup();
@@ -439,7 +439,7 @@ void WaterQuality::ph_calibration(float ph)
         }
         
         EEPROM.commit();
-        EEPROM.end();
+        // EEPROM.end();
 
         ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
         ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
