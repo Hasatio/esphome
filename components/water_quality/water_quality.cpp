@@ -40,9 +40,23 @@ void PH_Setup()
     float neutralPh = 7.0;
     float basePh = 10.0;
 
-    float acidVoltage = 0.41;// 2.03244; // V
-    float neutralVoltage = 1.78;// 1.500; // V
-    float baseVoltage = 3.02;// 0.96756; // V
+    float acidVoltage = 0; // V
+    float neutralVoltage = 0; // V
+    float baseVoltage = 0; // V
+
+    uint8_t version = an.get_PH_Type();
+    if (version == 1) // V1
+    {
+        acidVoltage = 0.41; // V
+        neutralVoltage = 1.78; // V
+        baseVoltage = 3.02; // V
+    }
+    else if (version == 2) // V2
+    {
+        acidVoltage = 2.03; // V
+        neutralVoltage = 1.50; // V
+        baseVoltage = 0.97; // V
+    }
 
     if (EEPROM.read(PH1_VAL_ADDR) == 0xFF && EEPROM.read(PH1_VAL_ADDR + 1) == 0xFF && EEPROM.read(PH1_VAL_ADDR + 2) == 0xFF && EEPROM.read(PH1_VAL_ADDR + 3))
         EEPROM_write(PH1_VAL_ADDR, neutralPh); // New EEPROM, write typical pH value
@@ -505,6 +519,29 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::ec_calibration(float ec)
 {
+    float voltage = an.ecVoltage;
+    float temperature = an.get_WatTemp_Val();
+    
+    float RES2 = 820.0;
+    float ECREF = 200.0;
+
+    float kvalueLow = EEPROM_read(EC1_VAL_ADDR);
+    float kvalue =  kvalueLow; // set default K value: K = kvalueLow
+
+    float rawEC = 1000 * voltage / RES2 / ECREF;
+    float valueTemp = rawEC * kvalue;
+    //automatic shift process
+    //First Range:(0,2); Second Range:(2,20)
+    if (valueTemp > 2.5)
+        kvalue = this->_kvalueHigh;
+    else if (valueTemp < 2.0)
+        kvalue = kvalueLow;
+
+    float ecvalue = this->_rawEC * kvalue; //calculate the EC value after automatic shift
+    ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
+
+    
+    ec *= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     if (ec > 0)
     {
         float voltage = an.ecVoltage;
