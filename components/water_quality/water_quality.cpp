@@ -469,7 +469,6 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::ec_calibration(float ec)
 {
-    
     if (ec > 0)
     {
         float voltage = an.ecVoltage;
@@ -513,7 +512,7 @@ void WaterQuality::ec_calibration(float ec)
         an.set_EC_Cal(EC_Cal);
     }
     else
-        PH_Clear();
+        EC_Clear();
 }
 void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
