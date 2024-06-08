@@ -327,7 +327,7 @@ void WaterQuality::ph_calibration(float ph)
     {
         EEPROM_write(PH1ADDR, ph); // Write the calibrated pH value
         EEPROM_write(Volt1ADDR, voltage); // Write the calibrated pH voltage
-        ESP_LOGI(TAG,"Calibrated to pH = %f", cal);
+        ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
     }
     
     
@@ -338,7 +338,7 @@ void WaterQuality::ph_calibration(float ph)
     float PH_Cal[2][2] = {neutralPh, neutralVoltage, acidPh, acidVoltage};
 
     an.set_PH_Cal(PH_Cal);
-    ESP_LOGI(TAG,"set_PH_Cal = %f", cal);
+    ESP_LOGI(TAG,"set_PH_Cal = %f", ph);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
