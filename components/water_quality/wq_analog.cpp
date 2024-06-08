@@ -12,7 +12,6 @@ void ph1(Analog* analog);
 void ph2(Analog* analog);
 double averageArray(float* arr, int number);
 
-        static uint16_t sample = 0;
 void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
@@ -39,12 +38,8 @@ void Analog::Analog_Input_Driver(float volts[])
         
         set_WatTemp_Val(WatTemp);
         set_Analog_Timepoint(millis());
-
-        ESP_LOGI(TAG, "sample = %d", sample);
-        sample = 0;
     }
     
-    sample++;
 
     //Power
     set_VoltPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
