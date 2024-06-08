@@ -508,8 +508,8 @@ void WaterQuality::ec_calibration(float ec)
     if (ec > 0)
     {
         float voltage = an.ecVoltage;
-        float eepromEC1val = 7, eepromEC1volt, eepromEC2val = 4, eepromEC2volt;
-        static float eepromEC1val_backup = eepromEC1, eepromEC2val_backup = eepromEC2;
+        float eepromEC1val = 1.413, eepromEC1volt, eepromEC2val = 12.88, eepromEC2volt;
+        static float eepromEC1val_backup = eepromEC1val, eepromEC2val_backup = eepromEC2val;
         
         eepromEC1val = EEPROM_read(EC1_VAL_ADDR); // Load the value of the EC board from the EEPROM
         eepromEC1volt = EEPROM_read(EC1_VOLT_ADDR); // Load the voltage of the EC board from the EEPROM
