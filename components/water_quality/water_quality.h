@@ -20,6 +20,8 @@
 #include <EEPROM.h>
 #include "wq_i2c.h"
 
+#define EEPROM_SIZE 64 // 64 byte
+
 namespace esphome {
 namespace water_quality {
 

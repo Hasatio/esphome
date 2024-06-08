@@ -14,8 +14,20 @@
 namespace esphome {
 namespace water_quality {
 
-#define EEPROM_write(address, p) {int i = 0; byte *pp = (byte*)&(p);for(; i < sizeof(p); i++) EEPROM.write(address+i, pp[i]);}
-#define EEPROM_read(address, p)  {int i = 0; byte *pp = (byte*)&(p);for(; i < sizeof(p); i++) pp[i]=EEPROM.read(address+i);}
+void EEPROM_write(int address, float value)
+{
+    byte *data = (byte*)&(value);
+    for (int i = 0; i < sizeof(value); i++)
+        EEPROM.write(address + i, data[i]);
+}
+float EEPROM_read(int address)
+{
+    float value = 0.0;
+    byte *data = (byte*)&(value);
+    for (int i = 0; i < sizeof(value); i++)
+        data[i] = EEPROM.read(address + i);
+    return value;
+}
 
 class Analog
 {

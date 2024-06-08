@@ -21,6 +21,7 @@ namespace water_quality {
 
 void WaterQuality::setup()
 {
+    EEPROM.begin(EEPROM_SIZE);
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
@@ -310,14 +311,12 @@ void WaterQuality::ph_calibration(float ph)
     
     float voltage = an.phVoltage * 1000; // Convert from V to mV
 
-    float eepromPH1, eepromVolt1;
-    float eepromPH2, eepromVolt2;
     uint8_t PH1ADDR = 0x00, Volt1ADDR = 0x04;
     uint8_t PH2ADDR = 0x08, Volt2ADDR = 0x0c;
-    EEPROM_read(PH1ADDR, eepromPH1); // Load the value of the pH board from the EEPROM
-    EEPROM_read(Volt1ADDR, eepromVolt1); // Load the voltage of the pH board from the EEPROM
-    EEPROM_read(PH2ADDR, eepromPH2); // Load the value of the pH board from the EEPROM
-    EEPROM_read(Volt2ADDR, eepromVolt2); // Load the voltage of the pH board from the EEPROM
+    float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
+    float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
 
     ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
     ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
@@ -336,6 +335,11 @@ void WaterQuality::ph_calibration(float ph)
     // }
     
     esp_rom_erase_region(0, EEPROM_SIZE);
+    
+    eepromPH1 = EEPROM_read(PH1ADDR);
+    eepromVolt1 = EEPROM_read(Volt1ADDR);
+    eepromPH2 = EEPROM_read(PH2ADDR);
+    eepromVolt2 = EEPROM_read(Volt2ADDR);
     
     ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
     ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
