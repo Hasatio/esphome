@@ -219,15 +219,15 @@ void WaterQuality::dump_config()
     ESP_LOGCONFIG(TAG, "PH:");
     ESP_LOGI(TAG, "  PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
 
-    float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
-    float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
-    float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
-    float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
+    float eepromPH1 = EEPROM_read(PH_VAL1_ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt1 = EEPROM_read(PH_VOLT1_ADDR); // Load the voltage of the pH board from the EEPROM
+    float eepromPH2 = EEPROM_read(PH_VAL2_ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt2 = EEPROM_read(PH_VOLT2_ADDR); // Load the voltage of the pH board from the EEPROM
 
-    ESP_LOGI(TAG,"  PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
-    ESP_LOGI(TAG,"  Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
-    ESP_LOGI(TAG,"  PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
-    ESP_LOGI(TAG,"  Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
+    ESP_LOGI(TAG,"  PH_VAL1_ADDR = %d    eepromPH1 = %f", PH_VAL1_ADDR, eepromPH1);
+    ESP_LOGI(TAG,"  PH_VOLT1_ADDR = %d    eepromVolt1 = %f", PH_VOLT1_ADDR, eepromVolt1);
+    ESP_LOGI(TAG,"  PH_VAL2_ADDR = %d    eepromPH2 = %f", PH_VAL2_ADDR, eepromPH2);
+    ESP_LOGI(TAG,"  PH_VOLT2_ADDR = %d    eepromVolt2 = %f", PH_VOLT2_ADDR, eepromVolt2);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EC
