@@ -63,6 +63,11 @@ void PH_Setup()
     EEPROM.commit();
     EEPROM.end();
 
+    ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
+    ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
+    ESP_LOGD(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
+    ESP_LOGD(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
+
     float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
 
     an.set_PH_Cal(PH_Cal);
@@ -76,6 +81,7 @@ void PH_Clear()
     EEPROM.commit();
     EEPROM.end();
 
+    ESP_LOGD(TAG, "PH Clear")
     PH_Setup();
 }
 
@@ -387,17 +393,17 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ph_calibration(float ph)
 {
-    float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
-    float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
-    float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
-    float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
-    
     if (ph > 0)
     {
         float voltage = an.phVoltage * 1000; // Convert from V to mV
 
         EEPROM.begin(EEPROM_SIZE);
         
+        float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
+        float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
+        float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
+        float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
+    
         if (round(ph) != eepromPH2)
         {
             eepromPH1 = ph;
@@ -417,18 +423,18 @@ void WaterQuality::ph_calibration(float ph)
         
         EEPROM.commit();
         EEPROM.end();
+
+        ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
+        ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
+        ESP_LOGD(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
+        ESP_LOGD(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
+
+        float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
+
+        an.set_PH_Cal(PH_Cal);
     }
     else
         PH_Clear();
-
-    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
-    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
-    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
-    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
-
-    float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
-
-    an.set_PH_Cal(PH_Cal);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
