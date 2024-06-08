@@ -36,7 +36,7 @@ void set_PH_Val(float ph)                       { AnInPH_Val = ph; }
 void set_EC_Ch(uint8_t ec)                      { AnInEC_Ch = ec; }
 void set_EC_Type(uint8_t ec)                    { AnInEC_Type = ec; }
 void set_EC_Calibration(bool cal)               { EC_Calibration = cal; }
-void set_EC_Cal(float cal)                      { AnInEC_Cal = cal; }
+void set_EC_Cal(float ec)                       { AnInEC_Cal = ec; }
 void set_EC_Val(float ec)                       { AnInEC_Val = ec; }
 void set_Gen_Val(float gen[])                   { for (uint8_t i = 0; i < 2; i++)    AnInGen_Val[i] = gen[i]; }
 
