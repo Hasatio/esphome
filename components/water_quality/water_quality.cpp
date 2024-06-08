@@ -63,6 +63,11 @@ void PH_Setup()
     EEPROM.commit();
     EEPROM.end();
 
+    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
+    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
+    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
+    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
+    
     float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
 
     an.set_PH_Cal(PH_Cal);
