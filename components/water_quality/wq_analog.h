@@ -9,7 +9,6 @@
 #include "DFRobot_EC10.h"
 #include "DFRobot_PH.h"
 #include <cmath>
-#include <EEPROM.h>
 
 namespace esphome {
 namespace water_quality {

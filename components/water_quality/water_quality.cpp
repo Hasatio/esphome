@@ -302,7 +302,7 @@ void WaterQuality::loop()
         sample = 0;
     }
 
-    sample += 1;
+    sample++;
 }
 void WaterQuality::update()
 {
