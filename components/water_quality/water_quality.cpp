@@ -8,6 +8,21 @@
 namespace esphome {
 namespace water_quality {
 
+void EEPROM_write(int address, float value)
+{
+    byte *data = (byte*)&(value);
+    for (int i = 0; i < sizeof(value); i++)
+        EEPROM.write(address + i, data[i]);
+}
+float EEPROM_read(int address)
+{
+    float value = 0.0;
+    byte *data = (byte*)&(value);
+    for (int i = 0; i < sizeof(value); i++)
+        data[i] = EEPROM.read(address + i);
+    return value;
+}
+
 // WaterQuality water_quality_instance;
 // WQ_I2C i2c(&water_quality_instance);
 
@@ -346,7 +361,7 @@ void WaterQuality::ph_calibration(float ph)
 
     EEPROM.commit();
     EEPROM.end();
-    
+
     float PH_Cal[2][2] = {neutralPh, neutralVoltage, acidPh, acidVoltage};
 
     an.set_PH_Cal(PH_Cal);

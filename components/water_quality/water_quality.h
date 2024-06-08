@@ -27,21 +27,6 @@ namespace water_quality {
 
 static const char *const TAG = "mycomponent";
 
-void EEPROM_write(int address, float value)
-{
-    byte *data = (byte*)&(value);
-    for (int i = 0; i < sizeof(value); i++)
-        EEPROM.write(address + i, data[i]);
-}
-float EEPROM_read(int address)
-{
-    float value = 0.0;
-    byte *data = (byte*)&(value);
-    for (int i = 0; i < sizeof(value); i++)
-        data[i] = EEPROM.read(address + i);
-    return value;
-}
-
 enum ADS1115_Registers
 {
     ADS1115_REGISTER_CONVERSION = 0x00,
