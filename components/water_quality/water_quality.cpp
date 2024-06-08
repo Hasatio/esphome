@@ -74,7 +74,7 @@ void PH_Setup()
 }
 void PH_Clear()
 {
-    // EEPROM.begin(EEPROM_SIZE);
+    EEPROM.begin(EEPROM_SIZE);
     for (uint8_t i = 0; i < EEPROM_SIZE; i++)
         EEPROM.write(i, 0xFF);
 
@@ -414,7 +414,7 @@ void WaterQuality::ph_calibration(float ph)
         float eepromPH1 = 7, eepromVolt1, eepromPH2 = 4, eepromVolt2;
         static float eepromPH1_backup = eepromPH1, eepromPH2_backup = eepromPH2;
 
-        // EEPROM.begin(EEPROM_SIZE);
+        EEPROM.begin(EEPROM_SIZE);
         
         eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
         eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
