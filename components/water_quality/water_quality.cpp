@@ -74,7 +74,7 @@ void PH_Setup()
 }
 void PH_Clear()
 {
-    EEPROM.begin(EEPROM_SIZE);
+    // EEPROM.begin(EEPROM_SIZE);
     for (uint8_t i = 0; i < EEPROM_SIZE; i++)
         EEPROM.write(i, 0xFF);
 
@@ -207,14 +207,14 @@ void WaterQuality::dump_config()
 
     ESP_LOGCONFIG(TAG, "PH:");
     ESP_LOGI(TAG, "  PH_ch = %d, PH_type = %d", an.get_PH_Ch(), an.get_PH_Type());
-    EEPROM.begin(EEPROM_SIZE);
+    // EEPROM.begin(EEPROM_SIZE);
     float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
     float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
     
-    EEPROM.commit();
-    EEPROM.end();
+    // EEPROM.commit();
+    // EEPROM.end();
 
     ESP_LOGI(TAG,"  PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
     ESP_LOGI(TAG,"  Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
@@ -413,7 +413,7 @@ void WaterQuality::ph_calibration(float ph)
     {
         float voltage = an.phVoltage;
 
-        EEPROM.begin(EEPROM_SIZE);
+        // EEPROM.begin(EEPROM_SIZE);
         
         float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
         float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
