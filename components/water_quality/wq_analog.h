@@ -34,7 +34,7 @@ void set_Lvl_Perc(float lvl[])                  { for (uint8_t i = 0; i < 2; i++
 void set_PH_Ch(uint8_t ph)                      { AnInPH_Ch = ph; }
 void set_PH_Type(uint8_t ph)                    { AnInPH_Type = ph; }
 void set_PH_Calibration(bool cal)               { PH_Calibration = cal; }
-void set_PH_Cal(float cal[][2])                 { for (uint8_t i = 0; i < 2; i++)    for (uint8_t j = 0; j < 2; j++)  AnInPH_Cal[i][j] = cal[i][j]; }
+void set_PH_Cal(float ph[][2])                  { for (uint8_t i = 0; i < 2; i++)    for (uint8_t j = 0; j < 2; j++)  AnInPH_Cal[i][j] = cal[i][j]; }
 void set_PH_Val(float ph)                       { AnInPH_Val = ph; }
 void set_EC_Ch(uint8_t ec)                      { AnInEC_Ch = ec; }
 void set_EC_Type(uint8_t ec)                    { AnInEC_Type = ec; }

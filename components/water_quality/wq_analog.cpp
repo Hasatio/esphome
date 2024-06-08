@@ -138,6 +138,8 @@ void ph2(Analog* analog)
     static unsigned long samplingTime = millis();
     static unsigned long printTime = millis();
     
+    float voltage = analog->phVoltage * 1000; // Convert from V to mV
+
     // Water
     // temp    ph
     // 0       7.47
@@ -192,18 +194,17 @@ void ph2(Analog* analog)
     // float _phValue = phValue + (temp - 25.0) * temperatureCoefficient;
 
     float (*phCal)[2] = analog->get_PH_Cal();
-    float phFirst = phCal[0][0], phSecond = phCal[1][0];
-    float phVolt1 = phCal[0][1], phVolt2 = phCal[1][1];
+    float phVal1 = phCal[0][0], phVolt1 = phCal[0][1];
+    float phVal2 = phCal[1][0], phVolt2 = phCal[1][1];
 
     // Calculate the slope between two points
-    float slope = (phSecond - phFirst) / (phVolt2 - phVolt1); // m = (y2 - y1) / (x2 - x1)
+    float slope = (phVal2 - phVal1) / (phVolt2 - phVolt1); // m = (y2 - y1) / (x2 - x1)
     // Calculate the y-intercept
-    float intercept = phSecond - slope * phVolt2; // b = y1 - m * x1 | b = y2 - m * x2
+    float intercept = phVal2 - slope * phVolt2; // b = y1 - m * x1 | b = y2 - m * x2
     // Verilen voltaj için pH değerini hesaplama
-    float phValue =  slope * (analog->phVoltage - phVolt1) + intercept; // y = m * x + b
+    float phValue =  slope * (voltage - phVolt1) + intercept; // y = m * x + b
     
 
-    static float voltage;
     if (millis() - samplingTime > samplingInterval)
     {
         pHArray[pHArrayIndex++] = analog->phVoltage;

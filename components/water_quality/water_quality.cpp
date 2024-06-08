@@ -298,50 +298,42 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
     an.set_ResMin(rminArray);
     an.set_ResMax(rmaxArray);
 }
-void WaterQuality::ph_calibration(float cal)
+void WaterQuality::ph_calibration(float ph)
 {
-    float acidVoltage = 0.61;
-    float neutralVoltage = 1.96;
-    float baseVoltage = 3.31;
+    float acidVoltage = 2032.44; // mV
+    float neutralVoltage = 1500; // mV
+    float baseVoltage = 967.56; // mV
 
     float acidPh = 4.0;
     float neutralPh = 7.0;
     float basePh = 10.0;
     
-    float eeprom;
-    uint8_t PHVALUEADDR = 0x00;
-    bool isEepromEmpty = 1;
-    if(EEPROM.read(PHVALUEADDR) == 0xFF && EEPROM.read(PHVALUEADDR + 1) == 0xFF && EEPROM.read(PHVALUEADDR + 2) == 0xFF && EEPROM.read(PHVALUEADDR + 3) == 0xFF)
-        if (round(cal) == neutralPh)
-        {
-            EEPROM_write(PHVALUEADDR, an.phVoltage); // new EEPROM, write typical voltage
-            ESP_LOGI(TAG,"Calibrated to pH = %f", cal);
-        }
-        else
-        ESP_LOGI(TAG,"boş değil");
-    
-    EEPROM_read(PHVALUEADDR, eeprom); //load the neutral (pH = 7.0) voltage of the pH board from the EEPROM
-    
-    ESP_LOGI(TAG,"VALUEADDR = %d", PHVALUEADDR);
-    ESP_LOGI(TAG,"DATA = %f", eeprom);
+    float voltage = an.phVoltage * 1000; // Convert from V to mV
 
-    PHVALUEADDR += 4;
-    isEepromEmpty = 1;
-    for (uint8_t i = 4; i < 8; i++)
-        if (EEPROM.read(PHVALUEADDR + i) != 0xFF)
-        {
-            isEepromEmpty = 0;
-            break;
-        }
-    if (isEepromEmpty)
+    float eepromPH1, eepromVolt1;
+    float eepromPH2, eepromVolt2;
+    uint8_t PH1ADDR = 0x00, Volt1ADDR = 0x04;
+    uint8_t PH2ADDR = 0x08, Volt2ADDR = 0x0c;
+    EEPROM_read(PH1ADDR, eepromPH1); // Load the value of the pH board from the EEPROM
+    EEPROM_read(Volt1ADDR, eepromVolt1); // Load the voltage of the pH board from the EEPROM
+    EEPROM_read(PH2ADDR, eepromPH2); // Load the value of the pH board from the EEPROM
+    EEPROM_read(Volt2ADDR, eepromVolt2); // Load the voltage of the pH board from the EEPROM
+
+    if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
+        EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
+    if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
+        EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
+    if (round(ph) != eepromPH2)
     {
-        EEPROM_write(PHVALUEADDR, acidVoltage); // new EEPROM, write typical voltage
+        EEPROM_write(PH1ADDR, ph); // Write the calibrated pH value
+        EEPROM_write(Volt1ADDR, voltage); // Write the calibrated pH voltage
+        ESP_LOGI(TAG,"Calibrated to pH = %f", cal);
     }
-    else
-        EEPROM_read(PHVALUEADDR, eeprom); //load the acid (pH = 4.0) voltage of the pH board from the EEPROM
     
-    ESP_LOGI(TAG,"VALUEADDR = %d", PHVALUEADDR);
-    ESP_LOGI(TAG,"DATA = %f", eeprom);
+    
+    
+    ESP_LOGI(TAG,"PH1ADDR = %d", PH1ADDR);
+    ESP_LOGI(TAG,"eepromPH1 = %f", eepromPH1);
 
     float PH_Cal[2][2] = {neutralPh, neutralVoltage, acidPh, acidVoltage};
 
