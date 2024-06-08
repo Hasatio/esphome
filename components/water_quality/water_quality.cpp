@@ -300,8 +300,8 @@ void WaterQuality::loop()
         ESP_LOGI(TAG, "sample = %d", sample);
         sample = 0;
     }
-    
-    sample++;
+
+    sample += 1;
 }
 void WaterQuality::update()
 {
