@@ -202,7 +202,7 @@ void ph2(Analog* analog)
     // Calculate the y-intercept
     float intercept = phVal2 - slope * phVolt2; // b = y1 - m * x1 | b = y2 - m * x2
     // Verilen voltaj için pH değerini hesaplama
-    float phValue =  slope * (voltage - phVolt1) + intercept; // y = m * x + b
+    float phValue = abs(slope * (voltage - phVolt1) + intercept); // y = m * x + b
     
 
     if (millis() - samplingTime > samplingInterval)
