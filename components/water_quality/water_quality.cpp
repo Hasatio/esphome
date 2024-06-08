@@ -297,6 +297,7 @@ void WaterQuality::loop()
 
     if (millis() - time >= 1000)
     {
+        time = millis();
         ESP_LOGI(TAG, "sample = %d", sample);
         sample = 0;
     }
