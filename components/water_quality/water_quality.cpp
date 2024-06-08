@@ -333,10 +333,18 @@ void WaterQuality::ph_calibration(float ph)
     float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
 
-    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
-    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
-    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
-    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
+    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %d", PH1ADDR, eepromPH1);
+    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %d", Volt1ADDR, eepromVolt1);
+    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %d", PH2ADDR, eepromPH2);
+    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %d", Volt2ADDR, eepromVolt2);
+    ESP_LOGCONFIG(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
+    ESP_LOGCONFIG(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
+    ESP_LOGCONFIG(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
+    ESP_LOGCONFIG(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
+    ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
+    ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
+    ESP_LOGD(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
+    ESP_LOGD(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
 
     // if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
     //     EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
@@ -354,10 +362,18 @@ void WaterQuality::ph_calibration(float ph)
     eepromPH2 = EEPROM_read(PH2ADDR);
     eepromVolt2 = EEPROM_read(Volt2ADDR);
     
-    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
-    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
-    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
-    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
+    ESP_LOGI(TAG,"PH1ADDR = %d    eepromPH1 = %d", PH1ADDR, eepromPH1);
+    ESP_LOGI(TAG,"Volt1ADDR = %d    eepromVolt1 = %d", Volt1ADDR, eepromVolt1);
+    ESP_LOGI(TAG,"PH2ADDR = %d    eepromPH2 = %d", PH2ADDR, eepromPH2);
+    ESP_LOGI(TAG,"Volt2ADDR = %d    eepromVolt2 = %d", Volt2ADDR, eepromVolt2);
+    ESP_LOGCONFIG(TAG,"PH1ADDR = %d    eepromPH1 = %x", PH1ADDR, eepromPH1);
+    ESP_LOGCONFIG(TAG,"Volt1ADDR = %d    eepromVolt1 = %x", Volt1ADDR, eepromVolt1);
+    ESP_LOGCONFIG(TAG,"PH2ADDR = %d    eepromPH2 = %x", PH2ADDR, eepromPH2);
+    ESP_LOGCONFIG(TAG,"Volt2ADDR = %d    eepromVolt2 = %x", Volt2ADDR, eepromVolt2);
+    ESP_LOGD(TAG,"PH1ADDR = %d    eepromPH1 = %f", PH1ADDR, eepromPH1);
+    ESP_LOGD(TAG,"Volt1ADDR = %d    eepromVolt1 = %f", Volt1ADDR, eepromVolt1);
+    ESP_LOGD(TAG,"PH2ADDR = %d    eepromPH2 = %f", PH2ADDR, eepromPH2);
+    ESP_LOGD(TAG,"Volt2ADDR = %d    eepromVolt2 = %f", Volt2ADDR, eepromVolt2);
 
     EEPROM.commit();
     EEPROM.end();
