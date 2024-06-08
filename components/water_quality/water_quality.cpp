@@ -80,11 +80,17 @@ void PH_Clear()
 void EC_Setup()
 {
     for (uint8_t i = 0; i < EEPROM_SIZE; i++)
-        ESP_LOGD(TAG, "eeprom%d: %f", i, EEPROM_read(i);
+        ESP_LOGD(TAG, "eeprom%d: %f", i, EEPROM_read(i));
 }
 void EC_Clear()
 {
+    for (uint8_t i = 0; i < EEPROM_SIZE; i++)
+        EEPROM.write(i, 0xFF);
 
+    EEPROM.commit();
+
+    ESP_LOGD(TAG, "EC Clear");
+    EC_Setup();
 }
 
 void WaterQuality::setup()
