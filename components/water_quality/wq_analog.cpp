@@ -47,7 +47,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
     //Level
     float lvl[2], lvlVmin[2], lvlVmax[2];
-    uint16_t* resMin = get_ResMin(), resMax = get_ResMax();
+    uint16_t *resMin = get_ResMin(), *resMax = get_ResMax();
     uint16_t lvlVolt; // Supply voltage for the voltage divider (V)
     uint16_t lvlRes; // Resistance of the lower resistor in the voltage divider (Ω)
 
