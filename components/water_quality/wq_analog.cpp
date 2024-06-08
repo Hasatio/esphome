@@ -44,8 +44,7 @@ void Analog::Analog_Input_Driver(float volts[])
         sample = 0;
     }
     
-    if (volts[0] > 0) sample++;
-    volts[0] = 0;
+    sample++;
 
     //Power
     set_VoltPow_Val(volts[1] * 6); // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
