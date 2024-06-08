@@ -20,15 +20,21 @@
 #include <EEPROM.h>
 #include "wq_i2c.h"
 
-#define EEPROM_SIZE 64 // 64 byte
-#define PH_VAL1_ADDR 0x07
-#define PH_VOLT1_ADDR 0x08
-#define PH_VAL2_ADDR 0x09
-#define PH_VOLT2_ADDR 0x0A
-#define EC_VAL1_ADDR 0x0B
-#define EC_VOLT1_ADDR 0x0C
-#define EC_VAL2_ADDR 0x0D
-#define EC_VOLT2_ADDR 0x0E
+#define EEPROM_SIZE 56 // 56 byte
+#define PUMP1_CALIB_ADDR 0x00
+#define PUMP2_CALIB_ADDR 0x04
+#define PUMP3_CALIB_ADDR 0x08
+#define PUMP4_CALIB_ADDR 0x0C
+#define PUMP5_CALIB_ADDR 0x10
+#define PUMP6_CALIB_ADDR 0x14
+#define PH1_VAL_ADDR 0x18
+#define PH1_VOLT_ADDR 0x1C
+#define PH2_VAL_ADDR 0x20
+#define PH2_VOLT_ADDR 0x24
+#define EC1_VAL_ADDR 0x28
+#define EC1_VOLT_ADDR 0x2C
+#define EC2_VAL_ADDR 0x30
+#define EC2_VOLT_ADDR 0x34
 
 namespace esphome {
 namespace water_quality {
