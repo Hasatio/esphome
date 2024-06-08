@@ -8,6 +8,17 @@
 namespace esphome {
 namespace water_quality {
 
+// WaterQuality water_quality_instance;
+// WQ_I2C i2c(&water_quality_instance);
+
+//     // WQ_I2C i2c;
+    Analog an;
+    Digital dig;
+    Pump pump;
+    Servo ser;
+
+// WaterQuality::WaterQuality() { wq_i2c_ = new WQ_I2C(this); }
+
 void EEPROM_write(int address, float value)
 {
     byte *data = (byte*)&(value);
@@ -23,16 +34,39 @@ float EEPROM_read(int address)
     return value;
 }
 
-// WaterQuality water_quality_instance;
-// WQ_I2C i2c(&water_quality_instance);
+void PH_Setup()
+{
+    float acidVoltage = 2032.44; // mV
+    float neutralVoltage = 1500; // mV
+    float baseVoltage = 967.56; // mV
 
-//     // WQ_I2C i2c;
-    Analog an;
-    Digital dig;
-    Pump pump;
-    Servo ser;
+    float acidPh = 4.0;
+    float neutralPh = 7.0;
+    float basePh = 10.0;
+    
+    EEPROM.begin(EEPROM_SIZE);
 
-// WaterQuality::WaterQuality() { wq_i2c_ = new WQ_I2C(this); }
+    if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
+        EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
+    if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
+        EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
+    if (EEPROM.read(PH2ADDR) == 0xFF && EEPROM.read(PH2ADDR + 1) == 0xFF && EEPROM.read(PH2ADDR + 2) == 0xFF && EEPROM.read(PH2ADDR + 3) == 0xFF)
+        EEPROM_write(PH2ADDR, acidPh); // New EEPROM, write typical pH value
+    if (EEPROM.read(Volt2ADDR) == 0xFF && EEPROM.read(Volt2ADDR + 1) == 0xFF && EEPROM.read(Volt2ADDR + 2) == 0xFF && EEPROM.read(Volt2ADDR + 3) == 0xFF)
+        EEPROM_write(Volt2ADDR, acidVoltage); // New EEPROM, write typical pH voltage
+    
+    float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
+    float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
+    float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
+    
+    EEPROM.commit();
+    EEPROM.end();
+
+    float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
+
+    an.set_PH_Cal(PH_Cal);
+}
 
 void WaterQuality::setup()
 {
@@ -40,6 +74,7 @@ void WaterQuality::setup()
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
+    PH_Setup();
 }
 void WaterQuality::dump_config()
 {
@@ -315,50 +350,31 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
 }
 void WaterQuality::ph_calibration(float ph)
 {
-    float acidVoltage = 2032.44; // mV
-    float neutralVoltage = 1500; // mV
-    float baseVoltage = 967.56; // mV
-
-    float acidPh = 4.0;
-    float neutralPh = 7.0;
-    float basePh = 10.0;
-    
     float voltage = an.phVoltage * 1000; // Convert from V to mV
 
     EEPROM.begin(EEPROM_SIZE);
-    uint8_t PH1ADDR = 0x00, Volt1ADDR = 0x04;
-    uint8_t PH2ADDR = 0x08, Volt2ADDR = 0x0c;
+    
     float eepromPH1 = EEPROM_read(PH1ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt1 = EEPROM_read(Volt1ADDR); // Load the voltage of the pH board from the EEPROM
     float eepromPH2 = EEPROM_read(PH2ADDR); // Load the value of the pH board from the EEPROM
     float eepromVolt2 = EEPROM_read(Volt2ADDR); // Load the voltage of the pH board from the EEPROM
     
-    if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
-        EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
-    if (EEPROM.read(Volt1ADDR) == 0xFF && EEPROM.read(Volt1ADDR + 1) == 0xFF && EEPROM.read(Volt1ADDR + 2) == 0xFF && EEPROM.read(Volt1ADDR + 3) == 0xFF)
-        EEPROM_write(Volt1ADDR, neutralVoltage); // New EEPROM, write typical pH voltage
-    if (EEPROM.read(PH2ADDR) == 0xFF && EEPROM.read(PH2ADDR + 1) == 0xFF && EEPROM.read(PH2ADDR + 2) == 0xFF && EEPROM.read(PH2ADDR + 3) == 0xFF)
-        EEPROM_write(PH2ADDR, acidPh); // New EEPROM, write typical pH value
-    if (EEPROM.read(Volt2ADDR) == 0xFF && EEPROM.read(Volt2ADDR + 1) == 0xFF && EEPROM.read(Volt2ADDR + 2) == 0xFF && EEPROM.read(Volt2ADDR + 3) == 0xFF)
-        EEPROM_write(Volt2ADDR, acidVoltage); // New EEPROM, write typical pH voltage
-    
     if (round(ph) != eepromPH2)
     {
-        EEPROM_write(PH1ADDR, ph); // Write the calibrated pH value
-        EEPROM_write(Volt1ADDR, voltage); // Write the calibrated pH voltage
+        eepromPH1 = ph;
+        eepromVolt1 = voltage;
+        EEPROM_write(PH1ADDR, ph); // Store the current pH value as
+        EEPROM_write(Volt1ADDR, voltage); // Store the current pH voltage as
         ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
     }
     else if (round(ph) != eepromPH1)
     {
-        EEPROM_write(PH2ADDR, ph); // Write the calibrated pH value
-        EEPROM_write(Volt2ADDR, voltage); // Write the calibrated pH voltage
+        eepromPH2 = ph;
+        eepromVolt2 = voltage;
+        EEPROM_write(PH2ADDR, ph); // Store the current pH value as
+        EEPROM_write(Volt2ADDR, voltage); // Store the current pH voltage as
         ESP_LOGI(TAG,"Calibrated to pH = %f", ph);
     }
-
-    eepromPH1 = EEPROM_read(PH1ADDR);
-    eepromVolt1 = EEPROM_read(Volt1ADDR);
-    eepromPH2 = EEPROM_read(PH2ADDR);
-    eepromVolt2 = EEPROM_read(Volt2ADDR);
     
     EEPROM.commit();
     EEPROM.end();
@@ -371,7 +387,6 @@ void WaterQuality::ph_calibration(float ph)
     float PH_Cal[2][2] = {eepromPH1, eepromVolt1, eepromPH2, eepromVolt2};
 
     an.set_PH_Cal(PH_Cal);
-    ESP_LOGI(TAG,"set_PH_Cal = %f", ph);
 }
 void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 {
