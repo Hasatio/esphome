@@ -43,8 +43,6 @@ void PH_Setup()
     float acidPh = 4.0;
     float neutralPh = 7.0;
     float basePh = 10.0;
-    
-    EEPROM.begin(EEPROM_SIZE);
 
     if (EEPROM.read(PH1ADDR) == 0xFF && EEPROM.read(PH1ADDR + 1) == 0xFF && EEPROM.read(PH1ADDR + 2) == 0xFF && EEPROM.read(PH1ADDR + 3) == 0xFF)
         EEPROM_write(PH1ADDR, neutralPh); // New EEPROM, write typical pH value
@@ -79,14 +77,25 @@ void PH_Clear()
     ESP_LOGD(TAG, "PH Clear");
     PH_Setup();
 }
+void EC_Setup()
+{
+    for (uint8_t i = 0; i < EEPROM_SIZE; i++)
+        ESP_LOGD(TAG, "eeprom%d: %f", i, EEPROM_read(i);
+}
+void EC_Clear()
+{
+
+}
 
 void WaterQuality::setup()
 {
+    EEPROM.begin(EEPROM_SIZE);
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
     PCA9685_Setup(PCA9685_I2C_ADDRESS);
     PH_Setup();
+    EC_Setup();
 }
 void WaterQuality::dump_config()
 {
