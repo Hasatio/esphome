@@ -97,7 +97,7 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Gen_Val(gen);
 }
 
-void average(float value[])
+static void average(float value[])
 {
     uint8_t arraysize = sizeof(value);
     // Static 2D array to hold the last 20 values for each element
