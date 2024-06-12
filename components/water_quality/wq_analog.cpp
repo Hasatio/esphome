@@ -8,13 +8,14 @@ namespace water_quality {
 #define WINDOW_SIZE 20
 void average(float value[]);
 void ph(Analog* analog);
+void ec(Analog* analog);
 
 void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
 
     average(volts);
-    
+
     //Water Temperature
     uint16_t timeperiod = 1000; // Wait time before each update
 
@@ -61,15 +62,15 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Lvl_Perc(lvl);
 
 
-    //EC
-    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
-    
-
     //pH
     phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
     
     ph(this);
 
+
+    //EC
+    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
+    
 
     //Analog general
     float gen[2];
@@ -123,9 +124,6 @@ void average(float value[])
 }
 void ph(Analog* analog)
 {
-    static unsigned long samplingTime = millis();
-    static unsigned long printTime = millis();
-    
     float voltage = analog->phVoltage;
 
     // Water
@@ -196,6 +194,9 @@ void ph(Analog* analog)
     // ESP_LOGI(TAG,"ph = %f", ph);
     // ESP_LOGI(TAG,"pH = %f", pH);
     // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
+}
+void ec(Analog* analog)
+{
 }
 
 }  // namespace water_quality
