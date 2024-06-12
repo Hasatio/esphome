@@ -70,7 +70,7 @@ void Analog::Analog_Input_Driver(float volts[])
     //pH
     phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
     
-    ph2(this);
+    ph(this);
 
 
     //Analog general
@@ -122,7 +122,7 @@ void average(float value[])
         for (int j = 0; j < counts[i]; ++j)
             sum += history[i][j];
             
-        volts[i] = sum / std::min(counts[i], WINDOW_SIZE);
+        value[i] = sum / std::min(counts[i], WINDOW_SIZE);
     }
 }
 void ph(Analog* analog)
