@@ -6,7 +6,7 @@ namespace water_quality {
 // WaterQuality my;
 
 #define WINDOW_SIZE 20
-void average(float value[]);
+static void average(float value[]);
 void ph(Analog* analog);
 
 void Analog::Analog_Input_Driver(float volts[])
