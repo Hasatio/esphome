@@ -112,11 +112,8 @@ void average(float value[])
         // Add the new value to the end
         history[i][WINDOW_SIZE - 1] = value[i];
         // Increment the count of values if less than WINDOW_SIZE
-        for (uint8_t j = 0; j < WINDOW_SIZE; j++)
-            if (history[i][j] != 0)
-                counts[i]++;
-        // if (counts[i] < WINDOW_SIZE)
-        //     counts[i]++;
+        if (counts[i] < WINDOW_SIZE)
+            counts[i]++;
         
         // Calculate the average
         float sum = 0;
