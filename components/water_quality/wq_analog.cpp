@@ -196,16 +196,6 @@ void ph(Analog* analog)
     // Verilen voltaj için pH değerini hesaplama
     float phValue = abs(slope * (voltage) + intercept); // y = m * x + b
     
-
-    if (millis() - samplingTime > samplingInterval)
-    {
-        pHArray[pHArrayIndex++] = analog->phVoltage;
-        if (pHArrayIndex == ArrayLenth)
-            pHArrayIndex = 0;
-        voltage = averageArray(pHArray, ArrayLenth);
-        // phValue = 3.5 * voltage + analog->get_PH_Cal();
-        samplingTime = millis();
-    }
     if (millis() - printTime > 1000)
     {
         analog->set_PH_Val(phValue);
