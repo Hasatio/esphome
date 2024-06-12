@@ -266,10 +266,10 @@ void WaterQuality::dump_config()
     float eepromPH2val = EEPROM_read(PH2_VAL_ADDR); // Load the value of the pH board from the EEPROM
     float eepromPH2volt = EEPROM_read(PH2_VOLT_ADDR); // Load the voltage of the pH board from the EEPROM
 
-    ESP_LOGD(TAG,"PH1_VAL_ADDR = %d    eepromPH1val = %f", PH1_VAL_ADDR, eepromPH1val);
-    ESP_LOGD(TAG,"PH1_VOLT_ADDR = %d    eepromPH1volt = %f", PH1_VOLT_ADDR, eepromPH1volt);
-    ESP_LOGD(TAG,"PH2_VAL_ADDR = %d    eepromPH2val = %f", PH2_VAL_ADDR, eepromPH2val);
-    ESP_LOGD(TAG,"PH2_VOLT_ADDR = %d    eepromPH2volt = %f", PH2_VOLT_ADDR, eepromPH2volt);
+    ESP_LOGI(TAG,"  eepromPH1val = %f", eepromPH1val);
+    ESP_LOGI(TAG,"  eepromPH1volt = %f", eepromPH1volt);
+    ESP_LOGI(TAG,"  eepromPH2val = %f", eepromPH2val);
+    ESP_LOGI(TAG,"  eepromPH2volt = %f", eepromPH2volt);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  EC
@@ -282,10 +282,10 @@ void WaterQuality::dump_config()
     float eepromEC2val = EEPROM_read(EC2_VAL_ADDR); // Load the value of the EC board from the EEPROM
     float eepromEC2volt = EEPROM_read(EC2_VOLT_ADDR); // Load the voltage of the EC board from the EEPROM
 
-    ESP_LOGD(TAG,"EC1_VAL_ADDR = %d    eepromEC1val = %f", EC1_VAL_ADDR, eepromEC1val);
-    ESP_LOGD(TAG,"EC1_VOLT_ADDR = %d    eepromEC1volt = %f", EC1_VOLT_ADDR, eepromEC1volt);
-    ESP_LOGD(TAG,"EC2_VAL_ADDR = %d    eepromEC2val = %f", EC2_VAL_ADDR, eepromEC2val);
-    ESP_LOGD(TAG,"EC2_VOLT_ADDR = %d    eepromEC2volt = %f", EC2_VOLT_ADDR, eepromEC2volt);
+    ESP_LOGI(TAG,"  Calibrated EC val = %f", eepromEC1val);
+    ESP_LOGI(TAG,"  Calibrated EC volt = %f", eepromEC1volt);
+    ESP_LOGI(TAG,"  Calibrated EC val = %f", eepromEC2val);
+    ESP_LOGI(TAG,"  Calibrated EC volt = %f", eepromEC2volt);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

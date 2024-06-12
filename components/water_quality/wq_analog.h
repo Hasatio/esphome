@@ -19,7 +19,6 @@ public:
 
 void Analog_Input_Driver(float volts[]);
 
-void set_Analog_Timepoint(unsigned long time)   { AnIn_Timepoint = time; }
 void set_version(uint8_t ver)                   { version = ver; }
 void set_WatTemp_Res(uint16_t res)              { AnInWTemp_Res = res; }
 void set_WatTemp_Val(float wt)                  { AnInWTemp_Val = wt; }
@@ -39,7 +38,6 @@ void set_EC_Cal(float ec[][2])                  { for (uint8_t i = 0; i < 2; i++
 void set_EC_Val(float ec)                       { AnInEC_Val = ec; }
 void set_Gen_Val(float gen[])                   { for (uint8_t i = 0; i < 2; i++)    AnInGen_Val[i] = gen[i]; }
 
-unsigned long get_Analog_Timepoint()    { return AnIn_Timepoint; }
 uint8_t get_version()                   { return version; }	
 uint16_t get_WatTemp_Res()              { return AnInWTemp_Res; }
 float get_WatTemp_Val()                 { return AnInWTemp_Val; }
@@ -65,7 +63,6 @@ float ecVoltage,phVoltage,temperature;
 unsigned long now = 0;
 
 protected:
-unsigned long AnIn_Timepoint = 0;
 uint8_t version;
 uint16_t AnInWTemp_Res = 1000; // Temperature sensor model pt1000 and its resistance is 1k
 float AnInWTemp_Val = 0;
