@@ -35,7 +35,6 @@ void Analog::Analog_Input_Driver(float volts[])
     float WatTemp = (sqrt((-0.00232 * WatTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     
     set_WatTemp_Val(WatTemp);
-    set_Analog_Timepoint(millis());
     
 
     //Power
