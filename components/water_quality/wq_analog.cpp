@@ -5,9 +5,6 @@ namespace water_quality {
 
 // WaterQuality my;
 
-    DFRobot_PH ph;
-    DFRobot_EC ec;
-
 #define WINDOW_SIZE 20
 void average(float value[]);
 void ph(Analog* analog);
