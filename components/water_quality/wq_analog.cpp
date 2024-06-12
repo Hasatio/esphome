@@ -120,7 +120,7 @@ void average(float value[])
         for (uint8_t j = 0; j < counts[i]; j++)
             sum += history[i][j];
             
-        value[i] = sum / std::min(counts[i], WINDOW_SIZE);
+        value[i] = sum / std::min(counts[i], static_cast<uint8_t>(WINDOW_SIZE));
     }
 }
 void ph(Analog* analog)
