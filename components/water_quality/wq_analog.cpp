@@ -9,7 +9,7 @@ namespace water_quality {
     DFRobot_EC ec;
 
 #define WINDOW_SIZE 20
-void average(double value[]);
+void average(float value[]);
 void ph(Analog* analog);
 
 void Analog::Analog_Input_Driver(float volts[])
