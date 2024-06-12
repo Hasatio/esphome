@@ -6,7 +6,7 @@ namespace water_quality {
 // WaterQuality my;
 
 #define WINDOW_SIZE 20
-static void average(float value[]);
+void average(float value[]);
 void ph(Analog* analog);
 
 void Analog::Analog_Input_Driver(float volts[])
@@ -97,29 +97,30 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Gen_Val(gen);
 }
 
-static void average(float value[])
+// Static 2D array to hold the last 20 values for each element
+static float history[8][WINDOW_SIZE] = {};
+// Static array to hold the count of values for each element
+static uint8_t counts[8] = {0};
+void average(float value[])
 {
-    uint8_t arraysize = sizeof(value);
-    // Static 2D array to hold the last 20 values for each element
-    static float history[arraysize][WINDOW_SIZE] = {};
-    // Static array to hold the count of values for each element
-    static int counts[arraysize] = {0};
-
-    for (int i = 0; i < arraysize; ++i)
+    for (uint8_t i = 0; i < 8; ++i)
     {
         // Shift values left
-        for (int j = 1; j < WINDOW_SIZE; ++j)
-            history[i][j-1] = history[i][j];
+        for (uint8_t j = 1; j < WINDOW_SIZE; j++)
+            history[i][j - 1] = history[i][j];
             
         // Add the new value to the end
         history[i][WINDOW_SIZE - 1] = value[i];
         // Increment the count of values if less than WINDOW_SIZE
-        if (counts[i] < WINDOW_SIZE)
-            counts[i]++;
+        for (uint8_t j = 0; j < WINDOW_SIZE; j++)
+            if (history[i][j] != 0)
+                counts[i]++;
+        // if (counts[i] < WINDOW_SIZE)
+        //     counts[i]++;
         
         // Calculate the average
         float sum = 0;
-        for (int j = 0; j < counts[i]; ++j)
+        for (uint8_t j = 0; j < counts[i]; j++)
             sum += history[i][j];
             
         value[i] = sum / std::min(counts[i], WINDOW_SIZE);
