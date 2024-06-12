@@ -14,29 +14,27 @@ void Analog::Analog_Input_Driver(float volts[])
     // my.ADS1115_Driver(volts);
 
     average(volts);
+    
     //Water Temperature
     uint16_t timeperiod = 1000; // Wait time before each update
 
-    if (millis() - get_Analog_Timepoint() >= timeperiod)
-    {
-        float model_multiply = get_WatTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
-        float WatTemp_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
-        
-        float WatTemp_Res_Max = 3904.8;
-        float WatTemp_Res_Min = 185.2;
-        if (WatTemp_Res > WatTemp_Res_Max) // Max temp limit and set model multiplier 
-            WatTemp_Res = WatTemp_Res_Max * model_multiply;
-        else if (WatTemp_Res < WatTemp_Res_Min) // Min temp limit and set model multiplier 
-            WatTemp_Res = WatTemp_Res_Min * model_multiply;
-        else
-            WatTemp_Res = WatTemp_Res * model_multiply;
-        
-        // Formula                                                                                        _________________________
-        float WatTemp = (sqrt((-0.00232 * WatTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
-        
-        set_WatTemp_Val(WatTemp);
-        set_Analog_Timepoint(millis());
-    }
+    float model_multiply = get_WatTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
+    float WatTemp_Res = (volts[0] * 1000.0) / (5.0 - volts[0]) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    
+    float WatTemp_Res_Max = 3904.8;
+    float WatTemp_Res_Min = 185.2;
+    if (WatTemp_Res > WatTemp_Res_Max) // Max temp limit and set model multiplier 
+        WatTemp_Res = WatTemp_Res_Max * model_multiply;
+    else if (WatTemp_Res < WatTemp_Res_Min) // Min temp limit and set model multiplier 
+        WatTemp_Res = WatTemp_Res_Min * model_multiply;
+    else
+        WatTemp_Res = WatTemp_Res * model_multiply;
+    
+    // Formula                                                                                        _________________________
+    float WatTemp = (sqrt((-0.00232 * WatTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    
+    set_WatTemp_Val(WatTemp);
+    set_Analog_Timepoint(millis());
     
 
     //Power
@@ -194,14 +192,10 @@ void ph(Analog* analog)
     // Verilen voltaj için pH değerini hesaplama
     float phValue = abs(slope * (voltage) + intercept); // y = m * x + b
     
-    if (millis() - printTime > 1000)
-    {
-        analog->set_PH_Val(phValue);
-        // ESP_LOGI(TAG,"ph = %f", ph);
-        // ESP_LOGI(TAG,"pH = %f", pH);
-        // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
-        printTime = millis();
-    }
+    analog->set_PH_Val(phValue);
+    // ESP_LOGI(TAG,"ph = %f", ph);
+    // ESP_LOGI(TAG,"pH = %f", pH);
+    // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
 }
 
 }  // namespace water_quality
