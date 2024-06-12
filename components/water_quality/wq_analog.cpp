@@ -16,6 +16,7 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
 
+    average(volts);
     //Water Temperature
     uint16_t timeperiod = 1000; // Wait time before each update
 
