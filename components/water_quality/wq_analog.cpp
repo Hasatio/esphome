@@ -192,9 +192,8 @@ void ph(Analog* analog)
     float phValue = abs(slope * (voltage) + intercept); // y = m * x + b
     
     analog->set_PH_Val(phValue);
-    // ESP_LOGI(TAG,"ph = %f", ph);
-    // ESP_LOGI(TAG,"pH = %f", pH);
-    // ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
+    ESP_LOGI(TAG,"pH = %f", phValue);
+    ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
 }
 void ec(Analog* analog)
 {
