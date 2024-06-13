@@ -73,5 +73,5 @@ async def to_code(config):
     if CONF_PH in config:
         conf = config[CONF_PH]
         sens = await sensor.new_sensor(conf)
-        cg.add(parent.PPH_Val_Sensor(sens))
+        cg.add(parent.PH_Val_Sensor(sens))
         
