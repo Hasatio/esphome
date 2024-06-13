@@ -193,7 +193,7 @@ void ph(Analog* analog)
     
     analog->set_PH_Val(phValue);
     ESP_LOGI(TAG,"pH = %f", phValue);
-    ESP_LOGI(TAG,"voltage = %f", analog->phVoltage);
+    ESP_LOGI(TAG,"voltage = %f", analog->get_PH_Volt());
 }
 void ec(Analog* analog)
 {
