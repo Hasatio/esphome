@@ -540,7 +540,7 @@ void WaterQuality::ec_calibration(float ec)
         float RES2 = 820.0;
         float ECREF = 200.0;
 
-        float voltage = an.get_EC_Cal_Volt() * 100;
+        float voltage = an.get_EC_Cal_Volt() * 1000;
         float temperature = an.get_WatTemp_Val();
         
         float kvalueLow, eepromEC1volt, kvalueHigh, eepromEC2volt;
@@ -566,7 +566,7 @@ void WaterQuality::ec_calibration(float ec)
             else if((rawEC > 9) && (rawEC < 16.8))
                 kvalueHigh =  KValueTemp;
         }
-        
+
         ESP_LOGD(TAG,"voltage = %f", voltage);
         ESP_LOGD(TAG,"compECsolution = %f", compECsolution);
         ESP_LOGD(TAG,"KValueTemp = %f", KValueTemp);
