@@ -70,8 +70,8 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    // set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
-    // ec(this);
+    set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
+    ec(this);
 
     //Analog general
     float gen[2];
@@ -220,7 +220,7 @@ void ec(Analog* analog)
     float ecvalue = rawEC * kvalue; //calculate the EC value after automatic shift
     ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     
-    analog->set_PH_Val(ecvalue);
+    analog->set_EC_Val(ecvalue);
 }
 
 }  // namespace water_quality
