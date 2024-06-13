@@ -567,6 +567,7 @@ void WaterQuality::ec_calibration(float ec)
                 kvalueHigh =  KValueTemp;
         }
 
+        ESP_LOGD(TAG,"compECsolution = %f", compECsolution);
         ESP_LOGD(TAG,"KValueTemp = %f", KValueTemp);
         ESP_LOGD(TAG,"rawEC = %f", rawEC);
         static bool q = 0;
