@@ -554,7 +554,7 @@ void WaterQuality::ec_calibration(float ec)
 
         static float compECsolution;
         float KValueTemp;
-        float rawEC = 10 * voltage / RES2 / ECREF;
+        float rawEC = 1000 * voltage / RES2 / ECREF;
 
         compECsolution = ec * (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
 
