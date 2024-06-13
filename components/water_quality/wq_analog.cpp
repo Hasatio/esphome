@@ -70,8 +70,8 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
-    ec(this);
+    // set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
+    // ec(this);
 
     //Analog general
     float gen[2];
