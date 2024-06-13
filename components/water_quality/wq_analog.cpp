@@ -14,6 +14,9 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
 
+    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
+    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
+
     average(volts);
 
     //Water Temperature
@@ -62,13 +65,10 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //pH
-    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
-    
     ph(this);
 
 
     //EC
-    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
     
 
     //Analog general
@@ -124,6 +124,7 @@ void average(float value[])
 void ph(Analog* analog)
 {
     float voltage = analog->phVoltage;
+    float temperature = analog->get_WatTemp_Val();
 
     // Water
     // temp    ph
@@ -137,8 +138,7 @@ void ph(Analog* analog)
     // 100     6.14
     
     // // Sıcaklık telafisi için Nernst sabiti
-    // float temp = analog->get_WaterTemp_Val();
-    // float T = temp + 273.15; // Kelvin cinsinden sıcaklık
+    // float T = temperature + 273.15; // Kelvin cinsinden sıcaklık
     // const float R = 8.314; // Gaz sabiti, J/(mol*K)
     // const float F = 96485.332; // Faraday sabiti, C/mol
     // const float n = 1; // Elektron sayısı (pH ölçümünde genellikle 1)
@@ -176,7 +176,7 @@ void ph(Analog* analog)
     // float pHcalc = (analog->phVoltage - phVolt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
     // // Sıcaklık telafisi ekleme
     // float temperatureCoefficient = (R * T) / (n * F) * log(10);
-    // float _phValue = phValue + (temp - 25.0) * temperatureCoefficient;
+    // float _phValue = phValue + (temperature - 25.0) * temperatureCoefficient;
 
     float (*phCal)[2] = analog->get_PH_Cal();
     float phVal1 = phCal[0][0], phVolt1 = phCal[0][1];
@@ -196,6 +196,28 @@ void ph(Analog* analog)
 }
 void ec(Analog* analog)
 {
+    float RES2 = 820.0;
+    float ECREF = 200.0;
+
+    float voltage = analog->ecVoltage;
+    float temperature = analog->get_WatTemp_Val();
+    static float kvalue;
+
+    float (*ecCal)[2] = analog->get_EC_Cal();
+    float kvalueLow = ecCal[0][0], ecVolt1 = ecCal[0][1];
+    float kvalueHigh = ecCal[1][0], ecVolt2 = ecCal[1][1];
+
+    float rawEC = 1000 * voltage / RES2 / ECREF;
+    float valueTemp = rawEC * kvalue;
+    //automatic shift process
+    //First Range:(0,2); Second Range:(2,20)
+    if (valueTemp > 2.5)
+        kvalue = kvalueHigh;
+    else if (valueTemp < 2.0)
+        kvalue = kvalueLow;
+
+    float ecvalue = rawEC * kvalue; //calculate the EC value after automatic shift
+    ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
 }
 
 }  // namespace water_quality

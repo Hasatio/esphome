@@ -533,25 +533,9 @@ void WaterQuality::ec_calibration(float ec)
     float voltage = an.ecVoltage;
     float temperature = an.get_WatTemp_Val();
     
-    float RES2 = 820.0;
-    float ECREF = 200.0;
-
     float kvalueLow = EEPROM_read(EC1_VAL_ADDR);
     float kvalueHigh = EEPROM_read(EC2_VAL_ADDR);
     float kvalue =  kvalueLow; // set default K value: K = kvalueLow
-
-    float rawEC = 1000 * voltage / RES2 / ECREF;
-    float valueTemp = rawEC * kvalue;
-    //automatic shift process
-    //First Range:(0,2); Second Range:(2,20)
-    if (valueTemp > 2.5)
-        kvalue = kvalueHigh;
-    else if (valueTemp < 2.0)
-        kvalue = kvalueLow;
-
-    float ecvalue = rawEC * kvalue; //calculate the EC value after automatic shift
-    ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
-
     
     ec *= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     if (ec > 0)
