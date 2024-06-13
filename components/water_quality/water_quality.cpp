@@ -559,7 +559,7 @@ void WaterQuality::ec_calibration(float ec)
         compECsolution = ec * (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
 
         KValueTemp = RES2 * ECREF * compECsolution / 1000.0 / voltage; //calibrate the k value
-        if((KValueTemp>0.5) && (KValueTemp<1.5))
+        if((KValueTemp > 0.5) && (KValueTemp < 1.5))
         {
             if((rawEC > 0.9) && (rawEC < 1.9))
                 kvalueLow =  KValueTemp;
@@ -567,6 +567,8 @@ void WaterQuality::ec_calibration(float ec)
                 kvalueHigh =  KValueTemp;
         }
 
+        ESP_LOGD(TAG,"KValueTemp = %f", KValueTemp);
+        ESP_LOGD(TAG,"rawEC = %f", rawEC);
         static bool q = 0;
         if ((rawEC > 0.9) && (rawEC < 1.9) && !((rawEC > 9) && (rawEC < 16.8)))
         {
