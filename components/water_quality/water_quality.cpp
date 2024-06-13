@@ -540,7 +540,6 @@ void WaterQuality::ec_calibration(float ec)
     ec *= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     if (ec > 0)
     {
-        float voltage = an.ecVoltage;
         float eepromEC1val = 1.413, eepromEC1volt, eepromEC2val = 12.88, eepromEC2volt;
         static float eepromEC1val_backup = eepromEC1val, eepromEC2val_backup = eepromEC2val;
         
