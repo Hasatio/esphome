@@ -47,8 +47,8 @@ void PH_Setup()
     uint8_t version = an.get_PH_Type();
     if (version == 1) // V1
     {
-        acidVoltage = 0.41; // V
-        neutralVoltage = 1.78; // V
+        acidVoltage = 0.42; // V
+        neutralVoltage = 1.96; // V
         baseVoltage = 3.02; // V
     }
     else if (version == 2) // V2
@@ -476,6 +476,11 @@ void WaterQuality::level_res(const std::vector<uint16_t> &rmin, const std::vecto
     an.set_ResMin(rminArray);
     an.set_ResMax(rmaxArray);
 }
+void WaterQuality::ph(const uint8_t ch, const uint8_t type)
+{
+    an.set_PH_Ch(ch);
+    an.set_PH_Type(type);
+}
 void WaterQuality::ph_calibration(float ph)
 {
     if (ph > 0)
@@ -523,10 +528,10 @@ void WaterQuality::ph_calibration(float ph)
     else
         PH_Clear();
 }
-void WaterQuality::ph(const uint8_t ch, const uint8_t type)
+void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 {
-    an.set_PH_Ch(ch);
-    an.set_PH_Type(type);
+    an.set_EC_Ch(ch);
+    an.set_EC_Type(type);
 }
 void WaterQuality::ec_calibration(float ec)
 {
@@ -581,11 +586,6 @@ void WaterQuality::ec_calibration(float ec)
     }
     else
         EC_Clear();
-}
-void WaterQuality::ec(const uint8_t ch, const uint8_t type)
-{
-    an.set_EC_Ch(ch);
-    an.set_EC_Type(type);
 }
 void WaterQuality::digital_out(std::vector<bool> &dout)
 {
