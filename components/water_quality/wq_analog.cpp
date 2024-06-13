@@ -207,7 +207,7 @@ void ec(Analog* analog)
     static float kvalue; 
     if (kvalue == 0) kvalue = kvalueLow; // set default K value: K = kvalueLow
 
-    float rawEC = 1000 * voltage / RES2 / ECREF;
+    float rawEC = 10 * voltage / RES2 / ECREF;
     float valueTemp = rawEC * kvalue;
     //automatic shift process
     //First Range:(0,2); Second Range:(2,20)
