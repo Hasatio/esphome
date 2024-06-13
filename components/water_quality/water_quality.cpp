@@ -535,52 +535,64 @@ void WaterQuality::ec(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::ec_calibration(float ec)
 {
-    float voltage = an.get_EC_Cal_Volt();
-    float temperature = an.get_WatTemp_Val();
-    
-    float kvalueLow = EEPROM_read(EC1_VAL_ADDR);
-    float kvalueHigh = EEPROM_read(EC2_VAL_ADDR);
-    float kvalue =  kvalueLow; // set default K value: K = kvalueLow
-    
-    ec *= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     if (ec > 0)
     {
-        float eepromEC1val = 1.413, eepromEC1volt, eepromEC2val = 12.88, eepromEC2volt;
-        static float eepromEC1val_backup = eepromEC1val, eepromEC2val_backup = eepromEC2val;
+        float RES2 = 820.0;
+        float ECREF = 200.0;
+
+        float voltage = an.get_EC_Cal_Volt();
+        float temperature = an.get_WatTemp_Val();
         
-        eepromEC1val = EEPROM_read(EC1_VAL_ADDR); // Load the value of the EC board from the EEPROM
+        float kvalueLow, eepromEC1volt, kvalueHigh, eepromEC2volt;
+        static float kvalueLow_backup = kvalueLow, kvalueHigh_backup = kvalueHigh;
+        
+        kvalueLow = EEPROM_read(EC1_VAL_ADDR); // Load the value of the EC board from the EEPROM
         eepromEC1volt = EEPROM_read(EC1_VOLT_ADDR); // Load the voltage of the EC board from the EEPROM
-        eepromEC2val = EEPROM_read(EC2_VAL_ADDR); // Load the value of the EC board from the EEPROM
+        kvalueHigh = EEPROM_read(EC2_VAL_ADDR); // Load the value of the EC board from the EEPROM
         eepromEC2volt = EEPROM_read(EC2_VOLT_ADDR); // Load the voltage of the EC board from the EEPROM
 
+
+        static float compECsolution;
+        float KValueTemp;
+        float rawEC = 1000 * voltage / RES2 / ECREF;
+
+        compECsolution = ec * (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
+
+        KValueTemp = RES2 * ECREF * compECsolution / 1000.0 / voltage; //calibrate the k value
+        if((KValueTemp>0.5) && (KValueTemp<1.5))
+        {
+            if((rawEC > 0.9) && (rawEC < 1.9))
+                kvalueLow =  KValueTemp;
+            else if((rawEC > 9) && (rawEC < 16.8))
+                kvalueHigh =  KValueTemp;
+        }
+
         static bool q = 0;
-        if (round(ec) != round(eepromEC2val) && round(ec) != round(eepromEC2val_backup) && !q || round(ec) == round(eepromEC1val))
+        if ((rawEC > 0.9) && (rawEC < 1.9) && !((rawEC > 9) && (rawEC < 16.8)))
         {
             q = 1;
-            eepromEC1val = ec;
             eepromEC1volt = voltage;
-            EEPROM_write(EC1_VAL_ADDR, ec); // Store the current EC value as
+            EEPROM_write(EC1_VAL_ADDR, kvalueLow); // Store the current EC value as
             EEPROM_write(EC1_VOLT_ADDR, voltage); // Store the current EC voltage as
             ESP_LOGI(TAG,"Calibrated to EC = %f", ec);
         }
-        else if (round(ec) != round(eepromEC1val) && round(ec) != round(eepromEC1val_backup) && q || round(ec) == round(eepromEC2val))
+        else if (!(rawEC > 0.9) && (rawEC < 1.9) && ((rawEC > 9) && (rawEC < 16.8)))
         {
             q = 0;
-            eepromEC2val = ec;
             eepromEC2volt = voltage;
-            EEPROM_write(EC2_VAL_ADDR, ec); // Store the current EC value as
+            EEPROM_write(EC2_VAL_ADDR, kvalueHigh); // Store the current EC value as
             EEPROM_write(EC2_VOLT_ADDR, voltage); // Store the current EC voltage as
             ESP_LOGI(TAG,"Calibrated to EC = %f", ec);
         }
         
         EEPROM.commit();
 
-    ESP_LOGD(TAG,"EC1_VAL_ADDR = %d    eepromEC1val = %f", EC1_VAL_ADDR, eepromEC1val);
+    ESP_LOGD(TAG,"EC1_VAL_ADDR = %d    kvalueLow = %f", EC1_VAL_ADDR, kvalueLow);
     ESP_LOGD(TAG,"EC1_VOLT_ADDR = %d    eepromEC1volt = %f", EC1_VOLT_ADDR, eepromEC1volt);
-    ESP_LOGD(TAG,"EC2_VAL_ADDR = %d    eepromEC2val = %f", EC2_VAL_ADDR, eepromEC2val);
+    ESP_LOGD(TAG,"EC2_VAL_ADDR = %d    kvalueHigh = %f", EC2_VAL_ADDR, kvalueHigh);
     ESP_LOGD(TAG,"EC2_VOLT_ADDR = %d    eepromEC2volt = %f", EC2_VOLT_ADDR, eepromEC2volt);
 
-        float EC_Cal[2][2] = {eepromEC1val, eepromEC1volt, eepromEC2val, eepromEC2volt};
+        float EC_Cal[2][2] = {kvalueLow, eepromEC1volt, kvalueHigh, eepromEC2volt};
 
         an.set_EC_Cal(EC_Cal);
     }

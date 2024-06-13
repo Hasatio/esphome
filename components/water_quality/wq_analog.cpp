@@ -177,7 +177,7 @@ void ph(Analog* analog)
     // // Nernst denklemiyle pH hesaplama
     // float pHcalc = (analog->phVoltage - phVolt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
     // // Sıcaklık telafisi ekleme
-    // float temperatureCoefficient = (R * T) / (n * F) * log(10);
+    // float temperatureCoefficient = (R * T) / (n * F) * log(10); // ~=0.03
     // float _phValue = phValue + (temperature - 25.0) * temperatureCoefficient;
 
     float (*phCal)[2] = analog->get_PH_Cal();
@@ -200,11 +200,12 @@ void ec(Analog* analog)
 
     float voltage = analog->get_EC_Volt();
     float temperature = analog->get_WatTemp_Val();
-    static float kvalue;
 
     float (*ecCal)[2] = analog->get_EC_Cal();
     float kvalueLow = ecCal[0][0], ecVolt1 = ecCal[0][1];
     float kvalueHigh = ecCal[1][0], ecVolt2 = ecCal[1][1];
+    static float kvalue; 
+    if (kvalue == 0) kvalue = kvalueLow; // set default K value: K = kvalueLow
 
     float rawEC = 1000 * voltage / RES2 / ECREF;
     float valueTemp = rawEC * kvalue;
