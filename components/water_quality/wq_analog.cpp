@@ -65,10 +65,12 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //pH
+    set_PH_Volt(volts[get_PH_Ch() + 3]); // Read the PH voltage
     ph(this);
 
 
     //EC
+    set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
     ec(this);
 
     //Analog general
