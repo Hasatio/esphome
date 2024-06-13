@@ -192,8 +192,6 @@ void ph(Analog* analog)
     float phValue = abs(slope * (voltage) + intercept); // y = m * x + b
     
     analog->set_PH_Val(phValue);
-    ESP_LOGI(TAG,"pH = %f", analog->get_PH_Val());
-    // ESP_LOGI(TAG,"voltage = %f", analog->get_PH_Volt());
 }
 void ec(Analog* analog)
 {
@@ -221,6 +219,8 @@ void ec(Analog* analog)
     ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
     
     analog->set_EC_Val(ecvalue);
+    // ESP_LOGI(TAG,"EC = %f", analog->get_EC_Val());
+    // ESP_LOGI(TAG,"ec voltage = %f", analog->get_EC_Volt());
 }
 
 }  // namespace water_quality
