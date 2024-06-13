@@ -14,8 +14,8 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
 
-    phVoltage = volts[get_PH_Ch() + 3]; // Read the PH voltage
-    ecVoltage = volts[get_EC_Ch() + 3]; // Read the EC voltage
+    set_PH_Cal_Volt(volts[get_PH_Ch() + 3]); // Read the PH voltage
+    set_EC_Cal_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
 
     average(volts);
 
@@ -69,7 +69,7 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //EC
-    
+    ec(this);
 
     //Analog general
     float gen[2];
@@ -123,7 +123,7 @@ void average(float value[])
 }
 void ph(Analog* analog)
 {
-    float voltage = analog->phVoltage;
+    float voltage = analog->get_PH_Volt();
     float temperature = analog->get_WatTemp_Val();
 
     // Water
@@ -199,7 +199,7 @@ void ec(Analog* analog)
     float RES2 = 820.0;
     float ECREF = 200.0;
 
-    float voltage = analog->ecVoltage;
+    float voltage = analog->get_EC_Volt();
     float temperature = analog->get_WatTemp_Val();
     static float kvalue;
 
@@ -218,6 +218,8 @@ void ec(Analog* analog)
 
     float ecvalue = rawEC * kvalue; //calculate the EC value after automatic shift
     ecvalue /= (1.0 + 0.0185 * (temperature - 25.0)); //temperature compensation
+    
+    analog->set_PH_Val(ecvalue);
 }
 
 }  // namespace water_quality

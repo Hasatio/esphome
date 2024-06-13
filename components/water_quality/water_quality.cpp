@@ -480,7 +480,7 @@ void WaterQuality::ph_calibration(float ph)
 {
     if (ph > 0)
     {
-        float voltage = an.phVoltage;
+        float voltage = an.get_PH_Cal_Volt();
         float eepromPH1val = 7, eepromPHvolt1, eepromPH2val = 4, eepromPHvolt2;
         static float eepromPH1val_backup = eepromPH1val, eepromPH2val_backup = eepromPH2val;
         
@@ -530,7 +530,7 @@ void WaterQuality::ph(const uint8_t ch, const uint8_t type)
 }
 void WaterQuality::ec_calibration(float ec)
 {
-    float voltage = an.ecVoltage;
+    float voltage = an.get_EC_Cal_Volt();
     float temperature = an.get_WatTemp_Val();
     
     float kvalueLow = EEPROM_read(EC1_VAL_ADDR);
