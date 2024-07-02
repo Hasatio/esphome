@@ -5,7 +5,6 @@ namespace water_quality {
 
 // WaterQuality my;
 
-#define WINDOW_SIZE 20
 void average(float value[]);
 void ph(Analog* analog);
 void ec(Analog* analog);
@@ -65,13 +64,10 @@ void Analog::Analog_Input_Driver(float volts[])
 
 
     //pH
-    set_PH_Volt(volts[get_PH_Ch() + 3]); // Read the PH voltage
-    ph(this);
-
+    ph(this, volts[get_PH_Ch() + 3]);
 
     //EC
-    set_EC_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
-    ec(this);
+    ec(this, volts[get_EC_Ch() + 3]);
 
     //Analog general
     float gen[2];
@@ -99,22 +95,23 @@ void Analog::Analog_Input_Driver(float volts[])
 
 static uint32_t time = millis();
 static uint16_t sample = 0;
-// Static 2D array to hold the last 20 values for each element
-static float history[8][WINDOW_SIZE] = {};
-// Static array to hold the count of values for each element
-static uint8_t counts[8] = {0};
+
+#define NUM_SAMPLE 20
+
+static float history[8][NUM_SAMPLE] = {}; // Static 2D array to hold the last 20 values for each element
+static uint8_t counts[8] = {0}; // Static array to hold the count of values for each element
 void average(float value[])
 {
     for (uint8_t i = 0; i < 8; ++i)
     {
         // Shift values left
-        for (uint8_t j = 1; j < WINDOW_SIZE; j++)
+        for (uint8_t j = 1; j < NUM_SAMPLE; j++)
             history[i][j - 1] = history[i][j];
             
         // Add the new value to the end
-        history[i][WINDOW_SIZE - 1] = value[i];
-        // Increment the count of values if less than WINDOW_SIZE
-        if (counts[i] < WINDOW_SIZE)
+        history[i][NUM_SAMPLE - 1] = value[i];
+        // Increment the count of values if less than NUM_SAMPLE
+        if (counts[i] < NUM_SAMPLE)
             counts[i]++;
         
         // Calculate the average
@@ -122,7 +119,7 @@ void average(float value[])
         for (uint8_t j = 0; j < counts[i]; j++)
             sum += history[i][j];
             
-        value[i] = sum / std::min(counts[i], static_cast<uint8_t>(WINDOW_SIZE));
+        value[i] = sum / std::min(counts[i], static_cast<uint8_t>(NUM_SAMPLE));
     }
     
     // if (millis() - time >= 1000)
@@ -134,9 +131,8 @@ void average(float value[])
 
     // sample++;
 }
-void ph(Analog* analog)
+void ph(Analog* analog, float volt)
 {
-    float voltage = analog->get_PH_Volt();
     float temperature = analog->get_WatTemp_Val();
 
     // Water
@@ -173,20 +169,20 @@ void ph(Analog* analog)
     //     {
     //         phFirst = get_PH_Cal();
     //         // Nernst denklemi
-    //         phVolt1 = analog->phVoltage + phFirst * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+    //         phVolt1 = volt + phFirst * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
     //     }
     //     else if (phVolt2 == 0)
     //     {
     //         phSecond = get_PH_Cal();
     //         // Nernst denklemi
-    //         phVolt2 = analog->phVoltage + phSecond * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
+    //         phVolt2 = volt + phSecond * R * T / (n * F) * log(10); // E0 = E + pH * R * T / (n * F) * ln10
     //     }
 
     //     set_PH_Calibration(0);
     // }
 
     // // Nernst denklemiyle pH hesaplama
-    // float pHcalc = (analog->phVoltage - phVolt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
+    // float pHcalc = (volt - phVolt1) / (R * T / (n * F) * log(10)); // pH = (E - E0) / (R * T / (n * F) * ln10)
     // // Sıcaklık telafisi ekleme
     // float temperatureCoefficient = (R * T) / (n * F) * log(10); // ~=0.03
     // float _phValue = phValue + (temperature - 25.0) * temperatureCoefficient;
@@ -200,16 +196,15 @@ void ph(Analog* analog)
     // Calculate the y-intercept
     float intercept = phVal1 - slope * phVolt1; // b = y1 - m * x1 | b = y2 - m * x2
     // Verilen voltaj için pH değerini hesaplama
-    float phValue = abs(slope * (voltage) + intercept); // y = m * x + b
+    float phValue = abs(slope * (volt) + intercept); // y = m * x + b
     
     analog->set_PH_Val(phValue);
 }
-void ec(Analog* analog)
+void ec(Analog* analog, float volt)
 {
     float RES2 = 820.0;
     float ECREF = 200.0;
 
-    float voltage = analog->get_EC_Volt();
     float temperature = analog->get_WatTemp_Val();
 
     float (*ecCal)[2] = analog->get_EC_Cal();
@@ -218,7 +213,7 @@ void ec(Analog* analog)
     static float kvalue; 
     if (kvalue == 0) kvalue = kvalueLow; // set default K value: K = kvalueLow
 
-    float rawEC = 10 * voltage / RES2 / ECREF;
+    float rawEC = 10 * volt / RES2 / ECREF;
     float valueTemp = rawEC * kvalue;
     //automatic shift process
     //First Range:(0,2); Second Range:(2,20)
@@ -232,7 +227,7 @@ void ec(Analog* analog)
     
     analog->set_EC_Val(ecvalue);
     // ESP_LOGI(TAG,"EC = %f", analog->get_EC_Val());
-    // ESP_LOGI(TAG,"ec voltage = %f", analog->get_EC_Volt());
+    // ESP_LOGI(TAG,"ec volt = %f", volt);
 }
 
 }  // namespace water_quality
