@@ -6,8 +6,8 @@ namespace water_quality {
 // WaterQuality my;
 
 void average(float value[]);
-void ph(Analog* analog);
-void ec(Analog* analog);
+void ph(Analog* analog, float volt);
+void ec(Analog* analog, float volt);
 
 void Analog::Analog_Input_Driver(float volts[])
 {
