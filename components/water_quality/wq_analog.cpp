@@ -97,6 +97,8 @@ void Analog::Analog_Input_Driver(float volts[])
     set_Gen_Val(gen);
 }
 
+static uint32_t time = millis();
+static uint16_t sample = 0;
 // Static 2D array to hold the last 20 values for each element
 static float history[8][WINDOW_SIZE] = {};
 // Static array to hold the count of values for each element
@@ -122,6 +124,15 @@ void average(float value[])
             
         value[i] = sum / std::min(counts[i], static_cast<uint8_t>(WINDOW_SIZE));
     }
+    
+    // if (millis() - time >= 1000)
+    // {
+    //     time = millis();
+    //     ESP_LOGI(TAG, "sample = %d", sample);
+    //     sample = 0;
+    // }
+
+    // sample++;
 }
 void ph(Analog* analog)
 {

@@ -143,8 +143,6 @@ void WaterQuality::setup()
     PH_Setup();
     EC_Setup();
 }
-    static uint32_t time = millis();
-    static uint16_t sample = 0;
 void WaterQuality::dump_config()
 {
     EC_Setup();
@@ -294,15 +292,6 @@ void WaterQuality::loop()
 {
     pump.Calibration_Controller();
     sensor();
-
-    if (millis() - time >= 1000)
-    {
-        time = millis();
-        ESP_LOGI(TAG, "sample = %d", sample);
-        sample = 0;
-    }
-
-    sample++;
 }
 void WaterQuality::update()
 {
