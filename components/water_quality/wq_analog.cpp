@@ -43,44 +43,6 @@ void Analog::Analog_Input_Driver(float volts[])
     Gen(this, volts);
 }
 
-static uint32_t time = millis();
-static uint16_t sample = 0;
-
-#define NUM_SAMPLE 20
-
-static float history[8][NUM_SAMPLE] = {}; // Static 2D array to hold the last 20 values for each element
-static uint8_t counts[8] = {0}; // Static array to hold the count of values for each element
-void Average(float value[])
-{
-    for (uint8_t i = 0; i < 8; ++i)
-    {
-        // Shift values left
-        for (uint8_t j = 1; j < NUM_SAMPLE; j++)
-            history[i][j - 1] = history[i][j];
-            
-        // Add the new value to the end
-        history[i][NUM_SAMPLE - 1] = value[i];
-        // Increment the count of values if less than NUM_SAMPLE
-        if (counts[i] < NUM_SAMPLE)
-            counts[i]++;
-        
-        // Calculate the average
-        float sum = 0;
-        for (uint8_t j = 0; j < counts[i]; j++)
-            sum += history[i][j];
-            
-        value[i] = sum / std::min(counts[i], static_cast<uint8_t>(NUM_SAMPLE));
-    }
-    
-    // if (millis() - time >= 1000)
-    // {
-    //     time = millis();
-    //     ESP_LOGI(TAG, "sample = %d", sample);
-    //     sample = 0;
-    // }
-
-    // sample++;
-}
 void WatTemp(Analog* analog, float volt)
 {
     float model_multiply = analog->get_WatTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
@@ -254,6 +216,33 @@ void Gen(Analog* analog, float volt[])
     gen[1] = volt[static_cast<uint8_t>(ch[1]) + 3];
     analog->set_Gen_Ch(ch);
     analog->set_Gen_Val(gen);
+}
+
+#define NUM_SAMPLE 20
+
+static float history[8][NUM_SAMPLE] = {}; // Static 2D array to hold the last 20 values for each element
+static uint8_t counts[8] = {0}; // Static array to hold the count of values for each element
+void Average(float value[])
+{
+    for (uint8_t i = 0; i < 8; ++i)
+    {
+        // Shift values left
+        for (uint8_t j = 1; j < NUM_SAMPLE; j++)
+            history[i][j - 1] = history[i][j];
+            
+        // Add the new value to the end
+        history[i][NUM_SAMPLE - 1] = value[i];
+        // Increment the count of values if less than NUM_SAMPLE
+        if (counts[i] < NUM_SAMPLE)
+            counts[i]++;
+        
+        // Calculate the average
+        float sum = 0;
+        for (uint8_t j = 0; j < counts[i]; j++)
+            sum += history[i][j];
+            
+        value[i] = sum / std::min(counts[i], static_cast<uint8_t>(NUM_SAMPLE));
+    }
 }
 
 }  // namespace water_quality
