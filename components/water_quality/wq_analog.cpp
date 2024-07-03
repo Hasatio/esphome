@@ -8,10 +8,10 @@ namespace water_quality {
 void Average(float value[]);
 void WatTemp(Analog* analog, float volt);
 void VoltPow(Analog* analog, float volt);
-void Lvl(Analog* analog, float* volt);
+void Lvl(Analog* analog, float volt[]);
 void PH(Analog* analog, float volt);
 void EC(Analog* analog, float volt);
-void Gen(Analog* analog, float* volt);
+void Gen(Analog* analog, float volt[]);
 
 void Analog::Analog_Input_Driver(float volts[])
 {
@@ -82,27 +82,28 @@ void Average(float value[])
 void WatTemp(Analog* analog, float volt)
 {
     float model_multiply = analog->get_WatTemp_Res() / 1000.0; // Multiplier of the resistance of the temperature sensor model relative to the pt1000 sensor
-    float WatTemp_Res = (volt * 1000.0) / (5.0 - volt) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
+    float volt_div_res = (volt * 1000.0) / (5.0 - volt) * model_multiply; // R2 = (Vout * R1) / (Vin - Vout); Vin = 5V, R1 = 1k
     
-    float WatTemp_Res_Max = 3904.8;
-    float WatTemp_Res_Min = 185.2;
-    if (WatTemp_Res > WatTemp_Res_Max) // Max temp limit and set model multiplier 
-        WatTemp_Res = WatTemp_Res_Max * model_multiply;
-    else if (WatTemp_Res < WatTemp_Res_Min) // Min temp limit and set model multiplier 
-        WatTemp_Res = WatTemp_Res_Min * model_multiply;
+    float wattemp_res_max = 3904.8;
+    float wattemp_res_min = 185.2;
+    if (volt_div_res > wattemp_res_max) // Max temp limit and set model multiplier 
+        volt_div_res = wattemp_res_max * model_multiply;
+    else if (volt_div_res < wattemp_res_min) // Min temp limit and set model multiplier 
+        volt_div_res = wattemp_res_min * model_multiply;
     else
-        WatTemp_Res = WatTemp_Res * model_multiply;
+        volt_div_res = volt_div_res * model_multiply;
     
     // Formula                                                                                        _________________________
-    float WatTemp = (sqrt((-0.00232 * WatTemp_Res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
+    float wattemp = (sqrt((-0.00232 * volt_div_res) + 17.59246) - 3.908) / (-0.00116); // Temp = (√(-0,00232 * R + 17,59246) - 3,908) / -0,00116
     
-    analog->set_WatTemp_Val(WatTemp);
+    analog->set_WatTemp_Val(wattemp);
 }
 void Voltpow(Analog* analog, float volt)
 {
-    analog->set_VoltPow_Val(volt * 6); // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
+    float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
+    analog->set_VoltPow_Val(voltpow);
 }
-void Lvl(Analog* analog, float* volt)
+void Lvl(Analog* analog, float volt[])
 {
     float lvl[2], lvlVmin[2], lvlVmax[2];
     uint16_t *resMin = analog->get_ResMin(), *resMax = analog->get_ResMax();
@@ -220,7 +221,7 @@ void EC(Analog* analog, float volt)
     // ESP_LOGI(TAG,"EC = %f", analog->get_EC_Val());
     // ESP_LOGI(TAG,"ec volt = %f", volt);
 }
-void Gen(Analog* analog, float* volt)
+void Gen(Analog* analog, float volt[])
 {
     float gen[2];
     float* ch = analog->get_Gen_Ch(); 
