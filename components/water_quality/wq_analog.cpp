@@ -8,10 +8,10 @@ namespace water_quality {
 void Average(float value[]);
 void WatTemp(Analog* analog, float volt);
 void VoltPow(Analog* analog, float volt);
-void Lvl(Analog* analog, float volt[]);
+void Lvl(Analog* analog, float* volt);
 void PH(Analog* analog, float volt);
 void EC(Analog* analog, float volt);
-void Gen(Analog* analog, float volt[]);
+void Gen(Analog* analog, float* volt);
 
 void Analog::Analog_Input_Driver(float volts[])
 {
@@ -102,7 +102,7 @@ void Voltpow(Analog* analog, float volt)
 {
     analog->set_VoltPow_Val(volt * 6); // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
 }
-void Lvl(Analog* analog, float volt[])
+void Lvl(Analog* analog, float* volt)
 {
     float lvl[2], lvlVmin[2], lvlVmax[2];
     uint16_t *resMin = analog->get_ResMin(), *resMax = analog->get_ResMax();
@@ -220,7 +220,7 @@ void EC(Analog* analog, float volt)
     // ESP_LOGI(TAG,"EC = %f", analog->get_EC_Val());
     // ESP_LOGI(TAG,"ec volt = %f", volt);
 }
-void Gen(Analog* analog, float volt[])
+void Gen(Analog* analog, float* volt)
 {
     float gen[2];
     float* ch = analog->get_Gen_Ch(); 
@@ -247,8 +247,8 @@ void Gen(Analog* analog, float volt[])
             ch[1] = ch2;
     }
 
-    gen[0] = volt[static_cast<uint8_t>(ch[0]) + 3];
-    gen[1] = volt[static_cast<uint8_t>(ch[1]) + 3];
+    gen[0] = volt[ch[0] + 3];
+    gen[1] = volt[ch[1] + 3];
     analog->set_Gen_Ch(ch);
     analog->set_Gen_Val(gen);
 }
