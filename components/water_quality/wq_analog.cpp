@@ -17,8 +17,10 @@ void Analog::Analog_Input_Driver(float volts[])
 {
     // my.ADS1115_Driver(volts);
 
-    set_PH_Cal_Volt(volts[get_PH_Ch() + 3]); // Read the PH voltage
-    set_EC_Cal_Volt(volts[get_EC_Ch() + 3]); // Read the EC voltage
+    float ph_cal_volt = volts[get_PH_Ch() + 3]; // Read the PH voltage
+    set_PH_Cal_Volt(ph_cal_volt);
+    float ec_cal_volt = volts[get_EC_Ch() + 3]; // Read the EC voltage
+    set_EC_Cal_Volt(ec_cal_volt);
 
     Average(volts);
 
