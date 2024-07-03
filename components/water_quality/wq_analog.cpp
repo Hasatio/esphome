@@ -28,7 +28,7 @@ void Analog::Analog_Input_Driver(float volts[])
     WatTemp(this, volts[0]);
     
     //Voltage Power
-    // VoltPow(this, volts[1]);
+    VoltPow(this, volts[1]);
 
     //Level
     Lvl(this, volts);
@@ -102,7 +102,7 @@ void WatTemp(Analog* analog, float volt)
 }
 void Voltpow(Analog* analog, float volt)
 {
-    float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2. (R1 = 10k & R2 = 2k)
+    float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2; (R1 = 10k & R2 = 2k)
     analog->set_VoltPow_Val(voltpow);
 }
 void Lvl(Analog* analog, float volt[])
