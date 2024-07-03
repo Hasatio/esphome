@@ -25,8 +25,8 @@ void Analog::Analog_Input_Driver(float volts[])
     //Water Temperature
     WatTemp(this, volts[0]);
     
-    //Power
-    VoltPow(this, volts[1]);
+    //Voltage Power
+    // VoltPow(this, volts[1]);
 
     //Level
     Lvl(this, volts);
