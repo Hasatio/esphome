@@ -118,8 +118,8 @@ void Lvl(Analog* analog, float volt[])
     lvlVmax[0] = lvlVolt * resMax[0] / (lvlRes + resMax[0]);
     lvlVmax[1] = lvlVolt * resMax[1] / (lvlRes + resMax[1]);
 
-    lvl[0] = 100 * (volts[2] - lvlVmin[0]) / (lvlVmax[0] - lvlVmin[0]);
-    lvl[1] = 100 * (volts[3] - lvlVmin[1]) / (lvlVmax[1] - lvlVmin[1]);
+    lvl[0] = 100 * (volt[2] - lvlVmin[0]) / (lvlVmax[0] - lvlVmin[0]);
+    lvl[1] = 100 * (volt[3] - lvlVmin[1]) / (lvlVmax[1] - lvlVmin[1]);
     analog->set_Lvl_Perc(lvl);
 }
 void PH(Analog* analog, float volt)
@@ -223,7 +223,7 @@ void EC(Analog* analog, float volt)
 void Gen(Analog* analog, float volt[])
 {
     float gen[2];
-    float* ch = get_Gen_Ch(); 
+    float* ch = analog->get_Gen_Ch(); 
     uint8_t tot = analog->get_EC_Ch() + analog->get_PH_Ch();
     uint8_t rnd = round((10 - tot) / 2);
 
@@ -241,7 +241,7 @@ void Gen(Analog* analog, float volt[])
     {
         uint8_t ch2 = 10 - tot - ch[0];
 
-        if (ch2 == get_PH_Ch())
+        if (ch2 == analog->get_PH_Ch())
             ch[1] = ch2 + 1;
         else
             ch[1] = ch2;
