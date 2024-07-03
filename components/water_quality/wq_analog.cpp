@@ -247,8 +247,8 @@ void Gen(Analog* analog, float* volt)
             ch[1] = ch2;
     }
 
-    gen[0] = volt[ch[0] + 3];
-    gen[1] = volt[ch[1] + 3];
+    gen[0] = volt[static_cast<uint8_t>(ch[0]) + 3];
+    gen[1] = volt[static_cast<uint8_t>(ch[1]) + 3];
     analog->set_Gen_Ch(ch);
     analog->set_Gen_Val(gen);
 }
