@@ -7,7 +7,12 @@ namespace water_quality {
 
 void Average(float value[]);
 void WatTemp(Analog* analog, float volt);
-void VoltPow(Analog* analog, float volt);
+// void VoltPow(Analog* analog, float volt);
+void Voltpow(Analog* analog, float volt)
+{
+    float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2; (R1 = 10k & R2 = 2k)
+    analog->set_VoltPow_Val(voltpow);
+}
 void Lvl(Analog* analog, float volt[]);
 void PH(Analog* analog, float volt);
 void EC(Analog* analog, float volt);
@@ -100,11 +105,11 @@ void WatTemp(Analog* analog, float volt)
     
     analog->set_WatTemp_Val(wattemp);
 }
-void Voltpow(Analog* analog, float volt)
-{
-    float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2; (R1 = 10k & R2 = 2k)
-    analog->set_VoltPow_Val(voltpow);
-}
+// void Voltpow(Analog* analog, float volt)
+// {
+//     float voltpow = volt * 6; // Vin = Vout * (R1 + R2) / R2; (R1 = 10k & R2 = 2k)
+//     analog->set_VoltPow_Val(voltpow);
+// }
 void Lvl(Analog* analog, float volt[])
 {
     float lvl[2], lvlVmin[2], lvlVmax[2];
