@@ -28,7 +28,7 @@ enum class CommandRegisters : uint8_t
     WHITE = 0x05,       // R: MSB, LSB data of whole WHITE 16 bits
     ALS_INT = 0x06      // R: ALS INT trigger event
 };
-enum Gain : uint8_t
+enum Gain : uint16_t
 {
     X_1 = 0,
     X_2 = 1,
@@ -36,7 +36,7 @@ enum Gain : uint8_t
     X_1_4 = 3,
 };
 const uint8_t GAINS_COUNT = 4;
-enum IntegrationTime : uint8_t
+enum IntegrationTime : uint16_t
 {
     INTEGRATION_TIME_25MS = 0b1100,
     INTEGRATION_TIME_50MS = 0b1000,
@@ -46,14 +46,14 @@ enum IntegrationTime : uint8_t
     INTEGRATION_TIME_800MS = 0b0011,
 };
 const uint8_t INTEGRATION_TIMES_COUNT = 6;
-enum Persistence : uint8_t
+enum Persistence : uint16_t
 {
     PERSISTENCE_1 = 0,
     PERSISTENCE_2 = 1,
     PERSISTENCE_4 = 2,
     PERSISTENCE_8 = 3,
 };
-enum PSMMode : uint8_t
+enum PSMMode : uint16_t
 {
     PSM_MODE_1 = 0,
     PSM_MODE_2 = 1,
