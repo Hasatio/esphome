@@ -53,7 +53,7 @@ enum Persistence : uint8_t
     PERSISTENCE_4 = 2,
     PERSISTENCE_8 = 3,
 };
-enum PSM : uint8_t
+enum PSMMode : uint8_t
 {
     PSM_MODE_1 = 0,
     PSM_MODE_2 = 1,
@@ -100,8 +100,8 @@ union PSMRegister
     uint8_t raw_bytes[2];
     struct
     {
-        bool PSM_EN : 1;
-        uint8_t PSM : 2;
+        bool PSM_EN : 1;    
+        PSMMode PSM : 2;
         uint16_t reserved : 13;
     } __attribute__((packed));
 };
