@@ -18,7 +18,7 @@ CONF_DIGITAL_OUT = "digital_out"
 CONF_CUSTOM_COMMAND = "custom_command"
 
 
-mcs_ns = cg.esphome_ns.namespace("MCS")
+mcs_ns = cg.esphome_ns.namespace("mcs")
 MCS = mcs_ns.class_("MCS", cg.PollingComponent, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.All(
