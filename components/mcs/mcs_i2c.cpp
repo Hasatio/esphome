@@ -22,7 +22,7 @@ void MCS::MCP23017_Setup(uint8_t address)
         return;
     }
 
-    uint8_t reg_value = 0;
+    uint16_t reg_value = 0;
     // for (uint8_t i = 0; i < 4; i++)
     // {
     //     reg_value |= 1 << i; // input
@@ -70,31 +70,48 @@ void MCS::MCP23017_Setup(uint8_t address)
 }
 void MCS::MCP23017_Write(bool value[])
 {
-    uint8_t reg_value = this->olat_;
+    uint8_t reg_value_a = this->olat_a_;
+    uint8_t reg_value_b = this->olat_b_;
 
     for (uint8_t i = 0; i < 16; i++)
     {
         // uint8_t olat_;
         // this->read_byte(MCP23017_OLAT, &this->olat_);
 
-        if (value[i])
-            reg_value |= 1 << (i + 4);
+        if (i < 8)
+            if (value[i])
+                reg_value_a |= 1 << (i);
+            else
+                reg_value_a &= ~(1 << (i));
         else
-            reg_value &= ~(1 << (i + 4));
+            if (value[i])
+                reg_value_b |= 1 << (i);
+            else
+                reg_value_b &= ~(1 << (i));
     }
 
-    if (reg_value != this->olat_)
+    if (reg_value_a != this->olat_a_)
     {
-        // this->write_byte(MCP23017_GPIO, reg_value);
-        this->write_byte(MCP23017_OLAT, reg_value);
-        this->olat_ = reg_value;
+        // this->write_byte(MCP23017_GPIOA, reg_value_a);
+        this->write_byte(MCP23017_OLATA, reg_value_a);
+        this->olat_a_ = reg_value_a;
+    }
+    if (reg_value_b != this->olat_b_)
+    {
+        // this->write_byte(MCP23017_GPIOB, reg_value_b);
+        this->write_byte(MCP23017_OLATB, reg_value_b);
+        this->olat_b = reg_value_b;
     }
 }
 void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode)
 {
-    uint8_t gpinten = MCP23017_GPINTEN;
-    uint8_t intcon = MCP23017_INTCON;
-    uint8_t defval = MCP23017_DEFVAL;
+    uint8_t gpintena = MCP23017_GPINTENA;
+    uint8_t intcona = MCP23017_INTCONA;
+    uint8_t defvala = MCP23017_DEFVALA;
+
+    uint8_t gpintenb = MCP23017_GPINTENB;
+    uint8_t intconb = MCP23017_INTCONB;
+    uint8_t defvalb = MCP23017_DEFVALB;
 
     // switch (interrupt_mode)
     // {
