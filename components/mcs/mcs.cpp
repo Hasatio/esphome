@@ -113,7 +113,7 @@ void MCS::version(const uint8_t ver)
 void MCS::digital_out(std::vector<bool> &dout)
 {
     bool* dout_ = dig.get_Digital_Output();
-    std::vector<bool> d(dout_, dout_);
+    std::vector<bool> d(dout_, dout_ + 20);
 
     if (d != dout)
     {
