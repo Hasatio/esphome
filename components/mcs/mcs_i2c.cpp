@@ -100,7 +100,7 @@ void MCS::MCP23017_Write(bool value[])
     {
         // this->write_byte(MCP23017_GPIOB, reg_value_b);
         this->write_byte(MCP23017_OLATB, reg_value_b);
-        this->olat_b = reg_value_b;
+        this->olat_b_ = reg_value_b;
     }
 }
 void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode)
