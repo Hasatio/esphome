@@ -129,7 +129,7 @@ bool open_drain_ints_;
 };
 template<typename... Ts> class Digital_Out_Action : public Action<Ts...> {
 public:
-Digital_Out_Action(WaterQuality *parent) : parent_(parent){};
+Digital_Out_Action(MCS *parent) : parent_(parent){};
 
 TEMPLATABLE_VALUE(std::vector<bool>, dig_out);
 

@@ -12,14 +12,13 @@ DEPENDENCIES = ["i2c"]
 AUTO_LOAD = ["sensor", "text_sensor"]
 MULTI_CONF = True
 
-CONF_WATER_QUALITY = "water_quality"
 CONF_COMPONENT_ID = "component_id"
 CONF_VERSION = "version"
 CONF_DIGITAL_OUT = "digital_out"
 CONF_CUSTOM_COMMAND = "custom_command"
 
 
-mcs_ns = cg.esphome_ns.namespace(CONF_WATER_QUALITY)
+mcs_ns = cg.esphome_ns.namespace("MCS")
 MCS = mcs_ns.class_("MCS", cg.PollingComponent, i2c.I2CDevice)
 
 CONFIG_SCHEMA = cv.All(
