@@ -43,14 +43,14 @@ void MCS::start()
         if (i > 0)
             digital[i - 1] = 0;
         MCP23017_Driver(digital);
-        delay(100);
+        delay(50);
     }
     for (uint8_t i = 18; i >= 0; i--)
     {
         digital[i] = 1;
         digital[i + 1] = 0;
         MCP23017_Driver(digital);
-        delay(100);
+        delay(50);
     }
 }
 
