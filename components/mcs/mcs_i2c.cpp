@@ -22,7 +22,7 @@ void MCS::MCP23017_Setup(uint8_t address)
         return;
     }
 
-    uint16_t reg_value = 0;
+    uint8_t reg_value = 0;
     // for (uint8_t i = 0; i < 4; i++)
     // {
     //     reg_value |= 1 << i; // input
@@ -85,9 +85,9 @@ void MCS::MCP23017_Write(bool value[])
                 reg_value_a &= ~(1 << (i));
         else
             if (value[i])
-                reg_value_b |= 1 << (i);
+                reg_value_b |= 1 << (i - 8);
             else
-                reg_value_b &= ~(1 << (i));
+                reg_value_b &= ~(1 << (i - 8));
     }
 
     if (reg_value_a != this->olat_a_)
