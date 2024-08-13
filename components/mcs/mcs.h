@@ -23,7 +23,7 @@
 #define EEPROM_SIZE 56 // 56 byte
 
 namespace esphome {
-namespace MCS {
+namespace mcs {
 
 static const char *const TAG = "mycomponent";
 
