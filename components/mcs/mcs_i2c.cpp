@@ -136,13 +136,13 @@ void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interr
 }
 void MCS::MCP23017_Driver(bool digital[])
 {
-    bool digital1[16] = {1};
-    bool digital2[16] = {0};
+    bool digital1[16] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    bool digital2[16] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-    for (uint8_t i = 1; i < 16; i++)
-        digital1[i] = digital[i];
-    for (uint8_t i = 0; i < 16; i++)
-        digital2[i] = digital[i + 16];
+    // for (uint8_t i = 1; i < 16; i++)
+    //     digital1[i] = digital[i];
+    // for (uint8_t i = 0; i < 16; i++)
+    //     digital2[i] = digital[i + 16];
 
     this->set_i2c_address(MCP23017_ADDRESS1);
     if (this->is_failed())
