@@ -33,6 +33,26 @@ void EEPROM_Setup()
     }
     dig.set_Digital_Output(digital_status);
 }
+void start()
+{
+    bool digital[] = {0};
+    for (uint8_t i = 0; i < 20; i++)
+    {
+        digital[i] = 1;
+        if (i > 0)
+            digital[i - 1] = 0;
+        dig.set_Digital_Output(digital);
+        delay_ms(100);
+    }
+    for (uint8_t i = 19; i >= 0; i--)
+    {
+        digital[i] = 1;
+        if (i < 19)
+            digital[i + 1] = 0;
+        dig.set_Digital_Output(digital);
+        delay_ms(100);
+    }
+}
 
 void MCS::setup()
 {
@@ -40,6 +60,7 @@ void MCS::setup()
     // EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
+    start();
 }
 void MCS::dump_config()
 {
@@ -141,7 +162,7 @@ void MCS::digital_out(std::vector<bool> &dout)
             dout_[i] = dout[i];
             if (dout[i])
                 digital++;
-                
+
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
         ESP_LOGD(TAG, "digital = %d", digital);
