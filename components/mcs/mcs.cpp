@@ -35,13 +35,12 @@ void EEPROM_Setup()
 }
 void start()
 {
-    bool digital[20] = {0};
+    bool* digital = dig.get_Digital_Output();
     for (uint8_t i = 0; i < 20; i++)
     {
         digital[i] = 1;
         if (i > 0)
             digital[i - 1] = 0;
-        dig.set_Digital_Output(digital);
         delay(100);
     }
     // for (uint8_t i = 19; i >= 0; i--)
