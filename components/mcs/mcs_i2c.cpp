@@ -16,13 +16,13 @@ void MCS::MCP23017_Setup(uint8_t address)
     ESP_LOGCONFIG(TAG, "Setting up MCP23017...");
 
     uint8_t iocon;
-    if (!this->read_byte(MCP23017_IOCON, &iocon))
+    if (!this->read_byte(MCP23017_IOCONA, &iocon))
     {
         this->mark_failed();
         return;
     }
 
-    // uint8_t reg_value = 0;
+    uint8_t reg_value = 0;
     // for (uint8_t i = 0; i < 4; i++)
     // {
     //     reg_value |= 1 << i; // input
@@ -67,13 +67,6 @@ void MCS::MCP23017_Setup(uint8_t address)
     
     this->write_byte(MCP23017_INTFB, 0x00);
     this->write_byte(MCP23017_INTCAPB, 0x00);
-}
-uint8_t MCS::MCP23017_Read()
-{
-    uint8_t value;
-    this->read_byte(MCP23017_GPIO, &value);
-
-    return value;
 }
 void MCS::MCP23017_Write(bool value[])
 {
