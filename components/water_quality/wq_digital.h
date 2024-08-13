@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef DIGITAL_H
-#define DIGITAL_H
+#ifndef WQ_DIGITAL_H
+#define WQ_DIGITAL_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -36,4 +36,4 @@ bool DigOut_Status[4] = {0};
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // DIGITAL_H
+#endif  // WQ_DIGITAL_H

@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SERVO_H
-#define SERVO_H
+#ifndef WQ_SERVO_H
+#define WQ_SERVO_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -32,4 +32,4 @@ bool Servo_Status[8] = {0};
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // SERVO_H
+#endif  // WQ_SERVO_H

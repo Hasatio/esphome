@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef PUMP_H
-#define PUMP_H
+#ifndef WQ_PUMP_H
+#define WQ_PUMP_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -78,4 +78,4 @@ esp_timer_handle_t timer;
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // PUMP_H
+#endif  // WQ_PUMP_H

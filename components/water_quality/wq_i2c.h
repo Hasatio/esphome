@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef WATER_QUALITY_I2C_H
-#define WATER_QUALITY_I2C_H
+#ifndef WQ_I2C_H
+#define WQ_I2C_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -23,6 +23,7 @@ namespace water_quality {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  PCA9685
+
 const uint8_t PCA9685_MODE_INVERTED = 0x10;
 const uint8_t PCA9685_MODE_OUTPUT_ONACK = 0x08;
 const uint8_t PCA9685_MODE_OUTPUT_TOTEM_POLE = 0x04;
@@ -65,4 +66,4 @@ protected:
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // WATER_QUALITY_I2C_H
+#endif  // WQ_I2C_H

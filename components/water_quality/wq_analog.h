@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ANALOG_H
-#define ANALOG_H
+#ifndef WQ_ANALOG_H
+#define WQ_ANALOG_H
 
 #include "esphome.h"
 #include "esphome/core/log.h"
@@ -81,4 +81,4 @@ float AnInGen_Val[2] = {0};
 }  // namespace water_quality
 }  // namespace esphome
 
-#endif  // ANALOG_H
+#endif  // WQ_ANALOG_H
