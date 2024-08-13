@@ -142,6 +142,7 @@ void MCS::digital_out(std::vector<bool> &dout)
             if (dout[i]) digital++;
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
+        ESP_LOGD(TAG, "digital = %d", digital);
         EEPROM_Write(LED_L_ADDR, digital); // Store the current value
         EEPROM.commit();
     }
