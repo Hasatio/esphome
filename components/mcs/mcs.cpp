@@ -42,7 +42,7 @@ void MCS::start()
         digital[i] = 1;
         if (i > 0)
             digital[i - 1] = 0;
-        dig.set_Digital_Output(digital);
+        MCP23017_Driver(digital);
         delay(100);
     }
     // for (uint8_t i = 19; i >= 0; i--)
