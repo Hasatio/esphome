@@ -119,7 +119,7 @@ void MCS::loop()
 }
 void MCS::update()
 {
-    bool d[20] = {1};
+    bool d[20];
 
     dig.Digital_Output_Driver(d);
     MCP23017_Driver(d);
@@ -138,13 +138,17 @@ void MCS::digital_out(std::vector<bool> &dout)
     {
         for (uint8_t i = 0; i < 20; i++)
         {
-            dout_[i] = dout[i];
-            if (dout[i]) digital++;
+            if (i < 19)
+                dout_[i] = dout[i];
+            else
+                dout_[i] = 1;
+            if (dout[i] || i == 20 && !digital)
+                digital++;
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
         ESP_LOGD(TAG, "digital = %d", digital);
-        EEPROM_Write(LED_L_ADDR, digital); // Store the current value
-        EEPROM.commit();
+        // EEPROM_Write(LED_L_ADDR, digital); // Store the current value
+        // EEPROM.commit();
     }
 }
 
