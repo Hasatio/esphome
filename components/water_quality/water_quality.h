@@ -39,7 +39,7 @@
 namespace esphome {
 namespace water_quality {
 
-static const char *const TAG = "mycomponent";
+static const char *const TAG = "water_quality";
 
 enum ADS1115_Registers
 {

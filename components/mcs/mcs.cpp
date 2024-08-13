@@ -113,11 +113,11 @@ void MCS::version(const uint8_t ver)
 void MCS::digital_out(std::vector<bool> &dout)
 {
     bool* dout_ = dig.get_Digital_Output();
-    std::vector<bool> d(dout_, dout_ + 4);
+    std::vector<bool> d(dout_, dout_);
 
     if (d != dout)
     {
-        for (uint8_t i = 0; i < 4; i++)
+        for (uint8_t i = 0; i < 20; i++)
         {
             dout_[i] = dout[i];
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);

@@ -25,7 +25,7 @@
 namespace esphome {
 namespace mcs {
 
-static const char *const TAG = "mycomponent";
+static const char *const TAG = "mcs";
 
 enum MCP23017_Registers 
 {
