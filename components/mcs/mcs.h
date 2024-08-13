@@ -81,8 +81,6 @@ class MCS : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-void start();
-
 void setup() override;
 void dump_config() override;
 void loop() override;
