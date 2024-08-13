@@ -34,14 +34,6 @@ float EEPROM_read(int address)
     return value;
 }
 
-bool I2C()
-{
-    if (this->is_failed())
-        return 0;
-    else
-        return 1;
-}
-
 void PH_Setup()
 {
     float acidPh = 4.0;
@@ -144,7 +136,7 @@ void EC_Clear()
 void WaterQuality::setup()
 {
     
-    if (I2C())
+    if (!this->is_failed())
     {
         EEPROM.begin(WQ_EEPROM_SIZE);
         ADS1115_Setup(ADS1X15_ADDRESS1);
@@ -166,7 +158,7 @@ void WaterQuality::dump_config()
     
     LOG_I2C_DEVICE(this);
     LOG_UPDATE_INTERVAL(this);
-    if (!I2C())
+    if (this->is_failed())
         ESP_LOGE(TAG, "  Communication failed!");
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
