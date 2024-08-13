@@ -34,7 +34,7 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
-static void start()
+void MCS::start()
 {
     bool digital[20] = {0};
     for (uint8_t i = 0; i < 20; i++)
@@ -42,7 +42,7 @@ static void start()
         digital[i] = 1;
         if (i > 0)
             digital[i - 1] = 0;
-        MCS::MCP23017_Driver(digital);
+        MCP23017_Driver(digital);
         delay(100);
     }
     for (uint8_t i = 19; i >= 0; i--)
@@ -50,7 +50,7 @@ static void start()
         digital[i] = 1;
         if (i < 19)
             digital[i + 1] = 0;
-        MCS::MCP23017_Driver(digital);
+        MCP23017_Driver(digital);
         delay(100);
     }
 }
