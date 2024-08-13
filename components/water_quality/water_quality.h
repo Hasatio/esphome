@@ -20,7 +20,7 @@
 #include <EEPROM.h>
 #include "wq_i2c.h"
 
-#define EEPROM_SIZE 56 // byte
+#define WQ_EEPROM_SIZE 56 // byte
 #define PUMP1_CALIB_ADDR 0x00
 #define PUMP2_CALIB_ADDR 0x04
 #define PUMP3_CALIB_ADDR 0x08

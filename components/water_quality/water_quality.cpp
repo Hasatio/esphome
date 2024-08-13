@@ -135,7 +135,7 @@ void EC_Clear()
 
 void WaterQuality::setup()
 {
-    EEPROM.begin(EEPROM_SIZE);
+    EEPROM.begin(WQ_EEPROM_SIZE);
     ADS1115_Setup(ADS1X15_ADDRESS1);
     ADS1115_Setup(ADS1X15_ADDRESS2);
     MCP23008_Setup(MCP23008_ADDRESS);
