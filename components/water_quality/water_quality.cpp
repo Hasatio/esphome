@@ -34,6 +34,14 @@ float EEPROM_read(int address)
     return value;
 }
 
+bool I2C()
+{
+    if (this->is_failed())
+        return 0;
+    else
+        return 1;
+}
+
 void PH_Setup()
 {
     float acidPh = 4.0;
@@ -135,13 +143,17 @@ void EC_Clear()
 
 void WaterQuality::setup()
 {
-    // EEPROM.begin(WQ_EEPROM_SIZE);
-    ADS1115_Setup(ADS1X15_ADDRESS1);
-    ADS1115_Setup(ADS1X15_ADDRESS2);
-    MCP23008_Setup(MCP23008_ADDRESS);
-    PCA9685_Setup(PCA9685_I2C_ADDRESS);
-    PH_Setup();
-    EC_Setup();
+    
+    if (I2C())
+    {
+        EEPROM.begin(WQ_EEPROM_SIZE);
+        ADS1115_Setup(ADS1X15_ADDRESS1);
+        ADS1115_Setup(ADS1X15_ADDRESS2);
+        MCP23008_Setup(MCP23008_ADDRESS);
+        PCA9685_Setup(PCA9685_I2C_ADDRESS);
+        PH_Setup();
+        EC_Setup();
+    }
 }
 void WaterQuality::dump_config()
 {
@@ -154,7 +166,7 @@ void WaterQuality::dump_config()
     
     LOG_I2C_DEVICE(this);
     LOG_UPDATE_INTERVAL(this);
-    if (this->is_failed())
+    if (!I2C())
         ESP_LOGE(TAG, "  Communication failed!");
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
