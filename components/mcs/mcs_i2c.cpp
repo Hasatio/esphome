@@ -92,13 +92,13 @@ void MCS::MCP23017_Write(bool value[])
 
     if (reg_value_a != this->olat_a_)
     {
-        this->write_byte(MCP23017_GPIOA, reg_value_a);
+        // this->write_byte(MCP23017_GPIOA, reg_value_a);
         this->write_byte(MCP23017_OLATA, reg_value_a);
         this->olat_a_ = reg_value_a;
     }
     if (reg_value_b != this->olat_b_)
     {
-        this->write_byte(MCP23017_GPIOB, reg_value_b);
+        // this->write_byte(MCP23017_GPIOB, reg_value_b);
         this->write_byte(MCP23017_OLATB, reg_value_b);
         this->olat_b_ = reg_value_b;
     }
