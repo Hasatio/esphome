@@ -60,7 +60,6 @@ void MCS::setup()
     // EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
-    start();
 }
 void MCS::dump_config()
 {
@@ -133,6 +132,7 @@ ESP_LOGCONFIG(TAG, "Digital:");
 uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
 ESP_LOGI(TAG, "  Value: %d", digital);
 
+start();
 }
 
 void MCS::loop()
