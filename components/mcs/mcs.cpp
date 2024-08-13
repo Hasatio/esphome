@@ -45,11 +45,10 @@ void MCS::start()
         MCP23017_Driver(digital);
         delay(100);
     }
-    for (uint8_t i = 19; i >= 0; i--)
+    for (uint8_t i = 18; i >= 0; i--)
     {
         digital[i] = 1;
-        if (i < 19)
-            digital[i + 1] = 0;
+        digital[i + 1] = 0;
         MCP23017_Driver(digital);
         delay(100);
     }
