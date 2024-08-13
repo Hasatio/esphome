@@ -5,7 +5,6 @@
 namespace esphome {
 namespace mcs {
 
-    MCS mcs;
     MCS_Digital dig;
 
 void EEPROM_Write(int address, float value)
@@ -43,7 +42,7 @@ void start()
         digital[i] = 1;
         if (i > 0)
             digital[i - 1] = 0;
-        mcs.MCP23017_Driver(digital);
+        MCS::MCP23017_Driver(digital);
         delay(100);
     }
     for (uint8_t i = 19; i >= 0; i--)
@@ -51,7 +50,7 @@ void start()
         digital[i] = 1;
         if (i < 19)
             digital[i + 1] = 0;
-        mcs.MCP23017_Driver(digital);
+        MCS::MCP23017_Driver(digital);
         delay(100);
     }
 }
