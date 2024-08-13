@@ -34,7 +34,7 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
-void start()
+static void start()
 {
     bool digital[20] = {0};
     for (uint8_t i = 0; i < 20; i++)
