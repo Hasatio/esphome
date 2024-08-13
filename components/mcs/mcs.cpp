@@ -7,13 +7,13 @@ namespace mcs {
 
     MCS_Digital dig;
 
-void EEPROM_write(int address, float value)
+void EEPROM_Write(int address, float value)
 {
     byte *data = (byte*)&(value);
     for (int i = 0; i < sizeof(value); i++)
         EEPROM.write(address + i, data[i]);
 }
-float EEPROM_read(int address)
+float EEPROM_Read(int address)
 {
     float value = 0.0;
     byte *data = (byte*)&(value);
@@ -21,10 +21,23 @@ float EEPROM_read(int address)
         data[i] = EEPROM.read(address + i);
     return value;
 }
+void EEPROM_Setup()
+{
+    uint8_t digital = EEPROM_Read(LED_L_ADDR); // Load the value of the digital from the EEPROM
+    bool digital_status[] = {0};
+    for (uint8_t i = 0; i < 20; i++)
+    {
+        if (digital > i)
+            digital_status[i] = 1;
+        else break;
+    }
+    dig.set_Digital_Output(digital_status);
+}
 
 void MCS::setup()
 {
     EEPROM.begin(EEPROM_SIZE);
+    EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
 }
@@ -94,6 +107,11 @@ void MCS::dump_config()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+ESP_LOGCONFIG(TAG, "  Digital:");
+
+uint8_t digital = this->olat_a_ + this->olat_b_; // Load the value of the digital from the EEPROM
+ESP_LOGI(TAG, "Value: %d", digital);
+
 }
 
 void MCS::loop()
@@ -101,7 +119,7 @@ void MCS::loop()
 }
 void MCS::update()
 {
-    bool d[20];
+    bool d[20] = {1};
 
     dig.Digital_Output_Driver(d);
     MCP23017_Driver(d);
@@ -114,14 +132,18 @@ void MCS::digital_out(std::vector<bool> &dout)
 {
     bool* dout_ = dig.get_Digital_Output();
     std::vector<bool> d(dout_, dout_ + 20);
+    uint8_t digital = 0;
 
     if (d != dout)
     {
         for (uint8_t i = 0; i < 20; i++)
         {
             dout_[i] = dout[i];
+            if (dout[i]) digital++;
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
+        EEPROM_Write(LED_L_ADDR, digital); // Store the current value
+        EEPROM.commit();
     }
 }
 

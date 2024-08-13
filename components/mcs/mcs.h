@@ -20,7 +20,10 @@
 #include <EEPROM.h>
 #include "mcs_i2c.h"
 
-#define EEPROM_SIZE 56 // 56 byte
+#define EEPROM_SIZE 12 // byte
+#define BUTTON_ADDR 0x00
+#define LED_L_ADDR 0x04
+#define LED_R_ADDR 0x08
 
 namespace esphome {
 namespace mcs {
