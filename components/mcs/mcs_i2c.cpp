@@ -27,7 +27,7 @@ void MCS::MCP23017_Setup(uint8_t address)
     // {
     //     reg_value |= 1 << i; // input
     // }
-    for (uint8_t i = 0; i < 16; i++)
+    for (uint8_t i = 0; i < 8; i++)
     {
         reg_value &= ~(1 << i); // output
     }
