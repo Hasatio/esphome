@@ -107,10 +107,10 @@ void MCS::dump_config()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-ESP_LOGCONFIG(TAG, "  Digital:");
+ESP_LOGCONFIG(TAG, "Digital:");
 
-uint8_t digital = this->olat_a_ + this->olat_b_; // Load the value of the digital from the EEPROM
-ESP_LOGI(TAG, "Value: %d", digital);
+uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
+ESP_LOGI(TAG, "  Value: %d", digital);
 
 }
 
