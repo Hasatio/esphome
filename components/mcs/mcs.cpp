@@ -25,8 +25,8 @@ float EEPROM_read(int address)
 void MCS::setup()
 {
     EEPROM.begin(EEPROM_SIZE);
-    MCP23008_Setup(MCP23017_ADDRESS1);
-    MCP23008_Setup(MCP23017_ADDRESS2);
+    MCP23017_Setup(MCP23017_ADDRESS1);
+    MCP23017_Setup(MCP23017_ADDRESS2);
 }
 void MCS::dump_config()
 {
@@ -109,7 +109,6 @@ void MCS::update()
 
 void MCS::version(const uint8_t ver)
 {
-    an.set_version(ver);
 }
 void MCS::digital_out(std::vector<bool> &dout)
 {
