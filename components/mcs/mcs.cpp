@@ -42,7 +42,7 @@ void start()
         if (i > 0)
             digital[i - 1] = 0;
         dig.set_Digital_Output(digital);
-        delay_ms(100);
+        delay(100);
     }
     for (uint8_t i = 19; i >= 0; i--)
     {
@@ -50,7 +50,7 @@ void start()
         if (i < 19)
             digital[i + 1] = 0;
         dig.set_Digital_Output(digital);
-        delay_ms(100);
+        delay(100);
     }
 }
 
