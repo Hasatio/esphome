@@ -36,7 +36,7 @@ void EEPROM_Setup()
 
 void MCS::setup()
 {
-    EEPROM.begin(MCS_EEPROM_SIZE);
+    // EEPROM.begin(MCS_EEPROM_SIZE);
     EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
