@@ -36,84 +36,70 @@ void EEPROM_Setup()
 
 
 void start();
-void MCS::Timer_Setup(float period)
-{
-    if (timer)
-    {
-            esp_timer_stop(timer);
-            esp_timer_delete(timer);
-    }
-
-    // Timer'ı başlat
-    esp_timer_create_args_t timer_args = {
-        .callback = &MCS::Timer,
-        .arg = this,
-        .dispatch_method = ESP_TIMER_TASK,
-        .name = nullptr,
-    };
-    esp_timer_create(&timer_args, &timer);
-        
-    esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000));
-}
-void IRAM_ATTR MCS::Timer(void* arg)
-{
-    // MCS* mcsInstance = static_cast<MCS*>(arg);
-    // mcsInstance->start();
-    start();
-}
-// void MCS::start()
+// void MCS::Timer_Setup(float period)
 // {
-//     bool digital[20] = {0};
-//     uint8_t del = 10;
-//     for (uint8_t i = 0; i < 20; i++)
+//     if (timer)
 //     {
-//         digital[i] = 1;
-//         if (i > 0)
-//             digital[i - 1] = 0;
-//         dig.set_Digital_Output(digital);
-//         delay(del);
+//             esp_timer_stop(timer);
+//             esp_timer_delete(timer);
 //     }
-//     for (uint8_t i = 18; i >= 0; i--)
-//     {
-//         digital[i] = 1;
-//         digital[i + 1] = 0;
-//         dig.set_Digital_Output(digital);
-//         delay(del);
-//     }
+
+//     // Timer'ı başlat
+//     esp_timer_create_args_t timer_args = {
+//         .callback = &MCS::Timer,
+//         .arg = this,
+//         .dispatch_method = ESP_TIMER_TASK,
+//         .name = nullptr,
+//     };
+//     esp_timer_create(&timer_args, &timer);
+        
+//     esp_timer_start_periodic(timer, static_cast<uint32_t>(period * 1000));
 // }
-volatile uint8_t state = 0;
-volatile uint8_t i = 0;
+// void IRAM_ATTR MCS::Timer(void* arg)
+// {
+//     start();
+// }
+uint8_t del = 100;
+uint8_t state = 0;
+uint8_t i = 0;
 bool digital[20] = {0};
-void start() {
-    switch (state) {
-        case 0:
-            if (i < 20) {
-                digital[i] = 1;
-                if (i > 0) {
-                    digital[i - 1] = 0;
-                }
-                dig.set_Digital_Output(digital);
-                i++;
-            } else {
-                state = 1;
-                i = 18;
-            }
-            break;
-        case 1:
-            if (i >= 0) {
-                digital[i] = 1;
-                digital[i + 1] = 0;
-                dig.set_Digital_Output(digital);
-                if (i == 0) {
-                    state = 2; // İşlemi bitir
+uint32_t time = 0;
+void start()
+{
+    if (millis() - time >= del)
+    {
+        time = millis();
+        switch (state)
+        {
+            case 0:
+                if (i < 20) {
+                    digital[i] = 1;
+                    if (i > 0) {
+                        digital[i - 1] = 0;
+                    }
+                    dig.set_Digital_Output(digital);
+                    i++;
                 } else {
-                    i--;
+                    state = 1;
+                    i = 18;
                 }
-            }
-            break;
-        case 2:
-             // Zamanlayıcıyı durdur
-            break;
+                break;
+            case 1:
+                if (i >= 0) {
+                    digital[i] = 1;
+                    digital[i + 1] = 0;
+                    dig.set_Digital_Output(digital);
+                    if (i == 0) {
+                        state = 2; // İşlemi bitir
+                    } else {
+                        i--;
+                    }
+                }
+                break;
+            case 2:
+                // Zamanlayıcıyı durdur
+                break;
+        }
     }
 }
 

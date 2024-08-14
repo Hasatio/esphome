@@ -82,8 +82,8 @@ class MCS : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-void Timer_Setup(float period);
-static void IRAM_ATTR Timer(void* arg);
+// void Timer_Setup(float period);
+// static void IRAM_ATTR Timer(void* arg);
 
 void setup() override;
 void dump_config() override;
