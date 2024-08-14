@@ -103,15 +103,12 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
                 // this->write_byte(MCP23017_GPIOA, reg_value_a);
                 this->write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a1_ = reg_value_a;
-                ESP_LOGD(TAG,"olat_a1_ = %d", this->olat_a1_);
-                delay(200);
             }
             if (reg_value_b != this->olat_b_)
             {
                 // this->write_byte(MCP23017_GPIOB, reg_value_b);
                 this->write_byte(MCP23017_OLATB, reg_value_b);
                 this->olat_b_ = reg_value_b;
-                ESP_LOGD(TAG,"olat_b_ = %d", this->olat_b_);
             }
             break;
 
@@ -131,8 +128,6 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
                 // this->write_byte(MCP23017_GPIOA, reg_value_a);
                 this->write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a2_ = reg_value_a;
-                ESP_LOGD(TAG,"olat_a2_ = %d", this->olat_a2_);
-                delay(200);
             }
             break;
     }
