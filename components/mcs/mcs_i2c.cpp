@@ -175,13 +175,13 @@ void MCS::MCP23017_Driver(bool digital[])
     if (this->is_failed())
         return;
     
-    MCP23017_Write(digital1);
+    MCP23017_Write(digital1, 1);
 
     this->set_i2c_address(MCP23017_ADDRESS2);
     if (this->is_failed())
         return;
     
-    MCP23017_Write(digital2);
+    MCP23017_Write(digital2, 2);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

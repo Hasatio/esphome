@@ -103,7 +103,7 @@ void tcaselect(uint8_t i)
 //  MCP23017
 
 void MCP23017_Setup(uint8_t address);
-void MCP23017_Write(bool value[]);
+void MCP23017_Write(bool value[], uint8_t state);
 void MCP23017_Driver(bool digital[]);
 void MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode);
 
