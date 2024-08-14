@@ -135,7 +135,7 @@ void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interr
 }
 void MCS::MCP23017_Driver(bool digital[])
 {
-    bool digital1[16] = {0};
+    bool digital1[16] = {1,0};
     bool digital2[4] = {0};
 
     for (uint8_t i = 0; i < 16; i++)
