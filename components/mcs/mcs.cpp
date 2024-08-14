@@ -109,7 +109,7 @@ void MCS::setup()
     // EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
-    Timer_Setup(100);
+    // Timer_Setup(100);
 }
 void MCS::dump_config()
 {
