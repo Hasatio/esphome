@@ -188,13 +188,34 @@ void MCS::digital_out(std::vector<bool> &dout)
         for (uint8_t i = 1; i < 20; i++)
         {
             dout_[i] = dout[i];
+            ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
+
             if (dout[i])
                 digital++;
-
-            ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
         ESP_LOGD(TAG, "digital = %d", digital);
         // EEPROM_Write(LED_L_ADDR, digital); // Store the current value
+        // EEPROM.commit();
+    }
+}
+void MCS::digital_out2(uint8_t dout)
+{
+    bool* dout_ = dig.get_Digital_Output();
+    uint8_t d = dig.get_Digital_Output2();
+
+    if (d != dout)
+    {
+        d = dout;
+        dout_[0] = 1;
+        ESP_LOGD(TAG, "DigOut_Status[0] = %d", dout_[0]);
+
+        for (uint8_t i = 1; i < dout; i++)
+        {
+            dout_[i] = 1;
+            ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
+        }
+        ESP_LOGD(TAG, "digital = %d", dout);
+        // EEPROM_Write(LED_L_ADDR, dout); // Store the current value
         // EEPROM.commit();
     }
 }

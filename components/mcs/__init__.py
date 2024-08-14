@@ -15,6 +15,7 @@ MULTI_CONF = True
 CONF_COMPONENT_ID = "component_id"
 CONF_VERSION = "version"
 CONF_DIGITAL_OUT = "digital_out"
+CONF_DIGITAL_OUT2 = "digital_out2"
 CONF_CUSTOM_COMMAND = "custom_command"
 
 
@@ -76,6 +77,37 @@ async def digital_out_to_code(config, action_id, template_arg, args):
     if cg.is_template(val):
         template_ = await cg.templatable(val, args, cg.std_vector.template(cg.bool_))
         cg.add(var.set_dig_out(template_))
+
+    return var
+
+
+Digital_Out_Action2 = mcs_ns.class_("Digital_Out_Action2", automation.Action)
+
+DIGITAL_OUT_ACTION_SCHEMA2 = cv.All(
+    {
+        cv.GenerateID(): cv.use_id(MCS),
+        cv.Required(CONF_DIGITAL_OUT2): cv.All(
+            cv.templatable(
+                cv.int_range(min = 1, max = 20)
+            ),
+        ),
+    }
+)
+
+@automation.register_action(
+    "mcs.digital_out2", 
+    Digital_Out_Action2, 
+    DIGITAL_OUT_ACTION_SCHEMA2
+)
+
+async def digital_out_to_code2(config, action_id, template_arg, args):
+    paren = await cg.get_variable(config[CONF_ID])
+    var = cg.new_Pvariable(action_id, template_arg, paren)
+
+    val = config[CONF_DIGITAL_OUT2]
+    if cg.is_template(val):
+        template_ = await cg.templatable(val, args, cg.std_vector.template(cg.uint8))
+        cg.add(var.set_dig_out2(template_))
 
     return var
 

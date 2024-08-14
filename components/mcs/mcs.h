@@ -116,6 +116,7 @@ void set_interrupt_mode(MCP23017_InterruptMode interrupt_mode)  { interrupt_mode
 
 void version(const uint8_t ver);
 void digital_out(std::vector<bool> &dout);
+void digital_out2(uint8_t dout);
 
 protected:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +145,22 @@ void play(Ts... x)
     std::vector<bool> data = this->dig_out_.value(x...);
 
     this->parent_->digital_out(data);
+}
+
+protected:
+MCS *parent_;
+};
+template<typename... Ts> class Digital_Out_Action2 : public Action<Ts...> {
+public:
+Digital_Out_Action2(MCS *parent) : parent_(parent){};
+
+TEMPLATABLE_VALUE(uint8_t, dig_out2);
+
+void play(Ts... x) 
+{
+    uint8_t data = this->dig_out2_.value(x...);
+
+    this->parent_->digital_out2(data);
 }
 
 protected:
