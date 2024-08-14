@@ -34,7 +34,7 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
-uint8_t del = 50;
+uint8_t del = 30;
 uint8_t state = 1;
 uint8_t i = 0;
 bool digital[20] = {0};
@@ -47,28 +47,30 @@ void start()
         switch (state)
         {
             case 1:
-                if (i < 20) {
+                if (i < 20)
+                {
                     digital[i] = 1;
-                    if (i > 0) {
+                    if (i > 0)
                         digital[i - 1] = 0;
-                    }
                     dig.set_Digital_Output(digital);
                     i++;
-                } else {
+                }
+                else
+                {
                     state = 2; // Sonraki işlem
                     i = 18;
                 }
                 break;
             case 2:
-                if (i >= 0) {
+                if (i >= 0)
+                {
                     digital[i] = 1;
                     digital[i + 1] = 0;
                     dig.set_Digital_Output(digital);
-                    if (i == 0) {
+                    if (i == 0)
                         state = 0; // İşlemi bitir
-                    } else {
+                    else
                         i--;
-                    }
                 }
                 break;
         }
