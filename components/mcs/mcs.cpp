@@ -112,7 +112,7 @@ void start() {
             }
             break;
         case 2:
-            Timer1.detachInterrupt(); // Zamanlayıcıyı durdur
+             // Zamanlayıcıyı durdur
             break;
     }
 }
