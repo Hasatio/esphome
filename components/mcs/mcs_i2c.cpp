@@ -75,9 +75,6 @@ void MCS::MCP23017_Write(bool value[])
 
     for (uint8_t i = 0; i < 16; i++)
     {
-        // uint8_t olat_;
-        // this->read_byte(MCP23017_OLAT, &this->olat_);
-
         if (i < 8)
             if (value[i])
                 reg_value_a |= 1 << (i);
@@ -95,12 +92,14 @@ void MCS::MCP23017_Write(bool value[])
         // this->write_byte(MCP23017_GPIOA, reg_value_a);
         this->write_byte(MCP23017_OLATA, reg_value_a);
         this->olat_a_ = reg_value_a;
+        ESP_LOGD(TAG,"olat_a_ = %d", this->olat_a_);
     }
     if (reg_value_b != this->olat_b_)
     {
         // this->write_byte(MCP23017_GPIOB, reg_value_b);
         this->write_byte(MCP23017_OLATB, reg_value_b);
         this->olat_b_ = reg_value_b;
+        ESP_LOGD(TAG,"olat_b_ = %d", this->olat_b_);
     }
 }
 void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode)
