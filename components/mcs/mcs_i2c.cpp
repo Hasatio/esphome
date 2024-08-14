@@ -141,7 +141,7 @@ void MCS::MCP23017_Driver(bool digital[])
 
     for (uint8_t i = 0; i < 16; i++)
         digital1[i] = digital[i];
-    for (uint8_t i = 0; i < 16; i++)
+    for (uint8_t i = 0; i < 4; i++)
         digital2[i] = digital[i + 16];
 
     this->set_i2c_address(MCP23017_ADDRESS1);
