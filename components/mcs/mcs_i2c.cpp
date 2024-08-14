@@ -92,7 +92,7 @@ void MCS::MCP23017_Write(bool value[])
         // this->write_byte(MCP23017_GPIOA, reg_value_a);
         this->write_byte(MCP23017_OLATA, reg_value_a);
         this->olat_a_ = reg_value_a;
-        ESP_LOGD(TAG,"olat_a_ = %d", this->olat_a_);
+        // ESP_LOGD(TAG,"olat_a_ = %d", this->olat_a_);
     }
     // if (reg_value_b != this->olat_b_)
     // {
@@ -139,7 +139,11 @@ void MCS::MCP23017_Driver(bool digital[])
     bool digital2[4] = {0};
 
     for (uint8_t i = 0; i < 16; i++)
+    {
         digital1[i] = digital[i];
+        
+        ESP_LOGD(TAG,"digital1[i] = %d", digital1[i]);
+    }
     for (uint8_t i = 0; i < 4; i++)
         digital2[i] = digital[i + 16];
 
