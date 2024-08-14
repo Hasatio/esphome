@@ -56,6 +56,7 @@ void EEPROM_Setup()
 // }
 volatile uint8_t state = 0;
 volatile uint8_t i = 0;
+bool digital[20] = {0};
 void timerCallback() {
     switch (state) {
         case 0:
