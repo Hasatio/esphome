@@ -34,7 +34,7 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
-void MCS::start()
+void MCS::up()
 {
     bool digital[20] = {0};
     for (uint8_t i = 0; i < 20; i++)
@@ -45,6 +45,10 @@ void MCS::start()
         MCP23017_Driver(digital);
         delay(20);
     }
+}
+void MCS::down()
+{
+    bool digital[20] = {0};
     for (uint8_t i = 18; i >= 0; i--)
     {
         digital[i] = 1;
@@ -60,6 +64,8 @@ void MCS::setup()
     // EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
+    up();
+    down();
 }
 void MCS::dump_config()
 {
@@ -132,7 +138,6 @@ ESP_LOGCONFIG(TAG, "Digital:");
 uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
 ESP_LOGI(TAG, "  Value: %d", digital);
 
-start();
 }
 
 void MCS::loop()
