@@ -200,7 +200,7 @@ void MCS::digital_out(std::vector<bool> &dout)
 }
 void MCS::digital_out2(uint8_t dout)
 {
-    bool* dout_ = dig.get_Digital_Output();
+    bool dout_[20];
     uint8_t d = dig.get_Digital_Output2();
 
     if (d != dout)
@@ -214,6 +214,7 @@ void MCS::digital_out2(uint8_t dout)
             dout_[i] = 1;
             ESP_LOGD(TAG, "DigOut_Status[%d] = %d", i, dout_[i]);
         }
+        dig.set_Digital_Output(dout_);
         ESP_LOGD(TAG, "digital = %d", dout);
         // EEPROM_Write(LED_L_ADDR, dout); // Store the current value
         // EEPROM.commit();
