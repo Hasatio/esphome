@@ -43,9 +43,14 @@ void MCS::MCP23017_Setup(uint8_t address)
     this->write_byte(MCP23017_OLATB, reg_value);
 
     // Read current output register state
-    this->read_byte(MCP23017_OLATA, &this->olat_a_);
+    if (address == MCP23017_ADDRESS1)
+    {
+    this->read_byte(MCP23017_OLATA, &this->olat_a1_);
     this->read_byte(MCP23017_OLATB, &this->olat_b_);
-
+    }
+    else
+    this->read_byte(MCP23017_OLATA, &this->olat_a2_);
+    
 
     // this->write_byte(MCP23017_IPOLA, 0x00);
     // this->write_byte(MCP23017_GPINTENA, 0x00);
