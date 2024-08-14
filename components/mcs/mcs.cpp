@@ -178,10 +178,13 @@ void MCS::digital_out(std::vector<bool> &dout)
 {
     bool* dout_ = dig.get_Digital_Output();
     std::vector<bool> d(dout_, dout_ + 20);
-    uint8_t digital = 0;
 
     if (d != dout)
     {
+        dout_[0] = 1;
+        uint8_t digital = 1;
+        ESP_LOGD(TAG, "DigOut_Status[0] = %d", dout_[0]);
+
         for (uint8_t i = 1; i < 20; i++)
         {
             dout_[i] = dout[i];
