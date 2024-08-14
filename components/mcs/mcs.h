@@ -19,6 +19,7 @@
 #include <cmath>
 #include <EEPROM.h>
 #include "mcs_i2c.h"
+#include <esp_timer.h>
 
 #define MCS_EEPROM_SIZE 6 // byte
 #define BUTTON_ADDR 0x00
@@ -81,7 +82,8 @@ class MCS : public PollingComponent, public i2c::I2CDevice
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
-void start();
+void Timer_Setup(float period);
+static void IRAM_ATTR Timer(void* arg);
 
 void setup() override;
 void dump_config() override;
@@ -130,6 +132,9 @@ MCP23017_InterruptMode interrupt_mode_;
 bool open_drain_ints_;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+private:
+esp_timer_handle_t timer;
 };
 template<typename... Ts> class Digital_Out_Action : public Action<Ts...> {
 public:
