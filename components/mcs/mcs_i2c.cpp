@@ -139,11 +139,8 @@ void MCS::MCP23017_Driver(bool digital[])
     bool digital2[4] = {0};
 
     for (uint8_t i = 0; i < 16; i++)
-    {
         digital1[i] = digital[i];
-        
-        ESP_LOGD(TAG,"digital1[i] = %d", digital1[i]);
-    }
+
     for (uint8_t i = 0; i < 4; i++)
         digital2[i] = digital[i + 16];
 
