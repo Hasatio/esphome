@@ -96,9 +96,6 @@ void start()
                     }
                 }
                 break;
-            case 2:
-                // Zamanlayıcıyı durdur
-                break;
         }
     }
 }
@@ -187,6 +184,7 @@ start();
 
 void MCS::loop()
 {
+    start();
 }
 void MCS::update()
 {
