@@ -92,7 +92,8 @@ void MCS::MCP23017_Write(bool value[])
         // this->write_byte(MCP23017_GPIOA, reg_value_a);
         this->write_byte(MCP23017_OLATA, reg_value_a);
         this->olat_a_ = reg_value_a;
-        // ESP_LOGD(TAG,"olat_a_ = %d", this->olat_a_);
+        ESP_LOGD(TAG,"olat_a_ = %d", this->olat_a_);
+        delay(200);
     }
     // if (reg_value_b != this->olat_b_)
     // {
