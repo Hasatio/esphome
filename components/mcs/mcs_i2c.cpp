@@ -32,12 +32,12 @@ void MCS::MCP23017_Setup(uint8_t address)
         reg_value &= ~(1 << i); // output
     }
 
-    this->write_byte(MCP23017_GPIOA, reg_value);
+    // this->write_byte(MCP23017_GPIOA, reg_value);
     this->write_byte(MCP23017_IODIRA, reg_value);
     this->write_byte(MCP23017_GPPUA, reg_value);
     this->write_byte(MCP23017_OLATA, reg_value);
 
-    this->write_byte(MCP23017_GPIOB, reg_value);
+    // this->write_byte(MCP23017_GPIOB, reg_value);
     this->write_byte(MCP23017_IODIRB, reg_value);
     this->write_byte(MCP23017_GPPUB, reg_value);
     this->write_byte(MCP23017_OLATB, reg_value);
@@ -47,26 +47,26 @@ void MCS::MCP23017_Setup(uint8_t address)
     this->read_byte(MCP23017_OLATB, &this->olat_b_);
 
 
-    this->write_byte(MCP23017_IPOLA, 0x00);
-    this->write_byte(MCP23017_GPINTENA, 0x00);
-    this->write_byte(MCP23017_DEFVALA, 0x00);
-    this->write_byte(MCP23017_INTCONA, 0x00);
+    // this->write_byte(MCP23017_IPOLA, 0x00);
+    // this->write_byte(MCP23017_GPINTENA, 0x00);
+    // this->write_byte(MCP23017_DEFVALA, 0x00);
+    // this->write_byte(MCP23017_INTCONA, 0x00);
 
-    this->write_byte(MCP23017_IPOLB, 0x00);
-    this->write_byte(MCP23017_GPINTENB, 0x00);
-    this->write_byte(MCP23017_DEFVALB, 0x00);
-    this->write_byte(MCP23017_INTCONB, 0x00);
+    // this->write_byte(MCP23017_IPOLB, 0x00);
+    // this->write_byte(MCP23017_GPINTENB, 0x00);
+    // this->write_byte(MCP23017_DEFVALB, 0x00);
+    // this->write_byte(MCP23017_INTCONB, 0x00);
 
     if (this->open_drain_ints_)
         // enable open-drain interrupt pins, 3.3V-safe
         this->write_byte(MCP23017_IOCONA, 0x04);
         this->write_byte(MCP23017_IOCONB, 0x04);
 
-    this->write_byte(MCP23017_INTFA, 0x00);
-    this->write_byte(MCP23017_INTCAPA, 0x00);
+    // this->write_byte(MCP23017_INTFA, 0x00);
+    // this->write_byte(MCP23017_INTCAPA, 0x00);
     
-    this->write_byte(MCP23017_INTFB, 0x00);
-    this->write_byte(MCP23017_INTCAPB, 0x00);
+    // this->write_byte(MCP23017_INTFB, 0x00);
+    // this->write_byte(MCP23017_INTCAPB, 0x00);
 }
 void MCS::MCP23017_Write(bool value[])
 {
