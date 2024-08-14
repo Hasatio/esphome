@@ -35,7 +35,7 @@ void EEPROM_Setup()
 }
 
 
-start();
+void start();
 void MCS::Timer_Setup(float period)
 {
     if (timer)
