@@ -34,6 +34,8 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
+
+start();
 void MCS::Timer_Setup(float period)
 {
     if (timer)
