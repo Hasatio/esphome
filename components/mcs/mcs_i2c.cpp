@@ -75,11 +75,14 @@ void MCS::MCP23017_Setup(uint8_t address)
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
 {
+    uint8_t reg_value_a;
+    uint8_t reg_value_b;
+
     switch (state)
     {
         case 1:
-            uint8_t reg_value_a = this->olat_a1_;
-            uint8_t reg_value_b = this->olat_b_;
+            reg_value_a = this->olat_a1_;
+            reg_value_b = this->olat_b_;
 
             for (uint8_t i = 0; i < 16; i++)
             {
@@ -113,7 +116,7 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
             break;
 
         case 2:
-            uint8_t reg_value_a = this->olat_a2_;
+            reg_value_a = this->olat_a2_;
 
             for (uint8_t i = 0; i < 4; i++)
             {
