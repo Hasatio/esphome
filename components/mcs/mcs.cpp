@@ -200,7 +200,7 @@ void MCS::digital_out(std::vector<bool> &dout)
 }
 void MCS::digital_out2(uint8_t dout)
 {
-    bool dout_[20];
+    bool dout_[20] = {0};
     uint8_t d = dig.get_Digital_Output2();
 
     if (d != dout)
