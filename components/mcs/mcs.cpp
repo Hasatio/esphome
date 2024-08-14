@@ -34,24 +34,58 @@ void EEPROM_Setup()
     dig.set_Digital_Output(digital_status);
 }
 
-void MCS::start()
-{
-    bool digital[20] = {0};
-    uint8_t del = 10;
-    for (uint8_t i = 0; i < 20; i++)
-    {
-        digital[i] = 1;
-        if (i > 0)
-            digital[i - 1] = 0;
-        MCP23017_Driver(digital);
-        delay(del);
-    }
-    for (uint8_t i = 18; i >= 0; i--)
-    {
-        digital[i] = 1;
-        digital[i + 1] = 0;
-        MCP23017_Driver(digital);
-        delay(del);
+// void MCS::start()
+// {
+//     bool digital[20] = {0};
+//     uint8_t del = 10;
+//     for (uint8_t i = 0; i < 20; i++)
+//     {
+//         digital[i] = 1;
+//         if (i > 0)
+//             digital[i - 1] = 0;
+//         dig.set_Digital_Output(digital);
+//         delay(del);
+//     }
+//     for (uint8_t i = 18; i >= 0; i--)
+//     {
+//         digital[i] = 1;
+//         digital[i + 1] = 0;
+//         dig.set_Digital_Output(digital);
+//         delay(del);
+//     }
+// }
+volatile uint8_t state = 0;
+volatile uint8_t i = 0;
+void timerCallback() {
+    switch (state) {
+        case 0:
+            if (i < 20) {
+                digital[i] = 1;
+                if (i > 0) {
+                    digital[i - 1] = 0;
+                }
+                dig.set_Digital_Output(digital);
+                i++;
+            } else {
+                state = 1;
+                i = 18;
+            }
+            break;
+        case 1:
+            if (i >= 0) {
+                digital[i] = 1;
+                digital[i + 1] = 0;
+                dig.set_Digital_Output(digital);
+                if (i == 0) {
+                    state = 2; // İşlemi bitir
+                } else {
+                    i--;
+                }
+            }
+            break;
+        case 2:
+            Timer1.detachInterrupt(); // Zamanlayıcıyı durdur
+            break;
     }
 }
 
@@ -61,6 +95,9 @@ void MCS::setup()
     // EEPROM_Setup();
     MCP23017_Setup(MCP23017_ADDRESS1);
     MCP23017_Setup(MCP23017_ADDRESS2);
+    Timer1.initialize(10000); // 10ms aralıklarla
+    Timer1.attachInterrupt(timerCallback); // Kesme fonksiyonunu belirle
+
 }
 void MCS::dump_config()
 {
