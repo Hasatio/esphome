@@ -122,9 +122,9 @@ protected:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  MCP23017
 
-uint16_t olat_a1_{0x01};
-uint16_t olat_a2_{0x01};
-uint16_t olat_b_{0x00};
+uint8_t olat_a1_{0x01};
+uint8_t olat_a2_{0x01};
+uint8_t olat_b_{0x00};
 uint8_t pin_;
 bool inverted_;
 MCP23017_InterruptMode interrupt_mode_;
