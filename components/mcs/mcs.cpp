@@ -162,9 +162,9 @@ void MCS::loop()
 {
     if (state)
         start();
-}
-void MCS::update()
-{
+// }
+// void MCS::update()
+// {
     bool d[20];
 
     dig.Digital_Output_Driver(d);
