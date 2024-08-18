@@ -93,7 +93,7 @@ void MCS::dump_config()
     ESP_LOGCONFIG(TAG, "I2C:");
     
     LOG_I2C_DEVICE(this);
-    LOG_UPDATE_INTERVAL(this);
+    // LOG_UPDATE_INTERVAL(this);
     if (this->is_failed())
         ESP_LOGE(TAG, "  Communication failed!");
     else
