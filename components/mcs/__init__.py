@@ -5,7 +5,8 @@ from esphome import automation
 from esphome.const import (
     CONF_ID,
     CONF_DATA
-) 
+)
+from esphome.core import coroutine
 
 CODEOWNERS = ["@hasatio"]
 DEPENDENCIES = ["i2c"]
@@ -33,6 +34,12 @@ CONFIG_SCHEMA = cv.All(
     .extend(i2c.i2c_device_schema(None)),
 )
 
+@coroutine
+async def register_component(config):
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+    
+    return var
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
