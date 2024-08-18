@@ -95,58 +95,61 @@ void MCS::dump_config()
     LOG_I2C_DEVICE(this);
     // LOG_UPDATE_INTERVAL(this);
     if (this->is_failed())
+    {
         ESP_LOGE(TAG, "  Communication failed!");
+        return;
+    }
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
         
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
-    Wire.beginTransmission(TCA9548_ADDRESS);
-    if(!Wire.endTransmission())
-    {
-        ESP_LOGCONFIG(TAG, "  TCA9548:");
+    // Wire.beginTransmission(TCA9548_ADDRESS);
+    // if(!Wire.endTransmission())
+    // {
+    //     ESP_LOGCONFIG(TAG, "  TCA9548:");
 
-        for (uint8_t t=0; t<8; t++)
-        {
-            tcaselect(t);
-            ESP_LOGI(TAG, "    Channel %d:", t);
+    //     for (uint8_t t=0; t<8; t++)
+    //     {
+    //         tcaselect(t);
+    //         ESP_LOGI(TAG, "    Channel %d:", t);
 
-            for (uint8_t addr = 0; addr<=127; addr++) 
-            {
-                if (addr == TCA9548_ADDRESS) continue;
+    //         for (uint8_t addr = 0; addr<=127; addr++) 
+    //         {
+    //             if (addr == TCA9548_ADDRESS) continue;
 
-                Wire.beginTransmission(addr);
-                if (!Wire.endTransmission()) 
-                {
-                    if (addr < 16)
-                        ESP_LOGI(TAG, "      Found I2C 0x0%x",addr);
-                    else
-                        ESP_LOGI(TAG, "      Found I2C 0x%x",addr);
-                }
-                else if(Wire.endTransmission() == 4)
-                    ESP_LOGE(TAG, "      Found the same I2C 0x%x",addr);
-            }
-        }
-    }
-    else
-    {
-        ESP_LOGCONFIG(TAG, "  I2C Devices:");
+    //             Wire.beginTransmission(addr);
+    //             if (!Wire.endTransmission()) 
+    //             {
+    //                 if (addr < 16)
+    //                     ESP_LOGI(TAG, "      Found I2C 0x0%x",addr);
+    //                 else
+    //                     ESP_LOGI(TAG, "      Found I2C 0x%x",addr);
+    //             }
+    //             else if(Wire.endTransmission() == 4)
+    //                 ESP_LOGE(TAG, "      Found the same I2C 0x%x",addr);
+    //         }
+    //     }
+    // }
+    // else
+    // {
+    //     ESP_LOGCONFIG(TAG, "  I2C Devices:");
 
-        for (uint8_t addr = 0; addr<=127; addr++) 
-        {
-            Wire.beginTransmission(addr);
-            if (!Wire.endTransmission()) 
-            {
-                if (addr < 16)
-                    ESP_LOGI(TAG, "    Found I2C 0x0%x",addr);
-                else
-                    ESP_LOGI(TAG, "    Found I2C 0x%x",addr);
-            }
-            else if(Wire.endTransmission() == 4)
-                ESP_LOGE(TAG, "    Found the same I2C 0x%x",addr);
-        }
-    }
+    //     for (uint8_t addr = 0; addr<=127; addr++) 
+    //     {
+    //         Wire.beginTransmission(addr);
+    //         if (!Wire.endTransmission()) 
+    //         {
+    //             if (addr < 16)
+    //                 ESP_LOGI(TAG, "    Found I2C 0x0%x",addr);
+    //             else
+    //                 ESP_LOGI(TAG, "    Found I2C 0x%x",addr);
+    //         }
+    //         else if(Wire.endTransmission() == 4)
+    //             ESP_LOGE(TAG, "    Found the same I2C 0x%x",addr);
+    //     }
+    // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
