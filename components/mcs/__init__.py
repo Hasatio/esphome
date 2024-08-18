@@ -26,7 +26,7 @@ MCS = mcs_ns.class_("MCS", cg.Component, i2c.I2CDevice)
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(MCS),
+            cv.GenerateID(): cv.use_id(MCS),
             cv.Optional(CONF_VERSION, default = 1): cv.uint8_t,
         }
     )
