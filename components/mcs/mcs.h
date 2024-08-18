@@ -77,7 +77,7 @@ enum MCP23017_InterruptMode : uint8_t
 
 class MCS_I2C;
 
-class MCS : public Component, public i2c::I2CDevice
+class MCS : public PollingComponent, public i2c::I2CDevice
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
@@ -85,7 +85,7 @@ float get_setup_priority() const override { return esphome::setup_priority::DATA
 void setup() override;
 void dump_config() override;
 void loop() override;
-// void update() override;
+void update() override;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
