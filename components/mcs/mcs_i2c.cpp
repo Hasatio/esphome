@@ -33,12 +33,12 @@ void MCS::MCP23017_Setup(uint8_t address)
     if (address == LEFT_ADDRESS1 || address == RIGHT_ADDRESS1)
         reg_value++;
 
-    // this->write_byte(MCP23017_GPIOA, reg_value);
+    this->write_byte(MCP23017_GPIOA, reg_value);
     this->write_byte(MCP23017_IODIRA, reg_value);
     this->write_byte(MCP23017_GPPUA, reg_value);
     this->write_byte(MCP23017_OLATA, reg_value);
 
-    // this->write_byte(MCP23017_GPIOB, reg_value);
+    this->write_byte(MCP23017_GPIOB, reg_value);
     this->write_byte(MCP23017_IODIRB, reg_value);
     this->write_byte(MCP23017_GPPUB, reg_value);
     this->write_byte(MCP23017_OLATB, reg_value);
