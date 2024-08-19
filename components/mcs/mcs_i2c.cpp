@@ -79,7 +79,7 @@ void MCS::MCP23017_Read(bool value[])
 {
     uint8_t value_;
 
-    this->read_byte(MCP23017_GPIOA, &value);
+    this->read_byte(MCP23017_GPIOA, &value_);
 
     for (uint8_t i = 0; i < 8; i++)
     {
@@ -154,8 +154,8 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
 }
 void MCS::MCP23017_Driver(bool digital[])
 {
-    bool button1[];
-    bool button2[];
+    bool button1[16];
+    bool button2[6];
 
     this->set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
@@ -175,8 +175,8 @@ void MCS::MCP23017_Driver(bool digital[])
     else if (!button2[21])
         joystick = 2;
 
-    bool led1[] = {1,0};
-    bool led2[] = {0};
+    bool led1[16] = {1,0};
+    bool led2[4] = {0};
     bool left = 0, right = 0;
 
     switch (joystick)
