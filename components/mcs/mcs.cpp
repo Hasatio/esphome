@@ -101,7 +101,7 @@ void MCS::dump_config()
     if (this->is_failed())
     {
         ESP_LOGE(TAG, "  Communication failed!");
-        return;
+        // return;
     }
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
