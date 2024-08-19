@@ -90,6 +90,18 @@ void MCS::start()
 
                 MCP23017_Write(digital2, 2);
 
+                this->set_i2c_address(RIGHT_ADDRESS1);
+                if (this->is_failed())
+                    return;
+                
+                MCP23017_Write(digital1, 1);
+
+                this->set_i2c_address(RIGHT_ADDRESS2);
+                if (this->is_failed())
+                    return;
+
+                MCP23017_Write(digital2, 2);
+
                 break;
                 
             case 2:
@@ -125,6 +137,18 @@ void MCS::start()
                 MCP23017_Write(digital1, 1);
 
                 this->set_i2c_address(LEFT_ADDRESS2);
+                if (this->is_failed())
+                    return;
+
+                MCP23017_Write(digital2, 2);
+
+                this->set_i2c_address(RIGHT_ADDRESS1);
+                if (this->is_failed())
+                    return;
+                
+                MCP23017_Write(digital1, 1);
+
+                this->set_i2c_address(RIGHT_ADDRESS2);
                 if (this->is_failed())
                     return;
 
