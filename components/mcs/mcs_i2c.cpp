@@ -152,8 +152,8 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
 }
 void MCS::MCP23017_Driver(bool digital[])
 {
-    bool button1[] = {0};
-    bool button2[] = {0};
+    bool button1[16] = {0};
+    bool button2[16] = {0};
 
     this->set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
