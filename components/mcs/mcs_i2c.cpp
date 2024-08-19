@@ -186,6 +186,7 @@ void MCS::MCP23017_Driver(bool digital[])
                 {
                     led1[i] = 1;
                     right = 1;
+            ESP_LOGD(TAG,"led1: %d", led1[i]);
                     break;
                 }
             if (!right)
@@ -194,6 +195,7 @@ void MCS::MCP23017_Driver(bool digital[])
                     {
                         led2[i] = 1;
                         right = 1;
+            ESP_LOGD(TAG,"led2: %d", led2[i]);
                         break;
                     }
             ESP_LOGD(TAG,"joystick: %d", joystick);
@@ -205,6 +207,7 @@ void MCS::MCP23017_Driver(bool digital[])
                 {
                     led1[i] = 1;
                     left = 1;
+            ESP_LOGD(TAG,"led1: %d", led1[i]);
                     break;
                 }
             if (!left)
@@ -213,9 +216,9 @@ void MCS::MCP23017_Driver(bool digital[])
                     {
                         led2[i] = 1;
                         left = 1;
+            ESP_LOGD(TAG,"led2: %d", led2[i]);
                         break;
                     }
-            ESP_LOGD(TAG,"joystick: %d", joystick);
             break;
         
         default:
