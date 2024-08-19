@@ -36,7 +36,7 @@ void EEPROM_Setup()
 
 uint8_t del = 40;
 uint8_t state = 1;
-uint8_t i = 0;
+uint8_t q = 0;
 bool digital[20] = {0};
 uint32_t time = 0;
 void start()
@@ -47,30 +47,61 @@ void start()
         switch (state)
         {
             case 1:
-                if (i < 20)
+                if (q < 20)
                 {
-                    digital[i] = 1;
-                    if (i > 0)
-                        digital[i - 1] = 0;
-                    dig.set_Digital_Output(digital);
-                    i++;
+                    if (q < 16)
+                    {
+                        digital[q] = 1;
+                        if (q > 0)
+                        {
+                            digital[q - 1] = 0;
+                        }
+                    }
+                    else
+                    {
+                        digital[q % 16] = 1;
+                        if (q > 16)
+                        {
+                            digital[q % 16 - 1] = 0;
+                        }
+                        else
+                        {
+                            digital[q - 1] = 0;
+                        }
+                    }
+                    q++;
                 }
                 else
                 {
                     state = 2; // Sonraki işlem
-                    i = 18;
+                    q = 18;
                 }
                 break;
+                
             case 2:
-                if (i >= 0)
+                if (q >= 0)
                 {
-                    digital[i] = 1;
-                    digital[i + 1] = 0;
-                    dig.set_Digital_Output(digital);
-                    if (i == 0)
+                    if (q >= 16)
+                    {
+                        digital[q % 16] = 1;
+                        digital[(q + 1) % 16] = 0;
+                    }
+                    else
+                    {
+                        digital[q] = 1;
+                        if (q < 15)
+                        {
+                        digital[q + 1] = 0;
+                        }
+                        else
+                        {
+                        digital[(q + 1) % 16] = 0;
+                        }
+                    }
+                    if (q == 0)
                         state = 0; // İşlemi bitir
                     else
-                        i--;
+                        q--;
                 }
                 break;
         }
