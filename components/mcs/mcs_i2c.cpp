@@ -30,7 +30,7 @@ void MCS::MCP23017_Setup(uint8_t address)
         for (uint8_t i = 0; i < 8; i++)
             reg_value &= ~(1 << i); // output
             
-    if (address == LEFT_ADDRESS1)
+    if (address == LEFT_ADDRESS1 || address == RIGHT_ADDRESS1)
         reg_value++;
 
     // this->write_byte(MCP23017_GPIOA, reg_value);
