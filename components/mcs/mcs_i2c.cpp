@@ -75,26 +75,23 @@ void MCS::MCP23017_Setup(uint8_t address)
     // this->write_byte(MCP23017_INTFB, 0x00);
     // this->write_byte(MCP23017_INTCAPB, 0x00);
 }
-bool* MCS::MCP23017_Read()
+void MCS::MCP23017_Read(bool value[])
 {
-    uint8_t value;
-    bool digital[16] = {0};
+    uint8_t value_;
 
     this->read_byte(MCP23017_GPIOA, &value);
 
     for (uint8_t i = 0; i < 8; i++)
     {
-        digital[i] = value & (1 << i);
+        value[i] = value_ & (1 << i);
     }
 
-    this->read_byte(MCP23017_GPIOB, &value);
+    this->read_byte(MCP23017_GPIOB, &value_);
 
     for (uint8_t i = 8; i < 16; i++)
     {
-        digital[i] = value & (1 << i);
+        value[i] = value_ & (1 << i);
     }
-
-    return digital;
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
 {
@@ -157,17 +154,20 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
 }
 void MCS::MCP23017_Driver(bool digital[])
 {
+    bool button1[];
+    bool button2[];
+
     this->set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
         return;
 
-    bool* button1 = MCP23017_Read();
+    MCP23017_Read(button1);
 
     this->set_i2c_address(BUTTON_ADDRESS2);
     if (this->is_failed())
         return;
 
-    bool* button2 = MCP23017_Read();
+    MCP23017_Read(button2);
 
     uint8_t joystick = 0;
     if (!button2[20])

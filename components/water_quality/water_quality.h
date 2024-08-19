@@ -170,7 +170,7 @@ uint8_t get_resolution() const      { return resolution_; }
 //  MCP23008
 
 void MCP23008_Setup(uint8_t address);
-bool* MCP23008_Read();
+void MCP23008_Read(bool value[]);
 void MCP23008_Write(bool value[]);
 void MCP23008_Driver(bool digital[]);
 void MCP23008_pin_interrupt_mode(uint8_t pin, MCP23008_InterruptMode interrupt_mode);
