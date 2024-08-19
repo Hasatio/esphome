@@ -115,23 +115,23 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
                         reg_value_a &= ~(1 << (i));
                 else
                     if (value[i])
-                        reg_value_b |= 1 << (i - 8);
+                        reg_value_b |= 1 << (i % 8);
                     else
-                        reg_value_b &= ~(1 << (i - 8));
+                        reg_value_b &= ~(1 << (i % 8));
             }
 
-            if (reg_value_a != this->olat_a1_)
-            {
+            // if (reg_value_a != this->olat_a1_)
+            // {
                 // this->write_byte(MCP23017_GPIOA, reg_value_a);
                 this->write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a1_ = reg_value_a;
-            }
-            if (reg_value_b != this->olat_b_)
-            {
+            // }
+            // if (reg_value_b != this->olat_b_)
+            // {
                 // this->write_byte(MCP23017_GPIOB, reg_value_b);
                 this->write_byte(MCP23017_OLATB, reg_value_b);
                 this->olat_b_ = reg_value_b;
-            }
+            // }
             break;
 
         case 2:
@@ -145,12 +145,12 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
                     reg_value_a &= ~(1 << (i));
             }
 
-            if (reg_value_a != this->olat_a2_)
-            {
+            // if (reg_value_a != this->olat_a2_)
+            // {
                 // this->write_byte(MCP23017_GPIOA, reg_value_a);
                 this->write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a2_ = reg_value_a;
-            }
+            // }
             break;
     }
 }
