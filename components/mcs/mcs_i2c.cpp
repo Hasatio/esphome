@@ -168,6 +168,12 @@ void MCS::MCP23017_Driver(bool digital[])
 
     MCP23017_Read(button2);
 
+    
+            for (uint8_t i = 0; i < 16; i++)
+                ESP_LOGD(TAG,"button1: %d", button1[i]);
+            for (uint8_t i = 0; i < 16; i++)
+                ESP_LOGD(TAG,"button2: %d", button2[i]);
+
     uint8_t joystick = 0;
     if (!button2[4])
         joystick = 1;
