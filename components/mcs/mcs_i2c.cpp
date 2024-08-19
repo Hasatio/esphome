@@ -73,6 +73,20 @@ void MCS::MCP23017_Setup(uint8_t address)
     
     // this->write_byte(MCP23017_INTFB, 0x00);
     // this->write_byte(MCP23017_INTCAPB, 0x00);
+
+    
+    if (address == BUTTON_ADDRESS1)
+        reg1 = reg_value;
+    if (address == BUTTON_ADDRESS2)
+        reg2 = reg_value;
+    if (address == LEFT_ADDRESS1)
+        reg3 = reg_value;
+    if (address == LEFT_ADDRESS2)
+        reg4 = reg_value;
+    if (address == RIGHT_ADDRESS1)
+        reg5 = reg_value;
+    if (address == RIGHT_ADDRESS2)
+        reg6 = reg_value;
 }
 void MCS::MCP23017_Read(bool value[])
 {
