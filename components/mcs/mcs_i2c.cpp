@@ -182,7 +182,7 @@ void MCS::MCP23017_Driver(bool digital[])
     {
         case 1:
             for (uint8_t i = 0; i < 16; i++)
-                if (button1[i])
+                if (!button1[i])
                 {
                     led1[i] = 1;
                     right = 1;
@@ -191,19 +191,18 @@ void MCS::MCP23017_Driver(bool digital[])
                 }
             if (!right)
                 for (uint8_t i = 0; i < 4; i++)
-                    if (button2[i])
+                    if (!button2[i])
                     {
                         led2[i] = 1;
                         right = 1;
             ESP_LOGD(TAG,"led2: %d", led2[i]);
                         break;
                     }
-            ESP_LOGD(TAG,"joystick: %d", joystick);
             break;
         
         case 2:
             for (uint8_t i = 0; i < 16; i++)
-                if (button1[i])
+                if (!button1[i])
                 {
                     led1[i] = 1;
                     left = 1;
@@ -212,7 +211,7 @@ void MCS::MCP23017_Driver(bool digital[])
                 }
             if (!left)
                 for (uint8_t i = 0; i < 4; i++)
-                    if (button2[i])
+                    if (!button2[i])
                     {
                         led2[i] = 1;
                         left = 1;
