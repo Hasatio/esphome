@@ -97,8 +97,8 @@ void MCS::MCP23017_Read(bool value[])
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
 {
-    uint8_t reg_value_a;
-    uint8_t reg_value_b;
+    uint8_t reg_value_a = 0;
+    uint8_t reg_value_b = 0;
 
     switch (state)
     {
@@ -174,8 +174,10 @@ void MCS::MCP23017_Driver(bool digital[])
     uint8_t joystick = 0;
     if (!button2[4])
         joystick = 1;
-    else if (!button2[5])
+    else if (!button2[5]){
         joystick = 2;
+            for (uint8_t i = 0; i < 16; i++)
+            ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);}
 
     bool led1[16] = {0};
     bool led2[4] = {0};
