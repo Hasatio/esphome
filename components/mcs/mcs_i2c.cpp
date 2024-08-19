@@ -30,8 +30,6 @@ void MCS::MCP23017_Setup(uint8_t address)
         for (uint8_t i = 0; i < 8; i++)
             reg_value &= ~(1 << i); // output
             
-    if (address == LEFT_ADDRESS1 || address == RIGHT_ADDRESS1)
-        reg_value++;
 
     this->write_byte(MCP23017_GPIOA, reg_value);
     this->write_byte(MCP23017_IODIRA, reg_value);
@@ -42,6 +40,10 @@ void MCS::MCP23017_Setup(uint8_t address)
     this->write_byte(MCP23017_IODIRB, reg_value);
     this->write_byte(MCP23017_GPPUB, reg_value);
     this->write_byte(MCP23017_OLATB, reg_value);
+
+    if (address == LEFT_ADDRESS1 || address == RIGHT_ADDRESS1)
+        this->write_byte(MCP23017_OLATA, reg_value + 1);
+
 
     // Read current output register state
     // if (address == MCP23017_ADDRESS1)
@@ -74,19 +76,6 @@ void MCS::MCP23017_Setup(uint8_t address)
     // this->write_byte(MCP23017_INTFB, 0x00);
     // this->write_byte(MCP23017_INTCAPB, 0x00);
 
-    
-    if (address == BUTTON_ADDRESS1)
-        reg1 = reg_value;
-    if (address == BUTTON_ADDRESS2)
-        reg2 = reg_value;
-    if (address == LEFT_ADDRESS1)
-        reg3 = reg_value;
-    if (address == LEFT_ADDRESS2)
-        reg4 = reg_value;
-    if (address == RIGHT_ADDRESS1)
-        reg5 = reg_value;
-    if (address == RIGHT_ADDRESS2)
-        reg6 = reg_value;
 }
 void MCS::MCP23017_Read(bool value[])
 {
