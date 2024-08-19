@@ -161,8 +161,6 @@ ESP_LOGCONFIG(TAG, "Digital:");
 
 uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
 ESP_LOGI(TAG, "  Value: %d", digital);
-
-start();
 }
 
 void MCS::loop()
