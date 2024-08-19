@@ -37,7 +37,8 @@ void EEPROM_Setup()
 uint8_t del = 40;
 uint8_t state = 1;
 uint8_t q = 0;
-bool digital[20] = {0};
+bool digital1[16] = {0};
+bool digital2[4] = {0};
 uint32_t time = 0;
 void start()
 {
@@ -51,22 +52,22 @@ void start()
                 {
                     if (q < 16)
                     {
-                        digital[q] = 1;
+                        digital1[q] = 1;
                         if (q > 0)
                         {
-                            digital[q - 1] = 0;
+                            digital1[q - 1] = 0;
                         }
                     }
                     else
                     {
-                        digital[q % 16] = 1;
+                        digital2[q % 16] = 1;
                         if (q > 16)
                         {
-                            digital[q % 16 - 1] = 0;
+                            digital2[q % 16 - 1] = 0;
                         }
                         else
                         {
-                            digital[q - 1] = 0;
+                            digital1[q - 1] = 0;
                         }
                     }
                     q++;
@@ -76,6 +77,19 @@ void start()
                     state = 2; // Sonraki işlem
                     q = 18;
                 }
+                
+                this->set_i2c_address(LEFT_ADDRESS1);
+                if (this->is_failed())
+                    return;
+                
+                MCP23017_Write(digital1, 1);
+
+                this->set_i2c_address(LEFT_ADDRESS2);
+                if (this->is_failed())
+                    return;
+
+                MCP23017_Write(digital2, 2);
+
                 break;
                 
             case 2:
@@ -83,19 +97,19 @@ void start()
                 {
                     if (q >= 16)
                     {
-                        digital[q % 16] = 1;
-                        digital[(q + 1) % 16] = 0;
+                        digital2[q % 16] = 1;
+                        digital2[(q + 1) % 16] = 0;
                     }
                     else
                     {
-                        digital[q] = 1;
+                        digital1[q] = 1;
                         if (q < 15)
                         {
-                        digital[q + 1] = 0;
+                        digital1[q + 1] = 0;
                         }
                         else
                         {
-                        digital[(q + 1) % 16] = 0;
+                        digital2[(q + 1) % 16] = 0;
                         }
                     }
                     if (q == 0)
@@ -103,6 +117,19 @@ void start()
                     else
                         q--;
                 }
+
+                this->set_i2c_address(LEFT_ADDRESS1);
+                if (this->is_failed())
+                    return;
+                
+                MCP23017_Write(digital1, 1);
+
+                this->set_i2c_address(LEFT_ADDRESS2);
+                if (this->is_failed())
+                    return;
+
+                MCP23017_Write(digital2, 2);
+
                 break;
         }
     }
