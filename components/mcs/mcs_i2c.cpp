@@ -186,7 +186,6 @@ void MCS::MCP23017_Driver(bool digital[])
                 {
                     led1[i] = 1;
                     right = 1;
-            ESP_LOGD(TAG,"led1: %d", led1[i]);
                     break;
                 }
             if (!right)
@@ -195,13 +194,8 @@ void MCS::MCP23017_Driver(bool digital[])
                     {
                         led2[i] = 1;
                         right = 1;
-            ESP_LOGD(TAG,"led2: %d", led2[i]);
                         break;
                     }
-            for (uint8_t i = 0; i < 16; i++)
-                ESP_LOGD(TAG,"button1: %d", button1[i]);
-            for (uint8_t i = 0; i < 6; i++)
-                ESP_LOGD(TAG,"button2: %d", button2[i]);
             break;
         
         case 2:
@@ -210,7 +204,7 @@ void MCS::MCP23017_Driver(bool digital[])
                 {
                     led1[i] = 1;
                     left = 1;
-            ESP_LOGD(TAG,"led1: %d", led1[i]);
+            ESP_LOGD(TAG,"led1[%d]: %d", i, led1[i]);
                     break;
                 }
             if (!left)
@@ -219,13 +213,13 @@ void MCS::MCP23017_Driver(bool digital[])
                     {
                         led2[i] = 1;
                         left = 1;
-            ESP_LOGD(TAG,"led2: %d", led2[i]);
+            ESP_LOGD(TAG,"led2[%d]: %d", i, led2[i]);
                         break;
                     }
             for (uint8_t i = 0; i < 16; i++)
-                ESP_LOGD(TAG,"button1: %d", button1[i]);
+                ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);
             for (uint8_t i = 0; i < 6; i++)
-                ESP_LOGD(TAG,"button2: %d", button2[i]);
+                ESP_LOGD(TAG,"button2[%d]: %d", i, button2[i]);
             break;
         
         default:
