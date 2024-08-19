@@ -90,16 +90,6 @@ void MCS::MCP23017_Read(bool value[])
 
     for (uint8_t i = 0; i < 8; i++)
         value[i + 8] = value_ & (1 << i);
-
-    for (uint8_t i = 0; i < 16; i++)
-    {
-        if (value[i] != val[i])
-        {
-        val[i] = value[i];
-        ESP_LOGD(TAG,"val[%d]: %d", i, val[i]);
-        }
-
-    }
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
 {
