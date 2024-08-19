@@ -219,10 +219,6 @@ void MCS::MCP23017_Driver(bool digital[])
             ESP_LOGD(TAG,"led2[%d]: %d", i, led2[i]);
                         break;
                     }
-            for (uint8_t i = 0; i < 16; i++)
-                ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);
-            for (uint8_t i = 0; i < 6; i++)
-                ESP_LOGD(TAG,"button2[%d]: %d", i, button2[i]);
             break;
         
         default:
