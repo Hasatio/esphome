@@ -322,7 +322,7 @@ void WaterQuality::MCP23008_Read(bool value[])
 {
     uint8_t value_;
 
-    this->read_byte(MCP23008_GPIO, &value);
+    this->read_byte(MCP23008_GPIO, &value_);
 
     for (uint8_t i = 0; i < 4; i++)
     {
@@ -387,9 +387,9 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     
     MCP23008_Write(digital);
     
-    bool value[];
+    bool value[4];
     MCP23008_Read(value);
-    
+
     for (uint8_t i = 0; i < 4; i++)
     {
         digital[i] = value[i];
