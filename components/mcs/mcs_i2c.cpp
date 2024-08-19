@@ -197,7 +197,7 @@ void MCS::MCP23017_Driver(bool digital[])
                         right = 1;
                         break;
                     }
-            ESPLOGD(TAG,"joystick: %d", joystick);
+            ESP_LOGD(TAG,"joystick: %d", joystick);
             break;
         
         case 2:
@@ -216,7 +216,7 @@ void MCS::MCP23017_Driver(bool digital[])
                         left = 1;
                         break;
                     }
-            ESPLOGD(TAG,"joystick: %d", joystick);
+            ESP_LOGD(TAG,"joystick: %d", joystick);
             break;
         
         default:
