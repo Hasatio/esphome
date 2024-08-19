@@ -40,7 +40,7 @@ uint8_t q = 0;
 bool digital1[16] = {0};
 bool digital2[4] = {0};
 uint32_t time = 0;
-void start()
+void MCS::start()
 {
     if (millis() - time >= del)
     {
