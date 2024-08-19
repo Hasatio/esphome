@@ -103,8 +103,8 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
     switch (state)
     {
         case 1:
-            reg_value_a = this->olat_a1_;
-            reg_value_b = this->olat_b_;
+            // reg_value_a = this->olat_a1_;
+            // reg_value_b = this->olat_b_;
 
             for (uint8_t i = 0; i < 16; i++)
             {
@@ -135,7 +135,7 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
             break;
 
         case 2:
-            reg_value_a = this->olat_a2_;
+            // reg_value_a = this->olat_a2_;
 
             for (uint8_t i = 0; i < 4; i++)
             {
