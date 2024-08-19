@@ -90,9 +90,9 @@ void MCS::MCP23017_Read(bool value[])
 
     this->read_byte(MCP23017_GPIOB, &value_);
 
-    for (uint8_t i = 8; i < 16; i++)
+    for (uint8_t i = 0; i < 8; i++)
     {
-        value[i] = value_ & (1 << i);
+        value[i + 8] = value_ & (1 << i);
     }
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
