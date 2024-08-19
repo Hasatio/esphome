@@ -318,12 +318,20 @@ void WaterQuality::MCP23008_Setup(uint8_t address)
     this->write_byte(MCP23008_INTF, 0x00);
     this->write_byte(MCP23008_INTCAP, 0x00);
 }
-uint8_t WaterQuality::MCP23008_Read()
+bool* WaterQuality::MCP23008_Read()
 {
     uint8_t value;
+    bool digital[] = {0};
+    
     this->read_byte(MCP23008_GPIO, &value);
 
-    return value;
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        digital[i] = value & (1 << i);
+        // ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
+    }
+
+    return digital;
 }
 void WaterQuality::MCP23008_Write(bool value[])
 {
@@ -382,11 +390,10 @@ void WaterQuality::MCP23008_Driver(bool digital[])
     
     MCP23008_Write(digital);
     
-    uint8_t value = MCP23008_Read();
+    bool* value = MCP23008_Read();
     for (uint8_t i = 0; i < 4; i++)
     {
-        digital[i] = value & (1 << i);
-        // ESP_LOGD(TAG, "in[%d] = %d", i, digital[i] ? 1 : 0);
+        digital[i] = value[i];
     }
 }
 

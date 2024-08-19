@@ -16,8 +16,12 @@ namespace mcs {
 
 // I2C Address
 #define TCA9548_ADDRESS 0x70
-#define MCP23017_ADDRESS1 0x20
-#define MCP23017_ADDRESS2 0x21
+#define BUTTON_ADDRESS1 0x20
+#define BUTTON_ADDRESS2 0x21
+#define LEFT_ADDRESS1 0x22
+#define LEFT_ADDRESS2 0x23
+#define RIGHT_ADDRESS1 0x24
+#define RIGHT_ADDRESS2 0x25
 
 class MCS;
 

@@ -23,14 +23,16 @@ void MCS::MCP23017_Setup(uint8_t address)
     }
 
     uint8_t reg_value = 0;
-    // for (uint8_t i = 0; i < 4; i++)
-    // {
-    //     reg_value |= 1 << i; // input
-    // }
-    for (uint8_t i = 0; i < 8; i++)
-    {
-        reg_value &= ~(1 << i); // output
-    }
+    if (address < LEFT_ADDRESS1)
+        for (uint8_t i = 0; i < 8; i++)
+        {
+            reg_value |= 1 << i; // input
+        }
+    else
+        for (uint8_t i = 0; i < 8; i++)
+        {
+            reg_value &= ~(1 << i); // output
+        }
 
     // this->write_byte(MCP23017_GPIOA, reg_value);
     this->write_byte(MCP23017_IODIRA, reg_value);
@@ -72,6 +74,27 @@ void MCS::MCP23017_Setup(uint8_t address)
     
     // this->write_byte(MCP23017_INTFB, 0x00);
     // this->write_byte(MCP23017_INTCAPB, 0x00);
+}
+bool* MCS::MCP23017_Read()
+{
+    uint8_t value;
+    bool digital[] = {0};
+
+    this->read_byte(MCP23017_GPIOA, &value);
+
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        digital[i] = value & (1 << i);
+    }
+
+    this->read_byte(MCP23017_GPIOB, &value);
+
+    for (uint8_t i = 8; i < 16; i++)
+    {
+        digital[i] = value & (1 << i);
+    }
+
+    return digital;
 }
 void MCS::MCP23017_Write(bool value[], uint8_t state)
 {
@@ -132,59 +155,100 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
             break;
     }
 }
-void MCS::MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode)
+void MCS::MCP23017_Driver()
 {
-    uint8_t gpintena = MCP23017_GPINTENA;
-    uint8_t intcona = MCP23017_INTCONA;
-    uint8_t defvala = MCP23017_DEFVALA;
-
-    uint8_t gpintenb = MCP23017_GPINTENB;
-    uint8_t intconb = MCP23017_INTCONB;
-    uint8_t defvalb = MCP23017_DEFVALB;
-
-    // switch (interrupt_mode)
-    // {
-    //   case MCP23017_CHANGE:
-    //     this->MCP23017_update_reg(pin, true, gpinten);
-    //     this->MCP23017_update_reg(pin, false, intcon);
-    //     break;
-    //   case MCP23017_RISING:
-    //     this->MCP23017_update_reg(pin, true, gpinten);
-    //     this->MCP23017_update_reg(pin, true, intcon);
-    //     this->MCP23017_update_reg(pin, true, defval);
-    //     break;
-    //   case MCP23017_FALLING:
-    //     this->MCP23017_update_reg(pin, true, gpinten);
-    //     this->MCP23017_update_reg(pin, true, intcon);
-    //     this->MCP23017_update_reg(pin, false, defval);
-    //     break;
-    //   case MCP23017_NO_INTERRUPT:
-    //     this->MCP23017_update_reg(pin, false, gpinten);
-    //     break;
-    // }
-}
-void MCS::MCP23017_Driver(bool digital[])
-{
-    bool digital1[16] = {1,0};
-    bool digital2[4] = {0};
-
-    for (uint8_t i = 0; i < 16; i++)
-        digital1[i] = digital[i];
-
-    for (uint8_t i = 0; i < 4; i++)
-        digital2[i] = digital[i + 16];
-
-    this->set_i2c_address(MCP23017_ADDRESS1);
+    this->set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
         return;
-    
-    MCP23017_Write(digital1, 1);
 
-    this->set_i2c_address(MCP23017_ADDRESS2);
+    bool* button1 = MCP23017_Read();
+
+    this->set_i2c_address(BUTTON_ADDRESS2);
     if (this->is_failed())
         return;
+
+    bool* button2 = MCP23017_Read();
+
+    uint8_t joystick = 0;
+    if (!button2[20])
+        joystick = 1;
+    else if (!button2[21])
+        joystick = 2;
+
+    bool led1[] = {1,0};
+    bool led2[] = {0};
+    bool left = 0, right = 0;
+
+    switch (joystick)
+    {
+        case 1:
+            for (uint8_t i = 0; i < 16; i++)
+                if (button1[i])
+                {
+                    led1[i] = 1;
+                    right = 1;
+                    break;
+                }
+            if (!right)
+                for (uint8_t i = 0; i < 4; i++)
+                    if (button2[i])
+                    {
+                        led2[i] = 1;
+                        right = 1;
+                        break;
+                    }
+            break;
+        
+        case 2:
+            for (uint8_t i = 0; i < 16; i++)
+                if (button1[i])
+                {
+                    led1[i] = 1;
+                    left = 1;
+                    break;
+                }
+            if (!left)
+                for (uint8_t i = 0; i < 4; i++)
+                    if (button2[i])
+                    {
+                        led2[i] = 1;
+                        left = 1;
+                        break;
+                    }
+            break;
+        
+        default:
+            break;
+    }
     
-    MCP23017_Write(digital2, 2);
+    if (left)
+    {
+        this->set_i2c_address(LEFT_ADDRESS1);
+        if (this->is_failed())
+            return;
+        
+        MCP23017_Write(led1, 1);
+
+        this->set_i2c_address(LEFT_ADDRESS2);
+        if (this->is_failed())
+            return;
+
+        MCP23017_Write(led2, 2);
+    }
+    else if (right)
+    {   
+        this->set_i2c_address(RIGHT_ADDRESS1);
+        if (this->is_failed())
+            return;
+    
+        MCP23017_Write(led1, 1);
+
+        this->set_i2c_address(RIGHT_ADDRESS2);
+        if (this->is_failed())
+            return;
+        
+        MCP23017_Write(led2, 2);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

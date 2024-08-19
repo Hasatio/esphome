@@ -58,22 +58,6 @@ enum MCP23017_Registers
     MCP23017_GPIOB = 0x13,
     MCP23017_OLATB = 0x15,
 };
-enum MCP23017_PinMode
-{
-    FLAG_NONE,
-    FLAG_INPUT,
-    FLAG_OUTPUT,
-    FLAG_OPEN_DRAIN,
-    FLAG_PULLUP,
-    FLAG_PULLDOWN,
-};
-enum MCP23017_InterruptMode : uint8_t
-{
-    MCP23017_NO_INTERRUPT = 0,
-    MCP23017_CHANGE,
-    MCP23017_RISING,
-    MCP23017_FALLING,
-};
 
 class MCS_I2C;
 
@@ -103,14 +87,9 @@ void tcaselect(uint8_t i)
 //  MCP23017
 
 void MCP23017_Setup(uint8_t address);
+bool* MCP23017_Read();
 void MCP23017_Write(bool value[], uint8_t state);
-void MCP23017_Driver(bool digital[]);
-void MCP23017_pin_interrupt_mode(uint8_t pin, MCP23017_InterruptMode interrupt_mode);
-
-void set_open_drain_ints(const bool value)                      { this->open_drain_ints_ = value; }
-void set_pin(uint8_t pin)                                       { pin_ = pin; }
-void set_inverted(bool inverted)                                { inverted_ = inverted; }
-void set_interrupt_mode(MCP23017_InterruptMode interrupt_mode)  { interrupt_mode_ = interrupt_mode; }
+void MCP23017_Driver();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -125,10 +104,6 @@ protected:
 uint8_t olat_a1_{0x01};
 uint8_t olat_a2_{0x01};
 uint8_t olat_b_{0x00};
-uint8_t pin_;
-bool inverted_;
-MCP23017_InterruptMode interrupt_mode_;
-bool open_drain_ints_;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
