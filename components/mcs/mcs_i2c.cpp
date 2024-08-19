@@ -174,7 +174,7 @@ void MCS::MCP23017_Driver(bool digital[])
     else if (!button2[5])
         joystick = 2;
 
-    bool led1[16] = {1,0};
+    bool led1[16] = {0};
     bool led2[4] = {0};
     bool left = 0, right = 0;
 
