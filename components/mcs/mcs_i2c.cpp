@@ -78,7 +78,7 @@ void MCS::MCP23017_Setup(uint8_t address)
 bool* MCS::MCP23017_Read()
 {
     uint8_t value;
-    bool digital[] = {0};
+    bool digital[16] = {0};
 
     this->read_byte(MCP23017_GPIOA, &value);
 
