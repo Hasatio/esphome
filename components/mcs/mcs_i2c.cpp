@@ -159,11 +159,11 @@ void MCS::MCP23017_Driver(bool digital[])
     bool button1[16];
     bool button2[6];
 
-    this->set_i2c_address(BUTTON_ADDRESS1);
-    if (this->is_failed())
-        return;
+    // this->set_i2c_address(BUTTON_ADDRESS1);
+    // if (this->is_failed())
+    //     return;
 
-    MCP23017_Read(button1);
+    // MCP23017_Read(button1);
 
     this->set_i2c_address(BUTTON_ADDRESS2);
     if (this->is_failed())
@@ -175,59 +175,70 @@ void MCS::MCP23017_Driver(bool digital[])
     if (!button2[4])
         joystick = 1;
     else if (!button2[5])
+    {
         joystick = 2;
+
+    this->set_i2c_address(BUTTON_ADDRESS1);
+    if (this->is_failed())
+        return;
+
+    MCP23017_Read(button1);
+    
+            for (uint8_t i = 0; i < 16; i++)
+                ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);
+    }
 
     bool led1[16] = {0};
     bool led2[4] = {0};
     bool left = 0, right = 0;
 
-    switch (joystick)
-    {
-        case 1:
-            for (uint8_t i = 0; i < 16; i++)
-                if (!button1[i])
-                {
-                    led1[i] = 1;
-                    right = 1;
-                    break;
-                }
-            if (!right)
-                for (uint8_t i = 0; i < 4; i++)
-                    if (!button2[i])
-                    {
-                        led2[i] = 1;
-                        right = 1;
-                        break;
-                    }
-            break;
+    // switch (joystick)
+    // {
+    //     case 1:
+    //         for (uint8_t i = 0; i < 16; i++)
+    //             if (!button1[i])
+    //             {
+    //                 led1[i] = 1;
+    //                 right = 1;
+    //                 break;
+    //             }
+    //         if (!right)
+    //             for (uint8_t i = 0; i < 4; i++)
+    //                 if (!button2[i])
+    //                 {
+    //                     led2[i] = 1;
+    //                     right = 1;
+    //                     break;
+    //                 }
+    //         break;
         
-        case 2:
-            for (uint8_t i = 0; i < 16; i++)
-                if (!button1[i])
-                {
-                    led1[i] = 1;
-                    left = 1;
-            ESP_LOGD(TAG,"led1[%d]: %d", i, led1[i]);
-                    break;
-                }
-            if (!left)
-                for (uint8_t i = 0; i < 4; i++)
-                    if (!button2[i])
-                    {
-                        led2[i] = 1;
-                        left = 1;
-            ESP_LOGD(TAG,"led2[%d]: %d", i, led2[i]);
-                        break;
-                    }
-            for (uint8_t i = 0; i < 16; i++)
-                ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);
-            for (uint8_t i = 0; i < 6; i++)
-                ESP_LOGD(TAG,"button2[%d]: %d", i, button2[i]);
-            break;
+    //     case 2:
+    //         for (uint8_t i = 0; i < 16; i++)
+    //             if (!button1[i])
+    //             {
+    //                 led1[i] = 1;
+    //                 left = 1;
+    //         ESP_LOGD(TAG,"led1[%d]: %d", i, led1[i]);
+    //                 break;
+    //             }
+    //         if (!left)
+    //             for (uint8_t i = 0; i < 4; i++)
+    //                 if (!button2[i])
+    //                 {
+    //                     led2[i] = 1;
+    //                     left = 1;
+    //         ESP_LOGD(TAG,"led2[%d]: %d", i, led2[i]);
+    //                     break;
+    //                 }
+    //         for (uint8_t i = 0; i < 16; i++)
+    //             ESP_LOGD(TAG,"button1[%d]: %d", i, button1[i]);
+    //         for (uint8_t i = 0; i < 6; i++)
+    //             ESP_LOGD(TAG,"button2[%d]: %d", i, button2[i]);
+    //         break;
         
-        default:
-            break;
-    }
+    //     default:
+    //         break;
+    // }
     
     if (left)
     {
