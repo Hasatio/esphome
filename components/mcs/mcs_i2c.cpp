@@ -170,9 +170,9 @@ void MCS::MCP23017_Driver(bool digital[])
     MCP23017_Read(button2);
 
     uint8_t joystick = 0;
-    if (!button2[20])
+    if (!button2[4])
         joystick = 1;
-    else if (!button2[21])
+    else if (!button2[5])
         joystick = 2;
 
     bool led1[16] = {1,0};
