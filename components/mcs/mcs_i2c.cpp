@@ -96,7 +96,7 @@ void MCS::MCP23017_Read(bool value[])
         if (value[i] != val[i])
         {
         val[i] = value[i];
-        ESP_LOGD(TAG,"val[%d]", i, val[i]);
+        ESP_LOGD(TAG,"val[%d]: %d", i, val[i]);
         }
 
     }
