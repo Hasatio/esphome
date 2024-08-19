@@ -155,7 +155,7 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
             break;
     }
 }
-void MCS::MCP23017_Driver()
+void MCS::MCP23017_Driver(bool digital[])
 {
     this->set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
