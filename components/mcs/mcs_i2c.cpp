@@ -64,10 +64,10 @@ void MCS::MCP23017_Setup(uint8_t address)
     // this->write_byte(MCP23017_DEFVALB, 0x00);
     // this->write_byte(MCP23017_INTCONB, 0x00);
 
-    if (this->open_drain_ints_)
-        // enable open-drain interrupt pins, 3.3V-safe
-        this->write_byte(MCP23017_IOCONA, 0x04);
-        this->write_byte(MCP23017_IOCONB, 0x04);
+    // if (this->open_drain_ints_)
+    //     // enable open-drain interrupt pins, 3.3V-safe
+    //     this->write_byte(MCP23017_IOCONA, 0x04);
+    //     this->write_byte(MCP23017_IOCONB, 0x04);
 
     // this->write_byte(MCP23017_INTFA, 0x00);
     // this->write_byte(MCP23017_INTCAPA, 0x00);
