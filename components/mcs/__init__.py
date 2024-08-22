@@ -51,6 +51,7 @@ async def to_code(config):
     cg.add_library("Time", None)
     cg.add_library("Serial", None)
     cg.add_library("ODriveArduino", None)
+    cg.add_library("SoftwareSerial", None)
     
 
 Digital_Out_Action = mcs_ns.class_("Digital_Out_Action", automation.Action)
