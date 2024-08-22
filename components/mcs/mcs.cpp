@@ -11,7 +11,7 @@ namespace mcs {
     // HardwareSerial& odrive_serial = Serial1;
     
     // SoftwareSerial odrive_serial(9, 10);
-    ODriveUART odrive(Serial2);
+    ODriveUART odrive(UARTDevice::parent_);
 
 void EEPROM_Write(int address, float value)
 {
