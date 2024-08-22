@@ -200,6 +200,7 @@ void MCS::dump_config()
 //  UART
         
     ESP_LOGCONFIG(TAG, "UART:");
+    ESP_LOGI(TAG, "  Baud Rate: %d", this->get_baud_rate());
     this->check_uart_settings(115200);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
