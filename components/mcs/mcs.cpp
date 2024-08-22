@@ -261,19 +261,18 @@ void MCS::dump_config()
     // while (odrive.getState() == AXIS_STATE_UNDEFINED) {
     //     delay(100);
     // }
-  
-    ESP_LOGI(TAG, "Found ODrive");
-    
-    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
-    
-    ESP_LOGI(TAG, "Enabling closed loop control...");
-    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
-        odrive.clearErrors();
-        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-        delay(10);
-    }
-    
-    ESP_LOGI(TAG, "ODrive running!");
+
+    // ESP_LOGI(TAG, "Found ODrive");
+    // ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+    // ESP_LOGI(TAG, "Enabling closed loop control...");
+
+    // while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
+    //     odrive.clearErrors();
+    //     odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+    //     delay(10);
+    // }
+
+    // ESP_LOGI(TAG, "ODrive running!");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -282,9 +281,43 @@ ESP_LOGCONFIG(TAG, "Digital:");
 uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
 ESP_LOGI(TAG, "  Value: %d", digital);
 }
-
+uint8_t uart_state = 1;
+uint32_t uart_time1 = 0;
+uint32_t uart_time2 = 0;
 void MCS::loop()
 {
+    if (uart_time1 >= 100 && uart_state == 1)
+    {
+        uart_time1 = millis();
+
+        if (odrive.getState() == AXIS_STATE_UNDEFINED)
+        else
+        {
+            ESP_LOGI(TAG, "Found ODrive");
+            ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+            ESP_LOGI(TAG, "Enabling closed loop control...");
+
+            uart_state = 2;
+        }
+    }
+
+    if (uart_time2 >= 10 && uart_state == 2)
+    {
+        uart_time2 = millis();
+
+        if (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL)
+        {
+            odrive.clearErrors();
+            odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+        }
+        else
+        {
+            ESP_LOGI(TAG, "ODrive running!");
+            
+            uart_state = 0;
+        }
+    }
+
     // if (state)
     //     start();
 
