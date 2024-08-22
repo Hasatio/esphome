@@ -258,7 +258,7 @@ void MCS::dump_config()
 //   while (odrive.getState() == AXIS_STATE_UNDEFINED) {
 //     delay(100);
 //   }
-    while (this->available())
+    while (this->UARTDevice::available())
         this->UARTDevice::read();
 
     ESP_LOGI(TAG, "odrive.getState(): %s", odrive.getState());
