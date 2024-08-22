@@ -259,8 +259,8 @@ void MCS::dump_config()
 //     delay(100);
 //   }
     while (this->available())
-        this->read();
-        
+        this->UARTDevice::read();
+
     ESP_LOGI(TAG, "odrive.getState(): %s", odrive.getState());
   
     ESP_LOGI(TAG, "Found ODrive");
