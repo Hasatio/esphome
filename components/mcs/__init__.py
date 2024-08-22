@@ -1,6 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import i2c
+from esphome.components import i2c, uart
 from esphome import automation
 from esphome.const import (
     CONF_ID,
@@ -8,7 +8,7 @@ from esphome.const import (
 )
 
 CODEOWNERS = ["@hasatio"]
-DEPENDENCIES = ["i2c"]
+DEPENDENCIES = ["i2c", "uart"]
 MULTI_CONF = True
 
 CONF_COMPONENT_ID = "component_id"
@@ -19,7 +19,7 @@ CONF_CUSTOM_COMMAND = "custom_command"
 
 
 mcs_ns = cg.esphome_ns.namespace("mcs")
-MCS = mcs_ns.class_("MCS", cg.PollingComponent, i2c.I2CDevice)
+MCS = mcs_ns.class_("MCS", cg.PollingComponent, i2c.I2CDevice, uart.UARTDevice)
 
 CONFIG_SCHEMA = cv.All(
     cv.Schema(
@@ -29,7 +29,8 @@ CONFIG_SCHEMA = cv.All(
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
-    .extend(i2c.i2c_device_schema(None)),
+    .extend(i2c.i2c_device_schema(None))
+    .extend(uart.UART_DEVICE_SCHEMA)
 )
 
 
@@ -37,6 +38,7 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
+    await uart.register_uart_device(var, config)
     
     
     if CONF_VERSION in config:
@@ -47,6 +49,8 @@ async def to_code(config):
     cg.add_library("SPI", None)
     cg.add_library("SD", None)
     cg.add_library("Time", None)
+    cg.add_library("Serial", None)
+    cg.add_library("ODriveArduino", None)
     
 
 Digital_Out_Action = mcs_ns.class_("Digital_Out_Action", automation.Action)

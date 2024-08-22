@@ -8,6 +8,7 @@
 #include "esphome/core/component.h"
 #include "esphome/core/hal.h"
 #include "esphome/components/i2c/i2c.h"
+#include "esphome/components/uart/uart.h"
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/core/automation.h"
@@ -20,6 +21,7 @@
 #include <EEPROM.h>
 #include "mcs_i2c.h"
 #include <esp_timer.h>
+#include "ODriveUART.h"
 
 #define MCS_EEPROM_SIZE 6 // byte
 #define BUTTON_ADDR 0x00
@@ -61,9 +63,11 @@ enum MCP23017_Registers
 
 class MCS_I2C;
 
-class MCS : public PollingComponent, public i2c::I2CDevice
+class MCS : public PollingComponent, public i2c::I2CDevice, public uart::UARTDevice
 {
 public:
+MCS(UARTComponent *parent) : UARTDevice(parent) {}
+
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 
 void setup() override;

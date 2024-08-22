@@ -6,6 +6,8 @@ namespace esphome {
 namespace mcs {
 
     MCS_Digital dig;
+    // UARTDevice uart;
+    ODriveUART odrive(Serial);
 
 void EEPROM_Write(int address, float value)
 {
@@ -188,6 +190,12 @@ void MCS::dump_config()
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
         
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  UART
+        
+    ESP_LOGCONFIG(TAG, "UART:");
+    this->check_uart_settings(115200);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
