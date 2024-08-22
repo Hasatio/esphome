@@ -10,7 +10,7 @@ namespace mcs {
     // HardwareSerial& odrive_serial = Serial1;
     
     SoftwareSerial odrive_serial(9, 10);
-    ODriveArduino odrive(odrive_serial);
+    ODriveUART odrive(odrive_serial);
 
 void EEPROM_Write(int address, float value)
 {

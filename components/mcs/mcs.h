@@ -21,7 +21,7 @@
 #include <EEPROM.h>
 #include "mcs_i2c.h"
 #include <esp_timer.h>
-#include <ODriveArduino.h>
+#include <ODriveUART.h>
 #include <HardwareSerial.h>
 #include <SoftwareSerial.h>
 
