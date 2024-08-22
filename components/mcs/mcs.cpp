@@ -10,8 +10,9 @@ namespace mcs {
     // esphome::uart::UARTComponent *uart1;
     // HardwareSerial& odrive_serial = Serial1;
     
+    HardwareSerial *serial_{nullptr};
     // SoftwareSerial odrive_serial(9, 10);
-    ODriveUART odrive(logger::global_logger->get_hw_serial());
+    ODriveUART odrive(serial_);
 
 void EEPROM_Write(int address, float value)
 {
