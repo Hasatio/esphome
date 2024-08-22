@@ -16,7 +16,7 @@ void MCS::MCP23017_Setup(uint8_t address)
     ESP_LOGCONFIG(TAG, "Setting up MCP23017...");
 
     uint8_t iocon;
-    if (!this->read_byte(MCP23017_IOCONA, &iocon))
+    if (!this->I2CDevice::read_byte(MCP23017_IOCONA, &iocon))
     {
         this->mark_failed();
         return;
@@ -31,18 +31,18 @@ void MCS::MCP23017_Setup(uint8_t address)
             reg_value &= ~(1 << i); // output
             
 
-    this->write_byte(MCP23017_GPIOA, reg_value);
-    this->write_byte(MCP23017_IODIRA, reg_value);
-    this->write_byte(MCP23017_GPPUA, reg_value);
-    this->write_byte(MCP23017_OLATA, reg_value);
+    this->I2CDevice::write_byte(MCP23017_GPIOA, reg_value);
+    this->I2CDevice::write_byte(MCP23017_IODIRA, reg_value);
+    this->I2CDevice::write_byte(MCP23017_GPPUA, reg_value);
+    this->I2CDevice::write_byte(MCP23017_OLATA, reg_value);
 
-    this->write_byte(MCP23017_GPIOB, reg_value);
-    this->write_byte(MCP23017_IODIRB, reg_value);
-    this->write_byte(MCP23017_GPPUB, reg_value);
-    this->write_byte(MCP23017_OLATB, reg_value);
+    this->I2CDevice::write_byte(MCP23017_GPIOB, reg_value);
+    this->I2CDevice::write_byte(MCP23017_IODIRB, reg_value);
+    this->I2CDevice::write_byte(MCP23017_GPPUB, reg_value);
+    this->I2CDevice::write_byte(MCP23017_OLATB, reg_value);
 
     if (address == LEFT_ADDRESS1 || address == RIGHT_ADDRESS1)
-        this->write_byte(MCP23017_OLATA, reg_value + 1);
+        this->I2CDevice::write_byte(MCP23017_OLATA, reg_value + 1);
 
 
     // Read current output register state
@@ -81,12 +81,12 @@ void MCS::MCP23017_Read(bool value[])
 {
     uint8_t value_;
 
-    this->read_byte(MCP23017_GPIOA, &value_);
+    this->I2CDevice::read_byte(MCP23017_GPIOA, &value_);
 
     for (uint8_t i = 0; i < 8; i++)
         value[i] = value_ & (1 << i);
 
-    this->read_byte(MCP23017_GPIOB, &value_);
+    this->I2CDevice::read_byte(MCP23017_GPIOB, &value_);
 
     for (uint8_t i = 0; i < 8; i++)
         value[i + 8] = value_ & (1 << i);
@@ -118,14 +118,14 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
 
             // if (reg_value_a != this->olat_a1_)
             // {
-                // this->write_byte(MCP23017_GPIOA, reg_value_a);
-                this->write_byte(MCP23017_OLATA, reg_value_a);
+                // this->I2CDevice::write_byte(MCP23017_GPIOA, reg_value_a);
+                this->I2CDevice::write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a1_ = reg_value_a;
             // }
             // if (reg_value_b != this->olat_b_)
             // {
-                // this->write_byte(MCP23017_GPIOB, reg_value_b);
-                this->write_byte(MCP23017_OLATB, reg_value_b);
+                // this->I2CDevice::write_byte(MCP23017_GPIOB, reg_value_b);
+                this->I2CDevice::write_byte(MCP23017_OLATB, reg_value_b);
                 this->olat_b_ = reg_value_b;
             // }
             break;
@@ -143,8 +143,8 @@ void MCS::MCP23017_Write(bool value[], uint8_t state)
 
             // if (reg_value_a != this->olat_a2_)
             // {
-                // this->write_byte(MCP23017_GPIOA, reg_value_a);
-                this->write_byte(MCP23017_OLATA, reg_value_a);
+                // this->I2CDevice::write_byte(MCP23017_GPIOA, reg_value_a);
+                this->I2CDevice::write_byte(MCP23017_OLATA, reg_value_a);
                 this->olat_a2_ = reg_value_a;
             // }
             break;
@@ -155,13 +155,13 @@ void MCS::MCP23017_Driver(bool digital[])
     bool button1[16] = {0};
     bool button2[16] = {0};
 
-    this->set_i2c_address(BUTTON_ADDRESS1);
+    this->I2CDevice::set_i2c_address(BUTTON_ADDRESS1);
     if (this->is_failed())
         return;
 
     MCP23017_Read(button1);
 
-    this->set_i2c_address(BUTTON_ADDRESS2);
+    this->I2CDevice::set_i2c_address(BUTTON_ADDRESS2);
     if (this->is_failed())
         return;
 
@@ -225,13 +225,13 @@ void MCS::MCP23017_Driver(bool digital[])
     
     if (left)
     {
-        this->set_i2c_address(LEFT_ADDRESS1);
+        this->I2CDevice::set_i2c_address(LEFT_ADDRESS1);
         if (this->is_failed())
             return;
         
         MCP23017_Write(led1, 1);
 
-        this->set_i2c_address(LEFT_ADDRESS2);
+        this->I2CDevice::set_i2c_address(LEFT_ADDRESS2);
         if (this->is_failed())
             return;
 
@@ -239,13 +239,13 @@ void MCS::MCP23017_Driver(bool digital[])
     }
     else if (right)
     {   
-        this->set_i2c_address(RIGHT_ADDRESS1);
+        this->I2CDevice::set_i2c_address(RIGHT_ADDRESS1);
         if (this->is_failed())
             return;
     
         MCP23017_Write(led1, 1);
 
-        this->set_i2c_address(RIGHT_ADDRESS2);
+        this->I2CDevice::set_i2c_address(RIGHT_ADDRESS2);
         if (this->is_failed())
             return;
         
