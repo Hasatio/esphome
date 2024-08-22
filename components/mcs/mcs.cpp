@@ -177,6 +177,24 @@ void MCS::setup()
     MCP23017_Setup(RIGHT_ADDRESS2);
     
     // odrive_serial.begin(115200);
+    
+    while (odrive.getState() == AXIS_STATE_UNDEFINED) {
+        delay(100);
+    }
+  
+    ESP_LOGI(TAG, "Found ODrive");
+    
+    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+    
+    ESP_LOGI(TAG, "Enabling closed loop control...");
+    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
+        odrive.clearErrors();
+        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+        delay(10);
+    }
+    
+    ESP_LOGI(TAG, "ODrive running!");
+
 }
 void MCS::dump_config()
 {
@@ -255,25 +273,8 @@ void MCS::dump_config()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ODRIVE
 
-    while (this->UARTDevice::available())
-        this->UARTDevice::read();
-
-    while (odrive.getState() == AXIS_STATE_UNDEFINED) {
-        delay(100);
-    }
-  
-    ESP_LOGI(TAG, "Found ODrive");
-    
-    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
-    
-    ESP_LOGI(TAG, "Enabling closed loop control...");
-    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
-        odrive.clearErrors();
-        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-        delay(10);
-    }
-    
-    ESP_LOGI(TAG, "ODrive running!");
+    // while (this->UARTDevice::available())
+    //     this->UARTDevice::read();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
