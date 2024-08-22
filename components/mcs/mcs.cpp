@@ -11,7 +11,7 @@ namespace mcs {
     // HardwareSerial& odrive_serial = Serial1;
     
     // SoftwareSerial odrive_serial(9, 10);
-    ODriveUART odrive(Serial2);
+    ODriveUART odrive(Serial1);
 
 void EEPROM_Write(int address, float value)
 {
@@ -290,8 +290,7 @@ void MCS::loop()
     {
         uart_time1 = millis();
 
-        if (odrive.getState() == AXIS_STATE_UNDEFINED)
-        else
+        if (odrive.getState() != AXIS_STATE_UNDEFINED)
         {
             ESP_LOGI(TAG, "Found ODrive");
             ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
@@ -313,7 +312,7 @@ void MCS::loop()
         else
         {
             ESP_LOGI(TAG, "ODrive running!");
-            
+
             uart_state = 0;
         }
     }
