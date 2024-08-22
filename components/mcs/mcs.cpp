@@ -250,7 +250,7 @@ void MCS::dump_config()
         
     ESP_LOGCONFIG(TAG, "UART:");
     ESP_LOGI(TAG, "  Baud Rate: %d", this->UARTDevice::parent_->get_baud_rate());
-    this->check_uart_settings(115200);
+    this->check_uart_settings(19200);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ODRIVE
