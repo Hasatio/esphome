@@ -23,7 +23,6 @@
 #include <esp_timer.h>
 #include <ODriveArduino.h>
 #include <HardwareSerial.h>
-#include <ODriveUART.h>
 #include <SoftwareSerial.h>
 
 #define MCS_EEPROM_SIZE 6 // byte
