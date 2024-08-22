@@ -6,9 +6,9 @@ namespace esphome {
 namespace mcs {
 
     MCS_Digital dig;
-    // UARTDevice uart;
+    uart::UARTDevice *uart;
     HardwareSerial& odrive_serial = Serial1;
-    ODriveArduino odrive(odrive_serial);
+    ODriveArduino odrive(uart);
 
 void EEPROM_Write(int address, float value)
 {
