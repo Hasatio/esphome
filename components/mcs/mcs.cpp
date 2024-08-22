@@ -6,8 +6,8 @@ namespace esphome {
 namespace mcs {
 
     MCS_Digital dig;
-    uart::UARTDevice *uart;
-    uart::UARTComponent *uart1;
+    uart::UARTDevice uart;
+    uart::UARTComponent uart1;
     HardwareSerial& odrive_serial = Serial1;
     
     // SoftwareSerial odrive_serial(9, 10);
