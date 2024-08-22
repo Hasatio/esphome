@@ -268,11 +268,11 @@ void MCS::dump_config()
     ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
     
     ESP_LOGI(TAG, "Enabling closed loop control...");
-    // while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
-    //     odrive.clearErrors();
-    //     odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-    //     delay(10);
-    // }
+    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
+        odrive.clearErrors();
+        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+        delay(10);
+    }
     
     ESP_LOGI(TAG, "ODrive running!");
 
