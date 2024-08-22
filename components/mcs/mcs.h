@@ -21,7 +21,7 @@
 #include <EEPROM.h>
 #include "mcs_i2c.h"
 #include <esp_timer.h>
-#include "ODriveUART.h"
+#include <ODriveUART.h>
 
 #define MCS_EEPROM_SIZE 6 // byte
 #define BUTTON_ADDR 0x00
