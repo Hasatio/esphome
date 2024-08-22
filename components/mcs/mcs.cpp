@@ -283,21 +283,21 @@ ESP_LOGI(TAG, "  Value: %d", digital);
 
 void MCS::loop()
 {
-    if (state)
-        start();
+    // if (state)
+    //     start();
 
-    float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
+    // float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
 
-    float t = 0.001 * millis();
+    // float t = 0.001 * millis();
     
-    float phase = t * (TWO_PI / SINE_PERIOD);
+    // float phase = t * (TWO_PI / SINE_PERIOD);
     
-    odrive.setPosition(
-        sin(phase), // position
-        cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-    );
+    // odrive.setPosition(
+    //     sin(phase), // position
+    //     cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+    // );
 
-    ODriveFeedback feedback = odrive.getFeedback();
+    // ODriveFeedback feedback = odrive.getFeedback();
 }
 void MCS::update()
 {
