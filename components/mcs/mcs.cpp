@@ -255,13 +255,12 @@ void MCS::dump_config()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ODRIVE
 
-//   while (odrive.getState() == AXIS_STATE_UNDEFINED) {
-//     delay(100);
-//   }
     while (this->UARTDevice::available())
         this->UARTDevice::read();
 
-    ESP_LOGI(TAG, "odrive.getState(): %d", odrive.getState());
+    while (odrive.getState() == AXIS_STATE_UNDEFINED) {
+        delay(100);
+    }
   
     ESP_LOGI(TAG, "Found ODrive");
     
