@@ -117,6 +117,7 @@ uint8_t olat_b_{0x00};
 
 private:
 esp_timer_handle_t timer;
+MCS_I2C *parent_{nullptr};
 };
 template<typename... Ts> class Digital_Out_Action : public Action<Ts...> {
 public:
