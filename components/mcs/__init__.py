@@ -50,7 +50,7 @@ async def to_code(config):
     cg.add_library("SD", None)
     cg.add_library("Time", None)
     cg.add_library("Serial", None)
-    cg.add_library("ODriveArduino", "0.0.0-broken")
+    cg.add_library("ODriveArduino", None, "https://github.com/odriverobotics/ODriveArduino")
     cg.add_library("SoftwareSerial", None)
     
 
