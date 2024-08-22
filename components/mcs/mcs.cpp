@@ -176,7 +176,7 @@ void MCS::setup()
     MCP23017_Setup(RIGHT_ADDRESS1);
     MCP23017_Setup(RIGHT_ADDRESS2);
     
-    odrive_serial.begin(115200);
+    // odrive_serial.begin(115200);
 }
 void MCS::dump_config()
 {
