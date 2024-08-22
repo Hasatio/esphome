@@ -11,7 +11,7 @@ namespace mcs {
     // HardwareSerial& odrive_serial = Serial1;
     
     // SoftwareSerial odrive_serial(9, 10);
-    ODriveUART odrive(Serial1);
+    ODriveUART odrive(Serial2);
 
 void EEPROM_Write(int address, float value)
 {
@@ -286,6 +286,9 @@ uint32_t uart_time1 = 0;
 uint32_t uart_time2 = 0;
 void MCS::loop()
 {
+    if (state)
+        start();
+
     if (uart_time1 >= 100 && uart_state == 1)
     {
         uart_time1 = millis();
@@ -317,21 +320,21 @@ void MCS::loop()
         }
     }
 
-    // if (state)
-    //     start();
+    if (!uart_state)
+    {
+        float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
 
-    // float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
+        float t = 0.001 * millis();
+        
+        float phase = t * (TWO_PI / SINE_PERIOD);
+        
+        odrive.setPosition(
+            sin(phase), // position
+            cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+        );
 
-    // float t = 0.001 * millis();
-    
-    // float phase = t * (TWO_PI / SINE_PERIOD);
-    
-    // odrive.setPosition(
-    //     sin(phase), // position
-    //     cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-    // );
-
-    // ODriveFeedback feedback = odrive.getFeedback();
+        ODriveFeedback feedback = odrive.getFeedback();
+    }
 }
 void MCS::update()
 {
