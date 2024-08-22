@@ -195,14 +195,7 @@ void MCS::dump_config()
     }
     else
         ESP_LOGI(TAG, "  Communication Successfulled!");
-        
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  UART
-        
-    ESP_LOGCONFIG(TAG, "UART:");
-    ESP_LOGI(TAG, "  Baud Rate: %d", this->UARTDevice::parent_->get_baud_rate());
-    this->check_uart_settings(115200);
-
+      
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  TCA9548
 
@@ -253,6 +246,33 @@ void MCS::dump_config()
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  UART
+        
+    ESP_LOGCONFIG(TAG, "UART:");
+    ESP_LOGI(TAG, "  Baud Rate: %d", this->UARTDevice::parent_->get_baud_rate());
+    this->check_uart_settings(115200);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ODRIVE
+
+  while (odrive.getState() == AXIS_STATE_UNDEFINED) {
+    delay(100);
+  }
+
+  ESP_LOGI(TAG, "Found ODrive");
+  
+  ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+  
+  ESP_LOGI(TAG, "Enabling closed loop control...");
+  while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
+    odrive.clearErrors();
+    odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+    delay(10);
+  }
+  
+  Serial.println("ODrive running!");
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ESP_LOGCONFIG(TAG, "Digital:");
 
@@ -264,6 +284,19 @@ void MCS::loop()
 {
     if (state)
         start();
+
+    float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
+
+    float t = 0.001 * millis();
+    
+    float phase = t * (TWO_PI / SINE_PERIOD);
+    
+    odrive.setPosition(
+        sin(phase), // position
+        cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
+    );
+
+    ODriveFeedback feedback = odrive.getFeedback();
 }
 void MCS::update()
 {
