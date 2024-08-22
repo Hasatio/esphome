@@ -67,7 +67,7 @@ class MCS_I2C;
 class MCS : public PollingComponent, public i2c::I2CDevice, public uart::UARTDevice
 {
 public:
-MCS(UARTComponent *parent) : UARTDevice(parent) {}
+// MCS(UARTComponent *parent) : UARTDevice(parent) {}
 
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
 

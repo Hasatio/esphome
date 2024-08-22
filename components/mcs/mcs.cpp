@@ -8,7 +8,7 @@ namespace mcs {
     MCS_Digital dig;
     // UARTDevice uart;
     HardwareSerial& odrive_serial = Serial1;
-    ODriveUART odrive(odrive_serial);
+    ODriveArduino odrive(odrive_serial);
 
 void EEPROM_Write(int address, float value)
 {
