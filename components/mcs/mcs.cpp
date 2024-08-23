@@ -179,7 +179,7 @@ void MCS::setup()
     MCP23017_Setup(RIGHT_ADDRESS2);
     
     // odrive_serial.begin(115200);
-    Serial2.begin(19200, SERIAL_8N1, 9, 10);
+    Serial2.begin(this->UARTDevice::parent_->get_baud_rate(), SERIAL_8N1, 9, 10);
 }
 void MCS::dump_config()
 {
