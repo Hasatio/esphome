@@ -337,6 +337,8 @@ void MCS::loop()
         );
 
         ODriveFeedback feedback = odrive.getFeedback();
+
+        ESP_LOGD(TAG, "pos: %d, vel: %d", feedback.pos, feedback.vel);
     }
 }
 void MCS::update()
