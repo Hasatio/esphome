@@ -340,9 +340,13 @@ void MCS::loop()
         );
 
         ODriveFeedback feedback = odrive.getFeedback();
+<<<<<<< HEAD
 
         // ESP_LOGD(TAG, "pos: %d, vel: %d", feedback.pos, feedback.vel);
     // }
+=======
+    }
+>>>>>>> parent of 62f2799f (Update mcs.cpp)
 }
 void MCS::update()
 {
