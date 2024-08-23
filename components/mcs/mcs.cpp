@@ -10,8 +10,8 @@ namespace mcs {
     // esphome::uart::UARTComponent *uart1;
     HardwareSerial& odrive_serial = Serial2;
     
-    HardwareSerial *serial{nullptr};
-    Stream *stream{nullptr};
+    // HardwareSerial *serial{nullptr};
+    // Stream *stream{nullptr};
     // SoftwareSerial odrive_serial(9, 10);
     ODriveUART odrive(odrive_serial);
 
@@ -179,6 +179,7 @@ void MCS::setup()
     MCP23017_Setup(RIGHT_ADDRESS2);
     
     // odrive_serial.begin(115200);
+    Serial2.begin(this->UARTDevice::parent_->get_baud_rate(), SERIAL_8N1, 9, 10);
 }
 void MCS::dump_config()
 {
