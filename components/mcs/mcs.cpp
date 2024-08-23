@@ -167,23 +167,6 @@ void MCS::start()
     }
 }
 
-void ODrive_Setup()
-{
-    while (odrive.getState() == AXIS_STATE_UNDEFINED)
-        delay(100);
-
-    ESP_LOGI(TAG, "Found ODrive");
-    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
-    ESP_LOGI(TAG, "Enabling closed loop control...");
-
-    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL)
-    {
-        odrive.clearErrors();
-        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-        delay(10);
-    }
-}
-
 void MCS::setup()
 {
     // EEPROM.begin(MCS_EEPROM_SIZE);
@@ -197,8 +180,6 @@ void MCS::setup()
     
     // odrive_serial.begin(115200);
     Serial2.begin(this->UARTDevice::parent_->get_baud_rate(), SERIAL_8N1, 9, 10);
-    ODrive_Setup();
-    
 }
 void MCS::dump_config()
 {
@@ -277,8 +258,21 @@ void MCS::dump_config()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ODRIVE
 
-    ESP_LOGI(TAG, "ODrive:");
-    ESP_LOGI(TAG, "  DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+    while (odrive.getState() == AXIS_STATE_UNDEFINED)
+        delay(100);
+
+    ESP_LOGI(TAG, "Found ODrive");
+    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
+    ESP_LOGI(TAG, "Enabling closed loop control...");
+
+    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL)
+    {
+        odrive.clearErrors();
+        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
+        delay(10);
+    }
+
+    ESP_LOGI(TAG, "ODrive running!");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
