@@ -8,7 +8,7 @@ from esphome.const import (
 )
 
 CODEOWNERS = ["@hasatio"]
-DEPENDENCIES = ["i2c", "uart"]
+DEPENDENCIES = ["i2c"]
 MULTI_CONF = True
 
 CONF_COMPONENT_ID = "component_id"

@@ -6,41 +6,6 @@ namespace esphome {
 namespace mcs {
 
     MCS_Digital dig;
-    esphome::uart::UARTDevice *uart;
-    // esphome::uart::UARTComponent *uart1;
-    HardwareSerial& odrive_serial = Serial2;
-    
-    // HardwareSerial *serial{nullptr};
-    // Stream *stream{nullptr};
-    // SoftwareSerial odrive_serial(9, 10);
-    ODriveUART odrive(odrive_serial);
-
-void EEPROM_Write(int address, float value)
-{
-    byte *data = (byte*)&(value);
-    for (int i = 0; i < sizeof(value); i++)
-        EEPROM.write(address + i, data[i]);
-}
-float EEPROM_Read(int address)
-{
-    float value = 0.0;
-    byte *data = (byte*)&(value);
-    for (int i = 0; i < sizeof(value); i++)
-        data[i] = EEPROM.read(address + i);
-    return value;
-}
-void EEPROM_Setup()
-{
-    uint8_t digital = EEPROM_Read(LED_L_ADDR); // Load the value of the digital from the EEPROM
-    bool digital_status[] = {0};
-    for (uint8_t i = 0; i < 20; i++)
-    {
-        if (digital > i)
-            digital_status[i] = 1;
-        else break;
-    }
-    dig.set_Digital_Output(digital_status);
-}
 
 uint8_t del = 40;
 uint8_t state = 1;
@@ -169,17 +134,12 @@ void MCS::start()
 
 void MCS::setup()
 {
-    // EEPROM.begin(MCS_EEPROM_SIZE);
-    // EEPROM_Setup();
     MCP23017_Setup(BUTTON_ADDRESS1);
     MCP23017_Setup(BUTTON_ADDRESS2);
     MCP23017_Setup(LEFT_ADDRESS1);
     MCP23017_Setup(LEFT_ADDRESS2);
     MCP23017_Setup(RIGHT_ADDRESS1);
     MCP23017_Setup(RIGHT_ADDRESS2);
-    
-    // odrive_serial.begin(115200);
-    Serial2.begin(this->UARTDevice::parent_->get_baud_rate(), SERIAL_8N1, 9, 10);
 }
 void MCS::dump_config()
 {
@@ -249,97 +209,11 @@ void MCS::dump_config()
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  UART
-        
-    ESP_LOGCONFIG(TAG, "UART:");
-    ESP_LOGI(TAG, "  Baud Rate: %d", this->UARTDevice::parent_->get_baud_rate());
-    this->check_uart_settings(this->UARTDevice::parent_->get_baud_rate());
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ODRIVE
-
-    while (this->UARTDevice::available())
-        this->UARTDevice::read();
-
-    while (odrive.getState() == AXIS_STATE_UNDEFINED) {
-        delay(100);
-    }
-
-    ESP_LOGI(TAG, "Found ODrive");
-    ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
-    ESP_LOGI(TAG, "Enabling closed loop control...");
-
-    while (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL) {
-        odrive.clearErrors();
-        odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-        delay(10);
-    }
-
-    ESP_LOGI(TAG, "ODrive running!");
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-ESP_LOGCONFIG(TAG, "Digital:");
-
-uint8_t digital = EEPROM_Read(LED_L_ADDR);; // Load the value of the digital from the EEPROM
-ESP_LOGI(TAG, "  Value: %d", digital);
-}
-uint8_t uart_state = 1;
-uint32_t uart_time1 = 0;
-uint32_t uart_time2 = 0;
 void MCS::loop()
 {
     if (state)
         start();
-
-    // if (uart_time1 >= 100 && uart_state == 1)
-    // {
-    //     uart_time1 = millis();
-
-    //     if (odrive.getState() != AXIS_STATE_UNDEFINED)
-    //     {
-    //         ESP_LOGI(TAG, "Found ODrive");
-    //         ESP_LOGI(TAG, "DC voltage: %f", odrive.getParameterAsFloat("vbus_voltage"));
-    //         ESP_LOGI(TAG, "Enabling closed loop control...");
-
-    //         uart_state = 2;
-    //     }
-    // }
-
-    // if (uart_time2 >= 10 && uart_state == 2)
-    // {
-    //     uart_time2 = millis();
-
-    //     if (odrive.getState() != AXIS_STATE_CLOSED_LOOP_CONTROL)
-    //     {
-    //         odrive.clearErrors();
-    //         odrive.setState(AXIS_STATE_CLOSED_LOOP_CONTROL);
-    //     }
-    //     else
-    //     {
-    //         ESP_LOGI(TAG, "ODrive running!");
-
-    //         uart_state = 0;
-    //     }
-    // }
-
-    // if (!uart_state)
-    // {
-        float SINE_PERIOD = 2.0f; // Period of the position command sine wave in seconds
-
-        float t = 0.001 * millis();
-        
-        float phase = t * (TWO_PI / SINE_PERIOD);
-        
-        odrive.setPosition(
-            sin(phase), // position
-            cos(phase) * (TWO_PI / SINE_PERIOD) // velocity feedforward (optional)
-        );
-
-        ODriveFeedback feedback = odrive.getFeedback();
-
-        ESP_LOGD(TAG, "pos: %d, vel: %d", feedback.pos, feedback.vel);
-    // }
 }
 void MCS::update()
 {
