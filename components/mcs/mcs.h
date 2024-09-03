@@ -59,7 +59,7 @@ enum MCP23017_Registers
 
 class MCS_I2C;
 
-class MCS : public PollingComponent, public i2c::I2CDevice, public uart::UARTDevice
+class MCS : public PollingComponent, public i2c::I2CDevice
 {
 public:
 float get_setup_priority() const override { return esphome::setup_priority::DATA; }
