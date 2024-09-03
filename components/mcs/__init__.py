@@ -30,7 +30,6 @@ CONFIG_SCHEMA = cv.All(
     )
     .extend(cv.COMPONENT_SCHEMA)
     .extend(i2c.i2c_device_schema(None))
-    .extend(uart.UART_DEVICE_SCHEMA)
 )
 
 
@@ -38,7 +37,6 @@ async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await i2c.register_i2c_device(var, config)
-    await uart.register_uart_device(var, config)
     
     
     if CONF_VERSION in config:
@@ -49,9 +47,6 @@ async def to_code(config):
     cg.add_library("SPI", None)
     cg.add_library("SD", None)
     cg.add_library("Time", None)
-    cg.add_library("Serial", None)
-    cg.add_library("ODriveArduino", None, "https://github.com/odriverobotics/ODriveArduino")
-    # cg.add_library("SoftwareSerial", None)
     
 
 Digital_Out_Action = mcs_ns.class_("Digital_Out_Action", automation.Action)
